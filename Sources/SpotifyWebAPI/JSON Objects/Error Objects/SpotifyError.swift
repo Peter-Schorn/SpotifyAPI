@@ -1,9 +1,14 @@
 import Foundation
 
 
-/// The [Regular Error Object][1] returned by the Spotify web API.
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/#regular-error-object:~:text=%7D-,Regular%20Error%20Object,Apart%20from%20the%20response%20code%2C%20unsuccessful%20responses%20return%20a%20JSON%20object%20containing%20the%20following%20information%3A,-Key
+/**
+ The [Regular Error Object][1] returned by the Spotify web API.
+ 
+ See the [Response Status Codes][2].
+ 
+ [1]: https://developer.spotify.com/documentation/web-api/#regular-error-object
+ [2]: https://developer.spotify.com/documentation/web-api/#response-status-codes
+ */
 public struct SpotifyError: LocalizedError, Hashable {
     
     /// A short description of the cause of the error.
@@ -13,7 +18,7 @@ public struct SpotifyError: LocalizedError, Hashable {
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#response-status-codes
     public let statusCode: Int
- 
+    
     public var errorDescription: String? {
         "\(message) (status code: \(statusCode)"
     }

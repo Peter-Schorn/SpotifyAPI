@@ -23,16 +23,16 @@ extension String: SpotifyURIConvertible {
 /**
  The Identifiers that appear near the beginning of a Spotify
  URI.
-
+ 
  In this URI:
  ```
  "spotify:track:6rqhFgbbKwnb9MLmUQDhG6"
  ```
  "track" is the id category.
-
+ 
  See the [web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids:~:text=Spotify%20URIs%20and%20IDs,will%20frequently%20encounter%20the%20following%20parameters%3A
+ 
+ [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  - tag: IDCategory
  */
 public enum IDCategory: String, CaseIterable, CustomCodable, Hashable {
@@ -47,7 +47,8 @@ public enum IDCategory: String, CaseIterable, CustomCodable, Hashable {
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/local-files-spotify-playlists/
     case local
-
+    
+    
 }
 
 
@@ -61,6 +62,7 @@ public struct SpotifyIdentifier: CustomCodable, Hashable {
     /// Creates a comma separated string of ids from a sequence
     /// of uris. Throws an error if the ids could not be parsed
     /// from the uris.
+    ///
     /// - Parameter uris: A sequence of Spotify uris.
     static func commaSeparatedIdsString<S: Sequence>(
         _ uris: S

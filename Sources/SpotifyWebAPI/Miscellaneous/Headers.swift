@@ -1,6 +1,6 @@
 import Foundation
 
-/// HTTP Headers.
+/// A namespace of HTTP Headers.
 enum Headers {
     
     /// ```

@@ -1,8 +1,10 @@
 import Foundation
 
 
-/// This error is used if there was an error during
-/// the process of requesting refresh and access tokens.
+/// The user denied your authorization request or there
+/// was an error during the process of authorizing your app.
+///
+/// Do not confuse this with `SpotifyAuthenticationError`.
 ///
 /// See the [authorization process][1].
 ///

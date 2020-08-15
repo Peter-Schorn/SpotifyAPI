@@ -6,6 +6,7 @@ public extension String {
     /// Alias for self.trimmingCharacters(in: characterSet)
     /// The default argument strips all trailing and leading white space,
     /// including new-lines.
+    @inlinable @inline(__always)
     func strip(
         _ characterSet: CharacterSet = .whitespacesAndNewlines
     ) -> String {
@@ -59,6 +60,7 @@ public extension Error {
     /// The error type is `self` type-erased to `Error`.
     ///
     /// - Parameter outputType: The output type for the publisher.
+    @inlinable
     func failingPublisher<Output>(
         _ outputType: Output.Type
     ) -> Fail<Output, Error> {
@@ -123,6 +125,35 @@ public extension Collection {
     
 }
 
+// MARK: - Comma separated string -
+
+public extension Sequence where Element == String {
+    
+    /// Creates a comma separated string of the elements.
+    @inlinable @inline(__always)
+    func commaSeparatedString() -> String {
+        return self.joined(separator: ",")
+    }
+
+}
+
+public extension Sequence where
+    Element: RawRepresentable,
+    Element.RawValue == String
+{
+    
+    /// Creates a comma separated string of the raw values of
+    /// the elements.
+    @inlinable @inline(__always)
+    func commaSeparatedString() -> String {
+        return self.map(\.rawValue).joined(separator: ",")
+        
+    }
+    
+}
+
+
+
 public extension RangeReplaceableCollection {
     
     /// Retrieves (and sets the value of) an element
@@ -147,6 +178,8 @@ public extension RangeReplaceableCollection {
     
     
 }
+
+// MARK: - Optional Extensions -
 
 
 /**

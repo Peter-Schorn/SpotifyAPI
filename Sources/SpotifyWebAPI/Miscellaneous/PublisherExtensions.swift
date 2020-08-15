@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import Logger
 
-let publisherLogger = Logger(label: "publisher")
+let spotifyDecodeLogger = Logger(label: "spotifyDecode")
 
 public extension Publisher {
     
@@ -149,13 +149,24 @@ public extension Publisher where Output: CustomEncodable {
 
 public extension Publisher where Output == (Data, URLResponse) {
 
-    /// First tries to decode the data into the specified type
-    /// that conforms to `CustomDecodable`. If that fails, then
-    /// the data is decoded into one of the [errors][1] returned by spotify:
-    /// `SpotifyAuthenticationError` and `SpotifyError`.
-    /// As a last resort, a `SpotifyLocalError.other` is thrown.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#response-schema:~:text=again.-,Response%20Schema,Web%20API%20uses%20two%20different%20formats%20to%20describe%20an%20error%3A
+    /**
+     Tries to decode the raw data from a Spotify web api request.
+     You shouldn't need to call this method directly.
+     
+     First tries to decode the data into the specified type
+     that conforms to `CustomDecodable`. If that fails, then
+     the data is decoded into one of the [errors][1] returned by spotify:
+     
+     * `SpotifyAuthenticationError`
+     * `SpotifyError`
+     * `RateLimitingError`
+     * as a last resort `SpotifyDecodingError`
+     
+     [1]: https://developer.spotify.com/documentation/web-api/#response-schema
+     
+     - Parameter responseObject: The response object that you are
+           are expecting from the server.
+     */
     func spotifyDecode<ResponseObject: CustomDecodable>(
         _ responseObject: ResponseObject.Type
     ) -> Publishers.TryMap<Publishers.Map<Self,
@@ -173,26 +184,68 @@ public extension Publisher where Output == (Data, URLResponse) {
 
 public extension Publisher where Output == (data: Data, response: URLResponse) {
     
-    /// First tries to decode the data into the specified type
-    /// that conforms to `CustomDecodable`. If that fails, then
-    /// the data is decoded into one of the [errors][1] returned by spotify:
-    /// `SpotifyAuthenticationError` and `SpotifyError`.
-    /// As a last resort, a `SpotifyLocalError.other` is thrown.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#response-schema:~:text=again.-,Response%20Schema,Web%20API%20uses%20two%20different%20formats%20to%20describe%20an%20error%3A
+    /**
+    Tries to decode the raw data from a Spotify web api request.
+    You shouldn't need to call this method directly.
+    
+    First tries to decode the data into the specified type
+    that conforms to `CustomDecodable`. If that fails, then
+    the data is decoded into one of the [errors][1] returned by spotify:
+    
+    * `SpotifyAuthenticationError`
+    * `SpotifyError`
+    * `RateLimitingError`
+    * as a last resort, `SpotifyDecodingError`
+    
+    [1]: https://developer.spotify.com/documentation/web-api/#response-schema
+    
+    - Parameter responseObject: The response object that you are
+          are expecting from the server.
+    */
     func spotifyDecode<ResponseObject: CustomDecodable>(
         _ responseObject: ResponseObject.Type
     ) -> Publishers.TryMap<Self, ResponseObject> {
         
         
         return self.tryMap { data, response -> ResponseObject in
+        
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                fatalError("couldn't cast URLResponse to HTTPURLResponse")
+            }
+            let statusCode = httpURLResponse.statusCode
+            
+            // the error response codes
+            if [401, 401, 403, 404, 500, 502, 503].contains(statusCode) {
+                spotifyDecodeLogger.warning(
+                    "error response code: \(statusCode)"
+                )
+            }
+            
+            if statusCode == 429 {
+                // Too Many Requests - Rate limiting has been applied.
+                spotifyDecodeLogger.notice("hit rate limit")
+                
+                let retryAfter = httpURLResponse.value(
+                    forHTTPHeaderField: "Retry-After"
+                ).map(Int.init) as? Int
+                
+                if retryAfter == nil {
+                    spotifyDecodeLogger.error(
+                        "got 429 rate limit error, but couldn't " +
+                        "get value for Retry-After header and/or " +
+                        "convert to Int"
+                    )
+                }
+                
+                throw RateLimitingError(retryAfter: retryAfter)
+            }
             
             do {
                 return try responseObject.decoded(from: data)
             
-            } catch {
+            } catch let underlyingError {
                 
-                publisherLogger.warning("couldn't decode response object")
+                spotifyDecodeLogger.warning("couldn't decode response object")
                 
                 // the two error objects that spotify can return.
                 if let error = try? SpotifyAuthenticationError.decoded(from: data) {
@@ -203,11 +256,16 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
                 }
 
                 // It's usually a bug if we get to this point.
-                publisherLogger.error("couldn't decode a spotify error")
-                throw SpotifyLocalError.decodingError(
+                spotifyDecodeLogger.error(
+                    "couldn't decode \(responseObject) or " +
+                    "the spotify error objects"
+                )
+                
+                throw SpotifyDecodingError(
                     rawData: data,
-                    reponseObject: responseObject,
-                    statusCode: (response as? HTTPURLResponse)?.statusCode
+                    responseObject: responseObject,
+                    statusCode: (response as? HTTPURLResponse)?.statusCode,
+                    underlyingError: underlyingError
                 )
                
             }

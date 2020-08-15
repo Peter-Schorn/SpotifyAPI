@@ -137,36 +137,42 @@ public extension SpotifyAPI {
         .logError(to: authLogger)
         .handleEvents(receiveOutput: { authInfo in
             self.authLogger.trace("recieved authInfo:\n\(authInfo)")
-            self.authInfo = authInfo
+            self.withAuthInfo { authInfoReference in
+                authInfoReference = authInfo
+            }
         })
         .eraseToAnyPublisher()
         
     }
     
     
-    /// Uses the refresh token to get a new access token.
-    ///
-    /// **You shouldn't need to call this method**. It gets
-    /// called automatically each time you make a request to the
-    /// Spotify API.
-    ///
-    /// - Parameters:
-    ///   - onlyIfExpired: Only refresh the token if it is expired.
-    ///         Defaults to `true`.
-    ///   - tolerance: The tolerance in seconds to use when determining
-    ///         if the token is expired. Defaults to 60.
-    ///         The token is considered expired if
-    ///         the expirationDate + `tolerance` is equal to or
-    ///         after the current date.
+    /**
+     Uses the refresh token to get a new access token.
+    
+     **You shouldn't need to call this method**. It gets
+     called automatically each time you make a request to the
+     Spotify API.
+    
+     - Parameters:
+       - onlyIfExpired: Only refresh the token if it is expired.
+             Defaults to `true`.
+       - tolerance: The tolerance in seconds to use when determining
+             if the token is expired. Defaults to 60.
+             The token is considered expired if
+             the expirationDate + `tolerance` is equal to or
+             before the current date.
+     */
     func refreshAccessToken(
         onlyIfExpired: Bool = true,
         tolerance: Double = 60
     ) -> AnyPublisher<AuthInfo, Error> {
         
+        let refreshAccessTokenFunction = #function
+        
         do {
             
             // ensure that the user has authorized their app.
-            guard let authInfo = self.authInfo else {
+            guard let authInfo = self.getAuthInfo() else {
                 throw SpotifyLocalError.unauthorized(
                     "can't refresh access token: no authorization"
                 )
@@ -195,8 +201,8 @@ public extension SpotifyAPI {
             )
             else {
                 // this error should never occur
-                // authLogger
-                let message = "couldn't base 64 encode client id and client secret"
+                let message = "couldn't base 64 encode " +
+                        "client id and client secret"
                 authLogger.critical("\(message)")
                 throw SpotifyLocalError.other(message)
             }
@@ -212,19 +218,28 @@ public extension SpotifyAPI {
                 body: requestBody.formURLEncoded()
             )
             .spotifyDecode(AuthInfo.self)
-            .handleEvents(receiveOutput: { authInfo in
+            .handleEvents(receiveOutput: { newAuthInfo in
                 self.authLogger.trace("recieved new access token")
-                if authInfo.refreshToken != nil {
-                    self.authLogger.debug(
+                if newAuthInfo.refreshToken != nil {
+                    self.authLogger.notice(
                         "also recieved new refresh token"
                     )
                 }
-                self.authInfo = AuthInfo(
-                    accessToken: authInfo.accessToken,
-                    refreshToken: authInfo.refreshToken ?? refreshToken,
-                    expirationDate: authInfo.expirationDate,
-                    scopes: authInfo.scopes
-                )
+                self.withAuthInfo { authInfoReference in
+                    if authInfoReference == nil {
+                        self.authLogger.error(
+                            "self.authInfo was nil after " +
+                            "retrieving new authInfo",
+                            function: refreshAccessTokenFunction
+                        )
+                    }
+                    authInfoReference = AuthInfo(
+                        accessToken: newAuthInfo.accessToken,
+                        refreshToken: newAuthInfo.refreshToken ?? refreshToken,
+                        expirationDate: newAuthInfo.expirationDate,
+                        scopes: newAuthInfo.scopes
+                    )
+                }
             })
             .eraseToAnyPublisher()
             
@@ -249,7 +264,7 @@ public extension SpotifyAPI {
         
         authLogger.trace("")
         
-        guard let authInfo = self.authInfo else {
+        guard let authInfo = self.getAuthInfo() else {
             throw SpotifyLocalError.unauthorized("no authorization")
         }
         

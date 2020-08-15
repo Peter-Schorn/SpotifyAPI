@@ -5,22 +5,27 @@ import Logger
 /**
  The authorization info required for the [Authorization Code Flow][1].
  
- Includes the access token, the refresh token,
- the scopes that that have been granted for the access token,
- and the expiration date for the access token.
- The refresh token can be used to generate a new access token.
+ Contains the following properties:
+ 
+ * The access token
+ * the refresh token
+ * the expiration date for the access token
+ * the scopes that have been authorized for the access token
+ 
+ Use `self.isExpired(tolerance:)`
+ to determine if the access token is expired.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
 public struct AuthInfo: Hashable {
     
     /// Set to true to print debugging info to the console.
-    public static var printDebugOutput = false
+    public static var printDebugingOutput = false
     
-    public let accessToken: String
-    public let refreshToken: String?
-    public let expirationDate: Date
-    public let scopes: Set<Scope>
+    public var accessToken: String
+    public var refreshToken: String?
+    public var expirationDate: Date
+    public var scopes: Set<Scope>
     
     public init(
         accessToken: String,
@@ -34,13 +39,17 @@ public struct AuthInfo: Hashable {
         self.scopes = scopes
     }
     
+    mutating func updateAfterRefresh(to: Self) {
+        
+    }
+    
     
     /// Determines whether the access token is expired
     /// within the given tolerance.
     ///
     /// - Parameter tolerance: The tolerance in seconds (default 60).
     /// - Returns: `true` if the expirationDate + `tolerance` is
-    ///       equal to or after the current date. Else, `false`.
+    ///       equal to or before the current date. Else, `false`.
     public func isExpired(tolerance: Double = 60) -> Bool {
         
         let isExpired = expirationDate.addingTimeInterval(tolerance) <= Date()

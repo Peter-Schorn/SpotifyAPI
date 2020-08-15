@@ -12,7 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "SpotifyAPI",
-            targets: ["SpotifyAPI"]
+            targets: ["SpotifyWebAPI"]
         ),
     ],
     dependencies: [
@@ -29,13 +29,13 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SpotifyAPI",
+            name: "SpotifyWebAPI",
             dependencies: ["RegularExpressions", "Logger"]
         ),
         .testTarget(
             name: "SpotifyAPITests",
             dependencies: [
-                "SpotifyAPI",
+                "SpotifyWebAPI",
                 "RegularExpressions"
             ]
         ),
