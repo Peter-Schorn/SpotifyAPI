@@ -5,8 +5,8 @@ import Foundation
  Spotify confusingly refers to this as a [playlist track object][1].
  
  Holds data not associated with the track/episode itself,
- including the date it was addded to the playlist, who it was
- added by, and whether it is a [local file][2].
+ including the date it was addded to the playlist, and who it was
+ added by.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object
  [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files

@@ -3,17 +3,17 @@ import Foundation
 /// A Spotify [playlist][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
-public struct Playlist<PlaylistItem>: SpotifyURIConvertible where
-    PlaylistItem: Codable & Hashable
+public struct Playlist<PlaylistItems>: SpotifyURIConvertible where
+    PlaylistItems: Codable & Hashable
 {
     
     /// The name of the playlist.
     public let name: String
     
-    /// The playlist's items. May be
-    /// an array of tracks, podcast episodes, or some object
-    /// that encapsulates both.
-    public let items: [PlaylistItem]
+    /// The playlist's items. Consult the documentation
+    /// for the specific endpoint that this playlist was retrieved
+    /// from for more information.
+    public let items: PlaylistItems
     
     /// The user who owns the playlist.
     public let owner: SpotifyUser?

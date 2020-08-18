@@ -23,7 +23,8 @@ public extension SpotifyAPI {
      
      Creates the URL that is used to request authorization for
      your app. You can decide how to open the url. Typically,
-     this URL is opened in the web browser.
+     this URL is opened in the web browser. However, you may wish
+     to display it in a web
      
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
@@ -84,9 +85,9 @@ public extension SpotifyAPI {
        
         self.authLogger.trace("raw url: \(redirectURI)")
         
-        // MARK: golden path
         if let code = redirectURI.queryItemsDict["code"] {
             
+            // MARK: golden path
             return self._requestAccessAndRefreshTokens(
                 code: code,
                 redirectURI: redirectURI
@@ -104,6 +105,7 @@ public extension SpotifyAPI {
             .anyFailingPublisher(AuthInfo.self)
             
         }
+        
         self.authLogger.error("unkown error")
         return SpotifyLocalError.other(
             "an unknown error occured when handling the redirect URI:\n" +
@@ -251,8 +253,8 @@ public extension SpotifyAPI {
     
     // MARK: - Internal Methods -
     
-    /// Ensures that the app is authorized for the specified scopes
-    /// and that `self.authInfo` is not `nil`. Else, throws an error.
+    /// Ensures that `self.authInfo` is not `nil` and that the app is
+    /// authorized for the specified scopes. Else, throws an error.
     ///
     /// - Parameter requiredScopes: A set of Spotify scopes.
     ///

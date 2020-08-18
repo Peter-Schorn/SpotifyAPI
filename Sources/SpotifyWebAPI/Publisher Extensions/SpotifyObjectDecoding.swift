@@ -74,9 +74,9 @@ private func decodeSpotifyErrorObjects(
  Tries to decode the raw data from a Spotify web API request.
  You normally don't need to call this method directly.
  
- First tries to decode the data into the specified type
- that conforms to `Decodable`. If that fails, then
- the data is decoded into one of the [errors][1] returned by spotify:
+ First tries to decode the data into `responseType`.
+ If that fails, then the data is decoded into one of
+ the [errors][1] returned by spotify:
  
  * `SpotifyAuthenticationError`
  * `SpotifyError`
@@ -86,31 +86,31 @@ private func decodeSpotifyErrorObjects(
  as a last resort.
  
  **Note**: `SpotifyDecodingError` represents the error encountered
- when decoding the `responseObject`, not the error objects.
+ when decoding the `responseType`, not the error objects.
  
- - Parameter responseObject: The json response that you are
+ - Parameter responseType: The json response that you are
        are expecting from the Spotify web API.
  - Parameter data: The data from the server.
  - Parameter httpURLResponse: The http response metadata.
- - Throws: If the data cannot be decoded into the specified `responseObject`.
+ - Throws: If the data cannot be decoded into the specified `responseType`.
  - Returns: The decoded object.
  
  [1]: https://developer.spotify.com/documentation/web-api/#response-schema
  */
-public func decodeSpotifyObject<ResponseObject: Decodable>(
+public func decodeSpotifyObject<ResponseType: Decodable>(
     data: Data,
     httpURLResponse: HTTPURLResponse,
-    responseObject: ResponseObject.Type
-) throws -> ResponseObject {
+    responseType: ResponseType.Type
+) throws -> ResponseType {
 
     let decoder = JSONDecoder()
     
     do {
         return try decoder.decode(
-            ResponseObject.self, from: data
+            ResponseType.self, from: data
         )
     
-    } catch let responseObjectDecodingError {
+    } catch let responseTypeDecodingError {
 
         spotifyDecodeLogger.warning("couldn't decode response object")
         
@@ -121,7 +121,7 @@ public func decodeSpotifyObject<ResponseObject: Decodable>(
         }
         
         spotifyDecodeLogger.error(
-            "couldn't decode \(responseObject) or " +
+            "couldn't decode \(responseType) or " +
             "the spotify error objects"
         )
         
@@ -143,16 +143,16 @@ public func decodeSpotifyObject<ResponseObject: Decodable>(
          error objects, then it is probably because Spotify
          did not return an error object; instead, it returned
          the data that was requested, but the data is not properly
-         modeled by `responseObject`. Therefore, it is more useful to
+         modeled by `responseType`. Therefore, it is more useful to
          throw the error encountered when decoding the
-         `responseObject` (`responseObjectDecodingError`)
+         `responseType` (`responseTypeDecodingError`)
          back to the caller.
          */
         throw SpotifyDecodingError(
             rawData: data,
-            responseObject: responseObject,
+            responseType: responseType,
             statusCode: statusCode,
-            underlyingError: responseObjectDecodingError
+            underlyingError: responseTypeDecodingError
         )
         
     }
@@ -161,7 +161,7 @@ public func decodeSpotifyObject<ResponseObject: Decodable>(
 }
 
 
-// MARK: - Wrappers -
+// MARK: - Publisher Wrappers -
 
 public extension Publisher where Output == (data: Data, response: URLResponse) {
 
@@ -220,18 +220,18 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      as a last resort.
 
      **Note**: `SpotifyDecodingError` represents the error encountered
-     when decoding the `responseObject`, not the error objects.
+     when decoding the `responseType`, not the error objects.
 
-     - Parameter responseObject: The json response that you are
+     - Parameter responseType: The json response that you are
      are expecting from the Spotify web API.
 
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
-    func spotifyDecode<ResponseObject: Decodable>(
-        _ responseObject: ResponseObject.Type
-    ) -> AnyPublisher<ResponseObject, Error> {
+    func spotifyDecode<ResponseType: Decodable>(
+        _ responseType: ResponseType.Type
+    ) -> AnyPublisher<ResponseType, Error> {
 
-        return self.tryMap { data, response -> ResponseObject in
+        return self.tryMap { data, response -> ResponseType in
 
             guard let httpURLResponse = response as? HTTPURLResponse else {
                 fatalError("could not cast URLResponse to HTTPURLResponse")
@@ -240,7 +240,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
             return try decodeSpotifyObject(
                 data: data,
                 httpURLResponse: httpURLResponse,
-                responseObject: responseObject
+                responseType: responseType
             )
 
         }

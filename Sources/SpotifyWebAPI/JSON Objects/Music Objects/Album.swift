@@ -4,7 +4,7 @@ import Foundation
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
 public struct Album: SpotifyURIConvertible, Hashable {
-
+    
     /// The name of the album.
     ///
     /// In case of an album takedown,
@@ -14,8 +14,10 @@ public struct Album: SpotifyURIConvertible, Hashable {
     /**
      The tracks of the album.
      
-     The simplified versions will be returned
-     inside of a paging object.
+     For certain endpoints, this property may be nil,
+     especially if it is nested inside a much larger object.
+     For example, it will be `nil` if retrieved from the search
+     endpoint.
      */
     public let tracks: PagingObject<Track>?
     
@@ -143,6 +145,51 @@ public struct Album: SpotifyURIConvertible, Hashable {
     
     /// The object type. Always `album`.
     public let type: IDCategory
+    
+    // thank god Xcode can create this for me.
+    public init(
+        name: String,
+        tracks: PagingObject<Track>?,
+        artists: [Artist],
+        releaseDate: Date,
+        uri: String,
+        id: String,
+        images: [SpotifyImage],
+        popularity: Int?,
+        label: String?,
+        genres: [String]?,
+        href: String,
+        externalURLs: [String : String]?,
+        externalIds: [String : String]?,
+        albumType: String?,
+        albumGroup: String?,
+        availableMarkets: [String]?,
+        copyrights: [SpotifyCopyright]?,
+        releaseDatePrecision: String?,
+        restrictions: [String : String]?,
+        type: IDCategory
+    ) {
+        self.name = name
+        self.tracks = tracks
+        self.artists = artists
+        self.releaseDate = releaseDate
+        self.uri = uri
+        self.id = id
+        self.images = images
+        self.popularity = popularity
+        self.label = label
+        self.genres = genres
+        self.href = href
+        self.externalURLs = externalURLs
+        self.externalIds = externalIds
+        self.albumType = albumType
+        self.albumGroup = albumGroup
+        self.availableMarkets = availableMarkets
+        self.copyrights = copyrights
+        self.releaseDatePrecision = releaseDatePrecision
+        self.restrictions = restrictions
+        self.type = type
+    }
 }
 
 

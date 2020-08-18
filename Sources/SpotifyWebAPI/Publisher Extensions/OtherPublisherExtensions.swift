@@ -79,8 +79,6 @@ public extension Publisher {
     
 }
 
-
-
 public extension Result.Publisher where Failure == Error {
     
     /// Creates a new publisher by evaluating a throwing closure,

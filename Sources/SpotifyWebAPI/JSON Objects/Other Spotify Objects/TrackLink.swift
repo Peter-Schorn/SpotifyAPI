@@ -2,8 +2,10 @@ import Foundation
 
 
 /// A Spotify [track link][1] object.
+/// See also the [Track relinking Guide][2].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link
+/// [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
 public struct TrackLink: SpotifyURIConvertible, Hashable {
     
     /**

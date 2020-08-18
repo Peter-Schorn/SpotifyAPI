@@ -101,6 +101,8 @@ public extension SpotifyAPI {
      Get Spotify Catalog information about albums, artists,
      playlists, tracks, shows or episodes that match a keyword string.
      
+     **Beta Note**: Currently only supports artists, albums, and tracks.
+     
      No scopes are required for this endpoint—unless the `market`
      parameter is set to "from_token", in which case
      the `userReadPrivate` scope is required.
@@ -184,11 +186,12 @@ public extension SpotifyAPI {
          audio content that is hosted externally. By default external
          content is filtered out from responses.
      
-     - Returns: For each type provided in the type parameter,
-           the response body contains an array of
-           artist objects / simplified album objects / track objects /
-           simplified show objects / simplified episode objects
-           wrapped in a paging object
+     - Returns: A `SearchResult`. The `albums`, `artist`, `playlists`,
+     `tracks`, `shows`, and `episodes` properties of this struct will
+     be non-nil for each of the types that were requested from the
+     `search` endpoint. If no results were found for a type, then the
+     `items` property of the property's paging object will be empty;
+     the property itself will only be nil if it was not requested in the search.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -246,7 +249,8 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
      
-     TODO: documentation
+     Compared to the `Playlist` method, this method
+     does not return any data about the playlist itself.
      
      Read more at the [Spotify web API reference][1].
      
@@ -259,6 +263,8 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
             or the string from_token. Provide this parameter if you want
             to apply [Track Relinking][3].
+     - Returns: An array of tracks wrapped inside a `PlaylistItem`
+           wrapped insde a `PagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -294,5 +300,11 @@ public extension SpotifyAPI {
         
     }
     
-    
+ 
+    func addToPlaylist<URI: SpotifyURIConvertible>(
+        uris: [URI],
+        position: Int? = nil
+    ) {
+        
+    }
 }

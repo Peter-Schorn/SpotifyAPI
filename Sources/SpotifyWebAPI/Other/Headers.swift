@@ -3,12 +3,6 @@ import Foundation
 /// A namespace of HTTP Headers.
 enum Headers {
     
-    /// ```
-    /// ["Content-Type": "application/x-www-form-urlencoded"]
-    /// ```
-     static let formURLEncoded = [
-         "Content-Type": "application/x-www-form-urlencoded"
-     ]
     
     /// Makes the bearer authorization header using the access token.
     ///
@@ -21,15 +15,28 @@ enum Headers {
         return ["Authorization": "Bearer \(accessToken)"]
     }
     
+    /// ```
+    /// ["Content-Type": "application/x-www-form-urlencoded"]
+    /// ```
+    static let formURLEncoded = [
+        "Content-Type": "application/x-www-form-urlencoded"
+    ]
+    
+    /// ```
+    /// ["Accept": "application/json"]
+    /// ```
+    static let acceptApplicationJSON = [
+        "Accept": "application/json"
+    ]
     
     /**
      Makes the base64Encoded authorization header.
-
+     
      ```
      guard let encodedString = "\(clientID):\(clientSecret)"
-                 .base64Encoded()
+     .base64Encoded()
      else {
-         return nil
+     return nil
      }
      
      return ["Authorization": "Basic \(encodedString)"]
@@ -40,13 +47,15 @@ enum Headers {
     ) -> [String: String]? {
         
         guard let encodedString = "\(clientID):\(clientSecret)"
-                    .base64Encoded()
-        else {
-            return nil
+            .base64Encoded()
+            else {
+                return nil
         }
         
         return ["Authorization": "Basic \(encodedString)"]
         
     }
+    
+    
     
 }

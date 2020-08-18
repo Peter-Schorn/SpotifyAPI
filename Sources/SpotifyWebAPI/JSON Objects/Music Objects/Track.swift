@@ -94,7 +94,6 @@ public struct Track: SpotifyURIConvertible, Hashable {
     /// May be `nil`.
     public let previewURL: String?
     
-    
     /**
      Known [external urls][1] for this track.
 
@@ -116,10 +115,14 @@ public struct Track: SpotifyURIConvertible, Hashable {
     /// identified by their ISO 3166-1 alpha-2 code.
     public let availableMarkets: [String]?
 
-    /// Part of the response when Track Relinking is applied,
-    /// and the requested track has been replaced with different track.
-    /// The track link contains
-    /// information about the originally requested track.
+    /**
+     Part of the response when [Track Relinking][1] is applied,
+     and the requested track has been replaced with different track.
+     The track link contains
+     information about the originally requested track.
+    
+     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
     public let linkedFrom: TrackLink?
     
     /**

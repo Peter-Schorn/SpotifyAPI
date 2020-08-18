@@ -7,12 +7,12 @@ import Foundation
 /// Report a bug if you get this error.
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
-    public static var fileURL: URL {
-        let dateString = DateFormatter.shortTime.string(from: Date())
-        return URL(fileURLWithPath:
-            "/Users/pschorn/Desktop/response_\(dateString).json"
-        )
-    }
+    /// The folder to write the `dataString`
+    /// (in other words, the json response from the Spotify web API)
+    /// to when instances of this error are created.
+    /// This is intended for debugging purposes.
+    /// By default, it is nil.
+    public static var dataDumpfolder: URL? = nil
     
     /// The raw data returned by the server.
     /// You should almost always be able to decode
@@ -23,8 +23,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /// if it couldn't be decoded.
     public var dataString: String?
     
-    /// The expected response object.
-    public let expectedResponseObject: Any.Type
+    /// The expected response type.
+    public let expectedResponseType: Any.Type
     
     /// The http status code.
     public let statusCode: Int?
@@ -34,7 +34,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
     public init (
         rawData: Data?,
-        responseObject: Any.Type,
+        responseType: Any.Type,
         statusCode: Int?,
         underlyingError: Error?
     ) {
@@ -44,17 +44,23 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             String(data: $0, encoding: .utf8)
         } as? String
         
-        self.expectedResponseObject = responseObject
+        self.expectedResponseType = responseType
         self.statusCode = statusCode
         self.underlyingError = underlyingError
         
-        if let data = rawData,
-                var dataString = String(data: data, encoding: .utf8) {
-            dataString = "\n\n\n" + dataString
-            try! dataString.write(
-                to: Self.fileURL, atomically: true, encoding: .utf8
+        let dataString = self.dataString
+                ?? "The data could not be decoded into a string"
+        
+        if let folder = Self.dataDumpfolder {
+            let dateString = DateFormatter.shortTime.string(from: Date())
+            let file = folder.appendingPathComponent(
+                "\(expectedResponseType)_\(dateString)"
+            )
+            try? dataString.write(
+                to: file, atomically: true, encoding: .utf8
             )
         }
+        
     }
     
     public var description: String {
@@ -80,7 +86,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         
         return """
             SpotifyDecodingError: The data from the Spotify web API \
-            could not be decoded into '\(expectedResponseObject)'
+            could not be decoded into '\(expectedResponseType)'
             http status code: \(statusCodeString)\(codingPath)
             Underlying error:
             \(underlyingErrorString)

@@ -64,7 +64,7 @@ enum Endpoints {
         queryItems: [String: String]? = nil
     ) -> URL {
 
-        return URL(
+        return URL.init(
             scheme: "https",
             host: apiBase,
             path: apiVersion + path,

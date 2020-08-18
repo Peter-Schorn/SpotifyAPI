@@ -38,6 +38,25 @@ public extension String {
 }
 
 
+public extension Dictionary {
+    
+    /**
+     Merges the two dictionaries.
+    
+     Duplicate keys in the left hand side will
+     replace those in the right hand side.
+     
+     - Warning: This operation is non-commutative.
+     */
+    @inlinable
+    static func + (lhs: Self, rhs: Self) -> Self {
+        return lhs.merging(rhs) { lhsKey, rhsKey in
+            return lhsKey
+        }
+    }
+    
+}
+
 public extension Error {
     
     
@@ -56,10 +75,19 @@ public extension Error {
     
 }
 
+extension String {
+    
+    init(from decoder: Decoder) throws {
+        fatalError("not implemented")
+    }
+    
+}
+
+
 public extension DecodingError {
     
     /// The context of the error.
-    /// each of the enum cases have a context.
+    /// Each of the enum cases have a context.
     var context: Context? {
         switch self {
             case .dataCorrupted(let context):
@@ -136,8 +164,6 @@ public extension Sequence where
  
  The LosslessStringConvertible protocol prevents you from using
  types that cannot be converted to strings without losing information.
- As such, it should be possible to re-create an instance
- from its string representation.
  
  `String` and `Int` are examples of conforming types.
  

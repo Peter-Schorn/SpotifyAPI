@@ -37,6 +37,7 @@ public struct SearchResult: Hashable {
     /// A Paging object containing full `artist` objects.
     public let tracks: PagingObject<Track>?
     
+    
 }
 
 extension SearchResult: Codable {

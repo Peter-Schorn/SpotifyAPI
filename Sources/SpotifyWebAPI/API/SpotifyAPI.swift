@@ -16,14 +16,16 @@ public class SpotifyAPI {
     
     // MARK: - Loggers -
     
-    public var logger = Logger(label: "SpotifyAPI")
-    public var authLogger = Logger(label: "SpotifyAuthAPI")
+    public let logger = Logger(label: "SpotifyAPI")
+    public let authLogger = Logger(label: "SpotifyAuthAPI")
     
     private func setupLoggers() {
         self.logger.level = .trace
         self.authLogger.level = .trace
         AuthInfo.printDebugingOutput = true
-        
+        SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
+            "/Users/pschorn/Desktop/"
+        )
     }
     
     // MARK: - Initializers -
@@ -32,7 +34,6 @@ public class SpotifyAPI {
      Creates a Spotify API authentication manager.
      Automatically handles the process of authentication
      and refreshing your access token when needed.
-     
      
      After you create an instance of this class.
      create the authorization URL using
@@ -60,13 +61,3 @@ public class SpotifyAPI {
     
     
 }
-
-
-/*
- /// Called when the authorization info is mutated.
- ///
- /// Use this method to be notified when the authorization
- /// info is mutated. Note that it may be nil.
- /// For example, you could save it to
- /// persistent storage.
- */
