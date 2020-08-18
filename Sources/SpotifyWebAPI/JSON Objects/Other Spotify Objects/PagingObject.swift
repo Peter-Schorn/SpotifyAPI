@@ -13,10 +13,10 @@ import Foundation
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
  */
 public struct PagingObject<
-    Object: CustomCodable & Hashable
->: CustomCodable, Hashable {
+    Object: Codable & Hashable
+>: Codable, Hashable {
     
-    /// A link to the Web API endpoint returning
+    /// A link to the Spotify web API endpoint returning
     /// the full result of the request.
     public let href: String
     

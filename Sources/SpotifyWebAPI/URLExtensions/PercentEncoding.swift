@@ -3,6 +3,7 @@ import Foundation
 public extension String {
 
     enum PercentEncodingOptions {
+        
         /// Encodes the string for use in a fragment URL component.
         case fragment
         /// Encodes the string for use in a host URL component.
@@ -36,7 +37,7 @@ public extension String {
     
 
     /// Percent encodes the string for the given option.
-    func percentEncoded(_ option: PercentEncodingOptions) -> String? {
+    func percentEncoded(for option: PercentEncodingOptions) -> String? {
         return self.addingPercentEncoding(
             withAllowedCharacters: option.characterSet
         )

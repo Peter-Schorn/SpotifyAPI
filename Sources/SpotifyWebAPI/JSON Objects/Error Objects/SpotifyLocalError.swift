@@ -10,7 +10,7 @@ import Foundation
  before any network requests are made because
  the required scopes for an endpoint are known ahead of time.
  */
-enum SpotifyLocalError: LocalizedError {
+enum SpotifyLocalError: LocalizedError, Hashable {
     
     /**
      You tried to access an endpoint that requires authorization,
@@ -25,8 +25,8 @@ enum SpotifyLocalError: LocalizedError {
     case unauthorized(String)
     
     
-    /// A [Spotify identifier][1] of a specific type could not be parsed.
-    /// The message will contain more information.
+    /// A [Spotify identifier][1] (uri, id, url) of a specific type
+    /// could not be parsed. The message will contain more information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     case identifierParsingError(String)
@@ -43,7 +43,7 @@ enum SpotifyLocalError: LocalizedError {
     /// Some other error.
     case other(String)
     
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
              case .unauthorized(let message):
                 return "unauthorized: \(message)"

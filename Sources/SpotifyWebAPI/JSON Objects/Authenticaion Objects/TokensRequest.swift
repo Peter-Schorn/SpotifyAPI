@@ -29,7 +29,7 @@ public struct TokensRequest: Hashable {
     
 }
 
-extension TokensRequest: CustomCodable {
+extension TokensRequest: Codable {
     
     enum CodingKeys: String, CodingKey {
         case code

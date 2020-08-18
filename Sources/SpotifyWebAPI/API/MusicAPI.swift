@@ -2,7 +2,8 @@ import Foundation
 import Combine
 import Logger
 
-// MARK: The methods for retrieving music content (e.g., songs, albums, artists)
+// MARK: The methods for retrieving music content
+//       (e.g., songs, albums, artists, playlists)
 
 public extension SpotifyAPI {
     
@@ -13,9 +14,9 @@ public extension SpotifyAPI {
     
      See also `getArtists(uris:)` (gets several artists).
 
-     Read more at the [web API reference][1].
+     Read more at the [Spotify web API reference][1].
     
-     - Parameter uri: The uri for the artist.
+     - Parameter uri: The URI for the artist.
      - Returns: The full version of a Spotify [artist object][2].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/
@@ -26,11 +27,12 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Artist, Error>  {
         
         do {
-            let id = try SpotifyIdentifier(uri: uri.uri).id
+            let artistId = try SpotifyIdentifier(uri: uri).id
             
-            logger.trace("uri: \(uri)")
+            self.logger.trace("uri: \(uri)")
             return self.getRequest(
-                endpoint: Endpoints.apiEndpoint("/artists/\(id)"),
+                path: "/artists/\(artistId)",
+                queryItems: [:],
                 requiredScopes: [],
                 responseType: Artist.self
             )
@@ -53,7 +55,7 @@ public extension SpotifyAPI {
      
      See also `getArtist(uri:)` (gets a single artist).
      
-     - Parameter uri: The uri for the artist.
+     - Parameter uri: The URI for the artist.
      - Returns: An array of the full versions of [artist objects][2].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/artists/get-several-artists/
@@ -69,10 +71,8 @@ public extension SpotifyAPI {
                     .commaSeparatedIdsString(uris)
             
             return self.getRequest(
-                endpoint: Endpoints.apiEndpoint(
-                    "/artists",
-                    queryItems: ["ids": idsString]
-                ),
+                path: "/artists",
+                queryItems: ["ids": idsString],
                 requiredScopes: [],
                 responseType: [String: [Artist?]].self
             )
@@ -111,8 +111,8 @@ public extension SpotifyAPI {
      Operators, however, should be specified in uppercase.
      Unless surrounded by double quotation marks,
      keywords are matched in any order. For example:
-     `q=roadhouse blues` matches both "Blues Roadhouse" and
-     "Roadhouse of the Blues". `q="roadhouse blues"` matches
+     `roadhouse blues` matches both "Blues Roadhouse" and
+     "Roadhouse of the Blues". `"roadhouse blues"` (with quotes) matches
      "My Roadhouse Blues" but not "Roadhouse of the Blues".
      
      Searching for playlists returns results where the query keyword(s)
@@ -123,10 +123,10 @@ public extension SpotifyAPI {
      
      The operator NOT can be used to exclude results.
      
-     For example: `q=roadhouse NOT blues` returns items that match "roadhouse"
+     For example: `roadhouse NOT blues` returns items that match "roadhouse"
      but excludes those that also contain the keyword “blues”.
      Similarly, the OR operator can be used to broaden the search:
-     `q=roadhouse OR blues` returns all the results that include
+     `roadhouse OR blues` returns all the results that include
      either of the terms. Only one OR operator can be used in a query.
      
      *Note:** Operators must be specified in uppercase.
@@ -150,11 +150,13 @@ public extension SpotifyAPI {
      and artists), upc, and isrc. Use double quotation marks
      around the genre keyword string if it contains spaces.
      
+     Read more at the [Spotify web API reference][1].
+     
      - Parameters:
        - query: *Required*. A query string.
        - types: *Required*. An array of id categories. Valid types: `album`,
              `artist`, `playlist`, `track`, `show`, `episode`.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][1]
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
              or the string "from_token". If a country code is specified,
              only artists, albums, and tracks with content
              that is playable in that market is returned.
@@ -164,7 +166,7 @@ public extension SpotifyAPI {
              only content playable in the country associated with the
              user account, is returned. Users can view the country
              that is associated with their account in the
-             [account settings][2]. A user must grant access to the
+             [account settings][3]. A user must grant access to the
              `userReadPrivate` scope prior to when the access
              token is issued.
        - limit: *Optional*. Maximum number of results to return.
@@ -182,6 +184,13 @@ public extension SpotifyAPI {
          audio content that is hosted externally. By default external
          content is filtered out from responses.
      
+     - Returns: For each type provided in the type parameter,
+           the response body contains an array of
+           artist objects / simplified album objects / track objects /
+           simplified show objects / simplified episode objects
+           wrapped in a paging object
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [2]: https://www.spotify.com/se/account/overview/
      */
@@ -192,7 +201,7 @@ public extension SpotifyAPI {
         limit: Int? = nil,
         offset: Int? = nil,
         includeExternal: String? = nil
-    ) -> Any {
+    ) -> AnyPublisher<SearchResult, Error> {
         
         do {
             let validTypes: [IDCategory] = [
@@ -200,38 +209,90 @@ public extension SpotifyAPI {
             ]
             guard types.allSatisfy({ validTypes.contains($0) }) else {
                 throw SpotifyLocalError.other(
-                    "Valid types for the search endpoint are " +
-                    "\(validTypes), but recieved \(types)."
+                    """
+                    Valid types for the search endpoint are \
+                    \(validTypes.map(\.rawValue)), \
+                    but recieved \(types.map(\.rawValue)).
+                    """
                 )
             }
-        
-            let x = limit.map(String.init)
             
-            let queryDict = [
-                "q": query,
-                "type": types.commaSeparatedString(),
-                "market": market,
-                "limit": limit.map(String.init),
-                "offset": offset.map(String.init),
-                "include_external": includeExternal
-            ]
-            //
-            // return self.getRequest(
-            //     endpoint: Endpoints.apiEndpoint(
-            //         "/search",
-            //         queryItems: <#T##[String : String]?#>
-            //     ),
-            //     requiredScopes: <#T##Set<Scope>#>,
-            //     responseType: <#T##CustomDecodable.Protocol#>
-            // )
+            let requiredScopes: Set = market == "from_token" ?
+                    [Scope.userReadPrivate] : []
+            
+            return self.getRequest(
+                path: "/search",
+                queryItems: [
+                    "q": query,
+                    "type": types.commaSeparatedString(),
+                    "market": market,
+                    "limit": limit,
+                    "offset": offset,
+                    "include_external": includeExternal
+                ],
+                requiredScopes: requiredScopes,
+                responseType: SearchResult.self
+            )
+            .eraseToAnyPublisher()
         
         } catch {
-            // return error.anyFailingPublisher(<#type#>.self)
+            return error.anyFailingPublisher(SearchResult.self)
         }
-        
-        fatalError("not implemented")
         
     }
     
-
+    /**
+     Gets all of the tracks in a playlist.
+     
+     No scopes are required for this endpoint.
+     
+     TODO: documentation
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - uri: The URI for the playlist.
+       - limit: *Optional*. The maximum number of items to return.
+             Default: 100; minimum: 1; maximum: 100.
+       - offset: *Optional*. The index of the first item to return.
+             Default: 0 (the first object).
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
+            or the string from_token. Provide this parameter if you want
+            to apply [Track Relinking][3].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
+    func playlistTracks<URI: SpotifyURIConvertible>(
+        uri: URI,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        market: String? = nil
+    ) -> AnyPublisher<PlaylistTracks, Error> {
+        
+        do {
+            
+            let playlistId = try SpotifyIdentifier(uri: uri).id
+            
+            return self.getRequest(
+                path: "/playlists/\(playlistId)/tracks",
+                queryItems: [
+                    "limit": limit,
+                    "offset": offset,
+                    "market": market,
+                    // restrict response to only tracks.
+                    "additional_types": IDCategory.track.rawValue
+                ],
+                requiredScopes: [],
+                responseType: PlaylistTracks.self
+            )
+            
+        } catch {
+            return error.anyFailingPublisher(PlaylistTracks.self)
+        }
+        
+    }
+    
+    
 }

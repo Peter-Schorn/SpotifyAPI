@@ -27,22 +27,20 @@ public struct SpotifyError: LocalizedError, Hashable {
 }
 
 
-extension SpotifyError: CustomDecodable {
+extension SpotifyError: Decodable {
     
     public init(from decoder: Decoder) throws {
         
         let topLevelContainer = try decoder.container(
             keyedBy: CodingKeys.self
         )
-        
+
         let container = try topLevelContainer.nestedContainer(
             keyedBy: CodingKeys.self, forKey: .error
         )
-        
         self.message = try container.decode(
             String.self, forKey: .message
         )
-        
         self.statusCode = try container.decode(
             Int.self, forKey: .statusCode
         )

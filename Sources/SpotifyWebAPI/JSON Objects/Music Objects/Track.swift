@@ -3,7 +3,7 @@ import Foundation
 /// A [Spotify track][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
-public struct Track: CustomCodable, SpotifyURIConvertible, Hashable {
+public struct Track: SpotifyURIConvertible, Hashable {
 
     /// The name of the track.
     public let name: String
@@ -24,7 +24,7 @@ public struct Track: CustomCodable, SpotifyURIConvertible, Hashable {
     ///
     /// Each artist object includes a link in href
     /// to more detailed information about the artist.
-    public let artists: [Artist]
+    public let artists: [Artist]?
     
     /// The [Spotify URI][1] for the track.
     ///
@@ -36,9 +36,12 @@ public struct Track: CustomCodable, SpotifyURIConvertible, Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
     
-    /// Whether or not the track is from a local file.
+    /// Whether or not the track is from a [local file][1].
     ///
-    /// When this is `true`, expect many of the fields to be `nil`.
+    /// When this is `true`, expect many of the other properties
+    /// to be `nil`.
+    ///
+    /// [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
     public let isLocal: Bool
     
     /**
@@ -70,20 +73,20 @@ public struct Track: CustomCodable, SpotifyURIConvertible, Hashable {
     ///
     /// If an album has several discs,
     /// the track number is the number on the specified disc.
-    public let trackNumber: Int
+    public let trackNumber: Int?
     
     /// Whether or not the track has explicit lyrics.
     /// `false` if unknown.
     public let explicit: Bool
     
     /// Part of the response when [Track Relinking][1] is applied.
-    /// If true, the track is playable in the given market.
-    /// Otherwise, false.
+    /// Else, `nil`. If `true`, the track is playable in the given market.
+    /// Otherwise, `false`.
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-    public let isPlayable: Bool
+    public let isPlayable: Bool?
 
-    /// A link to the Web API endpoint
+    /// A link to the Spotify web API endpoint
     /// providing the full track object.
     public let href: String?
 
@@ -137,11 +140,14 @@ public struct Track: CustomCodable, SpotifyURIConvertible, Hashable {
     /// (usually 1 unless the album consists of more than one disc).
     public let discNumber: Int?
 
-    /// The object type. Always "track".
-    public let type: String
+    /// The object type. Always `track`.
+    public let type: IDCategory
     
+}
+
+extension Track: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case name
         case album
         case artists

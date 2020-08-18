@@ -2,7 +2,7 @@ import Foundation
 
 /// Used to retrieve a fresh access token using the refresh token.
 /// Spotify may also return a new refresh token.
-struct RefreshAccessTokenRequest: CustomCodable, Hashable {
+struct RefreshAccessTokenRequest: Codable, Hashable {
     
     let grantType = "refresh_token"
     let refreshToken: String

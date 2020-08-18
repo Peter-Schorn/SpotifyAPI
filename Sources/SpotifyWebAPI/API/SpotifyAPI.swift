@@ -1,5 +1,6 @@
 import Foundation
 import Logger
+import Combine
 
 
 /// The central class in this library.
@@ -11,93 +12,19 @@ public class SpotifyAPI {
     
     public let clientID: String
     public let clientSecret: String
-    
-    // MARK: - Authorization Info -
-
-    /// Used to access `self.authInfo`
-    /// in a thread-safe manner.
-    private let mutateAuthInfoQueue = DispatchQueue(
-        label: "Peter-Schorn.mutate-authentication-info"
-    )
-    
-    /// Do not access directly ever.
-    /// Use `self.withAuthInfo(_:)` or `self.getAuthInfo()`.
-    private var _authInfo: AuthInfo? = nil
-    
-    /**
-     Use this method to mutate the authorization info
-     for your app in a thread-safe manner.
-
-     The authorization info consists of the following properties:
-     
-     * The access token
-     * the refresh token
-     * the expiration date for the access token
-     * the scopes that have been authorized for the access token
-     
-     It also contains a method `isExpired(tolerance:)` that
-     determines whether the access token is expired.
-     
-     If you only need to get the authorization info,
-     use `self.getAuthInfo()` instead.
-     
-     - Parameter body: A closure that accepts
-           the auth info as an inout parameter and can
-           safely mutate it.
-     - Throws: only if `body` throws.
-     */
-    public func withAuthInfo(
-        _ body: (inout AuthInfo?) throws -> Void
-    ) rethrows {
-        try mutateAuthInfoQueue.sync {
-            try body(&self._authInfo)
-            didMutateAuthInfo?(self._authInfo)
-        }
-    }
-    
-    /**
-     Retrieves the authorization info in a thread-safe manner.
-     
-     The authorization info consists of the following properties:
-     
-     * The access token
-     * the refresh token
-     * the expiration date for the access token
-     * the scopes that have been authorized for the access token
-     
-     It also contains a method `isExpired(tolerance:)` that
-     determines whether the access token is expired.
-     
-     If you need to mutate the authorization info, use
-     `self.withAuthInfo(_:)`.
-     */
-    public func getAuthInfo() -> AuthInfo? {
-        mutateAuthInfoQueue.sync { self._authInfo }
-    }
-    
-    /// Called when the authorization info is mutated.
-    ///
-    /// Use this method to be notified when the authorization
-    /// info is mutated. Note that it may be nil.
-    /// For example, you could save it to
-    /// persistent storage.
-    public var didMutateAuthInfo: ((AuthInfo?) -> Void)? = nil
-    
-    /// The State parameter for the "/authorize" endpoint.
-    private var stateParameter: String? = nil
+    public let authInfo = CurrentValueSubject<AuthInfo?, Never>(nil)
     
     // MARK: - Loggers -
     
     public var logger = Logger(label: "SpotifyAPI")
-    public var authLogger = Logger(label: "SpotifyAPIAuth")
+    public var authLogger = Logger(label: "SpotifyAuthAPI")
     
     private func setupLoggers() {
-        logger.level = .trace
-        authLogger.level = .trace
+        self.logger.level = .trace
+        self.authLogger.level = .trace
         AuthInfo.printDebugingOutput = true
         
     }
-    
     
     // MARK: - Initializers -
     
@@ -133,3 +60,13 @@ public class SpotifyAPI {
     
     
 }
+
+
+/*
+ /// Called when the authorization info is mutated.
+ ///
+ /// Use this method to be notified when the authorization
+ /// info is mutated. Note that it may be nil.
+ /// For example, you could save it to
+ /// persistent storage.
+ */

@@ -49,7 +49,7 @@ import Logger
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
  - Tag: Scopes
  */
-public enum Scope: String, CaseIterable, CustomCodable, Hashable {
+public enum Scope: String, CaseIterable, Codable, Hashable {
     
     // MARK: Images
     

@@ -1,10 +1,9 @@
 import Foundation
 
-
 /// A Spotify [artist][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
-public struct Artist: CustomCodable, SpotifyURIConvertible, Hashable {
+public struct Artist: SpotifyURIConvertible, Hashable {
     
     /// The name of the artist.
     public let name: String
@@ -33,7 +32,7 @@ public struct Artist: CustomCodable, SpotifyURIConvertible, Hashable {
     
      Only available for the full artist object.
      */
-    public let popularity: Int
+    public let popularity: Int?
     
     /**
      Known [external urls][1] for this artist.
@@ -45,7 +44,7 @@ public struct Artist: CustomCodable, SpotifyURIConvertible, Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]
+    public let externalURLs: [String: String]?
     
     /// Information about the followers of the artist.
     ///
@@ -60,15 +59,18 @@ public struct Artist: CustomCodable, SpotifyURIConvertible, Hashable {
     /// Only available for the full artist object.
     public let genres: [String]?
 
-    /// A link to the Web API endpoint
+    /// A link to the Spotify web API endpoint
     /// providing the full artist object.
     public let href: String
     
-    /// The object type. Always "artist".
-    public let type: String
+    /// The object type. Always `artist`.
+    public let type: IDCategory
     
+}
+
+extension Artist: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case name
         case uri
         case id

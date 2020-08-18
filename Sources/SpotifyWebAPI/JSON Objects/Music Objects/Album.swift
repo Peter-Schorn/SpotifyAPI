@@ -17,7 +17,7 @@ public struct Album: SpotifyURIConvertible, Hashable {
      The simplified versions will be returned
      inside of a paging object.
      */
-    public let tracks: PagingObject<Track>
+    public let tracks: PagingObject<Track>?
     
     /// The artists of the album. The simplified versions will be returned.
     ///
@@ -69,7 +69,7 @@ public struct Album: SpotifyURIConvertible, Hashable {
     /// Only available for the full album object.
     public let genres: [String]?
     
-    /// A link to the Web API endpoint
+    /// A link to the Spotify web API endpoint
     /// providing the full album object.
     public let href: String
 
@@ -141,38 +141,163 @@ public struct Album: SpotifyURIConvertible, Hashable {
      */
     public let restrictions: [String: String]?
     
-    /// The object type. Always "album".
-    public let type: String
-    
+    /// The object type. Always `album`.
+    public let type: IDCategory
 }
 
 
-extension Album: CustomCodable {
+extension Album: Codable {
     
-    
-    public static func decoded(from data: Data) throws -> Self {
+    public init(from decoder: Decoder) throws {
         
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .custom(
-            decodeSpotifyAlbumReleaseDate(decoder:)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.name = try container.decode(
+            String.self, forKey: .name
         )
-        return try decoder.decode(Self.self, from: data)
+        self.tracks = try container.decodeIfPresent(
+            PagingObject<Track>.self, forKey: .tracks
+        )
+        self.artists = try container.decode(
+            [Artist].self, forKey: .artists
+        )
+        
+        // MARK: Decode Release Date
+        // this is the only property that needs to be decoded
+        // in a custom manner
+        self.releaseDate = try container.decodeSpotifyAlbumDate(
+            forKey: .releaseDate
+        )
+        
+        self.releaseDatePrecision = try container.decodeIfPresent(
+            String.self, forKey: .releaseDatePrecision
+        )
+        self.uri = try container.decode(
+            String.self, forKey: .uri
+        )
+        self.id = try container.decode(
+            String.self, forKey: .id
+        )
+        self.images = try container.decode(
+            [SpotifyImage].self, forKey: .images
+        )
+        self.popularity = try container.decodeIfPresent(
+            Int.self, forKey: .popularity
+        )
+        self.label = try container.decodeIfPresent(
+            String.self, forKey: .label
+        )
+        self.genres = try container.decodeIfPresent(
+            [String].self, forKey: .genres
+        )
+        self.href = try container.decode(
+            String.self, forKey: .href
+        )
+        self.externalURLs = try container.decodeIfPresent(
+            [String: String].self, forKey: .externalURLs
+        )
+        self.externalIds = try container.decodeIfPresent(
+            [String: String].self, forKey: .externalIds
+        )
+        self.albumType = try container.decodeIfPresent(
+            String.self, forKey: .albumGroup
+        )
+        
+        self.albumGroup = try container.decodeIfPresent(
+            String.self, forKey: .albumGroup
+        )
+        self.availableMarkets = try container.decodeIfPresent(
+            [String].self, forKey: .availableMarkets
+        )
+        self.copyrights = try container.decodeIfPresent(
+            [SpotifyCopyright].self, forKey: .copyrights
+        )
+        self.restrictions = try container.decodeIfPresent(
+            [String: String].self, forKey: .restrictions
+        )
+        self.type = try container.decode(
+            IDCategory.self, forKey: .type
+        )
         
     }
     
-    public func encoded() throws -> Data {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .custom { date, encoder in
-            return try encodeSpotifyAlbumReleaseDate(
-                date, to: encoder,
-                datePrecision: self.releaseDatePrecision
-            )
-        }
-        return try encoder.encode(self)
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(
+            self.name, forKey: .name
+        )
+        try container.encodeIfPresent(
+            self.tracks, forKey: .tracks
+        )
+        try container.encodeIfPresent(
+            self.artists, forKey: .artists
+        )
+        
+        // MARK: Encode Release Date
+        // this is the only property that needs to be encoded
+        // in a custom manner
+        try container.encodeSpotifyAlbumDate(
+            self.releaseDate,
+            datePrecision: self.releaseDatePrecision,
+            forKey: .releaseDate
+        )
+        
+        try container.encodeIfPresent(
+            self.releaseDatePrecision,
+            forKey: .releaseDatePrecision
+        )
+        try container.encode(
+            self.uri, forKey: .uri
+        )
+        try container.encode(
+            self.id, forKey: .id
+        )
+        try container.encode(
+            self.images, forKey: .images
+        )
+        try container.encodeIfPresent(
+            self.popularity, forKey: .popularity
+        )
+        try container.encodeIfPresent(
+            self.label, forKey: .label
+        )
+        try container.encodeIfPresent(
+            self.genres, forKey: .genres
+        )
+        try container.encode(
+            self.href, forKey: .href
+        )
+        try container.encodeIfPresent(
+            self.externalURLs, forKey: .externalURLs
+        )
+        try container.encodeIfPresent(
+            self.externalIds, forKey: .externalIds
+        )
+        try container.encodeIfPresent(
+            self.albumType, forKey: .albumType
+        )
+        try container.encodeIfPresent(
+            self.albumGroup, forKey: .albumGroup
+        )
+        try container.encodeIfPresent(
+            self.availableMarkets, forKey: .availableMarkets
+        )
+        try container.encode(
+            self.copyrights, forKey: .copyrights
+        )
+        try container.encode(
+            self.restrictions, forKey: .restrictions
+        )
+        try container.encode(
+            self.type, forKey: .type
+        )
+       
+        
     }
     
-    
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case name
         case tracks
         case artists

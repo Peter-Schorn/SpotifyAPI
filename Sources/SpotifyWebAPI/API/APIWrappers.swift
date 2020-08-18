@@ -4,13 +4,19 @@ import Logger
 
 extension SpotifyAPI {
     
-    func getRequest<ResponseType: CustomDecodable>(
-        endpoint: URL,
+    func getRequest<ResponseType: Decodable>(
+        path: String,
+        queryItems: [String : LosslessStringConvertible?],
         requiredScopes: Set<Scope>,
         responseType: ResponseType.Type
     ) -> AnyPublisher<ResponseType, Error> {
 
-        logger.trace("")
+        let endpoint = Endpoints.apiEndpoint(
+            path,
+            queryItems: removeIfNil(queryItems)
+        )
+        
+        self.logger.trace("for endpoint: \(endpoint)")
         
         return self.refreshAccessToken()
             .tryMap { _ in

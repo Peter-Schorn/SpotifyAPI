@@ -3,9 +3,9 @@ import Foundation
 /// A Spotify [followers object][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#followers-object
-public struct Followers: CustomCodable, Hashable {
+public struct Followers: Codable, Hashable {
     
-    /// A link to the Web API endpoint providing full details of the followers;
+    /// A link to the Spotify web API endpoint providing full details of the followers;
     /// `nil` if not available. **Please note that this will always be set to nil**,
     /// as the Web API does not support it at the moment.
     public let href: String?

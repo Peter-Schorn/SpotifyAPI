@@ -4,7 +4,7 @@ import Foundation
 /// A Spotify [track link][1] object.
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link
-public struct TrackLink: CustomCodable, Hashable {
+public struct TrackLink: SpotifyURIConvertible, Hashable {
     
     /**
      Known [external urls][1] for this track.
@@ -18,7 +18,7 @@ public struct TrackLink: CustomCodable, Hashable {
      */
     public let externalURLs: [String: String]?
     
-    /// A link to the Web API endpoint
+    /// A link to the Spotify web API endpoint
     /// providing the full track object.
     public let href: String
     
@@ -32,7 +32,19 @@ public struct TrackLink: CustomCodable, Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
     
-    /// The object type. Always "track".
-    public let type: String
+    /// The object type. Always `track`.
+    public let type: IDCategory
+    
+}
+
+extension TrackLink: Codable {
+    
+    public enum CodingKeys: String, CodingKey {
+        case externalURLs = "external_urls"
+        case href
+        case uri
+        case id
+        case type
+    }
     
 }

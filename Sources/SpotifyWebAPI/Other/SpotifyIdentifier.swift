@@ -2,11 +2,20 @@ import Foundation
 import RegularExpressions
 import Logger
 
-/// A type that can convert itself to a Spotify URI.
+/// A type that can convert itself to a [Spotify URI][1].
+///
+/// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 public protocol SpotifyURIConvertible {
 
-    /// The unique resource identifier for the
-    /// Spotify content.
+    
+    /**
+     The unique resource identifier for the
+     Spotify content.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
     var uri: String { get }
 
 }
@@ -21,8 +30,8 @@ extension String: SpotifyURIConvertible {
 
 
 /**
- The Identifiers that appear near the beginning of a Spotify
- URI.
+ The Spotify ID Category, which is the identifier that appears
+ near the beginning of a Spotify URI.
  
  In this URI:
  ```
@@ -30,12 +39,12 @@ extension String: SpotifyURIConvertible {
  ```
  "track" is the id category.
  
- See the [web API reference][1].
+ Read more at the [Spotify web API reference][1].
  
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  - tag: IDCategory
  */
-public enum IDCategory: String, CaseIterable, CustomCodable, Hashable {
+public enum IDCategory: String, CaseIterable, Codable, Hashable {
 
     case artist
     case album
@@ -47,17 +56,17 @@ public enum IDCategory: String, CaseIterable, CustomCodable, Hashable {
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/local-files-spotify-playlists/
     case local
-    
+    /// A Spotify user.
+    case user
     
 }
-
 
 /// Encapsulates the various formats that Spotify
 /// uses to uniquely identify content.
 ///
 /// This struct provides a convientent way to convert between
 /// the different formats, which include the id, the uri, and the url.
-public struct SpotifyIdentifier: CustomCodable, Hashable {
+public struct SpotifyIdentifier: Codable, Hashable {
 
     /// Creates a comma separated string of ids from a sequence
     /// of uris. Throws an error if the ids could not be parsed
@@ -83,7 +92,6 @@ public struct SpotifyIdentifier: CustomCodable, Hashable {
 
     /// The unique resource identifier for the
     /// Spotify content.
-    @inlinable @inline(__always)
     public var uri: String {
         "spotify:\(idCategory.rawValue):\(id.strip())"
     }
@@ -113,13 +121,18 @@ public struct SpotifyIdentifier: CustomCodable, Hashable {
         self.idCategory = idCategory
     }
 
-    public init(uri: String) throws {
+    /// Creates an instance from a URI.
+    public init<URI: SpotifyURIConvertible>(
+        uri: URI
+    ) throws {
         
-        guard let captureGroups = try! uri
-                .regexMatch("spotify:(.*):(.*)")?.groups,
-                let categoryString = captureGroups[safe: 0]??.match,
-                let category = IDCategory(rawValue: categoryString),
-                let id = captureGroups[safe: 1]??.match
+        guard
+            let captureGroups = try! uri.uri
+                    .regexMatch("spotify:(.*):(.*)")?.groups,
+            captureGroups.count == 2,
+            let categoryString = captureGroups[0]?.match,
+            let category = IDCategory(rawValue: categoryString),
+            let id = captureGroups[1]?.match
         else {
             throw SpotifyLocalError.identifierParsingError(
                 "could not parse spotify id from uri: '\(uri)'"
@@ -130,20 +143,23 @@ public struct SpotifyIdentifier: CustomCodable, Hashable {
         self.idCategory = category
 
     }
-
+    
+    /// Creates an instance from a Spotify url to the
+    /// resource.
     public init(url: URL) throws {
         
         let paths = url.pathComponents
-        guard let id = paths[backSafe: 1],
-                let categoryString = paths[backSafe: 2],
-                let category = IDCategory(rawValue: categoryString)
+        
+        guard
+            paths.count >= 2,
+            let category = IDCategory(rawValue: paths[2])
         else {
             throw SpotifyLocalError.identifierParsingError(
                 "could not parse spotify id from url: '\(url)'"
             )
         }
         
-        self.id = id
+        self.id = paths[1]
         self.idCategory = category
         
     }

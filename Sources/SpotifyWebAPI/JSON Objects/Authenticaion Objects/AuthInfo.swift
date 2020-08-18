@@ -22,10 +22,10 @@ public struct AuthInfo: Hashable {
     /// Set to true to print debugging info to the console.
     public static var printDebugingOutput = false
     
-    public var accessToken: String
-    public var refreshToken: String?
-    public var expirationDate: Date
-    public var scopes: Set<Scope>
+    public let accessToken: String
+    public let refreshToken: String?
+    public let expirationDate: Date
+    public let scopes: Set<Scope>
     
     public init(
         accessToken: String,
@@ -39,11 +39,6 @@ public struct AuthInfo: Hashable {
         self.scopes = scopes
     }
     
-    mutating func updateAfterRefresh(to: Self) {
-        
-    }
-    
-    
     /// Determines whether the access token is expired
     /// within the given tolerance.
     ///
@@ -53,15 +48,22 @@ public struct AuthInfo: Hashable {
     public func isExpired(tolerance: Double = 60) -> Bool {
         
         let isExpired = expirationDate.addingTimeInterval(tolerance) <= Date()
-        print(
-            """
-
-            AuthInfo.isExpired: \(isExpired)
-            expiration date: \(expirationDate.localDescription)
-            current date: \(Date().localDescription)
-
-            """
-        )
+        let expirationDateString = expirationDate
+                .description(with: .autoupdatingCurrent)
+        let currentDateString = Date()
+                .description(with: .autoupdatingCurrent)
+        
+        if Self.printDebugingOutput {
+            print(
+                """
+                
+                AuthInfo.isExpired: \(isExpired)
+                expiration date: \(expirationDateString)
+                current date: \(currentDateString)
+                
+                """
+            )
+        }
         return isExpired
     }
 
@@ -70,11 +72,15 @@ public struct AuthInfo: Hashable {
 extension AuthInfo: CustomDebugStringConvertible {
     
     public var debugDescription: String {
+        
+        let expirationDateString = expirationDate
+                .description(with: .autoupdatingCurrent)
+        
         return """
         AuthInfo(
             access_token: "\(accessToken)"
             scopes: \(scopes.map(\.rawValue))
-            expirationDate: \(expirationDate.localDescription)
+            expirationDate: \(expirationDateString)
             refresh_token: "\(refreshToken ?? "nil")"
         )
         """
@@ -84,7 +90,7 @@ extension AuthInfo: CustomDebugStringConvertible {
 
 
 
-extension AuthInfo: CustomCodable {
+extension AuthInfo: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -113,14 +119,32 @@ extension AuthInfo: CustomCodable {
         }
         // if the json data was retrieved from elsewhere,
         // such as persistent storage,
-        // then the expiration date will be stored as a floating
-        // point value representing the number of seconds since
-        // the references date (00:00:00 UTC on 1 January 2001),
-        // which is the default for decoding dates.
+        // then the expiration date will be stored in
+        // ISO 8601 format as Coordinated Universal Time (UTC)
+        // with a zero offset: "YYYY-MM-DD'T'HH:mm:SSZ".
+        // this is how Spotify formats timestamps, so the expiration
+        // date is formatted this way for consistency.
+        // see https://developer.spotify.com/documentation/web-api/#timestamps
         else {
-            self.expirationDate = try container.decode(
-                Date.self, forKey: .expirationDate
+            let dateString = try container.decode(
+                String.self, forKey: .expirationDate
             )
+            if let expirationDate = DateFormatter
+                    .spotifyTimeStamp.date(from: dateString) {
+                self.expirationDate = expirationDate
+            }
+            else {
+                throw DecodingError.dataCorrupted(
+                    DecodingError.Context(
+                        codingPath: [CodingKeys.expirationDate],
+                        debugDescription: """
+                        A date could not be parsed from the string \
+                        '\(dateString)'. Expected format: \
+                        'YYYY-MM-DD'T'HH:mm:SSZ'.
+                        """
+                    )
+                )
+            }
         }
         
         let scopeString = try container.decode(

@@ -1,13 +1,19 @@
 import Foundation
 
+
 /// The data from the Spotify web API could not be decoded
 /// into any of the expected types.
 ///
 /// This is almost always due to an error in this library.
 /// Report a bug if you get this error.
-public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
+public struct SpotifyDecodingError2: LocalizedError, CustomStringConvertible {
     
-    public static var fileURL: URL {
+    /// The file to write the json data to when this
+    /// error is created. By default, it is nil.
+    ///
+    /// The data will be converted to a string, then written
+    /// to the file, unless it can't be converted to a string.
+    public static var dataDumpfileURL: URL? {
         let dateString = DateFormatter.shortTime.string(from: Date())
         return URL(fileURLWithPath:
             "/Users/pschorn/Desktop/response_\(dateString).json"
@@ -48,11 +54,12 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         self.statusCode = statusCode
         self.underlyingError = underlyingError
         
-        if let data = rawData,
-                var dataString = String(data: data, encoding: .utf8) {
-            dataString = "\n\n\n" + dataString
-            try! dataString.write(
-                to: Self.fileURL, atomically: true, encoding: .utf8
+        if let fileURL = Self.dataDumpfileURL,
+                let data = rawData,
+                let dataString = String(data: data, encoding: .utf8) {
+            
+            try? dataString.write(
+                to: fileURL, atomically: true, encoding: .utf8
             )
         }
     }
@@ -62,31 +69,23 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         let dataString = self.dataString
                 ?? "The data could not be decoded into a string"
         
-        var underlyingErrorString = ""
-        if let error = underlyingError {
-            dump(error, to: &underlyingErrorString)
-        }
-        else {
-            underlyingErrorString = "nil"
-        }
+        let underlyingErrorString = underlyingError.map { "\($0)" }
+                ?? "nil"
 
         let statusCodeString = statusCode.map(String.init) ?? "nil"
         
-        var codingPath = ""
-        if let path = (underlyingError as? DecodingError)?
-                .prettyCodingPath {
-            codingPath = "\nformatted coding path: \(path)"
-        }
-        
         return """
             SpotifyDecodingError: The data from the Spotify web API \
-            could not be decoded into '\(expectedResponseObject)'
-            http status code: \(statusCodeString)\(codingPath)
+            could not be decoded into '\(expectedResponseObject)'.
+            http status code: \(statusCodeString)
             Underlying error:
             \(underlyingErrorString)
             raw data:
             \(dataString)
             """
     }
+    
+    public var errorDescription: String? { description }
+    
 
 }

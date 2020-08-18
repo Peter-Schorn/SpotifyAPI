@@ -19,7 +19,7 @@ enum Endpoints {
     /// "accounts.spotify.com"
     /// ```
     static let accountsBase = "accounts.spotify.com"
-    /// The base URL for the web API.
+    /// The base URL for the Spotify web API.
     /// ```
     /// "api.spotify.com"
     /// ```
@@ -44,22 +44,21 @@ enum Endpoints {
     /// ```
     static let getRefreshAndAccessTokens = "/api/token"
     
-    /// Use this method to make all of the endpoints
-    /// other than the authorization endpoints.
-    ///
-    /// Makes an endpoint beginning with:
-    /// ```
-    /// "api.spotify.com/v1"
-    /// ```
-    ///
-    /// Do not forget to add a leading `/` to the path component.
-    ///
-    /// - Parameters:
-    ///   - path: A path to append to the url.
-    ///   - queryItems: Query items to add to the url.
-    ///
-    /// - Returns: The endpoint with the provided path and
-    ///       query items appended to it.
+    /**
+     Use this method to make all of the endpoints
+     other than the authorization endpoints.
+     
+     Makes an endpoint beginning with:
+     ```
+     "api.spotify.com/v1"
+     ```
+     Do not forget to add a leading `/` to the path component.
+     - Parameters:
+       - path: A path to append to the url.
+       - queryItems: Query items to add to the url.
+     - Returns: The endpoint with the provided path and
+           query items appended to it.
+     */
     static func apiEndpoint(
         _ path: String,
         queryItems: [String: String]? = nil
