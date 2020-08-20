@@ -6,23 +6,46 @@ import Combine
 /// The central class in this library.
 /// It manages the authorization process and provides methods
 /// for all of the endpoints.
-public class SpotifyAPI {
+public class SpotifyAPI: ObservableObject {
     
     // MARK: - Public Variables -
     
+    /// The client id for your application
     public let clientID: String
+    
+    /// The client secret for your application
     public let clientSecret: String
-    public let authInfo = CurrentValueSubject<AuthInfo?, Never>(nil)
+    
+    /**
+     The authorization info required for the [Authorization Code Flow][1].
+     Attach a subscriber to this `currentValueSubject` to be notified
+     when this value changes. This will hapen every time the
+     access token is refreshed and after you authorize your app
+     for the first time or after you request access to additional
+     scopes.
+     
+     Contains the following properties:
+     
+     * The access token
+     * the refresh token
+     * the expiration date for the access token
+     * the scopes that have been authorized for the access token
+     
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     */
+    // public let authInfo = CurrentValueSubject<AuthInfo?, Never>(nil)
+    
+    @Published public var authInfo: AuthInfo? = nil
     
     // MARK: - Loggers -
     
-    public let logger = Logger(label: "SpotifyAPI")
-    public let authLogger = Logger(label: "SpotifyAuthAPI")
+    public let spotifyAPI = Logger(label: "SpotifyAPI", level: .warning)
+    public let authLogger = Logger(label: "SpotifyAuthAPI", level: .trace)
     
-    private func setupLoggers() {
-        self.logger.level = .trace
-        self.authLogger.level = .trace
-        AuthInfo.printDebugingOutput = true
+    
+    private func setupDebugging() {
+        
         SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
             "/Users/pschorn/Desktop/"
         )
@@ -56,7 +79,7 @@ public class SpotifyAPI {
     ) {
         self.clientID = clientID
         self.clientSecret = clientSecret
-        self.setupLoggers()
+        self.setupDebugging()
     }
     
     

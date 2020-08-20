@@ -3,12 +3,12 @@ import Combine
 import Logger
 
 // MARK: The methods for retrieving music content
-//       (e.g., songs, albums, artists, playlists)
+// (e.g., songs, albums, artists)
 
 public extension SpotifyAPI {
     
     /**
-     Gets a single artist.
+     Get a single artist.
      
      No scopes are required for this endpoint.
     
@@ -22,14 +22,14 @@ public extension SpotifyAPI {
      [1]: https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/
      [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
      */
-    func getArtist<URI: SpotifyURIConvertible>(
-        uri: URI
+    func getArtist(
+        uri: SpotifyURIConvertible
     ) -> AnyPublisher<Artist, Error>  {
         
         do {
             let artistId = try SpotifyIdentifier(uri: uri).id
             
-            self.logger.trace("uri: \(uri)")
+            self.spotifyAPI.trace("uri: \(uri)")
             return self.getRequest(
                 path: "/artists/\(artistId)",
                 queryItems: [:],
@@ -61,8 +61,8 @@ public extension SpotifyAPI {
      [1]: https://developer.spotify.com/documentation/web-api/reference/artists/get-several-artists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
      */
-    func getArtists<URI: SpotifyURIConvertible>(
-        uris: [URI]
+    func getArtists(
+        uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Artist?], Error> {
         
         do {
@@ -80,13 +80,9 @@ public extension SpotifyAPI {
                 if let artists = dict["artists"] {
                     return artists
                 }
-                let msg = """
-                    SpotifyAPI: getArtists: artists key for
-                    top-level dict was missing. raw data:\n
-                    \(dict)
-                    """
-                self.logger.critical("\(msg)")
-                throw SpotifyLocalError.other(msg)
+                throw SpotifyLocalError.topLevelKeyNotFound(
+                    key: "artists", dict: dict
+                )
             }
             .eraseToAnyPublisher()
             
@@ -244,67 +240,4 @@ public extension SpotifyAPI {
         
     }
     
-    /**
-     Gets all of the tracks in a playlist.
-     
-     No scopes are required for this endpoint.
-     
-     Compared to the `Playlist` method, this method
-     does not return any data about the playlist itself.
-     
-     Read more at the [Spotify web API reference][1].
-     
-     - Parameters:
-       - uri: The URI for the playlist.
-       - limit: *Optional*. The maximum number of items to return.
-             Default: 100; minimum: 1; maximum: 100.
-       - offset: *Optional*. The index of the first item to return.
-             Default: 0 (the first object).
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
-            or the string from_token. Provide this parameter if you want
-            to apply [Track Relinking][3].
-     - Returns: An array of tracks wrapped inside a `PlaylistItem`
-           wrapped insde a `PagingObject`.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
-     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     */
-    func playlistTracks<URI: SpotifyURIConvertible>(
-        uri: URI,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        market: String? = nil
-    ) -> AnyPublisher<PlaylistTracks, Error> {
-        
-        do {
-            
-            let playlistId = try SpotifyIdentifier(uri: uri).id
-            
-            return self.getRequest(
-                path: "/playlists/\(playlistId)/tracks",
-                queryItems: [
-                    "limit": limit,
-                    "offset": offset,
-                    "market": market,
-                    // restrict response to only tracks.
-                    "additional_types": IDCategory.track.rawValue
-                ],
-                requiredScopes: [],
-                responseType: PlaylistTracks.self
-            )
-            
-        } catch {
-            return error.anyFailingPublisher(PlaylistTracks.self)
-        }
-        
-    }
-    
- 
-    func addToPlaylist<URI: SpotifyURIConvertible>(
-        uris: [URI],
-        position: Int? = nil
-    ) {
-        
-    }
 }

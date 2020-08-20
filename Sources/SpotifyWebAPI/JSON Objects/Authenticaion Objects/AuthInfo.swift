@@ -19,12 +19,23 @@ import Logger
  */
 public struct AuthInfo: Hashable {
     
-    /// Set to true to print debugging info to the console.
-    public static var printDebugingOutput = false
-    
+    /// Used in all API requests to authenticate
+    /// your application.
     public let accessToken: String
+    
+    /// Used to retrieve a new refresh token when
+    /// the access token expires.
     public let refreshToken: String?
+    
+    /// The date the access token expires.
+    /// You should normally use `self.isExpired(tolerance:)`
+    /// to check if the token is expired.
     public let expirationDate: Date
+    
+    /// The [authorization scopes][1] that have been granted
+    /// for the access token.
+    ///
+    /// [1]: https://developer.spotify.com/documentation/general/guides/scopes/
     public let scopes: Set<Scope>
     
     public init(
@@ -43,28 +54,10 @@ public struct AuthInfo: Hashable {
     /// within the given tolerance.
     ///
     /// - Parameter tolerance: The tolerance in seconds (default 60).
-    /// - Returns: `true` if the expirationDate + `tolerance` is
+    /// - Returns: `true` if `expirationDate` + `tolerance` is
     ///       equal to or before the current date. Else, `false`.
     public func isExpired(tolerance: Double = 60) -> Bool {
-        
-        let isExpired = expirationDate.addingTimeInterval(tolerance) <= Date()
-        let expirationDateString = expirationDate
-                .description(with: .autoupdatingCurrent)
-        let currentDateString = Date()
-                .description(with: .autoupdatingCurrent)
-        
-        if Self.printDebugingOutput {
-            print(
-                """
-                
-                AuthInfo.isExpired: \(isExpired)
-                expiration date: \(expirationDateString)
-                current date: \(currentDateString)
-                
-                """
-            )
-        }
-        return isExpired
+        return expirationDate.addingTimeInterval(tolerance) <= Date()
     }
 
 }
@@ -113,6 +106,7 @@ extension AuthInfo: Codable {
         if let expiresInSeconds = try? container.decode(
             Int.self, forKey: .expiresInSeconds
         ) {
+
             self.expirationDate = Date(
                 timeInterval: Double(expiresInSeconds), since: Date()
             )
@@ -129,6 +123,7 @@ extension AuthInfo: Codable {
             let dateString = try container.decode(
                 String.self, forKey: .expirationDate
             )
+            
             if let expirationDate = DateFormatter
                     .spotifyTimeStamp.date(from: dateString) {
                 self.expirationDate = expirationDate
@@ -159,7 +154,12 @@ extension AuthInfo: Codable {
         
         try container.encode(accessToken, forKey: .accessToken)
         try container.encode(refreshToken, forKey: .refreshToken)
-        try container.encode(expirationDate, forKey: .expirationDate)
+        
+        let expirationDateString = DateFormatter.spotifyTimeStamp
+                .string(from: expirationDate)
+        
+        try container.encode(expirationDateString, forKey: .expirationDate)
+        
         let scopeString = Scope.makeString(scopes)
         try container.encode(scopeString, forKey: .scopes)
     }

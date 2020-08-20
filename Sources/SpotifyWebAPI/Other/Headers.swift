@@ -9,6 +9,7 @@ enum Headers {
     /// ```
     /// ["Authorization": "Bearer \(accessToken)"]
     /// ```
+    /// - Parameter accessToken: The Access token from Spotify.
     static func bearerAuthorization(
         _ accessToken: String
     ) -> [String: String] {

@@ -19,12 +19,23 @@ public extension SpotifyAPI {
     )!
     
     /**
+     Returns `true` if the application is authorized
+     for the specified scopes, else `false`.
+
+     - Parameter scopes: [Spotify Authorizaion Scopes][1].
+    
+     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     */
+    func isAuthorized(for scopes: Set<Scope>) -> Bool {
+        return (try? self.ensureAuthorized(forScopes: scopes)) != nil
+    }
+    
+    /**
      The first step in the [Authorization Code Flow][1].
      
      Creates the URL that is used to request authorization for
-     your app. You can decide how to open the url. Typically,
-     this URL is opened in the web browser. However, you may wish
-     to display it in a web
+     your app. Open in URL in a browser/webview so that the user can
+     login to their Spotify account and authorize your app.
      
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
@@ -37,6 +48,15 @@ public extension SpotifyAPI {
              may be automatically redirected to the `redirectURI`.
              If `true`, the user will not be automatically
              redirected and will have to approve the app again.
+       - state: Optional, but strongly recommended. The state can be useful for
+                correlating requests and responses. Because your redirect_uri can
+                be guessed, using a state value can increase your assurance that
+                an incoming connection is the result of an authentication request.
+                If you generate a random string or encode the hash of some client
+                state (e.g., a cookie) in this state variable, you can validate the
+                response to additionally ensure that the request and response
+                originated in the same browser. This provides protection against
+                attacks such as cross-site request forgery.
      - Returns: The URL that must be opened to authorize your app.
      
      - Warning: **DO NOT add a forward-slash to the end of the redirect URI**.
@@ -49,60 +69,96 @@ public extension SpotifyAPI {
     func makeAuthorizationURL(
         redirectURI: URL,
         scopes: Set<Scope>,
-        showDialog: Bool
+        showDialog: Bool,
+        state: String? = nil
     ) -> URL {
         
         return URL(
             scheme: "https",
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
-            queryItems: [
+            queryItems: removeIfNil([
                 "client_id": self.clientID,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
-                "show_dialog": "\(showDialog)"
-            ]
+                "show_dialog": "\(showDialog)",
+                "state": state
+            ])
         )!
         
     }
     
     /**
      The second step in the [Authorization Code Flow][1].
-    
-     After the user either authorizes or denies authorization
-     for your app, it will redirect to the redirect uri you specified
-     with query parameters appended to it.
+     
+     After you open the url from `makeAuthorizationURL` and the user either
+     authorizes or denies authorization for your app, Spotify will redirect
+     to the redirect uri you specified with query parameters appended to it.
      Pass this URL into this method to request access and refresh tokens.
-    
+     
+     These tokens, along with the scopes that the access token is
+     authorized for and its expiration date, will be stored in the
+     `@Published var authInfo` instance property of this class.
+     You must subscribe to that publisher to be notified of all
+     changes to the authorization info. For this reason, the output
+     of this publisher is `Void`.
+     
+     When subscribing to this publisher, consider using the convienence
+     method `sink(receiveCompletion:)`, which only takes a completion
+     handler. Available for all publishers where `Output` == `Void`.
+     
+     - Parameters:
+       - redirectURI: The redirect URI with query parameters appended to it.
+       - state: The value of the state parameter that you provided when
+             making the authorization URL. If this is non-nil and doesn't
+             match the value for the state parameter found in the query
+             string of `redirectURIWithQuery`, an error will be thrown.
+     
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      
      - Tag: requestAccessAndRefreshTokens-redirectURIWithQuery
      */
     func requestAccessAndRefreshTokens(
-        redirectURIWithQuery redirectURI: URL
-    ) -> AnyPublisher<AuthInfo, Error> {
+        redirectURIWithQuery redirectURI: URL,
+        state: String? = nil
+    ) -> AnyPublisher<Void, Error> {
        
         self.authLogger.trace("raw url: \(redirectURI)")
         
-        if let code = redirectURI.queryItemsDict["code"] {
+        let queryDict = redirectURI.queryItemsDict
+        
+        if let code = queryDict["code"] {
             
-            // MARK: golden path
-            return self._requestAccessAndRefreshTokens(
-                code: code,
-                redirectURI: redirectURI
+            if let redirectURIstate = queryDict["state"],
+                    let state = state {
+                
+                if redirectURIstate != state {
+                    return SpotifyLocalError.invalidState(
+                        supplied: state, received: redirectURIstate
+                    )
+                    .anyFailingPublisher(Void.self)
+                }
+            }
+
+            let baseRedirectURI = redirectURI
                     .removingQueryItems()
                     .removingTrailingSlashInPath()
+
+            // MARK: golden path
+            return self._requestAccessAndRefreshTokens(
+                baseRedirectURI: baseRedirectURI,
+                code: code
             )
         }
         
-        if let error = redirectURI.queryItemsDict["error"] {
+        if let error = queryDict["error"] {
             // this is the way that the authorization should fail
             self.authLogger.warning("redirect uri query has error")
             return SpotifyAuthorizationError(
-                error: error, state: redirectURI.queryItemsDict["state"]
+                error: error, state: queryDict["state"]
             )
-            .anyFailingPublisher(AuthInfo.self)
+            .anyFailingPublisher(Void.self)
             
         }
         
@@ -111,26 +167,23 @@ public extension SpotifyAPI {
             "an unknown error occured when handling the redirect URI:\n" +
             redirectURI.absoluteString
         )
-        .anyFailingPublisher(AuthInfo.self)
+        .anyFailingPublisher(Void.self)
             
     }
     
-    func _requestAccessAndRefreshTokens(
-        code: String,
-        redirectURI: URL
-    ) -> AnyPublisher<AuthInfo, Error> {
-        
-        
-        self.authLogger.trace(
-            "clientID: '\(clientID)'; clientSecret: '\(clientSecret)'"
-        )
+    private func _requestAccessAndRefreshTokens(
+        baseRedirectURI: URL,
+        code: String
+    ) -> AnyPublisher<Void, Error> {
         
         let requestBody = TokensRequest(
             code: code,
-            redirectURI: redirectURI,
+            redirectURI: baseRedirectURI,
             clientId: clientID,
             clientSecret: clientSecret
         )
+        
+        self.authLogger.notice("\n---GETTING AUTH INFO---\n")
         
         return URLSession.shared.dataTaskPublisher(
             url: Self.getRefreshAndAccessTokensURL,
@@ -140,10 +193,11 @@ public extension SpotifyAPI {
         )
         .spotifyDecode(AuthInfo.self)
         .logError(to: self.authLogger)
-        .handleEvents(receiveOutput: { authInfo in
-            self.authLogger.trace("recieved authInfo:\n\(authInfo)")
-            self.authInfo.value = authInfo
-        })
+        .receive(on: RunLoop.main)
+        .map { authInfo in
+            self.authLogger.notice("recieved authInfo:\n\(authInfo)")
+            self.authInfo = authInfo
+        }
         .eraseToAnyPublisher()
         
     }
@@ -155,18 +209,17 @@ public extension SpotifyAPI {
      **You shouldn't need to call this method**. It gets
      called automatically each time you make a request to the
      Spotify API.
-    
+     
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
-             Defaults to `true`.
        - tolerance: The tolerance in seconds to use when determining
              if the token is expired. Defaults to 60.
              The token is considered expired if
-             the expirationDate + `tolerance` is equal to or
+             `expirationDate` + `tolerance` is equal to or
              before the current date.
      */
     func refreshAccessToken(
-        onlyIfExpired: Bool = true,
+        onlyIfExpired: Bool,
         tolerance: Double = 60
     ) -> AnyPublisher<AuthInfo, Error> {
         
@@ -175,7 +228,7 @@ public extension SpotifyAPI {
         do {
             
             // ensure that the user has authorized their app.
-            guard let authInfo = self.authInfo.value else {
+            guard let authInfo = self.authInfo else {
                 throw SpotifyLocalError.unauthorized(
                     "can't refresh access token: no authorization"
                 )
@@ -221,6 +274,7 @@ public extension SpotifyAPI {
                 body: requestBody.formURLEncoded()
             )
             .spotifyDecode(AuthInfo.self)
+            .receive(on: RunLoop.main)
             .handleEvents(receiveOutput: { newAuthInfo in
                 self.authLogger.trace("recieved new access token")
                 if newAuthInfo.refreshToken != nil {
@@ -228,14 +282,14 @@ public extension SpotifyAPI {
                         "also recieved new refresh token"
                     )
                 }
-                if self.authInfo.value == nil {
+                if self.authInfo == nil {
                     self.authLogger.error(
                         "self.authInfo was nil after " +
                         "retrieving new authInfo",
                         function: refreshAccessTokenFunction
                     )
                 }
-                self.authInfo.value = AuthInfo(
+                self.authInfo = AuthInfo(
                     accessToken: newAuthInfo.accessToken,
                     refreshToken: newAuthInfo.refreshToken ?? refreshToken,
                     expirationDate: newAuthInfo.expirationDate,
@@ -250,22 +304,25 @@ public extension SpotifyAPI {
 
     }
     
-    
-    // MARK: - Internal Methods -
+}
+
+// MARK: - Internal Methods -
+
+extension SpotifyAPI {
     
     /// Ensures that `self.authInfo` is not `nil` and that the app is
     /// authorized for the specified scopes. Else, throws an error.
     ///
     /// - Parameter requiredScopes: A set of Spotify scopes.
     ///
-    /// - Returns: `self.authInfo` unwrapped.
-    internal func ensureAuthorized(
+    /// - Returns: `self.authInfo.value` unwrapped.
+    func ensureAuthorized(
         forScopes requiredScopes: Set<Scope>
     ) throws -> AuthInfo {
         
-        self.authLogger.trace("\(requiredScopes)")
+        self.authLogger.trace("forScopes: \(requiredScopes)")
         
-        guard let authInfo = self.authInfo.value else {
+        guard let authInfo = self.authInfo else {
             throw SpotifyLocalError.unauthorized("no authorization")
         }
         

@@ -61,21 +61,28 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     
 }
 
-/// Encapsulates the various formats that Spotify
-/// uses to uniquely identify content.
-///
-/// This struct provides a convientent way to convert between
-/// the different formats, which include the id, the uri, and the url.
-public struct SpotifyIdentifier: Codable, Hashable {
+/**
+ Encapsulates the various formats that Spotify
+ uses to uniquely identify content. See [spotify uris and ids][1].
+
+ You can pass an instance of this struct into any method
+ that accepts a `SpotifyURIConvertible` type.
+
+ This struct provides a convientent way to convert between
+ the different formats, which include the id, the uri, and the url.
+
+ [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+ */
+public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /// Creates a comma separated string of ids from a sequence
-    /// of uris. Throws an error if the ids could not be parsed
+    /// of uris. Throws an error if any of the ids could not be parsed
     /// from the uris.
     ///
     /// - Parameter uris: A sequence of Spotify uris.
     static func commaSeparatedIdsString<S: Sequence>(
         _ uris: S
-    ) throws -> String where S.Element: SpotifyURIConvertible {
+    ) throws -> String where S.Element == SpotifyURIConvertible {
         
         return try uris.map { uri in
             return try Self(uri: uri.uri).id
@@ -122,8 +129,8 @@ public struct SpotifyIdentifier: Codable, Hashable {
     }
 
     /// Creates an instance from a URI.
-    public init<URI: SpotifyURIConvertible>(
-        uri: URI
+    public init(
+        uri: SpotifyURIConvertible
     ) throws {
         
         guard
@@ -135,7 +142,8 @@ public struct SpotifyIdentifier: Codable, Hashable {
             let id = captureGroups[1]?.match
         else {
             throw SpotifyLocalError.identifierParsingError(
-                "could not parse spotify id from uri: '\(uri)'"
+                "could not parse spotify id and/or " +
+                "id category from string: '\(uri)'"
             )
         }
 

@@ -1,16 +1,22 @@
 import Foundation
 
-/// The data from the Spotify web API could not be decoded
-/// into any of the expected types.
-///
-/// This is almost always due to an error in this library.
-/// Report a bug if you get this error.
+/**
+ The data from the Spotify web API could not be decoded
+ into any of the expected types.
+
+ Assign a folder URL to the static var `dataDumpfolder`
+ to write the json response from the Spotify web API to disk
+ to when instances of this error are created.
+ This is intended for debugging purposes. By default, it is nil.
+
+ This is almost always due to an error in this library.
+ Report a bug if you get this error.
+ */
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
-    /// The folder to write the `dataString`
-    /// (in other words, the json response from the Spotify web API)
-    /// to when instances of this error are created.
-    /// This is intended for debugging purposes.
+    /// The folder to write the json response from
+    /// the Spotify web API to when instances of this error
+    /// are created. This is intended for debugging purposes.
     /// By default, it is nil.
     public static var dataDumpfolder: URL? = nil
     
@@ -19,17 +25,15 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /// this into a string.
     public let rawData: Data?
     
-    /// The `rawData` decoded into a string or nil
-    /// if it couldn't be decoded.
-    public var dataString: String?
-    
     /// The expected response type.
     public let expectedResponseType: Any.Type
     
     /// The http status code.
     public let statusCode: Int?
     
-    /// Usually one of the JSON decoding error types.
+    /// Usually [DecodingError][1].
+    ///
+    /// [1]: https://developer.apple.com/documentation/swift/decodingerror
     public let underlyingError: Error?
     
     public init (
@@ -40,15 +44,13 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     ) {
         self.rawData = rawData
         
-        self.dataString = rawData.map {
-            String(data: $0, encoding: .utf8)
-        } as? String
-        
         self.expectedResponseType = responseType
         self.statusCode = statusCode
         self.underlyingError = underlyingError
-        
-        let dataString = self.dataString
+
+        let dataString = rawData.map {
+            String(data: $0, encoding: .utf8)
+        } as? String
                 ?? "The data could not be decoded into a string"
         
         if let folder = Self.dataDumpfolder {
@@ -65,23 +67,22 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
     public var description: String {
         
-        let dataString = self.dataString
+        let dataString = rawData.map {
+            String(data: $0, encoding: .utf8)
+        } as? String
                 ?? "The data could not be decoded into a string"
         
         var underlyingErrorString = ""
-        if let error = underlyingError {
+        _ = underlyingError.map { error in
             dump(error, to: &underlyingErrorString)
         }
-        else {
-            underlyingErrorString = "nil"
-        }
-
+        
         let statusCodeString = statusCode.map(String.init) ?? "nil"
         
         var codingPath = ""
         if let path = (underlyingError as? DecodingError)?
                 .prettyCodingPath {
-            codingPath = "\nformatted coding path: \(path)"
+            codingPath = "\npretty coding path: \(path)"
         }
         
         return """

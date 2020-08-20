@@ -19,16 +19,18 @@ enum Endpoints {
     /// "accounts.spotify.com"
     /// ```
     static let accountsBase = "accounts.spotify.com"
+    
     /// The base URL for the Spotify web API.
     /// ```
     /// "api.spotify.com"
     /// ```
     static let apiBase = "api.spotify.com"
-    /// The api version.
+    
+    /// The api version 1.
     /// ```
     /// "/v1"
     /// ```
-    static let apiVersion = "/v1"
+    static let apiVersion1 = "/v1"
     
     // MARK: - Authorization -
     
@@ -46,11 +48,12 @@ enum Endpoints {
     
     /**
      Use this method to make all of the endpoints
-     other than the authorization endpoints.
+     other than those for authorizing the apps and
+     retrieving/refreshing the tokens.
      
      Makes an endpoint beginning with:
      ```
-     "api.spotify.com/v1"
+     "https://api.spotify.com/v1"
      ```
      Do not forget to add a leading `/` to the path component.
      - Parameters:
@@ -67,7 +70,7 @@ enum Endpoints {
         return URL.init(
             scheme: "https",
             host: apiBase,
-            path: apiVersion + path,
+            path: apiVersion1 + path,
             queryItems: queryItems
         )!
         

@@ -100,14 +100,13 @@ public extension DecodingError {
                 return context
             @unknown default:
                 return nil
-                
-            
         }
     }
     
-    
-    /// Formats the coding path as if you
-    /// were
+    /// Formats the coding path as if you were
+    /// accessing nested properties from a Swift type;
+    /// e.g., "album.tracks[1]".
+    ///
     var prettyCodingPath: String? {
     
         guard let context = self.context else {
@@ -141,8 +140,10 @@ public extension Sequence where
 {
     
     /// Creates a comma separated string of the raw values of
-    /// the sequence's elements.
-    /// No spaces are added between the commas.
+    /// the sequence's elements. No spaces are added between the commas.
+    ///
+    /// Available when Sequence.Element conforms to `RawRepresentable`
+    /// and `Element.RawValue` conforms to `StringProtocol`.
     ///
     /// Equivalent to `self.map(\.rawValue).joined(separator: ",")`.
     @inlinable
