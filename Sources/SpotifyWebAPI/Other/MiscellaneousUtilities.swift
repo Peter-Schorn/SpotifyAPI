@@ -105,7 +105,7 @@ public extension DecodingError {
     
     /// Formats the coding path as if you were
     /// accessing nested properties from a Swift type;
-    /// e.g., "album.tracks[1]".
+    /// e.g., "items[27].track.album.release_date".
     ///
     var prettyCodingPath: String? {
     

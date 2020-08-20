@@ -12,7 +12,7 @@ import Foundation
  [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
  */
 public struct PlaylistItem<Item>: Hashable where
-    Item: SpotifyURIConvertible & Codable & Hashable
+    Item: Codable & Hashable
 
 {
     /// The date and time the track or episode was added.
@@ -28,6 +28,8 @@ public struct PlaylistItem<Item>: Hashable where
     public let addedBy: SpotifyUser?
     
     /// Whether or not the item is from a [local file][1].
+    /// Expect many of the other properties to be nil when
+    /// this is `true`.
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
     public let isLocal: Bool?
@@ -44,21 +46,46 @@ extension PlaylistItem: Codable {
         case addedAt = "added_at"
         case addedBy = "added_by"
         case isLocal = "is_local"
-        case item
+        case item = "track"
     }
     
-    public static func decoded(
-        from data: Data
-    ) throws -> Self<Item> {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(.spotifyTimeStamp)
-        return try decoder.decode(Self<Item>.self, from: data)
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
+        )
+        
+        self.addedAt = try container.decodeSpotifyTimestampIfPresent(
+            forKey: .addedAt
+        )
+        self.addedBy = try container.decodeIfPresent(
+            SpotifyUser.self, forKey: .addedBy
+        )
+        self.isLocal = try container.decodeIfPresent(
+            Bool.self, forKey: .isLocal
+        )
+        self.item = try container.decode(Item.self, forKey: .item)
+        
     }
-
-    public func encoded() throws -> Data {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(.spotifyTimeStamp)
-        return try encoder.encode(self)
+    
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(
+            keyedBy: CodingKeys.self
+        )
+        try container.encodeSpotifyTimestampIfPresent(
+            self.addedAt, forKey: .addedAt
+        )
+        try container.encode(
+            self.addedBy, forKey: .addedBy
+        )
+        try container.encodeIfPresent(
+            self.isLocal, forKey: .isLocal
+        )
+        try container.encode(
+            self.item, forKey: .item
+        )
+        
     }
     
     

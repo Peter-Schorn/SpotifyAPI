@@ -75,11 +75,12 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
  */
 public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
-    /// Creates a comma separated string of ids from a sequence
-    /// of uris. Throws an error if any of the ids could not be parsed
-    /// from the uris.
+    /// Creates a comma separated string (with no spaces) of ids from a
+    /// sequence of uris. Throws an error if any of the ids could not
+    /// be parsed from the uris (used in the query parameter of some
+    /// requests).
     ///
-    /// - Parameter uris: A sequence of Spotify uris.
+    /// - Parameter uris: A sequence of Spotify URIs.
     static func commaSeparatedIdsString<S: Sequence>(
         _ uris: S
     ) throws -> String where S.Element == SpotifyURIConvertible {
@@ -99,36 +100,36 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /// The unique resource identifier for the
     /// Spotify content.
+    @inlinable
     public var uri: String {
         "spotify:\(idCategory.rawValue):\(id.strip())"
     }
 
     /// Use this URL to open the content in the web player.
-    public var url: URL {
+    public var url: URL? {
         guard let url =  URL(
             scheme: "https",
             host: "open.spotify.com",
-            path: "/\(idCategory.rawValue)/\(id)"
+            path: "/\(idCategory.rawValue)/\(id.strip())"
         )
         else {
-            fatalError(
-                """
-                couldn't make url:
-                scheme: 'https'
-                host: 'open.spotify.com'
-                path: '/\(idCategory.rawValue)/\(id)'
-                """
-            )
+            return nil
         }
         return url
     }
 
+    /// Creates an instance from an id and an id category.
+    /// See [spotify uris and ids][1].
+    ///
+    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(id: String, idCategory: IDCategory) {
         self.id = id.strip()
         self.idCategory = idCategory
     }
 
-    /// Creates an instance from a URI.
+    /// Creates an instance from a URI. See [spotify uris and ids][1].
+    ///
+    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(
         uri: SpotifyURIConvertible
     ) throws {
@@ -152,8 +153,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     }
     
-    /// Creates an instance from a Spotify url to the
-    /// resource.
+    /// Creates an instance from a Spotify url to the content.
     public init(url: URL) throws {
         
         let paths = url.pathComponents

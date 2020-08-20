@@ -54,27 +54,11 @@ public extension DateFormatter {
     
 }
 
-public extension KeyedDecodingContainer {
+private extension KeyedDecodingContainer {
     
-    
-    /**
-     Decodes a Date from a date-string with one of
-     the following formats:
-    
-     - "YYYY-MM-DD"
-     - "YYYY-MM"
-     - "YYYY"
-    
-     - Parameter key: The key that is associated with a date string
-           in one of the above formats.
-     - Throws: If the value cannot be decded into a string,
-           or if the format of the string does not match
-           any of the above formats.
-     - Returns: The decoded Date.
-     */
-    func decodeSpotifyAlbumDate(forKey key: Key) throws -> Date {
-        
-        let dateString = try self.decode(String.self, forKey: key)
+    func decodeSpotifyAlbumDateFromString(
+        _ dateString: String
+    ) throws -> Date {
         
         if let longDate = DateFormatter.spotifyAlbumLong
                 .date(from: dateString) {
@@ -106,6 +90,111 @@ public extension KeyedDecodingContainer {
                 )
             )
         }
+        
+    }
+    
+    func decodeSpotifyTimestampFromString(
+        _ dateString: String
+    ) throws -> Date {
+        
+        if let date = DateFormatter.spotifyTimeStamp.date(
+            from: dateString
+        ) {
+            return date
+        }
+        else {
+            
+            let dateFormat = DateFormatter.spotifyTimeStamp.dateFormat
+                    ?? "nil"
+            
+            let errorMessage = """
+                Could not decode Soptify timestamp from '\(dateString)'
+                It must be in the format '\(dateFormat)'
+                """
+            
+            throw DecodingError.typeMismatch(
+                Date.self,
+                DecodingError.Context(
+                    codingPath: self.codingPath,
+                    debugDescription: errorMessage
+                )
+            )
+            
+        }
+        
+    }
+    
+}
+
+public extension KeyedDecodingContainer {
+    
+    
+    /**
+     Decodes a Date from a date-string with one of
+     the following formats:
+    
+     - "YYYY-MM-DD"
+     - "YYYY-MM"
+     - "YYYY"
+    
+     - Parameter key: The key that is associated with a date string
+           in one of the above formats.
+     - Throws: If the value cannot be decded into a string,
+           or if the format of the string does not match
+           any of the above formats.
+     - Returns: The decoded Date.
+     */
+    func decodeSpotifyAlbumDate(forKey key: Key) throws -> Date {
+        
+        let dateString = try self.decode(String.self, forKey: key)
+        return try self.decodeSpotifyAlbumDateFromString(
+            dateString
+        )
+        
+    }
+    
+    /// See `decodeSpotifyAlbumDate(forKey:)`.
+    func decodeSpotifyAlbumDateIfPresent(
+        forKey key: Key
+    ) throws -> Date? {
+    
+        guard let dateString = try self.decodeIfPresent(
+            String.self, forKey: key
+        )
+        else {
+            return nil
+        }
+        
+        return try self.decodeSpotifyAlbumDateFromString(
+            dateString
+        )
+
+    }
+    
+    func decodeSpotifyTimestamp(forKey key: Key) throws -> Date {
+        
+        let dateString = try self.decode(String.self, forKey: key)
+        return try self.decodeSpotifyTimestampFromString(
+            dateString
+        )
+        
+    }
+    
+    func decodeSpotifyTimestampIfPresent(
+        forKey key: Key
+    ) throws -> Date? {
+        
+        guard let dateString = try self.decodeIfPresent(
+            String.self, forKey: key
+        )
+        else {
+            return nil
+        }
+        
+        return try self.decodeSpotifyTimestampFromString(
+            dateString
+        )
+        
     }
     
     
@@ -113,14 +202,6 @@ public extension KeyedDecodingContainer {
 
 
 public extension KeyedEncodingContainer {
-    
-    mutating func _encode(
-        _ value: String,
-        forKey key: KeyedEncodingContainer<K>.Key
-    ) throws {
-        
-        fatalError("not implemented")
-    }
     
     /**
      Encodes a Sate to a date-string in one of
@@ -159,6 +240,41 @@ public extension KeyedEncodingContainer {
         let dateString = formatter.string(from: date)
         
         try self.encode(dateString, forKey: key)
+        
+    }
+    
+    /// See `encodeSpotifyAlbumDate(_:datePrecision:forKey:)`.
+    mutating func encodeSpotifyAlbumDateIfPresent(
+        _ date: Date?,
+        datePrecision: String?,
+        forKey key: Key
+    ) throws {
+        
+        guard let date = date else { return }
+        try self.encodeSpotifyAlbumDate(
+            date, datePrecision: datePrecision, forKey: key
+        )
+    }
+    
+    mutating func encodeSpotifyTimestamp(
+        _ date: Date,
+        forKey key: Key
+    ) throws {
+        
+        let dateString = DateFormatter.spotifyTimeStamp.string(
+            from: date
+        )
+        try self.encode(dateString, forKey: key)
+        
+    }
+    
+    mutating func encodeSpotifyTimestampIfPresent(
+        _ date: Date?,
+        forKey key: Key
+    ) throws {
+        
+        guard let date = date else { return }
+        try self.encodeSpotifyTimestamp(date, forKey: key)
         
     }
     

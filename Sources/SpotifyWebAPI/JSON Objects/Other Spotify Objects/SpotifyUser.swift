@@ -17,7 +17,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     public let id: String
     
     /// The user's profile image.
-    public let images: [SpotifyImage]
+    public let images: [SpotifyImage]?
     
     /// A link to the Spotify web API endpoint for this user.
     public let href: String

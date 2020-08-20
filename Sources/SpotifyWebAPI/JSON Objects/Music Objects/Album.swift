@@ -3,7 +3,7 @@ import Foundation
 /// A Spotify [album][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
-public struct Album: SpotifyURIConvertible, Hashable {
+public struct Album: Hashable {
     
     /// The name of the album.
     ///
@@ -25,26 +25,26 @@ public struct Album: SpotifyURIConvertible, Hashable {
     ///
     /// Each artist object includes a link in href
     /// to more detailed information about the artist.
-    public let artists: [Artist]
+    public let artists: [Artist]?
     
     /// The date the album was first released, for example 1981.
     ///
     /// Depending on the precision,
     /// it might be shown as 1981-12 or 1981-12-15.
-    public let releaseDate: Date
+    public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the album.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let uri: String
+    public let uri: String?
     
     /// The [Spotify ID] for the album.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let id: String
+    public let id: String?
     
     /// The cover art for the album in various sizes, widest first.
-    public let images: [SpotifyImage]
+    public let images: [SpotifyImage]?
     
     /**
      The popularity of the album.
@@ -73,7 +73,7 @@ public struct Album: SpotifyURIConvertible, Hashable {
     
     /// A link to the Spotify web API endpoint
     /// providing the full album object.
-    public let href: String
+    public let href: String?
 
     /**
      Known [external urls][1] for this artist.
@@ -146,50 +146,6 @@ public struct Album: SpotifyURIConvertible, Hashable {
     /// The object type. Always `album`.
     public let type: IDCategory
     
-    // thank god Xcode can create this for me.
-    public init(
-        name: String,
-        tracks: PagingObject<Track>?,
-        artists: [Artist],
-        releaseDate: Date,
-        uri: String,
-        id: String,
-        images: [SpotifyImage],
-        popularity: Int?,
-        label: String?,
-        genres: [String]?,
-        href: String,
-        externalURLs: [String : String]?,
-        externalIds: [String : String]?,
-        albumType: String?,
-        albumGroup: String?,
-        availableMarkets: [String]?,
-        copyrights: [SpotifyCopyright]?,
-        releaseDatePrecision: String?,
-        restrictions: [String : String]?,
-        type: IDCategory
-    ) {
-        self.name = name
-        self.tracks = tracks
-        self.artists = artists
-        self.releaseDate = releaseDate
-        self.uri = uri
-        self.id = id
-        self.images = images
-        self.popularity = popularity
-        self.label = label
-        self.genres = genres
-        self.href = href
-        self.externalURLs = externalURLs
-        self.externalIds = externalIds
-        self.albumType = albumType
-        self.albumGroup = albumGroup
-        self.availableMarkets = availableMarkets
-        self.copyrights = copyrights
-        self.releaseDatePrecision = releaseDatePrecision
-        self.restrictions = restrictions
-        self.type = type
-    }
 }
 
 
@@ -205,27 +161,27 @@ extension Album: Codable {
         self.tracks = try container.decodeIfPresent(
             PagingObject<Track>.self, forKey: .tracks
         )
-        self.artists = try container.decode(
+        self.artists = try container.decodeIfPresent(
             [Artist].self, forKey: .artists
         )
         
         // MARK: Decode Release Date
         // this is the only property that needs to be decoded
         // in a custom manner
-        self.releaseDate = try container.decodeSpotifyAlbumDate(
+        self.releaseDate = try container.decodeSpotifyAlbumDateIfPresent(
             forKey: .releaseDate
         )
         
         self.releaseDatePrecision = try container.decodeIfPresent(
             String.self, forKey: .releaseDatePrecision
         )
-        self.uri = try container.decode(
+        self.uri = try container.decodeIfPresent(
             String.self, forKey: .uri
         )
-        self.id = try container.decode(
+        self.id = try container.decodeIfPresent(
             String.self, forKey: .id
         )
-        self.images = try container.decode(
+        self.images = try container.decodeIfPresent(
             [SpotifyImage].self, forKey: .images
         )
         self.popularity = try container.decodeIfPresent(
@@ -237,7 +193,7 @@ extension Album: Codable {
         self.genres = try container.decodeIfPresent(
             [String].self, forKey: .genres
         )
-        self.href = try container.decode(
+        self.href = try container.decodeIfPresent(
             String.self, forKey: .href
         )
         self.externalURLs = try container.decodeIfPresent(
@@ -285,7 +241,7 @@ extension Album: Codable {
         // MARK: Encode Release Date
         // this is the only property that needs to be encoded
         // in a custom manner
-        try container.encodeSpotifyAlbumDate(
+        try container.encodeSpotifyAlbumDateIfPresent(
             self.releaseDate,
             datePrecision: self.releaseDatePrecision,
             forKey: .releaseDate
@@ -295,13 +251,13 @@ extension Album: Codable {
             self.releaseDatePrecision,
             forKey: .releaseDatePrecision
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.uri, forKey: .uri
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.id, forKey: .id
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.images, forKey: .images
         )
         try container.encodeIfPresent(
@@ -313,7 +269,7 @@ extension Album: Codable {
         try container.encodeIfPresent(
             self.genres, forKey: .genres
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.href, forKey: .href
         )
         try container.encodeIfPresent(
@@ -331,10 +287,10 @@ extension Album: Codable {
         try container.encodeIfPresent(
             self.availableMarkets, forKey: .availableMarkets
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.copyrights, forKey: .copyrights
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.restrictions, forKey: .restrictions
         )
         try container.encode(

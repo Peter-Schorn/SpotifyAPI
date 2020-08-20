@@ -3,7 +3,7 @@ import Foundation
 /// A Spotify [artist][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
-public struct Artist: SpotifyURIConvertible, Hashable {
+public struct Artist: Hashable {
     
     /// The name of the artist.
     public let name: String
@@ -11,12 +11,12 @@ public struct Artist: SpotifyURIConvertible, Hashable {
     /// The [Spotify URI][1] for the artist.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let uri: String
+    public let uri: String?
 
     /// The [Spotify ID] for the artist.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let id: String
+    public let id: String?
     
     /// Images of the artist in various sizes, widest first.
     ///
@@ -61,7 +61,7 @@ public struct Artist: SpotifyURIConvertible, Hashable {
 
     /// A link to the Spotify web API endpoint
     /// providing the full artist object.
-    public let href: String
+    public let href: String?
     
     /// The object type. Always `artist`.
     public let type: IDCategory

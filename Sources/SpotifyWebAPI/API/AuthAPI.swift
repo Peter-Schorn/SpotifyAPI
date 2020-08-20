@@ -171,44 +171,17 @@ public extension SpotifyAPI {
             
     }
     
-    private func _requestAccessAndRefreshTokens(
-        baseRedirectURI: URL,
-        code: String
-    ) -> AnyPublisher<Void, Error> {
-        
-        let requestBody = TokensRequest(
-            code: code,
-            redirectURI: baseRedirectURI,
-            clientId: clientID,
-            clientSecret: clientSecret
-        )
-        
-        self.authLogger.notice("\n---GETTING AUTH INFO---\n")
-        
-        return URLSession.shared.dataTaskPublisher(
-            url: Self.getRefreshAndAccessTokensURL,
-            httpMethod: "POST",
-            headers: Headers.formURLEncoded,
-            body: requestBody.formURLEncoded()
-        )
-        .spotifyDecode(AuthInfo.self)
-        .logError(to: self.authLogger)
-        .receive(on: RunLoop.main)
-        .map { authInfo in
-            self.authLogger.notice("recieved authInfo:\n\(authInfo)")
-            self.authInfo = authInfo
-        }
-        .eraseToAnyPublisher()
-        
-    }
-    
-    
     /**
      Uses the refresh token to get a new access token.
     
      **You shouldn't need to call this method**. It gets
      called automatically each time you make a request to the
      Spotify API.
+     
+     Subscribe to the `@Published var authInfo` instance
+     property of this class to be notified of changes
+     to the authorization info. For this reason, the output
+     of this publisher is `Void`.
      
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
@@ -221,7 +194,7 @@ public extension SpotifyAPI {
     func refreshAccessToken(
         onlyIfExpired: Bool,
         tolerance: Double = 60
-    ) -> AnyPublisher<AuthInfo, Error> {
+    ) -> AnyPublisher<Void, Error> {
         
         let refreshAccessTokenFunction = #function
         
@@ -238,8 +211,8 @@ public extension SpotifyAPI {
             // and it's not expired, then return early.
             if onlyIfExpired && !authInfo.isExpired(tolerance: tolerance) {
                 self.authLogger.trace("access token not expired; returning early")
-                return Result<AuthInfo, Error>
-                    .Publisher(.success(authInfo))
+                return Result<Void, Error>
+                    .Publisher(.success(()))
                     .eraseToAnyPublisher()
                 
             }
@@ -266,7 +239,9 @@ public extension SpotifyAPI {
             let requestBody = RefreshAccessTokenRequest(
                 refreshToken: refreshToken
             )
+            
             self.authLogger.debug("getting new token...")
+            
             return URLSession.shared.dataTaskPublisher(
                 url: Self.getRefreshAndAccessTokensURL,
                 httpMethod: "POST",
@@ -275,7 +250,7 @@ public extension SpotifyAPI {
             )
             .spotifyDecode(AuthInfo.self)
             .receive(on: RunLoop.main)
-            .handleEvents(receiveOutput: { newAuthInfo in
+            .map { newAuthInfo in
                 self.authLogger.trace("recieved new access token")
                 if newAuthInfo.refreshToken != nil {
                     self.authLogger.notice(
@@ -295,11 +270,11 @@ public extension SpotifyAPI {
                     expirationDate: newAuthInfo.expirationDate,
                     scopes: newAuthInfo.scopes
                 )
-            })
+            }
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher(AuthInfo.self)
+            return error.anyFailingPublisher(Void.self)
         }
 
     }
@@ -309,6 +284,38 @@ public extension SpotifyAPI {
 // MARK: - Internal Methods -
 
 extension SpotifyAPI {
+    
+    private func _requestAccessAndRefreshTokens(
+        baseRedirectURI: URL,
+        code: String
+    ) -> AnyPublisher<Void, Error> {
+        
+        let requestBody = TokensRequest(
+            code: code,
+            redirectURI: baseRedirectURI,
+            clientId: clientID,
+            clientSecret: clientSecret
+        )
+        
+        self.authLogger.notice("")
+        
+        return URLSession.shared.dataTaskPublisher(
+            url: Self.getRefreshAndAccessTokensURL,
+            httpMethod: "POST",
+            headers: Headers.formURLEncoded,
+            body: requestBody.formURLEncoded()
+        )
+        .spotifyDecode(AuthInfo.self)
+        .logError(to: self.authLogger)
+        .receive(on: RunLoop.main)
+        .map { authInfo in
+            self.authLogger.notice("recieved authInfo:\n\(authInfo)")
+            self.authInfo = authInfo
+        }
+        .eraseToAnyPublisher()
+        
+    }
+    
     
     /// Ensures that `self.authInfo` is not `nil` and that the app is
     /// authorized for the specified scopes. Else, throws an error.

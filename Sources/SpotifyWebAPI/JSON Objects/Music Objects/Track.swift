@@ -3,7 +3,7 @@ import Foundation
 /// A [Spotify track][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
-public struct Track: SpotifyURIConvertible, Hashable {
+public struct Track: Hashable {
 
     /// The name of the track.
     public let name: String
@@ -29,12 +29,12 @@ public struct Track: SpotifyURIConvertible, Hashable {
     /// The [Spotify URI][1] for the track.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let uri: String
+    public let uri: String?
     
     /// The [Spotify ID] for the track.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let id: String
+    public let id: String?
     
     /// Whether or not the track is from a [local file][1].
     ///
@@ -67,7 +67,7 @@ public struct Track: SpotifyURIConvertible, Hashable {
     public let popularity: Int?
     
     /// The track length in milliseconds
-    public let durationMS: Int
+    public let durationMS: Int?
 
     /// The number of the track.
     ///

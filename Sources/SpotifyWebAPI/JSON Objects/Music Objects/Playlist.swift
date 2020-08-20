@@ -42,7 +42,7 @@ public struct Playlist<PlaylistItems>: SpotifyURIConvertible where
     /**
      The version identifier for the current playlist.
 
-     Everytime the playlist changes, a new snapshot id is generated.
+     Every time the playlist changes, a new snapshot id is generated.
      You can use this value to efficiently determine whether a playlist
      has changed since the last time you retrieved it.
      

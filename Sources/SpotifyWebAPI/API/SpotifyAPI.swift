@@ -31,18 +31,14 @@ public class SpotifyAPI: ObservableObject {
      * the expiration date for the access token
      * the scopes that have been authorized for the access token
      
-     
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      */
-    // public let authInfo = CurrentValueSubject<AuthInfo?, Never>(nil)
-    
     @Published public var authInfo: AuthInfo? = nil
     
     // MARK: - Loggers -
     
-    public let spotifyAPI = Logger(label: "SpotifyAPI", level: .warning)
-    public let authLogger = Logger(label: "SpotifyAuthAPI", level: .trace)
-    
+    public let spotifyAPI = Logger(label: "SpotifyAPI", level: .trace)
+    public let authLogger = Logger(label: "SpotifyAuthAPI", level: .warning)
     
     private func setupDebugging() {
         

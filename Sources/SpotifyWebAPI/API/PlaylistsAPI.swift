@@ -8,7 +8,7 @@ extension SpotifyAPI {
     /// Use for post/put/delete requests to the "/playlists/{playlistId}/tracks"
     /// endpoint in which the response is the snapshot id of the playlist.
     /// Can't be used for get requests. Use `self.getRequest` instead.
-    internal func modifyPlaylist<Body: Encodable>(
+    func modifyPlaylist<Body: Encodable>(
         _ playlist: SpotifyURIConvertible,
         httpMethod: String,
         queryItems: [String: LosslessStringConvertible?],
@@ -133,7 +133,7 @@ public extension SpotifyAPI {
              A zero-based index. If `nil`, the items will be
              appended to the list.
      - Returns: The snapshot id of the playlist, which is an identifier for
-           the current version of the playlist. Everytime the playlist
+           the current version of the playlist. Every time the playlist
            changes, a new snapshot id is generated. You can use this value
            to efficiently determine whether a playlist has changed since
            the last time you retrieved it. Can be supplied in other requests
@@ -166,7 +166,10 @@ public extension SpotifyAPI {
     
     /**
      Removes **all** occurences of the specified tracks/episodes
-     from a Playlist.
+     from a playlist.
+     
+     See also
+     `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`.
      
      Removing items from a user’s public playlist requires authorization
      of the `playlistModifyPublic` scope; removing items from a
@@ -198,10 +201,27 @@ public extension SpotifyAPI {
             
     }
     
-    
+    /**
+     Removes the specified tracks/episodes at the specified positions
+     from a playlist. This is useful if the playlist contains duplicate
+     items.
+     
+     See also
+     `removeAllOccurencesFromPlaylist(_:uris:)`.
+     
+     Removing items from a user’s public playlist requires authorization
+     of the `playlistModifyPublic` scope; removing items from a
+     private playlist requires the `playlistModifyPrivate` scope.
+     
+     - Parameters:
+       - playlist: The URI for a playlist.
+       - urisWithPostions: A collection of uris along with their positions
+         in a playlist and, optionally, the snapshot id of the playlist
+         you want to target.
+     */
     func removeSpecificOccurencesFromPlaylist(
         _ playlist: SpotifyURIConvertible,
-        urisWithPostions: URIWithPositionsContainer
+        urisWithPostions: URIsWithPositionsContainer
     ) -> AnyPublisher<String, Error>{
         
         return self.modifyPlaylist(
