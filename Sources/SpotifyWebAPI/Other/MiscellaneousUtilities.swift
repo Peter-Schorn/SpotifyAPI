@@ -38,6 +38,33 @@ public extension String {
 }
 
 
+public extension Dictionary where Key == String, Value == String {
+    
+    
+    /// Encodes a dictionary of into data according to
+    /// `application/x-www-form-urlencoded`.
+    ///
+    /// Returns `nil` if the query string cannot be converted to
+    /// `Data` using a utf-8 character encoding.
+    ///
+    /// - Parameter dict: The dictionary to form-url-encode.
+    func formURLEncoded() -> Data? {
+        
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = self.map { item in
+            URLQueryItem(name: item.key, value: item.value)
+        }
+        return urlComponents.query?.data(using: .utf8)
+    }
+    
+    
+}
+
+
+
+
+
+
 public extension Dictionary {
     
     /**
@@ -74,15 +101,6 @@ public extension Error {
     }
     
 }
-
-extension String {
-    
-    init(from decoder: Decoder) throws {
-        fatalError("not implemented")
-    }
-    
-}
-
 
 public extension DecodingError {
     
@@ -143,7 +161,8 @@ public extension Sequence where
     /// the sequence's elements. No spaces are added between the commas.
     ///
     /// Available when Sequence.Element conforms to `RawRepresentable`
-    /// and `Element.RawValue` conforms to `StringProtocol`.
+    /// and `Element.RawValue` conforms to `StringProtocol`
+    /// (`String` or `SubString`).
     ///
     /// Equivalent to `self.map(\.rawValue).joined(separator: ",")`.
     @inlinable
@@ -165,6 +184,8 @@ public extension Sequence where
  
  The LosslessStringConvertible protocol prevents you from using
  types that cannot be converted to strings without losing information.
+ (it should be possible to re-create an instance of a conforming type
+ from its string representation.)
  
  `String` and `Int` are examples of conforming types.
  

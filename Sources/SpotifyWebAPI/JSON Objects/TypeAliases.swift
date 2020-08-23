@@ -1,3 +1,3 @@
 import Foundation
 
-public typealias PlaylistTracks = PagingObject<PlaylistItem<Track>>
+public typealias PlaylistTracks = PagingObject<PlaylistItemContainer<Track>>

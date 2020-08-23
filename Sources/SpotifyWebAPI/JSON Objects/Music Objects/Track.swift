@@ -66,7 +66,7 @@ public struct Track: Hashable {
      */
     public let popularity: Int?
     
-    /// The track length in milliseconds
+    /// The track length in milliseconds.
     public let durationMS: Int?
 
     /// The number of the track.
@@ -175,3 +175,46 @@ extension Track: Codable {
     }
     
 }
+
+
+private struct Episode: Codable, Hashable {
+    
+    // MARK: Same as TracK
+    let name: String
+    let uri: String
+    let type: String
+
+    // MARK: Unique to episode
+    let show: String
+    let releaseDate: String
+    
+}
+
+// PagingObject<PlaylistItemContainer<Track>>
+// Playlist<PagingObject<PlaylistItemContainer<Track>>>
+
+
+/**
+ A Type-erased wrapper over either a `Track` or an `Episode`.
+ This is used for endpoints that retrieve the items in a playlist,
+ which can include both of these items. Do NOT conform additional
+ types to this protocol.
+ 
+ */
+protocol AnyPlaylistItem: Codable {
+    
+    var name: String { get }
+    var uri: String { get }
+    var type: String { get }
+}
+
+func test(p: AnyPlaylistItem) {
+    print(p.name)
+}
+
+
+// func test(p: Playlist<PagingObject<PlaylistItemContainer<AnyPlaylistItem>>>) {
+    
+    // let x = p
+    
+// }

@@ -36,8 +36,12 @@ public extension URLComponents {
         if let path = path {
             self.path = path
         }
-        self.queryItems = queryItems
-        self.fragment = fragment
+        if !(queryItems?.isEmpty ?? true) {
+            self.queryItems = queryItems
+        }
+        if !(fragment?.isEmpty ?? true) {
+            self.fragment = fragment
+        }
     }
 
     init(
@@ -54,8 +58,12 @@ public extension URLComponents {
         if let path = path {
             self.path = path
         }
-        self.query = queryString
-        self.fragment = fragment
+        if !(query?.isEmpty ?? true) {
+            self.query = queryString
+        }
+        if !(fragment?.isEmpty ?? true) {
+            self.fragment = fragment
+        }
     }
 
 

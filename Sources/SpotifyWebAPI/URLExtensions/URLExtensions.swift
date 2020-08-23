@@ -196,18 +196,3 @@ public extension URL {
 
 
 }
-
-
-/// Encodes a dictionary of URL queries into data according to
-/// `application/x-www-form-urlencoded`.
-///
-/// Returns `nil` if the query string cannot be converted to
-/// `Data` using a utf-8 character encoding.
-public func formURLEncode(_ dict: [String: String]) -> Data? {
-
-    var urlComponents = URLComponents()
-    urlComponents.queryItems = dict.map { item in
-        URLQueryItem(name: item.key, value: item.value)
-    }
-    return urlComponents.query?.data(using: .utf8)
-}

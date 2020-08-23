@@ -3,6 +3,8 @@ import Foundation
 
 /// The user denied your app's authorization request or there
 /// was an error during the process of authorizing your app.
+/// Only thrown during the process of requesting the
+/// refresh and access tokens.
 ///
 /// Do not confuse this with `SpotifyAuthenticationError`.
 ///

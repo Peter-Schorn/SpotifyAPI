@@ -1,17 +1,23 @@
 import Foundation
 
 /**
- A track or podcast episode that is contained in a playlist.
- Spotify confusingly refers to this as a [playlist track object][1].
+ Holds a track or podcast episode that is contained
+ in a playlist, as well as additional information about its relationship
+ to the playlist. Spotify confusingly refers to this as a
+ [playlist track object][1].
  
- Holds data not associated with the track/episode itself,
- including the date it was addded to the playlist, and who it was
- added by.
+ Contains the following properties:
+ 
+ * `addedAt`: The date and time the track or episode was added.
+ * `addedBy`: The Spotify user who added the track or episode.
+ * `isLocal`: Whether or not the item is from a [local file][3].
+ * `item`: Either a `Track` or an `Episode` (simplified version).
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object
  [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
+ [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
  */
-public struct PlaylistItem<Item>: Hashable where
+public struct PlaylistItemContainer<Item>: Hashable where
     Item: Codable & Hashable
 
 {
@@ -28,19 +34,21 @@ public struct PlaylistItem<Item>: Hashable where
     public let addedBy: SpotifyUser?
     
     /// Whether or not the item is from a [local file][1].
-    /// Expect many of the other properties to be nil when
-    /// this is `true`.
+    /// 
+    /// When this is `true`, expect many of the other properties
+    /// to be `nil`.
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
     public let isLocal: Bool?
     
-    /// Either a track or an episode object (simplified version).
+    /// Either a track or an episode object (simplified version)
+    /// in this `PlaylistItemContainer`.
     public let item: Item
 
 }
 
 
-extension PlaylistItem: Codable {
+extension PlaylistItemContainer: Codable {
 
     public enum CodingKeys: String, CodingKey {
         case addedAt = "added_at"

@@ -1,51 +1,43 @@
 import Foundation
 import Logger
 import Combine
+import SwiftUI
 
-
-/// The central class in this library.
-/// It manages the authorization process and provides methods
-/// for all of the endpoints.
-public class SpotifyAPI: ObservableObject {
-    
-    // MARK: - Public Variables -
-    
-    /// The client id for your application
-    public let clientID: String
-    
-    /// The client secret for your application
-    public let clientSecret: String
+/**
+ The central class in this library.
+ It provides methods for all of the Spotify web API endpoints
+ and contains an authorization manager for managing the
+ authorization/authentication process of your application.
+ */
+public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>:
+        ObservableObject
+{
     
     /**
-     The authorization info required for the [Authorization Code Flow][1].
-     Attach a subscriber to this `currentValueSubject` to be notified
-     when this value changes. This will hapen every time the
-     access token is refreshed and after you authorize your app
-     for the first time or after you request access to additional
-     scopes.
+     Manages the authorization process for your application.
      
-     Contains the following properties:
+     This is a `Published` property, so you can subscribe to
+     it using `$authorizationManager.sink(receiveValue:)`.
      
-     * The access token
-     * the refresh token
-     * the expiration date for the access token
-     * the scopes that have been authorized for the access token
-     
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     For example, you could subscribe to this property so that
+     you can update persistent storage or update your UI
+     to reflect whether your application has been authorized
+     by the user.
      */
-    @Published public var authInfo: AuthInfo? = nil
+    
+    @Published public var authorizationManager: AuthorizationManager
+    // @ObservedObject public var authorizationManager: AuthorizationManager
     
     // MARK: - Loggers -
     
-    public let spotifyAPI = Logger(label: "SpotifyAPI", level: .trace)
-    public let authLogger = Logger(label: "SpotifyAuthAPI", level: .warning)
+    /// Logs general messages for this class.
+    public let spotifyAPILogger = Logger(label: "SpotifyAPI", level: .trace)
     
-    private func setupDebugging() {
-        
-        SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
-            "/Users/pschorn/Desktop/"
-        )
-    }
+    /// Logs the urls of the requests made to Spotify and,
+    /// if present, the body of the requests.
+    public let apiRequestLogger = Logger(label: "APIRequest", level: .trace)
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers -
     
@@ -64,19 +56,58 @@ public class SpotifyAPI: ObservableObject {
      see the [guide for registering your app][1].
      
      - Parameters:
-       - clientID: A Spotify Client ID.
-       - clientSecret: A Spotify Client Secret.
+     - clientId: A Spotify Client ID.
+     - clientSecret: A Spotify Client Secret.
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/
      */
-    public init(
-        clientID: String,
-        clientSecret: String
-    ) {
-        self.clientID = clientID
-        self.clientSecret = clientSecret
+    public init(authorizationManager: AuthorizationManager)  {
+        self.authorizationManager = authorizationManager
         self.setupDebugging()
+        self.setupPublishers()
     }
     
+}
+
+extension SpotifyAPI {
+    
+    private func setupPublishers() {
+        
+        self.authorizationManager.objectWillChange
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.spotifyAPILogger.notice(
+                    "setupDebugging: self.authorizationManager.objectWillChange.sink"
+                )
+                self.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+        
+        
+        self.objectWillChange
+            .receive(on: RunLoop.main)
+            .sink {
+                print("setupDebugging: objectWillChange.sink")
+            }
+            .store(in: &cancellables)
+        
+        self.$authorizationManager
+            .receive(on: RunLoop.main)
+            .sink { authManager in
+                print("setupDebugging: $authorizationManager.sink:\n\(authManager)")
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    
+    /// This function has no stable API and may change arbitrarily.
+    public func setupDebugging() {
+        
+        SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
+            "/Users/pschorn/Desktop/"
+        )
+        
+    }
     
 }

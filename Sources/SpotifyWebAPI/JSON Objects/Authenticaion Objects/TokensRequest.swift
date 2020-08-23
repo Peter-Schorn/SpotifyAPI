@@ -1,8 +1,12 @@
 import Foundation
 
-/// After the user has authorized your app via the web
-/// and a code has been provided, this struct is used
-/// to request a refresh and access token.
+/**
+ After the user has authorized your app and a code has been provided,
+ this struct is used to request a refresh and access token for the
+ [Authorization Code Flow][1].
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ */
 public struct TokensRequest: Hashable {
     
     public let grantType = "authorization_code"
@@ -13,17 +17,18 @@ public struct TokensRequest: Hashable {
 
     public func formURLEncoded() -> Data {
         
-        guard let data = formURLEncode([
+        guard let data = [
             "grant_type": grantType,
             "code": code,
             "redirect_uri": redirectURI,
             "client_id": clientId,
             "client_secret": clientSecret
-        ])
+        ].formURLEncoded()
         else {
             fatalError("could not form-url-encode tokens request")
         }
         return data
+        
     }
     
     

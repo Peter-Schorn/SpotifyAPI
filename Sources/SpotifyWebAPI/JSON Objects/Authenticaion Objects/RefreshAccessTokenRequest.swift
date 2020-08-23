@@ -9,10 +9,10 @@ struct RefreshAccessTokenRequest: Codable, Hashable {
     
     public func formURLEncoded() -> Data {
            
-           guard let data = formURLEncode([
+           guard let data = [
                "grant_type": grantType,
                "refresh_token": refreshToken
-           ])
+           ].formURLEncoded()
            else {
                fatalError(
                 "could not form-url-encode refresh tokens request"

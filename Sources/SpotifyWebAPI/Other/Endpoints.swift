@@ -1,15 +1,8 @@
-//
-//  File.swift
-//  
-//
-//  Created by Peter Schorn on 8/12/20.
-//
-
 import Foundation
 import Logger
 
 
-/// The components of the endpoints.
+/// A namespace of endpoints and endpoint components.
 enum Endpoints {
     
     // MARK: - Base -
@@ -44,7 +37,20 @@ enum Endpoints {
     /// ```
     /// "/api/token"
     /// ```
-    static let getRefreshAndAccessTokens = "/api/token"
+    static let getTokens = "/api/token"
+    
+    /// Used to retrieve refresh and access tokens
+    /// and to refresh an access token.
+    ///
+    /// ```
+    /// "https://accounts.spotify.com/api/token"
+    /// ```
+    static let getRefreshAndAccessTokensURL = URL(
+        scheme: "https",
+        host: Endpoints.accountsBase,
+        path: Endpoints.getTokens
+    )!
+    
     
     /**
      Use this method to make all of the endpoints
@@ -56,6 +62,7 @@ enum Endpoints {
      "https://api.spotify.com/v1"
      ```
      Do not forget to add a leading `/` to the path component.
+     
      - Parameters:
        - path: A path to append to the url.
        - queryItems: Query items to add to the url.
@@ -64,10 +71,10 @@ enum Endpoints {
      */
     static func apiEndpoint(
         _ path: String,
-        queryItems: [String: String]? = nil
+        queryItems: [String: String]
     ) -> URL {
 
-        return URL.init(
+        return URL(
             scheme: "https",
             host: apiBase,
             path: apiVersion1 + path,

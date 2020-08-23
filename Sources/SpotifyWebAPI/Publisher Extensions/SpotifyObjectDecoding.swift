@@ -3,7 +3,7 @@ import Combine
 import Logger
 
 public let spotifyDecodeLogger = Logger(
-    label: "spotifyDecode", level: .trace
+    label: "spotifyDecode", level: .critical
 )
 
 // MARK: - Decode Spotify Objects -
@@ -56,7 +56,7 @@ private func decodeSpotifyErrorObjects(
     let decoder = JSONDecoder()
     
     if let error = try? decoder.decode(
-        SpotifyAuthorizationError.self, from: data
+        SpotifyAuthenticationError.self, from: data
     ) {
         return error
     }
@@ -103,10 +103,9 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
     responseType: ResponseType.Type
 ) throws -> ResponseType {
 
-    let decoder = JSONDecoder()
-    
     do {
-        return try decoder.decode(
+        
+        return try JSONDecoder().decode(
             ResponseType.self, from: data
         )
     
@@ -125,7 +124,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
             "the spotify error objects"
         )
         
-        let statusCode = httpURLResponse.statusCode
+         let statusCode = httpURLResponse.statusCode
         
         // the error status codes. If one of these is returned,
         // then it should have been possible to decode the Data into one
@@ -145,7 +144,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
          the data that was requested, but the data is not properly
          modeled by `responseType`. Therefore, it is more useful to
          throw the error encountered when decoding the
-         `responseType` (`responseTypeDecodingError`)
+         expected `responseType` (`responseTypeDecodingError`)
          back to the caller.
          */
         throw SpotifyDecodingError(
@@ -156,7 +155,6 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         )
         
     }
-    
     
 }
 
@@ -203,10 +201,6 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
     /**
      Tries to decode the raw data from a Spotify web API request.
      You normally don't need to call this method directly.
-
-     This is usually the first operator added to a
-     `URLSession` `DataTaskPublisher` after a request to the Spotify
-     web API is made.
 
      First tries to decode the data into the specified type
      that conforms to `Decodable`. If that fails, then

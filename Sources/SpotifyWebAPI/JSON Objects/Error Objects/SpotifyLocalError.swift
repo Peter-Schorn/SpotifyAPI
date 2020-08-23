@@ -2,14 +2,13 @@ import Foundation
 
 
 /**
- This struct encapsulates errors that are encountered
- before any requests are made to the Spotify web API.
+ Encapsulates errors that are not directly produced by the Spotify web API.
  
  For example if you try to make an API request but have not
  authorized your application yet, you will get a `.unauthorized`
  error.
  */
-public enum SpotifyLocalError: LocalizedError {
+public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     
     /**
      You tried to access an endpoint that requires authorization,
@@ -104,5 +103,10 @@ public enum SpotifyLocalError: LocalizedError {
                 return message
         }
     }
+    
+    public var description: String {
+        return errorDescription!
+    }
+    
   
 }

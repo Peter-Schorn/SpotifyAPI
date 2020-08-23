@@ -2,7 +2,8 @@ import Foundation
 
 
 /**
- Used in the body of [Remove Items from a Playlist][1]
+ Contains an array of URIs.
+ Used in the body of `removeAllOccurencesFromPlaylist`.
 
  ```
  {

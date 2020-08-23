@@ -104,17 +104,18 @@ public struct Album: Hashable {
      */
     public let externalIds: [String: String]?
     
-    /// The type of the album: one of "album" , "single" , or "compilation".
-    public let albumType: String?
+    /// The type of the album: one of `album`, `single`,
+    /// or `compilation`.
+    public let albumType: AlbumGroup?
 
     /**
      This field is present when getting an artist’s albums.
      
-     Possible values are "album", "single", "compilation", and "appears_on".
-     Compare to album_type this field represents
+     Possible values are `album`, `single`, `compilation`,
+     and `appearsOn`. Compared to `albumType` this field represents
      the relationship between the artist and the album.
      */
-    public let albumGroup: String?
+    public let albumGroup: AlbumGroup?
     
     /// The markets in which the album is available:
     /// ISO 3166-1 alpha-2 country codes.
@@ -147,7 +148,6 @@ public struct Album: Hashable {
     public let type: IDCategory
     
 }
-
 
 extension Album: Codable {
     
@@ -203,11 +203,11 @@ extension Album: Codable {
             [String: String].self, forKey: .externalIds
         )
         self.albumType = try container.decodeIfPresent(
-            String.self, forKey: .albumGroup
+            AlbumGroup.self, forKey: .albumGroup
         )
         
         self.albumGroup = try container.decodeIfPresent(
-            String.self, forKey: .albumGroup
+            AlbumGroup.self, forKey: .albumGroup
         )
         self.availableMarkets = try container.decodeIfPresent(
             [String].self, forKey: .availableMarkets

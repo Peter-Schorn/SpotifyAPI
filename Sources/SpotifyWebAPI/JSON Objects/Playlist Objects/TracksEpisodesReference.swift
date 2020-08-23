@@ -10,10 +10,10 @@ import Foundation
  of every playlist, which prevents the response from
  becoming too long.
  */
-public struct TracksReference: Codable, Hashable {
+public struct TracksEpisodesReference: Codable, Hashable {
     
     /// A link to the Spotify web API endpoint
-    /// providing the full list of tracks.
+    /// providing the full list of tracks/episodes.
     public let href: String?
 
     /// The total number of tracks/episodes.

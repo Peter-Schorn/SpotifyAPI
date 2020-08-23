@@ -143,8 +143,8 @@ extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeArray`,
-     which makes `[Scope]` from a string of
+     This is the opposite of `Scope.makeArray(_:)`,
+     which makes `Set<Scope>` from a string of
      (usually space-separated) scopes.
     
      - Parameter scopes: A variadic array of Spotify authorization scopes.
@@ -162,8 +162,8 @@ extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeArray`,
-     which makes `[Scope]` from a string of
+     This is the opposite of `Scope.makeArray(_:)`,
+     which makes `Set<Scope>` from a string of
      (usually space-separated) scopes.
     
      - Parameter scopes: A set of Spotify authorization scopes.
@@ -188,9 +188,9 @@ extension Scope {
      the raw value of any of the cases,
      then they are ignored.
     
-     This is the opposite of `Scope.makeString`,
+     This is the opposite of `Scope.makeString(_:)`,
      which creates a space-separated string of scopes
-     from `[Scope]`.
+     from `Set<Scope>`.
     
      - Parameter string: A string containing Spotify authorization scopes.
     
@@ -199,7 +199,7 @@ extension Scope {
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
-    public static func makeArray(string: String) -> Set<Scope> {
+    public static func makeSet(_ string: String) -> Set<Scope> {
         
         let stringArray = try! string.regexSplit(
             #"[^\w-]+"#, ignoreIfEmpty: true

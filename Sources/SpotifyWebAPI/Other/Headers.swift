@@ -16,12 +16,6 @@ enum Headers {
         return ["Authorization": "Bearer \(accessToken)"]
     }
     
-    /// ```
-    /// ["Content-Type": "application/x-www-form-urlencoded"]
-    /// ```
-    static let formURLEncoded = [
-        "Content-Type": "application/x-www-form-urlencoded"
-    ]
     
     /// ```
     /// ["Accept": "application/json"]
@@ -30,24 +24,33 @@ enum Headers {
         "Accept": "application/json"
     ]
     
+    /// ```
+    /// ["Content-Type": "application/x-www-form-urlencoded"]
+    /// ```
+    static let formURLEncoded = [
+        "Content-Type": "application/x-www-form-urlencoded"
+    ]
+
     /**
      Makes the base64Encoded authorization header.
      
      ```
-     guard let encodedString = "\(clientID):\(clientSecret)"
+     guard let encodedString = "\(clientId):\(clientSecret)"
      .base64Encoded()
      else {
      return nil
      }
-     
      return ["Authorization": "Basic \(encodedString)"]
      ```
+     - Parameters:
+       - clientId: The client id.
+       - clientSecret: The client secret.
      */
     static func basicBase64Encoded(
-        clientID: String, clientSecret: String
+        clientId: String, clientSecret: String
     ) -> [String: String]? {
         
-        guard let encodedString = "\(clientID):\(clientSecret)"
+        guard let encodedString = "\(clientId):\(clientSecret)"
             .base64Encoded()
             else {
                 return nil
@@ -56,5 +59,11 @@ enum Headers {
         return ["Authorization": "Basic \(encodedString)"]
         
     }
+    
+    /// ```
+    /// ["Accept": "image/jpeg"]
+    /// ```
+    static let imageJpeg = ["Accept": "image/jpeg"]
+    
     
 }

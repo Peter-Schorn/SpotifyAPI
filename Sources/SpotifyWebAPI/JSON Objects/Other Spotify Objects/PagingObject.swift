@@ -20,7 +20,7 @@ public struct PagingObject<
     /// the full result of the request.
     public let href: String
     
-    /// An array of the requested data.
+    /// An array of the requested data in this `PagingObject`.
     public let items: [Object]
      
     /// The maximum number of items in the response

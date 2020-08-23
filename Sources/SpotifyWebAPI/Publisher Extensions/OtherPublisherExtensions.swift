@@ -77,15 +77,6 @@ public extension Publisher {
         }
     }
     
-    func sink_(
-        receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void),
-        receiveValue: @escaping ((Self.Output) -> Void)
-    ) -> AnyCancellable {
-        
-        fatalError("not implemented")
-        
-    }
-    
 }
 
 public extension Publisher where Output == Void {

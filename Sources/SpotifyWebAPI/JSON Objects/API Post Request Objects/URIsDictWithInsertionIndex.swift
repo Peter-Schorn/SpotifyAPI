@@ -1,10 +1,8 @@
 import Foundation
 
 /**
- Used in the body of [add tracks to playlist][1].
-
  Contains an array of uris and (optionally) the position
- to insert them in the playlist.
+ to insert them in the playlist. Used in the body of `addToPlaylist`.
  
  ```
  {
