@@ -54,7 +54,7 @@ enum Endpoints {
     
     /**
      Use this method to make all of the endpoints
-     other than those for authorizing the apps and
+     other than those for authorizing the application and
      retrieving/refreshing the tokens.
      
      Makes an endpoint beginning with:

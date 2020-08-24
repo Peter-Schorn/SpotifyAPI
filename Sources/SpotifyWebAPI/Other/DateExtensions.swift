@@ -36,7 +36,7 @@ public extension DateFormatter {
      */
     static let spotifyTimeStamp: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:SSZ"
+        formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ssZ"
         return formatter
     }()
     

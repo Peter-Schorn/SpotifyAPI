@@ -3,12 +3,12 @@ import Foundation
 /**
  An album group.
  
-  One of the following:
+ One of the following:
  
- * album
- * single
- * appearsOn
- * compilation
+ * `album`
+ * `single`
+ * `appearsOn`
+ * `compilation`
  
  */
 public enum AlbumGroup: String, CaseIterable, Codable, Hashable {

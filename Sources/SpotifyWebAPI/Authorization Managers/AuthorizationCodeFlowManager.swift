@@ -33,12 +33,9 @@ import Logger
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public class AuthorizationCodeFlowManager:
-    SpotifyAuthorizationManager,
-    ObservableObject
-{
+public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable {
     
-    let logger = Logger(
+    public let logger = Logger(
         label: "AuthorizationCodeFlowManager", level: .trace
     )
     
@@ -62,6 +59,10 @@ public class AuthorizationCodeFlowManager:
     public private(set) var scopes: Set<Scope>? = nil
     
     private var cancellables: Set<AnyCancellable> = []
+
+    /// A `PassthroughSubject` that emits **AFTER** this
+    /// `AuthorizationCodeFlowManager` has changed.
+    public let didChange = PassthroughSubject<Void, Never>()
     
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
@@ -78,19 +79,7 @@ public class AuthorizationCodeFlowManager:
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
-        self.testPublishers()
-    }
-    
-    private func testPublishers() {
-        
-        self.objectWillChange
-            .print("AuthorizationCodeFlowManager: objectWillChange")
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { int in
-                print("\nAuthorizationCodeFlowManager objectWillChange sink \(int)\n")
-            })
-            .store(in: &cancellables)
-        
+        self.didChange.send()
     }
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
@@ -101,10 +90,8 @@ public class AuthorizationCodeFlowManager:
         self.expirationDate = authInfo.expirationDate
         self.scopes = authInfo.scopes
         
-        self.logger.trace(
-            "SENDING OBJECT WILL CHANGE\n"
-        )
-        self.objectWillChange.send()
+        self.logger.trace("after updateFromAuthInfo:\n\(self)")
+        self.didChange.send()
     }
     
     
@@ -128,6 +115,7 @@ public class AuthorizationCodeFlowManager:
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
+
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -157,15 +145,23 @@ public class AuthorizationCodeFlowManager:
 
 public extension AuthorizationCodeFlowManager {
     
-    /**
-     Sets `accessToken`, `refreshToken`, `expirationDate`, and
-     `scopes` to `nil`.
-     */
+    func mockValues() {
+        self.accessToken = UUID().uuidString
+        self.refreshToken = UUID().uuidString
+        self.expirationDate = Date()
+        self.scopes = Set(Scope.allCases.shuffled().prefix(4))
+    }
+    
+    
+    /// Sets `accessToken`, `refreshToken`, `expirationDate`, and
+    /// `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
+    /// which are immutable.
     func logout() {
         self.accessToken = nil
         self.refreshToken = nil
         self.expirationDate = nil
         self.scopes = nil
+        self.didChange.send()
     }
     
     /**
@@ -186,7 +182,7 @@ public extension AuthorizationCodeFlowManager {
      Returns `true` if `accessToken` is not `nil` and the application
      is authorized for the specified scopes, else `false`.
      
-     - Parameter scopes: [Spotify Authorizaion Scopes][1].
+     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
            Use an empty set (default) to check if an `accessToken`
            has been retrieved for the application,
            which is still required for all endpoints,
@@ -288,12 +284,11 @@ public extension AuthorizationCodeFlowManager {
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
         
-        // self.logger.trace("raw url: '\(redirectURI)'")
-        
         let queryDict = redirectURI.queryItemsDict
 
         // if the code is found in the query,
         // then the user successfully authorized the application.
+        // this is required for requesting the access and refresh tokens.
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
@@ -358,8 +353,8 @@ public extension AuthorizationCodeFlowManager {
                 
                 self.logger.critical(
                     """
-                    missing properties after requesting access and refresh \
-                    tokens:
+                    missing properties after requesting \
+                    access and refresh tokens:
                     \(authInfo)
                     """
                 )
@@ -401,7 +396,6 @@ public extension AuthorizationCodeFlowManager {
                 return Result<Void, Error>
                     .Publisher(())
                     .eraseToAnyPublisher()
-        
             }
         
             guard let refreshToken = refreshToken else {
@@ -445,8 +439,7 @@ public extension AuthorizationCodeFlowManager {
                         authInfo.scopes == nil {
                     self.logger.critical(
                         """
-                        missing access token and/or expiration date and/or
-                        scopes after refreshing tokens:
+                        missing properties after refreshing access token:
                         \(authInfo)
                         """
                     )
@@ -477,13 +470,11 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
                 .description(with: .autoupdatingCurrent)
                 ?? "nil"
         
-        var scopeString = "nil"
-        if let scopes = scopes {
-            scopeString = "\(scopes.map(\.rawValue))"
-        }
+        let scopeString = scopes.map({ "\($0.map(\.rawValue))" })
+                ?? "nil"
         
         return """
-            AuthInfo(
+            AuthorizationCodeFlowManager(
                 access_token: "\(accessToken ?? "nil")"
                 scopes: \(scopeString)
                 expirationDate: \(expirationDateString)
