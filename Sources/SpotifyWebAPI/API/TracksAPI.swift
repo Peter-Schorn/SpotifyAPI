@@ -101,4 +101,128 @@ public extension SpotifyAPI {
         
     }
     
+    
+    /**
+     Get audio analysis for a track.
+     
+     See also `trackAudioFeatures(_:)` (gets the audio features for
+     a single track) and `tracksAudioFeatures(_:)` (get the audio features
+     for multiple tracks).
+     
+     No scopes are required for this endpoint.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uri: The URI for a track.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/
+     */
+    func trackAudioAnalysis(
+        _ uri: SpotifyURIConvertible
+    ) -> AnyPublisher<AudioAnalysis, Error> {
+        
+        do {
+            
+            let trackId = try SpotifyIdentifier(uri: uri).id
+            
+            return self.getRequest(
+                path: "/audio-analysis/\(trackId)",
+                queryItems: [:],
+                requiredScopes: []
+            )
+            .spotifyDecode(AudioAnalysis.self)
+            
+        } catch {
+            return error.anyFailingPublisher(AudioAnalysis.self)
+        }
+        
+    }
+    
+    /**
+     Get audio features for a track.
+
+     See also `tracksAudioFeatures(_:)` (gets the audio features for
+     multiple tracks) and `trackAudioAnalysis(_:)`.
+     
+     No scopes are required for this endpoint.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uri: The URI for a track.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+     */
+    func trackAudioFeatures(
+        _ uri: SpotifyURIConvertible
+    ) -> AnyPublisher<AudioFeatures, Error> {
+        
+        do {
+            
+            let trackId = try SpotifyIdentifier(uri: uri).id
+            
+            return self.getRequest(
+                path: "/audio-features/\(trackId)",
+                queryItems: [:],
+                requiredScopes: []
+            )
+            .spotifyDecode(AudioFeatures.self)
+            
+        } catch {
+            return error.anyFailingPublisher(AudioFeatures.self)
+        }
+        
+    }
+    
+    /**
+     Get audio features for multiple tracks.
+     
+     See also `trackAudioFeatures(_:)` (gets the audio features for
+     a single track) and `trackAudioAnalysis(_:)`.
+     
+     No scopes are required for this endpoint.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uris: An array of up to 100 URIs for tracks.
+     - Returns: Results are returned in the order requested.
+           If the audio features for a track  is not found, `nil` is returned
+           in the appropriate position. Duplicate ids in the request will
+           result in duplicate results in the response.
+     
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
+     */
+    func tracksAudioFeatures(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<[AudioFeatures?], Error> {
+        
+        do {
+            
+            let trackIds = try SpotifyIdentifier
+                    .commaSeparatedIdsString(uris)
+            
+            return self.getRequest(
+                path: "/audio-features",
+                queryItems: ["ids": trackIds],
+                requiredScopes: []
+            )
+            .spotifyDecode([String: [AudioFeatures?]].self)
+                .tryMap { dict -> [AudioFeatures?] in
+                    if let audioFeatures = dict["audio_features"] {
+                        return audioFeatures
+                    }
+                    throw SpotifyLocalError.topLevelKeyNotFound(
+                        key: "audio_features", dict: dict
+                    )
+                }
+                .eraseToAnyPublisher()
+            
+            
+        } catch {
+            return error.anyFailingPublisher([AudioFeatures?].self)
+        }
+        
+    }
+    
+    
 }

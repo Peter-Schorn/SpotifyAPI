@@ -13,17 +13,6 @@ import Foundation
  */
 public enum PlaybackActions: String, Codable, Hashable {
     
-    // case interruptPlayback
-    // case pause
-    // case resume
-    // case seek
-    // case skipToNext
-    // case skipToPrevious
-    // case toggleRepeatContext
-    // case toggleRepeatTrack
-    // case toggleShuffle
-    // case transferPlayback
-    
     case interruptPlayback = "interrupting_playback"
     case pause = "pausing"
     case resume = "resuming"
@@ -55,21 +44,3 @@ extension PlaybackActions: CaseIterable {
     }
     
 }
-
-
-// extension PlaybackActions: Codable {
-//
-//     public enum CodingKeys: String, CodingKey {
-//         case interruptPlayback = "interrupting_playback"
-//         case pause = "pausing"
-//         case resume = "resuming"
-//         case seek = "seeking"
-//         case skipToNext = "skipping_next"
-//         case skipToPrevious = "skipping_prev"
-//         case toggleRepeatContext = "toggling_repeat_context"
-//         case toggleRepeatTrack = "toggling_repeat_track"
-//         case toggleShuffle = "toggling_shuffle"
-//         case transferPlayback = "transferring_playback"
-//     }
-//
-// }
