@@ -105,5 +105,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             \(dataString)
             """
     }
+    
+    public var errorDescription: String? {
+        return description
+    }
 
 }

@@ -8,7 +8,7 @@ import Foundation
  authorized your application yet, you will get a `.unauthorized`
  error.
  */
-public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
+public enum SpotifyLocalError: LocalizedError {
     
     /**
      You tried to access an endpoint that requires authorization,
@@ -76,36 +76,32 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     public var errorDescription: String? {
         switch self {
              case .unauthorized(let message):
-                return "unauthorized: \(message)"
+                return "SpotifyLocalError: unauthorized: \(message)"
             case .invalidState(let supplied, let received):
                 return """
-                    The value for the state parameter provided when making
-                    the authorization URL '\(supplied)' did not match the
+                    SpotifyLocalError: The value for the state parameter provided
+                    when making the authorization URL '\(supplied)' did not match the
                     value in the query string of the redirect URI: '\(received)'
                     """
             case .identifierParsingError(_):
                 return "identifier parsing error: \(self)"
             case .insufficientScope(let required, let authorized):
                 return """
-                    The endpoint you tried to access requires the \
-                    following scopes:
+                    SpotifyLocalError: The endpoint you tried to access \
+                    requires the following scopes:
                     \(required.map(\.rawValue))
                     but your app is only authorized for theses scopes:
                     \(authorized.map(\.rawValue))
                     """
             case .topLevelKeyNotFound(key: let key, dict: let dict):
                 return """
-                    The expected top level key '\(key)' was not found \
-                    in the dictionary:
+                    SpotifyLocalError: The expected top level key '\(key)' \
+                    was not found in the dictionary:
                     \(dict)
                     """
             case .other(let message):
-                return message
+                return "SpotifyLocalError: \(message)"
         }
-    }
-    
-    public var description: String {
-        return errorDescription!
     }
     
   

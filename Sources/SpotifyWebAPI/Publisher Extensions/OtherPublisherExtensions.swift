@@ -79,33 +79,33 @@ public extension Publisher {
     
 }
 
-// public extension Publisher where Output == Void {
-//     
-//     /**
-//      A convience wrapper for sink that only requires a `receiveCompletion`
-//      closure. Available when `Output` == `Void`.
-//      
-//      This method creates the subscriber and immediately requests an
-//      unlimited number of values, prior to returning the subscriber.
-//      
-//      - Parameter receiveCompletion: The closure to execute on completion.
-//            If `nil`, the sink uses an empty closure.
-//      - Returns: A subscriber that performs the provided closure upon
-//            receiving completion.
-//      */
-//     func sink(
-//         receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void)
-//     ) -> AnyCancellable {
-//         
-//         return self
-//             .sink(
-//                 receiveCompletion: receiveCompletion,
-//                 receiveValue: { }
-//             )
-//         
-//     }
-//     
-// }
+public extension Publisher where Output == Void {
+    
+    /**
+     A convience wrapper for sink that only requires a `receiveCompletion`
+     closure. Available when `Output` == `Void`.
+     
+     This method creates the subscriber and immediately requests an
+     unlimited number of values, prior to returning the subscriber.
+     
+     - Parameter receiveCompletion: The closure to execute on completion.
+           If `nil`, the sink uses an empty closure.
+     - Returns: A subscriber that performs the provided closure upon
+           receiving completion.
+     */
+    func sink(
+        receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void)
+    ) -> AnyCancellable {
+        
+        return self
+            .sink(
+                receiveCompletion: receiveCompletion,
+                receiveValue: { }
+            )
+        
+    }
+    
+}
 
 
 

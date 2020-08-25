@@ -32,16 +32,18 @@ enum Headers {
     ]
 
     /**
-     Makes the base64Encoded authorization header.
+     Makes the base64Encoded authorization header
+     with the client id and secret.
      
      ```
      guard let encodedString = "\(clientId):\(clientSecret)"
-     .base64Encoded()
+             .base64Encoded()
      else {
-     return nil
+         return nil
      }
      return ["Authorization": "Basic \(encodedString)"]
      ```
+     
      - Parameters:
        - clientId: The client id.
        - clientSecret: The client secret.
@@ -51,9 +53,9 @@ enum Headers {
     ) -> [String: String]? {
         
         guard let encodedString = "\(clientId):\(clientSecret)"
-            .base64Encoded()
-            else {
-                return nil
+                .base64Encoded()
+        else {
+            return nil
         }
         
         return ["Authorization": "Basic \(encodedString)"]

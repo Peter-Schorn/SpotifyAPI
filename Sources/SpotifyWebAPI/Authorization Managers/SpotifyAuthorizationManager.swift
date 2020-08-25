@@ -4,10 +4,11 @@ import Logger
 
 /**
  An object that can manage the authorization process for the
- Spotify web API. It provides an access token, the scopes
+ Spotify web API.
+ 
+ It provides an access token, the scopes
  that have been authorized for the access token, and a method
  for refreshing the access token.
- 
  */
 public protocol SpotifyAuthorizationManager: Codable {
     
@@ -20,6 +21,13 @@ public protocol SpotifyAuthorizationManager: Codable {
     
     /// The scopes that have been authorized for the access token.
     var scopes: Set<Scope>? { get }
+    
+    /// A `PassthroughSubject` that emits **AFTER** the
+    /// the authorization manager has changed.
+    var didChange: PassthroughSubject<Void, Never> { get }
+    
+    /// Logs debugging messages. Don't use in shipping code.
+    var logger: Logger { get }
     
     /**
      Determines whether the access token is expired
@@ -37,7 +45,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired.
+             if the token is expired. The reccomended default is 60.
      */
     func refreshTokens(
         onlyIfExpired: Bool,
@@ -55,11 +63,7 @@ public protocol SpotifyAuthorizationManager: Codable {
     func isAuthorized(for scopes: Set<Scope>) -> Bool
     
     
-    /// A `PassthroughSubject` that emits **AFTER** the
-    /// the authorization manager has changed.
-    var didChange: PassthroughSubject<Void, Never> { get }
-    
-    /// Logs debugging messages. Don't use in shipping code.
-    var logger: Logger { get }
+    /// Sets the credentials for the authorization manager to `nil`.
+    func logout() -> Void
     
 }

@@ -1,5 +1,10 @@
 import Foundation
 
+/**
+ The authorization info that spotify returns
+ for the Authorization Code Flow and the
+ Client Credentials Flow.
+ */
 struct AuthInfo: Codable {
     
     public let accessToken: String?

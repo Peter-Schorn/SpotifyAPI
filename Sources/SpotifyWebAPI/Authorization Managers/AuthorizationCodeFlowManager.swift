@@ -10,9 +10,9 @@ import Logger
  * The client id
  * The client secret
  * The access token
- * the refresh token
- * the expiration date for the access token
- * the scopes that have been authorized for the access token
+ * The refresh token
+ * The expiration date for the access token
+ * The scopes that have been authorized for the access token
  
  The first step in the authorization code flow is to make the
  authorization URL using
@@ -33,7 +33,7 @@ import Logger
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable {
+public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable {
     
     public let logger = Logger(
         label: "AuthorizationCodeFlowManager", level: .trace
@@ -42,7 +42,7 @@ public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable 
     /// The client id for your application.
     public let clientId: String
     
-    /// The client secret for you application.
+    /// The client secret for your application.
     public let clientSecret: String
     
     /// The access token used in all of the requests
@@ -52,7 +52,7 @@ public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable 
     /// Used to refresh the access token.
     public private(set) var refreshToken: String? = nil
     
-    /// The expiration date of the access token
+    /// The expiration date of the access token.
     public private(set) var expirationDate: Date? = nil
     
     /// The scopes that have been authorized for the access token.
@@ -97,7 +97,7 @@ public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable 
     
     // MARK: - Codable Conformance -
         
-    public required init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
         
@@ -144,14 +144,6 @@ public class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable 
 }
 
 public extension AuthorizationCodeFlowManager {
-    
-    func mockValues() {
-        self.accessToken = UUID().uuidString
-        self.refreshToken = UUID().uuidString
-        self.expirationDate = Date()
-        self.scopes = Set(Scope.allCases.shuffled().prefix(4))
-    }
-    
     
     /// Sets `accessToken`, `refreshToken`, `expirationDate`, and
     /// `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
@@ -325,21 +317,25 @@ public extension AuthorizationCodeFlowManager {
             .removingQueryItems()
             .removingTrailingSlashInPath()
         
-        let requestBody = TokensRequest(
+        
+        let body = TokensRequest(
             code: code,
             redirectURI: baseRedirectURI,
             clientId: clientId,
             clientSecret: clientSecret
         ).formURLEncoded()
         
+        
+        
         self.logger.trace("sending request for refresh and access tokens")
         
         return URLSession.shared.dataTaskPublisher(
-            url: Endpoints.getRefreshAndAccessTokensURL,
+            url: Endpoints.getTokens,
             httpMethod: "POST",
             headers: Headers.formURLEncoded,
-            body: requestBody
+            body: body
         )
+        .decodeSpotifyErrors()
         .spotifyDecode(AuthInfo.self)
         .receive(on: RunLoop.main)
         .map { authInfo in
@@ -367,7 +363,6 @@ public extension AuthorizationCodeFlowManager {
         
         
     }
-    
 
     /**
      Uses the refresh token to get a new access token.
@@ -391,7 +386,7 @@ public extension AuthorizationCodeFlowManager {
         
         do {
         
-            if onlyIfExpired && !self.isExpired(tolerance: tolerance) {
+            if onlyIfExpired && !self.isExpired() {
                 self.logger.trace("access token not expired; returning early")
                 return Result<Void, Error>
                     .Publisher(())
@@ -402,9 +397,11 @@ public extension AuthorizationCodeFlowManager {
                 self.logger.critical(
                     "can't refresh access token: no refresh token"
                 )
-                throw SpotifyLocalError.other(
+                
+                throw SpotifyLocalError.unauthorized(
                     "can't refresh access token: no refresh token"
                 )
+                
             }
         
             guard let header = Headers.basicBase64Encoded(
@@ -423,11 +420,12 @@ public extension AuthorizationCodeFlowManager {
             ).formURLEncoded()
         
             return URLSession.shared.dataTaskPublisher(
-                url: Endpoints.getRefreshAndAccessTokensURL,
+                url: Endpoints.getTokens,
                 httpMethod: "POST",
                 headers: header,
                 body: requestBody
             )
+            .decodeSpotifyErrors()
             .spotifyDecode(AuthInfo.self)
             .receive(on: RunLoop.main)
             .map { authInfo in
@@ -459,6 +457,27 @@ public extension AuthorizationCodeFlowManager {
     
 }
 
+// MARK: - Hashable -
+
+extension AuthorizationCodeFlowManager: Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(clientId)
+        hasher.combine(clientSecret)
+        hasher.combine(accessToken)
+        hasher.combine(refreshToken)
+        hasher.combine(expirationDate)
+        hasher.combine(scopes)
+    }
+    
+    public static func == (
+        lhs: AuthorizationCodeFlowManager,
+        rhs: AuthorizationCodeFlowManager
+    ) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+}
 
 // MARK: - Custom String Convertible
 

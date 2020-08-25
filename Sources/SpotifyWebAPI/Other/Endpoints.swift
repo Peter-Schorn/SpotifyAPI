@@ -33,22 +33,23 @@ enum Endpoints {
     /// ```
     static let authorize = "/authorize"
     
-    /// The path for requesting refresh and access tokens.
+    /// The path for requesting tokens.
     /// ```
     /// "/api/token"
     /// ```
-    static let getTokens = "/api/token"
+    static let token = "/api/token"
     
-    /// Used to retrieve refresh and access tokens
-    /// and to refresh an access token.
+    /// Used to retrieve refresh and access tokens and to
+    /// refresh an access token for the Authorization Code Flow,
+    /// and to request an access token for the Client Credentials Flow.
     ///
     /// ```
     /// "https://accounts.spotify.com/api/token"
     /// ```
-    static let getRefreshAndAccessTokensURL = URL(
+    static let getTokens = URL(
         scheme: "https",
         host: Endpoints.accountsBase,
-        path: Endpoints.getTokens
+        path: Endpoints.token
     )!
     
     

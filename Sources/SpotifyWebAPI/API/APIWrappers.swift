@@ -67,7 +67,8 @@ extension SpotifyAPI {
         return self.authorizationManager.refreshTokens(
             onlyIfExpired: true, tolerance: 60
         )
-        .tryMap {
+        .tryMap { () -> String in
+            
             guard let acccessToken = self.authorizationManager.accessToken else {
                 throw SpotifyLocalError.unauthorized(
                     "unauthorized: no access token"
@@ -82,7 +83,12 @@ extension SpotifyAPI {
                     authorizedScopes: self.authorizationManager.scopes ?? []
                 )
             }
+            self.spotifyAPILogger.trace(
+                "is authorized for scopes: \(requiredScopes.map(\.rawValue))"
+            )
+
             return acccessToken
+            
         }
         .flatMap { accessToken in
             

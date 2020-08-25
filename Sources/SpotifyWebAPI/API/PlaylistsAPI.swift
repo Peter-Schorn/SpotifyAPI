@@ -690,7 +690,7 @@ public extension SpotifyAPI {
                     the size of the image that you are uploading (\(size))
                     is larger than Spotify's limit of 256 KB.
                     You may experience errors, such as those indicating you
-                    lost internet connection.
+                    lost connection to the network.
                     --------------------------------------------------------
                     """
                 )
@@ -715,15 +715,9 @@ public extension SpotifyAPI {
             )
             .map { data, urlResponse in
             
-                let dataString = String(data: data, encoding: .utf8)
-                        ?? "couldn't decode data into string"
-            
+                let statusCode = (urlResponse as! HTTPURLResponse).statusCode
                 self.spotifyAPILogger.trace(
-                    """
-                    url response:
-                    \(urlResponse)
-                    data: [\(dataString)]",
-                    """,
+                    "status code: \(statusCode)",
                     function: thisFunction
                 )
             
