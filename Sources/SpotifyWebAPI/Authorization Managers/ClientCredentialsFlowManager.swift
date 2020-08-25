@@ -11,6 +11,10 @@ import Logger
  This means that endpoints that require [authorization scopes][2]
  cannot be accessed.
  
+ The only method you must call the authorizse your application is
+ `authorize()`. After that, you may begin making requests to the
+ Soptify web API.
+ 
  The advantage of this authorization proccess is that no user
  interaction is required.
  
@@ -55,11 +59,20 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
      
+     Remember, with this authorization flow, only endpoints that do not
+     access user information can be accessed. This means that endpoints
+     that require [authorization scopes][2] cannot be accessed.
+     
+     To get your client id and secret, see the
+     [guide for registering your app][3].
+     
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [3]: https://developer.spotify.com/documentation/general/guides/app-settings/
      */
     public init(
         clientId: String,
@@ -164,6 +177,14 @@ public extension ClientCredentialsFlowManager {
         return scopes.isEmpty
     }
     
+    /**
+     Authorizes the application for the [Client Credentials Flow][1].
+     
+     This is the only method you need to call to authorize your application.
+     After this, you can begin making requests to the Spotify web API.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     */
     func authorize() -> AnyPublisher<Void, Error> {
         
         self.logger.trace("authorizing")
@@ -208,7 +229,22 @@ public extension ClientCredentialsFlowManager {
         
     }
     
+    /**
+     Retrieves a new access token.
     
+     **You shouldn't need to call this method**. It gets
+     called automatically each time you make a request to the
+     Spotify API.
+     
+     - Parameters:
+       - onlyIfExpired: Only retrieve a new access token if the current
+             one is expired.
+       - tolerance: The tolerance in seconds to use when determining
+             if the token is expired. Defaults to 60.
+             The token is considered expired if
+             `expirationDate` + `tolerance` is equal to or
+             before the current date.
+     */
     func refreshTokens(
         onlyIfExpired: Bool,
         tolerance: Double = 60
@@ -225,6 +261,8 @@ public extension ClientCredentialsFlowManager {
         
         // the process for refreshing the token
         // is the same as that for authorizing the application.
+        // the client credentials flow does not return a refresh token,
+        // unlike the authorization code flow.
         return self.authorize()
         
     }
@@ -232,7 +270,7 @@ public extension ClientCredentialsFlowManager {
     
 }
 
-// MARK: - Hashable -
+// MARK: - Hashable and Equatable -
 
 extension ClientCredentialsFlowManager: Hashable {
     
@@ -247,8 +285,18 @@ extension ClientCredentialsFlowManager: Hashable {
         lhs: ClientCredentialsFlowManager,
         rhs: ClientCredentialsFlowManager
     ) -> Bool {
-        return lhs.hashValue == rhs.hashValue
+        
+        if lhs.clientId != rhs.clientId ||
+                lhs.clientSecret != rhs.clientSecret ||
+                lhs.accessToken != rhs.accessToken {
+            return false
+        }
+        return abs(
+            (lhs.expirationDate?.timeIntervalSince1970 ?? 0) -
+            (rhs.expirationDate?.timeIntervalSince1970 ?? 0)
+        ) <= 5
     }
+    
     
 }
 
@@ -272,4 +320,17 @@ extension ClientCredentialsFlowManager: CustomStringConvertible {
             """
     }
 
+}
+
+// MARK: - Testing -
+
+extension ClientCredentialsFlowManager {
+    
+    /// This method sets random values for various properties
+    /// for testing purposes. Do not call it outside of test cases.
+    func mockValues() {
+        self.expirationDate = Date()
+        self.accessToken = UUID().uuidString
+    }
+    
 }

@@ -23,9 +23,9 @@ import Logger
  After they either authorize or deny authorization for your application,
  Spotify will redirect to the redirect URI sepcified in the authorization
  URL with query parameters appended to it. Pass this URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`. To request
+ `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to request
  the refresh and access tokens. After that you can begin making requests
- to the Spotify API. the access token will be refreshed for you
+ to the Spotify API. The access token will be refreshed for you
  automatically when needed.
  
  Use `isAuthorized(for:)` to check if your application is authorized
@@ -67,11 +67,15 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
      
+     To get your client id and secret,
+     see the [guide for registering your app][1].
+     
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/
      */
     public init(
         clientId: String,
@@ -81,19 +85,6 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         self.clientSecret = clientSecret
         self.didChange.send()
     }
-    
-    func updateFromAuthInfo(_ authInfo: AuthInfo) {
-        self.accessToken = authInfo.accessToken
-        if let refreshToken = authInfo.refreshToken {
-            self.refreshToken = refreshToken
-        }
-        self.expirationDate = authInfo.expirationDate
-        self.scopes = authInfo.scopes
-        
-        self.logger.trace("after updateFromAuthInfo:\n\(self)")
-        self.didChange.send()
-    }
-    
     
     // MARK: - Codable Conformance -
         
@@ -140,6 +131,18 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         try codingWrapper.encode(to: encoder)
         
     }
+    
+    func updateFromAuthInfo(_ authInfo: AuthInfo) {
+        self.accessToken = authInfo.accessToken
+        if let refreshToken = authInfo.refreshToken {
+            self.refreshToken = refreshToken
+        }
+        self.expirationDate = authInfo.expirationDate
+        self.scopes = authInfo.scopes
+        
+        self.didChange.send()
+    }
+    
     
 }
 
@@ -194,12 +197,23 @@ public extension AuthorizationCodeFlowManager {
      your app. Open the URL in a browser/webview so that the user can
      login to their Spotify account and authorize your app.
      
+     After the user either authorizes or denies authorization for your
+     application, Spotify will redirect to `redirectURI` with query parameters
+     appended to it. Pass that url into
+     `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to complete
+     the authorization process.
+     
      - Warning: **DO NOT add a forward-slash to the end of the redirect URI**.
 
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
              after the user authorizes or denies authorization for your app.
              This should link to a location in your app.
+             This URI needs to have been entered in the Redirect URI whitelist
+             that you specified when you registered your application.
+             The value must exactly match one of the values you entered when
+             you registered your application, including upper or lowercase,
+             terminating slashes, and such.
        - showDialog: Whether or not to force the user to approve the app again
              if they’ve already done so. If `false`,
              a user who has already approved the application
@@ -251,14 +265,15 @@ public extension AuthorizationCodeFlowManager {
     }
     
     /**
-     The second step in the [Authorization Code Flow][1].
+     The second and final step in the [Authorization Code Flow][1].
      
      After you open the url from
      `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`
      and the user either authorizes or denies authorization for your app,
      Spotify will redirect to the redirect uri you specified with query
      parameters appended to it. Pass this URL into this method to request
-     access and refresh tokens.
+     access and refresh tokens. The access token is required in all endpoints,
+     even those that do not access user data.
      
      - Parameters:
        - redirectURI: The redirect URI with query parameters appended to it.
@@ -457,10 +472,10 @@ public extension AuthorizationCodeFlowManager {
     
 }
 
-// MARK: - Hashable -
+// MARK: - Hashable and Equatable -
 
 extension AuthorizationCodeFlowManager: Hashable {
-    
+
     public func hash(into hasher: inout Hasher) {
         hasher.combine(clientId)
         hasher.combine(clientSecret)
@@ -469,14 +484,26 @@ extension AuthorizationCodeFlowManager: Hashable {
         hasher.combine(expirationDate)
         hasher.combine(scopes)
     }
-    
+
     public static func == (
         lhs: AuthorizationCodeFlowManager,
         rhs: AuthorizationCodeFlowManager
     ) -> Bool {
-        return lhs.hashValue == rhs.hashValue
+        if lhs.clientId != rhs.clientId ||
+                lhs.clientSecret != rhs.clientSecret ||
+                lhs.accessToken != rhs.accessToken ||
+                lhs.refreshToken != rhs.refreshToken ||
+                lhs.scopes != rhs.scopes {
+            return false
+        }
+        return abs(
+            (lhs.expirationDate?.timeIntervalSince1970 ?? 0) -
+            (rhs.expirationDate?.timeIntervalSince1970 ?? 0)
+        ) <= 5
+        
+        
     }
-    
+
 }
 
 // MARK: - Custom String Convertible
@@ -504,4 +531,19 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
             """
     }
 
+}
+
+// MARK: - Testing -
+
+extension AuthorizationCodeFlowManager {
+    
+    /// This method sets random values for various properties
+    /// for testing purposes. Do not call it outside of test cases.
+    func mockValues() {
+        self.accessToken = UUID().uuidString
+        self.refreshToken = UUID().uuidString
+        self.expirationDate = Date()
+        self.scopes = Set(Scope.allCases.shuffled().prefix(5))
+    }
+    
 }

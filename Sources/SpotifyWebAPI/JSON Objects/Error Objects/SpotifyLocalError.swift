@@ -63,7 +63,7 @@ public enum SpotifyLocalError: LocalizedError {
      { "snapshot_id" : "3245kj..." }
      ```
      The value of the snapshot id is returned instead
-     of this dictionary or this error is thrown if it
+     of the entire dictionary or this error is thrown if it
      can't be found.
      */
     case topLevelKeyNotFound(

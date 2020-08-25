@@ -49,7 +49,7 @@ import Logger
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
  - Tag: Scopes
  */
-public enum Scope: String, CaseIterable, Codable, Hashable {
+public enum Scope: String, Codable, Hashable {
     
     // MARK: Images
     
@@ -136,8 +136,7 @@ public enum Scope: String, CaseIterable, Codable, Hashable {
 
 // MARK: - Convience methods -
 
-extension Scope {
-    
+public extension Scope {
     
     /**
      Creates a space-separated string of scopes, which can be used
@@ -154,7 +153,7 @@ extension Scope {
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
-    public static func makeString(_ scopes: Scope...) -> String {
+    static func makeString(_ scopes: Scope...) -> String {
         return makeString(Set(scopes))
     }
     
@@ -173,7 +172,7 @@ extension Scope {
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
-    public static func makeString(_ scopes: Set<Scope>) -> String {
+    static func makeString(_ scopes: Set<Scope>) -> String {
         
         return scopes.reduce(into: "") { scopes, nextScope in
             scopes += " " + nextScope.rawValue
@@ -199,7 +198,7 @@ extension Scope {
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
-    public static func makeSet(_ string: String) -> Set<Scope> {
+    static func makeSet(_ string: String) -> Set<Scope> {
         
         let stringArray = try! string.regexSplit(
             #"[^\w-]+"#, ignoreIfEmpty: true
@@ -218,9 +217,39 @@ extension Scope {
     ///
     /// - Parameter scope: A Spotify authorization scope string.
     ///       The string must contain only a single scope.
-    public static func contains(_ scope: String) -> Bool {
+    static func contains(_ scope: String) -> Bool {
         return Self.allCases.map(\.rawValue).contains(scope.strip())
     }
     
+    
+}
+
+
+extension Scope: CaseIterable {
+    
+    public static var allCases: Set<Scope> {
+        return [
+            .ugcImageUpload,
+            .userReadPlaybackState,
+            .userModifyPlaybackState,
+            .userReadCurrentlyPlaying,
+            .streaming,
+            .appRemoteControl,
+            .userReadEmail,
+            .userReadPrivate,
+            .playlistReadCollaborative,
+            .playlistModifyPublic,
+            .playlistReadPrivate,
+            .playlistModifyPrivate,
+            .userLibraryModify,
+            .userLibraryRead,
+            .userTopRead,
+            .userReadPlaybackPosition,
+            .userReadRecentlyPlayed,
+            .userFollowRead,
+            .userFollowModify
+         
+        ]
+    }
     
 }

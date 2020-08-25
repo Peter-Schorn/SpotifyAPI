@@ -61,7 +61,7 @@ extension SpotifyAPI {
         )
         
         self.apiRequestLogger.trace(
-            "\(httpMethod) request to: \"\(endpoint)\"\n"
+            "\(httpMethod) \"\(endpoint)\"\n"
         )
         
         return self.authorizationManager.refreshTokens(
@@ -83,10 +83,6 @@ extension SpotifyAPI {
                     authorizedScopes: self.authorizationManager.scopes ?? []
                 )
             }
-            self.spotifyAPILogger.trace(
-                "is authorized for scopes: \(requiredScopes.map(\.rawValue))"
-            )
-
             return acccessToken
             
         }

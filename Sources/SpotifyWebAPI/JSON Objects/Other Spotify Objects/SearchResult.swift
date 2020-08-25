@@ -38,7 +38,7 @@ public struct SearchResult: Hashable {
     /// A Paging object containing full `artist` objects.
     public let tracks: PagingObject<Track>?
     
-    public let playlists: PagingObject<Playlist<TracksEpisodesReference>>?
+    public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>?
     
 }
 

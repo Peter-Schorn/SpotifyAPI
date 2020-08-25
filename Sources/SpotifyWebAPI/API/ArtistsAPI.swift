@@ -10,7 +10,7 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
     
-     See also `artists(uris:)` (gets several artists).
+     See also `artists(uris:)` (gets multiple artists).
 
      Read more at the [Spotify web API reference][1].
     
@@ -41,7 +41,7 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get several artists.
+     Get multiple artists.
      
      No scopes are required for this endpoint.
 
@@ -100,7 +100,7 @@ public extension SpotifyAPI {
      Get an artist's albums
      
      See also `album(_:market:)` (gets a single album) and
-     `albums(_:market:)` (gets several albums).
+     `albums(_:market:)` (gets multiple albums).
      
      No scopes are required for this endpoint.
      

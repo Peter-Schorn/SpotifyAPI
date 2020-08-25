@@ -77,7 +77,7 @@ public struct Track: Hashable {
     
     /// Whether or not the track has explicit lyrics.
     /// `false` if unknown.
-    public let explicit: Bool
+    public let isExplicit: Bool
     
     /// Part of the response when [Track Relinking][1] is applied.
     /// Else, `nil`. If `true`, the track is playable in the given market.
@@ -160,7 +160,7 @@ extension Track: Codable {
         case popularity
         case durationMS = "duration_ms"
         case trackNumber
-        case explicit
+        case isExplicit = "explicit"
         case isPlayable = "is_playable"
         case href
         case previewURL
@@ -175,46 +175,3 @@ extension Track: Codable {
     }
     
 }
-
-
-private struct Episode: Codable, Hashable {
-    
-    // MARK: Same as TracK
-    let name: String
-    let uri: String
-    let type: String
-
-    // MARK: Unique to episode
-    let show: String
-    let releaseDate: String
-    
-}
-
-// PagingObject<PlaylistItemContainer<Track>>
-// Playlist<PagingObject<PlaylistItemContainer<Track>>>
-
-
-/**
- A Type-erased wrapper over either a `Track` or an `Episode`.
- This is used for endpoints that retrieve the items in a playlist,
- which can include both of these items. Do NOT conform additional
- types to this protocol.
- 
- */
-protocol AnyPlaylistItem: Codable {
-    
-    var name: String { get }
-    var uri: String { get }
-    var type: String { get }
-}
-
-func test(p: AnyPlaylistItem) {
-    print(p.name)
-}
-
-
-// func test(p: Playlist<PagingObject<PlaylistItemContainer<AnyPlaylistItem>>>) {
-    
-    // let x = p
-    
-// }

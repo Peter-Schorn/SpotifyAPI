@@ -50,6 +50,37 @@ extension SpotifyAPI {
     
     }
 
+    
+    func getPlaylistItems<ResponseType: Decodable>(
+        _ playlist: SpotifyURIConvertible,
+        limit: Int?,
+        offset: Int?,
+        market: String?,
+        requestedTypes: [IDCategory],
+        responseType: ResponseType.Type
+    ) -> AnyPublisher<ResponseType, Error> {
+        
+        do {
+            let playlistId = try SpotifyIdentifier(uri: playlist).id
+        
+            return self.getRequest(
+                path: "/playlists/\(playlistId)/tracks",
+                queryItems: [
+                    "limit": limit,
+                    "offset": offset,
+                    "market": market,
+                    "additional_types": requestedTypes.commaSeparatedString()
+                ],
+                requiredScopes: []
+            )
+            .spotifyDecode(responseType)
+        
+        } catch {
+            return error.anyFailingPublisher(responseType)
+        }
+        
+    }
+    
 }
 
 // MARK: - Public methods -
@@ -59,28 +90,118 @@ public extension SpotifyAPI {
     // MARK: - GET -
     
     /**
-     Gets a playlist, including its tracks and additional
+     Makes a request to the "/playlists/{playlistId}" endpoint
+     and allows you to specify fields to filter the query.
+
+     See also:
+     
+     * `playlist(_:market:)`
+     * `playlistTracks(_:limit:offset:market:)`
+     * `playlistItems(_:limit:offset:market:)`
+     
+     No scopes are required for this endpoint. Both Public and
+     Private playlists belonging to any user can be retrieved.
+     
+     Use the [Spotify console][1] to test your queries,
+     then copy and paste the response into this [online JSON viewer][2].
+     
+     Read more at the [Spotify web API reference][3].
+     
+     - Parameters:
+       - playlist: The URI of a playlist.
+       - filters: *required*. Filters for the query: a comma-separated list
+             (no spaces) of the fields to return. If omitted, all fields are
+             returned. For example, to get just the playlist’s description
+             and URI: "description,uri". A dot separator can be used to specify
+             non-reoccurring fields, while parentheses can be used to specify
+             reoccurring fields within objects. For example, to get just the added
+             date and user ID of the adder: "tracks.items(added_at,added_by.id)".
+             Use multiple parentheses to drill down into nested objects, for example: "tracks.items(track(name,href,album(name,href)))". Fields can be
+             excluded by prefixing them with an exclamation mark, for example: "tracks.items(track(name,href,album(!name,href)))".
+       - additionalTypes: *required*. An array of id categories.
+             Valid types are `track` and `episode`
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4]
+             or the string "from_token". Provide this parameter if you want
+             to apply [Track Relinking][5].
+     - Returns: The raw data and url response from the server.
+           Because the response is entirely dependent on the fields you specify,
+           you are responsible for decoding the data. However, any error objects
+           returned by Spotify will be decoded automatically and thrown as an
+           error to downstream subscribers.
+     
+     [1]: https://developer.spotify.com/console/get-playlist/
+     [2]: https://jsoneditoronline.org/
+     [3]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
+     [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [5]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
+    func filteredPlaylistRequest(
+        _ playlist: SpotifyURIConvertible,
+        filters: String,
+        additionalTypes: [IDCategory],
+        market: String? = nil
+    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+        
+        do {
+            let playlistId = try SpotifyIdentifier(uri: playlist).id
+        
+            let validTypes: [IDCategory] = [.track, .episode]
+            
+            guard additionalTypes.allSatisfy({ validTypes.contains($0) }) else {
+                throw SpotifyLocalError.other(
+                    """
+                    Valid types for the filteredPlaylistRequest endpoint are:
+                    \(validTypes.map(\.rawValue))
+                    but recieved:
+                    \(additionalTypes.map(\.rawValue)).
+                    """
+                )
+            }
+            
+            return self.getRequest(
+                path: "/playlists/\(playlistId)",
+                queryItems: [
+                    "fields": filters,
+                    "additional_types": additionalTypes.commaSeparatedString(),
+                    "market": market,
+                ],
+                requiredScopes: []
+            )
+            .decodeSpotifyErrors()
+        
+        } catch {
+            return error.anyFailingPublisher((data: Data, response: URLResponse).self)
+        }
+        
+        
+    }
+    
+    
+    /**
+     Gets a playlist, including its tracks/episodes and additional
      information about it.
      
-     **Beta Note**: Currently, only the tracks from the playlist
-     will be included (podcast episodes will not be returned).
+     See also:
      
-     In contrast to `playlistTracks(_:limit:offset:market:)`,
-     additional data about the playlist itself will be
-     retrieved, including its name and any images associated with
-     it. See also `getPlaylistCoverImage(_:)`.
+     * `playlistTracks(_:limit:offset:market:)`
+     * `playlistItems(_:limit:offset:market:)`
+     * `filteredPlaylistRequest(_:fields:additionalTypes:market:)`
+     
+     In contrast to the above methods, additional data about the
+     playlist itself will be retrieved, including its name and any
+     images associated with it. See also `getPlaylistCoverImage(_:)`.
      
      No scopes are required for this endpoint. Both Public and
      Private playlists belonging to any user can be retrieved.
      
      # Returns:
      ```
-     Playlist<PagingObject<PlaylistItemContainer<Track>>>
+     Playlist<PagingObject<PlaylistItemContainer<AnyPlaylistItem>>>
      ```
      
-     The full version of the playlist and tracks will be returned.
+     The full version of the playlist will be returned.
      
-     To access just the tracks, use:
+     To access just the tracks/episodes, use:
      ```
      playlist.items.items.map(\.item)
      ```
@@ -100,62 +221,30 @@ public extension SpotifyAPI {
     func playlist(
         _ playlist: SpotifyURIConvertible,
         market: String? = nil
-    ) -> AnyPublisher<Playlist<PlaylistTracks>, Error> {
+    ) -> AnyPublisher<Playlist<PlaylistItems>, Error> {
         
         do {
             
             let playlistId = try SpotifyIdentifier(uri: playlist).id
 
+            let additionalTypes: [IDCategory] = [.track, .episode]
+            
             return self.getRequest(
                 path: "/playlists/\(playlistId)",
                 queryItems: [
                     "market": market,
-                    "additional_types": IDCategory.track.rawValue
+                    "additional_types": additionalTypes.commaSeparatedString()
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(Playlist<PlaylistTracks>.self)
+            .spotifyDecode(Playlist<PlaylistItems>.self)
             
         } catch {
             return error.anyFailingPublisher(
-                Playlist<PlaylistTracks>.self
+                Playlist<PlaylistItems>.self
             )
         }
         
-        
-    }
-    
-    /**
-     Get the current images associated with a specific playlist.
-     
-     See also `playlist(_:market:)`.
-     
-     Read more at the [Spotify web API reference][1].
-
-     - Parameter playlist: A Spotify playlist.
-     - Returns: An array of image objects, which contain the url for
-           the image and its dimensions.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/
-     */
-    func getPlaylistCoverImage(
-        _ playlist: SpotifyURIConvertible
-    ) -> AnyPublisher<[SpotifyImage], Error> {
-        
-        do {
-            
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
-            
-            return self.getRequest(
-                path: "/playlists/\(playlistId)/images",
-                queryItems: [:],
-                requiredScopes: []
-            )
-            .spotifyDecode([SpotifyImage].self)
-    
-        } catch {
-            return error.anyFailingPublisher([SpotifyImage].self)
-        }
         
     }
     
@@ -163,16 +252,14 @@ public extension SpotifyAPI {
      Get all of the tracks in a playlist.
      Episodes in the playlist will not be returned.
      
-     See also `playlist(_:market:)`, which retrieves additional
-     information about the playlist itself, such as its name and
-     any images associated with it, whereas this method only
-     retrieves the tracks from the playlist.
+     See also:
+     
+     * `playlist(_:market:)`
+     * `playlistItems(_:limit:offset:market:)`
+     * `filteredPlaylistRequest(_:fields:additionalTypes:market:)`
      
      No scopes are required for this endpoint. Tracks from both Public
      and Private playlists belonging to any user can be retrieved.
-     
-     Compared to the `Playlist` method, this method
-     does not return any data about the playlist itself.
      
      # Returns:
      ```
@@ -209,26 +296,74 @@ public extension SpotifyAPI {
         market: String? = nil
     ) -> AnyPublisher<PlaylistTracks, Error> {
         
-        do {
-            
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+        return self.getPlaylistItems(
+            playlist,
+            limit: limit,
+            offset: offset,
+            market: market,
+            requestedTypes: [.track],
+            responseType: PlaylistTracks.self
+        )
+    }
+    
+    /**
+     Get all of the episodes and tracks in a playlist.
+     
+     See also:
+     
+     * `playlist(_:market:)`
+     * `playlistTracks(_:limit:offset:market:)`
+     * `filteredPlaylistRequest(_:fields:additionalTypes:market:)`
+     
+     No scopes are required for this endpoint. Tracks from both Public
+     and Private playlists belonging to any user can be retrieved.
+     
+     # Returns:
+     ```
+     PagingObject<PlaylistItemContainer<AnyPlaylistItem>>
+     ```
+     
+     To get an array of just the tracks/episdoes, use:
+     ```
+     playlistTracks.items.map(\.item)
+     ```
+     
+     - Warning: `AnyPlaylistItem` only contains the properties
+           unique to tracks and episodes. Compare with `Track` and
+           `Episode`.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - playlist: The URI of a playlist.
+       - limit: *Optional*. The maximum number of items to return.
+             Default: 100; minimum: 1; maximum: 100.
+       - offset: *Optional*. The index of the first item to return.
+             Default: 0. Use with `limit` to get the next set of tracks.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
+            or the string "from_token". Provide this parameter if you want
+            to apply [Track Relinking][3].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
+    func playlistItems(
+        _ playlist: SpotifyURIConvertible,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        market: String? = nil
+    ) -> AnyPublisher<PlaylistItems, Error> {
         
-            return self.getRequest(
-                path: "/playlists/\(playlistId)/tracks",
-                queryItems: [
-                    "limit": limit,
-                    "offset": offset,
-                    "market": market,
-                    // restrict response to only tracks.
-                    "additional_types": IDCategory.track.rawValue
-                ],
-                requiredScopes: []
-            )
-            .spotifyDecode(PlaylistTracks.self)
+        return self.getPlaylistItems(
+            playlist,
+            limit: limit,
+            offset: offset,
+            market: market,
+            requestedTypes: [.track, .episode],
+            responseType: PlaylistItems.self
+        )
         
-        } catch {
-            return error.anyFailingPublisher(PlaylistTracks.self)
-        }
     }
     
     
@@ -246,12 +381,12 @@ public extension SpotifyAPI {
 
      # Returns:
      ```
-     PagingObject<Playlist<TracksEpisodesReference>
+     PagingObject<Playlist<PlaylistsItemsReference>
      ```
      
      The simplified versions of the playlists will be returned.
      
-     A `TracksEpisodesReference` simply contains a link to all of the
+     A `PlaylistsItemsReference` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. However,
      to get all of the tracks in each playlist, you should use
      `playlistTracks(_:limit:offset:market:)` instead, passing in
@@ -275,7 +410,7 @@ public extension SpotifyAPI {
     func currentUserPlaylists(
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<TracksEpisodesReference>>, Error> {
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
         
         return self.getRequest(
             path: "/me/playlists",
@@ -285,7 +420,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .spotifyDecode(PagingObject<Playlist<TracksEpisodesReference>>.self)
+        .spotifyDecode(PagingObject<Playlist<PlaylistsItemsReference>>.self)
         
     }
     
@@ -306,12 +441,12 @@ public extension SpotifyAPI {
      
      # Returns:
      ```
-     PagingObject<Playlist<TracksEpisodesReference>
+     PagingObject<Playlist<PlaylistsItemsReference>
      ```
      
      The simplified versions of the playlists will be returned.
      
-     A `TracksEpisodesReference` simply contains a link to all of the
+     A `PlaylistsItemsReference` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. However,
      to get all of the tracks in each playlist, you should use
      `playlistTracks(_:limit:offset:market:)` instead, passing in
@@ -337,7 +472,7 @@ public extension SpotifyAPI {
         for userURI: SpotifyURIConvertible,
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<TracksEpisodesReference>>, Error> {
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
         
         do {
             
@@ -351,18 +486,51 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(PagingObject<Playlist<TracksEpisodesReference>>.self)
+            .spotifyDecode(PagingObject<Playlist<PlaylistsItemsReference>>.self)
     
         } catch {
             return error.anyFailingPublisher(
-                PagingObject<Playlist<TracksEpisodesReference>>.self
+                PagingObject<Playlist<PlaylistsItemsReference>>.self
             )
         }
         
         
     }
     
- 
+    /**
+     Get the current images associated with a specific playlist.
+     
+     See also `playlist(_:market:)`.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter playlist: A Spotify playlist.
+     - Returns: An array of image objects, which contain the url for
+           the image and its dimensions.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/
+     */
+    func getPlaylistCoverImage(
+        _ playlist: SpotifyURIConvertible
+    ) -> AnyPublisher<[SpotifyImage], Error> {
+        
+        do {
+            
+            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            
+            return self.getRequest(
+                path: "/playlists/\(playlistId)/images",
+                queryItems: [:],
+                requiredScopes: []
+            )
+            .spotifyDecode([SpotifyImage].self)
+            
+        } catch {
+            return error.anyFailingPublisher([SpotifyImage].self)
+        }
+        
+    }
+    
     // MARK: - POST -
     
     /**
@@ -713,10 +881,11 @@ public extension SpotifyAPI {
                 bodyData: imageData,
                 requiredScopes: [.ugcImageUpload]
             )
+            .decodeSpotifyErrors()
             .map { data, urlResponse in
             
                 let statusCode = (urlResponse as! HTTPURLResponse).statusCode
-                self.spotifyAPILogger.trace(
+                self.logger.trace(
                     "status code: \(statusCode)",
                     function: thisFunction
                 )

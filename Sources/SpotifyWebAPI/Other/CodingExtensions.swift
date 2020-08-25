@@ -3,7 +3,7 @@ import Foundation
 
 private extension KeyedDecodingContainer {
     
-    func decodeSpotifyAlbumDateFromString(
+    func decodeSpotifyDateFromString(
         _ dateString: String
     ) throws -> Date {
         
@@ -93,17 +93,17 @@ public extension KeyedDecodingContainer {
            any of the above formats.
      - Returns: The decoded Date.
      */
-    func decodeSpotifyAlbumDate(forKey key: Key) throws -> Date {
+    func decodeSpotifyDate(forKey key: Key) throws -> Date {
         
         let dateString = try self.decode(String.self, forKey: key)
-        return try self.decodeSpotifyAlbumDateFromString(
+        return try self.decodeSpotifyDateFromString(
             dateString
         )
         
     }
     
-    /// See `decodeSpotifyAlbumDate(forKey:)`.
-    func decodeSpotifyAlbumDateIfPresent(
+    /// See `decodeSpotifyDate(forKey:)`.
+    func decodeSpotifyDateIfPresent(
         forKey key: Key
     ) throws -> Date? {
     
@@ -114,7 +114,7 @@ public extension KeyedDecodingContainer {
             return nil
         }
         
-        return try self.decodeSpotifyAlbumDateFromString(
+        return try self.decodeSpotifyDateFromString(
             dateString
         )
 
@@ -215,7 +215,7 @@ public extension KeyedEncodingContainer {
      - Throws: If the date string could not be encoded
            into the container for the given key.
      */
-    mutating func encodeSpotifyAlbumDate(
+    mutating func encodeSpotifyDate(
         _ date: Date,
         datePrecision: String?,
         forKey key: Key
@@ -238,15 +238,15 @@ public extension KeyedEncodingContainer {
         
     }
     
-    /// See `encodeSpotifyAlbumDate(_:datePrecision:forKey:)`.
-    mutating func encodeSpotifyAlbumDateIfPresent(
+    /// See `encodeSpotifyDate(_:datePrecision:forKey:)`.
+    mutating func encodeSpotifyDateIfPresent(
         _ date: Date?,
         datePrecision: String?,
         forKey key: Key
     ) throws {
         
         guard let date = date else { return }
-        try self.encodeSpotifyAlbumDate(
+        try self.encodeSpotifyDate(
             date, datePrecision: datePrecision, forKey: key
         )
     }

@@ -6,7 +6,6 @@ import Logger
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 public protocol SpotifyURIConvertible {
-
     
     /**
      The unique resource identifier for the
@@ -27,6 +26,15 @@ extension String: SpotifyURIConvertible {
     public var uri: Self { self }
 
 }
+
+extension Substring: SpotifyURIConvertible {
+
+    @inlinable @inline(__always)
+    public var uri: String { String(self) }
+
+}
+
+
 
 
 /**
@@ -52,12 +60,15 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     case playlist
     case show
     case episode
+    
     /// See [Identifying Local Files][1].
     ///
     /// [1]: https://developer.spotify.com/documentation/general/guides/local-files-spotify-playlists/
     case local
+    
     /// A Spotify user.
     case user
+    case unknown
     
 }
 

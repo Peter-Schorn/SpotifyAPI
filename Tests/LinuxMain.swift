@@ -1,6 +1,8 @@
 import XCTest
-Tests
 
-var tests: [XCTestCaseEntry] = []
-tests += SpotifyAPITests.allTests()
+import SpotifyAPITests
+
+var tests = [XCTestCaseEntry]()
+tests += SpotifyAPITests.__allTests()
+
 XCTMain(tests)

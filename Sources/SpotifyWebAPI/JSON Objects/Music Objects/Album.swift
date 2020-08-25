@@ -27,10 +27,8 @@ public struct Album: Hashable {
     /// to more detailed information about the artist.
     public let artists: [Artist]?
     
-    /// The date the album was first released, for example 1981.
-    ///
-    /// Depending on the precision,
-    /// it might be shown as 1981-12 or 1981-12-15.
+    /// The date the album was first released.
+    /// See also `releaseDatePrecision`.
     public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the album.
@@ -124,9 +122,10 @@ public struct Album: Hashable {
     /// when at least 1 of its tracks is available in that market.
     public let availableMarkets: [String]?
 
+    /// An array of copyright objects.
     public let copyrights: [SpotifyCopyright]?
 
-    /// The precision with which `releaseDate` value is known:
+    /// The precision with which `releaseDate` is known:
     /// "year", "month", or "day".
     public let releaseDatePrecision: String?
 
@@ -168,7 +167,7 @@ extension Album: Codable {
         // MARK: Decode Release Date
         // this is the only property that needs to be decoded
         // in a custom manner
-        self.releaseDate = try container.decodeSpotifyAlbumDateIfPresent(
+        self.releaseDate = try container.decodeSpotifyDateIfPresent(
             forKey: .releaseDate
         )
         
@@ -241,7 +240,7 @@ extension Album: Codable {
         // MARK: Encode Release Date
         // this is the only property that needs to be encoded
         // in a custom manner
-        try container.encodeSpotifyAlbumDateIfPresent(
+        try container.encodeSpotifyDateIfPresent(
             self.releaseDate,
             datePrecision: self.releaseDatePrecision,
             forKey: .releaseDate
@@ -296,7 +295,6 @@ extension Album: Codable {
         try container.encode(
             self.type, forKey: .type
         )
-       
         
     }
     
