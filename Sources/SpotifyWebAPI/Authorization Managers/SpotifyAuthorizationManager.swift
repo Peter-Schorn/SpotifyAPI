@@ -27,7 +27,7 @@ public protocol SpotifyAuthorizationManager: Codable {
     var didChange: PassthroughSubject<Void, Never> { get }
     
     /// Logs debugging messages. Don't use in shipping code.
-    var logger: Logger { get }
+    static var logger: Logger { get }
     
     /**
      Determines whether the access token is expired

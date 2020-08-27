@@ -6,6 +6,7 @@ import XCTest
 /// Encodes the object into data, then decodes it again (2x) and ensures that
 /// the decoded version exactly matches the value that was originally passed in.
 /// This ensures that no information was lost during encoding and decoding.
+/// Returns the data decoded into a string.
 @discardableResult
 func encodeDecode<T: Codable & Equatable>(
     _ object: T,
@@ -26,7 +27,7 @@ func encodeDecode<T: Codable & Equatable>(
         
         XCTAssertEqual(
             object, reDecodedData,
-            "\(T.self) changed after encoding and decoding",
+            "\(T.self) changed after encoding and decoding (2x)",
             file: file, line: line
         )
         
@@ -57,7 +58,7 @@ func encodeDecode<T: Codable & Equatable>(
 /// Decodes the data into the specified type, encodes the data, then
 /// re-decodes it again. Ensures that the decoded version matches the
 /// re-decoded version, which ensures that no information was lost
-/// during encoding and decoding.
+/// during encoding and decoding. Returns the data decoded into a string.
 @discardableResult
 func decodeEncodeDecode<T: Codable & Equatable>(
     _ data: Data,

@@ -227,6 +227,7 @@ public extension Scope {
 
 extension Scope: CaseIterable {
     
+    /// A `Set` of all the authorization scopes.
     public static var allCases: Set<Scope> {
         return [
             .ugcImageUpload,

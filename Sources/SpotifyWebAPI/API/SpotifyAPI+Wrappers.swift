@@ -59,10 +59,29 @@ extension SpotifyAPI {
         let endpoint = Endpoints.apiEndpoint(
             path, queryItems: removeIfNil(queryItems)
         )
-        
-        self.apiRequestLogger.trace(
-            "\(httpMethod) \"\(endpoint)\"\n"
-        )
+
+        // ensure unecessary work is not done converting the
+        // body to a string.
+        if self.apiRequestLogger.level <= .debug {
+            
+            self.apiRequestLogger.trace(
+                "\(httpMethod) request to \"\(endpoint)\"\n"
+            )
+            
+            if let bodyData = bodyData {
+                if let bodyString = String(data: bodyData, encoding: .utf8) {
+                    self.apiRequestLogger.trace(
+                        "request body:\n\(bodyString)"
+                    )
+                }
+                else {
+                    self.apiRequestLogger.debug(
+                        "couldn't convert body data to string"
+                    )
+                }
+            }
+            
+        }
         
         return self.authorizationManager.refreshTokens(
             onlyIfExpired: true, tolerance: 60
@@ -156,10 +175,6 @@ extension SpotifyAPI {
             
             let encodedBody = try body.map {
                 try JSONEncoder().encode($0)
-            }
-            
-            if let body = body {
-                self.apiRequestLogger.trace("http body:\n\(body)")
             }
             
             return self.apiRequest(

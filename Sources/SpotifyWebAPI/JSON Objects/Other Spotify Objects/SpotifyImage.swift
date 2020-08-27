@@ -13,6 +13,8 @@ typealias PlatformImage = UIImage
 
 /// A Spotify [image object][1].
 ///
+/// Includes the URL to the image and its height and width.
+///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
 public struct SpotifyImage: Codable, Hashable {
     

@@ -1,7 +1,6 @@
 import Foundation
 import Logger
 import Combine
-import SwiftUI
 
 /**
  The central class in this library.
@@ -13,7 +12,43 @@ import SwiftUI
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     
     /// Manages the authorization process for your application.
-    public var authorizationManager: AuthorizationManager
+    public var authorizationManager: AuthorizationManager {
+        didSet {
+            self.logger.trace("did set authorizationManager")
+            self.authorizationManager.didChange
+                .receive(on: RunLoop.main)
+                .subscribe(authorizationManagerDidChange)
+                .store(in: &cancellables)
+            DispatchQueue.main.async {
+                self.logger.trace("authorizationManagerDidChange.send()")
+                self.authorizationManagerDidChange.send()
+            }
+        }
+    }
+
+    /**
+     A publisher that emits whenever `authorizationManager.didChange`
+     emits, or when you assign a new instance of `AuthorizationManager`
+     to `authorizationManager`.
+     
+     This publisher will always emit on the main thread—unless, of course,
+     you modify it yourself on a background thread.
+     
+     This publisher subscribes to the `didChange` publisher of
+     `authorizationManager` in the `init(authorizationManager:)` method
+      of this class and in the didSet block of `authorizationManager`.
+      It also emits a signal in the didSet block of `authorizationManager`.
+     
+     This publisher allows you to be notified of changes to
+     the authorization manager even when you create a new instance of it
+     and assign it to the `authorizationManager` property of this class.
+     
+     Subscribing to this publisher is preferred over subscribing to the
+     `didChange` publisher of `authorizationManager`.
+     */
+    public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
+
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Loggers -
     
@@ -21,12 +56,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     public let logger = Logger(label: "SpotifyAPI", level: .critical)
     
     /// Logs the urls of the requests made to Spotify and,
-    /// if present, the body of the requests.
-    /// Note that the http body for each request will be logged before
-    /// the url is logged.
+    /// if present, the body of the requests by converting the raw
+    /// data to a string.
     public let apiRequestLogger = Logger(label: "APIRequest", level: .critical)
-    
-    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers -
 
@@ -37,12 +69,17 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      To get your client id and secret,
      see the [guide for registering your app][1].
      
-     - Parameter authorizationManager: An authorization manager.
+     - Parameter authorizationManager: An instance of a type that
+           conforms to `SpotifyAuthorizationManager`.
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/
      */
     public init(authorizationManager: AuthorizationManager)  {
         self.authorizationManager = authorizationManager
+        self.authorizationManager.didChange
+            .receive(on: RunLoop.main)
+            .subscribe(authorizationManagerDidChange)
+            .store(in: &cancellables)
         self.setupDebugging()
     }
     
@@ -51,16 +88,36 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
 extension SpotifyAPI {
     
     /// This function has no stable API and may change arbitrarily.
-    public func setupDebugging() {
-        
-        SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
-            "/Users/pschorn/Desktop/"
-        )
-        CurrentlyPlayingContext.logger.level = .trace
-        
+    /// Only use it for testing purposes.
+    func setupDebugging() {
+
         self.logger.level = .trace
         self.apiRequestLogger.level = .trace
+        
+        CurrentlyPlayingContext.logger.level = .trace
+        AuthorizationCodeFlowManager.logger.level = .trace
+        ClientCredentialsFlowManager.logger.level = .trace
+
+        if let desktop = FileManager.default.urls(
+            for: .desktopDirectory,
+            in: .userDomainMask
+        ).first {
+            SpotifyDecodingError.dataDumpfolder = desktop
+        }
+        
+        self.authorizationManagerDidChange
+            .print("SpotifyAPI: setupDebugging: self.authorizationManagerDidChange")
+            .sink {
+                assert(
+                    Thread.isMainThread,
+                    "value from authorizationManagerDidChange " +
+                    "should only be received on main thread."
+                )
+            }
+            .store(in: &cancellables)
         
     }
     
 }
+
+

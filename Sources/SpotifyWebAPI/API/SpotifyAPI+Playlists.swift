@@ -7,7 +7,6 @@ extension SpotifyAPI {
     
     /// Use for post/put/delete requests to the "/playlists/{playlistId}/tracks"
     /// endpoint in which the response is the snapshot id of the playlist.
-    /// Can't be used for get requests. Use `self.getRequest` instead.
     func modifyPlaylist<Body: Encodable>(
         _ playlist: SpotifyURIConvertible,
         httpMethod: String,
@@ -793,6 +792,7 @@ public extension SpotifyAPI {
                 body: newDetails,
                 requiredScopes: []
             )
+            .decodeSpotifyErrors()
             .map { _ in }
             .eraseToAnyPublisher()
         
@@ -851,6 +851,7 @@ public extension SpotifyAPI {
                 let size = formatter.string(
                     fromByteCount: Int64(imageData.count)
                 )
+                
                 print(
                     """
                     --------------------------------------------------------
@@ -864,7 +865,6 @@ public extension SpotifyAPI {
                 )
                 
             }
-            
             
             let playlistId = try SpotifyIdentifier(uri: playlist).id
             
@@ -892,7 +892,6 @@ public extension SpotifyAPI {
             
             }
             .eraseToAnyPublisher()
-            
             
         } catch {
             return error.anyFailingPublisher(Void.self)

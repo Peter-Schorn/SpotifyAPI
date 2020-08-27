@@ -1,14 +1,11 @@
 import Foundation
 
 /**
- The json response from the [search][1] endpoint.
- 
- **Beta Note**: Currently only supports artists, albums, tracks,
- and playlists.
+ The Response from the [search][1] endpoint.
  
  The search endpoint has a `types` parameter, which specifies
  which objects will be returned in the response.
- Valid types:
+ Valid types are:
  
  * album
  * artist
@@ -29,22 +26,34 @@ import Foundation
  */
 public struct SearchResult: Hashable {
  
-    /// A Paging object containing full `artist` objects.
+    /// A `PagingObject` containing full `artist` objects.
     public let artists: PagingObject<Artist>?
 
-    /// A Paging object containing simplified `album` objects.
+    /// A `PagingObject` containing simplified `album` objects.
     public let albums: PagingObject<Album>?
 
-    /// A Paging object containing full `artist` objects.
+    /// A `PagingObject` containing full `artist` objects.
     public let tracks: PagingObject<Track>?
     
+    /// A `PagingObject` containing simplified `Playlist` objects.
     public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>?
+    
+    /// A `PagingObject` containing simplified `Episode` objects.
+    public let episodes: PagingObject<Episode>?
+    
+    /// A `PaginObject` containing simplified `Show` objects.
+    public let shows: PagingObject<Show>?
     
 }
 
 extension SearchResult: Codable {
     
     public enum CodingKeys: String, CodingKey {
-        case artists, albums, tracks, playlists
+        case artists
+        case albums
+        case tracks
+        case playlists
+        case episodes
+        case shows
     }
 }

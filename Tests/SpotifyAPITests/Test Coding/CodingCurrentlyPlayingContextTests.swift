@@ -20,8 +20,7 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
         
     }
     
-    static var currentlyPlayingData: Data {
-        """
+    static var currentlyPlayingData = """
         {
             "device": {
                 "id": "ced8d42d0a3830065dfbf4800352d23a96b76fd4",
@@ -137,6 +136,5 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
             "is_playing": true
         }
         """.data(using: .utf8)!
-    }
     
 }

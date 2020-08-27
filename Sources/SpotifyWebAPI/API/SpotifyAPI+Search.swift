@@ -9,9 +9,6 @@ public extension SpotifyAPI {
      Get Spotify Catalog information about albums, artists,
      playlists, tracks, shows or episodes that match a keyword string.
      
-     **Beta Note**: Currently only supports artists, albums, tracks,
-     and playlists.
-     
      No scopes are required for this endpoint—unless the `market`
      parameter is set to "from_token", in which case
      the `userReadPrivate` scope is required.

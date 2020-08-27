@@ -35,8 +35,9 @@ import Logger
  */
 public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable {
     
-    public let logger = Logger(
-        label: "AuthorizationCodeFlowManager", level: .trace
+    /// The logger for this class. By default, its level is `critical`.
+    public static let logger = Logger(
+        label: "AuthorizationCodeFlowManager", level: .critical
     )
     
     /// The client id for your application.
@@ -46,7 +47,7 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     public let clientSecret: String
     
     /// The access token used in all of the requests
-    /// to the Spotify web API
+    /// to the Spotify web API.
     public private(set) var accessToken: String? = nil
     
     /// Used to refresh the access token.
@@ -60,8 +61,19 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     
     private var cancellables: Set<AnyCancellable> = []
 
-    /// A `PassthroughSubject` that emits **AFTER** this
+    /// A `PassthroughSubject` that emits **after** this
     /// `AuthorizationCodeFlowManager` has changed.
+    
+    /**
+     A Publisher that emits **after** this
+     `AuthorizationCodeFlowManager` has changed.
+     
+     You are discouraged from subscribing to this publisher directly.
+     Intead, subscribe to the `authorizationManagerDidChange` publisher
+     of `SpotifyAPI`. This allows you to be notified of changes even
+     when you create a new instance of this class and assign it to the
+     `authorizationManager` instance property of `SpotifyAPI`.
+     */
     public let didChange = PassthroughSubject<Void, Never>()
     
     /**
@@ -83,7 +95,6 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
-        self.didChange.send()
     }
     
     // MARK: - Codable Conformance -
@@ -106,7 +117,7 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
-
+        
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -140,6 +151,7 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         self.expirationDate = authInfo.expirationDate
         self.scopes = authInfo.scopes
         
+        Self.logger.trace("didChange.send()")
         self.didChange.send()
     }
     
@@ -148,9 +160,14 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
 
 public extension AuthorizationCodeFlowManager {
     
-    /// Sets `accessToken`, `refreshToken`, `expirationDate`, and
-    /// `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
-    /// which are immutable.
+    /**
+     Sets `accessToken`, `refreshToken`, `expirationDate`, and
+     `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
+     which are immutable.
+     
+     If this instance is stored in persistent storage, consider
+     removing it after calling this method.
+     */
     func logout() {
         self.accessToken = nil
         self.refreshToken = nil
@@ -299,7 +316,7 @@ public extension AuthorizationCodeFlowManager {
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
-                self.logger.warning("redirect uri query has error")
+                Self.logger.warning("redirect uri query has error")
                 // this is the way that the authorization should fail
                 return SpotifyAuthorizationError(
                     error: error, state: queryDict["state"]
@@ -307,7 +324,7 @@ public extension AuthorizationCodeFlowManager {
                 .anyFailingPublisher(Void.self)
             }
             
-            self.logger.error("unkown error")
+            Self.logger.error("unkown error")
             return SpotifyLocalError.other(
                 "an unknown error occured when handling the redirect URI:\n" +
                     redirectURI.absoluteString
@@ -342,7 +359,7 @@ public extension AuthorizationCodeFlowManager {
         
         
         
-        self.logger.trace("sending request for refresh and access tokens")
+        Self.logger.trace("sending request for refresh and access tokens")
         
         return URLSession.shared.dataTaskPublisher(
             url: Endpoints.getTokens,
@@ -355,14 +372,14 @@ public extension AuthorizationCodeFlowManager {
         .receive(on: RunLoop.main)
         .map { authInfo in
             
-            self.logger.trace("received authInfo:\n\(authInfo)")
+            Self.logger.trace("received authInfo:\n\(authInfo)")
             
             if authInfo.accessToken == nil ||
                     authInfo.refreshToken == nil ||
                     authInfo.expirationDate == nil ||
                     authInfo.scopes == nil {
                 
-                self.logger.critical(
+                Self.logger.critical(
                     """
                     missing properties after requesting \
                     access and refresh tokens:
@@ -402,17 +419,16 @@ public extension AuthorizationCodeFlowManager {
         do {
         
             if onlyIfExpired && !self.isExpired() {
-                self.logger.trace("access token not expired; returning early")
+                Self.logger.trace("access token not expired; returning early")
                 return Result<Void, Error>
                     .Publisher(())
                     .eraseToAnyPublisher()
             }
         
             guard let refreshToken = refreshToken else {
-                self.logger.critical(
+                Self.logger.warning(
                     "can't refresh access token: no refresh token"
                 )
-                
                 throw SpotifyLocalError.unauthorized(
                     "can't refresh access token: no refresh token"
                 )
@@ -425,8 +441,8 @@ public extension AuthorizationCodeFlowManager {
             else {
                 // this error should never occur
                 let message = "couldn't base 64 encode " +
-                "client id and client secret"
-                self.logger.critical("\(message)")
+                    "client id and client secret"
+                Self.logger.critical("\(message)")
                 throw SpotifyLocalError.other(message)
             }
         
@@ -434,6 +450,8 @@ public extension AuthorizationCodeFlowManager {
                 refreshToken: refreshToken
             ).formURLEncoded()
         
+            Self.logger.trace("refreshing tokens...")
+            
             return URLSession.shared.dataTaskPublisher(
                 url: Endpoints.getTokens,
                 httpMethod: "POST",
@@ -445,12 +463,12 @@ public extension AuthorizationCodeFlowManager {
             .receive(on: RunLoop.main)
             .map { authInfo in
         
-                self.logger.trace("received authInfo:\n\(authInfo)")
+                Self.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
                         authInfo.expirationDate == nil ||
                         authInfo.scopes == nil {
-                    self.logger.critical(
+                    Self.logger.critical(
                         """
                         missing properties after refreshing access token:
                         \(authInfo)
@@ -538,12 +556,39 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
 extension AuthorizationCodeFlowManager {
     
     /// This method sets random values for various properties
-    /// for testing purposes. Do not call it outside of test cases.
+    /// for testing purposes. Do not call it outside the context
+    /// of tests.
     func mockValues() {
         self.accessToken = UUID().uuidString
         self.refreshToken = UUID().uuidString
         self.expirationDate = Date()
         self.scopes = Set(Scope.allCases.shuffled().prefix(5))
+    }
+    
+    /// Only use for testing purposes.
+    static func fromCopy(_ copy: AuthorizationCodeFlowManager) -> Self {
+        
+        let instance = Self(
+            clientId: copy.clientId, clientSecret: copy.clientSecret
+        )
+        instance.accessToken = copy.accessToken
+        instance.refreshToken = copy.refreshToken
+        instance.expirationDate = copy.expirationDate
+        instance.scopes = copy.scopes
+
+        return instance
+    }
+    
+    /// Only use for testing purposes.
+    func subscribeToDidChange() {
+        
+        self.didChange
+            .print(
+                "AuthorizationCodeFlowManager.subscribeToDidChange"
+            )
+            .sink(receiveValue: { _ in })
+            .store(in: &cancellables)
+        
     }
     
 }

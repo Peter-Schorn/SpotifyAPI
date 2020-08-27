@@ -23,12 +23,17 @@ import Logger
  * The client id
  * The client secret
  * The access token
- * The expiration date for the access token
+ * The expiration date of the access token
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
  */
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
+    
+    /// The logger for this class. By default, its level is `critical`.
+    public static let logger = Logger(
+        label: "ClientCredentialsFlowManager", level: .critical
+    )
     
     /// The client id for your application.
     public let clientId: String
@@ -48,13 +53,17 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// The expiration date of the access token.
     public var expirationDate: Date?
     
-    /// A `PassthroughSubject` that emits **AFTER** this
-    /// `ClientCredentialsFlowManager` has changed.
+    /**
+     A Publisher that emits **after** this
+     `ClientCredentialsFlowManager` has changed.
+     
+     You are discouraged from subscribing to this publisher directly.
+     Intead, subscribe to the `authorizationManagerDidChange` publisher
+     of `SpotifyAPI`. This allows you to be notified of changes even
+     when you create a new instance of this class and assign it to the
+     `authorizationManager` instance property of `SpotifyAPI`.
+     */
     public let didChange = PassthroughSubject<Void, Never>()
-    
-    public let logger = Logger(
-        label: "ClientCredentialsFlowManager", level: .trace
-    )
     
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
@@ -80,7 +89,6 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
-        self.didChange.send()
     }
     
     
@@ -88,7 +96,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         self.accessToken = authInfo.accessToken
         self.expirationDate = authInfo.expirationDate
         
-        self.logger.trace("after updateFromAuthInfo:\n\(self)")
+        Self.logger.trace("after updateFromAuthInfo:\n\(self)")
         self.didChange.send()
     }
     
@@ -140,6 +148,16 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
 
 public extension ClientCredentialsFlowManager {
     
+    /**
+     Sets `accessToken` and `expirationDate` to `nil`.
+     Does not change `clientId` or `clientSecret`, which are immutable.
+
+     After calling this method, you must authorize your application
+     again before accessing any of the Spotify web API endpoints.
+     
+     If this instance is stored in persistent storage, consider
+     removing it after calling this method.
+     */
     func logout() {
         self.accessToken = nil
         self.expirationDate = nil
@@ -187,7 +205,7 @@ public extension ClientCredentialsFlowManager {
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
-        self.logger.trace("authorizing")
+        Self.logger.trace("authorizing")
         
         let body = [
             "grant_type": "client_credentials"
@@ -209,12 +227,12 @@ public extension ClientCredentialsFlowManager {
         .receive(on: RunLoop.main)
         .map { authInfo in
          
-            self.logger.trace("received authInfo:\n\(authInfo)")
+            Self.logger.trace("received authInfo:\n\(authInfo)")
             
             if authInfo.accessToken == nil ||
                     authInfo.expirationDate == nil {
                 
-                self.logger.critical(
+                Self.logger.critical(
                     """
                     missing properties after requesting access token:
                     \(authInfo)
@@ -251,13 +269,13 @@ public extension ClientCredentialsFlowManager {
     ) -> AnyPublisher<Void, Error> {
         
         if onlyIfExpired && !self.isExpired() {
-            self.logger.trace("access token not expired; returning early")
+            Self.logger.trace("access token not expired; returning early")
             return Result<Void, Error>
                 .Publisher(())
                 .eraseToAnyPublisher()
         }
         
-        self.logger.trace("access token is expired, authorizing again")
+        Self.logger.trace("access token is expired, authorizing again")
         
         // the process for refreshing the token
         // is the same as that for authorizing the application.

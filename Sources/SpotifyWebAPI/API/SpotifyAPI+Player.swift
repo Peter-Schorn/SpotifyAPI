@@ -81,8 +81,8 @@ public extension SpotifyAPI {
        - deviceId: The id of the device to target. It is highly
              recommended that you leave this as `nil` (default) to target
              the active device. If you provide the id of a device that
-             is not currently playing content, you may get a 403
-             "Player command failed: Restriction violated" error.
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
@@ -109,6 +109,93 @@ public extension SpotifyAPI {
         
     }
     
+    /**
+     Skip the user's playback to the next track/episode.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     Read more at the [Spotify web API reference][2].
+     
+     - Parameters:
+       - deviceId: The id of a device to target. It is highly
+             recommended that you leave this as `nil` (default) to target
+             the active device. If you provide the id of a device that
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-next-track/
+     */
+    func skipToNext(
+        deviceId: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.apiRequest(
+            path: "/me/player/next",
+            queryItems: ["device_id": deviceId],
+            httpMethod: "POST",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil as Data?,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+        
+    }
+    
+    /**
+     Skip the user's playback to the previous track/episode.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     Read more at the [Spotify web API reference][2].
+     
+     - Parameters:
+       - deviceId: The id of a device to target. It is highly
+             recommended that you leave this as `nil` (default) to target
+             the active device. If you provide the id of a device that
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
+     */
+    func skipToPrevious(
+        deviceId: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.apiRequest(
+            path: "/me/player/previous",
+            queryItems: ["device_id": deviceId],
+            httpMethod: "POST",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil as Data?,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+    
+        
+    }
+    
     // MARK: - PUT -
     
     /**
@@ -123,10 +210,10 @@ public extension SpotifyAPI {
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices found,
-     the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium,
-     a 403 FORBIDDEN response code will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
      Read more at the [Spotify web API reference][2].
@@ -134,8 +221,8 @@ public extension SpotifyAPI {
      - Parameter deviceId: The id of a device to target. It is highly
            recommended that you leave this as `nil` (default) to target
            the active device. If you provide the id of a device that
-           is not currently playing content, you may get a 403
-           "Player command failed: Restriction violated" error.
+           is not active, you may get a
+           403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/
@@ -198,10 +285,10 @@ public extension SpotifyAPI {
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices found,
-     the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium,
-     a 403 FORBIDDEN response code will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
      Read more at the [Spotify web API reference][2].
@@ -210,8 +297,8 @@ public extension SpotifyAPI {
        - deviceId: The id of a device to target. It is highly
              recommended that you leave this as `nil` (default) to target
              the active device. If you provide the id of a device that
-             is not currently playing content, you may get a 403
-             "Player command failed: Restriction violated" error.
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
        - playbackRequest: A request to play content for the user. See above.
              **Provide nil to resume playback of the current track/episode.**
      
@@ -244,10 +331,10 @@ public extension SpotifyAPI {
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices found,
-     the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium,
-     a 403 FORBIDDEN response code will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
      Read more at the [Spotify web API reference][2].
@@ -260,8 +347,8 @@ public extension SpotifyAPI {
        - deviceId: The id of a device to target. It is highly
              recommended that you leave this as `nil` (default) to target
              the active device. If you provide the id of a device that
-             is not currently playing content, you may get a 403
-             "Player command failed: Restriction violated" error.
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/seek-to-position-in-currently-playing-track/
@@ -296,10 +383,10 @@ public extension SpotifyAPI {
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices found,
-     the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium,
-     a 403 FORBIDDEN response code will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
      Read more at the [Spotify web API reference][2].
@@ -311,8 +398,8 @@ public extension SpotifyAPI {
        - deviceId: The id of a device to target. It is highly
              recommended that you leave this as `nil` (default) to target
              the active device. If you provide the id of a device that
-             is not currently playing content, you may get a 403
-             "Player command failed: Restriction violated" error.
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
@@ -340,5 +427,145 @@ public extension SpotifyAPI {
         
     }
     
+    /**
+     Set the volume for the user's playback.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     Read more at the [Spotify web API reference][2].
+     
+     - Parameters:
+       - percent: The volume to set. Must be in the range 0...100.
+       - deviceId: The id of a device to target. It is highly
+             recommended that you leave this as `nil` (default) to target
+             the active device. If you provide the id of a device that
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-volume-for-users-playback/
+     */
+    func setVolume(
+        to percent: Int,
+        deviceId: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.apiRequest(
+            path: "/me/player/volume",
+            queryItems: [
+                "volume_percent": percent,
+                "device_id": deviceId
+            ],
+            httpMethod: "PUT",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil as Data?,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+        
+    }
+    
+        
+    /**
+     Toggle shuffle fo the user's playback.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     Read more at the [Spotify web API reference][2].
+     
+     - Parameters:
+       - mode: `true` to turn shuffle on; `false` to turn if off.
+       - deviceId: The id of a device to target. It is highly
+             recommended that you leave this as `nil` (default) to target
+             the active device. If you provide the id of a device that
+             is not active, you may get a
+             403 "Player command failed: Restriction violated" error.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
+     */
+    func setShuffle(
+        to mode: Bool,
+        deviceId: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.apiRequest(
+            path: "/me/player/shuffle",
+            queryItems: [
+                "device_id": deviceId,
+                "state": mode
+            ],
+            httpMethod: "PUT",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil as Data?,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+
+    }
+    
+    /**
+     Transfer the user's playback to a different device.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     - Parameters:
+       - deviceId: The id of a device to transfer the playback to.
+       - play: If `true`, ensure playback happens on the new device.
+             If `false`, keep the current playback state.
+     
+     [1]:
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/
+     */
+    func transferPlayback(
+        to deviceId: String,
+        play: Bool
+    ) -> AnyPublisher<Void, Error> {
+        
+        let body = TransferPlaybackRequest(
+            deviceIds: [deviceId], play: play
+        )
+        
+        return self.apiRequest(
+            path: "/me/player",
+            queryItems: [:],
+            httpMethod: "PUT",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            body: body,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+        
+    }
     
 }

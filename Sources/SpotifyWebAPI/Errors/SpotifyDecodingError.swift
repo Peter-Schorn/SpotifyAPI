@@ -11,13 +11,23 @@ import Foundation
 
  This is almost always due to an error in this library.
  Report a bug if you get this error.
+ 
+ Do not `dump` this error; instead, use its string representation.
  */
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
-    /// The folder to write the json response from
-    /// the Spotify web API to when instances of this error
-    /// are created. This is intended for debugging purposes.
-    /// By default, it is nil.
+    /**
+     The folder to write the json response from
+     the Spotify web API to when instances of this error
+     are created. This is intended for debugging purposes.
+     By default, it is nil.
+     
+     The name of the file will be `expectedResponseType` with the current
+     time appended to it.
+     You are encouraged to upload the file to this [online JSON viewer][1].
+     
+     [1]: https://jsoneditoronline.org/#left=local.yefire&right=local.redama
+     */
     public static var dataDumpfolder: URL? = nil
     
     /// The raw data returned by the server.
@@ -80,11 +90,10 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         
         let dataString = rawData.map {
             String(data: $0, encoding: .utf8)
-        } as? String
-                ?? "The data could not be decoded into a string"
+        } as? String ?? "The data could not be decoded into a string"
         
-        var underlyingErrorString = ""
-        _ = underlyingError.map { error in
+        var underlyingErrorString = "nil"
+        if let error = underlyingError {
             dump(error, to: &underlyingErrorString)
         }
         

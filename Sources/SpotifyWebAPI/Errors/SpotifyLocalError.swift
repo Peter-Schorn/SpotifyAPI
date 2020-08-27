@@ -2,32 +2,25 @@ import Foundation
 
 
 /**
- Encapsulates errors that are not directly produced by the Spotify web API.
+ An error that is not directly produced by the Spotify web API.
  
  For example if you try to make an API request but have not
- authorized your application yet, you will get a `.unauthorized`
- error.
+ authorized your application yet, you will get a `.unauthorized(String)`
+ error, which is thrown before any network requests are even made.
+ 
+ Consider using the `localizedDescription` of this error for more
+ a more detailed description.
  */
 public enum SpotifyLocalError: LocalizedError {
     
-    /**
-     You tried to access an endpoint that requires authorization,
-     but you have not authorized your app yet.
-     
-     See [makeAuthorizationURL(redirectURI:scopes:showDialog)][1]
-     and [requestAccessAndRefreshTokens(redirectURIWithQuery:)][2]
-     
-     [1]: x-source-tag://makeAuthorizationURL
-     [2]: x-source-tag://requestAccessAndRefreshTokens-redirectURIWithQuery
-     */
+    /// You tried to access an endpoint that requires authorization,
+    /// but you have not authorized your app yet.
     case unauthorized(String)
     
     /**
      Thrown if you provided a non-`nil` value for the state parameter
-     when you made the authorization URL using `SPotifyAPI.makeAuthorizationURL`,
-     and it didn't match the value returned from spotify in the query string
-     of the redirect URI. These values are compared in
-     `SpotifyAPI.requestAccessAndRefreshTokens`.
+     when you requested access and refresh tokens, and it didn't match
+     the value returned from spotify in the query string of the redirect URI.
      
      - supplied: The value supplied in `SPotifyAPI.makeAuthorizationURL`.
      - received: The value in the query string of the redirect URI.
@@ -76,18 +69,20 @@ public enum SpotifyLocalError: LocalizedError {
     public var errorDescription: String? {
         switch self {
              case .unauthorized(let message):
-                return "SpotifyLocalError: unauthorized: \(message)"
+                return "\(message)"
             case .invalidState(let supplied, let received):
                 return """
-                    SpotifyLocalError: The value for the state parameter provided
-                    when making the authorization URL '\(supplied)' did not match the
-                    value in the query string of the redirect URI: '\(received)'
+                    The value for the state parameter provided \
+                    when requesting access and refresh tokens '\(supplied)' \
+                    did not match the value in the query string of the \
+                    redirect URI:
+                    '\(received)'
                     """
             case .identifierParsingError(_):
                 return "identifier parsing error: \(self)"
             case .insufficientScope(let required, let authorized):
                 return """
-                    SpotifyLocalError: The endpoint you tried to access \
+                    The endpoint you tried to access \
                     requires the following scopes:
                     \(required.map(\.rawValue))
                     but your app is only authorized for theses scopes:
@@ -95,14 +90,13 @@ public enum SpotifyLocalError: LocalizedError {
                     """
             case .topLevelKeyNotFound(key: let key, dict: let dict):
                 return """
-                    SpotifyLocalError: The expected top level key '\(key)' \
+                    The expected top level key '\(key)' \
                     was not found in the dictionary:
                     \(dict)
                     """
             case .other(let message):
-                return "SpotifyLocalError: \(message)"
+                return "\(message)"
         }
     }
-    
   
 }

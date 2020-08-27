@@ -1,14 +1,14 @@
 import Foundation
 import SpotifyWebAPI
 
-public protocol AutomaticSpotifyURIConvertible:
+public protocol SpotifyURIConvertibleEnum:
     SpotifyURIConvertible,
     CaseIterable,
     RawRepresentable where RawValue == String {
     
 }
 
-public extension AutomaticSpotifyURIConvertible {
+public extension SpotifyURIConvertibleEnum {
     
     @inlinable @inline(__always)
     var uri: String { self.rawValue }
@@ -20,7 +20,7 @@ public extension AutomaticSpotifyURIConvertible {
 }
 
 /// A namespace of Spotify content identifiers (mostly URIs).
-public enum URIS: String, AutomaticSpotifyURIConvertible {
+public enum URIS: String, SpotifyURIConvertibleEnum {
     
     // MARK: - My User URI -
     case myUserURI = "spotify:user:petervschorn"
@@ -33,7 +33,7 @@ public enum URIS: String, AutomaticSpotifyURIConvertible {
     }
     
     // MARK: - Playlist -
-    public enum Playlist: String, AutomaticSpotifyURIConvertible {
+    public enum Playlist: String, SpotifyURIConvertibleEnum {
         case test = "spotify:playlist:0ijeB2eFmJL1euREk6Wu6C"
         case new = "spotify:playlist:5MlKAGFZNoN2d0Up8sQc0N"
         case crumb = "spotify:playlist:33yLOStnp2emkEA76ew1Dz"
@@ -44,7 +44,7 @@ public enum URIS: String, AutomaticSpotifyURIConvertible {
     }
 
     // MARK: - Artist -
-    public enum Artist: String, AutomaticSpotifyURIConvertible {
+    public enum Artist: String, SpotifyURIConvertibleEnum {
         case crumb = "spotify:artist:4kSGbjWGxTchKpIxXPJv0B"
         case levitationRoom = "spotify:artist:0SVxQVCnJn1BNUMY9ZcRO4"
         case radiohead = "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
@@ -54,7 +54,7 @@ public enum URIS: String, AutomaticSpotifyURIConvertible {
     }
     
     // MARK: - Album -
-    public enum Album: String, AutomaticSpotifyURIConvertible {
+    public enum Album: String, SpotifyURIConvertibleEnum {
         case jinx = "spotify:album:3vukTUpiENDHDoYTVrwqtz"
         case locket = "spotify:album:2Q61Zm3rOli876QegmVY50"
         case skiptracing = "spotify:album:1qMDN9zRQreK81cJ9G1hed"
@@ -64,7 +64,7 @@ public enum URIS: String, AutomaticSpotifyURIConvertible {
     }
 
     // MARK: - Track -
-    public enum Track: String, AutomaticSpotifyURIConvertible {
+    public enum Track: String, SpotifyURIConvertibleEnum {
         case locket = "spotify:track:0bxcUgWlOURkU6lZt4zog0"
         case jinx = "spotify:track:7qAy6TR1MrSeUV8OpMlNS1"
         case plants = "spotify:track:2cOzI3LOIkRIKEidcGZ1Bc"
@@ -78,18 +78,6 @@ public enum URIS: String, AutomaticSpotifyURIConvertible {
         case honey = "spotify:track:01IuTsgAlgKlgrvPhZ2c95"
         case anyColourYouLike = "spotify:track:6FBPOJLxUZEair6x4kLDhf"
         case fearless = "spotify:track:7AalBKBoLDR4UmRYRJpdbj"
-        
-        // 6FBPOJLxUZEair6x4kLDhf
-        // 6FBPOJLxUZEair6x4kLDhf
-        
-        // 1u7LOyLuApChbPeqMfXFKC
-        
-        /*
-         0bxcUgWlOURkU6lZt4zog0
-         1pmImsdC9t35L3TkD26ax8
-         01IuTsgAlgKlgrvPhZ2c95
-         01IuTsgAlgKlgrvPhZ2c95
-         */
     }
 
 }
