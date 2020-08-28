@@ -8,6 +8,7 @@ import Logger
  */
 public struct CurrentlyPlayingContext: Hashable {
     
+    /// Logs messages for this struct.
     static let logger = Logger(
         label: "CurrentlyPlayingContext", level: .critical
     )
@@ -17,7 +18,7 @@ public struct CurrentlyPlayingContext: Hashable {
     
     /// The repeat mode of the player.
     /// Either `off`, `track`, or `context`.
-    public let repeatState: RepeatState
+    public let repeatState: RepeatMode
     
     /// `true` if shuffle mode is on; else, `false`.
     public let shuffleIsOn: Bool
@@ -28,8 +29,9 @@ public struct CurrentlyPlayingContext: Hashable {
     /// session enabled, then this will be `nil`.
     public let context: SpotifyContext?
     
-    /// Unix Millisecond Timestamp when the data was fetched.
-    public let timestamp: Int
+    /// The date the data was fetched (converted from a Unix
+    /// millisecond-precision timestamp).
+    public let timestamp: Date
     
     /// Progress into the currently playing track/episode.
     ///
@@ -87,7 +89,7 @@ extension CurrentlyPlayingContext: Codable {
             Device.self, forKey: .device
         )
         self.repeatState = try container.decode(
-            RepeatState.self, forKey: .repeatState
+            RepeatMode.self, forKey: .repeatState
         )
         self.shuffleIsOn = try container.decode(
             Bool.self, forKey: .shuffleIsOn
@@ -95,8 +97,8 @@ extension CurrentlyPlayingContext: Codable {
         self.context = try container.decodeIfPresent(
             SpotifyContext.self, forKey: .context
         )
-        self.timestamp = try container.decode(
-            Int.self, forKey: .timestamp
+        self.timestamp = try container.decodeMillisecondsSince1970(
+            forKey: .timestamp
         )
         self.progressMS = try container.decodeIfPresent(
             Int.self, forKey: .progressMS
@@ -174,7 +176,7 @@ extension CurrentlyPlayingContext: Codable {
         try container.encodeIfPresent(
             self.context, forKey: .context
         )
-        try container.encode(
+        try container.encodeMillisecondsSince1970(
             self.timestamp, forKey: .timestamp
         )
         try container.encodeIfPresent(

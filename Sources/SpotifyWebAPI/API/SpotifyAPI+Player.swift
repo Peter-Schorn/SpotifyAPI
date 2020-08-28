@@ -65,6 +65,64 @@ public extension SpotifyAPI {
         
     }
  
+    /**
+     Get the current user's recently played tracks.
+     
+     This endpoint requires the `userReadRecentlyPlayed` scope.
+     
+     *Note:** Currently doesn’t support podcast episodes. Returns the
+     most recent 50 tracks played by a user. Note that a track currently
+     playing will not be visible in play history until it has completed.
+     A track must be played for more than 30 seconds to be included in play
+     history.
+     
+     Any tracks listened to while the user had “Private Session”
+     enabled in their client will not be returned in the list of recently
+     played tracks.
+     
+     The endpoint uses a bidirectional cursor for paging.
+     Follow the next field with the before parameter to move back in time,
+     or use the after parameter to move forward in time. If you supply no
+     before or after parameter, the endpoint will return the most recently
+     played track, and the next link will page back in time.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - timeReference: *Optional*. A reference to a period of time before or
+             after a specified time. For example, `.before(Date())` refers
+             to the period of time before the current date. This is used
+             to filter the response. Dates will be converted to
+             millisecond-precision timestamps. Only results that are within
+             the specified time period will be returned. If `nil`, the most
+             recently played tracks will be returned.
+       
+       - limit: *Optional*. The maximum number of items to return.
+             Default: 20; Minimum: 1; Maximum: 50.
+     - Returns: A an array of simplified tracks wrapped in a
+           `CursorPagingObject`.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
+     */
+    func recentlyPlayed(
+        _ timeReference: TimeReference? = nil,
+        limit: Int? = nil
+    ) ->AnyPublisher<CursorPagingObject<PlayHistory>, Error> {
+        
+        var query: [String: LosslessStringConvertible?] =
+                timeReference?.asQueryItem() ?? [:]
+        
+        query["limit"] = limit
+        
+        return self.getRequest(
+            path: "/me/player/recently-played",
+            queryItems: query,
+            requiredScopes: [.userReadRecentlyPlayed]
+        )
+        .spotifyDecode(CursorPagingObject<PlayHistory>.self)
+        
+    }
+    
     // MARK: - POST -
     
     /**
@@ -405,7 +463,7 @@ public extension SpotifyAPI {
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
      */
     func setRepeatMode(
-        to repeatMode: RepeatState,
+        to repeatMode: RepeatMode,
         deviceId: String? = nil
     ) -> AnyPublisher<Void, Error> {
      
@@ -500,7 +558,7 @@ public extension SpotifyAPI {
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/toggle-shuffle-for-users-playback/
      */
     func setShuffle(
         to mode: Bool,
@@ -537,12 +595,14 @@ public extension SpotifyAPI {
      403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
+     Read more at the [Spotify web API reference][2].
+     
      - Parameters:
        - deviceId: The id of a device to transfer the playback to.
        - play: If `true`, ensure playback happens on the new device.
              If `false`, keep the current playback state.
      
-     [1]:
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/
      */
     func transferPlayback(

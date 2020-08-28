@@ -154,10 +154,11 @@ extension PlaybackRequest: Codable {
                 expected to find either a single string value for key \
                 "context_uri" or an array of strings for key "uris"
                 """
-            throw DecodingError.dataCorruptedError(
-                forKey: .uris,
-                in: container,
-                debugDescription: debugDescription
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: debugDescription
+                )
             )
         }
         if let positionDictionary = try? container.decodeIfPresent(

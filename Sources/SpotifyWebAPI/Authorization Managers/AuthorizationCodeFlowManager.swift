@@ -419,7 +419,7 @@ public extension AuthorizationCodeFlowManager {
         do {
         
             if onlyIfExpired && !self.isExpired() {
-                Self.logger.trace("access token not expired; returning early")
+                // Self.logger.trace("access token not expired; returning early")
                 return Result<Void, Error>
                     .Publisher(())
                     .eraseToAnyPublisher()

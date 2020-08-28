@@ -1,55 +1,28 @@
 import Foundation
 
-public extension DateFormatter {
+public extension Date {
     
-    /// "YYYY-MM-DD" Date format.
-    static let spotifyAlbumLong: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-DD"
-        return formatter
-    }()
-    
-    /// "YYYY-MM" Date format.
-    static let spotifyAlbumMedium: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM"
-        return formatter
-    }()
-    
-    /// "YYYY" Date format.
-    static let spotifyAlbumShort: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
-        return formatter
-    }()
-    
-    /**
-     A formatter for [timestamps][1] used by the Spotify web API.
-     
-     Timestamps are  in ISO 8601 format as Coordinated Universal Time (UTC)
-     with a zero offset:
-     ```
-     "YYYY-MM-DD'T'HH:mm:SSZ"
-     ```
+    /// The interval, in milliseconds, between the date value and
+    /// 00:00:00 UTC on 1 January 1970.
+    /// Equivalent to `self.timeIntervalSince1970 * 1000`.
+    var millisecondsSince1970: Double {
+        return self.timeIntervalSince1970 * 1000
+    }
 
-     [1]: https://developer.spotify.com/documentation/web-api/#timestamps
+    /**
+     Creates a date value initialized relative to 00:00:00 UTC
+     on 1 January 1970 by a given number of **milliseconds**.
+     
+     equivalent to
+     ```
+     self.init(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+     ```
+     - Parameter millisecondsSince1970: A time interval in milliseconds.
      */
-    static let spotifyTimeStamp: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ssZ"
-        return formatter
-    }()
-    
-    
-    /// Used for debugging purposes.
-    ///
-    /// ```
-    /// "hh-mm-ss"
-    /// ```
-    static let shortTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "hh-mm-ss"
-        return formatter
-    }()
+    init(millisecondsSince1970: Double) {
+        self.init(
+            timeIntervalSince1970: TimeInterval(millisecondsSince1970) / 1000
+        )
+    }
     
 }

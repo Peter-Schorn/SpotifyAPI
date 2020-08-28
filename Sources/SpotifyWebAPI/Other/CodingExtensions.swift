@@ -29,8 +29,7 @@ private extension KeyedDecodingContainer {
                 "YYYY"
                 """
             
-            throw DecodingError.typeMismatch(
-                Date.self,
+            throw DecodingError.dataCorrupted(
                 DecodingError.Context(
                     codingPath: self.codingPath,
                     debugDescription: errorMessage
@@ -41,26 +40,23 @@ private extension KeyedDecodingContainer {
     }
     
     func decodeSpotifyTimestampFromString(
-        _ dateString: String
+        _ dateString: String,
+        key: Key
     ) throws -> Date {
         
-        if let date = DateFormatter.spotifyTimeStamp.date(
+        if let date = SpotifyTimestampFormatter().date(
             from: dateString
         ) {
             return date
         }
         else {
             
-            let dateFormat = DateFormatter.spotifyTimeStamp.dateFormat
-                    ?? "nil"
-            
             let errorMessage = """
                 Could not decode Soptify timestamp from '\(dateString)'
-                It must be in the format '\(dateFormat)'
+                for key \(key). It must be in ISO 8601 format.
                 """
             
-            throw DecodingError.typeMismatch(
-                Date.self,
+            throw DecodingError.dataCorrupted(
                 DecodingError.Context(
                     codingPath: self.codingPath,
                     debugDescription: errorMessage
@@ -76,7 +72,7 @@ private extension KeyedDecodingContainer {
 public extension KeyedDecodingContainer {
     
     
-    // MARK: - Spotify Album Dates -
+    // MARK: - Spotify Dates -
     
     /**
      Decodes a Date from a date-string with one of
@@ -126,7 +122,7 @@ public extension KeyedDecodingContainer {
         
         let dateString = try self.decode(String.self, forKey: key)
         return try self.decodeSpotifyTimestampFromString(
-            dateString
+            dateString, key: key
         )
         
     }
@@ -143,8 +139,32 @@ public extension KeyedDecodingContainer {
         }
         
         return try self.decodeSpotifyTimestampFromString(
-            dateString
+            dateString, key: key
         )
+        
+    }
+    
+    // MARK: - Milliseconds Since 1970 -
+    
+    func decodeMillisecondsSince1970(
+        forKey key: Key
+    ) throws -> Date {
+        
+        let milliseconds = try self.decode(Int64.self, forKey: key)
+        return Date(millisecondsSince1970: TimeInterval(milliseconds))
+        
+    }
+    
+    func decodeMillisecondsSince1970IfPresent(
+        forKey key: Key
+    ) throws -> Date? {
+        
+        guard let milliseconds = try self.decodeIfPresent(
+            Int64.self, forKey: key
+        ) else {
+            return nil
+        }
+        return Date(millisecondsSince1970: TimeInterval(milliseconds))
         
     }
     
@@ -196,7 +216,7 @@ public extension KeyedDecodingContainer {
 
 public extension KeyedEncodingContainer {
     
-    // MARK: - Spotify Album Dates -
+    // MARK: - Spotify Dates -
     
     /**
      Encodes a Sate to a date-string in one of
@@ -258,7 +278,7 @@ public extension KeyedEncodingContainer {
         forKey key: Key
     ) throws {
         
-        let dateString = DateFormatter.spotifyTimeStamp.string(
+        let dateString = SpotifyTimestampFormatter().string(
             from: date
         )
         try self.encode(dateString, forKey: key)
@@ -274,6 +294,30 @@ public extension KeyedEncodingContainer {
         try self.encodeSpotifyTimestamp(date, forKey: key)
         
     }
+    
+    // MARK: - Milliseconds Since 1970 -
+    
+    mutating func encodeMillisecondsSince1970(
+        _ date: Date,
+        forKey key: Key
+    ) throws {
+        
+        let milliseconds = Int64(date.millisecondsSince1970)
+        try self.encode(milliseconds, forKey: key)
+        
+    }
+    
+    mutating func encodeMillisecondsSince1970IfPresent(
+        _ date: Date?,
+        forKey key: Key
+    ) throws {
+        
+        
+        guard let date = date else { return }
+        try self.encodeMillisecondsSince1970(date, forKey: key)
+        
+    }
+    
     
     // MARK: - Spotify Scopes -
     

@@ -62,10 +62,10 @@ extension SpotifyAPI {
 
         // ensure unecessary work is not done converting the
         // body to a string.
-        if self.apiRequestLogger.level <= .debug {
+        if self.apiRequestLogger.level <= .warning {
             
             self.apiRequestLogger.trace(
-                "\(httpMethod) request to \"\(endpoint)\"\n"
+                "\(httpMethod) request to \"\(endpoint)\""
             )
             
             if let bodyData = bodyData {
@@ -75,7 +75,7 @@ extension SpotifyAPI {
                     )
                 }
                 else {
-                    self.apiRequestLogger.debug(
+                    self.apiRequestLogger.warning(
                         "couldn't convert body data to string"
                     )
                 }

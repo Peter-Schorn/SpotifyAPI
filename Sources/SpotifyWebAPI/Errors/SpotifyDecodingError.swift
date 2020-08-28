@@ -75,13 +75,24 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
                 ?? "The data could not be decoded into a string"
         
         if let folder = Self.dataDumpfolder {
+            
             let dateString = DateFormatter.shortTime.string(from: Date())
             let file = folder.appendingPathComponent(
                 "\(expectedResponseType)_\(dateString)"
             )
-            try? dataString.write(
-                to: file, atomically: true, encoding: .utf8
-            )
+            
+            do {
+                try dataString.write(
+                    to: file, atomically: true, encoding: .utf8
+                )
+            
+            } catch {
+                print(
+                    "SpotifyDecodingError: couldn't write data " +
+                    "to file: '\(file)'\n\(error )"
+                )
+            }
+            
         }
         
     }

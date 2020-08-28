@@ -71,9 +71,23 @@ public extension Dictionary {
      
      - Warning: This operation is non-commutative.
      */
-    @inlinable
     static func + (lhs: Self, rhs: Self) -> Self {
         return lhs.merging(rhs) { lhsKey, rhsKey in
+            return lhsKey
+        }
+    }
+    
+    /**
+     Merges the left hand side dictionary with
+     the right hand dictionary in-place.
+    
+     Duplicate keys in the left hand side will
+     replace those in the right hand side.
+     
+     - Warning: This operation is non-commutative.
+     */
+    static func += (lhs: inout Self, rhs: Self) {
+        lhs.merge(rhs) { lhsKey, rhsKey in
             return lhsKey
         }
     }

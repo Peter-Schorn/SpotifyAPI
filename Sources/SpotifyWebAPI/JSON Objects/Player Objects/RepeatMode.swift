@@ -1,8 +1,8 @@
 import Foundation
 
-/// The repeat state of the user's player.
+/// The repeat mode of the user's player.
 /// Either `off`, `track`, or `context`.
-public enum RepeatState: String, Codable, Hashable, CaseIterable {
+public enum RepeatMode: String, Codable, Hashable, CaseIterable {
     
     /// Repeat mode is off.
     case off

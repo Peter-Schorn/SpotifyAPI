@@ -20,20 +20,22 @@ public extension SpotifyURIConvertibleEnum {
 }
 
 /// A namespace of Spotify content identifiers (mostly URIs).
-public enum URIS: String, SpotifyURIConvertibleEnum {
+public enum URIS {
     
-    // MARK: - My User URI -
-    case myUserURI = "spotify:user:petervschorn"
-    case aprilUserURI = "spotify:user:p8gjjfbirm8ucyt82ycfi9zuu"
+    // MARK: - Users -
+    public enum Users: String, SpotifyURIConvertibleEnum {
+        case peter = "spotify:user:petervschorn"
+        case april = "spotify:user:p8gjjfbirm8ucyt82ycfi9zuu"
+    }
     
     // MARK: - Device -
-    public enum Device {
-        static let myiPhone = "476da515c6109d1351359b4c2ad313161f79b173"
-        static let myComputer = "ced8d42d0a3830065dfbf4800352d23a96b76fd4"
+    public enum Devices {
+        public static let petersiPhone = "476da515c6109d1351359b4c2ad313161f79b173"
+        public static let petersComputer = "ced8d42d0a3830065dfbf4800352d23a96b76fd4"
     }
     
     // MARK: - Playlist -
-    public enum Playlist: String, SpotifyURIConvertibleEnum {
+    public enum Playlists: String, SpotifyURIConvertibleEnum {
         case test = "spotify:playlist:0ijeB2eFmJL1euREk6Wu6C"
         case new = "spotify:playlist:5MlKAGFZNoN2d0Up8sQc0N"
         case crumb = "spotify:playlist:33yLOStnp2emkEA76ew1Dz"
@@ -44,7 +46,7 @@ public enum URIS: String, SpotifyURIConvertibleEnum {
     }
 
     // MARK: - Artist -
-    public enum Artist: String, SpotifyURIConvertibleEnum {
+    public enum Artists: String, SpotifyURIConvertibleEnum {
         case crumb = "spotify:artist:4kSGbjWGxTchKpIxXPJv0B"
         case levitationRoom = "spotify:artist:0SVxQVCnJn1BNUMY9ZcRO4"
         case radiohead = "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
@@ -54,7 +56,7 @@ public enum URIS: String, SpotifyURIConvertibleEnum {
     }
     
     // MARK: - Album -
-    public enum Album: String, SpotifyURIConvertibleEnum {
+    public enum Albums: String, SpotifyURIConvertibleEnum {
         case jinx = "spotify:album:3vukTUpiENDHDoYTVrwqtz"
         case locket = "spotify:album:2Q61Zm3rOli876QegmVY50"
         case skiptracing = "spotify:album:1qMDN9zRQreK81cJ9G1hed"
@@ -64,7 +66,7 @@ public enum URIS: String, SpotifyURIConvertibleEnum {
     }
 
     // MARK: - Track -
-    public enum Track: String, SpotifyURIConvertibleEnum {
+    public enum Tracks: String, SpotifyURIConvertibleEnum {
         case locket = "spotify:track:0bxcUgWlOURkU6lZt4zog0"
         case jinx = "spotify:track:7qAy6TR1MrSeUV8OpMlNS1"
         case plants = "spotify:track:2cOzI3LOIkRIKEidcGZ1Bc"

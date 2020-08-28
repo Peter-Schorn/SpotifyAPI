@@ -97,13 +97,6 @@ extension SpotifyAPI {
         CurrentlyPlayingContext.logger.level = .trace
         AuthorizationCodeFlowManager.logger.level = .trace
         ClientCredentialsFlowManager.logger.level = .trace
-
-        if let desktop = FileManager.default.urls(
-            for: .desktopDirectory,
-            in: .userDomainMask
-        ).first {
-            SpotifyDecodingError.dataDumpfolder = desktop
-        }
         
         self.authorizationManagerDidChange
             .print("SpotifyAPI: setupDebugging: self.authorizationManagerDidChange")
