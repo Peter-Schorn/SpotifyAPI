@@ -67,7 +67,7 @@ public extension URLComponents {
     }
 
 
-    /// A dictionary of the query items in the url components.
+    /// A dictionary of the query items in the URL components.
     var queryItemsDict: [String: String] {
 
         return self.queryItems?.reduce(into: [:]) { dict, query in

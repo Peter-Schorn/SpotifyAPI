@@ -86,8 +86,12 @@ public struct Track: Hashable {
     /// [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
     public let isPlayable: Bool?
 
-    /// A link to the Spotify web API endpoint
-    /// providing the full track object.
+    /**
+     A link to the Spotify web API endpoint providing the full track object.
+     
+     Use `getFromHref(_:responseType:)`, passing in `Track` as the
+     response type to retrieve the results.
+     */
     public let href: String?
 
     /// A link to a 30 second preview (MP3 format) of the track.
@@ -98,8 +102,8 @@ public struct Track: Hashable {
      Known [external urls][1] for this track.
 
      - key: The type of the URL, for example:
-           "spotify" - The [Spotify url][2] for the object.
-     - value: An external, public url to the object.
+           "spotify" - The [Spotify URL][2] for the object.
+     - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -145,6 +149,50 @@ public struct Track: Hashable {
 
     /// The object type. Always `track`.
     public let type: IDCategory
+    
+    
+    public init(
+        name: String,
+        album: Album?,
+        artists: [Artist]?,
+        uri: String?,
+        id: String?,
+        isLocal: Bool,
+        popularity: Int?,
+        durationMS: Int?,
+        trackNumber: Int?,
+        isExplicit: Bool,
+        isPlayable: Bool?,
+        href: String?,
+        previewURL: String?,
+        externalURLs: [String : String]?,
+        externalIds: [String : String]?,
+        availableMarkets: [String]?,
+        linkedFrom: TrackLink?,
+        restrictions: [String : String]?,
+        discNumber: Int?, type: IDCategory
+    ) {
+        self.name = name
+        self.album = album
+        self.artists = artists
+        self.uri = uri
+        self.id = id
+        self.isLocal = isLocal
+        self.popularity = popularity
+        self.durationMS = durationMS
+        self.trackNumber = trackNumber
+        self.isExplicit = isExplicit
+        self.isPlayable = isPlayable
+        self.href = href
+        self.previewURL = previewURL
+        self.externalURLs = externalURLs
+        self.externalIds = externalIds
+        self.availableMarkets = availableMarkets
+        self.linkedFrom = linkedFrom
+        self.restrictions = restrictions
+        self.discNumber = discNumber
+        self.type = type
+    }
     
 }
 

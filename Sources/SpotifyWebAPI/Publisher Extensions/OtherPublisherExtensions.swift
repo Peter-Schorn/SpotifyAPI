@@ -2,8 +2,6 @@ import Foundation
 import Combine
 import Logger
 
-
-
 public extension Publisher {
     
     /// Wraps all upstream elements in an optional.
@@ -78,6 +76,54 @@ public extension Publisher {
     }
     
 }
+
+public extension Publisher where Output: Paginated {
+    
+
+    /**
+     Retrieves additional pages of results from a `Paginated`
+     type.
+     
+     See also `PagingObject.getPage(atOffset:limit:)`, which
+     can be used to request multiple pages asyncronously.
+     
+     Each time an additional page is received, its `next` property
+     is used to retrieve the next page of results, and so on, until
+     `next` is `nil` or `maxExtraPages` is reached. This means that
+     the next page will not be requested until the previous one
+     is received. This also means that the pages will always be
+     returned in order.
+     
+     - Parameters:
+       - spotify: An instance of `SpotifyAPI`, which is required for
+             ensuring that the application is authorized and refreshing
+             the access token if needed.
+       - maxExtraPages: The maximum number of additional pages to retrieve.
+             For example, to just get the next page, use `1`. Leave as
+             `nil` (default) to retrieve all pages of results.
+     - Returns: A publisher that immediately republishes the output
+           from the upstream publisher, as well as additional pages that are
+           returned by the Spotify web API.
+     */
+    func extendPages<AuthorizationManager: SpotifyAuthorizationManager>(
+        _ spotify: SpotifyAPI<AuthorizationManager>,
+        maxExtraPages: Int? = nil
+    ) -> AnyPublisher<Output, Error> {
+    
+        return self
+            .mapError { $0 as Error }
+            .flatMap { results in
+                spotify.extendPages(
+                    results, maxExtraPages: maxExtraPages
+                )
+            }
+            .eraseToAnyPublisher()
+        
+    }
+    
+}
+
+
 
 public extension Publisher where Output == Void {
     

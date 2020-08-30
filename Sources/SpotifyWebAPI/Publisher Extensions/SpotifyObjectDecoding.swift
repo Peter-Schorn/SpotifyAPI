@@ -3,7 +3,7 @@ import Combine
 import Logger
 
 public let spotifyDecodeLogger = Logger(
-    label: "spotifyDecode", level: .critical
+    label: "spotifyDecode", level: .warning
 )
 
 // MARK: - Decode Spotify Objects -
@@ -67,6 +67,19 @@ private func decodeSpotifyErrorObjects(
         return error
     }
     
+    let statusCode = httpURLResponse.statusCode
+    
+    // the error status codes. If one of these is returned,
+    // then it should have been possible to decode the Data into one
+    // of the error objects. A Violation of this assumption
+    // is a serious error.
+    if [401, 401, 403, 404, 500, 502, 503].contains(statusCode) {
+        spotifyDecodeLogger.critical(
+            "http response status code was \(statusCode) (error), " +
+            "but couldn't decode error response objects"
+        )
+    }
+    
     return nil
 }
 
@@ -124,19 +137,6 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
             "the spotify error objects"
         )
         
-         let statusCode = httpURLResponse.statusCode
-        
-        // the error status codes. If one of these is returned,
-        // then it should have been possible to decode the Data into one
-        // of the error objects. A Violation of this assumption
-        // is a serious error.
-        if [401, 401, 403, 404, 500, 502, 503].contains(statusCode) {
-            spotifyDecodeLogger.critical(
-                "http response status code was \(statusCode) (error), " +
-                "but couldn't decode error response objects"
-            )
-        }
-        
         /*
          If the data can't be decoded into one of the Spotify
          error objects, then it is probably because Spotify
@@ -150,7 +150,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         throw SpotifyDecodingError(
             rawData: data,
             responseType: responseType,
-            statusCode: statusCode,
+            statusCode: httpURLResponse.statusCode,
             underlyingError: responseTypeDecodingError
         )
         
@@ -242,6 +242,33 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
     }
 
+    func spotifyDecodePagingObject<ResponseType: Decodable>(
+        _ wrappedType: ResponseType.Type,
+        getPage: @escaping (_ atOffset: Int, _ limit: Int?)
+                -> AnyPublisher<PagingObject<ResponseType>, Error>
+    ) -> AnyPublisher<PagingObject<ResponseType>, Error> {
+        
+        
+        return self.tryMap { data, response -> PagingObject<ResponseType> in
 
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                fatalError("could not cast URLResponse to HTTPURLResponse")
+            }
+
+            var pagingObject = try decodeSpotifyObject(
+                data: data,
+                httpURLResponse: httpURLResponse,
+                responseType: PagingObject<ResponseType>.self
+            )
+
+            pagingObject._getPage = getPage
+            return pagingObject
+        }
+        .eraseToAnyPublisher()
+        
+        
+    }
+    
+    
 
 }

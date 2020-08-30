@@ -3,7 +3,7 @@ import Combine
 
 // MARK: Playlists
 
-extension SpotifyAPI {
+private extension SpotifyAPI {
     
     /// Use for post/put/delete requests to the "/playlists/{playlistId}/tracks"
     /// endpoint in which the response is the snapshot id of the playlist.
@@ -18,17 +18,12 @@ extension SpotifyAPI {
         do {
     
             let playlistId = try SpotifyIdentifier(uri: playlist.uri).id
-    
-            func makeHeaders(accessToken: String) -> [String: String] {
-                return Headers.bearerAuthorization(accessToken) +
-                    Headers.acceptApplicationJSON
-            }
             
             return self.apiRequest(
                 path: "/playlists/\(playlistId)/tracks",
                 queryItems: queryItems,
                 httpMethod: httpMethod,
-                makeHeaders: makeHeaders(accessToken:),
+                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
                 body: body,
                 requiredScopes: requiredScopes
             )
@@ -57,9 +52,10 @@ extension SpotifyAPI {
         market: String?,
         requestedTypes: [IDCategory],
         responseType: ResponseType.Type
-    ) -> AnyPublisher<ResponseType, Error> {
+    ) -> AnyPublisher<PagingObject<ResponseType>, Error> {
         
         do {
+            
             let playlistId = try SpotifyIdentifier(uri: playlist).id
         
             return self.getRequest(
@@ -72,10 +68,23 @@ extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(responseType)
-        
+            // motherfuckin partial application
+            .spotifyDecodePagingObject(
+                ResponseType.self,
+                getPage: { offset, limit in
+                    return self.getPlaylistItems(
+                        playlist,
+                        limit: limit,
+                        offset: offset,
+                        market: market,
+                        requestedTypes: requestedTypes,
+                        responseType: responseType
+                    )
+                }
+            )
+            
         } catch {
-            return error.anyFailingPublisher(responseType)
+            return error.anyFailingPublisher(PagingObject<ResponseType>.self)
         }
         
     }
@@ -122,7 +131,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4]
              or the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][5].
-     - Returns: The raw data and url response from the server.
+     - Returns: The raw data and URL response from the server.
            Because the response is entirely dependent on the fields you specify,
            you are responsible for decoding the data. However, any error objects
            returned by Spotify will be decoded automatically and thrown as an
@@ -301,8 +310,9 @@ public extension SpotifyAPI {
             offset: offset,
             market: market,
             requestedTypes: [.track],
-            responseType: PlaylistTracks.self
+            responseType: PlaylistItemContainer<Track>.self
         )
+
     }
     
     /**
@@ -328,8 +338,8 @@ public extension SpotifyAPI {
      ```
      
      - Warning: `AnyPlaylistItem` only contains the properties
-           unique to tracks and episodes. Compare with `Track` and
-           `Episode`.
+           common to both tracks and episodes. Compare with `Track`
+           and `Episode`.
      
      Read more at the [Spotify web API reference][1].
      
@@ -360,7 +370,7 @@ public extension SpotifyAPI {
             offset: offset,
             market: market,
             requestedTypes: [.track, .episode],
-            responseType: PlaylistItems.self
+            responseType: PlaylistItemContainer<AnyPlaylistItem>.self
         )
         
     }
@@ -389,7 +399,7 @@ public extension SpotifyAPI {
      tracks/episodes and the total number in the playlist. However,
      to get all of the tracks in each playlist, you should use
      `playlistTracks(_:limit:offset:market:)` instead, passing in
-     the uri of each of the playlists. To get all of the uris, use:
+     the URI of each of the playlists. To get all of the URIs, use:
      ```
      playlists.items.map(\.uri)
      ```
@@ -449,7 +459,7 @@ public extension SpotifyAPI {
      tracks/episodes and the total number in the playlist. However,
      to get all of the tracks in each playlist, you should use
      `playlistTracks(_:limit:offset:market:)` instead, passing in
-     the uri of each of the playlists. To get all of the uris, use:
+     the URI of each of the playlists. To get all of the URIs, use:
      ```
      playlists.items.map(\.uri)
      ```
@@ -504,7 +514,7 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameter playlist: A Spotify playlist.
-     - Returns: An array of image objects, which contain the url for
+     - Returns: An array of image objects, which contain the URL for
            the image and its dimensions.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/
@@ -582,8 +592,7 @@ public extension SpotifyAPI {
     }
     
     /**
-     Create a playlist for a Spotify user. The playlist will be empty
-     until you add tracks.
+     Create a playlist for a Spotify user.
      
      Read more at the [Spotify web API reference][1].
      
@@ -591,38 +600,32 @@ public extension SpotifyAPI {
        - userURI: The URI of a user. **The access token must have been
            issued on behalf of this user.**
        - playlistDetails: The details of the playlist.
-     - Returns: The playlist.
+     - Returns: The playlist. It will be empty until you add tracks.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/
      */
     func createPlaylist(
         for userURI: SpotifyURIConvertible,
         _ playlistDetails: PlaylistDetails
-    ) -> AnyPublisher<Playlist<PlaylistTracks>, Error> {
+    ) -> AnyPublisher<Playlist<PlaylistItems>, Error> {
         
         do {
             
             let userId = try SpotifyIdentifier(uri: userURI).id
             
-            func makeHeaders(accessToken: String) -> [String: String] {
-                return Headers.bearerAuthorization(accessToken) +
-                    Headers.acceptApplicationJSON
-            }
-            
             return self.apiRequest(
                 path: "/users/\(userId)/playlists",
                 queryItems: [:],
                 httpMethod: "POST",
-                makeHeaders: makeHeaders(accessToken:),
+                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
                 body: playlistDetails,
                 requiredScopes: []
             )
-            .spotifyDecode(Playlist<PlaylistTracks>.self)
+            .spotifyDecode(Playlist<PlaylistItems>.self)
             
         } catch {
-            return error.anyFailingPublisher(Playlist<PlaylistTracks>.self)
+            return error.anyFailingPublisher(Playlist<PlaylistItems>.self)
         }
-        
         
     }
     
@@ -779,16 +782,11 @@ public extension SpotifyAPI {
             
             let playlistId = try SpotifyIdentifier(uri: playlist.uri).id
     
-            func makeHeaders(accessToken: String) -> [String: String] {
-                return Headers.bearerAuthorization(accessToken) +
-                    Headers.acceptApplicationJSON
-            }
-            
             return self.apiRequest(
                 path: "/playlists/\(playlistId)",
                 queryItems: [:],
                 httpMethod: "PUT",
-                makeHeaders: makeHeaders(accessToken:),
+                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
                 body: newDetails,
                 requiredScopes: []
             )
@@ -963,7 +961,7 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI for a playlist.
-       - urisWithPostions: A collection of uris along with their positions
+       - urisWithPostions: A collection of URIs along with their positions
          in a playlist and, optionally, the snapshot id of the playlist
          you want to target.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for

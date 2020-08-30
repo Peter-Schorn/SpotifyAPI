@@ -15,14 +15,13 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     public var authorizationManager: AuthorizationManager {
         didSet {
             self.logger.trace("did set authorizationManager")
+            
             self.authorizationManager.didChange
-                .receive(on: RunLoop.main)
                 .subscribe(authorizationManagerDidChange)
                 .store(in: &cancellables)
-            DispatchQueue.main.async {
-                self.logger.trace("authorizationManagerDidChange.send()")
-                self.authorizationManagerDidChange.send()
-            }
+            
+            self.logger.trace("authorizationManagerDidChange.send()")
+            self.authorizationManagerDidChange.send()
         }
     }
 
@@ -30,9 +29,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      A publisher that emits whenever `authorizationManager.didChange`
      emits, or when you assign a new instance of `AuthorizationManager`
      to `authorizationManager`.
-     
-     This publisher will always emit on the main thread—unless, of course,
-     you modify it yourself on a background thread.
      
      This publisher subscribes to the `didChange` publisher of
      `authorizationManager` in the `init(authorizationManager:)` method
@@ -76,13 +72,15 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      */
     public init(authorizationManager: AuthorizationManager)  {
         self.authorizationManager = authorizationManager
+        
         self.authorizationManager.didChange
-            .receive(on: RunLoop.main)
             .subscribe(authorizationManagerDidChange)
             .store(in: &cancellables)
+        
         self.setupDebugging()
     }
     
+}
 }
 
 extension SpotifyAPI {
@@ -91,23 +89,22 @@ extension SpotifyAPI {
     /// Only use it for testing purposes.
     func setupDebugging() {
 
-        self.logger.level = .trace
+        self.logger.level = .warning
         self.apiRequestLogger.level = .trace
         
         CurrentlyPlayingContext.logger.level = .trace
         AuthorizationCodeFlowManager.logger.level = .trace
         ClientCredentialsFlowManager.logger.level = .trace
         
-        self.authorizationManagerDidChange
-            .print("SpotifyAPI: setupDebugging: self.authorizationManagerDidChange")
-            .sink {
-                assert(
-                    Thread.isMainThread,
-                    "value from authorizationManagerDidChange " +
-                    "should only be received on main thread."
+        self.authorizationManagerDidChange.sink {
+            if !Thread.isMainThread {
+                self.logger.critical(
+                    "received value from authorizationManagerDidChange " +
+                    "on non-main thread"
                 )
             }
-            .store(in: &cancellables)
+        }
+        .store(in: &cancellables)
         
     }
     

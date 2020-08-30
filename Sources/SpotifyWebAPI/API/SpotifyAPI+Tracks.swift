@@ -58,8 +58,8 @@ public extension SpotifyAPI {
        - market: *Optional*. An ISO 3166-1 alpha-2 country code or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
-     - Returns: The full versions of up to 50 tracks. Tracks are returned in
-           the order requested. If a track is not found, `nil` is
+     - Returns: The full versions of up to 50 `Track` object . Tracks are returned
+           in the order requested. If a track is not found, `nil` is
            returned in the appropriate position. Duplicate tracks URIs
            in the request will result in duplicate tracks in the response.
            

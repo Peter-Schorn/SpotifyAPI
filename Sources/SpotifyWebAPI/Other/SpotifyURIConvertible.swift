@@ -15,7 +15,7 @@ public protocol SpotifyURIConvertible {
      The unique resource identifier for the
      Spotify content.
      
-     See [spotify uris and ids][1].
+     See [spotify URIs and ids][1].
      
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */

@@ -173,7 +173,7 @@ public extension ClientCredentialsFlowManager {
      - Returns: `true` if `expirationDate` + `tolerance` is
            equal to or before the current date. Else, `false`.
      */
-    func isExpired(tolerance: Double = 60) -> Bool {
+    func accessTokenIsExpired(tolerance: Double = 60) -> Bool {
         guard let expirationDate = expirationDate else { return false }
         return expirationDate.addingTimeInterval(tolerance) <= Date()
     }
@@ -268,8 +268,8 @@ public extension ClientCredentialsFlowManager {
         tolerance: Double = 60
     ) -> AnyPublisher<Void, Error> {
         
-        if onlyIfExpired && !self.isExpired() {
-            // Self.logger.trace("access token not expired; returning early")
+        if onlyIfExpired && !self.accessTokenIsExpired() {
+            Self.logger.trace("access token not expired; returning early")
             return Result<Void, Error>
                 .Publisher(())
                 .eraseToAnyPublisher()

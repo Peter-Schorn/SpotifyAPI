@@ -20,7 +20,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An ISO 3166-1 alpha-2 country code or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
-     - Returns: The full version of an [album][3].
+     - Returns: The full version of an [Album][3].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
@@ -63,7 +63,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][3].
-     - Returns: An array of the full versions of [albums].
+     - Returns: An array of the full versions of `Album` objects.
            Albums are returned in the order requested. If an album
            is not found, `nil` is returned in the corresponding position.
            Duplicate albums in the request will result in duplicate artists
@@ -123,7 +123,8 @@ public extension SpotifyAPI {
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first track to return.
              Default: 0. Use with `limit` to get the next set of tracks
-     - Returns: An array of simplified tracks, wrapped in a paging object.
+     - Returns: An array of simplified `Track` objects, wrapped in a
+           `PagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/albums/get-albums-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

@@ -11,8 +11,12 @@ import Foundation
  */
 public struct PlaylistsItemsReference: Codable, Hashable {
     
-    /// A link to the Spotify web API endpoint
-    /// providing the full list of tracks/episodes.
+    /**
+     A link to the Spotify web API endpoint
+     providing the full list of tracks/episodes.
+     
+     Use `getHref(_:responseType:)` to retrieve the results.
+     */
     public let href: String?
 
     /// The total number of tracks/episodes.

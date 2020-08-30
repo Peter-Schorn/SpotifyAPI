@@ -130,6 +130,9 @@ public struct AudioFeatures: Codable {
     public let id: String
     
     /// A link to the Web API endpoint providing full details of the track.
+    ///
+    /// Use `getHref(_:responseType:)`, passing in `Track` as the response
+    /// type to retrieve the results.
     public let trackHref: String
     
     /// An HTTP URL to access the full audio analysis of this track.

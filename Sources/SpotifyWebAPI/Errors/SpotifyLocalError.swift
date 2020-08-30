@@ -28,7 +28,7 @@ public enum SpotifyLocalError: LocalizedError {
     case invalidState(supplied: String, received: String)
     
     
-    /// A [Spotify identifier][1] (uri, id, url) of a specific type
+    /// A [Spotify identifier][1] (URI, ID, URL) of a specific type
     /// could not be parsed. The message will contain more information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

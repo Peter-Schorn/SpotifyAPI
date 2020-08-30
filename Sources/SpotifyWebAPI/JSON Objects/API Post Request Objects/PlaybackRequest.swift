@@ -18,7 +18,7 @@ public struct PlaybackRequest: Hashable {
        * Artist
        * Playlist
      
-     * `uris([String])`: An array of track/episode uris.
+     * `uris([String])`: An array of track/episode URIs.
      
      */
     public let context: ContextOption
@@ -62,7 +62,7 @@ public struct PlaybackRequest: Hashable {
            * Album
            * Artist
            * Playlist
-         * `uris([String])`: An array of track/episode uris.
+         * `uris([String])`: An array of track/episode URIs.
      
        - offset: Indicates where in the context playback should start.
          Only available when `contextURI` is an album or playlist

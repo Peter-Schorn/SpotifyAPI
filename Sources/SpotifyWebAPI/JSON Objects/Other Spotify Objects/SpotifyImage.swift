@@ -43,7 +43,7 @@ public struct SpotifyImage: Codable, Hashable {
 public extension SpotifyImage {
     
     /// Loads the image from `url`.
-    /// Throws if the url cannot be converted to
+    /// Throws if the URL cannot be converted to
     /// `URL` or the data cannot be converted to `Image`.
     func load() -> AnyPublisher<Image, Error> {
         

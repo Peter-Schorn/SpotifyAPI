@@ -26,7 +26,8 @@ public extension Publisher {
         }
     }
     
-    /// Logs all values in the stream.
+    /// Logs all values in the stream, but, unlike the `print()` operator,
+    /// not notifications about completion, cancellations, or subscriptions.
     func logOutput(
         _ prefix: String = "",
         to logger: Logger,

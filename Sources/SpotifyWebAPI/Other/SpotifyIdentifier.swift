@@ -4,25 +4,25 @@ import Logger
 
 /**
  Encapsulates the various formats that Spotify
- uses to uniquely identify content. See [spotify uris and ids][1].
+ uses to uniquely identify content. See [spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method
  that accepts a `SpotifyURIConvertible` type.
 
  This struct provides a convientent way to convert between
- the different formats, which include the id, the uri, and the url.
+ the different formats, which include the id, the URI, and the URL.
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  */
 public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /// Creates a comma separated string (with no spaces) of ids from a
-    /// sequence of uris. Throws an error if any of the ids could not
-    /// be parsed from the uris (used in the query parameter of some
+    /// sequence of URIs. Throws an error if any of the ids could not
+    /// be parsed from the URIs (used in the query parameter of some
     /// requests).
     ///
     /// - Parameter uris: A sequence of Spotify URIs.
-    static func commaSeparatedIdsString<S: Sequence>(
+    public static func commaSeparatedIdsString<S: Sequence>(
         _ uris: S
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
@@ -46,7 +46,16 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         "spotify:\(idCategory.rawValue):\(id.strip())"
     }
 
-    /// Use this URL to open the content in the web player.
+    /**
+     Use this URL to open the content in the web player.
+     
+     Equivalent to:
+     ```
+     "https://open.spotify.com/\(idCategory.rawValue)/\(id.strip())"
+     ```
+     
+     The strip method simply removes leading and trailing whitespace.
+     */
     public var url: URL? {
         guard let url =  URL(
             scheme: "https",
@@ -60,7 +69,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     }
 
     /// Creates an instance from an id and an id category.
-    /// See [spotify uris and ids][1].
+    /// See [spotify URIs and ids][1].
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(id: String, idCategory: IDCategory) {
@@ -68,7 +77,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         self.idCategory = idCategory
     }
 
-    /// Creates an instance from a URI. See [spotify uris and ids][1].
+    /// Creates an instance from a URI. See [spotify URIs and ids][1].
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(
@@ -94,7 +103,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     }
     
-    /// Creates an instance from a Spotify url to the content.
+    /// Creates an instance from a Spotify URL to the content.
     public init(url: URL) throws {
         
         let paths = url.pathComponents
@@ -104,7 +113,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             let category = IDCategory(rawValue: paths[2])
         else {
             throw SpotifyLocalError.identifierParsingError(
-                "could not parse spotify id from url: '\(url)'"
+                "could not parse spotify id category from url: '\(url)'"
             )
         }
         

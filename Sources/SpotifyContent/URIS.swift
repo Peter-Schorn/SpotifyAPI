@@ -40,6 +40,7 @@ public enum URIS {
         case new = "spotify:playlist:5MlKAGFZNoN2d0Up8sQc0N"
         case crumb = "spotify:playlist:33yLOStnp2emkEA76ew1Dz"
         case all = "spotify:playlist:01KRdno32jt1vmG7s5pVFg"
+        case index = "spotify:playlist:17gneMykp6L6O5R70wm0gE"
         case thisIsMacDeMarco = "spotify:playlist:37i9dQZF1DXe8E8oqpmTDI"
         case thisIsSpoon = "spotify:playlist:37i9dQZF1DX3zc219hYxy3"
         case bluesClassics = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk"

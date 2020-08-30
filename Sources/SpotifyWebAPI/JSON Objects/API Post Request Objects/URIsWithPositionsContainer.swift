@@ -24,7 +24,7 @@ public struct URIWithPositions: Codable, Hashable {
      A URI along with its positions in a collection.
     
      For example, this may represent all of the positions
-     in a playlist of a specific track. The positions of the uris
+     in a playlist of a specific track. The positions of the URIs
      are necessary in case the collection has duplicate items.
      
      - Parameters:
@@ -41,7 +41,7 @@ public struct URIWithPositions: Codable, Hashable {
 
 /**
  A container that holds `URIWithPositions` and, optionally,
- the [snapshot id][1] of the playlist that the items associated with the uris
+ the [snapshot id][1] of the playlist that the items associated with the URIs
  (usually tracks/episodes) are contained in.
  
  This is used for removing specific occurences of items from a playlist.
@@ -59,7 +59,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     public let urisWithPositions: [URIWithPositions]
     
     /**
-     Creates a container that holds an array of uris and their
+     Creates a container that holds an array of URIs and their
      positions in a collection (usually a playlist).
      
      Consider using the convienence initializer that accepts
@@ -71,7 +71,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
              changes, a new snapshot id is generated. You can use this value
              to efficiently determine whether a playlist has changed since
              the last time you retrieved it.
-       - urisWithPositions: A collection of uris along with their positions
+       - urisWithPositions: A collection of URIs along with their positions
              in a container.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
@@ -85,7 +85,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     }
     
     /**
-     Creates a container that holds an array of uris and their
+     Creates a container that holds an array of URIs and their
      positions in a collection (usually a playlist).
     
      - Parameters:
@@ -94,7 +94,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
              changes, a new snapshot id is generated. You can use this value
              to efficiently determine whether a playlist has changed since
              the last time you retrieved it.
-       - urisWithPositions: An collection of uris along with their positions
+       - urisWithPositions: An collection of URIs along with their positions
              in a container.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots

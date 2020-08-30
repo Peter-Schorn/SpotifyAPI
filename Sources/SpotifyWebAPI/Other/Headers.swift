@@ -1,7 +1,7 @@
 import Foundation
 
 /// A namespace of HTTP Headers.
-enum Headers {
+public enum Headers {
     
     
     /// Makes the bearer authorization header using the access token.
@@ -10,7 +10,7 @@ enum Headers {
     /// ["Authorization": "Bearer \(accessToken)"]
     /// ```
     /// - Parameter accessToken: The Access token from Spotify.
-    static func bearerAuthorization(
+    public static func bearerAuthorization(
         _ accessToken: String
     ) -> [String: String] {
         return ["Authorization": "Bearer \(accessToken)"]
@@ -20,14 +20,21 @@ enum Headers {
     /// ```
     /// ["Accept": "application/json"]
     /// ```
-    static let acceptApplicationJSON = [
+    public static let acceptApplicationJSON = [
         "Accept": "application/json"
     ]
+    
+    /// The bearer authorization and accept application JSON headers.
+    public static func bearerAuthorizationAndacceptApplicationJSON(
+        _ accessToken: String
+    ) -> [String: String] {
+        return bearerAuthorization(accessToken) + acceptApplicationJSON
+    }
     
     /// ```
     /// ["Content-Type": "application/x-www-form-urlencoded"]
     /// ```
-    static let formURLEncoded = [
+    public static let formURLEncoded = [
         "Content-Type": "application/x-www-form-urlencoded"
     ]
 
@@ -48,7 +55,7 @@ enum Headers {
        - clientId: The client id.
        - clientSecret: The client secret.
      */
-    static func basicBase64Encoded(
+    public static func basicBase64Encoded(
         clientId: String, clientSecret: String
     ) -> [String: String]? {
         
@@ -65,7 +72,7 @@ enum Headers {
     /// ```
     /// ["Accept": "image/jpeg"]
     /// ```
-    static let imageJpeg = ["Accept": "image/jpeg"]
+    public static let imageJpeg = ["Accept": "image/jpeg"]
     
     
 }

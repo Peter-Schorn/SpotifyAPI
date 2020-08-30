@@ -18,7 +18,7 @@ import Logger
  authorization URL using
  `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`.
  
- Open this url in a broswer/webview to allow the user to login
+ Open this URL in a broswer/webview to allow the user to login
  to their Spotify account and authorize your application.
  After they either authorize or deny authorization for your application,
  Spotify will redirect to the redirect URI sepcified in the authorization
@@ -185,7 +185,7 @@ public extension AuthorizationCodeFlowManager {
      - Returns: `true` if `expirationDate` + `tolerance` is
            equal to or before the current date. Else, `false`.
      */
-    func isExpired(tolerance: Double = 60) -> Bool {
+    func accessTokenIsExpired(tolerance: Double = 60) -> Bool {
         guard let expirationDate = expirationDate else { return false }
         return expirationDate.addingTimeInterval(tolerance) <= Date()
     }
@@ -216,7 +216,7 @@ public extension AuthorizationCodeFlowManager {
      
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
-     appended to it. Pass that url into
+     appended to it. Pass that URL into
      `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to complete
      the authorization process.
      
@@ -275,7 +275,7 @@ public extension AuthorizationCodeFlowManager {
             ])
         )
         else {
-            fatalError("could not create authorization url.")
+            fatalError("could not create authorization URL.")
         }
         return url
         
@@ -284,10 +284,10 @@ public extension AuthorizationCodeFlowManager {
     /**
      The second and final step in the [Authorization Code Flow][1].
      
-     After you open the url from
+     After you open the URL from
      `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`
      and the user either authorizes or denies authorization for your app,
-     Spotify will redirect to the redirect uri you specified with query
+     Spotify will redirect to the redirect URI you specified with query
      parameters appended to it. Pass this URL into this method to request
      access and refresh tokens. The access token is required in all endpoints,
      even those that do not access user data.
@@ -418,14 +418,14 @@ public extension AuthorizationCodeFlowManager {
         
         do {
         
-            if onlyIfExpired && !self.isExpired() {
-                // Self.logger.trace("access token not expired; returning early")
+            if onlyIfExpired && !self.accessTokenIsExpired() {
+                Self.logger.trace("access token not expired; returning early")
                 return Result<Void, Error>
                     .Publisher(())
                     .eraseToAnyPublisher()
             }
         
-            guard let refreshToken = refreshToken else {
+            guard let refreshToken = self.refreshToken else {
                 Self.logger.warning(
                     "can't refresh access token: no refresh token"
                 )
@@ -450,7 +450,7 @@ public extension AuthorizationCodeFlowManager {
                 refreshToken: refreshToken
             ).formURLEncoded()
         
-            Self.logger.trace("refreshing tokens...")
+            Self.logger.notice("refreshing tokens...")
             
             return URLSession.shared.dataTaskPublisher(
                 url: Endpoints.getTokens,

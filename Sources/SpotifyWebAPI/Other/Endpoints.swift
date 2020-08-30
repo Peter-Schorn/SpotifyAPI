@@ -65,8 +65,8 @@ enum Endpoints {
      Do not forget to add a leading `/` to the path component.
      
      - Parameters:
-       - path: A path to append to the url.
-       - queryItems: Query items to add to the url.
+       - path: A path to append to the URL.
+       - queryItems: Query items to add to the URL.
      - Returns: The endpoint with the provided path and
            query items appended to it.
      */

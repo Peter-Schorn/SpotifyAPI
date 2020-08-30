@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Contains an array of uris and (optionally) the position
+ Contains an array of URIs and (optionally) the position
  to insert them in the playlist. Used in the body of `addToPlaylist`.
  
  ```

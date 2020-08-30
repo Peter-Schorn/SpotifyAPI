@@ -3,8 +3,8 @@ import Foundation
 /// A Spotify [playlist][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
-public struct Playlist<PlaylistItems>: SpotifyURIConvertible, Hashable where
-    PlaylistItems: Codable & Hashable
+public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
+    Items: Codable & Hashable
 {
     
     /// The name of the playlist.
@@ -13,7 +13,7 @@ public struct Playlist<PlaylistItems>: SpotifyURIConvertible, Hashable where
     /// The items in this `Playlist`. Consult the documentation
     /// for the specific endpoint that this playlist was retrieved
     /// from for more information.
-    public let items: PlaylistItems
+    public internal(set) var items: Items
     
     /// The user who owns the playlist.
     public let owner: SpotifyUser?
@@ -58,8 +58,8 @@ public struct Playlist<PlaylistItems>: SpotifyURIConvertible, Hashable where
      Known [external urls][1] for this playlist.
      
      - key: The type of the URL, for example:
-     "spotify" - The [Spotify url][2] for the object.
-     - value: An external, public url to the object.
+     "spotify" - The [Spotify URL][2] for the object.
+     - value: An external, public URL to the object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -71,10 +71,12 @@ public struct Playlist<PlaylistItems>: SpotifyURIConvertible, Hashable where
     /// Only available for the full playlist object.
     public let followers: Followers?
     
-    /// A link to the Spotify web API endpoint providing
-    /// full details of the playlist.
-    ///
-    /// Only available for the full version.
+    /**
+     A link to the Spotify web API endpoint providing
+     full details of the playlist.
+     
+     Use `getHref(_:responseType:)` to retrieve the results.
+     */
     public let href: String
     
     /// The [Spotify ID] for the playlist.

@@ -135,11 +135,11 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - uri: The uri for either a track or an episode.
-       - deviceId: The id of the device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - uri: The URI for either a track or an episode.
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -183,10 +183,10 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -226,10 +226,10 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -276,11 +276,12 @@ public extension SpotifyAPI {
      
      Read more at the [Spotify web API reference][2].
      
-     - Parameter deviceId: The id of a device to target. It is highly
-           recommended that you leave this as `nil` (default) to target
-           the active device. If you provide the id of a device that
-           is not active, you may get a
-           403 "Player command failed: Restriction violated" error.
+     - Parameters:
+       - deviceId: The id of the device to target. See `availableDevices()`.
+               It is highly recommended that you leave this as `nil`
+               (default) to target the active device. If you provide the id
+               of a device that is not active, you may get a
+               403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/
@@ -320,7 +321,7 @@ public extension SpotifyAPI {
          * Artist
          * Playlist
      
-     * `uris([String])`: An array of track/episode uris.
+     * `uris([String])`: An array of track/episode URIs.
      
      # offset:
      Indicates where in the context playback should start.
@@ -352,10 +353,10 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
        - playbackRequest: A request to play content for the user. See above.
              **Provide nil to resume playback of the current track/episode.**
@@ -402,10 +403,10 @@ public extension SpotifyAPI {
              positive number. Passing in a position that is greater than the
              length of the track will cause the player to start playing the
              next song.
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -453,10 +454,10 @@ public extension SpotifyAPI {
        - repeatMode: Either `track`, `context` or `off`. track will repeat
              the current track. context will repeat the current context.
              `off` will turn repeat off.
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -502,10 +503,10 @@ public extension SpotifyAPI {
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -551,10 +552,10 @@ public extension SpotifyAPI {
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
-       - deviceId: The id of a device to target. It is highly
-             recommended that you leave this as `nil` (default) to target
-             the active device. If you provide the id of a device that
-             is not active, you may get a
+       - deviceId: The id of the device to target. See `availableDevices()`.
+             It is highly recommended that you leave this as `nil`
+             (default) to target the active device. If you provide the id
+             of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -599,6 +600,7 @@ public extension SpotifyAPI {
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to.
+             See `availableDevices()`.
        - play: If `true`, ensure playback happens on the new device.
              If `false`, keep the current playback state.
      

@@ -41,16 +41,20 @@ public struct AnyPlaylistItem: Hashable {
     /// [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
     public let isPlayable: Bool?
     
-    /// A link to the Spotify web API endpoint
-    /// providing the full version of the item.
+    /**
+     A link to the Spotify web API endpoint
+     providing the full version of the item.
+     
+     Use `getHref(_:responseType:)` to retrieve the full results.
+     */
     public let href: String
     
     /**
      Known [external urls][1] for this item.
 
      - key: The type of the URL, for example:
-           "spotify" - The [Spotify url][2] for the object.
-     - value: An external, public url to the object.
+           "spotify" - The [Spotify URL][2] for the object.
+     - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

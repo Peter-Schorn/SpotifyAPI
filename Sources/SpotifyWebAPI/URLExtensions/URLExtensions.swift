@@ -3,7 +3,7 @@ import Foundation
 
 public extension URL {
 
-    /// Returns a new url with the specified query items appended to it.
+    /// Returns a new URL with the specified query items appended to it.
     func appending(queryItems: [URLQueryItem]) -> URL? {
 
         guard var urlComponents = URLComponents(
@@ -21,7 +21,7 @@ public extension URL {
         return urlComponents.url
     }
 
-    /// Returns a new url with the specified query items appended to it.
+    /// Returns a new URL with the specified query items appended to it.
     func appending(queryItems: [String: String]) -> URL? {
 
         let urlQueryItems = queryItems.map { item in
@@ -31,7 +31,7 @@ public extension URL {
 
     }
 
-    /// Appends the query items to the url.
+    /// Appends the query items to the URL.
     ///
     /// - Warning: Throws a fatalError if a new URL could
     ///       not be constructed.
@@ -48,7 +48,7 @@ public extension URL {
         self = url
     }
 
-    /// Appends the query items to the url.
+    /// Appends the query items to the URL.
     ///
     /// - Warning: Throws a fatalError if a new URL could
     ///       not be constructed.
@@ -59,8 +59,8 @@ public extension URL {
         self.append(queryItems: urlQueryItems)
     }
 
-    /// Returns a new url with the query items removed.
-    /// If the url has fragments, they will be removed too.
+    /// Returns a new URL with the query items removed.
+    /// If the URL has fragments, they will be removed too.
     func removingQueryItems() -> URL {
         guard let url = URL(
             scheme: self.scheme,
@@ -76,7 +76,7 @@ public extension URL {
         return url
     }
 
-    /// Returns a new url with the trailing slash in the path component
+    /// Returns a new URL with the trailing slash in the path component
     /// removed if it exists.
     func removingTrailingSlashInPath() -> URL {
         var components = self.components!
@@ -90,7 +90,7 @@ public extension URL {
         
     }
     
-    /// Returns a new url with the trailing slash in the path component
+    /// Returns a new URL with the trailing slash in the path component
     /// removed if it exists.
     mutating func removeTrailingSlashInPath() {
         self = self.removingTrailingSlashInPath()
@@ -98,19 +98,19 @@ public extension URL {
     
     
     
-    /// Removes the query items from the url.
-    /// If the url has fragments, they will be removed too.
+    /// Removes the query items from the URL.
+    /// If the URL has fragments, they will be removed too.
     mutating func removeQueryItems() {
         self = self.removingQueryItems()
     }
 
 
-    /// The query items in the url.
+    /// The query items in the URL.
     var queryItems: [URLQueryItem] {
         return components?.queryItems ?? []
     }
 
-    /// A dictionary of the query items in the url.
+    /// A dictionary of the query items in the URL.
     var queryItemsDict: [String: String] {
 
         return self.queryItems.reduce(into: [:]) { dict, query in
@@ -118,7 +118,7 @@ public extension URL {
         }
     }
 
-    /// The url components of this url.
+    /// The URL components of this URL.
     var components: URLComponents? {
         return URLComponents(
             url: self, resolvingAgainstBaseURL: false

@@ -38,10 +38,11 @@ public protocol SpotifyAuthorizationManager: Codable {
      - Returns: `true` if `expirationDate` + `tolerance` is
            equal to or before the current date. Else, `false`.
      */
-    func isExpired(tolerance: Double) -> Bool
+    func accessTokenIsExpired(tolerance: Double) -> Bool
 
     /**
      Refreshes the access token.
+     
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
        - tolerance: The tolerance in seconds to use when determining

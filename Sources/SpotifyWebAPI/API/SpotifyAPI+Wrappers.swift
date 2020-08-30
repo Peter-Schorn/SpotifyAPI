@@ -2,7 +2,53 @@ import Foundation
 import Combine
 import Logger
 
+// MARK: Wrappers
+
 extension SpotifyAPI {
+    
+    /**
+     Refreshes the tokens if they are expired and ensures that
+     the application is authorized for the specified scopes.
+     
+     - Parameter scopes: A set of Spotify authorization scopes.
+     - Returns: The access token.
+     */
+    func refreshTokensAndEnsureAuthorized(
+        for scopes: Set<Scope>
+    ) -> AnyPublisher<String, Error> {
+        
+        return self.authorizationManager.refreshTokens(
+            onlyIfExpired: true, tolerance: 60
+        )
+        .tryMap { () -> String in
+            
+            guard let acccessToken = self.authorizationManager.accessToken else {
+                throw SpotifyLocalError.unauthorized(
+                    "unauthorized: no access token"
+                )
+            }
+            
+            guard self.authorizationManager.isAuthorized(
+                for: scopes
+            )
+            else {
+                throw SpotifyLocalError.insufficientScope(
+                    requiredScopes: scopes,
+                    authorizedScopes: self.authorizationManager.scopes ?? []
+                )
+            }
+            
+            assert(
+                !self.authorizationManager.accessTokenIsExpired(tolerance: 30),
+                "access token was expired after just refreshing it"
+            )
+            
+            return acccessToken
+            
+        }
+        .eraseToAnyPublisher()
+        
+    }
     
     /**
      Makes a request to the Spotify Web API. You should usually
@@ -23,7 +69,7 @@ extension SpotifyAPI {
      `self.getRequest(path:queryItems:requiredScopes:responseType:)`
      instead, which is a thin wrapper that calls though to this method.
      
-     The base url that the path and query items are appended to is
+     The base URL that the path and query items are appended to is
      ```
      "https://api.spotify.com/v1"
      ```
@@ -36,7 +82,7 @@ extension SpotifyAPI {
      
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
-             base url above. Do **NOT** forget the leading forward-slash.
+             base URL above. Do **NOT** forget the leading forward-slash.
        - queryItems: The URL query items.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and
@@ -45,7 +91,7 @@ extension SpotifyAPI {
              headers.
        - bodyData: The body of the request as `Data`.
        - requiredScopes: The scopes required for this endpoint.
-     - Returns: The raw data and the url response from the server.
+     - Returns: The raw data and the URL response from the server.
      */
     func apiRequest(
         path: String,
@@ -60,63 +106,46 @@ extension SpotifyAPI {
             path, queryItems: removeIfNil(queryItems)
         )
 
-        // ensure unecessary work is not done converting the
-        // body to a string.
-        if self.apiRequestLogger.level <= .warning {
+        return refreshTokensAndEnsureAuthorized(for: requiredScopes)
+            .flatMap { accessToken ->
+                        AnyPublisher<(data: Data, response: URLResponse), Error> in
             
-            self.apiRequestLogger.trace(
-                "\(httpMethod) request to \"\(endpoint)\""
-            )
-            
-            if let bodyData = bodyData {
-                if let bodyString = String(data: bodyData, encoding: .utf8) {
+                // ensure unecessary work is not done converting the
+                // body to a string.
+                #if DEBUG
+                if self.apiRequestLogger.level <= .warning {
+                    
                     self.apiRequestLogger.trace(
-                        "request body:\n\(bodyString)"
+                        "\(httpMethod) request to \"\(endpoint)\""
                     )
+                    
+                    if let bodyData = bodyData {
+                        if let bodyString = String(data: bodyData, encoding: .utf8) {
+                            self.apiRequestLogger.trace(
+                                "request body:\n\(bodyString)"
+                            )
+                        }
+                        else {
+                            self.apiRequestLogger.warning(
+                                "couldn't convert body data to string"
+                            )
+                        }
+                    }
+                    
                 }
-                else {
-                    self.apiRequestLogger.warning(
-                        "couldn't convert body data to string"
-                    )
-                }
-            }
-            
-        }
-        
-        return self.authorizationManager.refreshTokens(
-            onlyIfExpired: true, tolerance: 60
-        )
-        .tryMap { () -> String in
-            
-            guard let acccessToken = self.authorizationManager.accessToken else {
-                throw SpotifyLocalError.unauthorized(
-                    "unauthorized: no access token"
+                #endif
+                
+                return URLSession.shared.dataTaskPublisher(
+                    url: endpoint,
+                    httpMethod: httpMethod,
+                    headers: makeHeaders(accessToken),
+                    body: bodyData
                 )
+                .mapError { $0 as Error }
+                .eraseToAnyPublisher()
+            
             }
-            guard self.authorizationManager.isAuthorized(
-                for: requiredScopes
-            )
-            else {
-                throw SpotifyLocalError.insufficientScope(
-                    requiredScopes: requiredScopes,
-                    authorizedScopes: self.authorizationManager.scopes ?? []
-                )
-            }
-            return acccessToken
-            
-        }
-        .flatMap { accessToken in
-            
-            return URLSession.shared.dataTaskPublisher(
-                url: endpoint,
-                httpMethod: httpMethod,
-                headers: makeHeaders(accessToken),
-                body: bodyData
-            )
-            .mapError { $0 as Error }
-            
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
 
     }
     
@@ -138,7 +167,7 @@ extension SpotifyAPI {
      `self.getRequest(path:queryItems:requiredScopes:responseType:)`
      instead, which is a thin wrapper that calls though to this method.
      
-     The base url that the path and query items are appended to is
+     The base URL that the path and query items are appended to is
      ```
      "https://api.spotify.com/v1"
      ```
@@ -151,7 +180,7 @@ extension SpotifyAPI {
     
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
-             base url above. Do **NOT** forget the leading forward-slash.
+             base URL above. Do **NOT** forget the leading forward-slash.
        - queryItems: The URL query items.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and
@@ -160,7 +189,7 @@ extension SpotifyAPI {
              headers.
        - body: The body of the request as a type that conforms to `Decodable`.
        - requiredScopes: The scopes required for this endpoint.
-     - Returns: The raw data and the url response from the server.
+     - Returns: The raw data and the URL response from the server.
     */
     func apiRequest<Body: Encodable>(
         path: String,
@@ -203,18 +232,18 @@ extension SpotifyAPI {
      You should not normally need to call this method.
      Automatically refreshes the access token if necessary.
      
-     The base url that the path and query items are appended to is
+     The base URL that the path and query items are appended to is
      ```
      "https://api.spotify.com/v1"
      ```
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
-             base url above.
+             base URL above.
        - queryItems: The URL query items.
        - requiredScopes: The scopes required for this endpoint.
        - responseType: The expected response type from the Spotify
              web API.
-     - Returns: The raw data and the url response from the server.
+     - Returns: The raw data and the URL response from the server.
      */
     func getRequest(
         path: String,
