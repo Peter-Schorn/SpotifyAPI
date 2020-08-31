@@ -13,7 +13,7 @@ public struct Artist: Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let uri: String?
 
-    /// The [Spotify ID] for the artist.
+    /// The [Spotify ID][1] for the artist.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String?
