@@ -60,11 +60,10 @@ public struct Artist: Hashable {
     public let genres: [String]?
 
     /**
-     A link to the Spotify web API endpoint
-     providing the full artist object.
+     A link to the Spotify web API endpoint providing the full artist object.
      
-     Use `getFromHref(_:responseType:)`, passing in <#type#> as the response type
-     to retrieve the results.
+     Use `getFromHref(_:responseType:)`, passing in `Artist` as the
+     response type to retrieve the results.
      */
     public let href: String?
     
