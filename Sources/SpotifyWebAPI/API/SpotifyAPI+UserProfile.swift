@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 
+// MARK: User Profile
+
 public extension SpotifyAPI {
     
     /**
