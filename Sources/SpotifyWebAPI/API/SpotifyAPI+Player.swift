@@ -130,7 +130,13 @@ public extension SpotifyAPI {
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     See also [player error reasons][1].
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
      
      Read more at the [Spotify web API reference][2].
      
