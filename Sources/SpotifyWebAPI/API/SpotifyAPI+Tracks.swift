@@ -6,7 +6,7 @@ public extension SpotifyAPI {
     /**
      Get a Track.
      
-     See also `tracks(_:market:)` (gets multiple track).
+     See also `tracks(_:market:)` (gets multiple tracks).
      
      No scopes are required for this endpoint.
      
@@ -14,13 +14,14 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uri: The URI for a track.
-       - market: *Optional*. An ISO 3166-1 alpha-2 country code or
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
      - Returns: The full version of a track.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func track(
         _ uri: SpotifyURIConvertible,
@@ -55,7 +56,7 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uris: An array of track URIs. Maximum: 50.
-       - market: *Optional*. An ISO 3166-1 alpha-2 country code or
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
      - Returns: The full versions of up to 50 `Track` object . Tracks are returned
@@ -65,6 +66,7 @@ public extension SpotifyAPI {
            
      [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func tracks(
         _ uris: [SpotifyURIConvertible],

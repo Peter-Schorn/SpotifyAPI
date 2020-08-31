@@ -30,11 +30,15 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     /// Information about the followers of this user.
     public let followers: Followers?
     
-    /// The country of the user, as set in the user’s account profile.
-    /// An ISO 3166-1 alpha-2 country code.
-    ///
-    /// This field is only available when the current user
-    /// has granted access to the `userReadPrivate` scope.
+    /**
+     The country of the user, as set in the user’s account profile.
+     An [ISO 3166-1 alpha-2 country code][1].
+    
+     This field is only available when the current user
+     has granted access to the `userReadPrivate` scope.
+     
+     [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     */
     public let country: String?
     
     /**

@@ -17,12 +17,13 @@ public extension SpotifyAPI {
      
      - Parameters:
        - album: The URI for an album.
-       - market: *Optional*. An ISO 3166-1 alpha-2 country code or
+       - market: *Optional*. [An ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
-             to apply [Track Relinking][2].
-     - Returns: The full version of an [Album][3].
+             to apply [Track Relinking][3].
+     - Returns: The full version of an [Album][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
      */

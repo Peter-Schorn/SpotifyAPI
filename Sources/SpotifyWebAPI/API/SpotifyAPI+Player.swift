@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-// MARK: - Player -
+// MARK: Player
 
 public extension SpotifyAPI {
     
