@@ -36,6 +36,7 @@ public extension DateFormatter {
     
 }
 
+/// A formatter that converts between dates and Spotify timestamp strings.
 public struct SpotifyTimestampFormatter  {
     
     public static let secondsFormatter: ISO8601DateFormatter = {
