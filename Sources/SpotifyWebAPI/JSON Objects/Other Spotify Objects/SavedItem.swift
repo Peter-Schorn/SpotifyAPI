@@ -105,7 +105,7 @@ extension SavedItem: Codable {
     }
     
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case addedAt = "added_at"
         case track
         case album
