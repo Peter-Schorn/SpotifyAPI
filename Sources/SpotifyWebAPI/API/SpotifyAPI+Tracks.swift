@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 
+// MARK: Tracks
+
 public extension SpotifyAPI {
     
     /**
