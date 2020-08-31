@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Logger",
+        "repositoryURL": "https://github.com/Peter-Schorn/Logger.git",
+        "state": {
+          "branch": null,
+          "revision": "1ff9c423de712fb206ceb0dac1a3d22087dec6bf",
+          "version": "1.0.8"
+        }
+      },
+      {
+        "package": "RegularExpressions",
+        "repositoryURL": "https://github.com/Peter-Schorn/RegularExpressions.git",
+        "state": {
+          "branch": null,
+          "revision": "e5a688590be2650bcf916f7d5c65cce40cc5a6c2",
+          "version": "2.0.7"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
