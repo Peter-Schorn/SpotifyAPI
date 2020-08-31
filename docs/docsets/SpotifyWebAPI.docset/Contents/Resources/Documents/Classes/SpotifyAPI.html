@@ -877,11 +877,6 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
 
 <p>See also <code>artist(uri:)</code> (gets a single artist).</p>
 
-<p>Objects are returned in the order requested.
-If an object is not found, a nill value is returned in the
-appropriate position. Duplicate ids in the query will result
-in duplicate objects in the response.</p>
-
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/artists/get-several-artists/">Spotify web API reference</a>.</p>
 
                       </div>
@@ -2223,7 +2218,13 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>See also <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reasons</a>.</p>
+<p>When performing an action that is restricted,
+404 NOT FOUND or 403 FORBIDDEN will be returned together with
+a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
+found, the request will return 404 NOT FOUND response code and the reason
+NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+403 FORBIDDEN response code will be returned together with
+the PREMIUM_REQUIRED reason.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/">Spotify web API reference</a>.</p>
 
