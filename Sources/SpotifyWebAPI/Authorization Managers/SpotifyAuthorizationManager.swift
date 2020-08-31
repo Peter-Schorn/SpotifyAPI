@@ -12,11 +12,17 @@ import Logger
  */
 public protocol SpotifyAuthorizationManager: Codable {
     
+    /// Logs debugging messages. Don't use in shipping code.
+    static var logger: Logger { get }
+    
     /// The access token used in all of the requests
     /// to the Spotify web API.
     var accessToken: String? { get }
     
     /// The expiration date of the access token.
+    ///
+    /// You are encouraged to use `accessTokenIsExpired(tolerance:)`
+    /// to check if the token is expired.
     var expirationDate: Date? { get }
     
     /// The scopes that have been authorized for the access token.
@@ -25,9 +31,6 @@ public protocol SpotifyAuthorizationManager: Codable {
     /// A `PassthroughSubject` that emits **AFTER** the
     /// the authorization manager has changed.
     var didChange: PassthroughSubject<Void, Never> { get }
-    
-    /// Logs debugging messages. Don't use in shipping code.
-    static var logger: Logger { get }
     
     /**
      Determines whether the access token is expired
@@ -65,6 +68,6 @@ public protocol SpotifyAuthorizationManager: Codable {
     
     
     /// Sets the credentials for the authorization manager to `nil`.
-    func logout() -> Void
+    func deauthorize() -> Void
     
 }

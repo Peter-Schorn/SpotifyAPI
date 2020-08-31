@@ -11,7 +11,8 @@ extension SpotifyAPI {
      the application is authorized for the specified scopes.
      
      - Parameter scopes: A set of Spotify authorization scopes.
-     - Returns: The access token.
+     - Returns: The access token unwrapped from
+           `self.authorizationManager.accessToken`.
      */
     func refreshTokensAndEnsureAuthorized(
         for scopes: Set<Scope>
@@ -40,7 +41,8 @@ extension SpotifyAPI {
             
             assert(
                 !self.authorizationManager.accessTokenIsExpired(tolerance: 30),
-                "access token was expired after just refreshing it"
+                "access token was expired after just refreshing it:\n" +
+                "\(self.authorizationManager)"
             )
             
             return acccessToken
@@ -62,7 +64,7 @@ extension SpotifyAPI {
      Only use this method if the body cannot be encoded to `Data`
      using a `JSONEncoder`.
      
-     The refresh token will be refreshed automatically if needed
+     The access token will be refreshed automatically if needed
      before the request is made.
      
      If you are making a get request, use
@@ -103,14 +105,14 @@ extension SpotifyAPI {
     ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
         
         let endpoint = Endpoints.apiEndpoint(
-            path, queryItems: removeIfNil(queryItems)
+            path, queryItems: queryItems
         )
 
         return refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
                         AnyPublisher<(data: Data, response: URLResponse), Error> in
             
-                // ensure unecessary work is not done converting the
+                // ensure unnecessary work is not done converting the
                 // body to a string.
                 #if DEBUG
                 if self.apiRequestLogger.level <= .warning {
@@ -156,7 +158,7 @@ extension SpotifyAPI {
      the app and retrieving/refreshing the tokens call through
      to this method.
      
-     The refresh token will be refreshed automatically if needed
+     The access token will be refreshed automatically if needed
      before the request is made.
      
      Use
@@ -241,8 +243,6 @@ extension SpotifyAPI {
              base URL above.
        - queryItems: The URL query items.
        - requiredScopes: The scopes required for this endpoint.
-       - responseType: The expected response type from the Spotify
-             web API.
      - Returns: The raw data and the URL response from the server.
      */
     func getRequest(

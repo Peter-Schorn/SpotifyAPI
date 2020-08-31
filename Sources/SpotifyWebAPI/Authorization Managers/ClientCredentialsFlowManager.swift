@@ -51,6 +51,9 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     public var accessToken: String?
     
     /// The expiration date of the access token.
+    ///
+    /// You are encouraged to use `accessTokenIsExpired(tolerance:)`
+    /// to check if the token is expired.
     public var expirationDate: Date?
     
     /**
@@ -158,7 +161,7 @@ public extension ClientCredentialsFlowManager {
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
      */
-    func logout() {
+    func deauthorize() {
         self.accessToken = nil
         self.expirationDate = nil
         self.didChange.send()

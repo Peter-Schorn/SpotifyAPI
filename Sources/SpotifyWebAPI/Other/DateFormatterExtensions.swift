@@ -36,7 +36,6 @@ public extension DateFormatter {
     
 }
 
-
 public struct SpotifyTimestampFormatter  {
     
     public static let secondsFormatter: ISO8601DateFormatter = {

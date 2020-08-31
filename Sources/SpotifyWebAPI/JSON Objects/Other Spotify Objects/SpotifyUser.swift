@@ -41,9 +41,11 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
      The user’s email address, as entered by the user when
      creating their account.
      
+     This field is only available when the current user has
+     granted access to the `userReadEmail` scope.
+     
      - Warning: This email address is unverified; there is no proof that
-     it actually belongs to the user. This field is only available
-     when the current user has granted access to the `userReadEmail` scope.
+     it actually belongs to the user.
      */
     public let email: String?
     

@@ -72,14 +72,14 @@ enum Endpoints {
      */
     static func apiEndpoint(
         _ path: String,
-        queryItems: [String: String]
+        queryItems: [String: LosslessStringConvertible?]
     ) -> URL {
 
         return URL(
             scheme: "https",
             host: apiBase,
             path: apiVersion1 + path,
-            queryItems: queryItems
+            queryItems: removeIfNil(queryItems)
         )!
         
     }

@@ -30,17 +30,17 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      emits, or when you assign a new instance of `AuthorizationManager`
      to `authorizationManager`.
      
+     Subscribing to this publisher is preferred over subscribing to the
+     `didChange` publisher of `authorizationManager`.
+     
      This publisher subscribes to the `didChange` publisher of
      `authorizationManager` in the `init(authorizationManager:)` method
-      of this class and in the didSet block of `authorizationManager`.
-      It also emits a signal in the didSet block of `authorizationManager`.
+     of this class and in the didSet block of `authorizationManager`.
+     It also emits a signal in the didSet block of `authorizationManager`.
      
      This publisher allows you to be notified of changes to
      the authorization manager even when you create a new instance of it
      and assign it to the `authorizationManager` property of this class.
-     
-     Subscribing to this publisher is preferred over subscribing to the
-     `didChange` publisher of `authorizationManager`.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
 
@@ -80,7 +80,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
         self.setupDebugging()
     }
     
-}
+
 }
 
 extension SpotifyAPI {
@@ -95,16 +95,6 @@ extension SpotifyAPI {
         CurrentlyPlayingContext.logger.level = .trace
         AuthorizationCodeFlowManager.logger.level = .trace
         ClientCredentialsFlowManager.logger.level = .trace
-        
-        self.authorizationManagerDidChange.sink {
-            if !Thread.isMainThread {
-                self.logger.critical(
-                    "received value from authorizationManagerDidChange " +
-                    "on non-main thread"
-                )
-            }
-        }
-        .store(in: &cancellables)
         
     }
     

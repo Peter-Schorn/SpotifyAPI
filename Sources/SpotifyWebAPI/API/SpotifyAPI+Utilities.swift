@@ -61,7 +61,7 @@ public extension SpotifyAPI {
      Retrieves additional pages of results from a `Paginated`
      type.
      
-     This method is also available as a combine operator
+     This method is also available as a combine operator (same name)
      for all publishers where `Output`: `Paginated`.
      
      See also `PagingObject.getPage(atOffset:limit:)`, which
@@ -88,6 +88,7 @@ public extension SpotifyAPI {
         _ results: PaginatedResult, maxExtraPages: Int? = nil
     ) -> AnyPublisher<PaginatedResult, Error> {
 
+        // indicates that there are no more pages to return
         let emptyCompletionPublisher = Empty<PaginatedResult, Error>(
             completeImmediately: true
         )
@@ -112,7 +113,7 @@ public extension SpotifyAPI {
                 // guard nextPageIndex <= maxPages
                 guard maxExtraPages.map({ nextPageIndex <= $0 }) ?? true else {
                     // the maximum number of pages requested by the caller
-                    // has been reached
+                    // have been reached
                     self.logger.debug(
                         "nextPageIndex > maxPages (\(maxExtraPages as Any))"
                     )
@@ -132,8 +133,9 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
         
         return nextPagePublisher
-            // the first page was already retrieved before this method
-            // was called, so pass it through to downstream subscribers
+            // a page of results (not necessarily the first) was already
+            // retrieved before this method was called, so pass it through
+            // to downstream subscribers
             .prepend(results)
             .eraseToAnyPublisher()
         

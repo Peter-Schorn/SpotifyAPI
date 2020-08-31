@@ -87,9 +87,9 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         guard
             let captureGroups = try! uri.uri
                     .regexMatch("spotify:(.*):(.*)")?.groups,
-            captureGroups.count == 2,
-            let categoryString = captureGroups[0]?.match,
-            let category = IDCategory(rawValue: categoryString),
+            captureGroups.count >= 2,
+            let idCategoryString = captureGroups[0]?.match,
+            let idCategory = IDCategory(rawValue: idCategoryString),
             let id = captureGroups[1]?.match
         else {
             throw SpotifyLocalError.identifierParsingError(
@@ -99,7 +99,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         }
 
         self.id = id.strip()
-        self.idCategory = category
+        self.idCategory = idCategory
 
     }
     
@@ -113,7 +113,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             let category = IDCategory(rawValue: paths[2])
         else {
             throw SpotifyLocalError.identifierParsingError(
-                "could not parse spotify id category from url: '\(url)'"
+                "could not parse spotify id category and/or id " +
+                "from url: '\(url)'"
             )
         }
         

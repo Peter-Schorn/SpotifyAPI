@@ -16,7 +16,7 @@ import Logger
 public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
     static var logger: Logger {
-        Logger(label: "PagingObject", level: .trace)
+        Logger(label: "PagingObject", level: .critical)
     }
     
     /**
@@ -94,7 +94,7 @@ extension PagingObject {
         
         // performs integer division and rounds up the result.
         // equivalent to `Int(ceil(Double(total) / Double(itemsCount)))`,
-        // but avoids unecessary type conversion
+        // but avoids unnecessary type conversion
         // see https://stackoverflow.com/a/17974/12394554
         let totalPages = (total + itemsCount - 1) / itemsCount
         Self.logger.trace("total pages: \(totalPages)")
@@ -169,14 +169,14 @@ extension PagingObject {
         else {
             let limitString = limit.map(String.init) ?? "nil"
             let warning = """
-            ---------------------------------------------------------------
-            \(Self.self).getPage(atOffset:limit:) WARNING: the \
-            range of items that you are retrieving (offset: \(atOffset); \
-            limit: \(limitString)) overlaps with the range of items in this
-            page (\(self.offset)-\(self.offset + self.limit)). You will \
-            retrieve duplicate items.
-            ---------------------------------------------------------------
-            """
+                ---------------------------------------------------------------
+                \(Self.self).getPage(atOffset:limit:) WARNING: the \
+                range of items that you are retrieving (offset: \(atOffset); \
+                limit: \(limitString)) overlaps with the range of items in this
+                page (\(self.offset)-\(self.offset + self.limit)). You will \
+                retrieve duplicate items.
+                ---------------------------------------------------------------
+                """
             let currentPageRange = self.offset..<self.items.count
             if currentPageRange.contains(atOffset) {
                 print(warning)
@@ -190,6 +190,7 @@ extension PagingObject {
         #endif
         
         return self._getPage?(atOffset, limit)
+        
     }
     
 }

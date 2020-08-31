@@ -10,7 +10,8 @@ public extension SpotifyAPI {
      
      Reading the user’s email address requires the `userReadEmail` scope;
      reading country and product subscription level requires the
-     `userReadPrivate` scope.
+     `userReadPrivate` scope. If the application is not authorized for
+     these scopes, then these properties will be `nil`.
      
      Read more at the [Spotify web API reference][1].
      
@@ -28,7 +29,7 @@ public extension SpotifyAPI {
     }
 
     /**
-     Get the public profile information for a user.
+     Get the *public* profile information for a user.
      
      See also `currentUserProfile()`.
      

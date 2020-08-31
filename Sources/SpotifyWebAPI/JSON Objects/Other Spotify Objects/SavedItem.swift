@@ -111,7 +111,9 @@ extension SavedItem: Codable {
         case album
         case show
         
-        public static let itemKeys: [Self] = [.track, .album, .show]
+        public static var itemKeys: [Self] {
+            [.track, .album, .show]
+        }
     }
     
 }

@@ -54,6 +54,9 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     public private(set) var refreshToken: String? = nil
     
     /// The expiration date of the access token.
+    ///
+    /// You are encouraged to use `accessTokenIsExpired(tolerance:)`
+    /// to check if the token is expired.
     public private(set) var expirationDate: Date? = nil
     
     /// The scopes that have been authorized for the access token.
@@ -168,7 +171,7 @@ public extension AuthorizationCodeFlowManager {
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
      */
-    func logout() {
+    func deauthorize() {
         self.accessToken = nil
         self.refreshToken = nil
         self.expirationDate = nil

@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// MARK: link: https://github.com/apple/swift-numerics
+// MARK: link: https://github.com/apple/swift-numerics/blob/master/Sources/RealModule/ApproximateEquality.swift
 
 extension Numeric where Magnitude: FloatingPoint {
     
@@ -150,6 +150,7 @@ extension Numeric where Magnitude: FloatingPoint {
 }
 
 extension AdditiveArithmetic {
+    
     /**
      Test if `self` and `other` are approximately equal with specified tolerances and norm.
     
