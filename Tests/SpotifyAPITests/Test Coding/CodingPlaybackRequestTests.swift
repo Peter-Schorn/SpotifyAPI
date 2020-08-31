@@ -20,7 +20,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
         
         do {
             let playbackRequest = PlaybackRequest(
-                context: .contextURI(URIS.Albums.jinx),
+                context: .contextURI(URIs.Albums.jinx),
                 offset: .position(3),  // "fall down"
                 positionMS: 50_000  // 50 seconds
             )
@@ -32,11 +32,11 @@ final class CodingPlaybackRequestTests: XCTestCase {
         do {
             let playbackRequest = PlaybackRequest(
                 context: .uris([
-                    URIS.Tracks.faces,
-                    URIS.Tracks.illWind,
-                    URIS.Tracks.fearless
+                    URIs.Tracks.faces,
+                    URIs.Tracks.illWind,
+                    URIs.Tracks.fearless
                 ]),
-                offset: .uri(URIS.Tracks.fearless),
+                offset: .uri(URIs.Tracks.fearless),
                 positionMS: 50_000  // 50 seconds
             )
             
@@ -48,7 +48,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
             
         do {
             let playbackRequest = PlaybackRequest(
-                context: .contextURI(URIS.Playlists.crumb),
+                context: .contextURI(URIs.Playlists.crumb),
                 offset: .position(10),
                 positionMS: 100_000  // 100 seconds
             )
@@ -59,8 +59,8 @@ final class CodingPlaybackRequestTests: XCTestCase {
         }
         do {
             let playbackRequest = PlaybackRequest(
-                context: .contextURI(URIS.Playlists.crumb),
-                offset: .uri(URIS.Tracks.locket),
+                context: .contextURI(URIs.Playlists.crumb),
+                offset: .uri(URIs.Tracks.locket),
                 positionMS: 100_000  // 100 seconds
             )
         

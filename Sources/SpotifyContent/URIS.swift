@@ -10,7 +10,7 @@ public protocol SpotifyURIConvertibleEnum:
 
 public extension SpotifyURIConvertibleEnum {
     
-    @inlinable @inline(__always)
+    @inlinable
     var uri: String { self.rawValue }
     
     static func array(_ items: Self...) -> [Self] {
@@ -20,7 +20,9 @@ public extension SpotifyURIConvertibleEnum {
 }
 
 /// A namespace of Spotify content identifiers (mostly URIs).
-public enum URIS {
+///
+/// This enum is only meant for testing purposes and has no stable API.
+public enum URIs {
     
     // MARK: - Users -
     public enum Users: String, SpotifyURIConvertibleEnum {

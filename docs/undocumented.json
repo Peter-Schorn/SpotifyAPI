@@ -127,15 +127,8 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/JSON Objects/Music Objects/Album.swift",
-      "line": 309,
-      "symbol": "Album.CodingKeys",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/JSON Objects/Music Objects/Artist.swift",
-      "line": 78,
+      "line": 77,
       "symbol": "Artist.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -228,13 +221,6 @@
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/JSON Objects/Other Spotify Objects/TrackLink.swift",
       "line": 48,
       "symbol": "TrackLink.CodingKeys",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/JSON Objects/Player Objects/CurrentlyPlayingContext.swift",
-      "line": 66,
-      "symbol": "CurrentlyPlayingContext.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
@@ -548,9 +534,30 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift",
-      "line": 39,
-      "symbol": "SpotifyTimestampFormatter",
-      "symbol_kind": "source.lang.swift.decl.struct",
+      "line": 42,
+      "symbol": "SpotifyTimestampFormatter.secondsFormatter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift",
+      "line": 48,
+      "symbol": "SpotifyTimestampFormatter.millisecondsFormatter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift",
+      "line": 56,
+      "symbol": "SpotifyTimestampFormatter.date(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift",
+      "line": 66,
+      "symbol": "SpotifyTimestampFormatter.string(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
