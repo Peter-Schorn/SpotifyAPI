@@ -11,7 +11,7 @@ import Logger
  This means that endpoints that require [authorization scopes][2]
  cannot be accessed.
  
- The only method you must call the authorizse your application is
+ The only method you must call to authorize your application is
  `authorize()`. After that, you may begin making requests to the
  Soptify web API.
  
@@ -226,7 +226,7 @@ public extension ClientCredentialsFlowManager {
             body: body
         )
         .decodeSpotifyErrors()
-        .spotifyDecode(AuthInfo.self)
+        .decodeSpotifyObject(AuthInfo.self)
         .receive(on: RunLoop.main)
         .map { authInfo in
          

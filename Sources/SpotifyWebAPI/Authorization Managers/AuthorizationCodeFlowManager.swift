@@ -21,7 +21,7 @@ import Logger
  Open this URL in a broswer/webview to allow the user to login
  to their Spotify account and authorize your application.
  After they either authorize or deny authorization for your application,
- Spotify will redirect to the redirect URI sepcified in the authorization
+ Spotify will redirect to the redirect URI specified in the authorization
  URL with query parameters appended to it. Pass this URL into
  `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to request
  the refresh and access tokens. After that you can begin making requests
@@ -371,7 +371,7 @@ public extension AuthorizationCodeFlowManager {
             body: body
         )
         .decodeSpotifyErrors()
-        .spotifyDecode(AuthInfo.self)
+        .decodeSpotifyObject(AuthInfo.self)
         .receive(on: RunLoop.main)
         .map { authInfo in
             
@@ -462,7 +462,7 @@ public extension AuthorizationCodeFlowManager {
                 body: requestBody
             )
             .decodeSpotifyErrors()
-            .spotifyDecode(AuthInfo.self)
+            .decodeSpotifyObject(AuthInfo.self)
             .receive(on: RunLoop.main)
             .map { authInfo in
         

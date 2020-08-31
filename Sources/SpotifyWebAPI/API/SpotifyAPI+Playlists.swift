@@ -1,8 +1,6 @@
 import Foundation
 import Combine
 
-// MARK: Playlists
-
 private extension SpotifyAPI {
     
     /// Use for post/put/delete requests to the "/playlists/{playlistId}/tracks"
@@ -27,7 +25,7 @@ private extension SpotifyAPI {
                 body: body,
                 requiredScopes: requiredScopes
             )
-            .spotifyDecode([String: String].self)
+            .decodeSpotifyObject([String: String].self)
             .tryMap { dict -> String in
                 if let snapshotId = dict["snapshot_id"] {
                     return snapshotId
@@ -69,7 +67,7 @@ private extension SpotifyAPI {
                 requiredScopes: []
             )
             // motherfuckin partial application
-            .spotifyDecodePagingObject(
+            .decodeSpotifyPagingObject(
                 ResponseType.self,
                 getPage: { offset, limit in
                     return self.getPlaylistItems(
@@ -91,12 +89,10 @@ private extension SpotifyAPI {
     
 }
 
-// MARK: - Public methods -
+// MARK: Playlists
 
 public extension SpotifyAPI {
 
-    // MARK: - GET -
-    
     /**
      Makes a request to the "/playlists/{playlistId}" endpoint
      and allows you to specify fields to filter the query.
@@ -245,7 +241,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(Playlist<PlaylistItems>.self)
+            .decodeSpotifyObject(Playlist<PlaylistItems>.self)
             
         } catch {
             return error.anyFailingPublisher(
@@ -429,7 +425,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .spotifyDecode(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
         
     }
     
@@ -495,7 +491,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+            .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
     
         } catch {
             return error.anyFailingPublisher(
@@ -532,15 +528,13 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode([SpotifyImage].self)
+            .decodeSpotifyObject([SpotifyImage].self)
             
         } catch {
             return error.anyFailingPublisher([SpotifyImage].self)
         }
         
     }
-    
-    // MARK: - POST -
     
     /**
      Add tracks/episodes to a playlist.
@@ -621,15 +615,13 @@ public extension SpotifyAPI {
                 body: playlistDetails,
                 requiredScopes: []
             )
-            .spotifyDecode(Playlist<PlaylistItems>.self)
+            .decodeSpotifyObject(Playlist<PlaylistItems>.self)
             
         } catch {
             return error.anyFailingPublisher(Playlist<PlaylistItems>.self)
         }
         
     }
-    
-    // MARK: - PUT -
     
     /**
      Reorders the tracks/episodes in a playlist.
@@ -896,10 +888,6 @@ public extension SpotifyAPI {
         }
         
     }
-    
-    
-    
-    // MARK: - DELETE -
     
     /**
      Removes **all** occurences of the specified tracks/episodes

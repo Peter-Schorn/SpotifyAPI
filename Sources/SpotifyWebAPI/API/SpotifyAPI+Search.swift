@@ -143,7 +143,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: requiredScopes
             )
-            .spotifyDecode(SearchResult.self)
+            .decodeSpotifyObject(SearchResult.self)
         
         } catch {
             return error.anyFailingPublisher(SearchResult.self)

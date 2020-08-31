@@ -6,10 +6,12 @@ import Foundation
 
  Do not confuse this with `SpotifyAuthorizationError`.
 
- Whenever the application makes requests related to authentication
- or authorization to Web API, such as retrieving an access token or
- refreshing an access token, the error response follows RFC 6749
- on the OAuth 2.0 Authorization Framework.
+ Used whenever there are errors related to authentication or
+ authorization, such as retrieving an access token or refreshing
+ an access token.
+ 
+ The error response follows RFC 6749 on the OAuth 2.0 Authorization
+ Framework.
  
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
  */

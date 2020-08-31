@@ -5,8 +5,6 @@ import Combine
 
 public extension SpotifyAPI {
     
-    // MARK: - GET -
-    
     /**
      Get the user's available devices.
      
@@ -23,7 +21,7 @@ public extension SpotifyAPI {
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .spotifyDecode([String: [Device]].self)
+        .decodeSpotifyObject([String: [Device]].self)
         .tryMap { dict -> [Device] in
             if let devices = dict["devices"] {
                 return devices
@@ -61,7 +59,7 @@ public extension SpotifyAPI {
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .spotifyDecode(CurrentlyPlayingContext.self)
+        .decodeSpotifyObject(CurrentlyPlayingContext.self)
         
     }
  
@@ -119,11 +117,9 @@ public extension SpotifyAPI {
             queryItems: query,
             requiredScopes: [.userReadRecentlyPlayed]
         )
-        .spotifyDecode(CursorPagingObject<PlayHistory>.self)
+        .decodeSpotifyObject(CursorPagingObject<PlayHistory>.self)
         
     }
-    
-    // MARK: - POST -
     
     /**
      Add a track or episode to the user's playback queue.
@@ -259,8 +255,6 @@ public extension SpotifyAPI {
     
         
     }
-    
-    // MARK: - PUT -
     
     /**
      Pause the user's current playback

@@ -13,6 +13,9 @@ public let spotifyDecodeLogger = Logger(
  into one of the error objects that Spotify returns for
  most endpoints.
  
+ It is recommended to use the combine operator `decodeSpotifyErrors()`
+ instead of this function, whenever possible.
+ 
  The error objects are:
  
  * `SpotifyAuthenticationError`
@@ -26,7 +29,7 @@ public let spotifyDecodeLogger = Logger(
    - data: The data from the server.
    - httpURLResponse: The http response metadata.
  */
-private func decodeSpotifyErrorObjects(
+public func decodeSpotifyErrors(
     data: Data, httpURLResponse: HTTPURLResponse
 ) -> Error? {
     
@@ -87,6 +90,9 @@ private func decodeSpotifyErrorObjects(
  Tries to decode the raw data from a Spotify web API request.
  You normally don't need to call this method directly.
  
+ It is recommended to use the combine operator `decodeSpotifyObject(_:)`
+ instead of this function, whenever possible.
+ 
  First tries to decode the data into `responseType`.
  If that fails, then the data is decoded into one of
  the [errors][1] returned by spotify:
@@ -126,7 +132,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 
         spotifyDecodeLogger.warning("couldn't decode response object")
         
-        if let spotifyError = decodeSpotifyErrorObjects(
+        if let spotifyError = decodeSpotifyErrors(
             data: data, httpURLResponse: httpURLResponse
         ) {
             throw spotifyError
@@ -158,11 +164,9 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
     
 }
 
-
 // MARK: - Publisher Wrappers -
 
 public extension Publisher where Output == (data: Data, response: URLResponse) {
-
 
     /**
      Tries to decode the raw data from a Spotify web API request
@@ -183,7 +187,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
                 fatalError("could not cast URLResponse to HTTPURLResponse")
             }
 
-            if let error = decodeSpotifyErrorObjects(
+            if let error = SpotifyWebAPI.decodeSpotifyErrors(
                 data: data, httpURLResponse: httpURLResponse
             ) {
                 throw error
@@ -196,7 +200,6 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
 
     }
-
 
     /**
      Tries to decode the raw data from a Spotify web API request.
@@ -221,7 +224,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
-    func spotifyDecode<ResponseType: Decodable>(
+    func decodeSpotifyObject<ResponseType: Decodable>(
         _ responseType: ResponseType.Type
     ) -> AnyPublisher<ResponseType, Error> {
 
@@ -231,7 +234,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
                 fatalError("could not cast URLResponse to HTTPURLResponse")
             }
 
-            return try decodeSpotifyObject(
+            return try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,
                 httpURLResponse: httpURLResponse,
                 responseType: responseType
@@ -242,7 +245,12 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
     }
 
-    func spotifyDecodePagingObject<ResponseType: Decodable>(
+}
+
+extension Publisher where Output == (data: Data, response: URLResponse) {
+    
+    
+    func decodeSpotifyPagingObject<ResponseType: Decodable>(
         _ wrappedType: ResponseType.Type,
         getPage: @escaping (_ atOffset: Int, _ limit: Int?)
                 -> AnyPublisher<PagingObject<ResponseType>, Error>
@@ -255,7 +263,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
                 fatalError("could not cast URLResponse to HTTPURLResponse")
             }
 
-            var pagingObject = try decodeSpotifyObject(
+            var pagingObject = try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,
                 httpURLResponse: httpURLResponse,
                 responseType: PagingObject<ResponseType>.self
@@ -268,7 +276,5 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
         
         
     }
-    
-    
 
 }

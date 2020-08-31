@@ -32,7 +32,7 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode(Artist.self)
+            .decodeSpotifyObject(Artist.self)
             
         } catch {
             return error.anyFailingPublisher(Artist.self)
@@ -73,7 +73,7 @@ public extension SpotifyAPI {
                 queryItems: ["ids": albumIdsString],
                 requiredScopes: []
             )
-            .spotifyDecode([String: [Artist?]].self)
+            .decodeSpotifyObject([String: [Artist?]].self)
             .tryMap { dict -> [Artist?] in
                 if let artists = dict["artists"] {
                     return artists
@@ -144,7 +144,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode(PagingObject<Album>.self)
+            .decodeSpotifyObject(PagingObject<Album>.self)
             
         } catch {
             return error.anyFailingPublisher(PagingObject<Album>.self)
@@ -182,7 +182,7 @@ public extension SpotifyAPI {
                 queryItems: ["country": country],
                 requiredScopes: []
             )
-            .spotifyDecode([String: [Track]].self)
+            .decodeSpotifyObject([String: [Track]].self)
             .tryMap { dict -> [Track] in
                 if let tracks = dict["tracks"] {
                     return tracks
@@ -224,7 +224,7 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode([String: [Artist]].self)
+            .decodeSpotifyObject([String: [Artist]].self)
             .tryMap { dict -> [Artist] in
                 if let artists = dict["artists"] {
                     return artists

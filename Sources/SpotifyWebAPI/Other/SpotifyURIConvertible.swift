@@ -25,6 +25,8 @@ public protocol SpotifyURIConvertible {
 
 extension String: SpotifyURIConvertible {
 
+    /// Returns `self`, with the assumption that it represents
+    /// a URI.
     @inlinable @inline(__always)
     public var uri: Self { self }
 
@@ -32,6 +34,8 @@ extension String: SpotifyURIConvertible {
 
 extension Substring: SpotifyURIConvertible {
 
+    /// Returns `self` converted to `String`, with the assumption
+    /// that it represents a URI.
     @inlinable @inline(__always)
     public var uri: String { String(self) }
 

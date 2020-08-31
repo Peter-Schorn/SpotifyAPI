@@ -47,7 +47,7 @@ public extension SpotifyAPI {
                         httpMethod: "GET",
                         headers: Headers.bearerAuthorization(accessToken)
                     )
-                    .spotifyDecode(ResponseType.self)
+                    .decodeSpotifyObject(ResponseType.self)
                 }
                 .eraseToAnyPublisher()
         

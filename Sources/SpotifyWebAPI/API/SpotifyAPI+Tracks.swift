@@ -39,7 +39,7 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .spotifyDecode(Track.self)
+            .decodeSpotifyObject(Track.self)
             
         } catch {
             return error.anyFailingPublisher(Track.self)
@@ -88,7 +88,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .spotifyDecode([String: [Track?]].self)
+            .decodeSpotifyObject([String: [Track?]].self)
             .tryMap { dict -> [Track?] in
                 if let tracks = dict["tracks"] {
                     return tracks
@@ -134,7 +134,7 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode(AudioAnalysis.self)
+            .decodeSpotifyObject(AudioAnalysis.self)
             
         } catch {
             return error.anyFailingPublisher(AudioAnalysis.self)
@@ -169,7 +169,7 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode(AudioFeatures.self)
+            .decodeSpotifyObject(AudioFeatures.self)
             
         } catch {
             return error.anyFailingPublisher(AudioFeatures.self)
@@ -210,7 +210,7 @@ public extension SpotifyAPI {
                 queryItems: ["ids": trackIds],
                 requiredScopes: []
             )
-            .spotifyDecode([String: [AudioFeatures?]].self)
+            .decodeSpotifyObject([String: [AudioFeatures?]].self)
                 .tryMap { dict -> [AudioFeatures?] in
                     if let audioFeatures = dict["audio_features"] {
                         return audioFeatures

@@ -1,8 +1,6 @@
 import Foundation
 import Combine
 
-// MARK: Library
-
 private extension SpotifyAPI {
     
     func saveItemsForCurrentUser(
@@ -80,7 +78,7 @@ private extension SpotifyAPI {
                 queryItems: ["ids": idsString],
                 requiredScopes: [.userLibraryRead]
             )
-            .spotifyDecode([Bool].self)
+            .decodeSpotifyObject([Bool].self)
             
         } catch {
             return error.anyFailingPublisher([Bool].self)
@@ -90,10 +88,10 @@ private extension SpotifyAPI {
     
 }
 
+// MARK: Library
+
 public extension SpotifyAPI {
 
-    // MARK: - GET -
-    
     /**
      Get the saved albums for the current user.
      
@@ -139,7 +137,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .spotifyDecode(PagingObject<SavedItem<Album>>.self)
+        .decodeSpotifyObject(PagingObject<SavedItem<Album>>.self)
         
     }
 
@@ -188,7 +186,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .spotifyDecode(PagingObject<SavedItem<Track>>.self)
+        .decodeSpotifyObject(PagingObject<SavedItem<Track>>.self)
         
     }
     
@@ -237,7 +235,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .spotifyDecode(PagingObject<SavedItem<Show>>.self)
+        .decodeSpotifyObject(PagingObject<SavedItem<Show>>.self)
         
     }
     
@@ -322,8 +320,6 @@ public extension SpotifyAPI {
 
     }
 
-    // MARK: - PUT -
-    
     /**
      Save albums for the current user.
      
@@ -389,8 +385,6 @@ public extension SpotifyAPI {
         )
         
     }
-    
-    // MARK: - DELETE -
     
     /**
      Remove albums saved albums for the current user.

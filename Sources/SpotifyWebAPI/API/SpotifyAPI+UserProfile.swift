@@ -26,7 +26,7 @@ public extension SpotifyAPI {
             queryItems: [:],
             requiredScopes: []
         )
-        .spotifyDecode(SpotifyUser.self)
+        .decodeSpotifyObject(SpotifyUser.self)
         
     }
 
@@ -56,7 +56,7 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .spotifyDecode(SpotifyUser.self)
+            .decodeSpotifyObject(SpotifyUser.self)
             
         } catch {
             return error.anyFailingPublisher(SpotifyUser.self)

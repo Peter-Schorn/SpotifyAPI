@@ -94,24 +94,6 @@ public extension Dictionary {
     
 }
 
-public extension Error {
-    
-    
-    /// Returns `AnyPublisher` with the specified output type.
-    /// The error type is `self` type-erased to `Error`.
-    ///
-    /// - Parameter outputType: The output type for the publisher.
-    func anyFailingPublisher<Output>(
-        _ outputType: Output.Type
-    ) -> AnyPublisher<Output, Error> {
-        
-        return Fail<Output, Error>(error: self)
-            .eraseToAnyPublisher()
-    
-    }
-    
-}
-
 public extension DecodingError {
     
     /// The context of the error.
