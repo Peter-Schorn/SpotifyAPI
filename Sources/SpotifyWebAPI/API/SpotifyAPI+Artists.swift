@@ -47,11 +47,6 @@ public extension SpotifyAPI {
 
      See also `artist(uri:)` (gets a single artist).
 
-     Objects are returned in the order requested.
-     If an object is not found, a nill value is returned in the
-     appropriate position. Duplicate ids in the query will result
-     in duplicate objects in the response.
-     
      Read more at the [Spotify web API reference][1].
      
      - Parameter artists: An array of up to 20 URIs for artists.
