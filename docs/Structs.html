@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (68% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">SpotifyWebAPI Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/SpotifyAPI.html">SpotifyAPI</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger0F0ACCvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/AlbumGroup.html">AlbumGroup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/DeviceType.html">DeviceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Headers.html">Headers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/PlaybackActions.html">PlaybackActions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/RepeatMode.html">RepeatMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeReference.html">TimeReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeReference/CodingKeys.html">– CodingKeys</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/AdditiveArithmetic.html">AdditiveArithmetic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/DecodingError.html">DecodingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/KeyedDecodingContainer.html">KeyedDecodingContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/KeyedEncodingContainer.html">KeyedEncodingContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Numeric.html">Numeric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Result/Publisher.html">– Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String/PercentEncodingOptions.html">– PercentEncodingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLComponents.html">URLComponents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:13SpotifyWebAPI06decodeA6Object4data15httpURLResponse12responseTypex10Foundation4DataV_So17NSHTTPURLResponseCxmtKSeRzlF">decodeSpotifyObject(data:httpURLResponse:responseType:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:13SpotifyWebAPI11removeIfNilySDyS2SGSDySSs25LosslessStringConvertible_pSgGF">removeIfNil(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/AnyOptional.html">AnyOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/Paginated.html">Paginated</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Album.html">Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Album/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AnyPlaylistItem.html">AnyPlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AnyPlaylistItem/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Artist.html">Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Artist/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AudioAnalysis.html">AudioAnalysis</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AudioFeatures.html">AudioFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CurrentlyPlayingContext/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CursorPagingObject.html">CursorPagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Device.html">Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Device/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Episode/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Followers.html">Followers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PagingObject.html">PagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PagingObject/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlayHistory.html">PlayHistory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlayHistory/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaybackRequest.html">PlaybackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaybackRequest/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Playlist/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistItemContainer/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RateLimitedError.html">RateLimitedError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ReorderPlaylistItems/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ResumePoint.html">ResumePoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SavedItem.html">SavedItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SavedItem/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SearchResult.html">SearchResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SearchResult/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Section/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Segment.html">Segment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Segment/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Show.html">Show</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Show/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyContext.html">SpotifyContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCursor.html">SpotifyCursor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyError.html">SpotifyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyImage.html">SpotifyImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyTimeInterval.html">SpotifyTimeInterval</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyTimestampFormatter.html">SpotifyTimestampFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyUser.html">SpotifyUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyUser/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Track.html">Track</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Track/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackLink.html">TrackLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackLink/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:13SpotifyWebAPI14PlaylistTracksa">PlaylistTracks</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI16RateLimitedErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/RateLimitedError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI16RateLimitedErrorV">RateLimitedError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Too Many Requests - <a href="https://developer.spotify.com/documentation/web-api/#rate-limiting">Rate limiting</a> has been applied.</p>
+
+<p>The <code>retryAfter</code> property specifies the number of seconds
+you must wait before you try the request again.</p>
+
+<p>Rate limiting is applied as per application based on Client ID,
+and regardless of the number of users who use the application
+simultaneously.</p>
+
+<p>To reduce the amount of requests, use endpoints that fetch
+multiple entities in one request. For example: If you often
+request single tracks, albums, or artists, use endpoints such as
+Get Several Tracks, Get Several Albums or Get Several Artists, instead.</p>
+
+                        <a href="Structs/RateLimitedError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RateLimitedError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A19AuthenticationErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyAuthenticationError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A19AuthenticationErrorV">SpotifyAuthenticationError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Spotify <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">authentication error object</a>.</p>
+
+<p>Do not confuse this with <code><a href="Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code>.</p>
+
+<p>Whenever the application makes requests related to authentication
+or authorization to Web API, such as retrieving an access token or
+refreshing an access token, the error response follows RFC 6749
+on the OAuth 2.0 Authorization Framework.</p>
+
+                        <a href="Structs/SpotifyAuthenticationError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyAuthenticationError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyAuthenticationError</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A18AuthorizationErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyAuthorizationError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A18AuthorizationErrorV">SpotifyAuthorizationError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The user denied your app&rsquo;s authorization request or there
+was an error during the process of authorizing your app.</p>
+
+<p>Do not confuse this with <code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>.</p>
+
+<p>See the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#example-1:%7E:text=If%20the%20user%20does%20not%20accept,example%20https%3A%2F%2Fexample.com%2Fcallback%3Ferror%3Daccess_denied%26state%3DSTATE%2C%20contains%20the%20following%20parameters%3A">authorization process</a>.</p>
+
+                        <a href="Structs/SpotifyAuthorizationError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyAuthorizationError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyDecodingError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV">SpotifyDecodingError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The data from the Spotify web API could not be decoded
+into any of the expected types.</p>
+
+<p>Assign a folder URL to the static var <code>dataDumpfolder</code>
+to write the json response from the Spotify web API to disk
+to when instances of this error are created.
+This is intended for debugging purposes. By default, it is nil.</p>
+
+<p>This is almost always due to an error in this library.
+Report a bug if you get this error.</p>
+
+<p>Do not <code>dump</code> this error; instead, use its string representation.</p>
+
+                        <a href="Structs/SpotifyDecodingError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyDecodingError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A5ErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A5ErrorV">SpotifyError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/#regular-error-object">Regular Error Object</a> returned by the Spotify web API.</p>
+
+<p>See the <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">Response Status Codes</a>.</p>
+
+                        <a href="Structs/SpotifyError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyError</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackRequestV"></a>
+                    <a name="//apple_ref/swift/Struct/PlaybackRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackRequestV">PlaybackRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A request to play Spotify content for the current user.</p>
+
+<p>Used in the body of</p>
+
+                        <a href="Structs/PlaybackRequest.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlaybackRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlaybackRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV"></a>
+                    <a name="//apple_ref/swift/Struct/PlaylistDetails" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV">PlaylistDetails</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains details about a playlist. Used in the body of
+<code>changePlaylistDetails(_:to:)</code> and <code>createPlaylist(for:_:)</code>.</p>
+
+<p>All of the properties are optional. The value of each non-<code>nil</code> property
+will be used to update the details of the playlist.</p>
+
+<p>Contains the following properties:</p>
+
+<ul>
+<li>name: The new name for the playlist.</li>
+<li>isPublic: If <code>true</code> the playlist will be public;
+  if <code>false</code> it will be private.</li>
+<li>collaborative: If <code>true</code>, the playlist will become collaborative
+  and other users will be able to modify the playlist in their
+  Spotify client. <strong>Note</strong>: You can only set collaborative to <code>true</code>
+  on non-public playlists.</li>
+<li>description: A new playlist description as displayed in
+  Spotify Clients and in the Web API.</li>
+</ul>
+
+                        <a href="Structs/PlaylistDetails.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlaylistDetails</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlaylistDetails</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI20ReorderPlaylistItemsV"></a>
+                    <a name="//apple_ref/swift/Struct/ReorderPlaylistItems" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI20ReorderPlaylistItemsV">ReorderPlaylistItems</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used in the <code>reorderPlaylistItems</code> request to reorder a playlist&rsquo;s
+items.</p>
+
+                        <a href="Structs/ReorderPlaylistItems.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ReorderPlaylistItems</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ReorderPlaylistItems</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI16URIWithPositionsV"></a>
+                    <a name="//apple_ref/swift/Struct/URIWithPositions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI16URIWithPositionsV">URIWithPositions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify URI and its positions in a collection.
+Used in the body of <code>removeSpecificOccurencesFromPlaylist</code>.</p>
+
+<p>For example, this may represent all of the positions
+in a playlist of a specific track. The positions of the URIs
+are necessary in case the collection has duplicate items.</p>
+
+<p>See also <code>URIWithPositionsContainer</code>.</p>
+
+                        <a href="Structs/URIWithPositions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIWithPositions</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI26URIsWithPositionsContainerV"></a>
+                    <a name="//apple_ref/swift/Struct/URIsWithPositionsContainer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI26URIsWithPositionsContainerV">URIsWithPositionsContainer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A container that holds <code><a href="Structs/URIWithPositions.html">URIWithPositions</a></code> and, optionally,
+the <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of the playlist that the items associated with the URIs
+(usually tracks/episodes) are contained in.</p>
+
+<p>This is used for removing specific occurences of items from a playlist.
+The positions of the URIs are necessary in case the playlist has duplicate
+items.</p>
+
+                        <a href="Structs/URIsWithPositionsContainer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIsWithPositionsContainer</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI13AudioAnalysisV"></a>
+                    <a name="//apple_ref/swift/Struct/AudioAnalysis" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI13AudioAnalysisV">AudioAnalysis</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes a tracks structure and musical content, including rhythm,
+pitch, and timbre.</p>
+
+<p>All information is precise to the audio sample. Many elements of analysis
+include confidence values, a floating-point number ranging from 0.0 to 1.0.
+Confidence indicates the reliability of its corresponding attribute. Elements
+carrying a small confidence value should be considered speculative.
+There may not be sufficient data in the audio to compute the attribute with
+high certainty.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#audio-analysis-object">Spotify web API reference</a>.</p>
+
+                        <a href="Structs/AudioAnalysis.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AudioAnalysis</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI13AudioFeaturesV"></a>
+                    <a name="//apple_ref/swift/Struct/AudioFeatures" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI13AudioFeaturesV">AudioFeatures</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/#audio-features-object">audio features</a> of a track.</p>
+
+                        <a href="Structs/AudioFeatures.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AudioFeatures</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI7SectionV"></a>
+                    <a name="//apple_ref/swift/Struct/Section" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7SectionV">Section</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#section-object">Sections</a> are defined by large variations in rhythm or timbre,
+e.g. chorus, verse, bridge, guitar solo, etc.</p>
+
+<p>Each section contains its own descriptions of tempo, key, mode,
+time_signature, and loudness.</p>
+
+                        <a href="Structs/Section.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Section</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Section</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI7SegmentV"></a>
+                    <a name="//apple_ref/swift/Struct/Segment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7SegmentV">Segment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object">segment</a> of a track with a roughly consistent sound</p>
+
+                        <a href="Structs/Segment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Segment</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Segment</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A12TimeIntervalV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyTimeInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A12TimeIntervalV">SpotifyTimeInterval</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a generic object used to represent various time intervals
+within Audio Analysis. For information about Bars, Beats, Tatums, Sections,
+and Segments are determined, please see <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#time-interval-object">Rhythm</a>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#time-interval-object">Spotify web API reference</a>.</p>
+
+                        <a href="Structs/SpotifyTimeInterval.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyTimeInterval</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI13TokensRequestV"></a>
+                    <a name="//apple_ref/swift/Struct/TokensRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>After the user has authorized your app and a code has been provided,
+this struct is used to request a refresh and access token for the
+<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
+
+                        <a href="Structs/TokensRequest.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TokensRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TokensRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI5AlbumV"></a>
+                    <a name="//apple_ref/swift/Struct/Album" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV">Album</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full">album</a>.</p>
+
+                        <a href="Structs/Album.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Album</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Album</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI6ArtistV"></a>
+                    <a name="//apple_ref/swift/Struct/Artist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI6ArtistV">Artist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full">artist</a>.</p>
+
+                        <a href="Structs/Artist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Artist</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Artist</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI5TrackV"></a>
+                    <a name="//apple_ref/swift/Struct/Track" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5TrackV">Track</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full">Spotify track</a>.</p>
+
+                        <a href="Structs/Track.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Track</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Track</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A9CopyrightV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyCopyright" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A9CopyrightV">SpotifyCopyright</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#copyright-object">copyright object</a>.</p>
+
+                        <a href="Structs/SpotifyCopyright.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyCopyright</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI18CursorPagingObjectV"></a>
+                    <a name="//apple_ref/swift/Struct/CursorPagingObject" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI18CursorPagingObjectV">CursorPagingObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#cursor-based-paging-object">cursor-based paging object</a>.</p>
+
+<p>See <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/">get current user&rsquo;s recently played tracks</a>
+and <code>recentlyPlayed(_:limit:)</code> for examples.</p>
+
+                        <a href="Structs/CursorPagingObject.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CursorPagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="p">:</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI9FollowersV"></a>
+                    <a name="//apple_ref/swift/Struct/Followers" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9FollowersV">Followers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#followers-object">followers object</a>.</p>
+
+                        <a href="Structs/Followers.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Followers</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI12PagingObjectV"></a>
+                    <a name="//apple_ref/swift/Struct/PagingObject" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI12PagingObjectV">PagingObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object">paging object</a>.</p>
+
+<p>The offset-based paging object is a container for a set of objects.
+It contains a key called items
+(whose value is an array of the requested objects)
+along with other keys like previous,
+next and limit that can be useful in future calls.</p>
+
+                        <a href="Structs/PagingObject.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI11ResumePointV"></a>
+                    <a name="//apple_ref/swift/Struct/ResumePoint" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI11ResumePointV">ResumePoint</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/ResumePoint.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ResumePoint</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV"></a>
+                    <a name="//apple_ref/swift/Struct/SavedItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV">SavedItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object">saved album object</a>, or
+<a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object">saved show object</a>.</p>
+
+<p>This is used when retrieving content from a user&rsquo;s library.
+It contains just three properties:</p>
+
+<ul>
+<li><code>addedAt</code>: The date the item was added.</li>
+<li><code>item</code>: The item that was saved.</li>
+<li><code>itemName</code>: <code>track</code> if this is a saved track object,
+<code>album</code> if this is a saved album object, or
+<code>show</code> if this is a saved show object.</li>
+</ul>
+
+                        <a href="Structs/SavedItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SavedItem</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SavedItem</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI12SearchResultV"></a>
+                    <a name="//apple_ref/swift/Struct/SearchResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI12SearchResultV">SearchResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint.</p>
+
+<p>The search endpoint has a <code>types</code> parameter, which specifies
+which objects will be returned in the response.
+Valid types are:</p>
+
+<ul>
+<li>album</li>
+<li>artist</li>
+<li>playlist</li>
+<li>track</li>
+<li>show</li>
+<li>episode</li>
+</ul>
+
+<p>The corresponding <code>albums</code>, <code>artist</code>, <code>playlists</code>, <code>tracks</code>, <code>shows</code>,
+and <code>episodes</code> properties of this struct will be non-nil
+for each of the types that were requested from the <code>search</code> endpoint.</p>
+
+<p>If no results were found for a type, then the <code>items</code> property of the
+property&rsquo;s paging object will be empty; the property itself will only
+be nil if it was not requested in the search.</p>
+
+                        <a href="Structs/SearchResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SearchResult</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SearchResult</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A6CursorV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyCursor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A6CursorV">SpotifyCursor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used to find the next or previous set of items
+in a <code><a href="Structs/CursorPagingObject.html">CursorPagingObject</a></code>.</p>
+
+                        <a href="Structs/SpotifyCursor.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyCursor</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A5ImageV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV">SpotifyImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object">image object</a>.</p>
+
+<p>Includes the URL to the image and its height and width.</p>
+
+                        <a href="Structs/SpotifyImage.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyImage</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A4UserV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyUser" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A4UserV">SpotifyUser</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/SpotifyUser.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyUser</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI9TrackLinkV"></a>
+                    <a name="//apple_ref/swift/Struct/TrackLink" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9TrackLinkV">TrackLink</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link">track link</a> object.
+See also the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track relinking Guide</a>.</p>
+
+                        <a href="Structs/TrackLink.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TrackLink</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TrackLink</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV"></a>
+                    <a name="//apple_ref/swift/Struct/CurrentlyPlayingContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV">CurrentlyPlayingContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-information-about-the-users-current-playback/#Currently-Playing-Context">context</a> of the currently playing track/episode.</p>
+
+                        <a href="Structs/CurrentlyPlayingContext.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CurrentlyPlayingContext</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CurrentlyPlayingContext</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI6DeviceV"></a>
+                    <a name="//apple_ref/swift/Struct/Device" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI6DeviceV">Device</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A device that Spotify Content can be played on.</p>
+
+                        <a href="Structs/Device.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Device</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Device</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI11PlayHistoryV"></a>
+                    <a name="//apple_ref/swift/Struct/PlayHistory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI11PlayHistoryV">PlayHistory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/PlayHistory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlayHistory</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlayHistory</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A7ContextV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV">SpotifyContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The context that a track/episode is being played in.</p>
+
+<p>For example, if a track is being played, then the context
+may be an album, an artist, or a playlist.</p>
+
+                        <a href="Structs/SpotifyContext.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyContext</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15AnyPlaylistItemV"></a>
+                    <a name="//apple_ref/swift/Struct/AnyPlaylistItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15AnyPlaylistItemV">AnyPlaylistItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Either a track or an episode. Used for endpoints
+that return track and/or episode objects.</p>
+
+<p>This is usually, but not always, returned in the context of
+a playlist.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    This struct is limited to the properties
+  common to both tracks and episodes. Compare with
+  <code><a href="Structs/Track.html">Track</a></code> and <code><a href="Structs/Episode.html">Episode</a></code>.
+
+</div>
+
+<p>Use the <code>type</code> property to check whether the item is
+a track or an episode.</p>
+
+                        <a href="Structs/AnyPlaylistItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AnyPlaylistItem</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AnyPlaylistItem</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV"></a>
+                    <a name="//apple_ref/swift/Struct/Playlist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV">Playlist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full">playlist</a>.</p>
+
+                        <a href="Structs/Playlist.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">Items</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Hashable</span> <span class="k">where</span>
+    <span class="kt">Items</span><span class="p">:</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Playlist</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV"></a>
+                    <a name="//apple_ref/swift/Struct/PlaylistItemContainer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV">PlaylistItemContainer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Holds a track or podcast episode that is contained
+in a playlist, as well as additional information about its relationship
+to the playlist. Spotify confusingly refers to this as a
+<a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object">playlist track object</a>.</p>
+
+<p>Contains the following properties:</p>
+
+<ul>
+<li><code>addedAt</code>: The date and time the track or episode was added.</li>
+<li><code>addedBy</code>: The Spotify user who added the track or episode.</li>
+<li><code>isLocal</code>: Whether or not the item is from a <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files">local file</a>.</li>
+<li><code>item</code>: Either a <code><a href="Structs/Track.html">Track</a></code> or an <code><a href="Structs/Episode.html">Episode</a></code> (simplified version).</li>
+</ul>
+
+                        <a href="Structs/PlaylistItemContainer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span>
+    <span class="kt">Item</span><span class="p">:</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlaylistItemContainer</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23PlaylistsItemsReferenceV"></a>
+                    <a name="//apple_ref/swift/Struct/PlaylistsItemsReference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23PlaylistsItemsReferenceV">PlaylistsItemsReference</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provides a link to the endpoint that retrieves the full list
+of tracks/episodes in a playlist.</p>
+
+<p>For example, the endpoint that retrieves a list
+of all the user&rsquo;s playlists returns this object inside
+of every playlist, instead of an array of tracks,
+which prevents the response from becoming too long.</p>
+
+                        <a href="Structs/PlaylistsItemsReference.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PlaylistsItemsReference</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI7EpisodeV"></a>
+                    <a name="//apple_ref/swift/Struct/Episode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7EpisodeV">Episode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full">podcast episode</a>.</p>
+
+                        <a href="Structs/Episode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Episode</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Episode</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI4ShowV"></a>
+                    <a name="//apple_ref/swift/Struct/Show" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV">Show</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full">podcast show</a>.</p>
+
+                        <a href="Structs/Show.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Show</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Show</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A18TimestampFormatterV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyTimestampFormatter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A18TimestampFormatterV">SpotifyTimestampFormatter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Structs/SpotifyTimestampFormatter.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyTimestampFormatter</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A10IdentifierV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyIdentifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV">SpotifyIdentifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encapsulates the various formats that Spotify
+uses to uniquely identify content. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
+
+<p>You can pass an instance of this struct into any method
+that accepts a <code><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></code> type.</p>
+
+<p>This struct provides a convientent way to convert between
+the different formats, which include the id, the URI, and the URL.</p>
+
+                        <a href="Structs/SpotifyIdentifier.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyIdentifier</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-31)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

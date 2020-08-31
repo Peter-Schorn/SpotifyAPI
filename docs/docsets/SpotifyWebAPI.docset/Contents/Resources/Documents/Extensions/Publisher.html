@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Publisher Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/Publisher" class="dashAnchor"></a>
+    <a title="Publisher Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (68% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SpotifyWebAPI Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Publisher Extension Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SpotifyAPI.html">SpotifyAPI</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger0F0ACCvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AlbumGroup.html">AlbumGroup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DeviceType.html">DeviceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaybackActions.html">PlaybackActions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RepeatMode.html">RepeatMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeReference.html">TimeReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeReference/CodingKeys.html">– CodingKeys</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/AdditiveArithmetic.html">AdditiveArithmetic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DecodingError.html">DecodingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/KeyedDecodingContainer.html">KeyedDecodingContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/KeyedEncodingContainer.html">KeyedEncodingContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Numeric.html">Numeric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Result/Publisher.html">– Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String/PercentEncodingOptions.html">– PercentEncodingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLComponents.html">URLComponents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:13SpotifyWebAPI06decodeA6Object4data15httpURLResponse12responseTypex10Foundation4DataV_So17NSHTTPURLResponseCxmtKSeRzlF">decodeSpotifyObject(data:httpURLResponse:responseType:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:13SpotifyWebAPI11removeIfNilySDyS2SGSDySSs25LosslessStringConvertible_pSgGF">removeIfNil(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyOptional.html">AnyOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Paginated.html">Paginated</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Album.html">Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Album/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AnyPlaylistItem.html">AnyPlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AnyPlaylistItem/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Artist.html">Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Artist/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioAnalysis.html">AudioAnalysis</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioFeatures.html">AudioFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrentlyPlayingContext/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CursorPagingObject.html">CursorPagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Device.html">Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Device/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Episode/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Followers.html">Followers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PagingObject.html">PagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PagingObject/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayHistory.html">PlayHistory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayHistory/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaybackRequest/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Playlist/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemContainer/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ResumePoint.html">ResumePoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SavedItem.html">SavedItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SavedItem/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SearchResult.html">SearchResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SearchResult/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Section/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Segment.html">Segment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Segment/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show.html">Show</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyContext.html">SpotifyContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCursor.html">SpotifyCursor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyError.html">SpotifyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyImage.html">SpotifyImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyTimeInterval.html">SpotifyTimeInterval</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyTimestampFormatter.html">SpotifyTimestampFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyUser.html">SpotifyUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyUser/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Track.html">Track</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Track/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackLink.html">TrackLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackLink/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:13SpotifyWebAPI14PlaylistTracksa">PlaylistTracks</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Publisher</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">Void</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">)</span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE8logError_2to5level4file8function4lineAA10PublishersO03MapG0Vy_x7FailureQzGSS_6LoggerARCAS5LevelOS2SSutF"></a>
+                    <a name="//apple_ref/swift/Method/logError(_:to:level:file:function:line:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE8logError_2to5level4file8function4lineAA10PublishersO03MapG0Vy_x7FailureQzGSS_6LoggerARCAS5LevelOS2SSutF">logError(_:<wbr>to:<wbr>level:<wbr>file:<wbr>function:<wbr>line:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs any errors in the stream.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">logError</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
+    <span class="n">to</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span><span class="p">,</span>
+    <span class="nv">level</span><span class="p">:</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Level</span> <span class="o">=</span> <span class="o">.</span><span class="n">trace</span><span class="p">,</span>
+    <span class="nv">file</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span>
+    <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#function</span><span class="p">,</span>
+    <span class="nv">line</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="kd">#line</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">MapError</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE9logOutput_2to5level4file8function4lineAA10PublishersO12HandleEventsVy_xGSS_6LoggerAPCAQ5LevelOS2SSutF"></a>
+                    <a name="//apple_ref/swift/Method/logOutput(_:to:level:file:function:line:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE9logOutput_2to5level4file8function4lineAA10PublishersO12HandleEventsVy_xGSS_6LoggerAPCAQ5LevelOS2SSutF">logOutput(_:<wbr>to:<wbr>level:<wbr>file:<wbr>function:<wbr>line:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs all values in the stream, but, unlike the <code>print()</code> operator,
+not notifications about completion, cancellations, or subscriptions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">logOutput</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
+    <span class="n">to</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span><span class="p">,</span>
+    <span class="nv">level</span><span class="p">:</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Level</span> <span class="o">=</span> <span class="o">.</span><span class="n">trace</span><span class="p">,</span>
+    <span class="nv">file</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span>
+    <span class="nv">function</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#function</span><span class="p">,</span>
+    <span class="nv">line</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="kd">#line</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">HandleEvents</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila"></a>
+                    <a name="//apple_ref/swift/Alias/MapToNil" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila">MapToNil</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Wraps all upstream elements in an optional.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">MapToNil</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Map</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">Output</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila"></a>
+                    <a name="//apple_ref/swift/Alias/MapErrorToNil" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila">MapErrorToNil</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replaces all errors in the stream with <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">MapErrorToNil</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">ReplaceError</span><span class="o">&lt;</span><span class="kt"><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila">MapToNil</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE13mapErrorToNilAA10PublishersO07ReplaceG0Vy_AG3MapVy_x6OutputQzSgGGyF"></a>
+                    <a name="//apple_ref/swift/Method/mapErrorToNil()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE13mapErrorToNilAA10PublishersO07ReplaceG0Vy_AG3MapVy_x6OutputQzSgGGyF">mapErrorToNil()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new publisher in which the output is wrapped in an optional
+and errors are replaced with nil.
+Therefore, the new publisher never fails.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">mapErrorToNil</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila">MapErrorToNil</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE16assignToOptional_2onAA14AnyCancellableCs24ReferenceWritableKeyPathCyqd__6OutputQzSgG_qd__tlF"></a>
+                    <a name="//apple_ref/swift/Method/assignToOptional(_:on:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE16assignToOptional_2onAA14AnyCancellableCs24ReferenceWritableKeyPathCyqd__6OutputQzSgG_qd__tlF">assignToOptional(_:<wbr>on:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Assigns each element from the upstream publisher to
+an <strong>optional</strong> property on an object. If the upsteam publisher
+fails with an error, then <code>nil</code> is assigned to the property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">assignToOptional</span><span class="o">&lt;</span><span class="kt">Root</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">ReferenceWritableKeyPath</span><span class="o">&lt;</span><span class="kt">Root</span><span class="p">,</span> <span class="kt">Optional</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+    <span class="n">on</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Root</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyCancellable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key path of the property to assign.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object on which to assign the value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A cancellable instance; used when you end assignment
+  of the received value. Deallocation of the result
+  will tear down the subscription stream.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE10tryFlatMap13maxPublishers_AA0J0O0gH0Vy_AA03AnyB0Vy6OutputQyd__s5Error_pGxGAA11SubscribersO6DemandV_qd__AMQzKctAaBRd__sAO_p7FailureRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/tryFlatMap(maxPublishers:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE10tryFlatMap13maxPublishers_AA0J0O0gH0Vy_AA03AnyB0Vy6OutputQyd__s5Error_pGxGAA11SubscribersO6DemandV_qd__AMQzKctAaBRd__sAO_p7FailureRtzlF">tryFlatMap(maxPublishers:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transforms all elements from an upstream publisher
+into a new or existing publisher.</p>
+
+<p><code>tryFlatMap</code> merges the output from all returned publishers
+into a single stream of output.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">tryFlatMap</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">maxPublishers</span><span class="p">:</span> <span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Demand</span> <span class="o">=</span> <span class="o">.</span><span class="n">unlimited</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">NewPublisher</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span>
+        <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="o">.</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">Self</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxPublishers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of publishers produced by this method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <strong>throwing</strong> closure that takes an element as a parameter
+and returns a publisher that produces elements of that type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that transforms elements from an
+  upstream publisher into a publisher of that element’s type.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Output%60%3A%20%60Paginated%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output`: `Paginated`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%3A%20%60Paginated%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code>: <code><a href="../Protocols/Paginated.html">Paginated</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIAD9Paginated6OutputRpzrlE11extendPages_08maxExtraI0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/extendPages(_:maxExtraPages:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIAD9Paginated6OutputRpzrlE11extendPages_08maxExtraI0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">extendPages(_:<wbr>maxExtraPages:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code>
+type.</p>
+
+<p>See also <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF">PagingObject.getPage(atOffset:limit:)</a></code>, which
+can be used to request multiple pages asyncronously.</p>
+
+<p>Each time an additional page is received, its <code>next</code> property
+is used to retrieve the next page of results, and so on, until
+<code>next</code> is <code>nil</code> or <code>maxExtraPages</code> is reached. This means that
+the next page will not be requested until the previous one
+is received. This also means that the pages will always be
+returned in order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">extendPages</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">spotify</span><span class="p">:</span> <span class="kt"><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">maxExtraPages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spotify</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, which is required for
+ensuring that the application is authorized and refreshing
+the access token if needed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxExtraPages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of additional pages to retrieve.
+For example, to just get the next page, use <code>1</code>. Leave as
+<code>nil</code> (default) to retrieve all pages of results.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that immediately republishes the output
+  from the upstream publisher, as well as additional pages that are
+  returned by the Spotify web API.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Output%60%20%3D%3D%20%60Void%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output` == `Void`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%20%3D%3D%20%60Void%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code> == <code>Void</code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIyt6OutputRtzrlE4sink17receiveCompletionAA14AnyCancellableCyAA11SubscribersO0I0Oy_7FailureQzGc_tF"></a>
+                    <a name="//apple_ref/swift/Method/sink(receiveCompletion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIyt6OutputRtzrlE4sink17receiveCompletionAA14AnyCancellableCyAA11SubscribersO0I0Oy_7FailureQzGc_tF">sink(receiveCompletion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A convience wrapper for sink that only requires a <code>receiveCompletion</code>
+closure. Available when <code>Output</code> == <code>Void</code>.</p>
+
+<p>This method creates the subscriber and immediately requests an
+unlimited number of values, prior to returning the subscriber.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sink</span><span class="p">(</span>
+    <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Completion</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyCancellable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>receiveCompletion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to execute on completion.
+  If <code>nil</code>, the sink uses an empty closure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A subscriber that performs the provided closure upon
+  receiving completion.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60URLResponse%60%29"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output` == (`data`: `Data`, `response`: `URLResponse`)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60URLResponse%60%29"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code> == (<code>data</code>: <code>Data</code>, <code>response</code>: <code>URLResponse</code>)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF"></a>
+                    <a name="//apple_ref/swift/Method/decodeSpotifyErrors()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF">decodeSpotifyErrors()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tries to decode the raw data from a Spotify web API request
+into one of the error objects that Spotify returns for
+most endpoints: <code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>, <code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>,
+or <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>.</p>
+
+<p>If the data can be decoded into one of these errors,
+then this error object is thrown as an error to downstream subscribers.
+Otherwise, the data is passed through unmodified to downstream
+subscribers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">decodeSpotifyErrors</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE13spotifyDecodeyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/spotifyDecode(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE13spotifyDecodeyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">spotifyDecode(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tries to decode the raw data from a Spotify web API request.
+You normally don&rsquo;t need to call this method directly.</p>
+
+<p>First tries to decode the data into the specified type
+that conforms to <code>Decodable</code>. If that fails, then
+the data is decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by spotify:</p>
+
+<ul>
+<li><code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
+<li><code><a href="../Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+</ul>
+
+<p>If decoding into the error objects fails, <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown
+as a last resort.</p>
+
+<p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
+when decoding the <code>responseType</code>, not the error objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">spotifyDecode</span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="p">:</span> <span class="kt">Decodable</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">responseType</span><span class="p">:</span> <span class="kt">ResponseType</span><span class="o">.</span><span class="k">Type</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>responseType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The json response that you are
+are expecting from the Spotify web API.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE25spotifyDecodePagingObject_7getPageAA03AnyB0VyAD0nO0Vyqd__Gs5Error_pGqd__m_AVSi_SiSgtctSeRd__SERd__SHRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/spotifyDecodePagingObject(_:getPage:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE25spotifyDecodePagingObject_7getPageAA03AnyB0VyAD0nO0Vyqd__Gs5Error_pGqd__m_AVSi_SiSgtctSeRd__SERd__SHRd__lF">spotifyDecodePagingObject(_:<wbr>getPage:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">spotifyDecodePagingObject</span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="p">:</span> <span class="kt">Decodable</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">wrappedType</span><span class="p">:</span> <span class="kt">ResponseType</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+    <span class="nv">getPage</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">atOffset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">_</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?)</span>
+            <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-31)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
