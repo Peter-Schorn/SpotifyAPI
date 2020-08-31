@@ -306,7 +306,7 @@ extension Album: Codable {
         
     }
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case name
         case tracks
         case artists
