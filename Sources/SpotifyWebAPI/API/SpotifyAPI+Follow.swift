@@ -150,9 +150,9 @@ public extension SpotifyAPI {
      a playlist is only possible for the current user when that user has
      granted access to the `playlistReadPrivate` scope.
      
-     If the user has created the playlist themself and it shows up
-     in their Spotify client, then that also means that they are
-     following it. See also [Following and Unfollowing a Playlist][1].
+     If the user has created the playlist themself (or you created it for them)
+     and it shows up in their Spotify client, then that also means that they
+     are following it. See also [Following and Unfollowing a Playlist][1].
      
      Read more at the [Spotify web API reference][2].
      
