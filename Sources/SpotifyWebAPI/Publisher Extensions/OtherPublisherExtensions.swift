@@ -21,8 +21,9 @@ public extension Publisher where Output: Paginated {
      
      - Parameters:
        - spotify: An instance of `SpotifyAPI`, which is required for
-             ensuring that the application is authorized and refreshing
-             the access token if needed.
+             accessing the access token required to make requests to
+             the Spotify web API. The access token will also be refreshed if
+             needed.
        - maxExtraPages: The maximum number of additional pages to retrieve.
              For example, to just get the next page, use `1`. Leave as
              `nil` (default) to retrieve all pages of results.
@@ -169,11 +170,17 @@ public extension Result.Publisher where Failure == Error {
 
 public extension Error {
     
+    /**
+     Returns `AnyPublisher` with the specified output type.
+     The error type is `self` type-erased to `Error`.
     
-    /// Returns `AnyPublisher` with the specified output type.
-    /// The error type is `self` type-erased to `Error`.
-    ///
-    /// - Parameter outputType: The output type for the publisher.
+     Equivalent to
+     ```
+     Fail<Output, Error>(error: self).eraseToAnyPublisher()
+     ```
+    
+     - Parameter outputType: The output type for the publisher.
+     */
     func anyFailingPublisher<Output>(
         _ outputType: Output.Type
     ) -> AnyPublisher<Output, Error> {

@@ -4,4 +4,4 @@ import Foundation
 public typealias PlaylistTracks = PagingObject<PlaylistItemContainer<Track>>
 
 /// The episodes and tracks in a playlist.
-public typealias PlaylistItems = PagingObject<PlaylistItemContainer<AnyPlaylistItem>>
+public typealias PlaylistItems = PagingObject<PlaylistItemContainer<PlaylistItem>>

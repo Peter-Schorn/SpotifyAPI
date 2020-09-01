@@ -164,7 +164,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
     
 }
 
-// MARK: - Publisher Wrappers -
+// MARK: - Publisher Extensions -
 
 public extension Publisher where Output == (data: Data, response: URLResponse) {
 

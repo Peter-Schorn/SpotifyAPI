@@ -200,7 +200,7 @@ public extension SpotifyAPI {
      
      # Returns:
      ```
-     Playlist<PagingObject<PlaylistItemContainer<AnyPlaylistItem>>>
+     Playlist<PagingObject<PlaylistItemContainer<PlaylistItem>>>
      ```
      
      The full version of the playlist will be returned.
@@ -325,18 +325,14 @@ public extension SpotifyAPI {
      
      # Returns:
      ```
-     PagingObject<PlaylistItemContainer<AnyPlaylistItem>>
+     PagingObject<PlaylistItemContainer<PlaylistItem>>
      ```
      
      To get an array of just the tracks/episdoes, use:
      ```
      playlistTracks.items.map(\.item)
      ```
-     
-     - Warning: `AnyPlaylistItem` only contains the properties
-           common to both tracks and episodes. Compare with `Track`
-           and `Episode`.
-     
+
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
@@ -366,7 +362,7 @@ public extension SpotifyAPI {
             offset: offset,
             market: market,
             requestedTypes: [.track, .episode],
-            responseType: PlaylistItemContainer<AnyPlaylistItem>.self
+            responseType: PlaylistItemContainer<PlaylistItem>.self
         )
         
     }
@@ -386,16 +382,16 @@ public extension SpotifyAPI {
 
      # Returns:
      ```
-     PagingObject<Playlist<PlaylistsItemsReference>
+     PagingObject<Playlist<PlaylistsItemsReference>>
      ```
      
      The simplified versions of the playlists will be returned.
      
      A `PlaylistsItemsReference` simply contains a link to all of the
-     tracks/episodes and the total number in the playlist. However,
-     to get all of the tracks in each playlist, you should use
-     `playlistTracks(_:limit:offset:market:)` instead, passing in
-     the URI of each of the playlists. To get all of the URIs, use:
+     tracks/episodes and the total number in the playlist. To get all
+     of the tracks in each playlist, you can use
+     `playlistTracks(_:limit:offset:market:)`, passing in the URI of
+     each of the playlists. To get all of the URIs, use:
      ```
      playlists.items.map(\.uri)
      ```
@@ -428,7 +424,6 @@ public extension SpotifyAPI {
         .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
         
     }
-    
     
     /**
      Get a list of the playlists for a user, including those that

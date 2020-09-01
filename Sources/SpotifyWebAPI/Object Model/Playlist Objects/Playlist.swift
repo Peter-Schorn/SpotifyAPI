@@ -13,7 +13,7 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
     /// The items in this `Playlist`. Consult the documentation
     /// for the specific endpoint that this playlist was retrieved
     /// from for more information.
-    public internal(set) var items: Items
+    public let items: Items
     
     /// The user who owns the playlist.
     public let owner: SpotifyUser?

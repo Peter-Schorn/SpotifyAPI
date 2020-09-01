@@ -10,8 +10,8 @@ import Foundation
  
  * `addedAt`: The date and time the track or episode was added.
  * `addedBy`: The Spotify user who added the track or episode.
- * `isLocal`: Whether or not the item is from a [local file][3].
- * `item`: Either a `Track` or an `Episode` (simplified version).
+ * `isLocal`: Whether or not the track or episode is from a [local file][3].
+ * `item`: Either a `Track`, `Episode`, or `PlaylistItem`  (simplified version).
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object
  [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
@@ -41,7 +41,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
     /// [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
     public let isLocal: Bool?
     
-    /// Either a track or an episode object (simplified version)
+    /// Either a `Track`, `Episode`, or `PlaylistItem` (simplified version).
     /// in this `PlaylistItemContainer`.
     public let item: Item
 

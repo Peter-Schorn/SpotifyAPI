@@ -9,10 +9,16 @@ public extension SpotifyAPI {
      Get the user's available devices.
      
      This endpoint requires the `userReadPlaybackState` scope.
+
+     This endpoint can be used to determine which devices
+     are currently active.
      
      Read more at the [Spotify web API reference][1].
      
+     - Returns: An array of [device objects][2].
+     
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-object
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
         

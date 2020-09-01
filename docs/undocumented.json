@@ -351,17 +351,24 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/AnyPlaylistItem.swift",
-      "line": 71,
-      "symbol": "AnyPlaylistItem.CodingKeys",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/Playlist.swift",
       "line": 111,
       "symbol": "Playlist.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItem.swift",
+      "line": 21,
+      "symbol": "PlaylistItem.track(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItem.swift",
+      "line": 22,
+      "symbol": "PlaylistItem.episode(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {

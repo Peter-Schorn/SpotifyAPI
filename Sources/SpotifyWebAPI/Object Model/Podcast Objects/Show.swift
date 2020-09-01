@@ -8,7 +8,7 @@ import Foundation
  */
 public struct Show: Hashable {
 
-    /// The name of the episode.
+    /// The name of the show.
     public let name: String
     
     /// A description of the show.

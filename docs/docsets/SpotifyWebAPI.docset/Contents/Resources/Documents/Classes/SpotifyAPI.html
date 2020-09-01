@@ -129,13 +129,13 @@
                 <a href="../Structs/Playlist.html">Playlist</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/PlaylistItem.html">PlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/AnyPlaylistItem.html">AnyPlaylistItem</a>
               </li>
             </ul>
           </li>
@@ -234,7 +234,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other.html">Other</a>
+            <a href="../Other%20Objects.html">Other Objects</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/PagingObject.html">PagingObject</a>
@@ -267,7 +267,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -969,7 +969,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">artistAlbums</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
-    <span class="nv">groups</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Other.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">groups</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
@@ -1183,6 +1183,599 @@ or the string &ldquo;from_token&rdquo;.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The full versions of up to 20 artists.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Follow"></a>
+                <a name="//apple_ref/swift/Section/Follow" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Follow"></a>
+                  <h3 class="section-name"><p>Follow</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserFollowsArtists(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if the current user follows the specified artists.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:userURIs:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowRead</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserFollowsArtists</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of artist URIs. Maximum: 50.
+  Passing in duplicates will result in a
+  502 &ldquo;Failed to check following status&rdquo; error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <code>true</code> or <code>false</code> values,
+  in the order requested, indicating whether the user
+  is following each artist.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserFollowsUsers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if the current user follows the specified users.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:userURIs:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowRead</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserFollowsUsers</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of user URIs. Maximum: 50.
+  Passing in duplicates will result in a
+  502 &ldquo;Failed to check following status&rdquo; error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <code>true</code> or <code>false</code> values,
+  in the order requested, indicating whether the user
+  is following each user.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF"></a>
+                    <a name="//apple_ref/swift/Method/usersFollowPlaylist(_:userURIs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:<wbr>userURIs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check to see if one or more Spotify users are following
+a specified playlist.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:)</a></code></p>
+
+<p>Following a playlist can be done publicly or privately.
+Checking if a user publicly follows a playlist doesn’t require
+any scopes; if the user is publicly following the playlist, this
+endpoint returns <code>true</code>. Checking if the user is privately following
+a playlist is only possible for the current user when that user has
+granted access to the <code>playlistReadPrivate</code> scope.</p>
+
+<p>If the user has created the playlist themself and it shows up
+in their Spotify client, then that also means that they are
+following it. See also <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist">Following and Unfollowing a Playlist</a>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/check-user-following-playlist/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">usersFollowPlaylist</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">userURIs</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI for a playlist</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userURIs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of up to <strong>5</strong> user URIs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <code>true</code> or <code>false</code> values,
+  in the order requested, indicating whether each
+  user is following the playlist.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/followArtistsForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followArtistsForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the current user as a follower of one or more artists.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followUsersForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF">followPlaylistForCurrentUser(_:publicly:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">followArtistsForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of artist URIs. Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/followUsersForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followUsersForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the current user as a follower of one or more users.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followArtistsForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF">followPlaylistForCurrentUser(_:publicly:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">followUsersForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of user URIs. Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C29unfollowArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/unfollowArtistsForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C29unfollowArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowArtistsForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unfollow one or more artists for the current user.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C27unfollowUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowUsersForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C30unfollowPlaylistForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_pF">unfollowPlaylistForCurrentUser(_:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unfollowArtistsForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of artist URIs. maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C27unfollowUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/unfollowUsersForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C27unfollowUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowUsersForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unfollow one or more users for the current user.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29unfollowArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowArtistsForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C30unfollowPlaylistForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_pF">unfollowPlaylistForCurrentUser(_:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unfollowUsersForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of user URIs. maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/followPlaylistForCurrentUser(_:publicly:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF">followPlaylistForCurrentUser(_:<wbr>publicly:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Follow a playlist for the current user.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followArtistsForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followUsersForCurrentUser(_:)</a></code>.</p>
+
+<p>Following a playlist publicly requires authorization of the
+<code>playlistModifyPublic</code> scope; following it privately requires
+the <code>playlistModifyPrivate</code> scope.</p>
+
+<p>Note that the scopes you provide relate only to whether the
+current user is following the playlist publicly or privately
+(i.e. showing others what they are following), not whether the
+playlist itself is public or private.</p>
+
+<p>See also the guide for <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">working with playlists</a>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">followPlaylistForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">publicly</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI for a playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicly</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. Defaults to <code>true</code>. If <code>true</code>, the playlist
+will be included in the user’s public playlists, if <code>false</code>, it
+will remain private. To be able to follow playlists privately,
+the user must have granted the <code>playlistModifyPrivate</code> scope.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C30unfollowPlaylistForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_pF"></a>
+                    <a name="//apple_ref/swift/Method/unfollowPlaylistForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C30unfollowPlaylistForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_pF">unfollowPlaylistForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unfollow a playlist for the current user.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29unfollowArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowArtistsForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C27unfollowUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">unfollowUsersForCurrentUser(_:)</a></code>.</p>
+
+<p>Spotify has no concept of deleting playlists. When a user
+deletes a playlist in their Spotify client, they are actually
+just unfollowing it. The playlist can always be retrieved again
+given a valid URI.</p>
+
+<p>Unfollowing a publicly followed playlist for a user requires
+authorization of the <code>playlistModifyPublic</code> scope; unfollowing
+a privately followed playlist requires the <code>playlistModifyPrivate</code>
+scope.</p>
+
+<p>Note that the scopes you provide relate only to whether the
+current user is following the playlist publicly or privately
+(i.e. showing others what they are following), not whether the
+playlist itself is public or private.</p>
+
+<p>See also the guide for <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">working with playlists</a>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unfollowPlaylistForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI for a playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -2033,6 +2626,9 @@ that is associated with their account in the <a href="https://www.spotify.com/se
 
 <p>This endpoint requires the <code>userReadPlaybackState</code> scope.</p>
 
+<p>This endpoint can be used to determine which devices
+are currently active.</p>
+
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/">Spotify web API reference</a>.</p>
 
                       </div>
@@ -2043,6 +2639,10 @@ that is associated with their account in the <a href="https://www.spotify.com/se
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">availableDevices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Device.html">Device</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-object">device objects</a>.</p>
                       </div>
                     </section>
                   </div>
@@ -2994,9 +3594,9 @@ and allows you to specify fields to filter the query.</p>
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0jnO0VGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 </ul>
 
 <p>No scopes are required for this endpoint. Both Public and
@@ -3101,9 +3701,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF"></a>
                     <a name="//apple_ref/swift/Method/playlist(_:market:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:<wbr>market:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:<wbr>market:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3118,7 +3718,7 @@ information about it.</p>
 
 <ul>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0jnO0VGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
 </ul>
 
@@ -3129,7 +3729,7 @@ images associated with it. See also <code><a href="../Classes/SpotifyAPI.html#/s
 <p>No scopes are required for this endpoint. Both Public and
 Private playlists belonging to any user can be retrieved.</p>
 <h1 id='returns' class='heading'>Returns:</h1>
-<pre class="highlight swift"><code><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">AnyPlaylistItem</span><span class="o">&gt;&gt;&gt;</span>
+<pre class="highlight swift"><code><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">PlaylistItem</span><span class="o">&gt;&gt;&gt;</span>
 </code></pre>
 
 <p>The full version of the playlist will be returned.</p>
@@ -3207,8 +3807,8 @@ Episodes in the playlist will not be returned.</p>
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0jnO0VGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
 </ul>
 
@@ -3305,9 +3905,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0jnO0VGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF"></a>
                     <a name="//apple_ref/swift/Method/playlistItems(_:limit:offset:market:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0jnO0VGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:<wbr>limit:<wbr>offset:<wbr>market:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:<wbr>limit:<wbr>offset:<wbr>market:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3320,7 +3920,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
 </ul>
@@ -3328,19 +3928,12 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
 <p>No scopes are required for this endpoint. Tracks from both Public
 and Private playlists belonging to any user can be retrieved.</p>
 <h1 id='returns' class='heading'>Returns:</h1>
-<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">AnyPlaylistItem</span><span class="o">&gt;&gt;</span>
+<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">PlaylistItem</span><span class="o">&gt;&gt;</span>
 </code></pre>
 
 <p>To get an array of just the tracks/episdoes, use:</p>
 <pre class="highlight swift"><code><span class="n">playlistTracks</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <code><a href="../Structs/AnyPlaylistItem.html">AnyPlaylistItem</a></code> only contains the properties
-  common to both tracks and episodes. Compare with <code><a href="../Structs/Track.html">Track</a></code>
-  and <code><a href="../Structs/Episode.html">Episode</a></code>.
-
-</div>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/">Spotify web API reference</a>.</p>
 
@@ -3444,16 +4037,16 @@ playlists. The <code>playlistReadCollaborative</code> scope is required to
 retrieve collarborative playlists, even though these are also
 always private. See also <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">Working with Playlists</a>.</p>
 <h1 id='returns' class='heading'>Returns:</h1>
-<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistsItemsReference</span><span class="o">&gt;</span>
+<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistsItemsReference</span><span class="o">&gt;&gt;</span>
 </code></pre>
 
 <p>The simplified versions of the playlists will be returned.</p>
 
 <p>A <code><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></code> simply contains a link to all of the
-tracks/episodes and the total number in the playlist. However,
-to get all of the tracks in each playlist, you should use
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code> instead, passing in
-the URI of each of the playlists. To get all of the URIs, use:</p>
+tracks/episodes and the total number in the playlist. To get all
+of the tracks in each playlist, you can use
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code>, passing in the URI of
+each of the playlists. To get all of the URIs, use:</p>
 <pre class="highlight swift"><code><span class="n">playlists</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
 </code></pre>
 
@@ -3626,7 +4219,7 @@ set of playlists.</p>
                       <div class="abstract">
                         <p>Get the current images associated with a specific playlist.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0giL0VGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code>.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/">Spotify web API reference</a>.</p>
 
@@ -3764,9 +4357,9 @@ appended to the list.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C14createPlaylist3for_7Combine12AnyPublisherVyAA0E0VyAA12PagingObjectVyAA0E13ItemContainerVyAA0heL0VGGGs5Error_pGAA0A14URIConvertible_p_AA0E7DetailsVtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C14createPlaylist3for_7Combine12AnyPublisherVyAA0E0VyAA12PagingObjectVyAA0E13ItemContainerVyAA0eL0OGGGs5Error_pGAA0A14URIConvertible_p_AA0E7DetailsVtF"></a>
                     <a name="//apple_ref/swift/Method/createPlaylist(for:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C14createPlaylist3for_7Combine12AnyPublisherVyAA0E0VyAA12PagingObjectVyAA0E13ItemContainerVyAA0heL0VGGGs5Error_pGAA0A14URIConvertible_p_AA0E7DetailsVtF">createPlaylist(for:<wbr>_:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C14createPlaylist3for_7Combine12AnyPublisherVyAA0E0VyAA12PagingObjectVyAA0E13ItemContainerVyAA0eL0OGGGs5Error_pGAA0A14URIConvertible_p_AA0E7DetailsVtF">createPlaylist(for:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -5170,7 +5763,7 @@ For example, to just get the next page, use <code>1</code>. Leave as
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-31)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

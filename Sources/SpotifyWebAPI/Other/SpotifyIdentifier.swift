@@ -16,18 +16,40 @@ import Logger
  */
 public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
-    /// Creates a comma separated string (with no spaces) of ids from a
-    /// sequence of URIs. Throws an error if any of the ids could not
-    /// be parsed from the URIs (used in the query parameter of some
-    /// requests).
-    ///
-    /// - Parameter uris: A sequence of Spotify URIs.
+    /**
+     Creates a comma separated string (with no spaces) of ids from a
+     sequence of URIs. Throws an error if any of the ids could not
+     be parsed from the URIs (used in the query parameter of some
+     requests).
+    
+     - Parameters:
+       - uris: A sequence of Spotify URIs.
+       - ensureAllTypesAre: Ensure the id categories of all the URIs
+             match a specified category.
+     - Throws: If `ensureAllTypesAre` is not `nil` and the type of a URI
+           does not match the required type or if an id could not be parsed
+           from a URI.
+     - Returns: A comma-separated string of Ids.
+     */
     public static func commaSeparatedIdsString<S: Sequence>(
-        _ uris: S
+        _ uris: S, ensureAllTypesAre type: IDCategory? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
         return try uris.map { uri in
-            return try Self(uri: uri.uri).id
+            
+            let spotifyIdentifier = try Self(uri: uri.uri)
+            
+            if let type = type {
+                guard spotifyIdentifier.idCategory == type else {
+                    throw SpotifyLocalError.other(
+                        "the type of all URIs must be \(type.rawValue), " +
+                        "but received \(spotifyIdentifier.idCategory.rawValue)"
+                    )
+                }
+            }
+            
+            return spotifyIdentifier.id
+            
         }
         .joined(separator: ",")
     }
@@ -39,8 +61,15 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     /// The id category for the Spotify content.
     public var idCategory: IDCategory
 
-    /// The unique resource identifier for the
-    /// Spotify content.
+    /**
+     The unique resource identifier for the Spotify content.
+     
+     Eqvuivalent to"
+     ```
+     "spotify:\(idCategory.rawValue):\(id.strip())"
+     ```
+     The strip method simply removes leading and trailing whitespace.
+     */
     @inlinable
     public var uri: String {
         "spotify:\(idCategory.rawValue):\(id.strip())"

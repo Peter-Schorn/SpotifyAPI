@@ -129,13 +129,13 @@
                 <a href="Structs/Playlist.html">Playlist</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/PlaylistItem.html">PlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/AnyPlaylistItem.html">AnyPlaylistItem</a>
               </li>
             </ul>
           </li>
@@ -234,7 +234,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other.html">Other</a>
+            <a href="Other%20Objects.html">Other Objects</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/PagingObject.html">PagingObject</a>
@@ -267,7 +267,7 @@
                 <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -362,6 +362,47 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI12PlaylistItemO"></a>
+                    <a name="//apple_ref/swift/Enum/PlaylistItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI12PlaylistItemO">PlaylistItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Either a track or an episode. Used for endpoints
+that return track and/or episode objects.</p>
+
+<p>This enum has two cases with associated values:</p>
+<pre class="highlight swift"><code><span class="k">case</span> <span class="nf">track</span><span class="p">(</span><span class="kt">Track</span><span class="p">)</span>
+<span class="k">case</span> <span class="nf">episode</span><span class="p">(</span><span class="kt">Episode</span><span class="p">)</span>
+</code></pre>
+
+<p>It also has convenience properties for every property
+that is common to both tracks and episodes, such as the name and URI.</p>
+
+<p>This is usually, but not always, returned in the context of
+a playlist.</p>
+
+                        <a href="Enums/PlaylistItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlaylistItem</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlaylistItem</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV"></a>
                     <a name="//apple_ref/swift/Struct/PlaylistItemContainer" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV">PlaylistItemContainer</a>
@@ -382,8 +423,8 @@ to the playlist. Spotify confusingly refers to this as a
 <ul>
 <li><code>addedAt</code>: The date and time the track or episode was added.</li>
 <li><code>addedBy</code>: The Spotify user who added the track or episode.</li>
-<li><code>isLocal</code>: Whether or not the item is from a <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files">local file</a>.</li>
-<li><code>item</code>: Either a <code><a href="Structs/Track.html">Track</a></code> or an <code><a href="Structs/Episode.html">Episode</a></code> (simplified version).</li>
+<li><code>isLocal</code>: Whether or not the track or episode is from a <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files">local file</a>.</li>
+<li><code>item</code>: Either a <code><a href="Structs/Track.html">Track</a></code>, <code><a href="Structs/Episode.html">Episode</a></code>, or <code><a href="Enums/PlaylistItem.html">PlaylistItem</a></code>  (simplified version).</li>
 </ul>
 
                         <a href="Structs/PlaylistItemContainer.html" class="slightly-smaller">See more</a>
@@ -435,55 +476,12 @@ which prevents the response from becoming too long.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI15AnyPlaylistItemV"></a>
-                    <a name="//apple_ref/swift/Struct/AnyPlaylistItem" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI15AnyPlaylistItemV">AnyPlaylistItem</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Either a track or an episode. Used for endpoints
-that return track and/or episode objects.</p>
-
-<p>This is usually, but not always, returned in the context of
-a playlist.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    This struct is limited to the properties
-  common to both tracks and episodes. Compare with
-  <code><a href="Structs/Track.html">Track</a></code> and <code><a href="Structs/Episode.html">Episode</a></code>.
-
-</div>
-
-<p>Use the <code>type</code> property to check whether the item is
-a track or an episode.</p>
-
-                        <a href="Structs/AnyPlaylistItem.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AnyPlaylistItem</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AnyPlaylistItem</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-31)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

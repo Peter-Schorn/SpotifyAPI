@@ -46,7 +46,7 @@ public struct CurrentlyPlayingContext: Hashable {
     ///
     /// Can be `nil`. For example, If the user has a private
     /// session enabled, then this will be `nil`.
-    public let item: AnyPlaylistItem?
+    public let item: PlaylistItem?
     
     /// The object type of the currently playing item.
     /// Can be `track`, `episode`, or `unknown`.
@@ -107,7 +107,7 @@ extension CurrentlyPlayingContext: Codable {
             Bool.self, forKey: .isPlaying
         )
         self.item = try container.decodeIfPresent(
-            AnyPlaylistItem.self, forKey: .item
+            PlaylistItem.self, forKey: .item
         )
         self.currentlyPlayingType = try container.decode(
             IDCategory.self, forKey: .currentlyPlayingType
