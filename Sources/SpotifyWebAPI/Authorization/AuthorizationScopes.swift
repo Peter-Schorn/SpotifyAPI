@@ -49,7 +49,7 @@ import Logger
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
  - Tag: Scopes
  */
-public enum Scope: String, Codable, Hashable {
+public enum Scope: String, Codable, CaseIterable, Hashable {
     
     // MARK: Images
     
@@ -132,6 +132,29 @@ public enum Scope: String, Codable, Hashable {
     /// other users that the user follows.
     case userFollowModify = "user-follow-modify"
     
+    /// A `Set` of all the authorization scopes.
+    public static var allCases: Set<Scope> = [
+        .ugcImageUpload,
+        .userReadPlaybackState,
+        .userModifyPlaybackState,
+        .userReadCurrentlyPlaying,
+        .streaming,
+        .appRemoteControl,
+        .userReadEmail,
+        .userReadPrivate,
+        .playlistReadCollaborative,
+        .playlistModifyPublic,
+        .playlistReadPrivate,
+        .playlistModifyPrivate,
+        .userLibraryModify,
+        .userLibraryRead,
+        .userTopRead,
+        .userReadPlaybackPosition,
+        .userReadRecentlyPlayed,
+        .userFollowRead,
+        .userFollowModify
+    ]
+    
 }
 
 // MARK: - Convience methods -
@@ -142,7 +165,7 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeArray(_:)`,
+     This is the opposite of `Scope.makeSet(_:)`,
      which makes `Set<Scope>` from a string of
      (usually space-separated) scopes.
     
@@ -160,7 +183,7 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeArray(_:)`,
+     This is the opposite of `Scope.makeSet(_:)`,
      which makes `Set<Scope>` from a string of
      (usually space-separated) scopes.
     
@@ -218,36 +241,5 @@ public extension Scope {
         return Self.allCases.map(\.rawValue).contains(scope.strip())
     }
     
-    
-}
-
-
-extension Scope: CaseIterable {
-    
-    /// A `Set` of all the authorization scopes.
-    public static var allCases: Set<Scope> {
-        return [
-            .ugcImageUpload,
-            .userReadPlaybackState,
-            .userModifyPlaybackState,
-            .userReadCurrentlyPlaying,
-            .streaming,
-            .appRemoteControl,
-            .userReadEmail,
-            .userReadPrivate,
-            .playlistReadCollaborative,
-            .playlistModifyPublic,
-            .playlistReadPrivate,
-            .playlistModifyPrivate,
-            .userLibraryModify,
-            .userLibraryRead,
-            .userTopRead,
-            .userReadPlaybackPosition,
-            .userReadRecentlyPlayed,
-            .userFollowRead,
-            .userFollowModify
-         
-        ]
-    }
     
 }
