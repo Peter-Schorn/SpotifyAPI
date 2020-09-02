@@ -93,6 +93,7 @@ spotify.currentUserPlaylists()
 ```
 
 The full documentation for all of the endpoints can be found [here][8].
+You are also encouraged to read the [Spotify web API reference][12].
 
 ### Authorizing with the Client Credentials Flow
 
@@ -137,6 +138,7 @@ spotify.search(query: "Pink Floyd", types: [.track])
 ```
 
 The full documentation for all of the endpoints can be found [here][8].
+You are also encouraged to read the [Spotify web API reference][12].
 
 [1]: https://peter-schorn.github.io/SpotifyAPI/
 [2]: https://developer.spotify.com/dashboard/login
@@ -149,3 +151,4 @@ The full documentation for all of the endpoints can be found [here][8].
 [9]: https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-authorization-code-flow
 [10]: https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-client-credentials-flow
 [11]: https://github.com/Peter-Schorn/SpotifyAPI#quick-start
+[12]: https://developer.spotify.com/documentation/web-api/reference/
