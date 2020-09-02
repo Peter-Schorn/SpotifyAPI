@@ -4,6 +4,10 @@
 
 Read the full [documentation][1].
 
+* **[Quick Start][11]**
+* **[Authorizing with the Authorization Code Flow][9]**  
+* **[Authorizing with the Client Credentials Flow][10]**
+
 ## Quick Start
 
 To get started, go to the [Spotify Developer Dashboard][2] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app.
@@ -142,3 +146,6 @@ The full documentation for all of the endpoints can be found [here][8].
 [6]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VAK_SbSSSgShyAA5ScopeOGtF
 [7]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF
 [8]: https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html
+[9]: https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-authorization-code-flow
+[10]: https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-client-credentials-flow
+[11]: https://github.com/Peter-Schorn/SpotifyAPI#quick-start
