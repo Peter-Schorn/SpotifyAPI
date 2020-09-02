@@ -71,6 +71,61 @@ spotify.authorizationManager.requestAccessAndRefreshTokens(
 .store(in: &cancellables)
 ```
 
+Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
+```
+spotify.currentUserPlaylists()
+    .extendPages(spotify)
+    .sink(
+        receiveCompletion: { completion in
+            print(completion)
+        },
+        receiveValue: { results in
+            print(results)
+        }
+    )
+    .store(in: &cancellables)
+```
+
+### Authorizing with the Client Credentials Flow
+
+Create an instance of `SpotifyAPI` and assign an instance of `ClientCredentialsFlowManager` to the `authorizationManager` property:
+```
+let spotify = SpotifyAPI(
+    authorizationManager: ClientCredentialsFlowManager(
+        clientId: "Your Client Id", clientSecret: "Your Client Secret"
+    )
+)
+```
+
+To authorize your application, call `authorize()`:
+```
+spotify.authorizationManager.authorize()
+    .sink(
+        receiveCompletion: { completion in
+            switch completion {
+                case .finished:
+                    print("successfully authorized application")
+                case .failure(let error):
+                    print("could not authorize application: \(error)")
+            }
+        }
+    )
+    .store(in: &cancellables)
+```
+Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
+```
+spotify.search(query: "Pink Floyd", types: [.track])
+    .sink(
+        receiveCompletion: { completion in
+            print(completion)
+        },
+        receiveValue: { results in
+            print(results)
+        }
+    )
+    .store(in: &cancellables)
+```
+
 
 [1]: https://peter-schorn.github.io/SpotifyAPI/
 [2]: https://developer.spotify.com/dashboard/login
