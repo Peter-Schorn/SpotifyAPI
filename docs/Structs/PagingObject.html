@@ -359,7 +359,7 @@ next and limit that can be useful in future calls.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A link to the Spotify web API endpoint returning
-the full result of the request.</p>
+the full result of the request in this <code>PagingObject</code>.</p>
 
 <p>Use <code>getFromHref(_:responseType:)</code>, passing in the type of this
 <code>PagingObject</code> to retrieve the results.</p>
@@ -416,8 +416,8 @@ the full result of the request.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The maximum number of items in the response
-(as set in the query or by default).</p>
+                        <p>The maximum number of items in this page (as set in the
+query or by default) in this <code>PagingObject</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -476,7 +476,8 @@ the full result of the request.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The URL (href) to the previous page of items or <code>nil</code> if none.</p>
+                        <p>The URL (href) to the previous page of items or <code>nil</code> if none
+in this <code>PagingObject</code>.</p>
 
 <p>Use <code>getFromHref(_:responseType:)</code>, passing in the type of this
 <code>PagingObject</code> to retrieve the results.</p>
@@ -508,8 +509,8 @@ the full result of the request.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The offset of the items returned
-(as set in the query or by default).</p>
+                        <p>The offset of the items returned (as set in the query or
+by default) in this <code>PagingObject</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -536,7 +537,8 @@ the full result of the request.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The maximum number of items available to return.</p>
+                        <p>The maximum number of items available to return in this
+<code>PagingObject</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -578,12 +580,13 @@ the full result of the request.</p>
                       <div class="abstract">
                         <p>The total number of pages available, including this page.</p>
 
-<p>This property is calculated by dividing <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> by <code>items.count</code>
+<p>This property is calculated by dividing <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> by <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code>
 and rounding up to the nearest integer. For example, if <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> is
-745 and <code>items.count</code> is 100, then <code>totalPages</code> is 8.</p>
+745 and <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> is 100, then <code>totalPages</code> is 8.</p>
 
 <p><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> represents the maximum number of items available to return.
-<code>items.count</code> represents the number of items in this page.</p>
+<code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> represents the number of items in this page. (as set in the
+query or by default</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     This calculation assumes that the limit for each page
@@ -630,7 +633,8 @@ to the values that were used to retrieve this <code>PagingObject</code>.</p>
 <p>If this <code>PagingObject</code> was retrieved from a method that does not have
 <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV6offsetSivp">offset</a></code> and <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> parameters, such as <code>playlist(_:market:)</code> and
 <code>createPlaylist(for:_:)</code>, then this method returns <code>nil</code> and you should
-never call it in the first place.</p>
+never call it in the first place. <strong>If this PagingObject is nested inside</strong>
+<strong>another object, then this method will return nil.</strong></p>
 
 <p>See also:</p>
 
@@ -662,7 +666,9 @@ items available to return, otherwise you will get an empty array of items.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPage</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">@inline</span><span class="p">(</span><span class="n">__always</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPage</span><span class="p">(</span>
     <span class="nv">atOffset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
 
@@ -766,7 +772,7 @@ was retrieved from.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-01)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

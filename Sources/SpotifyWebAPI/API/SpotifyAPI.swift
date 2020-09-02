@@ -77,9 +77,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
             .subscribe(authorizationManagerDidChange)
             .store(in: &cancellables)
         
-        self.setupDebugging()
     }
-    
 
 }
 
@@ -89,7 +87,7 @@ extension SpotifyAPI {
     /// Only use it for testing purposes.
     func setupDebugging() {
 
-        self.logger.level = .warning
+        self.logger.level = .trace
         self.apiRequestLogger.level = .trace
         
         CurrentlyPlayingContext.logger.level = .trace

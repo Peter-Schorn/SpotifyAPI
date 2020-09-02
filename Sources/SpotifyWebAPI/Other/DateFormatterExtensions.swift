@@ -2,24 +2,27 @@ import Foundation
 
 public extension DateFormatter {
     
-    /// "YYYY-MM-DD" Date format.
+    /// "yyyy-MM-dd" Date format.
     static let spotifyAlbumLong: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-DD"
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = .autoupdatingCurrent
         return formatter
     }()
     
-    /// "YYYY-MM" Date format.
+    /// "yyyy-MM" Date format.
     static let spotifyAlbumMedium: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM"
+        formatter.dateFormat = "yyyy-MM"
+        formatter.locale = .autoupdatingCurrent
         return formatter
     }()
     
-    /// "YYYY" Date format.
+    /// "yyyy" Date format.
     static let spotifyAlbumShort: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
+        formatter.dateFormat = "yyyy"
+        formatter.locale = .autoupdatingCurrent
         return formatter
     }()
     
@@ -31,6 +34,7 @@ public extension DateFormatter {
     static let shortTime: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "hh-mm-ss"
+        formatter.locale = .autoupdatingCurrent
         return formatter
     }()
     

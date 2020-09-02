@@ -21,7 +21,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
     /**
      A link to the Spotify web API endpoint returning
-     the full result of the request.
+     the full result of the request in this `PagingObject`.
      
      Use `getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
@@ -31,8 +31,8 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /// An array of the requested data in this `PagingObject`.
     public let items: [Item]
      
-    /// The maximum number of items in the response
-    /// (as set in the query or by default).
+    /// The maximum number of items in this page (as set in the
+    /// query or by default) in this `PagingObject`.
     public let limit: Int
     
     /**
@@ -46,7 +46,8 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     public let next: String?
     
     /**
-     The URL (href) to the previous page of items or `nil` if none.
+     The URL (href) to the previous page of items or `nil` if none
+     in this `PagingObject`.
     
      Use `getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
@@ -55,14 +56,16 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
      */
     public let previous: String?
 
-    /// The offset of the items returned
-    /// (as set in the query or by default).
+    /// The offset of the items returned (as set in the query or
+    /// by default) in this `PagingObject`.
     public let offset: Int
 
-    /// The maximum number of items available to return.
+    /// The maximum number of items available to return in this
+    /// `PagingObject`.
     public let total: Int
     
     /// Do **NOT** use this method. Use `getPage(atOffset:limit:)` instead.
+    @usableFromInline
     var _getPage: (
         (_ atOffset: Int, _ limit: Int?) -> AnyPublisher<Self, Error>
     )? = nil
@@ -76,12 +79,13 @@ extension PagingObject {
     /**
      The total number of pages available, including this page.
      
-     This property is calculated by dividing `total` by `items.count`
+     This property is calculated by dividing `total` by `limit`
      and rounding up to the nearest integer. For example, if `total` is
-     745 and `items.count` is 100, then `totalPages` is 8.
+     745 and `limit` is 100, then `totalPages` is 8.
      
      `total` represents the maximum number of items available to return.
-     `items.count` represents the number of items in this page.
+     `limit` represents the number of items in this page. (as set in the
+     query or by default
      
      - Warning: This calculation assumes that the limit for each page
            will be the same as *this* page.
@@ -116,7 +120,8 @@ extension PagingObject {
      If this `PagingObject` was retrieved from a method that does not have
      `offset` and `limit` parameters, such as `playlist(_:market:)` and
      `createPlaylist(for:_:)`, then this method returns `nil` and you should
-     never call it in the first place.
+     never call it in the first place. **If this PagingObject is nested inside**
+     **another object, then this method will return nil.**
      
      See also:
      
@@ -149,6 +154,7 @@ extension PagingObject {
              was retrieved from.
      - Returns: Another Paging object with the requested results.
      */
+    @inlinable @inline(__always)
     public func getPage(
         atOffset: Int, limit: Int? = nil
     ) -> AnyPublisher<Self, Error>? {

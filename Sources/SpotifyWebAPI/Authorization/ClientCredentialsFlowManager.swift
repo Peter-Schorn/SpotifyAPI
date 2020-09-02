@@ -56,6 +56,10 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// to check if the token is expired.
     public var expirationDate: Date?
     
+    private var updateAuthInfoDispatchQueue = DispatchQueue(
+        label: "updateAuthInfoDispatchQueue"
+    )
+    
     /**
      A Publisher that emits **after** this
      `ClientCredentialsFlowManager` has changed.
@@ -225,7 +229,7 @@ public extension ClientCredentialsFlowManager {
         )
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
-        .receive(on: RunLoop.main)
+        .receive(on: self.updateAuthInfoDispatchQueue)
         .map { authInfo in
          
             Self.logger.trace("received authInfo:\n\(authInfo)")

@@ -63,6 +63,10 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     public private(set) var scopes: Set<Scope>? = nil
     
     private var cancellables: Set<AnyCancellable> = []
+    
+    private var updateAuthInfoDispatchQueue = DispatchQueue(
+        label: "updateAuthInfoDispatchQueue"
+    )
 
     /// A `PassthroughSubject` that emits **after** this
     /// `AuthorizationCodeFlowManager` has changed.
@@ -368,7 +372,7 @@ public extension AuthorizationCodeFlowManager {
         )
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
-        .receive(on: RunLoop.main)
+        .receive(on: self.updateAuthInfoDispatchQueue)
         .map { authInfo in
             
             Self.logger.trace("received authInfo:\n\(authInfo)")

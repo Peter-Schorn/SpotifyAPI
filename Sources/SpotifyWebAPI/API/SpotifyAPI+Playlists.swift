@@ -421,7 +421,12 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+        .decodeSpotifyPagingObject(
+            Playlist<PlaylistsItemsReference>.self
+        ) { offset, limit in
+            self.currentUserPlaylists(limit: limit, offset: offset)
+        }
+        // .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
         
     }
     
@@ -486,7 +491,15 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+            .decodeSpotifyPagingObject(
+                Playlist<PlaylistsItemsReference>.self
+            ) { offset, limit in
+                self.userPlaylists(
+                    for: userURI,
+                    limit: limit,
+                    offset: offset
+                )
+            }
     
         } catch {
             return error.anyFailingPublisher(

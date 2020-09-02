@@ -3,7 +3,7 @@ import Combine
 import Logger
 
 /**
- An object that can manage the authorization process for the
+ A type that can manage the authorization process for the
  Spotify web API.
  
  It provides an access token, the scopes

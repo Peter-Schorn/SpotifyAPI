@@ -328,6 +328,12 @@
 <p><strong>A Swift library for the Spotify web API</strong></p>
 
 <p>Read the full <a href="https://peter-schorn.github.io/SpotifyAPI/">documentation</a>.</p>
+
+<ul>
+<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#quick-start">Quick Start</a></strong></li>
+<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-authorization-code-flow">Authorizing with the Authorization Code Flow</a></strong><br></li>
+<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-client-credentials-flow">Authorizing with the Client Credentials Flow</a></strong></li>
+</ul>
 <h2 id='quick-start' class='heading'>Quick Start</h2>
 
 <p>To get started, go to the <a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app. You will receive a client id and client secret. Then, click on &ldquo;edit settings&rdquo; and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app.</p>
@@ -341,24 +347,26 @@
 <h3 id='authorizing-with-the-authorization-code-flow' class='heading'>Authorizing with the Authorization Code Flow</h3>
 
 <p>Create an instance of <code><a href="Classes/SpotifyAPI.html">SpotifyAPI</a></code> and assign an instance of <code><a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> to the <code>authorizationManager</code> property:</p>
-<pre class="highlight plaintext"><code>let spotify = SpotifyAPI(
-    authorizationManager: AuthorizationCodeFlowManager(
-        clientId: "Your Client Id", clientSecret: "Your Client Secret"
-    )
-)
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SpotifyWebAPI</span>
+
+<span class="k">let</span> <span class="nv">spotify</span> <span class="o">=</span> <span class="kt">SpotifyAPI</span><span class="p">(</span>
+    <span class="nv">authorizationManager</span><span class="p">:</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">(</span>
+        <span class="nv">clientId</span><span class="p">:</span> <span class="s">"Your Client Id"</span><span class="p">,</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="s">"Your Client Secret"</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </code></pre>
 
 <p>Next, create the authorization URL that will be opened in a browser (or web view):</p>
-<pre class="highlight plaintext"><code>let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
-    redirectURI: URL(string: "Your Redirect URI")!,
-    showDialog: false,
-    scopes: [
-        .playlistModifyPrivate,
-        .userModifyPlaybackState,
-        .playlistReadCollaborative,
-        .userReadPlaybackPosition
-    ]
-)!
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">authorizationURL</span> <span class="o">=</span> <span class="n">spotify</span><span class="o">.</span><span class="n">authorizationManager</span><span class="o">.</span><span class="nf">makeAuthorizationURL</span><span class="p">(</span>
+    <span class="nv">redirectURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"Your Redirect URI"</span><span class="p">)</span><span class="o">!</span><span class="p">,</span>
+    <span class="nv">showDialog</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nv">scopes</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="n">playlistModifyPrivate</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">userModifyPlaybackState</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">playlistReadCollaborative</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">userReadPlaybackPosition</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">!</span>
 </code></pre>
 
 <p>See the full documentation for <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VAK_SbSSSgShyAA5ScopeOGtF">makeAuthorizationURL(redirectURI:showDialog:state:scopes:)</a>.</p>
@@ -371,88 +379,92 @@
 <p>If you are creating an iOS app, then you can use <code>UIApplication.shared.open(authorizationURL)</code> to open the URL in the browser. The user will then be asked to login to their Spotify account and approve your application. </p>
 
 <p>After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a> to request the access and refresh tokens:</p>
-<pre class="highlight plaintext"><code>spotify.authorizationManager.requestAccessAndRefreshTokens(
-    redirectURIWithQuery: url
-)
-.sink(
-    receiveCompletion: { completion in
-        switch completion {
-            case .finished:
-                print("successfully authorized")
-            case .failure(let error):
-                if let authError = error as? SpotifyAuthorizationError {
-                    if authError.accessWasDenied {
-                        print("The user denied the authorization request")
-                    }
-                }
-                else {
-                    print("couldn't authorize application: \(error)")
-                }
-        }
-    }
-)
-.store(in: &amp;cancellables)
+<pre class="highlight swift"><code><span class="n">spotify</span><span class="o">.</span><span class="n">authorizationManager</span><span class="o">.</span><span class="nf">requestAccessAndRefreshTokens</span><span class="p">(</span>
+    <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="n">url</span>
+<span class="p">)</span>
+<span class="o">.</span><span class="nf">sink</span><span class="p">(</span>
+    <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">completion</span> <span class="k">in</span>
+        <span class="k">switch</span> <span class="n">completion</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="o">.</span><span class="nv">finished</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="s">"successfully authorized"</span><span class="p">)</span>
+            <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+                <span class="k">if</span> <span class="k">let</span> <span class="nv">authError</span> <span class="o">=</span> <span class="n">error</span> <span class="k">as?</span> <span class="kt">SpotifyAuthorizationError</span><span class="p">,</span> <span class="n">authError</span><span class="o">.</span><span class="n">accessWasDenied</span> <span class="p">{</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="s">"The user denied the authorization request"</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="s">"couldn't authorize application: </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="o">.</span><span class="nf">store</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">cancellables</span><span class="p">)</span>
 </code></pre>
 
 <p>Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:</p>
-<pre class="highlight plaintext"><code>spotify.currentUserPlaylists()
-    .extendPages(spotify)
-    .sink(
-        receiveCompletion: { completion in
-            print(completion)
-        },
-        receiveValue: { results in
-            print(results)
-        }
-    )
-    .store(in: &amp;cancellables)
+<pre class="highlight swift"><code><span class="n">spotify</span><span class="o">.</span><span class="nf">currentUserPlaylists</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">extendPages</span><span class="p">(</span><span class="n">spotify</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">sink</span><span class="p">(</span>
+        <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">completion</span> <span class="k">in</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="nv">receiveValue</span><span class="p">:</span> <span class="p">{</span> <span class="n">results</span> <span class="k">in</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">store</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">cancellables</span><span class="p">)</span>
 </code></pre>
 
-<p>The full documentation for all of the endpoints can be found <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">here</a>.</p>
+<p>The full documentation for all of the endpoints can be found <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">here</a>.
+You are also encouraged to read the <a href="https://developer.spotify.com/documentation/web-api/reference/">Spotify web API reference</a>.</p>
 <h3 id='authorizing-with-the-client-credentials-flow' class='heading'>Authorizing with the Client Credentials Flow</h3>
 
 <p>Create an instance of <code><a href="Classes/SpotifyAPI.html">SpotifyAPI</a></code> and assign an instance of <code><a href="Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code> to the <code>authorizationManager</code> property:</p>
-<pre class="highlight plaintext"><code>let spotify = SpotifyAPI(
-    authorizationManager: ClientCredentialsFlowManager(
-        clientId: "Your Client Id", clientSecret: "Your Client Secret"
-    )
-)
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SpotifyWebAPI</span>
+
+<span class="k">let</span> <span class="nv">spotify</span> <span class="o">=</span> <span class="kt">SpotifyAPI</span><span class="p">(</span>
+    <span class="nv">authorizationManager</span><span class="p">:</span> <span class="kt">ClientCredentialsFlowManager</span><span class="p">(</span>
+        <span class="nv">clientId</span><span class="p">:</span> <span class="s">"Your Client Id"</span><span class="p">,</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="s">"Your Client Secret"</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </code></pre>
 
 <p>To authorize your application, call <code>authorize()</code>:</p>
-<pre class="highlight plaintext"><code>spotify.authorizationManager.authorize()
-    .sink(
-        receiveCompletion: { completion in
-            switch completion {
-                case .finished:
-                    print("successfully authorized application")
-                case .failure(let error):
-                    print("could not authorize application: \(error)")
-            }
-        }
-    )
-    .store(in: &amp;cancellables)
+<pre class="highlight swift"><code><span class="n">spotify</span><span class="o">.</span><span class="n">authorizationManager</span><span class="o">.</span><span class="nf">authorize</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">sink</span><span class="p">(</span>
+        <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">completion</span> <span class="k">in</span>
+            <span class="k">switch</span> <span class="n">completion</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="o">.</span><span class="nv">finished</span><span class="p">:</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="s">"successfully authorized application"</span><span class="p">)</span>
+                <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="s">"could not authorize application: </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">store</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">cancellables</span><span class="p">)</span>
 </code></pre>
+
+<p>See the full documentation for <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/ClientCredentialsFlowManager.html#/s:13SpotifyWebAPI28ClientCredentialsFlowManagerC9authorize7Combine12AnyPublisherVyyts5Error_pGyF">authorize</a>.</p>
 
 <p>Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:</p>
-<pre class="highlight plaintext"><code>spotify.search(query: "Pink Floyd", types: [.track])
-    .sink(
-        receiveCompletion: { completion in
-            print(completion)
-        },
-        receiveValue: { results in
-            print(results)
-        }
-    )
-    .store(in: &amp;cancellables)
+<pre class="highlight swift"><code><span class="n">spotify</span><span class="o">.</span><span class="nf">search</span><span class="p">(</span><span class="nv">query</span><span class="p">:</span> <span class="s">"Pink Floyd"</span><span class="p">,</span> <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">track</span><span class="p">])</span>
+    <span class="o">.</span><span class="nf">sink</span><span class="p">(</span>
+        <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">completion</span> <span class="k">in</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="nv">receiveValue</span><span class="p">:</span> <span class="p">{</span> <span class="n">results</span> <span class="k">in</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">store</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">cancellables</span><span class="p">)</span>
 </code></pre>
 
-<p>The full documentation for all of the endpoints can be found <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">here</a>.</p>
+<p>The full documentation for all of the endpoints can be found <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">here</a>.
+You are also encouraged to read the <a href="https://developer.spotify.com/documentation/web-api/reference/">Spotify web API reference</a>.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-01)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

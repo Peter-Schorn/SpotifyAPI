@@ -32,20 +32,16 @@ final class CodingTimeReferenceTests: XCTestCase {
     func testCodingTimeReference() {
         
         let timeReference1 = TimeReference.before(Date())
-        if let string = encodeDecode(
+        encodeDecode(
             timeReference1,
             areEqual: Self.timeReferencesAreApproximatelyEqual(lhs:rhs:)
-        ) {
-            print(string)
-        }
+        )
         
         let timeReference2 = TimeReference.after(Date())
-        if let string = encodeDecode(
+        encodeDecode(
             timeReference2,
             areEqual: Self.timeReferencesAreApproximatelyEqual(lhs:rhs:)
-        ) {
-            print(string)
-        }
+        )
         
         for _ in 1...10_000 {
             let randomInterval = Double.random(in: -1_000_000_000...1_000_000_000)

@@ -25,9 +25,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
                 positionMS: 50_000  // 50 seconds
             )
         
-            if let dataString = encodeDecode(playbackRequest) {
-                print("\n\(dataString)\n")
-            }
+            encodeDecode(playbackRequest)
         }
         do {
             let playbackRequest = PlaybackRequest(
@@ -40,10 +38,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
                 positionMS: 50_000  // 50 seconds
             )
             
-            if let dataString = encodeDecode(playbackRequest) {
-                print("\n\(dataString)\n")
-            }
-
+            encodeDecode(playbackRequest)
         }
             
         do {
@@ -53,9 +48,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
                 positionMS: 100_000  // 100 seconds
             )
         
-            if let dataString = encodeDecode(playbackRequest) {
-                print("\n\(dataString)\n")
-            }
+            encodeDecode(playbackRequest)
         }
         do {
             let playbackRequest = PlaybackRequest(
@@ -64,9 +57,7 @@ final class CodingPlaybackRequestTests: XCTestCase {
                 positionMS: 100_000  // 100 seconds
             )
         
-            if let dataString = encodeDecode(playbackRequest) {
-                print("\n\(dataString)\n")
-            }
+            encodeDecode(playbackRequest)
         }
         
         

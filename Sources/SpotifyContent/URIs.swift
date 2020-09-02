@@ -67,6 +67,7 @@ public enum URIs {
         case tiger = "spotify:album:4OPBRShV2OxYoT4hAenDPl"
         case saladDays = "spotify:album:7xPhDaYZ2ejV04aNtdBdvj"
         case meddle = "spotify:album:468ZwCchVtzEbt9BHmXopb"
+        case longestAlbum = "spotify:album:1Hnvk7i2oLf4ZQnOB8kYqt"
     }
 
     // MARK: - Tracks -
