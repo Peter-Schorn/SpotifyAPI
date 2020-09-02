@@ -658,19 +658,6 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/auth
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Codable%20Conformance"></a>
-                <a name="//apple_ref/swift/Section/Codable Conformance" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Codable%20Conformance"></a>
-                  <h3 class="section-name"><p>Codable Conformance</p>
-</h3>
-                </div>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -862,9 +849,9 @@ is authorized for the specified scopes, else <code>false</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VAK_SbSSSgShyAA5ScopeOGtF"></a>
+                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VSgAK_SbSSSgShyAA5ScopeOGtF"></a>
                     <a name="//apple_ref/swift/Method/makeAuthorizationURL(redirectURI:showDialog:state:scopes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VAK_SbSSSgShyAA5ScopeOGtF">makeAuthorizationURL(redirectURI:<wbr>showDialog:<wbr>state:<wbr>scopes:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VSgAK_SbSSSgShyAA5ScopeOGtF">makeAuthorizationURL(redirectURI:<wbr>showDialog:<wbr>state:<wbr>scopes:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -901,7 +888,7 @@ the authorization process.</p>
     <span class="nv">showDialog</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="nv">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URL</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -919,7 +906,7 @@ the authorization process.</p>
                                 <div>
                                   <p>The location that Spotify will redirect to
 after the user authorizes or denies authorization for your app.
-This should link to a location in your app.
+Usually, this should link to a location in your app.
 This URI needs to have been entered in the Redirect URI whitelist
 that you specified when you registered your application.
 The value must exactly match one of the values you entered when
@@ -982,7 +969,9 @@ attacks such as cross-site request forgery.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The URL that must be opened to authorize your app.</p>
+                        <p>The URL that must be opened to authorize your app. May return
+  <code>nil</code> if the URL could not be created (e.g., the client id or client
+  secret have spaces).</p>
                       </div>
                     </section>
                   </div>

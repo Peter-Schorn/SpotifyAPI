@@ -19,7 +19,8 @@ public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
     public let state: String?
     
     /// Returns `true` if `error` == "access_denied".
-    /// Else, `false`.
+    /// Else, `false`. If `true`, then the user denied your app's
+    /// authorization request.
     public var accessWasDenied: Bool {
         return error == "access_denied"
     }

@@ -103,8 +103,6 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         self.didChange.send()
     }
     
-    // MARK: - Codable Conformance -
-        
     public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)

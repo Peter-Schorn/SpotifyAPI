@@ -16,7 +16,7 @@ The next step is authorizing your app. This library supports two authorization m
 ### Authorizing with the Authorization Code Flow
 
 Create an instance of `SpotifyAPI` and assign an instance of `AuthorizationCodeFlowManager` to the `authorizationManager` property:
-```
+```swift
 let spotify = SpotifyAPI(
     authorizationManager: AuthorizationCodeFlowManager(
         clientId: "Your Client Id", clientSecret: "Your Client Secret"
@@ -24,7 +24,7 @@ let spotify = SpotifyAPI(
 )
 ```
 Next, create the authorization URL that will be opened in a browser (or web view):
-```
+```swift
 let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
     redirectURI: URL(string: "Your Redirect URI")!,
     showDialog: false,
@@ -47,7 +47,7 @@ The documentation for each endpoint lists the [authorization scopes][5] that are
 If you are creating an iOS app, then you can use `UIApplication.shared.open(authorizationURL)` to open the URL in the browser. The user will then be asked to login to their Spotify account and approve your application. 
 
 After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into [requestAccessAndRefreshTokens(redirectURIWithQuery:state:)][7] to request the access and refresh tokens:
-```
+```swift
 spotify.authorizationManager.requestAccessAndRefreshTokens(
     redirectURIWithQuery: url
 )
@@ -72,7 +72,7 @@ spotify.authorizationManager.requestAccessAndRefreshTokens(
 ```
 
 Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
-```
+```swift
 spotify.currentUserPlaylists()
     .extendPages(spotify)
     .sink(
@@ -91,7 +91,7 @@ The full documentation for all of the endpoints can be found [here][8].
 ### Authorizing with the Client Credentials Flow
 
 Create an instance of `SpotifyAPI` and assign an instance of `ClientCredentialsFlowManager` to the `authorizationManager` property:
-```
+```swift
 let spotify = SpotifyAPI(
     authorizationManager: ClientCredentialsFlowManager(
         clientId: "Your Client Id", clientSecret: "Your Client Secret"
@@ -100,7 +100,7 @@ let spotify = SpotifyAPI(
 ```
 
 To authorize your application, call `authorize()`:
-```
+```swift
 spotify.authorizationManager.authorize()
     .sink(
         receiveCompletion: { completion in
@@ -115,7 +115,7 @@ spotify.authorizationManager.authorize()
     .store(in: &cancellables)
 ```
 Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
-```
+```swift
 spotify.search(query: "Pink Floyd", types: [.track])
     .sink(
         receiveCompletion: { completion in

@@ -100,8 +100,6 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         self.clientSecret = clientSecret
     }
     
-    // MARK: - Codable Conformance -
-        
     public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -228,7 +226,7 @@ public extension AuthorizationCodeFlowManager {
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
              after the user authorizes or denies authorization for your app.
-             This should link to a location in your app.
+             Usually, this should link to a location in your app.
              This URI needs to have been entered in the Redirect URI whitelist
              that you specified when you registered your application.
              The value must exactly match one of the values you entered when
@@ -250,7 +248,9 @@ public extension AuthorizationCodeFlowManager {
              originated in the same browser. This provides protection against
              attacks such as cross-site request forgery.
        - scopes: A set of [Spotify Authorization scopes][2].
-     - Returns: The URL that must be opened to authorize your app.
+     - Returns: The URL that must be opened to authorize your app. May return
+           `nil` if the URL could not be created (e.g., the client id or client
+           secret have spaces).
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: x-source-tag://Scopes
@@ -262,9 +262,9 @@ public extension AuthorizationCodeFlowManager {
         showDialog: Bool,
         state: String? = nil,
         scopes: Set<Scope>
-    ) -> URL {
+    ) -> URL? {
         
-        guard let url = URL(
+        return URL(
             scheme: "https",
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
@@ -277,10 +277,6 @@ public extension AuthorizationCodeFlowManager {
                 "state": state
             ])
         )
-        else {
-            fatalError("could not create authorization URL.")
-        }
-        return url
         
     }
     
