@@ -63,10 +63,9 @@ spotify.authorizationManager.requestAccessAndRefreshTokens(
             case .finished:
                 print("successfully authorized")
             case .failure(let error):
-                if let authError = error as? SpotifyAuthorizationError {
-                    if authError.accessWasDenied {
-                        print("The user denied the authorization request")
-                    }
+                if let authError = error as? SpotifyAuthorizationError,
+                        authError.accessWasDenied {
+                    print("The user denied the authorization request")
                 }
                 else {
                     print("couldn't authorize application: \(error)")
