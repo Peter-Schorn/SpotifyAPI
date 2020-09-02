@@ -123,6 +123,9 @@ spotify.authorizationManager.authorize()
     )
     .store(in: &cancellables)
 ```
+
+See the full documentation for [authorize][13].
+
 Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
 ```swift
 spotify.search(query: "Pink Floyd", types: [.track])
@@ -152,3 +155,4 @@ You are also encouraged to read the [Spotify web API reference][12].
 [10]: https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-client-credentials-flow
 [11]: https://github.com/Peter-Schorn/SpotifyAPI#quick-start
 [12]: https://developer.spotify.com/documentation/web-api/reference/
+[13]: https://peter-schorn.github.io/SpotifyAPI/Classes/ClientCredentialsFlowManager.html#/s:13SpotifyWebAPI28ClientCredentialsFlowManagerC9authorize7Combine12AnyPublisherVyyts5Error_pGyF
