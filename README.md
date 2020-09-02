@@ -86,6 +86,8 @@ spotify.currentUserPlaylists()
     .store(in: &cancellables)
 ```
 
+The full documentation for all of the endpoints can be found [here][8].
+
 ### Authorizing with the Client Credentials Flow
 
 Create an instance of `SpotifyAPI` and assign an instance of `ClientCredentialsFlowManager` to the `authorizationManager` property:
@@ -126,6 +128,7 @@ spotify.search(query: "Pink Floyd", types: [.track])
     .store(in: &cancellables)
 ```
 
+The full documentation for all of the endpoints can be found [here][8].
 
 [1]: https://peter-schorn.github.io/SpotifyAPI/
 [2]: https://developer.spotify.com/dashboard/login
@@ -134,3 +137,4 @@ spotify.search(query: "Pink Floyd", types: [.track])
 [5]: https://developer.spotify.com/documentation/general/guides/scopes/
 [6]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VAK_SbSSSgShyAA5ScopeOGtF
 [7]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF
+[8]: https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html
