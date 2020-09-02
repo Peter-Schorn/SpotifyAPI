@@ -17,6 +17,8 @@ The next step is authorizing your app. This library supports two authorization m
 
 Create an instance of `SpotifyAPI` and assign an instance of `AuthorizationCodeFlowManager` to the `authorizationManager` property:
 ```swift
+import SpotifyWebAPI
+
 let spotify = SpotifyAPI(
     authorizationManager: AuthorizationCodeFlowManager(
         clientId: "Your Client Id", clientSecret: "Your Client Secret"
@@ -92,6 +94,8 @@ The full documentation for all of the endpoints can be found [here][8].
 
 Create an instance of `SpotifyAPI` and assign an instance of `ClientCredentialsFlowManager` to the `authorizationManager` property:
 ```swift
+import SpotifyWebAPI
+
 let spotify = SpotifyAPI(
     authorizationManager: ClientCredentialsFlowManager(
         clientId: "Your Client Id", clientSecret: "Your Client Secret"
