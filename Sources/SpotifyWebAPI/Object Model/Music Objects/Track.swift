@@ -89,7 +89,7 @@ public struct Track: Hashable {
     /**
      A link to the Spotify web API endpoint providing the full track object.
      
-     Use `getFromHref(_:responseType:)`, passing in `Track` as the
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track` as the
      response type to retrieve the results.
      */
     public let href: String?

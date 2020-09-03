@@ -70,9 +70,20 @@ extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager 
             """
         )
         
-        guard let redirectURLString = readLine(strippingNewline: true) else {
+        guard var redirectURLString = readLine(strippingNewline: true) else {
             fatalError("couldn't read redirect URI from standard input")
         }
+        
+        // see the documentation for `readLine`
+        // see also https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Unicode_chart
+        let replacementCharacters: [Character] = [
+            "\u{FFF9}", "\u{FFFA}", "\u{FFFB}", "\u{FFFC}", "\u{FFFD}",
+            "\u{F702}"
+        ]
+        
+        redirectURLString.removeAll(where: { character in
+            replacementCharacters.contains(character)
+        })
         
         guard let redirectURLWithQuery = URL(string: redirectURLString.strip()) else {
             fatalError(
@@ -143,6 +154,7 @@ extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager 
         dispatchGroup.enter()
         
         let cancellable = self.authorizationManager.authorize()
+            .XCTAssertNoFailure()
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished:

@@ -131,7 +131,7 @@ public struct AudioFeatures: Codable {
     
     /// A link to the Web API endpoint providing full details of the track.
     ///
-    /// Use `getHref(_:responseType:)`, passing in `Track` as the response
+    /// Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track` as the response
     /// type to retrieve the results.
     public let trackHref: String
     

@@ -3,8 +3,7 @@ import Combine
 import Logger
 
 public extension Publisher where Output: Paginated {
-    
-
+   
     /**
      Retrieves additional pages of results from a `Paginated`
      type.
@@ -151,8 +150,6 @@ public extension Publisher where Output == Void {
     }
     
 }
-
-
 
 public extension Result.Publisher where Failure == Error {
     

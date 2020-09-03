@@ -64,13 +64,11 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     
     private var cancellables: Set<AnyCancellable> = []
     
-    private var updateAuthInfoDispatchQueue = DispatchQueue(
+    /// Ensure no data races occur when updating auth info.
+    private let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
     )
 
-    /// A `PassthroughSubject` that emits **after** this
-    /// `AuthorizationCodeFlowManager` has changed.
-    
     /**
      A Publisher that emits **after** this
      `AuthorizationCodeFlowManager` has changed.
@@ -80,6 +78,10 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
      of `SpotifyAPI`. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
      `authorizationManager` instance property of `SpotifyAPI`.
+     
+     # Thread Safety
+     No guarantees are made about which thread this subject will emit on.
+     Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
     
@@ -149,6 +151,11 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     }
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
+
+        #if DEBUG
+        dispatchPrecondition(condition: .onQueue(updateAuthInfoDispatchQueue))
+        #endif
+        
         self.accessToken = authInfo.accessToken
         if let refreshToken = authInfo.refreshToken {
             self.refreshToken = refreshToken
@@ -158,6 +165,7 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
         
         Self.logger.trace("didChange.send()")
         self.didChange.send()
+        
     }
     
     
@@ -170,15 +178,20 @@ public extension AuthorizationCodeFlowManager {
      `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
      which are immutable.
      
+     After calling this method, you must authorize your application
+     again before accessing any of the Spotify web API endpoints.
+     
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
      */
     func deauthorize() {
-        self.accessToken = nil
-        self.refreshToken = nil
-        self.expirationDate = nil
-        self.scopes = nil
-        self.didChange.send()
+        updateAuthInfoDispatchQueue.sync {
+            self.accessToken = nil
+            self.refreshToken = nil
+            self.expirationDate = nil
+            self.scopes = nil
+            self.didChange.send()
+        }
     }
     
     /**
@@ -360,8 +373,6 @@ public extension AuthorizationCodeFlowManager {
             clientSecret: clientSecret
         ).formURLEncoded()
         
-        
-        
         Self.logger.trace("sending request for refresh and access tokens")
         
         return URLSession.shared.dataTaskPublisher(
@@ -395,7 +406,6 @@ public extension AuthorizationCodeFlowManager {
             
         }
         .eraseToAnyPublisher()
-        
         
     }
 
@@ -463,7 +473,7 @@ public extension AuthorizationCodeFlowManager {
             )
             .decodeSpotifyErrors()
             .decodeSpotifyObject(AuthInfo.self)
-            .receive(on: RunLoop.main)
+            .receive(on: self.updateAuthInfoDispatchQueue)
             .map { authInfo in
         
                 Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -532,24 +542,26 @@ extension AuthorizationCodeFlowManager: Hashable {
 extension AuthorizationCodeFlowManager: CustomStringConvertible {
     
     public var description: String {
-        
-        let expirationDateString = expirationDate?
-                .description(with: .autoupdatingCurrent)
-                ?? "nil"
-        
-        let scopeString = scopes.map({ "\($0.map(\.rawValue))" })
-                ?? "nil"
-        
-        return """
-            AuthorizationCodeFlowManager(
-                access_token: "\(accessToken ?? "nil")"
-                scopes: \(scopeString)
-                expirationDate: \(expirationDateString)
-                refresh_token: "\(refreshToken ?? "nil")"
-                client id: "\(clientId)"
-                client secret: "\(clientSecret)"
-            )
-            """
+        return updateAuthInfoDispatchQueue.sync {
+            
+            let expirationDateString = expirationDate?
+                    .description(with: .autoupdatingCurrent)
+                    ?? "nil"
+            
+            let scopeString = scopes.map({ "\($0.map(\.rawValue))" })
+                    ?? "nil"
+            
+            return """
+                AuthorizationCodeFlowManager(
+                    access_token: "\(accessToken ?? "nil")"
+                    scopes: \(scopeString)
+                    expirationDate: \(expirationDateString)
+                    refresh_token: "\(refreshToken ?? "nil")"
+                    client id: "\(clientId)"
+                    client secret: "\(clientSecret)"
+                )
+                """
+        }
     }
 
 }

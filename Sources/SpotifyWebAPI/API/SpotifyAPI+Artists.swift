@@ -150,8 +150,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyPagingObject(Album.self) { offset, limit in
-                self.artistAlbums(
+            .decodeSpotifyPagingObject(
+                Album.self
+            ) { [weak self] offset, limit in
+                self?.artistAlbums(
                     artist,
                     groups: groups,
                     country: country,

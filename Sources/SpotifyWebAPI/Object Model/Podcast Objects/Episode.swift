@@ -54,7 +54,7 @@ public struct Episode: Hashable {
      A link to the Spotify web API endpoint
      providing the full episode object.
      
-     Use `getHref(_:responseType:)`, passing in `Episode` as the
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Episode` as the
      response type to retrieve the results.
      */
     public let href: String
@@ -216,6 +216,11 @@ extension Episode: Codable {
         try container.encode(
             self.href, forKey: .href
         )
+        
+        try container.encode(
+            self.isPlayable, forKey: .isPlayable
+        )
+        
         try container.encodeIfPresent(
             self.externalURLs, forKey: .externalURLs
         )

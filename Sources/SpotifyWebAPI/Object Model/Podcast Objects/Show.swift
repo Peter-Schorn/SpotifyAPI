@@ -45,7 +45,7 @@ public struct Show: Hashable {
      A link to the Spotify web API endpoint providing the
      full show object.
      
-     Use `getHref(_:responseType:)`, passing in `Show` as the
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Show` as the
      response type to retrieve the results.
      */
     public let href: String

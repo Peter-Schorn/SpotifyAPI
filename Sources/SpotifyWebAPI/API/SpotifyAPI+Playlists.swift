@@ -73,8 +73,9 @@ private extension SpotifyAPI {
             // motherfuckin partial application
             .decodeSpotifyPagingObject(
                 ResponseType.self,
-                getPage: { offset, limit in
-                    return self.getPlaylistItems(
+                // getPage: { offset, limit in
+                getPage: { [weak self] offset, limit in
+                    return self?.getPlaylistItems(
                         playlist,
                         limit: limit,
                         offset: offset,

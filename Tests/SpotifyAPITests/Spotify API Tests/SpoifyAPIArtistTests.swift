@@ -45,38 +45,24 @@ extension SpotifyAPIArtistTests {
 }
 
 class SpotifyAPIAuthorizationCodeFlowArtistTests:
-        XCTestCase, SpotifyAPIArtistTests
+        SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIArtistTests
 {
-
-    static let spotify = SpotifyAPI<AuthorizationCodeFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         ("testArtist", testArtist)
     ]
-    
-    override class func setUp() {
-        spotify.authorizeAndWaitForTokens(scopes: [])
-    }
     
     func testArtist() { artist() }
 
 }
 
 class SpotifyAPIClientCredentialsFlowArtistTests:
-    XCTestCase, SpotifyAPIArtistTests
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIArtistTests
 {
-
-    static let spotify = SpotifyAPI<ClientCredentialsFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         ("testArtist", testArtist)
     ]
-
-    override class func setUp() {
-        spotify.waitUntilAuthorized()
-    }
 
     func testArtist() { artist() }
 

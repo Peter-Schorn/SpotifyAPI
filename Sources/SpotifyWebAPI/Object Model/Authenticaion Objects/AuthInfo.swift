@@ -4,8 +4,21 @@ import Foundation
  The authorization info that spotify returns
  for the Authorization Code Flow and the
  Client Credentials Flow.
+ 
+ This is used in various different contexts, including:
+ 
+ * When decoding the respose after requesting the access and refresh tokens
+   in `AuthorizationCodeFlowManager`.
+ * When decoding the response after refreshing the tokens for
+   `AuthorizationCodeFlowManager` or `ClientCredentialsFlowManager`
+ * As a wrapper for decoding and encoding `AuthorizationCodeFlowManager`
+   and `ClientCredentialsFlowManager`.
+ 
+ Because of its diverse uses, all of its properties are `nil`,
+ which means that it will never fail to decode itself from data,
+ so be careful about swallowing errors.
  */
-struct AuthInfo: Codable {
+struct AuthInfo: Codable, Hashable {
     
     public let accessToken: String?
     public let refreshToken: String?
@@ -129,5 +142,23 @@ extension AuthInfo: CustomStringConvertible {
             )
             """
     }
+
+}
+
+// MARK: - Testing -
+
+extension AuthInfo {
+    
+    /// Creates an instance with random values.
+    /// Only use for tests.
+    static func withMockedValues() -> Self {
+        return Self(
+            accessToken: UUID().uuidString,
+            refreshToken: UUID().uuidString,
+            expirationDate: Date(),
+            scopes: Set(Scope.allCases.shuffled().prefix(5))
+        )
+    }
+    
 
 }

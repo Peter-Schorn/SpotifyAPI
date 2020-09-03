@@ -56,6 +56,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// to check if the token is expired.
     public var expirationDate: Date?
     
+    /// Ensure no data races occur when updating auth info.
     private var updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
     )
@@ -69,6 +70,10 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      of `SpotifyAPI`. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
      `authorizationManager` instance property of `SpotifyAPI`.
+     
+     # Thread Safety
+     No guarantees are made about which thread this subject will emit on.
+     Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
     
@@ -100,11 +105,18 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
+        
+        #if DEBUG
+        dispatchPrecondition(condition: .onQueue(updateAuthInfoDispatchQueue))
+        #endif
+        
         self.accessToken = authInfo.accessToken
         self.expirationDate = authInfo.expirationDate
         
-        Self.logger.trace("after updateFromAuthInfo:\n\(self)")
         self.didChange.send()
+        Self.logger.trace(
+            "updated from auth Info; self.didChange.send()"
+        )
     }
     
     public init(from decoder: Decoder) throws {
@@ -164,9 +176,11 @@ public extension ClientCredentialsFlowManager {
      removing it after calling this method.
      */
     func deauthorize() {
-        self.accessToken = nil
-        self.expirationDate = nil
-        self.didChange.send()
+        updateAuthInfoDispatchQueue.sync {
+            self.accessToken = nil
+            self.expirationDate = nil
+            self.didChange.send()
+        }
     }
     
     /**
@@ -328,19 +342,22 @@ extension ClientCredentialsFlowManager: Hashable {
 extension ClientCredentialsFlowManager: CustomStringConvertible {
     
     public var description: String {
-        
-        let expirationDateString = expirationDate?
+        return updateAuthInfoDispatchQueue.sync {
+            
+            let expirationDateString = expirationDate?
                 .description(with: .autoupdatingCurrent)
                 ?? "nil"
         
-        return """
+            return """
             ClientCredentialsFlowManager(
-                access_token: "\(accessToken ?? "nil")"
-                expirationDate: \(expirationDateString)
-                client id: "\(clientId)"
-                client secret: "\(clientSecret)"
+            access_token: "\(accessToken ?? "nil")"
+            expirationDate: \(expirationDateString)
+            client id: "\(clientId)"
+            client secret: "\(clientSecret)"
             )
             """
+        
+        }
     }
 
 }

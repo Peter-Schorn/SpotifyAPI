@@ -16,13 +16,17 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     /// Manages the authorization process for your application.
     public var authorizationManager: AuthorizationManager {
         didSet {
-            self.logger.trace("did set authorizationManager")
+            self.authDidChangeLogger.trace(
+                "did set authorizationManager"
+            )
             
             self.authorizationManager.didChange
                 .subscribe(authorizationManagerDidChange)
                 .store(in: &cancellables)
             
-            self.logger.trace("authorizationManagerDidChange.send()")
+            self.authDidChangeLogger.trace(
+                "authorizationManagerDidChange.send()"
+            )
             self.authorizationManagerDidChange.send()
         }
     }
@@ -43,15 +47,22 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      This publisher allows you to be notified of changes to
      the authorization manager even when you create a new instance of it
      and assign it to the `authorizationManager` property of this class.
+     
+     # Thread Safety
+     No guarantees are made about which thread this subject will emit on.
+     Always receive on the main thread if you plan on updating the UI.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
 
     private var cancellables: Set<AnyCancellable> = []
     
-    
     /// Logs general messages for this class.
     /// :nodoc:
     public let logger = Logger(label: "SpotifyAPI", level: .critical)
+    
+    public let authDidChangeLogger = Logger(
+        label: "authDidChange", level: .critical
+    )
     
     /// Logs the urls of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
@@ -80,6 +91,10 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
             .subscribe(authorizationManagerDidChange)
             .store(in: &cancellables)
         
+    }
+    
+    deinit {
+        self.logger.notice("\n\n\(self): DEINIT\n\n")
     }
 
 }

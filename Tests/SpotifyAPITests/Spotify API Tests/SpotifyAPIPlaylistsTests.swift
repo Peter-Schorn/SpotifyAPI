@@ -33,12 +33,14 @@ extension SpotifyAPIPlaylistsTests {
 
         // get the uri of the current user
         Self.spotify.currentUserProfile()
-            .flatMap { user in
+            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
                 // create a playlist for them
-                Self.spotify.createPlaylist(for: user.uri, details)
+                encodeDecode(user)
+                return Self.spotify.createPlaylist(for: user.uri, details)
             }
             .flatMap { playlist -> AnyPublisher<String, Error> in
                 
+                encodeDecode(playlist)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
                 XCTAssertEqual(playlist.description, dateString)
                 XCTAssertFalse(playlist.isPublic ?? true)
@@ -60,6 +62,7 @@ extension SpotifyAPIPlaylistsTests {
             }
             .flatMap { playlist -> AnyPublisher<Void, Error> in
                 
+                encodeDecode(playlist)
                 XCTAssertEqual(playlist.uri, createdPlaylistURI)
                 XCTAssertEqual(playlist.snapshotId, createdPlaylistSnaphotId)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
@@ -70,6 +73,7 @@ extension SpotifyAPIPlaylistsTests {
                     playlist.items.items.map(\.item.uri),
                     newItems.map(\.uri)
                 )
+                
                 // unfollow the playlist
                 return Self.spotify.unfollowPlaylistForCurrentUser(
                     createdPlaylistURI
@@ -84,6 +88,7 @@ extension SpotifyAPIPlaylistsTests {
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlists in
+                    encodeDecode(playlists)
                     XCTAssertFalse(
                         // ensure the user is no longer following the playlist
                         // because we just unfollowed it
@@ -111,10 +116,11 @@ extension SpotifyAPIPlaylistsTests {
         ]
         
         Self.spotify.playlist(URIs.Playlists.crumb)
+            .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlist in
-                    
+                    encodeDecode(playlist)
                     XCTAssertEqual(playlist.name, "Crumb")
                     XCTAssertEqual(playlist.items.items.count, 15)
                     if playlist.items.items.count < 15 { return }
@@ -148,10 +154,11 @@ extension SpotifyAPIPlaylistsTests {
         ]
         
         Self.spotify.playlistTracks(URIs.Playlists.crumb)
+            .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlistTracks in
-            
+                    encodeDecode(playlistTracks)
                     let tracks = playlistTracks.items.map(\.item)
                     XCTAssertEqual(playlistTracks.items.count, 15)
                     if playlistTracks.items.count < 15 { return }
@@ -169,11 +176,8 @@ extension SpotifyAPIPlaylistsTests {
 }
 
 class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
-    XCTestCase, SpotifyAPIPlaylistsTests
+    SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlaylistsTests
 {
-
-    static let spotify = SpotifyAPI<AuthorizationCodeFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         (
@@ -184,10 +188,6 @@ class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
         ("testGetCrumPlaylistTracks", testGetCrumPlaylistTracks)
     ]
     
-    override class func setUp() {
-        spotify.authorizeAndWaitForTokens(scopes: [])
-    }
-    
     func testCreatePlaylistAndAddTracksThenUnfollowIt() {
         createPlaylistAndAddTracksThenUnfollowIt()
     }
@@ -197,20 +197,13 @@ class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
 }
 
 class SpotifyAPIClientCredentialsFlowPlaylistsTests:
-    XCTestCase, SpotifyAPIPlaylistsTests
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIPlaylistsTests
 {
-
-    static let spotify = SpotifyAPI<ClientCredentialsFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         ("testGetCrumbPlaylist", testGetCrumbPlaylist),
         ("testGetCrumPlaylistTracks", testGetCrumPlaylistTracks)
     ]
-    
-    override class func setUp() {
-        spotify.waitUntilAuthorized()
-    }
     
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
     func testGetCrumPlaylistTracks() { getCrumPlaylistTracks() }

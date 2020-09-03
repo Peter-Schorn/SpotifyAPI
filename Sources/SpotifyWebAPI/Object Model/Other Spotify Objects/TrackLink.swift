@@ -24,7 +24,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
      A link to the Spotify web API endpoint
      providing the full track object.
      
-     Use `getHref(_:responseType:)` to retrieve the results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
     public let href: String
     

@@ -75,7 +75,7 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
      A link to the Spotify web API endpoint providing
      full details of the playlist.
      
-     Use `getHref(_:responseType:)` to retrieve the results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
     public let href: String
     

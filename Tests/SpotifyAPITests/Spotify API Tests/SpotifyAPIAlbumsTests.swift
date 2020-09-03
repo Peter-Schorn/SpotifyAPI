@@ -208,6 +208,7 @@ extension SpotifyAPIAlbumsTests {
             firstAlbumPage: PagingObject<Track>,
             secondAlbumPage: PagingObject<Track>
         ) {
+            encodeDecode(secondAlbumPage)
             let tracks = secondAlbumPage.items
             XCTAssertEqual(tracks.count, 50)
             if tracks.count < 50 { return }
@@ -237,6 +238,7 @@ extension SpotifyAPIAlbumsTests {
         }
         
         func receiveAlbumTracksPage3(_ album: PagingObject<Track>) {
+            encodeDecode(album)
             let tracks = album.items
             XCTAssertEqual(tracks.count, 25)
             if tracks.count < 25 { return }
@@ -268,21 +270,14 @@ extension SpotifyAPIAlbumsTests {
 
 
 class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
-        XCTestCase, SpotifyAPIAlbumsTests
+        SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIAlbumsTests
 {
-
-    static let spotify = SpotifyAPI<AuthorizationCodeFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         ("testAlbum", testAlbum),
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
-    
-    override class func setUp() {
-        spotify.authorizeAndWaitForTokens(scopes: [])
-    }
     
     func testAlbum() { albumJinx() }
     func testAlbums() { albums() }
@@ -291,21 +286,14 @@ class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
 }
 
 class SpotifyAPIClientCredentialsFlowAlbumsTests:
-    XCTestCase, SpotifyAPIAlbumsTests
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIAlbumsTests
 {
-
-    static let spotify = SpotifyAPI<ClientCredentialsFlowManager>.shared
-    static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
         ("testAlbum", testAlbum),
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
-
-    override class func setUp() {
-        spotify.waitUntilAuthorized()
-    }
 
     func testAlbum() { albumJinx() }
     func testAlbums() { albums() }

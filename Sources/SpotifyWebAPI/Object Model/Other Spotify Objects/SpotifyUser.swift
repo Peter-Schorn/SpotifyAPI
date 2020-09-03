@@ -29,7 +29,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     /**
      A link to the Spotify web API endpoint for this user.
      
-     Use `getHref(_:responseType:)`, passing in `SpotifyUser` as the
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `SpotifyUser` as the
      response type to retrieve the results.
      */
     public let href: String

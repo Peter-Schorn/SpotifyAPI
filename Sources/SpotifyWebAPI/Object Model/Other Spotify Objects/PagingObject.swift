@@ -23,7 +23,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
      A link to the Spotify web API endpoint returning
      the full result of the request in this `PagingObject`.
      
-     Use `getFromHref(_:responseType:)`, passing in the type of this
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
      */
     public let href: String
@@ -38,7 +38,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /**
      The URL (href) to the next page of items or `nil` if none.
     
-     Use `getFromHref(_:responseType:)`, passing in the type of this
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
     
      See also `getPage(atOffset:limit:)`.
@@ -49,7 +49,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
      The URL (href) to the previous page of items or `nil` if none
      in this `PagingObject`.
     
-     Use `getFromHref(_:responseType:)`, passing in the type of this
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
     
      See also `getPage(atOffset:limit:)`.
@@ -67,8 +67,8 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /// Do **NOT** use this method. Use `getPage(atOffset:limit:)` instead.
     @usableFromInline
     var _getPage: (
-        (_ atOffset: Int, _ limit: Int?) -> AnyPublisher<Self, Error>
-    )? = nil
+        (_ atOffset: Int, _ limit: Int?) -> AnyPublisher<Self, Error>?
+    ) = { _, _ in nil }
     
 }
 
@@ -154,7 +154,7 @@ extension PagingObject {
              was retrieved from.
      - Returns: Another Paging object with the requested results.
      */
-    @inlinable @inline(__always)
+    @inlinable
     public func getPage(
         atOffset: Int, limit: Int? = nil
     ) -> AnyPublisher<Self, Error>? {
@@ -195,7 +195,7 @@ extension PagingObject {
         }
         #endif
         
-        return self._getPage?(atOffset, limit)
+        return self._getPage(atOffset, limit)
         
     }
     

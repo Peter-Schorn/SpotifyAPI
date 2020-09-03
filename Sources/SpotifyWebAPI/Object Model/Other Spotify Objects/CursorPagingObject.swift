@@ -17,7 +17,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
      A link to the Web API endpoint returning
      the full result of the request.
      
-     Use `getHref(_:responseType:)` to retrieve the results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
     public let href: String
     
@@ -30,7 +30,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     
     /// The URL to the next page of items, or `nil` if none.
     ///
-    /// Use `getHref(_:responseType:)` to retrieve the results.
+    /// Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
     public let next: String?
     
     /// Used to find the next and previous items.

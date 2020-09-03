@@ -253,7 +253,7 @@ extension Publisher where Output == (data: Data, response: URLResponse) {
     func decodeSpotifyPagingObject<ResponseType: Decodable>(
         _ wrappedType: ResponseType.Type,
         getPage: @escaping (_ atOffset: Int, _ limit: Int?)
-                -> AnyPublisher<PagingObject<ResponseType>, Error>
+                -> AnyPublisher<PagingObject<ResponseType>, Error>?
     ) -> AnyPublisher<PagingObject<ResponseType>, Error> {
         
         
