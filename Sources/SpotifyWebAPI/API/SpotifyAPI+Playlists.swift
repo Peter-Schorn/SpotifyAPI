@@ -15,7 +15,9 @@ private extension SpotifyAPI {
     
         do {
     
-            let playlistId = try SpotifyIdentifier(uri: playlist.uri).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist.uri, ensureTypeMatches: [.playlist]
+            ).id
             
             return self.apiRequest(
                 path: "/playlists/\(playlistId)/tracks",
@@ -54,7 +56,9 @@ private extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist, ensureTypeMatches: [.playlist]
+            ).id
         
             return self.getRequest(
                 path: "/playlists/\(playlistId)/tracks",
@@ -147,7 +151,9 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
         
         do {
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist, ensureTypeMatches: [.playlist]
+            ).id
         
             let validTypes: [IDCategory] = [.track, .episode]
             
@@ -228,7 +234,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist, ensureTypeMatches: [.playlist]
+            ).id
 
             let additionalTypes: [IDCategory] = [.track, .episode]
             
@@ -480,7 +488,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let userId = try SpotifyIdentifier(uri: userURI).id
+            let userId = try SpotifyIdentifier(
+                uri: userURI, ensureTypeMatches: [.user]
+            ).id
         
             return self.getRequest(
                 path: "/users/\(userId)/playlists",
@@ -528,7 +538,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist, ensureTypeMatches: [.playlist]
+            ).id
             
             return self.getRequest(
                 path: "/playlists/\(playlistId)/images",
@@ -612,7 +624,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let userId = try SpotifyIdentifier(uri: userURI).id
+            let userId = try SpotifyIdentifier(
+                uri: userURI, ensureTypeMatches: [.user]
+            ).id
             
             return self.apiRequest(
                 path: "/users/\(userId)/playlists",
@@ -779,7 +793,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: playlist.uri).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist.uri, ensureTypeMatches: [.playlist]
+            ).id
     
             return self.apiRequest(
                 path: "/playlists/\(playlistId)",
@@ -863,7 +879,9 @@ public extension SpotifyAPI {
                 
             }
             
-            let playlistId = try SpotifyIdentifier(uri: playlist).id
+            let playlistId = try SpotifyIdentifier(
+                uri: playlist, ensureTypeMatches: [.playlist]
+            ).id
             
             func makeHeaders(accessToken: String) -> [String: String] {
                 return Headers.bearerAuthorization(accessToken) +

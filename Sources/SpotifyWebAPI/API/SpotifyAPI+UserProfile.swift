@@ -49,7 +49,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let userId = try SpotifyIdentifier(uri: uri).id
+            let userId = try SpotifyIdentifier(
+                uri: uri, ensureTypeMatches: [.user]
+            ).id
             
             return self.getRequest(
                 path: "/users/\(userId)",

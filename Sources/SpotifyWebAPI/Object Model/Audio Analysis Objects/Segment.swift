@@ -70,7 +70,7 @@ public struct Segment: Hashable {
     ///
     /// This value should be equivalent to the `loudnessStart` of the
     /// following segment.
-    public let loudnessEnd: Int?
+    public let loudnessEnd: Double?
 
 }
 

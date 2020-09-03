@@ -23,25 +23,24 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      - Parameters:
        - uris: A sequence of Spotify URIs.
        - ensureAllTypesAre: Ensure the id categories of all the URIs
-             match a specified category.
-     - Throws: If `ensureAllTypesAre` is not `nil` and the type of a URI
-           does not match the required type or if an id could not be parsed
-           from a URI.
+             match one or more categories.
+     - Throws: If `ensureTypeMatches` is not `nil` and the type of a URI
+           does not match one the required types or if an id could not be
+           parsed from a URI.
      - Returns: A comma-separated string of Ids.
      */
     public static func commaSeparatedIdsString<S: Sequence>(
-        _ uris: S, ensureAllTypesAre type: IDCategory? = nil
+        _ uris: S, ensureTypeMatches types: [IDCategory]? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
         return try uris.map { uri in
             
             let spotifyIdentifier = try Self(uri: uri.uri)
             
-            if let type = type {
-                guard spotifyIdentifier.idCategory == type else {
-                    throw SpotifyLocalError.other(
-                        "the type of all URIs must be \(type.rawValue), " +
-                        "but received \(spotifyIdentifier.idCategory.rawValue)"
+            if let types = types {
+                guard types.contains(spotifyIdentifier.idCategory) else {
+                    throw SpotifyLocalError.invalidURIType(
+                        expected: types, received: spotifyIdentifier.idCategory
                     )
                 }
             }
@@ -106,9 +105,15 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /// Creates an instance from a URI. See [spotify URIs and ids][1].
     ///
+    /// - Parameters:
+    ///   - uri: A Spotify URI.
+    ///   - types: If not `nil`, throw an error if the type
+    ///         of the URI does not match one of these types.
+    ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(
-        uri: SpotifyURIConvertible
+        uri: SpotifyURIConvertible,
+        ensureTypeMatches types: [IDCategory]? = nil
     ) throws {
         
         guard
@@ -127,6 +132,12 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
         self.id = id.strip()
         self.idCategory = idCategory
+        
+        if let types = types, !types.contains(idCategory) {
+            throw SpotifyLocalError.invalidURIType(
+                expected: types, received: idCategory
+            )
+        }
 
     }
     

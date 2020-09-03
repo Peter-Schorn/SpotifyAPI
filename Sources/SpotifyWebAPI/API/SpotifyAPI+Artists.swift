@@ -25,7 +25,9 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Artist, Error>  {
         
         do {
-            let artistId = try SpotifyIdentifier(uri: artist).id
+            let artistId = try SpotifyIdentifier(
+                uri: artist, ensureTypeMatches: [.artist]
+            ).id
             
             return self.getRequest(
                 path: "/artists/\(artistId)",
@@ -65,12 +67,14 @@ public extension SpotifyAPI {
         
         do {
 
-            let albumIdsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(artists)
+            let artistIdsString = try SpotifyIdentifier
+                .commaSeparatedIdsString(
+                    artists, ensureTypeMatches: [.artist]
+                )
             
             return self.getRequest(
                 path: "/artists",
-                queryItems: ["ids": albumIdsString],
+                queryItems: ["ids": artistIdsString],
                 requiredScopes: []
             )
             .decodeSpotifyObject([String: [Artist?]].self)
@@ -132,7 +136,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let artistId = try SpotifyIdentifier(uri: artist).id
+            let artistId = try SpotifyIdentifier(
+                uri: artist, ensureTypeMatches: [.artist]
+            ).id
             
             return self.getRequest(
                 path: "/artists/\(artistId)/albums",
@@ -183,7 +189,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let artistId = try SpotifyIdentifier(uri: artist).id
+            let artistId = try SpotifyIdentifier(
+                uri: artist, ensureTypeMatches: [.artist]
+            ).id
             
             return self.getRequest(
                 path: "/artists/\(artistId)/top-tracks",
@@ -225,7 +233,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let artistId = try SpotifyIdentifier(uri: artist).id
+            let artistId = try SpotifyIdentifier(
+                uri: artist, ensureTypeMatches: [.artist]
+            ).id
             
             return self.getRequest(
                 path: "/artists/\(artistId)/related-artists",

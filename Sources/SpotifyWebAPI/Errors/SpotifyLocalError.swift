@@ -43,6 +43,14 @@ public enum SpotifyLocalError: LocalizedError {
         requiredScopes: Set<Scope>, authorizedScopes: Set<Scope>
     )
     
+    /// The type of a URI didn't match one of the expected types.
+    ///
+    /// For example, if you pass a track URI to the episode endpoint,
+    /// you will get this error.
+    case invalidURIType(
+        expected: [IDCategory], received: IDCategory
+    )
+    
     /**
      Spotify sometimes returns data wrapped in
      an extraneous top-level dictionary that
@@ -88,6 +96,12 @@ public enum SpotifyLocalError: LocalizedError {
                     but your app is only authorized for theses scopes:
                     \(authorized.map(\.rawValue))
                     """
+            case .invalidURIType(let expected, let received):
+                return """
+                    expected URI to be one of the following types: \
+                    \(expected.map(\.rawValue)),
+                    but received \(received.rawValue)
+                    """
             case .topLevelKeyNotFound(key: let key, dict: let dict):
                 return """
                     The expected top level key '\(key)' \
@@ -100,3 +114,5 @@ public enum SpotifyLocalError: LocalizedError {
     }
   
 }
+
+

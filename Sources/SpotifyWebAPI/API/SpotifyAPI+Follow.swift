@@ -18,7 +18,9 @@ private extension SpotifyAPI {
             }
 
             let idsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(uris, ensureAllTypesAre: type)
+                .commaSeparatedIdsString(
+                    uris, ensureTypeMatches: [type]
+                )
             
             return self.getRequest(
                 path: "/me/following/contains",
@@ -51,7 +53,9 @@ private extension SpotifyAPI {
             }
             
             let idsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(uris, ensureAllTypesAre: type)
+                .commaSeparatedIdsString(
+                    uris, ensureTypeMatches: [type]
+                )
 
             return self.apiRequest(
                 path: "/me/following",
@@ -178,10 +182,14 @@ public extension SpotifyAPI {
                     .eraseToAnyPublisher()
             }
             
-            let playlistId = try SpotifyIdentifier(uri: uri).id
+            let playlistId = try SpotifyIdentifier(
+                uri: uri, ensureTypeMatches: [.playlist]
+            ).id
             
             let userIdsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(userURIs)
+                .commaSeparatedIdsString(
+                    userURIs, ensureTypeMatches: [.user]
+                )
             
             return self.getRequest(
                 path: "/playlists/\(playlistId)/followers/contains",
@@ -330,7 +338,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: uri).id
+            let playlistId = try SpotifyIdentifier(
+                uri: uri, ensureTypeMatches: [.playlist]
+            ).id
             
             return self.apiRequest(
                 path: "/playlists/\(playlistId)/followers",
@@ -387,7 +397,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let playlistId = try SpotifyIdentifier(uri: uri).id
+            let playlistId = try SpotifyIdentifier(
+                uri: uri, ensureTypeMatches: [.playlist]
+            ).id
             
             return self.apiRequest(
                 path: "/playlists/\(playlistId)/followers",

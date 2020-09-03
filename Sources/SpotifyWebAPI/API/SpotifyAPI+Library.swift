@@ -5,13 +5,16 @@ private extension SpotifyAPI {
     
     func saveItemsForCurrentUser(
         uris: [SpotifyURIConvertible],
+        type: IDCategory,
         path: String
     ) -> AnyPublisher<Void, Error> {
         
         do {
             
             let idsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(uris)
+                .commaSeparatedIdsString(
+                    uris, ensureTypeMatches: [type]
+                )
             
             return self.apiRequest(
                 path: path,
@@ -33,6 +36,7 @@ private extension SpotifyAPI {
     
     func removeItemsForCurrentUser(
         uris: [SpotifyURIConvertible],
+        type: IDCategory,
         path: String,
         market: String? = nil
     ) -> AnyPublisher<Void, Error> {
@@ -40,7 +44,9 @@ private extension SpotifyAPI {
         do {
             
             let idsString = try SpotifyIdentifier
-                .commaSeparatedIdsString(uris)
+                .commaSeparatedIdsString(
+                    uris, ensureTypeMatches: [type]
+                )
             
             return self.apiRequest(
                 path: path,
@@ -65,13 +71,16 @@ private extension SpotifyAPI {
 
     func currentUserLibraryContains(
         uris: [SpotifyURIConvertible],
+        type: IDCategory,
         path: String
     ) -> AnyPublisher<[Bool], Error> {
         
         do {
             
             let idsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(uris)
+                .commaSeparatedIdsString(
+                    uris, ensureTypeMatches: [type]
+                )
             
             return self.getRequest(
                 path: path,
@@ -279,7 +288,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Bool], Error> {
         
         return self.currentUserLibraryContains(
-            uris: uris, path: "/me/albums/contains"
+            uris: uris, type: .album, path: "/me/albums/contains"
         )
 
     }
@@ -306,7 +315,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Bool], Error> {
         
         return self.currentUserLibraryContains(
-            uris: uris, path: "/me/tracks/contains"
+            uris: uris, type: .track, path: "/me/tracks/contains"
         )
 
     }
@@ -333,7 +342,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Bool], Error> {
         
         return self.currentUserLibraryContains(
-            uris: uris, path: "/me/tracks/contains"
+            uris: uris, type: .show, path: "/me/tracks/contains"
         )
 
     }
@@ -355,7 +364,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
 
         return self.saveItemsForCurrentUser(
-            uris: uris, path: "/me/albums"
+            uris: uris, type: .album, path: "/me/albums"
         )
         
     }
@@ -377,7 +386,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
 
         return self.saveItemsForCurrentUser(
-            uris: uris, path: "/me/tracks"
+            uris: uris, type: .track, path: "/me/tracks"
         )
         
     }
@@ -399,7 +408,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
 
         return self.saveItemsForCurrentUser(
-            uris: uris, path: "/me/shows"
+            uris: uris, type: .show, path: "/me/shows"
         )
         
     }
@@ -421,7 +430,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, path: "/me/albums", market: nil
+            uris: uris, type: .album, path: "/me/albums", market: nil
         )
     }
     
@@ -442,7 +451,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, path: "/me/tracks", market: nil
+            uris: uris, type: .track, path: "/me/tracks", market: nil
         )
     }
     
@@ -475,7 +484,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, path: "/me/shows", market: market
+            uris: uris, type: .show, path: "/me/shows", market: market
         )
     }
 

@@ -34,7 +34,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let albumId = try SpotifyIdentifier(uri: album).id
+            let albumId = try SpotifyIdentifier(
+                uri: album, ensureTypeMatches: [.album]
+            ).id
             
             return self.getRequest(
                 path: "/albums/\(albumId)",
@@ -83,7 +85,9 @@ public extension SpotifyAPI {
         do {
             
             let albumsIdsString = try SpotifyIdentifier
-                    .commaSeparatedIdsString(albums)
+                .commaSeparatedIdsString(
+                    albums, ensureTypeMatches: [.album]
+                )
             
             return self.getRequest(
                 path: "/albums",
@@ -140,7 +144,9 @@ public extension SpotifyAPI {
         
         do {
             
-            let albumId = try SpotifyIdentifier(uri: album).id
+            let albumId = try SpotifyIdentifier(
+                uri: album, ensureTypeMatches: [.album]
+            ).id
             
             return self.getRequest(
                 path: "/albums/\(albumId)/tracks",
