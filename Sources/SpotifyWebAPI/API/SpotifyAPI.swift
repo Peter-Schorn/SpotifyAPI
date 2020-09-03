@@ -11,6 +11,8 @@ import Combine
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     
+    // MARK: - Authorization -
+    
     /// Manages the authorization process for your application.
     public var authorizationManager: AuthorizationManager {
         didSet {
@@ -46,14 +48,15 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
 
     private var cancellables: Set<AnyCancellable> = []
     
-    // MARK: - Loggers -
     
     /// Logs general messages for this class.
+    /// :nodoc:
     public let logger = Logger(label: "SpotifyAPI", level: .critical)
     
     /// Logs the urls of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
+    /// :nodoc:
     public let apiRequestLogger = Logger(label: "APIRequest", level: .critical)
     
     // MARK: - Initializers -

@@ -400,55 +400,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 20,
-      "symbol": "IDCategory.artist",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 21,
-      "symbol": "IDCategory.album",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 22,
-      "symbol": "IDCategory.track",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 23,
-      "symbol": "IDCategory.playlist",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 24,
-      "symbol": "IDCategory.show",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 25,
-      "symbol": "IDCategory.episode",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/IDCategory.swift",
-      "line": 34,
-      "symbol": "IDCategory.unknown",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Publisher Extensions/SpotifyObjectDecoding.swift",
       "line": 5,
       "symbol": "spotifyDecodeLogger",

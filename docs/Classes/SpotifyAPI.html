@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -275,9 +275,6 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/Headers.html">Headers</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
             </ul>
@@ -303,14 +300,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -327,7 +316,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt">SpotifyAuthorizationManager</span></code></pre>
 
                 </div>
               </div>
@@ -340,6 +329,15 @@ authorization/authentication process of your application.</p>
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Authorization"></a>
+                <a name="//apple_ref/swift/Section/Authorization" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Authorization"></a>
+                  <h3 class="section-name"><p>Authorization</p>
+</h3>
+                </div>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -413,75 +411,6 @@ and assign it to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAP
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Loggers"></a>
-                <a name="//apple_ref/swift/Section/Loggers" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Loggers"></a>
-                  <h3 class="section-name"><p>Loggers</p>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp"></a>
-                    <a name="//apple_ref/swift/Property/logger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp">logger</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Logs general messages for this class.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp"></a>
-                    <a name="//apple_ref/swift/Property/apiRequestLogger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp">apiRequestLogger</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Logs the urls of the requests made to Spotify and,
-if present, the body of the requests by converting the raw
-data to a string.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
                 <a name="/Initializers"></a>
                 <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -532,7 +461,7 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/app-
                               <td>
                                 <div>
                                   <p>An instance of a type that
-  conforms to <code><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></code>.</p>
+  conforms to <code>SpotifyAuthorizationManager</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1183,6 +1112,182 @@ or the string &ldquo;from_token&rdquo;.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The full versions of up to 20 artists.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Episodes"></a>
+                <a name="//apple_ref/swift/Section/Episodes" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Episodes"></a>
+                  <h3 class="section-name"><p>Episodes</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C7episode_6market7Combine12AnyPublisherVyAA7EpisodeVs5Error_pGAA0A14URIConvertible_p_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/episode(_:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C7episode_6market7Combine12AnyPublisherVyAA7EpisodeVs5Error_pGAA0A14URIConvertible_p_SSSgtF">episode(_:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get an episode.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8episodes_6market7Combine12AnyPublisherVySayAA7EpisodeVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">episodes(_:market:)</a></code> (gets multiple episodes).</p>
+
+<p>Reading the user’s resume points on episode objects requires the
+<code>userReadPlaybackPosition</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">episode</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Episode.html">Episode</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI of an episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+If a country code is specified, only shows and episodes that
+are available in that market will be returned. If a valid user
+access token is specified in the request header, the country
+associated with the user account will take priority over this
+parameter. Note: If neither market or user country are provided,
+the content is considered unavailable for the client. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The full version of an episode object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C8episodes_6market7Combine12AnyPublisherVySayAA7EpisodeVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/episodes(_:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C8episodes_6market7Combine12AnyPublisherVySayAA7EpisodeVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">episodes(_:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get multiple episodes.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C7episode_6market7Combine12AnyPublisherVyAA7EpisodeVs5Error_pGAA0A14URIConvertible_p_SSSgtF">episode(_:market:)</a></code> (gets a single episode).</p>
+
+<p>Reading the user’s resume points on episode objects requires the
+<code>userReadPlaybackPosition</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">episodes</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">],</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Episode.html">Episode</a></span><span class="p">?],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of episode URIs. Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+If a country code is specified, only shows and episodes that
+are available in that market will be returned. If a valid user
+access token is specified in the request header, the country
+associated with the user account will take priority over this
+parameter. Note: If neither market or user country are provided,
+the content is considered unavailable for the client. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The full versions of up to 50 episode objects. Episodes
+  are returned in the order requested. If an episode is not found,
+  <code>nil</code> is returned in the appropriate position. Duplicate episode
+  URIs in the request will result in duplicate episodes in the response.</p>
                       </div>
                     </section>
                   </div>
@@ -5152,6 +5257,182 @@ The simplified versions of all these objects will be returned.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Shows"></a>
+                <a name="//apple_ref/swift/Section/Shows" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Shows"></a>
+                  <h3 class="section-name"><p>Shows</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/show(_:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a show.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows).</p>
+
+<p>Reading the user’s resume points on episode objects requires the
+<code>userReadPlaybackPosition</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">show</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI of an episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+If a country code is specified, only shows and episodes that
+are available in that market will be returned. If a valid user
+access token is specified in the request header, the country
+associated with the user account will take priority over this
+parameter. Note: If neither market or user country are provided,
+the content is considered unavailable for the client. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The full version of a show object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/shows(_:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get multiple shows.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show).</p>
+
+<p>Reading the user’s resume points on episode objects requires the
+<code>userReadPlaybackPosition</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">shows</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">],</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="p">?],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of show URIs. Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+If a country code is specified, only shows and episodes that
+are available in that market will be returned. If a valid user
+access token is specified in the request header, the country
+associated with the user account will take priority over this
+parameter. Note: If neither market or user country are provided,
+the content is considered unavailable for the client. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The full versions of up to 50 show objects. Shows
+  are returned in the order requested. If a show is not found,
+  <code>nil</code> is returned in the appropriate position. Duplicate shows
+  URIs in the request will result in duplicate shows in the response.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Tracks"></a>
                 <a name="//apple_ref/swift/Section/Tracks" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -5763,7 +6044,7 @@ For example, to just get the next page, use <code>1</code>. Leave as
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-02)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-03)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
