@@ -17,11 +17,22 @@ import Foundation
  */
 public enum IDCategory: String, CaseIterable, Codable, Hashable {
 
+    /// An artist.
     case artist
+    
+    /// An album.
     case album
+    
+    /// A track.
     case track
+    
+    /// A playlist.
     case playlist
+    
+    /// A show.
     case show
+    
+    /// A podcast episode.
     case episode
     
     /// See [Identifying Local Files][1].
@@ -31,6 +42,8 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     
     /// A Spotify user.
     case user
+    
+    /// Unknown. This should be rare.
     case unknown
     
 }

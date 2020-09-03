@@ -18,9 +18,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /**
      Creates a comma separated string (with no spaces) of ids from a
-     sequence of URIs. Throws an error if any of the ids could not
-     be parsed from the URIs (used in the query parameter of some
-     requests).
+     sequence of URIs. (used in the query parameter of some requests).
     
      - Parameters:
        - uris: A sequence of Spotify URIs.

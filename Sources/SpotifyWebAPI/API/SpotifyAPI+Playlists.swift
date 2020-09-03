@@ -180,7 +180,6 @@ public extension SpotifyAPI {
         
     }
     
-    
     /**
      Gets a playlist, including its tracks/episodes and additional
      information about it.

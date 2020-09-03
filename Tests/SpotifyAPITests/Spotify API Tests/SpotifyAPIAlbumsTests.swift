@@ -271,7 +271,7 @@ class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
         XCTestCase, SpotifyAPIAlbumsTests
 {
 
-    static var spotify = SpotifyAPI<AuthorizationCodeFlowManager>.shared
+    static let spotify = SpotifyAPI<AuthorizationCodeFlowManager>.shared
     static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
@@ -294,7 +294,7 @@ class SpotifyAPIClientCredentialsFlowAlbumsTests:
     XCTestCase, SpotifyAPIAlbumsTests
 {
 
-    static var spotify = SpotifyAPI<ClientCredentialsFlowManager>.shared
+    static let spotify = SpotifyAPI<ClientCredentialsFlowManager>.shared
     static var cancellables: Set<AnyCancellable> = []
 
     static let allTests = [
