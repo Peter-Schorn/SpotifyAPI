@@ -146,15 +146,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyPagingObject(
-            SavedItem<Album>.self
-        ) { [weak self] offset, limit in
-            self?.currentUserSavedAlbums(
-                limit: limit,
-                offset: offset,
-                market: market
-            )
-        }
+        .decodeSpotifyObject(PagingObject<SavedItem<Album>>.self)
         
     }
 
@@ -203,16 +195,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyPagingObject(
-            SavedItem<Track>.self
-        ) { [weak self] offset, limit in
-            
-            self?.currentUserSavedTracks(
-                limit: limit,
-                offset: offset,
-                market: market
-            )
-        }
+        .decodeSpotifyObject(PagingObject<SavedItem<Track>>.self)
         
     }
     
@@ -261,16 +244,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyPagingObject(
-            SavedItem<Show>.self
-        ) { [weak self] offset, limit in
-            
-            self?.currentUserSavedShows(
-                limit: limit,
-                offset: offset,
-                market: market
-            )
-        }
+        .decodeSpotifyObject(PagingObject<SavedItem<Show>>.self)
         
     }
     

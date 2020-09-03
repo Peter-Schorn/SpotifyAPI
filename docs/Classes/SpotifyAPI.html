@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -394,6 +394,10 @@ It also emits a signal in the didSet block of <code><a href="../Classes/SpotifyA
 <p>This publisher allows you to be notified of changes to
 the authorization manager even when you create a new instance of it
 and assign it to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> property of this class.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>No guarantees are made about which thread this subject will emit on.
+Always receive on the main thread if you plan on updating the UI.</p>
 
                       </div>
                       <div class="declaration">
@@ -5974,9 +5978,6 @@ type.</p>
 
 <p>This method is also available as a combine operator (same name)
 for all publishers where <code>Output</code>: <code><a href="../Protocols/Paginated.html">Paginated</a></code>.</p>
-
-<p>See also <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF">PagingObject.getPage(atOffset:limit:)</a></code>, which
-can be used to request multiple pages asyncronously.</p>
 
 <p>Each time an additional page is received, its <code>next</code> property
 is used to retrieve the next page of results, and so on, until

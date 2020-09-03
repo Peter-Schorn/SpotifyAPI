@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -570,6 +570,10 @@ Intead, subscribe to the <code>authorizationManagerDidChange</code> publisher
 of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>. This allows you to be notified of changes even
 when you create a new instance of this class and assign it to the
 <code>authorizationManager</code> instance property of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>No guarantees are made about which thread this subject will emit on.
+Always receive on the main thread if you plan on updating the UI.</p>
 
                       </div>
                       <div class="declaration">
@@ -715,6 +719,9 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/auth
                         <p>Sets <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC11accessTokenSSSgvp">accessToken</a></code>, <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC12refreshTokenSSSgvp">refreshToken</a></code>, <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC14expirationDate10Foundation0I0VSgvp">expirationDate</a></code>, and
 <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC6scopesShyAA5ScopeOGSgvp">scopes</a></code> to <code>nil</code>. Does not change <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientIdSSvp">clientId</a></code> or <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC12clientSecretSSvp">clientSecret</a></code>,
 which are immutable.</p>
+
+<p>After calling this method, you must authorize your application
+again before accessing any of the Spotify web API endpoints.</p>
 
 <p>If this instance is stored in persistent storage, consider
 removing it after calling this method.</p>

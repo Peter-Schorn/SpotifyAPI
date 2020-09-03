@@ -40,8 +40,6 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
-    
-     See also `getPage(atOffset:limit:)`.
      */
     public let next: String?
     
@@ -51,8 +49,6 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject` to retrieve the results.
-    
-     See also `getPage(atOffset:limit:)`.
      */
     public let previous: String?
 
@@ -63,12 +59,6 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /// The maximum number of items available to return in this
     /// `PagingObject`.
     public let total: Int
-    
-    /// Do **NOT** use this method. Use `getPage(atOffset:limit:)` instead.
-    @usableFromInline
-    var _getPage: (
-        (_ atOffset: Int, _ limit: Int?) -> AnyPublisher<Self, Error>?
-    ) = { _, _ in nil }
     
 }
 
@@ -105,102 +95,8 @@ extension PagingObject {
         return totalPages
     }
     
-    /**
-     Gets a page of results at the specified offset.
-     
-     Unless you need to request multiple pages asyncronously,
-     consider using `SpotifyAPI.extendPages(_:maxExtraPages:)`
-     or the combine operator of the same name instead of this method.
-     
-     This method calls through to a partially applied version of
-     the `SpotifyAPI` method that this `PagingObject` was originally
-     retrieved from, with all parameters except the offset and limit fixed
-     to the values that were used to retrieve this `PagingObject`.
-     
-     If this `PagingObject` was retrieved from a method that does not have
-     `offset` and `limit` parameters, such as `playlist(_:market:)` and
-     `createPlaylist(for:_:)`, then this method returns `nil` and you should
-     never call it in the first place. **If this PagingObject is nested inside**
-     **another object, then this method will return nil.**
-     
-     See also:
-     
-     * `totalPages`: The total number of pages available.
-     * `total`: The maximum number of items available to return.
-     * `offset`: The offset of the items returned.
-     * `next`: The URL to the next page of items, or `nil` if none.
-     * `previous`: The URL to the previous page of items or `nil` if none.
-     
-     `atOffset` should either be greater than or equal to
-     ```
-     self.offset + self.items.count
-     ```
-     or less than or equal to
-     ```
-     self.offset - self.items.count + limit
-     ```
-     where `limit` is the argument to this function (not the instance property of
-     the same name). Otherwise, you will retrieve results that are already
-     contained in this page.
-     
-     It should also be less than `self.total`, which is the maximum number of
-     items available to return, otherwise you will get an empty array of items.
-     
-     - Parameters:
-       - atOffset: The offset of the results to return.
-             **This does not represent a page number**.
-       - limit: The maximum number of results to return. Leave as `nil` to
-             use the default limit for the endpoint that this `PagingObject`
-             was retrieved from.
-     - Returns: Another Paging object with the requested results.
-     */
-    @inlinable
-    public func getPage(
-        atOffset: Int, limit: Int? = nil
-    ) -> AnyPublisher<Self, Error>? {
-        
-        #if DEBUG
-        if atOffset >= total {
-            print(
-                """
-                ---------------------------------------------------------------
-                \(Self.self).getPage(atOffset:limit:) WARNING: The offset of the
-                items you are retrieving (\(atOffset)) is greater than or equal to
-                the total number of items available (\(total)). You will almost
-                certainly receive an empty array of results.
-                ---------------------------------------------------------------
-                """
-            )
-        }
-        else {
-            let limitString = limit.map(String.init) ?? "nil"
-            let warning = """
-                ---------------------------------------------------------------
-                \(Self.self).getPage(atOffset:limit:) WARNING: the \
-                range of items that you are retrieving (offset: \(atOffset); \
-                limit: \(limitString)) overlaps with the range of items in this
-                page (\(self.offset)-\(self.offset + self.limit)). You will \
-                retrieve duplicate items.
-                ---------------------------------------------------------------
-                """
-            let currentPageRange = self.offset..<self.items.count
-            if currentPageRange.contains(atOffset) {
-                print(warning)
-            }
-            else if let limit = limit, currentPageRange.contains(
-                atOffset + limit
-            ) {
-                print(warning)
-            }
-        }
-        #endif
-        
-        return self._getPage(atOffset, limit)
-        
-    }
     
 }
-
 
 extension PagingObject: Codable {
     

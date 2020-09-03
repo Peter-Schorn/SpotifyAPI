@@ -70,21 +70,8 @@ private extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            // motherfuckin partial application
-            .decodeSpotifyPagingObject(
-                ResponseType.self,
-                // getPage: { offset, limit in
-                getPage: { [weak self] offset, limit in
-                    return self?.getPlaylistItems(
-                        playlist,
-                        limit: limit,
-                        offset: offset,
-                        market: market,
-                        requestedTypes: requestedTypes,
-                        responseType: responseType
-                    )
-                }
-            )
+            .decodeSpotifyObject(PagingObject<ResponseType>.self)
+            
             
         } catch {
             return error.anyFailingPublisher(PagingObject<ResponseType>.self)
@@ -429,12 +416,7 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyPagingObject(
-            Playlist<PlaylistsItemsReference>.self
-        ) { offset, limit in
-            self.currentUserPlaylists(limit: limit, offset: offset)
-        }
-        // .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
         
     }
     
@@ -501,15 +483,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyPagingObject(
-                Playlist<PlaylistsItemsReference>.self
-            ) { offset, limit in
-                self.userPlaylists(
-                    for: userURI,
-                    limit: limit,
-                    offset: offset
-                )
-            }
+            .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
     
         } catch {
             return error.anyFailingPublisher(

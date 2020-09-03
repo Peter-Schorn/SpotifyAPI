@@ -43,7 +43,7 @@ final class CodingTimeReferenceTests: XCTestCase {
             areEqual: Self.timeReferencesAreApproximatelyEqual(lhs:rhs:)
         )
         
-        for _ in 1...10_000 {
+        for _ in 1...1_000 {
             let randomInterval = Double.random(in: -1_000_000_000...1_000_000_000)
             let date = Date().addingTimeInterval(randomInterval)
             let timeReference3 = TimeReference.before(date)
@@ -55,7 +55,7 @@ final class CodingTimeReferenceTests: XCTestCase {
             
         }
         
-        for _ in 1...10_000 {
+        for _ in 1...1_000 {
             let randomInterval = Double.random(in: -1_000_000_000...1_000_000_000)
             let date = Date().addingTimeInterval(randomInterval)
             let timeReference3 = TimeReference.after(date)

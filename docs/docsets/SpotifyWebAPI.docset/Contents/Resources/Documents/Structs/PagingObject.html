@@ -17,7 +17,7 @@
     <a title="PagingObject Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -350,7 +350,7 @@ next and limit that can be useful in future calls.</p>
                         <p>A link to the Spotify web API endpoint returning
 the full result of the request in this <code>PagingObject</code>.</p>
 
-<p>Use <code>getFromHref(_:responseType:)</code>, passing in the type of this
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in the type of this
 <code>PagingObject</code> to retrieve the results.</p>
 
                       </div>
@@ -435,10 +435,8 @@ query or by default) in this <code>PagingObject</code>.</p>
                       <div class="abstract">
                         <p>The URL (href) to the next page of items or <code>nil</code> if none.</p>
 
-<p>Use <code>getFromHref(_:responseType:)</code>, passing in the type of this
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in the type of this
 <code>PagingObject</code> to retrieve the results.</p>
-
-<p>See also <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF">getPage(atOffset:limit:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -468,10 +466,8 @@ query or by default) in this <code>PagingObject</code>.</p>
                         <p>The URL (href) to the previous page of items or <code>nil</code> if none
 in this <code>PagingObject</code>.</p>
 
-<p>Use <code>getFromHref(_:responseType:)</code>, passing in the type of this
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in the type of this
 <code>PagingObject</code> to retrieve the results.</p>
-
-<p>See also <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF">getPage(atOffset:limit:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -591,115 +587,6 @@ query or by default</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">totalPages</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF"></a>
-                    <a name="//apple_ref/swift/Method/getPage(atOffset:limit:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI12PagingObjectV7getPage8atOffset5limit7Combine12AnyPublisherVyACyxGs5Error_pGSgSi_SiSgtF">getPage(atOffset:<wbr>limit:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets a page of results at the specified offset.</p>
-
-<p>Unless you need to request multiple pages asyncronously,
-consider using <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>
-or the combine operator of the same name instead of this method.</p>
-
-<p>This method calls through to a partially applied version of
-the <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code> method that this <code>PagingObject</code> was originally
-retrieved from, with all parameters except the offset and limit fixed
-to the values that were used to retrieve this <code>PagingObject</code>.</p>
-
-<p>If this <code>PagingObject</code> was retrieved from a method that does not have
-<code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV6offsetSivp">offset</a></code> and <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> parameters, such as <code>playlist(_:market:)</code> and
-<code>createPlaylist(for:_:)</code>, then this method returns <code>nil</code> and you should
-never call it in the first place. <strong>If this PagingObject is nested inside</strong>
-<strong>another object, then this method will return nil.</strong></p>
-
-<p>See also:</p>
-
-<ul>
-<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV10totalPagesSivp">totalPages</a></code>: The total number of pages available.</li>
-<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code>: The maximum number of items available to return.</li>
-<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV6offsetSivp">offset</a></code>: The offset of the items returned.</li>
-<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV4nextSSSgvp">next</a></code>: The URL to the next page of items, or <code>nil</code> if none.</li>
-<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV8previousSSSgvp">previous</a></code>: The URL to the previous page of items or <code>nil</code> if none.</li>
-</ul>
-
-<p><code>atOffset</code> should either be greater than or equal to</p>
-<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="k">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">count</span>
-</code></pre>
-
-<p>or less than or equal to</p>
-<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">-</span> <span class="k">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">count</span> <span class="o">+</span> <span class="n">limit</span>
-</code></pre>
-
-<p>where <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> is the argument to this function (not the instance property of
-the same name). Otherwise, you will retrieve results that are already
-contained in this page.</p>
-
-<p>It should also be less than <code>self.total</code>, which is the maximum number of
-items available to return, otherwise you will get an empty array of items.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">@inline</span><span class="p">(</span><span class="n">__always</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPage</span><span class="p">(</span>
-    <span class="nv">atOffset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>atOffset</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The offset of the results to return.
-<strong>This does not represent a page number</strong>.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>limit</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The maximum number of results to return. Leave as <code>nil</code> to
-use the default limit for the endpoint that this <code>PagingObject</code>
-was retrieved from.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>Another Paging object with the requested results.</p>
                       </div>
                     </section>
                   </div>

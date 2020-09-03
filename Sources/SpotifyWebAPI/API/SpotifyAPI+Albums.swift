@@ -157,16 +157,8 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyPagingObject(
-                Track.self
-            ) { [weak self] offset, limit in
-                self?.albumTracks(
-                    album,
-                    market: market,
-                    limit: limit,
-                    offset: offset
-                )
-            }
+            .decodeSpotifyObject(PagingObject<Track>.self)
+            
             
         } catch {
             return error.anyFailingPublisher(PagingObject<Track>.self)

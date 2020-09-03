@@ -8,9 +8,6 @@ public extension Publisher where Output: Paginated {
      Retrieves additional pages of results from a `Paginated`
      type.
      
-     See also `PagingObject.getPage(atOffset:limit:)`, which
-     can be used to request multiple pages asyncronously.
-     
      Each time an additional page is received, its `next` property
      is used to retrieve the next page of results, and so on, until
      `next` is `nil` or `maxExtraPages` is reached. This means that

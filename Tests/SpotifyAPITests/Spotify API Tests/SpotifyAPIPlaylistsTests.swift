@@ -98,7 +98,7 @@ extension SpotifyAPIPlaylistsTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 20)
+        wait(for: [expectation], timeout: 30)
         
     }
 

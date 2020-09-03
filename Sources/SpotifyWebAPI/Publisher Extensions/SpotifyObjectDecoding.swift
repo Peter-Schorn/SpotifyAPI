@@ -246,35 +246,3 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
     }
 
 }
-
-extension Publisher where Output == (data: Data, response: URLResponse) {
-    
-    
-    func decodeSpotifyPagingObject<ResponseType: Decodable>(
-        _ wrappedType: ResponseType.Type,
-        getPage: @escaping (_ atOffset: Int, _ limit: Int?)
-                -> AnyPublisher<PagingObject<ResponseType>, Error>?
-    ) -> AnyPublisher<PagingObject<ResponseType>, Error> {
-        
-        
-        return self.tryMap { data, response -> PagingObject<ResponseType> in
-
-            guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError("could not cast URLResponse to HTTPURLResponse")
-            }
-
-            var pagingObject = try SpotifyWebAPI.decodeSpotifyObject(
-                data: data,
-                httpURLResponse: httpURLResponse,
-                responseType: PagingObject<ResponseType>.self
-            )
-
-            pagingObject._getPage = getPage
-            return pagingObject
-        }
-        .eraseToAnyPublisher()
-        
-        
-    }
-
-}

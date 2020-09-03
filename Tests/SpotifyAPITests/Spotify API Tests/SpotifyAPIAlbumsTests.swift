@@ -188,20 +188,18 @@ extension SpotifyAPIAlbumsTests {
                 XCTAssertEqual(tracks[48].name, "Change the World")
                 XCTAssertEqual(tracks[49].name, "Space Cowboy - Dian Solo Mix")
             }
-            
-            guard let publisher = album.getPage(atOffset: 50, limit: 50) else {
-                XCTFail("getPage was nil")
-                return
-            }
-            publisher
-                .XCTAssertNoFailure()
-                .sink(
-                    receiveCompletion: { _ in expectation2.fulfill() },
-                    receiveValue: { secondAlbum in
-                        receiveAlbumTracksPage2(firstAlbumPage: album, secondAlbumPage: secondAlbum)
-                    }
-                )
-                .store(in: &Self.cancellables)
+         
+            Self.spotify.albumTracks(
+                URIs.Albums.longestAlbum, limit: 50, offset: 50
+            )
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation2.fulfill() },
+                receiveValue: { secondAlbum in
+                    receiveAlbumTracksPage2(firstAlbumPage: album, secondAlbumPage: secondAlbum)
+                }
+            )
+            .store(in: &Self.cancellables)
         }
         
         func receiveAlbumTracksPage2(
@@ -222,17 +220,15 @@ extension SpotifyAPIAlbumsTests {
                 
             }
             
-            guard let publisher = firstAlbumPage.getPage(atOffset: 100, limit: 50) else {
-                XCTFail("getPage was nil")
-                return
-            }
-            publisher
-                .XCTAssertNoFailure()
-                .sink(
-                    receiveCompletion: { _ in expectation3.fulfill() },
-                    receiveValue: receiveAlbumTracksPage3(_:)
-                )
-                .store(in: &Self.cancellables)
+            Self.spotify.albumTracks(
+                URIs.Albums.longestAlbum, limit: 50, offset: 100
+            )
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation3.fulfill() },
+                receiveValue: receiveAlbumTracksPage3(_:)
+            )
+            .store(in: &Self.cancellables)
             
 
         }
