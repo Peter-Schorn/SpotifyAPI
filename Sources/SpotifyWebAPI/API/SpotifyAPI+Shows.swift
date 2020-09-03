@@ -1,14 +1,12 @@
 import Foundation
 import Combine
 
-// MARK: Episodes
-
 public extension SpotifyAPI {
     
     /**
-     Get an episode.
-
-     See also `episodes(_:market:)` (gets multiple episodes).
+     Get a show.
+     
+     See also `shows(_:market:)` (gets multiple shows).
      
      Reading the user’s resume points on episode objects requires the
      `userReadPlaybackPosition` scope.
@@ -27,40 +25,41 @@ public extension SpotifyAPI {
              view the country that is associated with their account in the
              [account settings][3].
              
-     - Returns: The full version of an episode object.
+     - Returns: The full version of a show object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/se/account/overview/
      */
-    func episode(
+    func show(
         _ uri: SpotifyURIConvertible,
         market: String? = nil
-    ) -> AnyPublisher<Episode, Error> {
+    ) -> AnyPublisher<Show, Error> {
         
         do {
-        
+            
             let id = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.episode]
+                uri: uri, ensureTypeMatches: [.show]
             ).id
             
             return self.getRequest(
-                path: "/episodes/\(id)",
+                path: "/shows/\(id)",
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Episode.self)
-    
-        } catch {
-            return error.anyFailingPublisher(Episode.self)
-        }
+            .decodeSpotifyObject(Show.self)
+            
 
+        } catch {
+            return error.anyFailingPublisher(Show.self)
+        }
+        
     }
     
     /**
-     Get multiple episodes.
+     Get multiple shows.
      
-     See also `episode(_:market:)` (gets a single episode).
+     See also `show(_:market:)` (gets a single show).
      
      Reading the user’s resume points on episode objects requires the
      `userReadPlaybackPosition` scope.
@@ -68,7 +67,7 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - uris: An array of episode URIs. Maximum: 50.
+       - uris: An array of show URIs. Maximum: 50.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
              If a country code is specified, only shows and episodes that
              are available in that market will be returned. If a valid user
@@ -79,50 +78,51 @@ public extension SpotifyAPI {
              view the country that is associated with their account in the
              [account settings][3].
              
-     - Returns: The full versions of up to 50 episode objects. Episodes
-           are returned in the order requested. If an episode is not found,
-           `nil` is returned in the appropriate position. Duplicate episode
-           URIs in the request will result in duplicate episodes in the response.
+     - Returns: The full versions of up to 50 show objects. Shows
+           are returned in the order requested. If a show is not found,
+           `nil` is returned in the appropriate position. Duplicate shows
+           URIs in the request will result in duplicate shows in the response.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/se/account/overview/
      */
-    func episodes(
+    func shows(
         _ uris: [SpotifyURIConvertible],
         market: String? = nil
-    ) -> AnyPublisher<[Episode?], Error> {
+    ) -> AnyPublisher<[Show?], Error> {
             
         do {
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [.episode]
+                    uris, ensureTypeMatches: [.show]
                 )
             
             return self.getRequest(
-                path: "/episodes",
+                path: "/shows",
                 queryItems: [
                     "ids": idsString,
                     "market": market
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Episode?]].self)
-            .tryMap { dict -> [Episode?] in
-                if let shows = dict["episodes"] {
+            .decodeSpotifyObject([String: [Show?]].self)
+            .tryMap { dict -> [Show?] in
+                if let shows = dict["shows"] {
                     return shows
                 }
                 throw SpotifyLocalError.topLevelKeyNotFound(
-                    key: "episodes", dict: dict
+                    key: "shows", dict: dict
                 )
             }
             .eraseToAnyPublisher()
+            
 
         } catch {
-            return error.anyFailingPublisher([Episode?].self)
+            return error.anyFailingPublisher([Show?].self)
         }
 
     }
-    
+
 }

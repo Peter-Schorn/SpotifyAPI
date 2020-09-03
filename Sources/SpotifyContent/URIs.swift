@@ -94,6 +94,19 @@ public enum URIs {
         case samHarris214 = "spotify:episode:3d1cFPfj3kZB27D4b8ZJm2"
         case samHarris213 = "spotify:episode:7jrEoNMrNicZSxIuKhATHN"
         case samHarris212 = "spotify:episode:3OEdPEYB69pfXoBrhvQYeC"
+        
+        case seanCarroll112 = "spotify:episode:5LEFdZ9pYh99wSz7Go2D0g"
+        case seanCarroll111 = "spotify:episode:0Bbtb2VFGYAl54Enix23Qd"
+        
+        /// Miley Cyrus
+        case joeRogan1531 = "spotify:episode:0ZEDvQuPtAEBnXE37slSoX"
+    }
+    
+    /// A namespace of shows.
+    public enum Shows: String, SpotifyURIConvertibleEnum {
+        case samHarris = "spotify:show:5rgumWEx4FsqIY8e1wJNAk"
+        case joeRogan = "spotify:show:4rOoJ6Egrf8K2IrywzwOMk"
+        case seanCarroll = "spotify:show:622lvLwp8CVu6dvCsYAJhN"
     }
 
 }
