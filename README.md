@@ -57,21 +57,19 @@ After the user either approves or denies authorization for your app, Spotify wil
 spotify.authorizationManager.requestAccessAndRefreshTokens(
     redirectURIWithQuery: url
 )
-.sink(
-    receiveCompletion: { completion in
-        switch completion {
-            case .finished:
-                print("successfully authorized")
-            case .failure(let error):
-                if let authError = error as? SpotifyAuthorizationError, authError.accessWasDenied {
-                    print("The user denied the authorization request")
-                }
-                else {
-                    print("couldn't authorize application: \(error)")
-                }
-        }
+.sink(receiveCompletion: { completion in
+    switch completion {
+        case .finished:
+            print("successfully authorized")
+        case .failure(let error):
+            if let authError = error as? SpotifyAuthorizationError, authError.accessWasDenied {
+                print("The user denied the authorization request")
+            }
+            else {
+                print("couldn't authorize application: \(error)")
+            }
     }
-)
+})
 .store(in: &cancellables)
 ```
 
@@ -109,16 +107,14 @@ let spotify = SpotifyAPI(
 To authorize your application, call `authorize()`:
 ```swift
 spotify.authorizationManager.authorize()
-    .sink(
-        receiveCompletion: { completion in
-            switch completion {
-                case .finished:
-                    print("successfully authorized application")
-                case .failure(let error):
-                    print("could not authorize application: \(error)")
-            }
+    .sink(receiveCompletion: { completion in
+        switch completion {
+            case .finished:
+                print("successfully authorized application")
+            case .failure(let error):
+                print("could not authorize application: \(error)")
         }
-    )
+    })
     .store(in: &cancellables)
 ```
 
