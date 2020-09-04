@@ -67,11 +67,11 @@ extension PagingObject {
      
      This property is calculated by dividing `total` by `limit`
      and rounding up to the nearest integer. For example, if `total` is
-     745 and `limit` is 100, then `totalPages` is 8.
+     745 and `limit` is 100, then `estimatedTotalPages` is 8.
      
-     `total` represents the maximum number of items available to return.
-     `limit` represents the number of items in this page. (as set in the
-     query or by default).
+     * `total` represents the maximum number of items available to return.
+     * `limit` represents the maximum number of items in this page (as set
+       in the query or by default).
      
      - Warning: This calculation assumes that the limit for each page
            will be the same as *this* page.

@@ -79,18 +79,16 @@ private class READMEExamplesCompilationTests {
         )
         
         spotify.authorizationManager.authorize()
-            .sink(
-                receiveCompletion: { completion in
-                    switch completion {
-                        case .finished:
-                            break
-                            // print("successfully authorized application")
-                        case .failure(let error):
-                            _ = error
-                            // print("could not authorize application: \(error)")
-                    }
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                    case .finished:
+                        break
+                    // print("successfully authorized application")
+                    case .failure(let error):
+                        _ = error
+                    // print("could not authorize application: \(error)")
                 }
-            )
+            })
             .store(in: &cancellables)
         
         spotify.search(query: "Pink Floyd", types: [.track])

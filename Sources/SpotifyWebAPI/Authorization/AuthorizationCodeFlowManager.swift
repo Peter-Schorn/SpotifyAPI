@@ -153,7 +153,9 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
 
         #if DEBUG
-        dispatchPrecondition(condition: .onQueue(updateAuthInfoDispatchQueue))
+        dispatchPrecondition(
+            condition: .onQueue(updateAuthInfoDispatchQueue)
+        )
         #endif
         
         self.accessToken = authInfo.accessToken
@@ -493,7 +495,6 @@ public extension AuthorizationCodeFlowManager {
                 
             }
             .eraseToAnyPublisher()
-        
         
         } catch {
             return error.anyFailingPublisher(Void.self)
