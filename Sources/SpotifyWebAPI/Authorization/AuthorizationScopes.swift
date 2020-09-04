@@ -132,6 +132,8 @@ public enum Scope: String, Codable, CaseIterable, Hashable {
     /// other users that the user follows.
     case userFollowModify = "user-follow-modify"
     
+    // the synthesized implementation of `allCases`
+    // is an array, but a set is more useful
     /// A `Set` of all the authorization scopes.
     public static var allCases: Set<Scope> = [
         .ugcImageUpload,

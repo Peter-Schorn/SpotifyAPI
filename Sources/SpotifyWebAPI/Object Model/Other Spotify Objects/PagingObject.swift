@@ -15,10 +15,6 @@ import Logger
  */
 public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
-    static var logger: Logger {
-        Logger(label: "PagingObject", level: .critical)
-    }
-    
     /**
      A link to the Spotify web API endpoint returning
      the full result of the request in this `PagingObject`.
@@ -75,24 +71,21 @@ extension PagingObject {
      
      `total` represents the maximum number of items available to return.
      `limit` represents the number of items in this page. (as set in the
-     query or by default
+     query or by default).
      
      - Warning: This calculation assumes that the limit for each page
            will be the same as *this* page.
      */
-    public var totalPages: Int {
+    public var estimatedTotalPages: Int {
         
-        let itemsCount = items.count
         // avoid division by zero error
-        if itemsCount == 0 { return 1 }
+        if limit == 0 { return 1 }
         
         // performs integer division and rounds up the result.
         // equivalent to `Int(ceil(Double(total) / Double(itemsCount)))`,
         // but avoids unnecessary type conversion
         // see https://stackoverflow.com/a/17974/12394554
-        let totalPages = (total + itemsCount - 1) / itemsCount
-        Self.logger.trace("total pages: \(totalPages)")
-        return totalPages
+        return (total + limit - 1) / limit
     }
     
     
