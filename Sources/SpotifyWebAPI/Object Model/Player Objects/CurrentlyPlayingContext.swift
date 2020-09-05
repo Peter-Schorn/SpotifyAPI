@@ -42,10 +42,15 @@ public struct CurrentlyPlayingContext: Hashable {
     /// `true` if content is currently playing. Else, `false`.
     public let isPlaying: Bool
     
-    /// The currently playing track/episode.
-    ///
-    /// Can be `nil`. For example, If the user has a private
-    /// session enabled, then this will be `nil`.
+    /**
+     The currently playing track/episode.
+     
+     Although the type is `PlaylistItem`, this does not necessarily
+     mean that item is playing in the context of a playlist.
+    
+     Can be `nil`. For example, If the user has a private
+     session enabled, then this will be `nil`.
+     */
     public let item: PlaylistItem?
     
     /// The object type of the currently playing item.
