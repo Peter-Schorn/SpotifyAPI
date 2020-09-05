@@ -57,7 +57,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     public var expirationDate: Date?
     
     /// Ensure no data races occur when updating auth info.
-    private var updateAuthInfoDispatchQueue = DispatchQueue(
+    private let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
     )
     
@@ -201,11 +201,11 @@ public extension ClientCredentialsFlowManager {
      Returns `true` if `accessToken` is not `nil` and
      the set of scopes is empty.
      
-     The client credentials flow does not support authorization scopes.
-     It only supports endpoints that do not access user data.
-     
      - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
            This must be an empty set, or this method will return `false`.
+           This is because The client credentials flow does not support
+           authorization scopes; it only supports endpoints that do not
+           access user data.
      
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */

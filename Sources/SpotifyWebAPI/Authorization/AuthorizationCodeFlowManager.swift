@@ -607,4 +607,9 @@ extension AuthorizationCodeFlowManager {
         
     }
     
+    /// Only use for testing purposes.
+    func setExpirationDate(to date: Date) {
+        self.expirationDate = date
+    }
+    
 }

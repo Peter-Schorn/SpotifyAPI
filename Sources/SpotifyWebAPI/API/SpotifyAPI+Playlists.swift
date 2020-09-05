@@ -100,6 +100,10 @@ public extension SpotifyAPI {
      
      Use the [Spotify console][1] to test your queries,
      then copy and paste the response into this [online JSON viewer][2].
+     You are also encouraged to Assign a folder to
+     `SpotifyDecodingError.dataDumpFolder` so that the data will be written
+     to a file when the decoding fails. You can upload this file to the JSON
+     viewer.
      
      Read more at the [Spotify web API reference][3].
      
@@ -120,7 +124,7 @@ public extension SpotifyAPI {
              or the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][5].
      - Returns: The raw data and URL response from the server.
-           Because the response is entirely dependent on the fields you specify,
+           Because the response is entirely dependent on the filters you specify,
            you are responsible for decoding the data. However, any error objects
            returned by Spotify will be decoded automatically and thrown as an
            error to downstream subscribers.
@@ -243,7 +247,6 @@ public extension SpotifyAPI {
                 Playlist<PlaylistItems>.self
             )
         }
-        
         
     }
     

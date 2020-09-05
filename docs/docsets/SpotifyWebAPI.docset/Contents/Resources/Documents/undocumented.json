@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
+      "line": 63,
+      "symbol": "SpotifyAPI.authDidChangeLogger",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyAuthenticationError.swift",
       "line": 20,
       "symbol": "SpotifyAuthenticationError.error",
@@ -128,7 +135,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/PagingObject.swift",
-      "line": 207,
+      "line": 103,
       "symbol": "PagingObject.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -387,7 +394,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Podcast Objects/Episode.swift",
-      "line": 236,
+      "line": 241,
       "symbol": "Episode.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

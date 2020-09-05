@@ -17,7 +17,7 @@
     <a title="PagingObject Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -275,7 +275,13 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
               </li>
             </ul>
           </li>
@@ -553,9 +559,9 @@ by default) in this <code>PagingObject</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI12PagingObjectV10totalPagesSivp"></a>
-                    <a name="//apple_ref/swift/Property/totalPages" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI12PagingObjectV10totalPagesSivp">totalPages</a>
+                    <a name="/s:13SpotifyWebAPI12PagingObjectV19estimatedTotalPagesSivp"></a>
+                    <a name="//apple_ref/swift/Property/estimatedTotalPages" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI12PagingObjectV19estimatedTotalPagesSivp">estimatedTotalPages</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -567,15 +573,16 @@ by default) in this <code>PagingObject</code>.</p>
 
 <p>This property is calculated by dividing <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> by <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code>
 and rounding up to the nearest integer. For example, if <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> is
-745 and <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> is 100, then <code>totalPages</code> is 8.</p>
+745 and <code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> is 100, then <code>estimatedTotalPages</code> is 8.</p>
 
-<p><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> represents the maximum number of items available to return.
-<code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> represents the number of items in this page. (as set in the
-query or by default</p>
-<div class="aside aside-warning">
+<ul>
+<li><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5totalSivp">total</a></code> represents the maximum number of items available to return.</li>
+<li><p><code><a href="../Structs/PagingObject.html#/s:13SpotifyWebAPI12PagingObjectV5limitSivp">limit</a></code> represents the maximum number of items in this page (as set
+in the query or by default).</p></li>
+</ul><div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    This calculation assumes that the limit for each page
-  will be the same as <em>this</em> page.
+    <p>This calculation assumes that the limit for each page
+  will be the same as <em>this</em> page.</p>
 
 </div>
 
@@ -584,7 +591,7 @@ query or by default</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">totalPages</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">estimatedTotalPages</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -648,7 +655,7 @@ query or by default</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

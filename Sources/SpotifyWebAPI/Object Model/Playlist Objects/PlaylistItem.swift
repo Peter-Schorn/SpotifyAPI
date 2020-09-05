@@ -11,14 +11,15 @@
  It also has convenience properties for every property
  that is common to both tracks and episodes, such as the name and URI.
  
- 
  This is usually, but not always, returned in the context of
  a playlist.
- 
  */
 public enum PlaylistItem: Hashable {
     
+    /// A track in this `PlaylistItem`.
     case track(Track)
+    
+    /// An episode in this `PlaylistItem`.
     case episode(Episode)
     
     /// The name of the item

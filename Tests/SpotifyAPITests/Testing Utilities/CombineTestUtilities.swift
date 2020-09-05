@@ -5,20 +5,19 @@ import XCTest
 
 extension Publisher {
     
-    /// Calls through to `XCTFail` when an error is received.
+    /// Calls through to `XCTFail` when an error is received
+    /// and replaces the error with a publisher that completes
+    /// immediately: `Empty<Output, Failure>`.
     func XCTAssertNoFailure(
-        _ message: @autoclosure @escaping () -> String = "",
+        _ message: String = "",
         file: StaticString = #file,
         line: UInt = #line
      ) -> AnyPublisher<Output, Failure> {
         
-        return self.handleEvents(
-            receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    XCTFail("\(message()): \(error)", file: file, line: line)
-                }
-            }
-        )
+        return self.catch { error -> Empty<Output, Failure> in
+            XCTFail("\(message): \(error)", file: file, line: line)
+            return Empty<Output, Failure>(completeImmediately: true)
+        }
         .eraseToAnyPublisher()
         
     }

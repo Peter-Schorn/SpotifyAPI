@@ -86,10 +86,8 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<PaginatedResult, Error> {
 
         // indicates that there are no more pages to return
-        let emptyCompletionPublisher = Empty<PaginatedResult, Error>(
-            completeImmediately: true
-        )
-        .eraseToAnyPublisher()
+        let emptyCompletionPublisher = Empty<PaginatedResult, Error>()
+            .eraseToAnyPublisher()
         
         var nextPageIndex = 1
         

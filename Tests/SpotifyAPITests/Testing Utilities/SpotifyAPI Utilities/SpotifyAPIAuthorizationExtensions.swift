@@ -34,7 +34,8 @@ let localHostURL = URL(string: "http://localhost")!
 
 extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {
     
-    static let shared = SpotifyAPI(
+    /// A shared instance used for testing purposes.
+    static let sharedTest = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowManager(
             clientId: clientId, clientSecret: clientSecret
         )
@@ -112,14 +113,13 @@ extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager 
             return
         }
         
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
+        let semaphore = DispatchSemaphore(value: 0)
         
         let cancellable = self.testAuthorize(scopes: Scope.allCases)
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished:
-                        dispatchGroup.leave()
+                        semaphore.signal()
                     case .failure(let error):
                         fatalError(
                             "couldn't authorize application:\n\(error)"
@@ -129,7 +129,7 @@ extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager 
         
         _ = cancellable  // supress warnings
         
-        dispatchGroup.wait()
+        semaphore.wait()
         
     }
     
@@ -137,7 +137,8 @@ extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager 
 
 extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager {
     
-    static let shared = SpotifyAPI(
+    /// A shared instance used for testing purposes.
+    static let sharedTest = SpotifyAPI(
         authorizationManager: ClientCredentialsFlowManager(
             clientId: clientId, clientSecret: clientSecret
         )
@@ -150,15 +151,14 @@ extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager 
         
         if self.authorizationManager.isAuthorized() { return }
         
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
+        let semaphore = DispatchSemaphore(value: 0)
         
         let cancellable = self.authorizationManager.authorize()
             .XCTAssertNoFailure()
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished:
-                        dispatchGroup.leave()
+                        semaphore.signal()
                     case .failure(let error):
                         fatalError(
                             "couldn't authorize application:\n\(error)"
@@ -168,7 +168,7 @@ extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager 
         
         _ = cancellable  // supress warnings
         
-        dispatchGroup.wait()
+        semaphore.wait()
 
     }
 

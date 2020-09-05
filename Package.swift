@@ -36,8 +36,19 @@ let package = Package(
             name: "SpotifyContent",
             dependencies: ["SpotifyWebAPI"]
         ),
+        
+        // MARK: Test Targets
+        
         .testTarget(
             name: "SpotifyAPITests",
+            dependencies: [
+                "SpotifyWebAPI",
+                "RegularExpressions",
+                "SpotifyContent"
+            ]
+        ),
+        .testTarget(
+            name: "SpotifyAPIRefreshTokensTests",
             dependencies: [
                 "SpotifyWebAPI",
                 "RegularExpressions",

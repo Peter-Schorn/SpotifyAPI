@@ -3,7 +3,31 @@ import Foundation
 /**
  A request to play Spotify content for the current user.
  
- Used in the body of
+ Used in the body of `SpotifyAPI.resumePlayback(_:deviceId:)`.
+ 
+ * context: The context in which to play the content. One of the following:
+   * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
+     play the content. Must be one of the following types:
+     * Album
+     * Artist
+     * Playlist
+ 
+   * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
+ 
+ * offset: Indicates where in the context playback should start.
+   Only available when `contextURI` is an album or playlist (not an artist)
+   or when `uris([SpotifyURIConvertible])` is used for the context.
+   One of the following:
+ 
+ * `position(Int)`: The index of the item in the context at which to
+   start playback.
+ *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+ 
+ * positionMS: Indicates from what position to start playback.
+   Must be a positive number. If `nil`, then the track/episode
+   will start from the beginning. Passing in a position that is
+   greater than the length of the track will cause the player
+   to start playing the next song.
  */
 public struct PlaybackRequest: Hashable {
     
@@ -12,13 +36,13 @@ public struct PlaybackRequest: Hashable {
      
      One of the following:
      
-     * `contextURI(String)`: A URI for the context in which to play the content.
-       Must correspond to one of the following:
+     * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
+       play the content. Must correspond to one of the following:
        * Album
        * Artist
        * Playlist
      
-     * `uris([String])`: An array of track/episode URIs.
+     * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
      */
     public let context: ContextOption
@@ -27,11 +51,12 @@ public struct PlaybackRequest: Hashable {
      Indicates where in the context playback should start.
      
      Only available when `contextURI` is an album or playlist (not an artist)
-     or when `uris([String])` is used for the context. One of the following:
+     or when `uris([SpotifyURIConvertible])` is used for the context.
+     One of the following:
      
      * `position(Int)`: The index of the item in the context at which to
            start playback.
-     *  `uri(String)`: The URI of the item to start playback at.
+     *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
      If `nil`, then either the first item or a random item in the context
      will be played, depending on whether the user has shuffle on.
@@ -57,30 +82,27 @@ public struct PlaybackRequest: Hashable {
      - Parameters:
        - context: The context in which to play the content.
          One of the following:
-         * `contextURI(String)`: A URI for the context in which to play
+         * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to play
            the content. Must correspond to one of the following:
            * Album
            * Artist
            * Playlist
-         * `uris([String])`: An array of track/episode URIs.
+         * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
        - offset: Indicates where in the context playback should start.
          Only available when `contextURI` is an album or playlist
-         (not an artist) or when `uris([String])` is used for the context.
-         One of the following:
+         (not an artist) or when `uris([SpotifyURIConvertible])`
+         is used for the context. One of the following:
          
          * `position(Int)`: The index of the item in the context at which to
              start playback.
-         *  `uri(String)`: The URI of the item to start playback at.
+         *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
          
-         If `nil`, then either the first item or a random item in the context
-         will be played, depending on whether the user has shuffle on.
-     
        - positionMS: Indicates from what position to start playback.
-         Must be a positive number. If `nil`, then the track/episode
-         will start from the beginning. Passing in a position that is
-         greater than the length of the track will cause the player
-         to start playing the next song.
+             Must be a positive number. If `nil`, then the track/episode
+             will start from the beginning. Passing in a position that is
+             greater than the length of the track will cause the player
+             to start playing the next song.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
      */
@@ -161,6 +183,7 @@ extension PlaybackRequest: Codable {
                 )
             )
         }
+        
         if let positionDictionary = try? container.decodeIfPresent(
             [String: Int].self,
             forKey: .offset
@@ -217,10 +240,94 @@ extension PlaybackRequest: Codable {
     
 }
 
-public enum ContextOption: Hashable {
+/**
+ The context in which to play Spotify content. See `PlaybackRequest`.
+ 
+ One of the following:
+ 
+ * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
+   play the content. Must correspond to one of the following:
+   * Album
+   * Artist
+   * Playlist
+ 
+ * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
+ 
+*/
+public enum ContextOption {
     
+    /**
+     A URI for the context in which to play the content.
+     
+     Must be one of the following types:
+     * Album
+     * Artist
+     * Playlist
+     
+     */
     case contextURI(SpotifyURIConvertible)
+    
+    /// An array of track/episode URIs. Passing in a single item
+    /// will cause that item to be played.
     case uris([SpotifyURIConvertible])
+    
+}
+
+extension ContextOption: Codable {
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        if let contextURI = try container.decodeIfPresent(
+            String.self, forKey: .contextURI
+        ) {
+            self = .contextURI(contextURI)
+        }
+        else if let uris = try container.decodeIfPresent(
+            [String].self,
+            forKey: .uris
+        ) {
+            self = .uris(uris)
+        }
+        else {
+            let debugDescription = """
+                expected to find either a single string value for key \
+                "context_uri" or an array of strings for key "uris"
+                """
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: debugDescription
+                )
+            )
+        }
+        
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        switch self {
+            case .contextURI(let context):
+                try container.encode(
+                    context.uri, forKey: .contextURI
+                )
+            case .uris(let uris):
+                try container.encode(
+                    uris.map(\.uri), forKey: .uris
+                )
+        }
+    }
+    
+    public enum CodingKeys: String, CodingKey {
+        case contextURI = "context_uri"
+        case uris
+    }
+
+}
+
+extension ContextOption: Hashable {
     
     public func hash(into hasher: inout Hasher) {
         switch self {
@@ -244,10 +351,113 @@ public enum ContextOption: Hashable {
     
 }
 
-public enum OffsetOption: Hashable {
+/**
+ Indicates where in the context playback should start.
+ See `PlaybackRequest`.
+ 
+ Only available when `contextURI` is an album or playlist (not an artist)
+ or when `uris([SpotifyURIConvertible])` is used for the context.
+ One of the following:
+ 
+ * `position(Int)`: The index of the item in the context at which to
+       start playback.
+ *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+ 
+*/
+public enum OffsetOption {
     
+    /// The index of the item in the context at which to
+    /// start playback.
     case position(Int)
+    
+    /// The URI of the item to start playback at.
     case uri(SpotifyURIConvertible)
+}
+
+extension OffsetOption: Codable {
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        if let positionDictionary = try? container.decodeIfPresent(
+            [String: Int].self,
+            forKey: .offset
+        ) {
+            guard let position = positionDictionary["position"] else {
+                let debugDescription = """
+                    exptected to find key "position" in the following \
+                    dictionary:
+                    \(positionDictionary)
+                    """
+                throw DecodingError.dataCorruptedError(
+                    forKey: .offset,
+                    in: container,
+                    debugDescription: debugDescription
+                )
+            }
+            self = .position(position)
+        }
+        else if let uriOffsetDictionary = try? container.decodeIfPresent(
+            [String: String].self,
+            forKey: .offset
+        ) {
+            guard let uriOffset = uriOffsetDictionary["uri"] else {
+                let debugDescription = """
+                    expected to find key "uri" in the following \
+                    dictionary:
+                    \(uriOffsetDictionary)
+                    """
+                throw DecodingError.dataCorruptedError(
+                    forKey: .offset,
+                    in: container,
+                    debugDescription: debugDescription
+                )
+            }
+            self = .uri(uriOffset)
+        }
+        else {
+            let debugDescription = """
+                expected to find one of the following for key "offset":
+                1) dictionary with single key "position" and int value
+                2) dictionary with single key "uri" and string value
+                """
+            throw DecodingError.dataCorruptedError(
+                forKey: .offset,
+                in: container,
+                debugDescription: debugDescription
+            )
+        }
+        
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        switch self {
+            case .position(let index):
+                try container.encode(
+                    ["position": index],
+                    forKey: .offset
+                )
+            case .uri(let uri):
+                try container.encode(
+                    ["uri": uri.uri],
+                    forKey: .offset
+                )
+        }
+        
+    }
+    
+    public enum CodingKeys: String, CodingKey {
+        case offset
+    }
+
+}
+
+extension OffsetOption: Hashable {
+    
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {

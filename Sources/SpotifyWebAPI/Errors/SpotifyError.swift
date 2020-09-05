@@ -13,6 +13,7 @@ public struct SpotifyError: LocalizedError, Hashable {
     
     /// A short description of the cause of the error.
     public let message: String
+    
     /// The HTTP status code that is also returned in the response header.
     /// For further information, see [Response Status Codes][1].
     ///

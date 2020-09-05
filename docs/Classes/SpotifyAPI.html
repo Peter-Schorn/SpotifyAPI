@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (90% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -275,7 +275,13 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
               </li>
             </ul>
           </li>
@@ -3109,7 +3115,7 @@ of a device that is not active, you may get a
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Pause the user&rsquo;s current playback</p>
+                        <p>Pause the user&rsquo;s current playback.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
@@ -3125,6 +3131,9 @@ found, the request will return 404 NOT FOUND response code and the reason
 NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
 403 FORBIDDEN response code will be returned together with
 the PREMIUM_REQUIRED reason.</p>
+
+<p><strong>If playback is already paused, then you will get a</strong>
+<strong>403 &ldquo;Player command failed: Restriction violated&rdquo; error.</strong></p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -3178,49 +3187,38 @@ the PREMIUM_REQUIRED reason.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Start a new context or resume current playback on
-the user’s active device.</p>
+                        <p>Start a new context or resume current playback.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code>.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
 <p>The <code>playbackRequest</code> has the following parameters:</p>
-<h1 id='context' class='heading'>context:</h1>
-
-<p>The context in which to play the content.
-One of the following:</p>
 
 <ul>
-<li><p><code>contextURI(String)</code>: A URI for the context in which to play the content.
-Must correspond to one of the following:</p>
+<li><p>context: The context in which to play the content. One of the following:</p>
 
 <ul>
+<li><code>contextURI(SpotifyURIConvertible)</code>: A URI for the context in which to
+play the content. Must be one of the following types:</li>
 <li>Album</li>
 <li>Artist</li>
 <li>Playlist</li>
+<li><code>uris([SpotifyURIConvertible])</code>: An array of track/episode URIs.</li>
 </ul></li>
-<li><p><code>uris([String])</code>: An array of track/episode URIs.</p></li>
-</ul>
-<h1 id='offset' class='heading'>offset:</h1>
-
-<p>Indicates where in the context playback should start.
+<li><p>offset: Indicates where in the context playback should start.
 Only available when <code>contextURI</code> is an album or playlist (not an artist)
-or when <code>uris([String])</code> is used for the context. One of the following:</p>
-
-<ul>
-<li><code>position(Int)</code>: The index of the item in the context at which to
-start playback.</li>
-<li><code>uri(String)</code>: The URI of the item to start playback at.</li>
-</ul>
-
-<p>If <code>nil</code>, then either the first item or a random item in the context
-will be played, depending on whether the user has shuffle on.</p>
-<h1 id='positionms' class='heading'>positionMS:</h1>
-
-<p>Indicates from what position to start playback.
+or when <code>uris([SpotifyURIConvertible])</code> is used for the context.
+One of the following:</p></li>
+<li><p><code>position(Int)</code>: The index of the item in the context at which to
+start playback.</p></li>
+<li><p><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</p></li>
+<li><p>positionMS: Indicates from what position to start playback.
 Must be a positive number. If <code>nil</code>, then the track/episode
 will start from the beginning. Passing in a position that is
 greater than the length of the track will cause the player
-to start playing the next song.</p>
+to start playing the next song.</p></li>
+</ul>
 
 <p>When performing an action that is restricted,
 404 NOT FOUND or 403 FORBIDDEN will be returned together with
@@ -3229,6 +3227,10 @@ found, the request will return 404 NOT FOUND response code and the reason
 NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
 403 FORBIDDEN response code will be returned together with
 the PREMIUM_REQUIRED reason.</p>
+
+<p><strong>If content is already playing and you use nil for  playbackRequest,</strong>
+<strong>(which resumes playback of the current content) then you will get a</strong>
+<strong>403 “Player command failed: Restriction violated” error.</strong></p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -3611,6 +3613,8 @@ of a device that is not active, you may get a
                       <div class="abstract">
                         <p>Transfer the user&rsquo;s playback to a different device.</p>
 
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14resumePlayback_8deviceId7Combine12AnyPublisherVyyts5Error_pGAA0E7RequestVSg_SSSgtF">resumePlayback(_:deviceId:)</a></code>.</p>
+
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
 <p>When performing an action that is restricted,
@@ -3712,7 +3716,11 @@ and allows you to specify fields to filter the query.</p>
 Private playlists belonging to any user can be retrieved.</p>
 
 <p>Use the <a href="https://developer.spotify.com/console/get-playlist/">Spotify console</a> to test your queries,
-then copy and paste the response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.</p>
+then copy and paste the response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.
+You are also encouraged to Assign a folder to
+<code>SpotifyDecodingError.dataDumpFolder</code> so that the data will be written
+to a file when the decoding fails. You can upload this file to the JSON
+viewer.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/">Spotify web API reference</a>.</p>
 
@@ -3799,7 +3807,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       <div>
                         <h4>Return Value</h4>
                         <p>The raw data and URL response from the server.
-  Because the response is entirely dependent on the fields you specify,
+  Because the response is entirely dependent on the filters you specify,
   you are responsible for decoding the data. However, any error objects
   returned by Spotify will be decoded automatically and thrown as an
   error to downstream subscribers.</p>
@@ -6045,7 +6053,7 @@ For example, to just get the next page, use <code>1</code>. Leave as
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

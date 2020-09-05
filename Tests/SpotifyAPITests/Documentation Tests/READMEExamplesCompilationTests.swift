@@ -37,23 +37,21 @@ private class READMEExamplesCompilationTests {
         spotify.authorizationManager.requestAccessAndRefreshTokens(
             redirectURIWithQuery: url
         )
-        .sink(
-            receiveCompletion: { completion in
-                switch completion {
-                    case .finished:
-                        // print("successfully authorized")
-                        break
-                    case .failure(let error):
-                        if let authError = error as? SpotifyAuthorizationError,
-                                authError.accessWasDenied {
-                            // print("The user denied the authorization request")
-                        }
-                        else {
-                            // print("couldn't authorize application: \(error)")
-                        }
-                }
+        .sink(receiveCompletion: { completion in
+            switch completion {
+                case .finished:
+                    // print("successfully authorized")
+                    break
+                case .failure(let error):
+                    if let authError = error as? SpotifyAuthorizationError,
+                            authError.accessWasDenied {
+                        // print("The user denied the authorization request")
+                    }
+                    else {
+                        // print("couldn't authorize application: \(error)")
+                    }
             }
-        )
+        })
         .store(in: &cancellables)
         
         spotify.currentUserPlaylists()

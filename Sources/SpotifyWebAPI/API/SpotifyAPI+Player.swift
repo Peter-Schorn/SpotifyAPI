@@ -263,7 +263,7 @@ public extension SpotifyAPI {
     }
     
     /**
-     Pause the user's current playback
+     Pause the user's current playback.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
@@ -279,6 +279,9 @@ public extension SpotifyAPI {
      NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
      403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
+     
+     **If playback is already paused, then you will get a**
+     **403 "Player command failed: Restriction violated" error.**
      
      Read more at the [Spotify web API reference][2].
      
@@ -311,42 +314,37 @@ public extension SpotifyAPI {
     }
     
     /**
-     Start a new context or resume current playback on
-     the user’s active device.
+     Start a new context or resume current playback.
+     
+     See also `transferPlayback(to:play:)`.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
      The `playbackRequest` has the following parameters:
      
-     # context:
-     The context in which to play the content.
-     One of the following:
-     * `contextURI(String)`: A URI for the context in which to play the content.
-         Must correspond to one of the following:
+     * context: The context in which to play the content. One of the following:
+       * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
+         play the content. Must be one of the following types:
          * Album
          * Artist
          * Playlist
      
-     * `uris([String])`: An array of track/episode URIs.
+       * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
-     # offset:
-     Indicates where in the context playback should start.
-     Only available when `contextURI` is an album or playlist (not an artist)
-     or when `uris([String])` is used for the context. One of the following:
+     * offset: Indicates where in the context playback should start.
+       Only available when `contextURI` is an album or playlist (not an artist)
+       or when `uris([SpotifyURIConvertible])` is used for the context.
+       One of the following:
      
      * `position(Int)`: The index of the item in the context at which to
        start playback.
-     *  `uri(String)`: The URI of the item to start playback at.
+     *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
-     If `nil`, then either the first item or a random item in the context
-     will be played, depending on whether the user has shuffle on.
-       
-     # positionMS:
-     Indicates from what position to start playback.
-     Must be a positive number. If `nil`, then the track/episode
-     will start from the beginning. Passing in a position that is
-     greater than the length of the track will cause the player
-     to start playing the next song.
+     * positionMS: Indicates from what position to start playback.
+       Must be a positive number. If `nil`, then the track/episode
+       will start from the beginning. Passing in a position that is
+       greater than the length of the track will cause the player
+       to start playing the next song.
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with
@@ -355,6 +353,10 @@ public extension SpotifyAPI {
      NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
      403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
+     
+     **If content is already playing and you use nil for  playbackRequest,**
+     **(which resumes playback of the current content) then you will get a**
+     **403 “Player command failed: Restriction violated” error.**
      
      Read more at the [Spotify web API reference][2].
      
@@ -591,6 +593,8 @@ public extension SpotifyAPI {
     
     /**
      Transfer the user's playback to a different device.
+     
+     See also `resumePlayback(_:deviceId:)`.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
