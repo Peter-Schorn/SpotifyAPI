@@ -1,6 +1,8 @@
+import Foundation
 import XCTest
-import SpotifyWebAPI
 import RegularExpressions
+import SpotifyWebAPI
+import _SpotifyAPITestUtilities
 
 
 final class CodingCurrentlyPlayingContextTests: XCTestCase {

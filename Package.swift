@@ -12,8 +12,12 @@ let package = Package(
     products: [
         .library(
             name: "SpotifyAPI",
-            targets: ["SpotifyWebAPI", "SpotifyContent"]
+            targets: ["SpotifyWebAPI", "SpotifyURIs"]
         ),
+        .library(
+            name: "_SpotifyAPITestUtilities",
+            targets: ["_SpotifyAPITestUtilities"]
+        )
     ],
     dependencies: [
         .package(
@@ -33,8 +37,17 @@ let package = Package(
             dependencies: ["RegularExpressions", "Logger"]
         ),
         .target(
-            name: "SpotifyContent",
+            name: "SpotifyURIs",
             dependencies: ["SpotifyWebAPI"]
+        ),
+        .target(
+            name: "_SpotifyAPITestUtilities",
+            dependencies: [
+                "SpotifyWebAPI",
+                "SpotifyURIs",
+                "RegularExpressions",
+                "Logger"
+            ]
         ),
         
         // MARK: Test Targets
@@ -43,16 +56,18 @@ let package = Package(
             name: "SpotifyAPITests",
             dependencies: [
                 "SpotifyWebAPI",
+                "SpotifyURIs",
                 "RegularExpressions",
-                "SpotifyContent"
+                "_SpotifyAPITestUtilities"
             ]
         ),
         .testTarget(
             name: "SpotifyAPIRefreshTokensTests",
             dependencies: [
                 "SpotifyWebAPI",
+                "SpotifyURIs",
                 "RegularExpressions",
-                "SpotifyContent"
+                "_SpotifyAPITestUtilities"
             ]
         )
     ]

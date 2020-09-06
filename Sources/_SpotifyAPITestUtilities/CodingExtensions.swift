@@ -1,6 +1,5 @@
 import Foundation
 import SpotifyWebAPI
-import SpotifyContent
 import XCTest
 
 /**
@@ -19,7 +18,7 @@ import XCTest
  - Returns: The data converted into a string.
  */
 @discardableResult
-func encodeDecode<T: Codable & Equatable>(
+public func encodeDecode<T: Codable & Equatable>(
     _ object: T,
     areEqual: ((_ lhs: T, _ rhs: T) -> Bool)? = nil,
     file: StaticString = #file,
@@ -79,7 +78,7 @@ func encodeDecode<T: Codable & Equatable>(
  - Returns: The data converted into a string.
  */
 @discardableResult
-func decodeEncodeDecode<T: Codable & Equatable>(
+public func decodeEncodeDecode<T: Codable & Equatable>(
     _ data: Data,
     type: T.Type,
     areEqual: ((_ lhs: T, _ rhs: T) -> Bool)? = nil,

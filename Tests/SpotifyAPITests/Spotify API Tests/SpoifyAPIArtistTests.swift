@@ -2,7 +2,8 @@ import Foundation
 import XCTest
 import Combine
 @testable import SpotifyWebAPI
-import SpotifyContent
+import _SpotifyAPITestUtilities
+import SpotifyURIs
 
 protocol SpotifyAPIArtistTests: SpotifyAPITests { }
 

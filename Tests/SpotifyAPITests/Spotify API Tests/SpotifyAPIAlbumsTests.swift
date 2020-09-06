@@ -2,7 +2,8 @@ import Foundation
 import XCTest
 import Combine
 @testable import SpotifyWebAPI
-import SpotifyContent
+import _SpotifyAPITestUtilities
+import SpotifyURIs
 
 protocol SpotifyAPIAlbumsTests: SpotifyAPITests { }
 
@@ -258,7 +259,7 @@ extension SpotifyAPIAlbumsTests {
            )
            .store(in: &Self.cancellables)
 
-       wait(for: [expectation, expectation2, expectation3], timeout: 10)
+       wait(for: [expectation, expectation2, expectation3], timeout: 30)
            
     }
 

@@ -3,7 +3,7 @@
 // import Combine
 // @testable import SpotifyWebAPI
 //
-// class SpotifyAPIRefreshAsyncTests: SpotifyAPIAuthorizationCodeFlowTests {
+// class SpotifyAPIRefreshTokensAsyncTests: SpotifyAPIAuthorizationCodeFlowTests {
 //
 //     func testAsyncTokensRefresh() {
 //
@@ -12,7 +12,6 @@
 //         var cancellables: Set<AnyCancellable> = []
 //
 //         let past = Date().addingTimeInterval(-10)
-//
 //         Self.spotify.authorizationManager.setExpirationDate(to: past)
 //
 //         let range = 0...10

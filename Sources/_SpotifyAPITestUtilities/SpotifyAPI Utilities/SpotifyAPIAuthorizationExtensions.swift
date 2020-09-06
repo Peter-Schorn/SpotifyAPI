@@ -30,9 +30,9 @@ private let clientSecret: String = {
 }()
 
 /// "http://localhost"
-let localHostURL = URL(string: "http://localhost")!
+public let localHostURL = URL(string: "http://localhost")!
 
-extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
@@ -135,7 +135,7 @@ extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager 
     
 }
 
-extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager {
+public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(

@@ -2,7 +2,8 @@ import Foundation
 import Combine
 import XCTest
 import SpotifyWebAPI
-import SpotifyContent
+import _SpotifyAPITestUtilities
+import SpotifyURIs
 
 final class SpotifyIdentifierTests: XCTestCase {
 

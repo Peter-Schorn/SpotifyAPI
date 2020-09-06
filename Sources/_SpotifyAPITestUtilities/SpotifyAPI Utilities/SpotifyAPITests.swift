@@ -3,7 +3,7 @@ import XCTest
 import Combine
 @testable import SpotifyWebAPI
 
-protocol SpotifyAPITests: XCTestCase {
+public protocol SpotifyAPITests: XCTestCase {
     
     associatedtype AuthorizationManager: SpotifyAuthorizationManager
     

@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 @testable import SpotifyWebAPI
+import _SpotifyAPITestUtilities
 
 final class CodingAuthInfoTests: XCTestCase {
     

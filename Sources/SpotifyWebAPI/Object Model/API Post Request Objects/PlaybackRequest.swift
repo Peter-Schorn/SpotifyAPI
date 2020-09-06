@@ -19,9 +19,9 @@ import Foundation
    or when `uris([SpotifyURIConvertible])` is used for the context.
    One of the following:
  
- * `position(Int)`: The index of the item in the context at which to
-   start playback.
- *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+   * `position(Int)`: The index of the item in the context at which to
+     start playback.
+   *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
  
  * positionMS: Indicates from what position to start playback.
    Must be a positive number. If `nil`, then the track/episode
@@ -120,42 +120,6 @@ public struct PlaybackRequest: Hashable {
 
 extension PlaybackRequest: Codable {
     
-    public func encode(to encoder: Encoder) throws {
-        
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        switch self.context {
-            case .contextURI(let context):
-                try container.encode(
-                    context.uri, forKey: .contextURI
-                )
-            case .uris(let uris):
-                try container.encode(
-                    uris.map(\.uri), forKey: .uris
-                )
-        }
-        
-        switch self.offset {
-            case .position(let index):
-                try container.encode(
-                    ["position": index],
-                    forKey: .offset
-                )
-            case .uri(let uri):
-                try container.encode(
-                    ["uri": uri.uri],
-                    forKey: .offset
-                )
-            case nil:
-                break
-        }
-        
-        try container.encodeIfPresent(
-            self.positionMS, forKey: .positionMS
-        )
-        
-    }
-    
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -230,85 +194,11 @@ extension PlaybackRequest: Codable {
         
     }
  
-    
-    public enum CodingKeys: String, CodingKey {
-        case contextURI = "context_uri"
-        case uris
-        case offset
-        case positionMS = "position_ms"
-    }
-    
-}
-
-/**
- The context in which to play Spotify content. See `PlaybackRequest`.
- 
- One of the following:
- 
- * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-   play the content. Must correspond to one of the following:
-   * Album
-   * Artist
-   * Playlist
- 
- * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
- 
-*/
-public enum ContextOption {
-    
-    /**
-     A URI for the context in which to play the content.
-     
-     Must be one of the following types:
-     * Album
-     * Artist
-     * Playlist
-     
-     */
-    case contextURI(SpotifyURIConvertible)
-    
-    /// An array of track/episode URIs. Passing in a single item
-    /// will cause that item to be played.
-    case uris([SpotifyURIConvertible])
-    
-}
-
-extension ContextOption: Codable {
-    
-    public init(from decoder: Decoder) throws {
-        
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if let contextURI = try container.decodeIfPresent(
-            String.self, forKey: .contextURI
-        ) {
-            self = .contextURI(contextURI)
-        }
-        else if let uris = try container.decodeIfPresent(
-            [String].self,
-            forKey: .uris
-        ) {
-            self = .uris(uris)
-        }
-        else {
-            let debugDescription = """
-                expected to find either a single string value for key \
-                "context_uri" or an array of strings for key "uris"
-                """
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: container.codingPath,
-                    debugDescription: debugDescription
-                )
-            )
-        }
-        
-    }
-    
     public func encode(to encoder: Encoder) throws {
+        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        switch self {
+        switch self.context {
             case .contextURI(let context):
                 try container.encode(
                     context.uri, forKey: .contextURI
@@ -318,124 +208,8 @@ extension ContextOption: Codable {
                     uris.map(\.uri), forKey: .uris
                 )
         }
-    }
-    
-    public enum CodingKeys: String, CodingKey {
-        case contextURI = "context_uri"
-        case uris
-    }
-
-}
-
-extension ContextOption: Hashable {
-    
-    public func hash(into hasher: inout Hasher) {
-        switch self {
-            case .contextURI(let context):
-                hasher.combine(context.uri)
-            case .uris(let uris):
-                hasher.combine(uris.map(\.uri))
-        }
-    }
-    
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        switch (lhs, rhs) {
-            case (.contextURI(let lhsContext), .contextURI(let rhsContext)):
-                return lhsContext.uri == rhsContext.uri
-            case (.uris(let lhsURIs), .uris(let rhsURIs)):
-                return lhsURIs.map(\.uri) == rhsURIs.map(\.uri)
-            default:
-                return false
-        }
-    }
-    
-}
-
-/**
- Indicates where in the context playback should start.
- See `PlaybackRequest`.
- 
- Only available when `contextURI` is an album or playlist (not an artist)
- or when `uris([SpotifyURIConvertible])` is used for the context.
- One of the following:
- 
- * `position(Int)`: The index of the item in the context at which to
-       start playback.
- *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
- 
-*/
-public enum OffsetOption {
-    
-    /// The index of the item in the context at which to
-    /// start playback.
-    case position(Int)
-    
-    /// The URI of the item to start playback at.
-    case uri(SpotifyURIConvertible)
-}
-
-extension OffsetOption: Codable {
-    
-    public init(from decoder: Decoder) throws {
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if let positionDictionary = try? container.decodeIfPresent(
-            [String: Int].self,
-            forKey: .offset
-        ) {
-            guard let position = positionDictionary["position"] else {
-                let debugDescription = """
-                    exptected to find key "position" in the following \
-                    dictionary:
-                    \(positionDictionary)
-                    """
-                throw DecodingError.dataCorruptedError(
-                    forKey: .offset,
-                    in: container,
-                    debugDescription: debugDescription
-                )
-            }
-            self = .position(position)
-        }
-        else if let uriOffsetDictionary = try? container.decodeIfPresent(
-            [String: String].self,
-            forKey: .offset
-        ) {
-            guard let uriOffset = uriOffsetDictionary["uri"] else {
-                let debugDescription = """
-                    expected to find key "uri" in the following \
-                    dictionary:
-                    \(uriOffsetDictionary)
-                    """
-                throw DecodingError.dataCorruptedError(
-                    forKey: .offset,
-                    in: container,
-                    debugDescription: debugDescription
-                )
-            }
-            self = .uri(uriOffset)
-        }
-        else {
-            let debugDescription = """
-                expected to find one of the following for key "offset":
-                1) dictionary with single key "position" and int value
-                2) dictionary with single key "uri" and string value
-                """
-            throw DecodingError.dataCorruptedError(
-                forKey: .offset,
-                in: container,
-                debugDescription: debugDescription
-            )
-        }
-        
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        switch self {
+        switch self.offset {
             case .position(let index):
                 try container.encode(
                     ["position": index],
@@ -446,37 +220,21 @@ extension OffsetOption: Codable {
                     ["uri": uri.uri],
                     forKey: .offset
                 )
+            case nil:
+                break
         }
+        
+        try container.encodeIfPresent(
+            self.positionMS, forKey: .positionMS
+        )
         
     }
     
     public enum CodingKeys: String, CodingKey {
+        case contextURI = "context_uri"
+        case uris
         case offset
-    }
-
-}
-
-extension OffsetOption: Hashable {
-    
-    
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        switch (lhs, rhs) {
-            case (.position(let lhsIndex), .position(let rhsIndex)):
-                return lhsIndex == rhsIndex
-            case (.uri(let lhsURI), .uri(let rhsURI)):
-                return lhsURI.uri == rhsURI.uri
-            default:
-                return false
-        }
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        switch self {
-            case .position(let index):
-                hasher.combine(index)
-            case .uri(let uri):
-                hasher.combine(uri.uri)
-        }
+        case positionMS = "position_ms"
     }
     
 }

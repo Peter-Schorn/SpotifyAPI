@@ -3,7 +3,7 @@ import Combine
 import XCTest
 
 
-extension Publisher {
+public extension Publisher {
     
     /// Calls through to `XCTFail` when an error is received
     /// and replaces the error with a publisher that completes

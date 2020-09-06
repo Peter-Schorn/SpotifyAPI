@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 import SpotifyWebAPI
-
+import _SpotifyAPITestUtilities
 
 final class CodingTimeReferenceTests: XCTestCase {
     

@@ -1,8 +1,8 @@
 import Foundation
 import XCTest
 import SpotifyWebAPI
-import SpotifyContent
-
+import _SpotifyAPITestUtilities
+import SpotifyURIs
 
 final class CodingPlaybackRequestTests: XCTestCase {
     
