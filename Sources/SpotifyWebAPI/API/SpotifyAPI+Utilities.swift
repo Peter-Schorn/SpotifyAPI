@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Logger
 
 // MARK: Utilities
 
@@ -81,30 +82,42 @@ public extension SpotifyAPI {
            that were passed in, as well as additional pages that are
            returned by the Spotify web API.
      */
-    func extendPages<PaginatedResult: Paginated>(
-        _ results: PaginatedResult, maxExtraPages: Int? = nil
-    ) -> AnyPublisher<PaginatedResult, Error> {
+    func extendPages<PaginatedResults: Paginated>(
+        _ results: PaginatedResults, maxExtraPages: Int? = nil
+    ) -> AnyPublisher<PaginatedResults, Error> {
 
         // indicates that there are no more pages to return
-        let emptyCompletionPublisher = Empty<PaginatedResult, Error>()
-            .eraseToAnyPublisher()
+        let emptyCompletionPublisher = Empty<PaginatedResults, Error>(
+            completeImmediately: true
+        )
+        .eraseToAnyPublisher()
         
         var nextPageIndex = 1
         
         let currentPageSubject =
-                CurrentValueSubject<PaginatedResult, Error>(results)
+                CurrentValueSubject<PaginatedResults, Error>(results)
         
         let nextPagePublisher = currentPageSubject
-            .flatMap { nextPage -> AnyPublisher<PaginatedResult, Error> in
+            .flatMap { nextPage -> AnyPublisher<PaginatedResults, Error> in
         
                 self.logger.trace("got page at index \(nextPageIndex)")
         
                 guard let next = nextPage.next else {
                     // the last page of results has been reached
                     self.logger.trace("next was nil")
+                    currentPageSubject.send(completion: .finished)
                     return emptyCompletionPublisher
                 }
         
+                // if let max = maxExtraPages, nextPageIndex > max {
+                //     // the maximum number of pages requested by the caller
+                //     // have been reached
+                //     self.logger.debug(
+                //         "nextPageIndex > maxPages (\(max as Any))"
+                //     )
+                //     return emptyCompletionPublisher
+                // }
+                
                 // guard nextPageIndex <= maxPages
                 guard maxExtraPages.map({ nextPageIndex <= $0 }) ?? true else {
                     // the maximum number of pages requested by the caller
@@ -112,6 +125,7 @@ public extension SpotifyAPI {
                     self.logger.debug(
                         "nextPageIndex > maxPages (\(maxExtraPages as Any))"
                     )
+                    currentPageSubject.send(completion: .finished)
                     return emptyCompletionPublisher
                 }
         
@@ -119,7 +133,7 @@ public extension SpotifyAPI {
         
                 self.logger.trace("requesting next page")
                 return self.getFromHref(
-                    next, responseType: PaginatedResult.self
+                    next, responseType: PaginatedResults.self
                 )
                 .handleEvents(receiveOutput: currentPageSubject.send(_:))
                 .eraseToAnyPublisher()

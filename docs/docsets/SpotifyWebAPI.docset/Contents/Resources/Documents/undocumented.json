@@ -23,29 +23,29 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyDecodingError.swift",
-      "line": 60,
+      "line": 62,
       "symbol": "SpotifyDecodingError.init(rawData:responseType:statusCode:underlyingError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 211,
+      "line": 234,
       "symbol": "PlaybackRequest.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 220,
-      "symbol": "ContextOption",
+      "line": 323,
+      "symbol": "ContextOption.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 247,
-      "symbol": "OffsetOption",
+      "line": 453,
+      "symbol": "OffsetOption.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
@@ -135,7 +135,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/PagingObject.swift",
-      "line": 103,
+      "line": 96,
       "symbol": "PagingObject.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -362,20 +362,6 @@
       "line": 111,
       "symbol": "Playlist.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItem.swift",
-      "line": 21,
-      "symbol": "PlaylistItem.track(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItem.swift",
-      "line": 22,
-      "symbol": "PlaylistItem.episode(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {

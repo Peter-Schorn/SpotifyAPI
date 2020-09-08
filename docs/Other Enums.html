@@ -186,6 +186,12 @@
                 <a href="Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/PlaylistDetails.html">PlaylistDetails</a>
               </li>
               <li class="nav-group-task">
@@ -275,13 +281,7 @@
             <a href="Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/ContextOption.html">ContextOption</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/OffsetOption.html">OffsetOption</a>
               </li>
             </ul>
           </li>
@@ -328,91 +328,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI13ContextOptionO"></a>
-                    <a name="//apple_ref/swift/Enum/ContextOption" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI13ContextOptionO">ContextOption</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The context in which to play Spotify content. See <code><a href="Structs/PlaybackRequest.html">PlaybackRequest</a></code>.</p>
-
-<p>One of the following:</p>
-
-<ul>
-<li><p><code>contextURI(SpotifyURIConvertible)</code>: A URI for the context in which to
-play the content. Must correspond to one of the following:</p>
-
-<ul>
-<li>Album</li>
-<li>Artist</li>
-<li>Playlist</li>
-</ul></li>
-<li><p><code>uris([SpotifyURIConvertible])</code>: An array of track/episode URIs.</p></li>
-</ul>
-
-                        <a href="Enums/ContextOption.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ContextOption</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ContextOption</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ContextOption</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI12OffsetOptionO"></a>
-                    <a name="//apple_ref/swift/Enum/OffsetOption" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI12OffsetOptionO">OffsetOption</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates where in the context playback should start.
-See <code><a href="Structs/PlaybackRequest.html">PlaybackRequest</a></code>.</p>
-
-<p>Only available when <code>contextURI</code> is an album or playlist (not an artist)
-or when <code>uris([SpotifyURIConvertible])</code> is used for the context.
-One of the following:</p>
-
-<ul>
-<li><code>position(Int)</code>: The index of the item in the context at which to
-  start playback.</li>
-<li><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</li>
-</ul>
-
-                        <a href="Enums/OffsetOption.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">OffsetOption</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">OffsetOption</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">OffsetOption</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI10IDCategoryO"></a>
                     <a name="//apple_ref/swift/Enum/IDCategory" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI10IDCategoryO">IDCategory</a>
@@ -456,7 +371,7 @@ near the beginning of a Spotify URI.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-05)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
