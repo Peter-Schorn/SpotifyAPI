@@ -105,18 +105,14 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
-        
-        #if DEBUG
-        dispatchPrecondition(condition: .onQueue(updateAuthInfoDispatchQueue))
-        #endif
-        
-        self.accessToken = authInfo.accessToken
-        self.expirationDate = authInfo.expirationDate
-        
-        self.didChange.send()
-        Self.logger.trace(
-            "updated from auth Info; self.didChange.send()"
-        )
+        updateAuthInfoDispatchQueue.sync {
+            self.accessToken = authInfo.accessToken
+            self.expirationDate = authInfo.expirationDate
+            self.didChange.send()
+            Self.logger.trace(
+                "updated from auth Info; self.didChange.send()"
+            )
+        }
     }
     
     public init(from decoder: Decoder) throws {
@@ -139,12 +135,14 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     public func encode(to encoder: Encoder) throws {
         
-        let codingWrapper = AuthInfo(
-            accessToken: self.accessToken,
-            refreshToken: nil,
-            expirationDate: self.expirationDate,
-            scopes: nil
-        )
+        let codingWrapper = updateAuthInfoDispatchQueue.sync {
+            AuthInfo(
+                accessToken: self.accessToken,
+                refreshToken: nil,
+                expirationDate: self.expirationDate,
+                scopes: nil
+            )
+        }
         
         var container = encoder.container(
             keyedBy: AuthInfo.CodingKeys.self
@@ -187,14 +185,29 @@ public extension ClientCredentialsFlowManager {
      Determines whether the access token is expired
      within the given tolerance.
      
+     The access token is refreshed automatically if needed
+     before each request to the spotify web API is made.
+     Therefore, you should never need to call this method directly.
+     
      - Parameter tolerance: The tolerance in seconds.
-           Default 60.
-     - Returns: `true` if `expirationDate` + `tolerance` is
-           equal to or before the current date. Else, `false`.
+           Default 120.
+     - Returns: `true` if `expirationDate` - `tolerance` is
+           equal to or before the current date or if `accessToken`
+           is `nil`. Else, `false`.
      */
-    func accessTokenIsExpired(tolerance: Double = 60) -> Bool {
-        guard let expirationDate = expirationDate else { return false }
-        return expirationDate.addingTimeInterval(tolerance) <= Date()
+    func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
+        if (accessToken == nil) != (self.expirationDate == nil) {
+            let expirationDateString = self.expirationDate?
+                    .description(with: .current) ?? "nil"
+            Self.logger.critical(
+                "accessToken or expirationDate was nil, but not both: " +
+                "accessToken == nil: \(accessToken == nil);" +
+                "expiration date: \(expirationDateString)"
+            )
+        }
+        guard accessToken != nil else { return true }
+        guard let expirationDate = expirationDate else { return true }
+        return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
     /**
@@ -243,7 +256,6 @@ public extension ClientCredentialsFlowManager {
         )
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
-        .receive(on: self.updateAuthInfoDispatchQueue)
         .map { authInfo in
          
             Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -273,21 +285,27 @@ public extension ClientCredentialsFlowManager {
      called automatically each time you make a request to the
      Spotify API.
      
+     The [Client Credentials Flow][1] does not return a refresh token,
+     so calling this method and passing in `false` for `onlyIfExpired`
+     is equivalent to calling `authorize`.
+     
      - Parameters:
        - onlyIfExpired: Only retrieve a new access token if the current
              one is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 60.
-             The token is considered expired if
-             `expirationDate` + `tolerance` is equal to or
-             before the current date.
+             if the token is expired. Defaults to 120. The token is
+             considered expired if `expirationDate` - `tolerance` is
+             equal to or before the current date. This parameter has
+             no effect if `onlyIfExpired` is `false`.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
     func refreshTokens(
         onlyIfExpired: Bool,
-        tolerance: Double = 60
+        tolerance: Double = 120
     ) -> AnyPublisher<Void, Error> {
         
-        if onlyIfExpired && !self.accessTokenIsExpired() {
+        if onlyIfExpired && !self.accessTokenIsExpired(tolerance: tolerance) {
             Self.logger.trace("access token not expired; returning early")
             return Result<Void, Error>
                 .Publisher(())
@@ -369,8 +387,20 @@ extension ClientCredentialsFlowManager {
     /// This method sets random values for various properties
     /// for testing purposes. Do not call it outside of test cases.
     func mockValues() {
-        self.expirationDate = Date()
-        self.accessToken = UUID().uuidString
+        updateAuthInfoDispatchQueue.sync {
+            self.expirationDate = Date()
+            self.accessToken = UUID().uuidString
+        }
+    }
+    
+    /// Only use for testing purposes.
+    func setExpirationDate(to date: Date) {
+        updateAuthInfoDispatchQueue.sync {
+            Self.logger.notice(
+                "mock date: \(date.description(with: .current))"
+            )
+            self.expirationDate = date
+        }
     }
     
 }

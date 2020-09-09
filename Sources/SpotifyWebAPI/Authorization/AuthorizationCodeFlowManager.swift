@@ -128,13 +128,14 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     }
     
     public func encode(to encoder: Encoder) throws {
-        
-        let codingWrapper = AuthInfo(
-            accessToken: self.accessToken,
-            refreshToken: self.refreshToken,
-            expirationDate: self.expirationDate,
-            scopes: self.scopes
-        )
+        let codingWrapper = updateAuthInfoDispatchQueue.sync {
+            AuthInfo(
+                accessToken: self.accessToken,
+                refreshToken: self.refreshToken,
+                expirationDate: self.expirationDate,
+                scopes: self.scopes
+            )
+        }
         
         var container = encoder.container(
             keyedBy: AuthInfo.CodingKeys.self
@@ -151,25 +152,18 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     }
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
-
-        #if DEBUG
-        dispatchPrecondition(
-            condition: .onQueue(updateAuthInfoDispatchQueue)
-        )
-        #endif
-        
-        self.accessToken = authInfo.accessToken
-        if let refreshToken = authInfo.refreshToken {
-            self.refreshToken = refreshToken
+        updateAuthInfoDispatchQueue.sync {
+            self.accessToken = authInfo.accessToken
+            if let refreshToken = authInfo.refreshToken {
+                self.refreshToken = refreshToken
+            }
+            self.expirationDate = authInfo.expirationDate
+            self.scopes = authInfo.scopes
+            
+            Self.logger.trace("didChange.send()")
+            self.didChange.send()
         }
-        self.expirationDate = authInfo.expirationDate
-        self.scopes = authInfo.scopes
-        
-        Self.logger.trace("didChange.send()")
-        self.didChange.send()
-        
     }
-    
     
 }
 
@@ -200,14 +194,29 @@ public extension AuthorizationCodeFlowManager {
      Determines whether the access token is expired
      within the given tolerance.
      
+     The access token is refreshed automatically if needed
+     before each request to the spotify web API is made.
+     Therefore, you should never need to call this method directly.
+     
      - Parameter tolerance: The tolerance in seconds.
-           Default 60.
-     - Returns: `true` if `expirationDate` + `tolerance` is
-           equal to or before the current date. Else, `false`.
+           Default 120.
+     - Returns: `true` if `expirationDate` - `tolerance` is
+           equal to or before the current date or if `accessToken`
+           is `nil`. Else, `false`.
      */
-    func accessTokenIsExpired(tolerance: Double = 60) -> Bool {
-        guard let expirationDate = expirationDate else { return false }
-        return expirationDate.addingTimeInterval(tolerance) <= Date()
+    func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
+        if (accessToken == nil) != (self.expirationDate == nil) {
+            let expirationDateString = self.expirationDate?
+                    .description(with: .current) ?? "nil"
+            Self.logger.critical(
+                "accessToken or expirationDate was nil, but not both: " +
+                "accessToken == nil: \(accessToken == nil);" +
+                "expiration date: \(expirationDateString)"
+            )
+        }
+        guard accessToken != nil else { return true }
+        guard let expirationDate = expirationDate else { return true }
+        return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
     /**
@@ -385,7 +394,6 @@ public extension AuthorizationCodeFlowManager {
         )
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
-        .receive(on: self.updateAuthInfoDispatchQueue)
         .map { authInfo in
             
             Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -421,19 +429,19 @@ public extension AuthorizationCodeFlowManager {
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 60.
-             The token is considered expired if
-             `expirationDate` + `tolerance` is equal to or
-             before the current date.
+             if the token is expired. Defaults to 120. The token is
+             considered expired if `expirationDate` - `tolerance` is
+             equal to or before the current date. This parameter has
+             no effect if `onlyIfExpired` is `false`.
      */
     func refreshTokens(
         onlyIfExpired: Bool,
-        tolerance: Double = 60
+        tolerance: Double = 120
     ) -> AnyPublisher<Void, Error> {
         
         do {
-        
-            if onlyIfExpired && !self.accessTokenIsExpired() {
+            
+            if onlyIfExpired && !self.accessTokenIsExpired(tolerance: tolerance) {
                 Self.logger.trace("access token not expired; returning early")
                 return Result<Void, Error>
                     .Publisher(())
@@ -475,7 +483,6 @@ public extension AuthorizationCodeFlowManager {
             )
             .decodeSpotifyErrors()
             .decodeSpotifyObject(AuthInfo.self)
-            .receive(on: self.updateAuthInfoDispatchQueue)
             .map { authInfo in
         
                 Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -575,10 +582,12 @@ extension AuthorizationCodeFlowManager {
     /// for testing purposes. Do not call it outside the context
     /// of tests.
     func mockValues() {
-        self.accessToken = UUID().uuidString
-        self.refreshToken = UUID().uuidString
-        self.expirationDate = Date()
-        self.scopes = Set(Scope.allCases.shuffled().prefix(5))
+        updateAuthInfoDispatchQueue.sync {
+            self.accessToken = UUID().uuidString
+            self.refreshToken = UUID().uuidString
+            self.expirationDate = Date()
+            self.scopes = Set(Scope.allCases.shuffled().prefix(5))
+        }
     }
     
     /// Only use for testing purposes.
@@ -609,7 +618,12 @@ extension AuthorizationCodeFlowManager {
     
     /// Only use for testing purposes.
     func setExpirationDate(to date: Date) {
-        self.expirationDate = date
+        updateAuthInfoDispatchQueue.sync {
+            Self.logger.notice(
+                "mock date: \(date.description(with: .current))"
+            )
+            self.expirationDate = date
+        }
     }
     
 }

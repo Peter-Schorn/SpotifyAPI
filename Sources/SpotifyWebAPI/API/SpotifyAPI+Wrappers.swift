@@ -19,7 +19,7 @@ extension SpotifyAPI {
     ) -> AnyPublisher<String, Error> {
         
         return self.authorizationManager.refreshTokens(
-            onlyIfExpired: true, tolerance: 60
+            onlyIfExpired: true, tolerance: 120
         )
         .tryMap { () -> String in
             
@@ -38,12 +38,21 @@ extension SpotifyAPI {
                     authorizedScopes: self.authorizationManager.scopes ?? []
                 )
             }
-            
-            assert(
-                !self.authorizationManager.accessTokenIsExpired(tolerance: 30),
-                "access token was expired after just refreshing it:\n" +
-                "\(self.authorizationManager)"
-            )
+
+            if let expirationDate =
+                    self.authorizationManager.expirationDate {
+                assert(
+                    expirationDate > Date(),
+                    "access token was expired after just refreshing it:\n" +
+                    "\(self.authorizationManager)"
+                )
+                    
+            }
+            else {
+                assertionFailure(
+                    "expiration date was nil after just refreshing access token"
+                )
+            }
             
             return acccessToken
             

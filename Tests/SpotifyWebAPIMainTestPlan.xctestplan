@@ -26,16 +26,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "SpotifyAPITests",
-        "name" : "SpotifyAPITests"
-      }
-    },
-    {
-      "enabled" : false,
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "SpotifyAPIRefreshTokensTests",
-        "name" : "SpotifyAPIRefreshTokensTests"
+        "identifier" : "SpotifyWebAPIMainTests",
+        "name" : "SpotifyWebAPIMainTests"
       }
     }
   ],

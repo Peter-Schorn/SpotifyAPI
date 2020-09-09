@@ -139,6 +139,7 @@ extension SpotifyAPIPlaylistsTests {
             )
             .store(in: &Self.cancellables)
 
+        wait(for: [expectation], timeout: 30)
     }
     
     func getCrumPlaylistTracks() {
@@ -171,6 +172,8 @@ extension SpotifyAPIPlaylistsTests {
                 }
             )
             .store(in: &Self.cancellables)
+        
+        wait(for: [expectation], timeout: 30)
 
     }
 

@@ -29,23 +29,23 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 234,
-      "symbol": "PlaybackRequest.CodingKeys",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 323,
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/ContextOption.swift",
+      "line": 83,
       "symbol": "ContextOption.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
-      "line": 453,
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/OffsetOption.swift",
+      "line": 102,
       "symbol": "OffsetOption.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/API Post Request Objects/PlaybackRequest.swift",
+      "line": 233,
+      "symbol": "PlaybackRequest.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },

@@ -41,7 +41,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
     /// [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
     public let isLocal: Bool?
     
-    /// Either a `Track`, `Episode`, or `PlaylistItem` (simplified version).
+    /// Either a `Track`, `Episode`, or `PlaylistItem` (simplified version)
     /// in this `PlaylistItemContainer`.
     public let item: Item
 

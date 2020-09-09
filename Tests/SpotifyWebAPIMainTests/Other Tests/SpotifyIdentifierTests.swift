@@ -41,7 +41,7 @@ final class SpotifyIdentifierTests: XCTestCase {
                 )
                 .store(in: &Self.cancellables)
             
-            wait(for: [expectation], timeout: 10)
+            wait(for: [expectation], timeout: 30)
         }
         
     }

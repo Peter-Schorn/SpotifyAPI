@@ -76,7 +76,7 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
             )
             .store(in: &Self.cancellables)
      
-        wait(for: [expectation], timeout: 60)
+        wait(for: [expectation], timeout: 120)
         
 
     }
@@ -88,6 +88,10 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
         )
         
         Self.spotify.setShuffle(to: false)
+            // This test will fail if you don't have an active
+            // device. Open a Spotify client (such as the iOS app)
+            // and ensure it's logged in to the same account used to
+            // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.global())
             .flatMap(Self.spotify.currentPlayback)
@@ -116,7 +120,7 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
             )
             .store(in: &Self.cancellables)
             
-            wait(for: [expectation], timeout: 60)
+            wait(for: [expectation], timeout: 120)
         
     }
     
@@ -163,7 +167,7 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
             )
             .store(in: &Self.cancellables)
             
-            wait(for: [expectation], timeout: 80)
+            wait(for: [expectation], timeout: 120)
         
     }
     

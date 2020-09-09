@@ -59,7 +59,7 @@ extension SpotifyAPIAlbumsTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 30)
         
     }
    
@@ -110,7 +110,7 @@ extension SpotifyAPIAlbumsTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 30)
         
     }
     
@@ -259,7 +259,7 @@ extension SpotifyAPIAlbumsTests {
            )
            .store(in: &Self.cancellables)
 
-       wait(for: [expectation, expectation2, expectation3], timeout: 30)
+       wait(for: [expectation, expectation2, expectation3], timeout: 60)
            
     }
 

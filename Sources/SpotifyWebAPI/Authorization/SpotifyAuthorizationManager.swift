@@ -37,9 +37,10 @@ public protocol SpotifyAuthorizationManager: Codable {
      within the given tolerance.
     
      - Parameter tolerance: The tolerance in seconds.
-           The reccomended default is 60.
-     - Returns: `true` if `expirationDate` + `tolerance` is
-           equal to or before the current date. Else, `false`.
+           The reccomended default is 120.
+     - Returns: `true` if `expirationDate` - `tolerance` is
+           equal to or before the current date or if `accessToken`
+           is `nil`. Else, `false`.
      */
     func accessTokenIsExpired(tolerance: Double) -> Bool
 
@@ -49,7 +50,11 @@ public protocol SpotifyAuthorizationManager: Codable {
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. The reccomended default is 60.
+             if the token is expired. The reccomended default is 120.
+             The token is considered expired if
+             `expirationDate` - `tolerance` is equal to or before the
+             current date. This parameter has no effect if `onlyIfExpired`
+             is `false`.
      */
     func refreshTokens(
         onlyIfExpired: Bool,

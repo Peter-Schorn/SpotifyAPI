@@ -5,9 +5,9 @@ import _SpotifyAPITestUtilities
 
 final class CodingAuthInfoTests: XCTestCase {
     
-    // static var allTests = [
-    //
-    // ]
+    static var allTests = [
+        ("testCodingAuthInfo", testCodingAuthInfo)
+    ]
     
     func testCodingAuthInfo() {
         
