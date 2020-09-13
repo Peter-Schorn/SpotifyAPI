@@ -108,7 +108,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     /// - Parameters:
     ///   - uri: A Spotify URI.
     ///   - types: If not `nil`, throw an error if the type of the URI
-    ///     does not match one of these types. See `IDCategory` for more
+    ///     does not match one of these id categories. See `IDCategory` for more
     ///     information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

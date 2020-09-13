@@ -318,6 +318,11 @@ public extension AuthorizationCodeFlowManager {
      access and refresh tokens. The access token is required in all endpoints,
      even those that do not access user data.
      
+     If the user denied your app's authorization request or the request failed
+     for some other reason, then `SpotifyAuthorizationError` will be thrown to
+     downstream subscribers. Use the `accessWasDenied` boolean property of this
+     error to check if the user denied your app's authorization request.
+     
      - Parameters:
        - redirectURI: The redirect URI with query parameters appended to it.
        - state: The value of the state parameter that you provided when
@@ -347,7 +352,9 @@ public extension AuthorizationCodeFlowManager {
             
             if let error = queryDict["error"] {
                 Self.logger.warning("redirect uri query has error")
-                // this is the way that the authorization should fail
+                // This is the way that the authorization should fail.
+                // For example, if the user denied the app's authorization
+                // request, then this error will be returned.
                 return SpotifyAuthorizationError(
                     error: error, state: queryDict["state"]
                 )
@@ -358,7 +365,7 @@ public extension AuthorizationCodeFlowManager {
             return SpotifyLocalError.other(
                 """
                 an unknown error occured when handling the redirect URI: \
-                (expected to find value for 'code' parameter): \
+                (expected to find 'code' or 'error' query parameter): \
                 '\(redirectURI.absoluteString)'
                 """
             )
@@ -366,13 +373,13 @@ public extension AuthorizationCodeFlowManager {
             
         }
         
-        // if the client supplied a state and a state parameter was
-        // provided in the query string of the redirect URI,
-        // then ensure that they match.
+        // if a state parameter was provided in the query string of the
+        // redirect URI, then ensure that it matches the value for the state
+        // parameter passed to this method.
         if let redirectURIstate = queryDict["state"] {
             guard redirectURIstate == state else {
                 return SpotifyLocalError.invalidState(
-                    supplied: state ?? "nil", received: redirectURIstate
+                    supplied: state, received: redirectURIstate
                 )
                 .anyFailingPublisher(Void.self)
             }
@@ -381,7 +388,6 @@ public extension AuthorizationCodeFlowManager {
         let baseRedirectURI = redirectURI
             .removingQueryItems()
             .removingTrailingSlashInPath()
-        
         
         let body = TokensRequest(
             code: code,

@@ -22,7 +22,7 @@ public enum SpotifyLocalError: LocalizedError {
      access and refresh tokens didn't match the value returned from spotify
      in the query string of the redirect URI.
      
-     - supplied: The value supplied in `SpotifyAPI.makeAuthorizationURL`.
+     - supplied: The value supplied in `AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
      - received: The value in the query string of the redirect URI.
      */
     case invalidState(supplied: String?, received: String)
@@ -45,8 +45,8 @@ public enum SpotifyLocalError: LocalizedError {
     
     /// The type of a URI didn't match one of the expected types.
     ///
-    /// For example, if you pass a track URI to the episode endpoint,
-    /// you will get this error.
+    /// For example, if you pass a track URI to the endpoint for retrieving
+    /// an artist, you will get this error.
     case invalidURIType(
         expected: [IDCategory], received: IDCategory
     )
