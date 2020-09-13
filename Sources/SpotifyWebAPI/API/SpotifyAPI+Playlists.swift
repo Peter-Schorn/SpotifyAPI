@@ -16,7 +16,7 @@ private extension SpotifyAPI {
         do {
     
             let playlistId = try SpotifyIdentifier(
-                uri: playlist.uri, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureTypeMatches: [.playlist]
             ).id
             
             return self.apiRequest(
@@ -772,7 +772,7 @@ public extension SpotifyAPI {
         do {
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist.uri, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureTypeMatches: [.playlist]
             ).id
     
             return self.apiRequest(

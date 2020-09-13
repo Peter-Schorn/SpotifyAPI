@@ -35,7 +35,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         
         return try uris.map { uri in
             
-            let spotifyIdentifier = try Self(uri: uri.uri)
+            let spotifyIdentifier = try Self(uri: uri)
             
             if let types = types {
                 guard types.contains(spotifyIdentifier.idCategory) else {
@@ -107,8 +107,9 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     ///
     /// - Parameters:
     ///   - uri: A Spotify URI.
-    ///   - types: If not `nil`, throw an error if the type
-    ///         of the URI does not match one of these types.
+    ///   - types: If not `nil`, throw an error if the type of the URI
+    ///     does not match one of these types. See `IDCategory` for more
+    ///     information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public init(
