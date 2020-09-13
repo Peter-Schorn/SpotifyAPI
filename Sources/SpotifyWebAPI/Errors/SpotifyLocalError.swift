@@ -18,14 +18,14 @@ public enum SpotifyLocalError: LocalizedError {
     case unauthorized(String)
     
     /**
-     Thrown if you provided a non-`nil` value for the state parameter
-     when you requested access and refresh tokens, and it didn't match
-     the value returned from spotify in the query string of the redirect URI.
+     Thrown if the value provided for the state parameter when you requested
+     access and refresh tokens didn't match the value returned from spotify
+     in the query string of the redirect URI.
      
-     - supplied: The value supplied in `SPotifyAPI.makeAuthorizationURL`.
+     - supplied: The value supplied in `SpotifyAPI.makeAuthorizationURL`.
      - received: The value in the query string of the redirect URI.
      */
-    case invalidState(supplied: String, received: String)
+    case invalidState(supplied: String?, received: String)
     
     
     /// A [Spotify identifier][1] (URI, ID, URL) of a specific type
@@ -80,8 +80,8 @@ public enum SpotifyLocalError: LocalizedError {
                 return "\(message)"
             case .invalidState(let supplied, let received):
                 return """
-                    The value for the state parameter provided \
-                    when requesting access and refresh tokens '\(supplied)' \
+                    The value for the state parameter provided when \
+                    requesting access and refresh tokens '\(supplied ?? "nil")'
                     did not match the value in the query string of the \
                     redirect URI:
                     '\(received)'

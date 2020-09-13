@@ -269,16 +269,15 @@ public extension AuthorizationCodeFlowManager {
        - state: Optional, but strongly recommended. The state can be useful for
              correlating requests and responses. Because your redirect_uri can
              be guessed, using a state value can increase your assurance that
-             an incoming connection is the result of an authentication request.
-             If you generate a random string or encode the hash of some client
-             state (e.g., a cookie) in this state variable, you can validate the
-             response to additionally ensure that the request and response
-             originated in the same browser. This provides protection against
-             attacks such as cross-site request forgery.
+             an incoming connection is the result of an authentication request
+             that you made. If you generate a random string or encode the hash of
+             some client state (e.g., a cookie) in this state variable, you can
+             validate the response to additionally ensure that the request and
+             response originated in the same browser. This provides protection
+             against attacks such as cross-site request forgery.
        - scopes: A set of [Spotify Authorization scopes][2].
      - Returns: The URL that must be opened to authorize your app. May return
-           `nil` if the URL could not be created (e.g., the client id or client
-           secret have spaces).
+           `nil` if the URL could not be created.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: x-source-tag://Scopes
@@ -322,9 +321,9 @@ public extension AuthorizationCodeFlowManager {
      - Parameters:
        - redirectURI: The redirect URI with query parameters appended to it.
        - state: The value of the state parameter that you provided when
-             making the authorization URL. If this is non-nil and doesn't
-             match the value for the state parameter found in the query
-             string of `redirectURIWithQuery`, an error will be thrown.
+             making the authorization URL. **If the state parameter is found**
+             **in redirectURIWithQuery and it doesn't match this value,**
+             **then an error will be thrown.**
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      
@@ -334,6 +333,10 @@ public extension AuthorizationCodeFlowManager {
         redirectURIWithQuery redirectURI: URL,
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
+
+        Self.logger.trace(
+            "redirectURIWithQuery: '\(redirectURI)'"
+        )
         
         let queryDict = redirectURI.queryItemsDict
 
@@ -353,8 +356,11 @@ public extension AuthorizationCodeFlowManager {
             
             Self.logger.error("unkown error")
             return SpotifyLocalError.other(
-                "an unknown error occured when handling the redirect URI:\n" +
-                    redirectURI.absoluteString
+                """
+                an unknown error occured when handling the redirect URI: \
+                (expected to find value for 'code' parameter): \
+                '\(redirectURI.absoluteString)'
+                """
             )
             .anyFailingPublisher(Void.self)
             
@@ -363,10 +369,10 @@ public extension AuthorizationCodeFlowManager {
         // if the client supplied a state and a state parameter was
         // provided in the query string of the redirect URI,
         // then ensure that they match.
-        if let redirectURIstate = queryDict["state"], let state = state {
+        if let redirectURIstate = queryDict["state"] {
             guard redirectURIstate == state else {
                 return SpotifyLocalError.invalidState(
-                    supplied: state, received: redirectURIstate
+                    supplied: state ?? "nil", received: redirectURIstate
                 )
                 .anyFailingPublisher(Void.self)
             }
