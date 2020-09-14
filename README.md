@@ -2,7 +2,7 @@
 
 **A Swift library for the Spotify web API**
 
-Read the full [documentation][1]. More Information is available on the wiki page.
+Read the full [documentation][1]. Additional Information is available on the wiki page.
 
 * **[Quick Start][11]**
 * **[Authorizing with the Authorization Code Flow][9]**  
