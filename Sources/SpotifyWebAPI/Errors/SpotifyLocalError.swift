@@ -25,7 +25,7 @@ public enum SpotifyLocalError: LocalizedError {
      - supplied: The value supplied in `AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
      - received: The value in the query string of the redirect URI.
      */
-    case invalidState(supplied: String?, received: String)
+    case invalidState(supplied: String?, received: String?)
     
     
     /// A [Spotify identifier][1] (URI, ID, URL) of a specific type
@@ -84,7 +84,7 @@ public enum SpotifyLocalError: LocalizedError {
                     requesting access and refresh tokens '\(supplied ?? "nil")'
                     did not match the value in the query string of the \
                     redirect URI:
-                    '\(received)'
+                    '\(received ?? "nil")'
                     """
             case .identifierParsingError(_):
                 return "identifier parsing error: \(self)"

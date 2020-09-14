@@ -9,7 +9,7 @@ import Combine
  and contains an authorization manager for managing the
  authorization/authentication process of your application.
  */
-public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
+public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
     
     // MARK: - Authorization -
     
@@ -36,17 +36,28 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
      emits, or when you assign a new instance of `AuthorizationManager`
      to `authorizationManager`.
      
+     Emits after the following events occur:
+     * After the access token (and possibly the refresh token as well) is
+       refreshed. This occurs in
+       `authorizationManager.refreshTokens(onlyIfExpired:tolerance:)`.
+     * If the type of `authorizationManager` is `AuthorizationCodeFlowManager`:
+         * After the access and refresh tokens are retrieved using
+           `authorizationManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+     * If the type of `authorizationManager` is `ClientCredentialsFlowManager`:
+         * After the access token is retrieved using the `authorizationManager.authorize()`
+           method.
+     * After `authorizationManager.deauthorize()` is called.
+
      Subscribing to this publisher is preferred over subscribing to the
-     `didChange` publisher of `authorizationManager`.
+     `didChange` publisher of `authorizationManager` because it allows you
+     to be notified of changes to the authorization manager even when you
+     create a new instance of it and assign it to the `authorizationManager`
+     property of this class.
      
      This publisher subscribes to the `didChange` publisher of
      `authorizationManager` in the `init(authorizationManager:)` method
      of this class and in the didSet block of `authorizationManager`.
      It also emits a signal in the didSet block of `authorizationManager`.
-     
-     This publisher allows you to be notified of changes to
-     the authorization manager even when you create a new instance of it
-     and assign it to the `authorizationManager` property of this class.
      
      # Thread Safety
      No guarantees are made about which thread this subject will emit on.
@@ -67,7 +78,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     /// Logs the urls of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
-    /// :nodoc:
     public let apiRequestLogger = Logger(label: "APIRequest", level: .critical)
     
     // MARK: - Initializers -
@@ -96,6 +106,48 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager> {
     deinit {
         self.logger.notice("\n\n\(self): DEINIT\n\n")
     }
+    
+    /**
+     Creates a new instance by decoding from the given decoder.
+     
+     `authorizationManager` is the **only** property that is decoded.
+     
+     This initializer throws an error if reading from the decoder fails, or
+     if the data read is corrupted or otherwise invalid.
+     
+     - Parameter decoder: The decoder to read data from.
+     */
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.authorizationManager = try container.decode(
+            AuthorizationManager.self,
+            forKey: .authorizationManager
+        )
+    }
+    
+    /**
+     Encodes this value into the given encoder.
+     
+     `authorizationManager` is the **only** property that is encoded.
+     
+     If the value fails to encode anything, `encoder` will encode an empty
+     keyed container in its place.
+     
+     This function throws an error if any values are invalid for the given
+     encoder's format.
+     
+     - Parameter encoder: The encoder to write data to.
+     */
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(
+            self.authorizationManager, forKey: .authorizationManager
+        )
+    }
+  
+    public enum CodingKeys: String, CodingKey {
+        case authorizationManager
+    }
 
 }
 
@@ -107,11 +159,14 @@ extension SpotifyAPI {
 
         self.logger.level = .trace
         self.apiRequestLogger.level = .trace
+        self.authDidChangeLogger.level = .trace
         
-        CurrentlyPlayingContext.logger.level = .trace
         AuthorizationCodeFlowManager.logger.level = .trace
+//        AuthorizationCodeFlowManager.
+        
         ClientCredentialsFlowManager.logger.level = .trace
         
+        CurrentlyPlayingContext.logger.level = .trace
     }
     
 }

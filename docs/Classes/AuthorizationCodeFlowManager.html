@@ -568,11 +568,22 @@ to check if the token is expired.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Publisher that emits <strong>after</strong> this
-<code>AuthorizationCodeFlowManager</code> has changed.</p>
+                        <p>A Publisher that emits <strong>after</strong> this <code>AuthorizationCodeFlowManager</code>
+has changed.</p>
+
+<p>Emits after the following events occur:</p>
+
+<ul>
+<li>After the access token (and possibly the refresh token as well) is
+refreshed. This occurs in <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC13refreshTokens13onlyIfExpired9tolerance7Combine12AnyPublisherVyyts5Error_pGSb_SdtF">refreshTokens(onlyIfExpired:tolerance:)</a></code>.</li>
+<li>After the access and refresh tokens are retrieved using
+<code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>.</li>
+<li>After <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC11deauthorizeyyF">deauthorize()</a></code>—which sets <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC11accessTokenSSSgvp">accessToken</a></code>, <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC12refreshTokenSSSgvp">refreshToken</a></code>,
+<code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC14expirationDate10Foundation0I0VSgvp">expirationDate</a></code>, and <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC6scopesShyAA5ScopeOGSgvp">scopes</a></code> to <code>nil</code>—is called.</li>
+</ul>
 
 <p>You are discouraged from subscribing to this publisher directly.
-Intead, subscribe to the <code>authorizationManagerDidChange</code> publisher
+Instead, subscribe to the <code>authorizationManagerDidChange</code> publisher
 of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>. This allows you to be notified of changes even
 when you create a new instance of this class and assign it to the
 <code>authorizationManager</code> instance property of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>.</p>
@@ -762,7 +773,7 @@ within the given tolerance.</p>
 
 <p>The access token is refreshed automatically if needed
 before each request to the spotify web API is made.
-Therefore, you should never need to call this method directly.</p>
+Therefore, <strong>you should never need to call this method directly.</strong></p>
 
                       </div>
                       <div class="declaration">
@@ -947,7 +958,10 @@ redirected and will have to approve the app again.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Optional, but strongly recommended. The state can be useful for
+                                  <p>Optional, but strongly recommended. <strong>If you provide a value</strong>
+<strong>for this parameter, you must pass the same value to</strong>
+<code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>,
+<strong>otherwise an error will be thrown.</strong> The state can be useful for
 correlating requests and responses. Because your redirect_uri can
 be guessed, using a state value can increase your assurance that
 an incoming connection is the result of an authentication request
@@ -1005,6 +1019,11 @@ parameters appended to it. Pass this URL into this method to request
 access and refresh tokens. The access token is required in all endpoints,
 even those that do not access user data.</p>
 
+<p>If the user denied your app&rsquo;s authorization request or the request failed
+for some other reason, then <code><a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code> will be thrown to
+downstream subscribers. Use the <code>accessWasDenied</code> boolean property of this
+error to check if the user denied your app&rsquo;s authorization request.</p>
+
 <ul>
 <li><p>Tag: requestAccessAndRefreshTokens-redirectURIWithQuery</p></li>
 </ul>
@@ -1015,7 +1034,7 @@ even those that do not access user data.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">requestAccessAndRefreshTokens</span><span class="p">(</span>
-    <span class="n">redirectURIWithQuery</span> <span class="nv">redirectURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+    <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
     <span class="nv">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
@@ -1028,7 +1047,7 @@ even those that do not access user data.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>redirectURI</em>
+                                <em>redirectURIWithQuery</em>
                                 </code>
                               </td>
                               <td>
@@ -1046,9 +1065,9 @@ even those that do not access user data.</p>
                               <td>
                                 <div>
                                   <p>The value of the state parameter that you provided when
-making the authorization URL. <strong>If the state parameter is found</strong>
-<strong>in redirectURIWithQuery and it doesn&rsquo;t match this value,</strong>
-<strong>then an error will be thrown.</strong></p>
+making the authorization URL. <strong>If the state parameter in</strong>
+redirectURIWithQuery <strong>doesn&rsquo;t match this value, then an error will</strong>
+<strong>be thrown.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -1101,7 +1120,7 @@ Spotify API.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Only refresh the token if it is expired.</p>
+                                  <p>Only refresh the access token if it is expired.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1114,7 +1133,9 @@ Spotify API.</p>
                               <td>
                                 <div>
                                   <p>The tolerance in seconds to use when determining
-if the token is expired. Defaults to 120. The token is
+if the token is expired. Defaults to 120, meaning that
+a new token will be retrieved if the current one has expired
+or will expire in the next two minutes. The token is
 considered expired if <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC14expirationDate10Foundation0I0VSgvp">expirationDate</a></code> - <code>tolerance</code> is
 equal to or before the current date. This parameter has
 no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
@@ -1239,7 +1260,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

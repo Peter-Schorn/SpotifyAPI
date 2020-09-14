@@ -47,7 +47,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     public let scopes: Set<Scope>? = []
     
     /// The access token used in all of the requests
-    /// to the Spotify web API
+    /// to the Spotify web API.
     public var accessToken: String?
     
     /// The expiration date of the access token.
@@ -62,10 +62,17 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     )
     
     /**
-     A Publisher that emits **after** this
-     `ClientCredentialsFlowManager` has changed.
+     A Publisher that emits **after** this `ClientCredentialsFlowManager`
+     has changed.
      
-     You are discouraged from subscribing to this publisher directly.
+     Emits after the following events occur:
+     * After the access token is retrieved using the `authorize()` method.
+     * After a new access token is retrieved. This occurs in
+       `refreshTokens(onlyIfExpired:tolerance:)`.
+     * After `deauthorize()`—which sets `accessToken` and `expirationDate`
+       to `nil`—is called.
+     
+     **You are discouraged from subscribing to this publisher directly.**
      Intead, subscribe to the `authorizationManagerDidChange` publisher
      of `SpotifyAPI`. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
@@ -187,7 +194,7 @@ public extension ClientCredentialsFlowManager {
      
      The access token is refreshed automatically if needed
      before each request to the spotify web API is made.
-     Therefore, you should never need to call this method directly.
+     Therefore, **you should never need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds.
            Default 120.
@@ -231,7 +238,8 @@ public extension ClientCredentialsFlowManager {
      Authorizes the application for the [Client Credentials Flow][1].
      
      This is the only method you need to call to authorize your application.
-     After this, you can begin making requests to the Spotify web API.
+     After this publisher completes successfully, you can begin making
+     requests to the Spotify web API. This method retrieves the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
@@ -293,7 +301,9 @@ public extension ClientCredentialsFlowManager {
        - onlyIfExpired: Only retrieve a new access token if the current
              one is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 120. The token is
+             if the token is expired. Defaults to 120, meaning that
+             a new token will be retrieved if the current one has expired
+             or will expire in the next two minutes. The token is
              considered expired if `expirationDate` - `tolerance` is
              equal to or before the current date. This parameter has
              no effect if `onlyIfExpired` is `false`.

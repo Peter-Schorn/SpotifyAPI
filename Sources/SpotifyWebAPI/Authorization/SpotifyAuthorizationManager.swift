@@ -12,9 +12,6 @@ import Logger
  */
 public protocol SpotifyAuthorizationManager: Codable {
     
-    /// Logs debugging messages. Don't use in shipping code.
-    static var logger: Logger { get }
-    
     /// The access token used in all of the requests
     /// to the Spotify web API.
     var accessToken: String? { get }

@@ -322,7 +322,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt">SpotifyAuthorizationManager</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt">SpotifyAuthorizationManager</span></code></pre>
 
                 </div>
               </div>
@@ -389,17 +389,37 @@ authorization/authentication process of your application.</p>
 emits, or when you assign a new instance of <code>AuthorizationManager</code>
 to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.</p>
 
+<p>Emits after the following events occur:</p>
+
+<ul>
+<li>After the access token (and possibly the refresh token as well) is
+refreshed. This occurs in
+<code>authorizationManager.refreshTokens(onlyIfExpired:tolerance:)</code>.</li>
+<li>If the type of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>:
+
+<ul>
+<li>After the access and refresh tokens are retrieved using
+<code>authorizationManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</code>.</li>
+</ul></li>
+<li>If the type of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is <code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code>:
+
+<ul>
+<li>After the access token is retrieved using the <code>authorizationManager.authorize()</code>
+method.</li>
+</ul></li>
+<li>After <code>authorizationManager.deauthorize()</code> is called.</li>
+</ul>
+
 <p>Subscribing to this publisher is preferred over subscribing to the
-<code>didChange</code> publisher of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.</p>
+<code>didChange</code> publisher of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> because it allows you
+to be notified of changes to the authorization manager even when you
+create a new instance of it and assign it to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>
+property of this class.</p>
 
 <p>This publisher subscribes to the <code>didChange</code> publisher of
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> in the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerACyxGx_tcfc">init(authorizationManager:)</a></code> method
 of this class and in the didSet block of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.
 It also emits a signal in the didSet block of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.</p>
-
-<p>This publisher allows you to be notified of changes to
-the authorization manager even when you create a new instance of it
-and assign it to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> property of this class.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
 <p>No guarantees are made about which thread this subject will emit on.
@@ -411,6 +431,35 @@ Always receive on the main thread if you plan on updating the UI.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">authorizationManagerDidChange</span><span class="p">:</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp"></a>
+                    <a name="//apple_ref/swift/Property/apiRequestLogger" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp">apiRequestLogger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs the urls of the requests made to Spotify and,
+if present, the body of the requests by converting the raw
+data to a string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
 
                         </div>
                       </div>
@@ -472,6 +521,111 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/app-
                                 <div>
                                   <p>An instance of a type that
   conforms to <code>SpotifyAuthorizationManager</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C4fromACyxGs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C4fromACyxGs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new instance by decoding from the given decoder.</p>
+
+<p><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is the <strong>only</strong> property that is decoded.</p>
+
+<p>This initializer throws an error if reading from the decoder fails, or
+if the data read is corrupted or otherwise invalid.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The decoder to read data from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encodes this value into the given encoder.</p>
+
+<p><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is the <strong>only</strong> property that is encoded.</p>
+
+<p>If the value fails to encode anything, <code>encoder</code> will encode an empty
+keyed container in its place.</p>
+
+<p>This function throws an error if any values are invalid for the given
+encoder&rsquo;s format.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encoder to write data to.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6053,7 +6207,7 @@ For example, to just get the next page, use <code>1</code>. Leave as
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

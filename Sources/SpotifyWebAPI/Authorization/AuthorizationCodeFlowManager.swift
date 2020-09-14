@@ -70,11 +70,19 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     )
 
     /**
-     A Publisher that emits **after** this
-     `AuthorizationCodeFlowManager` has changed.
+     A Publisher that emits **after** this `AuthorizationCodeFlowManager`
+     has changed.
+     
+     Emits after the following events occur:
+     * After the access token (and possibly the refresh token as well) is
+       refreshed. This occurs in `refreshTokens(onlyIfExpired:tolerance:)`.
+     * After the access and refresh tokens are retrieved using
+       `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+     * After `deauthorize()`—which sets `accessToken`, `refreshToken`,
+       `expirationDate`, and `scopes` to `nil`—is called.
      
      You are discouraged from subscribing to this publisher directly.
-     Intead, subscribe to the `authorizationManagerDidChange` publisher
+     Instead, subscribe to the `authorizationManagerDidChange` publisher
      of `SpotifyAPI`. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
      `authorizationManager` instance property of `SpotifyAPI`.
@@ -196,7 +204,7 @@ public extension AuthorizationCodeFlowManager {
      
      The access token is refreshed automatically if needed
      before each request to the spotify web API is made.
-     Therefore, you should never need to call this method directly.
+     Therefore, **you should never need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds.
            Default 120.
@@ -208,7 +216,7 @@ public extension AuthorizationCodeFlowManager {
         if (accessToken == nil) != (self.expirationDate == nil) {
             let expirationDateString = self.expirationDate?
                     .description(with: .current) ?? "nil"
-            Self.logger.critical(
+            Self.logger.error(
                 "accessToken or expirationDate was nil, but not both: " +
                 "accessToken == nil: \(accessToken == nil);" +
                 "expiration date: \(expirationDateString)"
@@ -266,7 +274,10 @@ public extension AuthorizationCodeFlowManager {
              may be automatically redirected to the `redirectURI`.
              If `true`, the user will not be automatically
              redirected and will have to approve the app again.
-       - state: Optional, but strongly recommended. The state can be useful for
+       - state: Optional, but strongly recommended. **If you provide a value**
+             **for this parameter, you must pass the same value to**
+             `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
+             **otherwise an error will be thrown.** The state can be useful for
              correlating requests and responses. Because your redirect_uri can
              be guessed, using a state value can increase your assurance that
              an incoming connection is the result of an authentication request
@@ -324,26 +335,27 @@ public extension AuthorizationCodeFlowManager {
      error to check if the user denied your app's authorization request.
      
      - Parameters:
-       - redirectURI: The redirect URI with query parameters appended to it.
+       - redirectURIWithQuery: The redirect URI with query parameters appended to it.
        - state: The value of the state parameter that you provided when
-             making the authorization URL. **If the state parameter is found**
-             **in redirectURIWithQuery and it doesn't match this value,**
-             **then an error will be thrown.**
+             making the authorization URL. **If the state parameter in**
+             redirectURIWithQuery **doesn't match this value, then an error will**
+             **be thrown.**
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      
      - Tag: requestAccessAndRefreshTokens-redirectURIWithQuery
      */
     func requestAccessAndRefreshTokens(
-        redirectURIWithQuery redirectURI: URL,
+        redirectURIWithQuery: URL,
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
 
         Self.logger.trace(
-            "redirectURIWithQuery: '\(redirectURI)'"
+            "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
-        let queryDict = redirectURI.queryItemsDict
+        // a dictionary of the query items in the URL
+        let queryDict = redirectURIWithQuery.queryItemsDict
 
         // if the code is found in the query,
         // then the user successfully authorized the application.
@@ -366,7 +378,7 @@ public extension AuthorizationCodeFlowManager {
                 """
                 an unknown error occured when handling the redirect URI: \
                 (expected to find 'code' or 'error' query parameter): \
-                '\(redirectURI.absoluteString)'
+                '\(redirectURIWithQuery.absoluteString)'
                 """
             )
             .anyFailingPublisher(Void.self)
@@ -376,16 +388,14 @@ public extension AuthorizationCodeFlowManager {
         // if a state parameter was provided in the query string of the
         // redirect URI, then ensure that it matches the value for the state
         // parameter passed to this method.
-        if let redirectURIstate = queryDict["state"] {
-            guard redirectURIstate == state else {
-                return SpotifyLocalError.invalidState(
-                    supplied: state, received: redirectURIstate
-                )
-                .anyFailingPublisher(Void.self)
-            }
+        guard state == queryDict["state"] else {
+            return SpotifyLocalError.invalidState(
+                supplied: queryDict["state"], received: state
+            )
+            .anyFailingPublisher(Void.self)
         }
         
-        let baseRedirectURI = redirectURI
+        let baseRedirectURI = redirectURIWithQuery
             .removingQueryItems()
             .removingTrailingSlashInPath()
         
@@ -439,9 +449,11 @@ public extension AuthorizationCodeFlowManager {
      Spotify API.
      
      - Parameters:
-       - onlyIfExpired: Only refresh the token if it is expired.
+       - onlyIfExpired: Only refresh the access token if it is expired.
        - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 120. The token is
+             if the token is expired. Defaults to 120, meaning that
+             a new token will be retrieved if the current one has expired
+             or will expire in the next two minutes. The token is
              considered expired if `expirationDate` - `tolerance` is
              equal to or before the current date. This parameter has
              no effect if `onlyIfExpired` is `false`.
@@ -496,9 +508,9 @@ public extension AuthorizationCodeFlowManager {
             .decodeSpotifyErrors()
             .decodeSpotifyObject(AuthInfo.self)
             .map { authInfo in
-        
+
                 Self.logger.trace("received authInfo:\n\(authInfo)")
-                
+
                 if authInfo.accessToken == nil ||
                         authInfo.expirationDate == nil ||
                         authInfo.scopes == nil {
@@ -509,9 +521,9 @@ public extension AuthorizationCodeFlowManager {
                         """
                     )
                 }
-                
+
                 self.updateFromAuthInfo(authInfo)
-                
+
             }
             .eraseToAnyPublisher()
         
