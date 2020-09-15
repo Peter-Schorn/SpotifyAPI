@@ -17,7 +17,7 @@ The next step is authorizing your app. This library supports two authorization m
 * [Authorization Code Flow][3]: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser and approve your app.
 * [Client Credentials Flow][4]: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5]. The advantage of this method is that it does not require any user interaction.
 
-### Authorizing with the Authorization Code Flow
+## Authorizing with the Authorization Code Flow
 
 Create an instance of `SpotifyAPI` and assign an instance of `AuthorizationCodeFlowManager` to the `authorizationManager` property:
 ```swift
@@ -91,7 +91,7 @@ spotify.currentUserPlaylists()
 The full documentation for all of the endpoints can be found [here][8].
 You are also encouraged to read the [Spotify web API reference][12].
 
-### Authorizing with the Client Credentials Flow
+## Authorizing with the Client Credentials Flow
 
 Create an instance of `SpotifyAPI` and assign an instance of `ClientCredentialsFlowManager` to the `authorizationManager` property:
 ```swift
