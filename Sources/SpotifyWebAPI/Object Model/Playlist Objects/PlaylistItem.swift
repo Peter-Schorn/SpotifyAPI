@@ -101,7 +101,8 @@ public enum PlaylistItem: Hashable {
      A link to the Spotify web API endpoint
      providing the full version of the item.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the full results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the
+     full results.
      */
     @inlinable
     public var href: String? {

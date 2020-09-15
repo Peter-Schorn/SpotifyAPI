@@ -9,100 +9,6 @@ protocol SpotifyAPIPlaylistsTests: SpotifyAPITests { }
 
 extension SpotifyAPIPlaylistsTests {
     
-    func createPlaylistAndAddTracksThenUnfollowIt() {
-        
-        let dateString = Date().description(with: .current)
-        let newItems = URIs.Tracks.array(
-            .jinx, .fearless, .illWind, .nuclearFusion, .theBay
-        ) + URIs.Episodes.array(
-            .samHarris213, .samHarris214, .samHarris212
-        )
-        
-        let details = PlaylistDetails(
-            name: "createPlaylistAddTracks",
-            isPublic: false,
-            collaborative: false,
-            description: dateString
-        )
-        
-        let expectation = XCTestExpectation(
-            description: "createPlaylistAndAddTracks"
-        )
-        
-        var createdPlaylistURI = ""
-        var createdPlaylistSnaphotId = ""
-
-        // get the uri of the current user
-        Self.spotify.currentUserProfile()
-            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                // create a playlist for them
-                encodeDecode(user)
-                return Self.spotify.createPlaylist(for: user.uri, details)
-            }
-            .flatMap { playlist -> AnyPublisher<String, Error> in
-                
-                encodeDecode(playlist)
-                XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
-                XCTAssertEqual(playlist.description, dateString)
-                XCTAssertFalse(playlist.isPublic ?? true)
-                XCTAssertFalse(playlist.collaborative)
-                XCTAssertEqual(playlist.items.items.count, 0)
-                
-                createdPlaylistURI = playlist.uri
-             
-                // add tracks and episodes to the playlist
-                return Self.spotify.addToPlaylist(
-                    playlist.uri,
-                    uris: newItems
-                )
-            }
-            .flatMap { snapshotId -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                // retrieve the playlist
-                createdPlaylistSnaphotId = snapshotId
-                return Self.spotify.playlist(createdPlaylistURI)
-            }
-            .flatMap { playlist -> AnyPublisher<Void, Error> in
-                
-                encodeDecode(playlist)
-                XCTAssertEqual(playlist.uri, createdPlaylistURI)
-                XCTAssertEqual(playlist.snapshotId, createdPlaylistSnaphotId)
-                XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
-                XCTAssertEqual(playlist.description, dateString)
-                XCTAssertFalse(playlist.isPublic ?? true)
-                XCTAssertFalse(playlist.collaborative)
-                XCTAssertEqual(
-                    playlist.items.items.map(\.item.uri),
-                    newItems.map(\.uri)
-                )
-                
-                // unfollow the playlist
-                return Self.spotify.unfollowPlaylistForCurrentUser(
-                    createdPlaylistURI
-                )
-                
-            }
-            .flatMap {
-                // get all of the current user's playlists
-                Self.spotify.currentUserPlaylists()
-            }
-            .XCTAssertNoFailure()
-            .sink(
-                receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { playlists in
-                    encodeDecode(playlists)
-                    XCTAssertFalse(
-                        // ensure the user is no longer following the playlist
-                        // because we just unfollowed it
-                        playlists.items.map(\.uri).contains(createdPlaylistURI)
-                    )
-                }
-            )
-            .store(in: &Self.cancellables)
-        
-        wait(for: [expectation], timeout: 30)
-        
-    }
-
     func getCrumbPlaylist() {
         
         let expectation = XCTestExpectation(
@@ -142,7 +48,7 @@ extension SpotifyAPIPlaylistsTests {
         wait(for: [expectation], timeout: 30)
     }
     
-    func getCrumPlaylistTracks() {
+    func getCrumbPlaylistTracks() {
         
         let expectation = XCTestExpectation(
             description: "getCrumPlaylistTracks"
@@ -179,6 +85,106 @@ extension SpotifyAPIPlaylistsTests {
 
 }
 
+extension SpotifyAPIPlaylistsTests where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
+    
+    func createPlaylistAndAddTracksThenUnfollowIt() {
+        
+        let dateString = Date().description(with: .current)
+        let newItems = URIs.Tracks.array(
+            .jinx, .fearless, .illWind, .nuclearFusion, .theBay
+            ) + URIs.Episodes.array(
+                .samHarris213, .samHarris214, .samHarris212
+        )
+        
+        let details = PlaylistDetails(
+            name: "createPlaylistAddTracks",
+            isPublic: false,
+            collaborative: false,
+            description: dateString
+        )
+        
+        let expectation = XCTestExpectation(
+            description: "createPlaylistAndAddTracks"
+        )
+        
+        var createdPlaylistURI = ""
+        var createdPlaylistSnaphotId = ""
+        
+        // get the uri of the current user
+        Self.spotify.currentUserProfile()
+            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
+                // create a playlist for them
+                encodeDecode(user)
+                return Self.spotify.createPlaylist(for: user.uri, details)
+        }
+        .flatMap { playlist -> AnyPublisher<String, Error> in
+            
+            encodeDecode(playlist)
+            XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
+            XCTAssertEqual(playlist.description, dateString)
+            XCTAssertFalse(playlist.isPublic ?? true)
+            XCTAssertFalse(playlist.collaborative)
+            XCTAssertEqual(playlist.items.items.count, 0)
+            
+            createdPlaylistURI = playlist.uri
+            
+            // add tracks and episodes to the playlist
+            return Self.spotify.addToPlaylist(
+                playlist.uri,
+                uris: newItems
+            )
+        }
+        .flatMap { snapshotId -> AnyPublisher<Playlist<PlaylistItems>, Error> in
+            // retrieve the playlist
+            createdPlaylistSnaphotId = snapshotId
+            return Self.spotify.playlist(createdPlaylistURI)
+        }
+        .flatMap { playlist -> AnyPublisher<Void, Error> in
+            
+            encodeDecode(playlist)
+            XCTAssertEqual(playlist.uri, createdPlaylistURI)
+            XCTAssertEqual(playlist.snapshotId, createdPlaylistSnaphotId)
+            XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
+            XCTAssertEqual(playlist.description, dateString)
+            XCTAssertFalse(playlist.isPublic ?? true)
+            XCTAssertFalse(playlist.collaborative)
+            XCTAssertEqual(
+                playlist.items.items.map(\.item.uri),
+                newItems.map(\.uri)
+            )
+            
+            // unfollow the playlist
+            return Self.spotify.unfollowPlaylistForCurrentUser(
+                createdPlaylistURI
+            )
+            
+        }
+        .flatMap {
+            // get all of the current user's playlists
+            Self.spotify.currentUserPlaylists()
+        }
+        .XCTAssertNoFailure()
+        .sink(
+            receiveCompletion: { _ in expectation.fulfill() },
+            receiveValue: { playlists in
+                encodeDecode(playlists)
+                XCTAssertFalse(
+                    // ensure the user is no longer following the playlist
+                    // because we just unfollowed it
+                    playlists.items.map(\.uri).contains(createdPlaylistURI)
+                )
+        }
+        )
+            .store(in: &Self.cancellables)
+        
+        wait(for: [expectation], timeout: 30)
+        
+    }
+
+}
+
 class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlaylistsTests
 {
@@ -189,14 +195,14 @@ class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
             testCreatePlaylistAndAddTracksThenUnfollowIt
         ),
         ("testGetCrumbPlaylist", testGetCrumbPlaylist),
-        ("testGetCrumPlaylistTracks", testGetCrumPlaylistTracks)
+        ("testGetCrumPlaylistTracks", testGetCrumbPlaylistTracks)
     ]
     
     func testCreatePlaylistAndAddTracksThenUnfollowIt() {
         createPlaylistAndAddTracksThenUnfollowIt()
     }
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
-    func testGetCrumPlaylistTracks() { getCrumPlaylistTracks() }
+    func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }
 
 }
 
@@ -206,10 +212,10 @@ class SpotifyAPIClientCredentialsFlowPlaylistsTests:
 
     static let allTests = [
         ("testGetCrumbPlaylist", testGetCrumbPlaylist),
-        ("testGetCrumPlaylistTracks", testGetCrumPlaylistTracks)
+        ("testGetCrumbPlaylistTracks", testGetCrumbPlaylistTracks)
     ]
     
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
-    func testGetCrumPlaylistTracks() { getCrumPlaylistTracks() }
+    func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }
 
 }

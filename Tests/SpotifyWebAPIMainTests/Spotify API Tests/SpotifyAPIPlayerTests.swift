@@ -40,7 +40,7 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
         
         encodeDecode(playbackRequest)
         
-        Self.spotify.resumePlayback(playbackRequest)
+        Self.spotify.play(playbackRequest)
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
@@ -61,7 +61,7 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
             .flatMap { context -> AnyPublisher<Void, Error> in
                 encodeDecode(context)
                 XCTAssertFalse(context.isPlaying)
-                return Self.spotify.resumePlayback(nil)
+                return Self.spotify.resumePlayback()
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.global())
@@ -131,6 +131,10 @@ class SpotifyAPIPlayerTests: SpotifyAPIAuthorizationCodeFlowTests {
         )
         
         Self.spotify.setRepeatMode(to: .track)
+            // This test will fail if you don't have an active
+            // device. Open a Spotify client (such as the iOS app)
+            // and ensure it's logged in to the same account used to
+            // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.global())
             .flatMap(Self.spotify.currentPlayback)

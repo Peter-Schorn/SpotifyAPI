@@ -8,8 +8,8 @@ import Foundation
  This error will only be thrown in
  `AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
  
- Do not confuse this with `SpotifyAuthenticationError`. See also `SpotifyError` and
- `SpotifyLocalError`.
+ Do not confuse this with `SpotifyAuthenticationError`. See also
+ `SpotifyError` and `SpotifyLocalError`.
  
  See the [authorization process][1].
  
@@ -21,6 +21,7 @@ public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
     /// Use the `accessWasDenied` boolean property to check if the user
     /// denied access to your application.
     public let error: String
+    
     /// The value of the state parameter supplied in the request.
     public let state: String?
     

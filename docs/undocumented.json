@@ -2,14 +2,14 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 74,
+      "line": 75,
       "symbol": "SpotifyAPI.authDidChangeLogger",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 148,
+      "line": 149,
       "symbol": "SpotifyAPI.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

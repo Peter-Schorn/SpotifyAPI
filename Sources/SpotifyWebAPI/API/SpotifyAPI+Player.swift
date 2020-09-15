@@ -3,7 +3,9 @@ import Combine
 
 // MARK: Player
 
-public extension SpotifyAPI {
+public extension SpotifyAPI where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
     
     /**
      Get the user's available devices.
@@ -267,6 +269,9 @@ public extension SpotifyAPI {
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
+     **If playback is already paused, then you will get a**
+     **403 "Player command failed: Restriction violated" error.**
+     
      Due to the asynchronous nature of the issuance of the command,
      you should use the Get Information About The User’s Current Playback
      endpoint (`currentPlayback()`) to check that your issued command was
@@ -279,9 +284,6 @@ public extension SpotifyAPI {
      NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
      403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
-     
-     **If playback is already paused, then you will get a**
-     **403 "Player command failed: Restriction violated" error.**
      
      Read more at the [Spotify web API reference][2].
      
@@ -314,9 +316,58 @@ public extension SpotifyAPI {
     }
     
     /**
-     Start a new context or resume current playback.
+     Resume the current user's current playback.
      
+     Use `play(_:deviceId:)` to play specific content.
      See also `transferPlayback(to:play:)`.
+     
+     This endpoint requires the `userModifyPlaybackState` scope.
+     
+     **If content is already playing, then you will get a**
+     **403 “Player command failed: Restriction violated” error.**
+     
+     When performing an action that is restricted,
+     404 NOT FOUND or 403 FORBIDDEN will be returned together with
+     a [player error message][1]. For example, if there are no active devices
+     found, the request will return 404 NOT FOUND response code and the reason
+     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
+     403 FORBIDDEN response code will be returned together with
+     the PREMIUM_REQUIRED reason.
+     
+     Read more at the [Spotify web API reference][2].ˆ
+     
+     - Parameter deviceId: The id of the device to target.
+           See `availableDevices()`. It is highly recommended that you
+           leave this as `nil` (default) to target the active device.
+           If you provide the id of a device that is not active, you may
+           get a 403 "Player command failed: Restriction violated" error.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
+     */
+    func resumePlayback(
+        deviceId: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.apiRequest(
+            path: "/me/player/play",
+            queryItems: ["device_id": deviceId],
+            httpMethod: "PUT",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil as Data?,
+            requiredScopes: [.userModifyPlaybackState]
+        )
+        .decodeSpotifyErrors()
+        .map { _, _ in }
+        .eraseToAnyPublisher()
+
+    }
+    
+    /**
+     Play content for the current user.
+     
+     Use `resumePlayback(deviceId:)` to resume the user's current
+     playback. See also `transferPlayback(to:play:)`.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
@@ -336,9 +387,9 @@ public extension SpotifyAPI {
        or when `uris([SpotifyURIConvertible])` is used for the context.
        One of the following:
      
-     * `position(Int)`: The index of the item in the context at which to
-       start playback.
-     *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+       * `position(Int)`: The index of the item in the context at which to
+         start playback.
+       *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
      * positionMS: Indicates from what position to start playback.
        Must be a positive number. If `nil`, then the track/episode
@@ -354,10 +405,6 @@ public extension SpotifyAPI {
      403 FORBIDDEN response code will be returned together with
      the PREMIUM_REQUIRED reason.
      
-     **If content is already playing and you use nil for  playbackRequest,**
-     **(which resumes playback of the current content) then you will get a**
-     **403 “Player command failed: Restriction violated” error.**
-     
      Read more at the [Spotify web API reference][2].
      
      - Parameters:
@@ -367,13 +414,12 @@ public extension SpotifyAPI {
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
        - playbackRequest: A request to play content for the user. See above.
-             **Provide nil to resume playback of the current track/episode.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
      */
-    func resumePlayback(
-        _ playbackRequest: PlaybackRequest?,
+    func play(
+        _ playbackRequest: PlaybackRequest,
         deviceId: String? = nil
     ) -> AnyPublisher<Void, Error> {
         
@@ -390,6 +436,7 @@ public extension SpotifyAPI {
         .eraseToAnyPublisher()
 
     }
+    
     
     /**
      Seek to position in the currently playing track/episode.
@@ -594,7 +641,7 @@ public extension SpotifyAPI {
     /**
      Transfer the user's playback to a different device.
      
-     See also `resumePlayback(_:deviceId:)`.
+     See also `resumePlayback(_:deviceId:)` and `play(_:deviceId:)`.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      

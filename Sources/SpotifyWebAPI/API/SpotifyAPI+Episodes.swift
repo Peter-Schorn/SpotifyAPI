@@ -11,7 +11,8 @@ public extension SpotifyAPI {
      See also `episodes(_:market:)` (gets multiple episodes).
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope.
+     `userReadPlaybackPosition` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      
@@ -63,7 +64,8 @@ public extension SpotifyAPI {
      See also `episode(_:market:)` (gets a single episode).
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope.
+     `userReadPlaybackPosition` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      

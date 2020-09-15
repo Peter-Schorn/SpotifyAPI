@@ -26,7 +26,12 @@ public struct RateLimitedError: LocalizedError, Codable, Hashable {
     public var errorDescription: String? {
         var description = "rate limiting error"
         if let seconds = retryAfter {
-            description += ". Try again in \(seconds) seconds."
+            if seconds == 1 {
+                description += ". Try again in 1 second."
+            }
+            else {
+                description += ". Try again in \(seconds) seconds."
+            }
         }
         return description
     }

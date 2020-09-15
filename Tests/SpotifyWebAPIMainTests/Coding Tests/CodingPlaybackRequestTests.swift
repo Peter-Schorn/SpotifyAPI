@@ -10,11 +10,11 @@ final class CodingPlaybackRequestTests: XCTestCase {
         ("testCodingPlaybackReqest", testCodingPlaybackReqest)
     ]
 
-    override class func setUp() {
-        SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
-            "/Users/pschorn/Desktop/"
-        )
-    }
+    // override class func setUp() {
+    //     SpotifyDecodingError.dataDumpfolder = URL(fileURLWithPath:
+    //         "/Users/pschorn/Desktop/"
+    //     )
+    // }
     
     func testCodingPlaybackReqest() throws {
         

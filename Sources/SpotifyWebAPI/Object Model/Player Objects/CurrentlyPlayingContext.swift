@@ -33,7 +33,8 @@ public struct CurrentlyPlayingContext: Hashable {
     /// millisecond-precision timestamp).
     public let timestamp: Date
     
-    /// Progress into the currently playing track/episode.
+    /// Progress into the currently playing track/episode in
+    /// milliseconds.
     ///
     /// Can be `nil`. For example, If the user has a private
     /// session enabled, then this will be `nil`.

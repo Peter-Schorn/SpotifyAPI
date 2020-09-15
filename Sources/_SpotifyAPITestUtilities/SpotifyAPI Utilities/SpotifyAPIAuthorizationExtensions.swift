@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SpotifyWebAPI
 
-private let clientId: String = {
+public let clientId: String = {
     guard let clientId = ProcessInfo.processInfo
             .environment["client_id"] else {
         fatalError(
@@ -19,7 +19,7 @@ private let clientId: String = {
     return clientId
 }()
 
-private let clientSecret: String = {
+public let clientSecret: String = {
     guard let clientSecret = ProcessInfo.processInfo
             .environment["client_secret"] else {
         fatalError(
@@ -41,6 +41,9 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         )
     )
     
+    /// Authorizes the application. You should probably use
+    /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
+    /// which authorizes and retrieves the refresh and access tokens.
     func testAuthorize(
         scopes: Set<Scope>,
         showDialog: Bool = false

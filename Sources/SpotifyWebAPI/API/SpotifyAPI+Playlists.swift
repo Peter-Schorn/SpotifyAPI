@@ -365,75 +365,18 @@ public extension SpotifyAPI {
         
     }
     
-    
-    /**
-     Get a list of the current user's playlists, including those
-     that they are following.
-     
-     See also `userPlaylists(for:limit:offset:)`.
-     
-     No scopes are required for retrieving the user's public playlists.
-     Requires the `playlistReadPrivate` scope for retrieving private
-     playlists. The `playlistReadCollaborative` scope is required to
-     retrieve collarborative playlists, even though these are also
-     always private. See also [Working with Playlists][1].
-
-     # Returns:
-     ```
-     PagingObject<Playlist<PlaylistsItemsReference>>
-     ```
-     
-     The simplified versions of the playlists will be returned.
-     
-     A `PlaylistsItemsReference` simply contains a link to all of the
-     tracks/episodes and the total number in the playlist. To get all
-     of the tracks in each playlist, you can use
-     `playlistTracks(_:limit:offset:market:)`, passing in the URI of
-     each of the playlists. To get all of the URIs, use:
-     ```
-     playlists.items.map(\.uri)
-     ```
-     
-     Read more at the [Spotify web API reference][2].
-
-     - Parameters:
-       - limit: *Optional*. The maximum number of playlists to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first playlist to return.
-             Default: 0; Maximum: 100,000. Use with `limit` to get the next
-             set of playlists.
-     
-     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
-     */
-    func currentUserPlaylists(
-        limit: Int? = nil,
-        offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
-        
-        return self.getRequest(
-            path: "/me/playlists",
-            queryItems: [
-                "limit": limit,
-                "offset": offset
-            ],
-            requiredScopes: []
-        )
-        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
-        
-    }
-    
     /**
      Get a list of the playlists for a user, including those that
      they are following.
      
-     See also `currentUserPlaylists(limit:offset:)`
+     See also `currentUserPlaylists(limit:offset:)`.
      
-     Private playlists are only retrievable for the current user and requires
-     the `playlistReadPrivate` scope to have been authorized by the user.
-     Note that this scope alone will not return collaborative playlists,
-     even though they are always private. Collaborative playlists are only
-     retrievable for the current user and requires the
+     No scopes are required for retrieving the public playlists of any
+     user. Private playlists are only retrievable for the current user
+     and requires the `playlistReadPrivate` scope to have been authorized
+     by the user. Note that this scope alone will not return collaborative
+     playlists, even though they are always private. Collaborative playlists
+     are only retrievable for the current user and requires the
      `playlistReadCollaborative` scope to have been authorized by the user.
      See also [Working with Playlists][1].
      
@@ -497,10 +440,80 @@ public extension SpotifyAPI {
         
     }
     
+}
+
+public extension SpotifyAPI where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
+    
+    
+    /**
+     Get a list of the current user's playlists, including those
+     that they are following.
+     
+     See also `userPlaylists(for:limit:offset:)`.
+     
+     No scopes are required for retrieving the user's public playlists.
+     However, the access token must have been issued on behalf of a
+     user. Requires the `playlistReadPrivate` scope for retrieving private
+     playlists. The `playlistReadCollaborative` scope is required to
+     retrieve collarborative playlists, even though these are also
+     always private. See also [Working with Playlists][1].
+
+     # Returns:
+     ```
+     PagingObject<Playlist<PlaylistsItemsReference>>
+     ```
+     
+     The simplified versions of the playlists will be returned.
+     
+     A `PlaylistsItemsReference` simply contains a link to all of the
+     tracks/episodes and the total number in the playlist. To get all
+     of the tracks in each playlist, you can use
+     `playlistTracks(_:limit:offset:market:)`, passing in the URI of
+     each of the playlists. To get all of the URIs, use:
+     ```
+     playlists.items.map(\.uri)
+     ```
+     
+     Read more at the [Spotify web API reference][2].
+
+     - Parameters:
+       - limit: *Optional*. The maximum number of playlists to return.
+             Default: 20; Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first playlist to return.
+             Default: 0; Maximum: 100,000. Use with `limit` to get the next
+             set of playlists.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
+     */
+    func currentUserPlaylists(
+        limit: Int? = nil,
+        offset: Int? = nil
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
+        
+        return self.getRequest(
+            path: "/me/playlists",
+            queryItems: [
+                "limit": limit,
+                "offset": offset
+            ],
+            requiredScopes: []
+        )
+        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+        
+    }
+    
+    
     /**
      Get the current images associated with a specific playlist.
      
      See also `playlist(_:market:)`.
+     
+     No scopes are required for this endpoint; the access token
+     must have been issued on behalf of *a* user, but not necessarily
+     the owner of this playlist.
      
      Read more at the [Spotify web API reference][1].
      
@@ -628,7 +641,6 @@ public extension SpotifyAPI {
      See also ``removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`,
      `removeAllOccurencesFromPlaylist(_:uris:)`, and
      `replaceAllPlaylistItems(_:with:)`.
-     
      
      Reordering items in the current user’s public playlists requires
      authorization of the `playlistModifyPublic` scope; reordering items

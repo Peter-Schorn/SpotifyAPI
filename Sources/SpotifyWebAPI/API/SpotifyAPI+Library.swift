@@ -99,7 +99,9 @@ private extension SpotifyAPI {
 
 // MARK: Library
 
-public extension SpotifyAPI {
+public extension SpotifyAPI where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
 
     /**
      Get the saved albums for the current user.

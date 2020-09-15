@@ -33,7 +33,9 @@ import Logger
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Codable {
+public final class AuthorizationCodeFlowManager:
+    SpotifyScopeAuthorizationManager, Codable
+{
     
     /// The logger for this class. By default, its level is `critical`.
     public static let logger = Logger(
@@ -62,13 +64,6 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
     /// The scopes that have been authorized for the access token.
     public private(set) var scopes: Set<Scope>? = nil
     
-    private var cancellables: Set<AnyCancellable> = []
-    
-    /// Ensure no data races occur when updating auth info.
-    private let updateAuthInfoDispatchQueue = DispatchQueue(
-        label: "updateAuthInfoDispatchQueue"
-    )
-
     /**
      A Publisher that emits **after** this `AuthorizationCodeFlowManager`
      has changed.
@@ -92,6 +87,22 @@ public final class AuthorizationCodeFlowManager: SpotifyAuthorizationManager, Co
      Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    /// Ensure no data races occur when updating auth info.
+    private let updateAuthInfoDispatchQueue = DispatchQueue(
+        label: "updateAuthInfoDispatchQueue"
+    )
+
+    /**
+     The request to refresh the access token is stored in this
+     property so that if multiple asyncronous requests are made
+     to refresh the access token, then only one actual network
+     request is made. Once this publisher finishes, it is set to
+     `nil`.
+     */
+    private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
@@ -202,7 +213,9 @@ public extension AuthorizationCodeFlowManager {
      Determines whether the access token is expired
      within the given tolerance.
      
-     The access token is refreshed automatically if needed
+     See also `isAuthorized(for:)`.
+     
+     The access token is refreshed automatically when necessary
      before each request to the spotify web API is made.
      Therefore, **you should never need to call this method directly.**
      
@@ -213,18 +226,20 @@ public extension AuthorizationCodeFlowManager {
            is `nil`. Else, `false`.
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
-        if (accessToken == nil) != (self.expirationDate == nil) {
-            let expirationDateString = self.expirationDate?
+        return updateAuthInfoDispatchQueue.sync {
+            if (accessToken == nil) != (self.expirationDate == nil) {
+                let expirationDateString = self.expirationDate?
                     .description(with: .current) ?? "nil"
-            Self.logger.error(
-                "accessToken or expirationDate was nil, but not both: " +
-                "accessToken == nil: \(accessToken == nil);" +
-                "expiration date: \(expirationDateString)"
-            )
+                Self.logger.error(
+                    "accessToken or expirationDate was nil, but not both: " +
+                        "accessToken == nil: \(accessToken == nil);" +
+                    "expiration date: \(expirationDateString)"
+                )
+            }
+            guard accessToken != nil else { return true }
+            guard let expirationDate = expirationDate else { return true }
+            return expirationDate.addingTimeInterval(-tolerance) <= Date()
         }
-        guard accessToken != nil else { return true }
-        guard let expirationDate = expirationDate else { return true }
-        return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
     /**
@@ -233,15 +248,17 @@ public extension AuthorizationCodeFlowManager {
      
      - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
            Use an empty set (default) to check if an `accessToken`
-           has been retrieved for the application,
-           which is still required for all endpoints,
-           even if no scopes are required.
+           has been retrieved for the application, which is still
+           required for all endpoints, even those that do not require
+           scopes.
      
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
-        if accessToken == nil { return false }
-        return scopes.isSubset(of: self.scopes ?? [])
+        return updateAuthInfoDispatchQueue.sync {
+            if accessToken == nil { return false }
+            return scopes.isSubset(of: self.scopes ?? [])
+        }
     }
     
     /**
@@ -465,8 +482,12 @@ public extension AuthorizationCodeFlowManager {
         
         do {
             
-            if onlyIfExpired && !self.accessTokenIsExpired(tolerance: tolerance) {
-                Self.logger.trace("access token not expired; returning early")
+            if onlyIfExpired && !self.accessTokenIsExpired(
+                tolerance: tolerance
+            ) {
+                Self.logger.trace(
+                    "access token not expired; returning early"
+                )
                 return Result<Void, Error>
                     .Publisher(())
                     .eraseToAnyPublisher()
@@ -499,13 +520,21 @@ public extension AuthorizationCodeFlowManager {
         
             Self.logger.notice("refreshing tokens...")
             
-            return URLSession.shared.dataTaskPublisher(
+            if let refreshTokensPublisher = self.refreshTokensPublisher {
+                Self.logger.notice("Using previous publisher")
+                return refreshTokensPublisher
+            }
+            Self.logger.trace("Creating new publisher")
+            
+            let refreshTokensPublisher = URLSession.shared.dataTaskPublisher(
                 url: Endpoints.getTokens,
                 httpMethod: "POST",
                 headers: header,
                 body: requestBody
             )
             .decodeSpotifyErrors()
+            // decoding into `AuthInfo` never fails, so we must
+            // try to decode errors first.
             .decodeSpotifyObject(AuthInfo.self)
             .map { authInfo in
 
@@ -525,7 +554,23 @@ public extension AuthorizationCodeFlowManager {
                 self.updateFromAuthInfo(authInfo)
 
             }
+            .handleEvents(
+                // once this publisher finishes, we must
+                // set `self.refreshTokensPublisher` to `nil`
+                // so that the caller does not receive a publisher
+                // that has already finished.
+                receiveOutput: { _ in
+                    self.refreshTokensPublisher = nil
+                },
+                receiveCompletion: { _ in
+                    self.refreshTokensPublisher = nil
+                }
+            )
+            .share()
             .eraseToAnyPublisher()
+            
+            self.refreshTokensPublisher = refreshTokensPublisher
+            return refreshTokensPublisher
         
         } catch {
             return error.anyFailingPublisher(Void.self)

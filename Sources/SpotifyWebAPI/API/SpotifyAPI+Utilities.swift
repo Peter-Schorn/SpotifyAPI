@@ -41,7 +41,9 @@ public extension SpotifyAPI {
             return self.refreshTokensAndEnsureAuthorized(for: [])
                 .flatMap { accessToken -> AnyPublisher<ResponseType, Error> in
                     
-                    self.apiRequestLogger.trace("href: \(href)")
+                    self.apiRequestLogger.trace(
+                        "GET request to href: \(href)"
+                    )
                     
                     return URLSession.shared.dataTaskPublisher(
                         url: url,
@@ -109,21 +111,11 @@ public extension SpotifyAPI {
                     return emptyCompletionPublisher
                 }
         
-                // if let max = maxExtraPages, nextPageIndex > max {
-                //     // the maximum number of pages requested by the caller
-                //     // have been reached
-                //     self.logger.debug(
-                //         "nextPageIndex > maxPages (\(max as Any))"
-                //     )
-                //     return emptyCompletionPublisher
-                // }
-                
-                // guard nextPageIndex <= maxPages
-                guard maxExtraPages.map({ nextPageIndex <= $0 }) ?? true else {
+                if let max = maxExtraPages, nextPageIndex > max {
                     // the maximum number of pages requested by the caller
                     // have been reached
                     self.logger.debug(
-                        "nextPageIndex > maxPages (\(maxExtraPages as Any))"
+                        "nextPageIndex > maxPages (\(max))"
                     )
                     currentPageSubject.send(completion: .finished)
                     return emptyCompletionPublisher

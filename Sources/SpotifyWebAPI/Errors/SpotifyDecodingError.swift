@@ -12,7 +12,9 @@ import Foundation
  This is almost always due to an error in this library.
  Report a bug if you get this error.
  
- Do not `dump` this error; instead, use its string representation.
+ Do not `dump` this error; instead, use its string representation
+ for debugging (e.g., print it to the console). Only use
+ `localizedDescription` for displaying the error to the end user.
  */
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
@@ -129,7 +131,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     }
     
     public var errorDescription: String? {
-        return description
+        return "The data from Spotify could not be understood"
     }
 
 }

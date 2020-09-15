@@ -18,12 +18,38 @@ extension SpotifyAPI {
         for scopes: Set<Scope>
     ) -> AnyPublisher<String, Error> {
         
+        /*
+         It's more informative for the client to notifiy
+         them that they haven't retrieved an access token for
+         their application before throwing other errors, so that's
+         why this check is performed first.
+         
+         If an access token hasn't been retrieved, then a refresh
+         token hasn't been retrieved either and, without this check,
+         `authorizationManager.refreshTokens` would throw an error
+         indicating that a refresh token hasn't been retrieved, instead
+         of an error indicating that an access token hasn't been retrieved.
+         This would make it harder for the client to understand that they
+         probably haven't authorized their application yet.
+         */
+        guard self.authorizationManager.accessToken != nil else {
+            return SpotifyLocalError.unauthorized(
+                "unauthorized: no access token"
+            )
+            .anyFailingPublisher(String.self)
+        }
+        
         return self.authorizationManager.refreshTokens(
             onlyIfExpired: true, tolerance: 120
         )
         .tryMap { () -> String in
             
+            // Since we already checked to see if the access token was
+            // `nil` above, it should never be `nil` at this point.
             guard let acccessToken = self.authorizationManager.accessToken else {
+                self.logger.error(
+                    "second check for accessToken shouldn't ever fail"
+                )
                 throw SpotifyLocalError.unauthorized(
                     "unauthorized: no access token"
                 )

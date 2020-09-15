@@ -6,31 +6,6 @@ import Combine
 public extension SpotifyAPI {
     
     /**
-     Get the profile of the current user.
-     
-     See also `userProfile(_:)`.
-     
-     Reading the user’s email address requires the `userReadEmail` scope;
-     reading country and product subscription level requires the
-     `userReadPrivate` scope. If the application is not authorized for
-     these scopes, then these properties will be `nil`.
-     
-     Read more at the [Spotify web API reference][1].
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
-     */
-    func currentUserProfile() -> AnyPublisher<SpotifyUser, Error> {
-        
-        return self.getRequest(
-            path: "/me",
-            queryItems: [:],
-            requiredScopes: []
-        )
-        .decodeSpotifyObject(SpotifyUser.self)
-        
-    }
-
-    /**
      Get the *public* profile information for a user.
      
      See also `currentUserProfile()`.
@@ -67,5 +42,37 @@ public extension SpotifyAPI {
 
     }
     
+    
+}
+
+public extension SpotifyAPI where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
+    
+    /**
+     Get the profile of the current user.
+     
+     See also `userProfile(_:)`.
+     
+     The access token must have been issued on behalf of a user.
+     Reading the user’s email address requires the `userReadEmail` scope;
+     reading country and product subscription level requires the
+     `userReadPrivate` scope. If the application is not authorized for
+     these scopes, then these properties will be `nil`.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+     */
+    func currentUserProfile() -> AnyPublisher<SpotifyUser, Error> {
+        
+        return self.getRequest(
+            path: "/me",
+            queryItems: [:],
+            requiredScopes: []
+        )
+            .decodeSpotifyObject(SpotifyUser.self)
+        
+    }
     
 }

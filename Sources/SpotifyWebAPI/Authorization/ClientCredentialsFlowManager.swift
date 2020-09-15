@@ -56,11 +56,6 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// to check if the token is expired.
     public var expirationDate: Date?
     
-    /// Ensure no data races occur when updating auth info.
-    private let updateAuthInfoDispatchQueue = DispatchQueue(
-        label: "updateAuthInfoDispatchQueue"
-    )
-    
     /**
      A Publisher that emits **after** this `ClientCredentialsFlowManager`
      has changed.
@@ -83,6 +78,20 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
+    
+    /// Ensure no data races occur when updating auth info.
+    private let updateAuthInfoDispatchQueue = DispatchQueue(
+        label: "updateAuthInfoDispatchQueue"
+    )
+
+    /**
+     The request to refresh the access token is stored in this
+     property so that if multiple asyncronous requests are made
+     to refresh the access token, then only one actual network
+     request is made. Once this publisher finishes, it is set to
+     `nil`.
+     */
+    private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
@@ -192,7 +201,9 @@ public extension ClientCredentialsFlowManager {
      Determines whether the access token is expired
      within the given tolerance.
      
-     The access token is refreshed automatically if needed
+     See also `isAuthorized(for:)`.
+     
+     The access token is refreshed automatically when necessary
      before each request to the spotify web API is made.
      Therefore, **you should never need to call this method directly.**
      
@@ -203,18 +214,20 @@ public extension ClientCredentialsFlowManager {
            is `nil`. Else, `false`.
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
-        if (accessToken == nil) != (self.expirationDate == nil) {
-            let expirationDateString = self.expirationDate?
+        return updateAuthInfoDispatchQueue.sync {
+            if (accessToken == nil) != (self.expirationDate == nil) {
+                let expirationDateString = self.expirationDate?
                     .description(with: .current) ?? "nil"
-            Self.logger.critical(
-                "accessToken or expirationDate was nil, but not both: " +
-                "accessToken == nil: \(accessToken == nil);" +
-                "expiration date: \(expirationDateString)"
-            )
+                Self.logger.critical(
+                    "accessToken or expirationDate was nil, but not both: " +
+                        "accessToken == nil: \(accessToken == nil);" +
+                    "expiration date: \(expirationDateString)"
+                )
+            }
+            guard accessToken != nil else { return true }
+            guard let expirationDate = expirationDate else { return true }
+            return expirationDate.addingTimeInterval(-tolerance) <= Date()
         }
-        guard accessToken != nil else { return true }
-        guard let expirationDate = expirationDate else { return true }
-        return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
     /**
@@ -222,16 +235,18 @@ public extension ClientCredentialsFlowManager {
      the set of scopes is empty.
      
      - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
-           This must be an empty set, or this method will return `false`.
-           This is because The client credentials flow does not support
+           This must be an empty set, or this method will return `false`
+           because the client credentials flow does not support
            authorization scopes; it only supports endpoints that do not
            access user data.
      
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
-        if accessToken == nil { return false }
-        return scopes.isEmpty
+        return updateAuthInfoDispatchQueue.sync {
+            if accessToken == nil { return false }
+            return scopes.isEmpty
+        }
     }
     
     /**
@@ -251,7 +266,6 @@ public extension ClientCredentialsFlowManager {
             "grant_type": "client_credentials"
         ].formURLEncoded()!
         
-        
         let headers = Headers.basicBase64Encoded(
             clientId: clientId, clientSecret: clientSecret
         )
@@ -263,6 +277,8 @@ public extension ClientCredentialsFlowManager {
             body: body
         )
         .decodeSpotifyErrors()
+        // decoding into `AuthInfo` never fails, so we must
+        // try to decode errors first.
         .decodeSpotifyObject(AuthInfo.self)
         .map { authInfo in
          
@@ -324,11 +340,34 @@ public extension ClientCredentialsFlowManager {
         
         Self.logger.trace("access token is expired, authorizing again")
         
-        // the process for refreshing the token
-        // is the same as that for authorizing the application.
-        // the client credentials flow does not return a refresh token,
-        // unlike the authorization code flow.
-        return self.authorize()
+        if let refreshTokensPublisher = self.refreshTokensPublisher {
+            Self.logger.notice("Using previous publisher")
+            return refreshTokensPublisher
+        }
+        Self.logger.trace("Creating new publisher")
+        
+        // The process for refreshing the token is the same as that
+        // for authorizing the application. The client credentials flow
+        // does not return a refresh token, unlike the authorization code
+        // flow.
+        let refreshTokensPublisher = self.authorize()
+            .handleEvents(
+                // once this publisher finishes, we must
+                // set `self.refreshTokensPublisher` to `nil`
+                // so that the caller does not receive a publisher
+                // that has already finished.
+                receiveOutput: { _ in
+                    self.refreshTokensPublisher = nil
+                },
+                receiveCompletion: { _ in
+                    self.refreshTokensPublisher = nil
+                }
+            )
+            .share()
+            .eraseToAnyPublisher()
+        
+        self.refreshTokensPublisher = refreshTokensPublisher
+        return refreshTokensPublisher
         
     }
     

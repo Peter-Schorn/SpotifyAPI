@@ -5,7 +5,7 @@ import Combine
 import SpotifyWebAPI
 
 /// A skeleton for compilation tests.
-class Keychain {
+private class Keychain {
     
     subscript(data key: String) -> Data? {
         get {
@@ -87,7 +87,7 @@ private final class Spotify: ObservableObject {
         // MARK: retrieving `authorizationManager` from persistent storage
         self.api.authorizationManagerDidChange
             // We must receive on the main thread because we are
-            // updating a the @Published `isAuthorized` property.
+            // updating the @Published `isAuthorized` property.
             .receive(on: RunLoop.main)
             .sink(receiveValue: handleChangesToAuthorizationManager)
             .store(in: &cancellables)
@@ -145,16 +145,16 @@ private final class Spotify: ObservableObject {
             ]
         )!
         
+        _ = url
         // You can open the URL however you like. For example, you could open
         // it in a web view instead of the browser.
         // See https://developer.apple.com/documentation/webkit/wkwebview
-        UIApplication.shared.open(url)
+//        UIApplication.shared.open(url)
         
     }
     
     /// Saves changes to `api.authorizationManager` to the keychain.
-    /// This method is called everytime the authorization information
-    /// is changes.
+    /// This method is called every time the authorization information changes.
     func handleChangesToAuthorizationManager() {
         
         // Update the @Published `isAuthorized` property.

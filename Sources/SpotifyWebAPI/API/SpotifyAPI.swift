@@ -20,9 +20,9 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
                 "did set authorizationManager"
             )
             
-            self.authorizationManager.didChange
-                .subscribe(authorizationManagerDidChange)
-                .store(in: &cancellables)
+            self.authManagerDidChangeCancellable =
+                    self.authorizationManager.didChange
+                        .subscribe(authorizationManagerDidChange)
             
             self.authDidChangeLogger.trace(
                 "authorizationManagerDidChange.send()"
@@ -66,6 +66,7 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
 
     private var cancellables: Set<AnyCancellable> = []
+    private var authManagerDidChangeCancellable: AnyCancellable? = nil
     
     /// Logs general messages for this class.
     /// :nodoc:
@@ -97,9 +98,9 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
     public init(authorizationManager: AuthorizationManager)  {
         self.authorizationManager = authorizationManager
         
-        self.authorizationManager.didChange
-            .subscribe(authorizationManagerDidChange)
-            .store(in: &cancellables)
+        self.authManagerDidChangeCancellable =
+                self.authorizationManager.didChange
+                    .subscribe(authorizationManagerDidChange)
         
     }
     
@@ -162,11 +163,9 @@ extension SpotifyAPI {
         self.authDidChangeLogger.level = .trace
         
         AuthorizationCodeFlowManager.logger.level = .trace
-//        AuthorizationCodeFlowManager.
-        
         ClientCredentialsFlowManager.logger.level = .trace
-        
         CurrentlyPlayingContext.logger.level = .trace
+        
     }
     
 }
