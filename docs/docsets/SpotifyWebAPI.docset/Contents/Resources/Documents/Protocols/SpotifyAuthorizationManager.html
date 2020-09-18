@@ -17,7 +17,7 @@
     <a title="SpotifyAuthorizationManager Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -186,6 +192,12 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
               </li>
               <li class="nav-group-task">
@@ -275,10 +287,10 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/Headers.html">Headers</a>
+                <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/IDCategory.html">IDCategory</a>
+                <a href="../Enums/TimeRange.html">TimeRange</a>
               </li>
             </ul>
           </li>
@@ -303,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -342,33 +367,6 @@ for refreshing the access token.</p>
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0A20AuthorizationManagerP6logger6LoggerAECvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/logger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A20AuthorizationManagerP6logger6LoggerAECvpZ">logger</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Logs debugging messages. Don&rsquo;t use in shipping code.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -520,7 +518,7 @@ within the given tolerance.</p>
                               <td>
                                 <div>
                                   <p>The tolerance in seconds.
-  The reccomended default is 60.</p>
+  The reccomended default is 120.</p>
                                 </div>
                               </td>
                             </tr>
@@ -529,8 +527,9 @@ within the given tolerance.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p><code>true</code> if <code><a href="../Protocols/SpotifyAuthorizationManager.html#/s:13SpotifyWebAPI0A20AuthorizationManagerP14expirationDate10Foundation0G0VSgvp">expirationDate</a></code> + <code>tolerance</code> is
-  equal to or before the current date. Else, <code>false</code>.</p>
+                        <p><code>true</code> if <code><a href="../Protocols/SpotifyAuthorizationManager.html#/s:13SpotifyWebAPI0A20AuthorizationManagerP14expirationDate10Foundation0G0VSgvp">expirationDate</a></code> - <code>tolerance</code> is
+  equal to or before the current date or if <code><a href="../Protocols/SpotifyAuthorizationManager.html#/s:13SpotifyWebAPI0A20AuthorizationManagerP11accessTokenSSSgvp">accessToken</a></code>
+  is <code>nil</code>. Else, <code>false</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -587,7 +586,11 @@ within the given tolerance.</p>
                               <td>
                                 <div>
                                   <p>The tolerance in seconds to use when determining
-if the token is expired. The reccomended default is 60.</p>
+if the token is expired. The reccomended default is 120.
+The token is considered expired if
+<code><a href="../Protocols/SpotifyAuthorizationManager.html#/s:13SpotifyWebAPI0A20AuthorizationManagerP14expirationDate10Foundation0G0VSgvp">expirationDate</a></code> - <code>tolerance</code> is equal to or before the
+current date. This parameter has no effect if <code>onlyIfExpired</code>
+is <code>false</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -676,7 +679,7 @@ is authorized for the specified scopes, else <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

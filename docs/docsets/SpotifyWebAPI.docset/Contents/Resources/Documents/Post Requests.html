@@ -17,7 +17,7 @@
     <a title="Post Requests  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -348,6 +370,8 @@
                         <p>A request to play Spotify content for the current user.</p>
 
 <p>Used in the body of <code>SpotifyAPI.resumePlayback(_:deviceId:)</code>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
 
 <ul>
 <li><p>context: The context in which to play the content. One of the following:</p>
@@ -457,8 +481,9 @@ One of the following:</p>
 
 <ul>
 <li><code>position(Int)</code>: The index of the item in the context at which to
-  start playback.</li>
-<li><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</li>
+start playback.</li>
+<li><code>uri(SpotifyURIConvertible)</code>: The URI of the item in the context
+to start playback at.</li>
 </ul>
 
                         <a href="Enums/OffsetOption.html" class="slightly-smaller">See more</a>
@@ -536,8 +561,8 @@ will be used to update the details of the playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Used in the <code>reorderPlaylistItems</code> request to reorder a playlist&rsquo;s
-items.</p>
+                        <p>Used in the <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">SpotifyAPI.reorderPlaylistItems(_:body:)</a></code> request to
+reorder a playlist&rsquo;s items.</p>
 
                         <a href="Structs/ReorderPlaylistItems.html" class="slightly-smaller">See more</a>
                       </div>
@@ -636,6 +661,8 @@ are necessary in case the collection has duplicate items.</p>
 the <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of the playlist that the items associated with the URIs
 (usually tracks/episodes) are contained in.</p>
 
+<p>Used in the body of <code>removeSpecificOccurencesFromPlaylist</code>.</p>
+
 <p>This is used for removing specific occurences of items from a playlist.
 The positions of the URIs are necessary in case the playlist has duplicate
 items.</p>
@@ -658,7 +685,7 @@ items.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

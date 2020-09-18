@@ -1,9 +1,9 @@
 import Foundation
 import Combine
 
-// MARK: Episodes
-
 public extension SpotifyAPI {
+
+    // MARK: Episodes
     
     /**
      Get an episode.
@@ -42,7 +42,7 @@ public extension SpotifyAPI {
         do {
         
             let id = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.episode]
+                uri: uri, ensureCategoryMatches: [.episode]
             ).id
             
             return self.getRequest(
@@ -99,7 +99,7 @@ public extension SpotifyAPI {
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [.episode]
+                    uris, ensureCategoryMatches: [.episode]
                 )
             
             return self.getRequest(

@@ -3,13 +3,29 @@ import Logger
 import Combine
 
 /**
- The central class in this library.
- 
- It provides methods for all of the Spotify web API endpoints
- and contains an authorization manager for managing the
+ The central class in this library. Provides methods for all of the Spotify
+ web API endpoints and contains an authorization manager for managing the
  authorization/authentication process of your application.
+ 
+ The methods that require authorization scopes and/or an access token that was
+ issued on behalf of a user are declared in conditional conformances where
+ `AuthorizationManager` conforms to `SpotifyScopeAuthorizationManager`.
+ This protcol requires conforming types to support authorization scopes.
+ This strategy provides a compile-time guarantee that you cannot call methods
+ that require authorization scopes if you are using an authorization manager
+ that doesn't support them.
+ 
+ Currently, only `AuthorizationCodeFlowManager` conforms to
+ `SpotifyScopeAuthorizationManager` but a future version of this library will
+ support the [Authorization Code Flow with Proof Key for Code Exchange][1],
+ which will also conform to this protocol.
+ 
+ `ClientCredentialsFlowManager` is not a conforming type because it
+ does not support authorization scopes.
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
+public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
     
     // MARK: - Authorization -
     
@@ -68,8 +84,9 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
     private var cancellables: Set<AnyCancellable> = []
     private var authManagerDidChangeCancellable: AnyCancellable? = nil
     
+    // MARK: - Loggers -
+    
     /// Logs general messages for this class.
-    /// :nodoc:
     public let logger = Logger(label: "SpotifyAPI", level: .critical)
     
     public let authDidChangeLogger = Logger(
@@ -108,6 +125,8 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
         self.logger.notice("\n\n\(self): DEINIT\n\n")
     }
     
+    // MARK: - Codable -
+    
     /**
      Creates a new instance by decoding from the given decoder.
      
@@ -118,7 +137,7 @@ public final class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>
      
      - Parameter decoder: The decoder to read data from.
      */
-    public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.authorizationManager = try container.decode(
             AuthorizationManager.self,

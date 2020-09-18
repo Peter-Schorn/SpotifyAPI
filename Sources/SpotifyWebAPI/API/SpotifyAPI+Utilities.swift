@@ -2,9 +2,9 @@ import Foundation
 import Combine
 import Logger
 
-// MARK: Utilities
-
 public extension SpotifyAPI {
+
+    // MARK: Utilities
     
     /**
      Retrieves the data linked to by an href and decodes it

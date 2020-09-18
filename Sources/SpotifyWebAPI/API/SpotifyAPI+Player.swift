@@ -1,11 +1,10 @@
 import Foundation
 import Combine
 
-// MARK: Player
-
 public extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
+    // MARK: Player (Requires Authorization Scopes)
     
     /**
      Get the user's available devices.

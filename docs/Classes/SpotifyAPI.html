@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -330,15 +352,29 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt">SpotifyAuthorizationManager</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span></code></pre>
 
                 </div>
               </div>
-            <p>The central class in this library.</p>
-
-<p>It provides methods for all of the Spotify web API endpoints
-and contains an authorization manager for managing the
+            <p>The central class in this library. Provides methods for all of the Spotify
+web API endpoints and contains an authorization manager for managing the
 authorization/authentication process of your application.</p>
+
+<p>The methods that require authorization scopes and/or an access token that was
+issued on behalf of a user are declared in conditional conformances where
+<code>AuthorizationManager</code> conforms to <code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>.
+This protcol requires conforming types to support authorization scopes.
+This strategy provides a compile-time guarantee that you cannot call methods
+that require authorization scopes if you are using an authorization manager
+that doesn&rsquo;t support them.</p>
+
+<p>Currently, only <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> conforms to
+<code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code> but a future version of this library will
+support the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>,
+which will also conform to this protocol.</p>
+
+<p><code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code> is not a conforming type because it
+does not support authorization scopes.</p>
 
           </section>
           <section class="section task-group-section">
@@ -445,6 +481,46 @@ Always receive on the main thread if you plan on updating the UI.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Loggers"></a>
+                <a name="//apple_ref/swift/Section/Loggers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Loggers"></a>
+                  <h3 class="section-name"><p>Loggers</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp"></a>
+                    <a name="//apple_ref/swift/Property/logger" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp">logger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs general messages for this class.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -528,7 +604,7 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/app-
                               <td>
                                 <div>
                                   <p>An instance of a type that
-  conforms to <code>SpotifyAuthorizationManager</code>.</p>
+  conforms to <code><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -538,6 +614,19 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/app-
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Codable"></a>
+                <a name="//apple_ref/swift/Section/Codable" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Codable"></a>
+                  <h3 class="section-name"><p>Codable</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -563,7 +652,7 @@ if the data read is corrupted or otherwise invalid.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -938,7 +1027,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
 
 <p>No scopes are required for this endpoint.</p>
 
-<p>See also <code>artists(uris:)</code> (gets multiple artists).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C7artistsy7Combine12AnyPublisherVySayAA6ArtistVSgGs5Error_pGSayAA0A14URIConvertible_pGF">artists(_:)</a></code> (gets multiple artists).</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/">Spotify web API reference</a>.</p>
 
@@ -948,7 +1037,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">artist</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -960,7 +1049,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>artist</em>
+                                <em>uri</em>
                                 </code>
                               </td>
                               <td>
@@ -996,7 +1085,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
 
 <p>No scopes are required for this endpoint.</p>
 
-<p>See also <code>artist(uri:)</code> (gets a single artist).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6artisty7Combine12AnyPublisherVyAA6ArtistVs5Error_pGAA0A14URIConvertible_pF">artist(_:)</a></code> (gets a single artist).</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/artists/get-several-artists/">Spotify web API reference</a>.</p>
 
@@ -1006,7 +1095,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">artists</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">artists</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="p">?],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1018,7 +1107,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>artists</em>
+                                <em>uris</em>
                                 </code>
                               </td>
                               <td>
@@ -1284,6 +1373,691 @@ or the string &ldquo;from_token&rdquo;.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The full versions of up to 20 artists.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Browse"></a>
+                <a name="//apple_ref/swift/Section/Browse" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Browse"></a>
+                  <h3 class="section-name"><p>Browse</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C8category_7country6locale7Combine12AnyPublisherVyAA0A8CategoryVs5Error_pGSS_SSSgANtF"></a>
+                    <a name="//apple_ref/swift/Method/category(_:country:locale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C8category_7country6locale7Combine12AnyPublisherVyAA0A8CategoryVs5Error_pGSS_SSSgANtF">category(_:<wbr>country:<wbr>locale:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a Spotify Category.</p>
+
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C10categories7country6locale5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA0A8CategoryVGs5Error_pGSSSg_ASSiSgATtF">categories(country:locale:limit:offset:)</a></code> to get an array of
+categories.</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-category/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">category</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">locale</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SpotifyCategory.html">SpotifyCategory</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A category id.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>country</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A country: an
+<a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>. Provide this parameter
+to ensure that the category exists for a particular country.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>locale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The desired language, consisting of an
+<a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a> language code and an
+<a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>, joined by an underscore.
+For example: es_MX, meaning &ldquo;Spanish (Mexico)&rdquo;. Provide this
+parameter if you want the category strings returned in a
+particular language. Note that, if this paramater is not
+supplied, or if the specified language is not available,
+the category strings returned will be in the Spotify default
+language (American English).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A category object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C10categories7country6locale5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA0A8CategoryVGs5Error_pGSSSg_ASSiSgATtF"></a>
+                    <a name="//apple_ref/swift/Method/categories(country:locale:limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C10categories7country6locale5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA0A8CategoryVGs5Error_pGSSSg_ASSiSgATtF">categories(country:<wbr>locale:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of categories used to tag items in Spotify
+(on, for example, the Spotify player’s &ldquo;Browse&rdquo; tab).</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8category_7country6locale7Combine12AnyPublisherVyAA0A8CategoryVs5Error_pGSS_SSSgANtF">category(_:country:locale:)</a></code> (gets a single category based on an id).</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-categories/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">categories</span><span class="p">(</span>
+    <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">locale</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SpotifyCategory.html">SpotifyCategory</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>country</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A country: an <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+Provide this parameter if you want to narrow the list of returned
+categories to those relevant to a particular country. If omitted,
+the returned items will be globally relevant.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>locale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The desired language, consisting of an
+<a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1 language code</a> and an <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>,
+joined by an underscore. For example: es_MX, meaning &ldquo;Spanish (Mexico)&rdquo;.
+Provide this parameter if you want the category metadata returned in a
+particular language. Note that, if locale is not supplied, or if the
+specified language is not available, all strings will be returned in
+the Spotify default language (American English). The locale parameter,
+combined with the country parameter, may give odd results if not
+carefully matched. For example, &ldquo;SE&rdquo; for <code>country</code> and &ldquo;de_DE&rdquo; for
+<code>locale</code> will return a list of categories relevant to Sweden but as
+German language strings.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of categories to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional.</em> The index of the first category to return.
+Default: 0. Use with limit to get the next set of categories.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-categories/#category-object">category</a> objects wrapped in a paging object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF"></a>
+                    <a name="//apple_ref/swift/Method/categoryPlaylists(_:country:limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF">categoryPlaylists(_:<wbr>country:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of Spotify playlists tagged with a particular category.</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-categorys-playlists/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">categoryPlaylists</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A category id.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>country</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A country: an
+<a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of items to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional.</em> The index of the first playlist to return.
+Default: 0. Use with limit to get the next set of playlists.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of simplified playlist objects wrapped in a paging object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C17featuredPlaylists6locale7country9timestamp5limit6offset7Combine12AnyPublisherVyAA08FeaturedE0Vs5Error_pGSSSg_AQ10Foundation4DateVSgSiSgAVtF"></a>
+                    <a name="//apple_ref/swift/Method/featuredPlaylists(locale:country:timestamp:limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C17featuredPlaylists6locale7country9timestamp5limit6offset7Combine12AnyPublisherVyAA08FeaturedE0Vs5Error_pGSSSg_AQ10Foundation4DateVSgSiSgAVtF">featuredPlaylists(locale:<wbr>country:<wbr>timestamp:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of featured playlists (shown, for example, on a
+Spotify player’s &ldquo;Browse&rdquo; tab).</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-featured-playlists/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">featuredPlaylists</span><span class="p">(</span>
+    <span class="nv">locale</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>locale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The desired language, consisting of an
+<a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1 language code</a> and an <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>,
+joined by an underscore. For example: es_MX, meaning &ldquo;Spanish (Mexico)&rdquo;.
+Provide this parameter if you want the results returned in a
+particular language. Note that, if locale is not supplied, or if the
+specified language is not available, all strings will be returned in
+the Spotify default language (American English). The locale parameter,
+combined with the country parameter, may give odd results if not
+carefully matched. For example, &ldquo;SE&rdquo; for <code>country</code> and &ldquo;de_DE&rdquo; for
+<code>locale</code> will return a list of playlists relevant to Sweden but as
+German language strings.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>country</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A country: an <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+Provide this parameter if you want to narrow the list of returned
+categories to those relevant to a particular country. If omitted,
+the returned items will be globally relevant.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timestamp</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A date, which will be converted to a
+second-precision timestamp (&ldquo;yyyy-MM-ddTHH:mm:ss&rdquo;). Use this parameter
+to specify the user’s local time to get results tailored for that
+specific date and time in the day. If not provided, the response defaults
+to the current UTC time. If there were no featured playlists (or there is
+no data) at the specified time, the response will revert to the current
+UTC time.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of playlists to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The index of the first playlist to return.
+Default: 0. Use with limit to get the next set of playlists.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of simplified playlist objects wrapped in a paging object
+  and a message that can be displayed to the user, such as
+  &ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;, localized based on the locale,
+  country, and timestamp parameters.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C16newAlbumReleases7country5limit6offset7Combine12AnyPublisherVyAA03NeweF0Vs5Error_pGSSSg_SiSgAPtF"></a>
+                    <a name="//apple_ref/swift/Method/newAlbumReleases(country:limit:offset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16newAlbumReleases7country5limit6offset7Combine12AnyPublisherVyAA03NeweF0Vs5Error_pGSSSg_SiSgAPtF">newAlbumReleases(country:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of new album releases featured in Spotify (shown, for example,
+on a Spotify player’s &ldquo;Browse&rdquo; tab).</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-new-releases/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">newAlbumReleases</span><span class="p">(</span>
+    <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>country</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. A country: an <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+Provide this parameter if you want the list of returned albums to be
+relevant to a particular country. If omitted, the albums will be
+relevant to all countries.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of albums to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The index of the first album to return.
+Default: 0. Use with limit to get the next set of albums.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of simplified album objects wrapped in a paging object
+  and a message that can be displayed to the user, such as
+  &ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;, localized based on the locale,
+  country, and timestamp parameters.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/recommendations(_:limit:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">recommendations(_:<wbr>limit:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Recommendations Based on Seeds.</p>
+
+<p>Create a playlist-style listening experience based on seed artists,
+tracks and genres.</p>
+
+<p>Recommendations are generated based on the available information for a given
+seed entity and matched against similar artists and tracks. If there is
+sufficient information about the provided seeds, a list of tracks will be
+returned together with pool size details.</p>
+
+<p>For artists and tracks that are very new or obscure there might not be enough
+data to generate a list of tracks.</p>
+
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">SpotifyAPI.recommendationGenres()</a></code> to get the available seed genres.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">recommendations</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">trackAttributes</span><span class="p">:</span> <span class="kt"><a href="../Structs/TrackAttributes.html">TrackAttributes</a></span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>trackAttributes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes">Tunable track attributes</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The target size of the list of recommended tracks.
+For seeds with unusually small pools or when highly restrictive
+filtering is applied, it may be impossible to generate the requested
+number of recommended tracks. Debugging information for such cases is
+available in the response. Default: 20; Minimum: 1; Maximum: 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">An ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">Track Relinking</a>. Because minimum, maximum, and target values
+are applied to pools before relinking, the generated results may not
+precisely match the filters applied. Original, non-relinked tracks are
+available via the <code>linkedFrom</code> attribute of the
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">relinked track response</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Recommendation seeds and an array of tracks.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF"></a>
+                    <a name="//apple_ref/swift/Method/recommendationGenres()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">recommendationGenres()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieve a list of available genres seeds for <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">recommendations</a>.</p>
+
+<p>No scopes are required for this endpoint.</p>
+
+<p>Thesse values can be used in the <code>seedGenres</code> property of
+<code><a href="../Structs/TrackAttributes.html">TrackAttributes</a></code> when using the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">recommendations(_:limit:market:)</a></code>
+endpoint.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-recommendation-genres">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">recommendationGenres</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of genres.</p>
                       </div>
                     </section>
                   </div>
@@ -1607,8 +2381,8 @@ Private playlists belonging to any user can be retrieved.</p>
 then copy and paste the response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.
 You are also encouraged to Assign a folder to
 <code>SpotifyDecodingError.dataDumpFolder</code> so that the data will be written
-to a file when the decoding fails. You can upload this file to the JSON
-viewer.</p>
+to a file when the decoding fails. You can then upload this file to the
+JSON viewer.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/">Spotify web API reference</a>.</p>
 
@@ -2321,12 +3095,12 @@ content is filtered out from responses.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A <code><a href="../Structs/SearchResult.html">SearchResult</a></code>. The <code>albums</code>, <code>artist</code>, <code>playlists</code>,
-<code>tracks</code>, <code>shows</code>, and <code>episodes</code> properties of this struct will
-be non-nil for each of the types that were requested from the
-<code>search</code> endpoint. If no results were found for a type, then the
-<code>items</code> property of the property&rsquo;s paging object will be empty;
-the property itself will only be nil if it was not requested in the search.
-The simplified versions of all these objects will be returned.</p>
+  <code>tracks</code>, <code>shows</code>, and <code>episodes</code> properties of this struct will
+  be non-nil for each of the types that were requested from the
+  <code>search</code> endpoint. If no results were found for a type, then the
+  <code>items</code> property of the property&rsquo;s paging object will be empty;
+  the property itself will only be nil if it was not requested in the
+  search. The simplified versions of all these objects will be returned.</p>
                       </div>
                     </section>
                   </div>
@@ -2359,7 +3133,8 @@ The simplified versions of all these objects will be returned.</p>
                       <div class="abstract">
                         <p>Get a show.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows) and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code>.</p>
 
 <p>Reading the user’s resume points on episode objects requires the
 <code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
@@ -2440,7 +3215,8 @@ view the country that is associated with their account in the
                       <div class="abstract">
                         <p>Get multiple shows.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show) and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code>.</p>
 
 <p>Reading the user’s resume points on episode objects requires the
 <code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
@@ -2505,6 +3281,118 @@ view the country that is associated with their account in the
   are returned in the order requested. If a show is not found,
   <code>nil</code> is returned in the appropriate position. Duplicate shows
   URIs in the request will result in duplicate shows in the response.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF"></a>
+                    <a name="//apple_ref/swift/Method/showEpisodes(_:market:offset:limit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:<wbr>market:<wbr>offset:<wbr>limit:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a show&rsquo;s episodes.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows) and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show).</p>
+
+<p>Reading the user’s resume points on episode objects requires the
+<code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
+required.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/shows/get-shows-episodes/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">showEpisodes</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI of a show.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
+If a country code is specified, only shows and episodes that
+are available in that market will be returned. If a valid user
+access token is specified in the request header, the country
+associated with the user account will take priority over this
+parameter. Note: If neither market or user country are provided,
+the content is considered unavailable for the client. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of episodes to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The index of the first episode to return.
+Default: 0. Use with <code>limit</code> to get the next
+set of episodes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The simplified versions of show objects wrapped in a
+  paging object.</p>
                       </div>
                     </section>
                   </div>
@@ -3084,11 +3972,11 @@ For example, to just get the next page, use <code>1</code>. Leave as
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60AuthorizationManager%60%3A%20%60SpotifyScopeAuthorizationManager%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `AuthorizationManager`: `SpotifyScopeAuthorizationManager`" class="dashAnchor"></a>
+                <a name="/Follow%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/Follow (Requires Authorization Scopes)" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60AuthorizationManager%60%3A%20%60SpotifyScopeAuthorizationManager%60"></a>
-                  <h3 class="section-name"><p>Available where <code>AuthorizationManager</code>: <code><a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code></p>
+                  <a class="section-name-link" href="#/Follow%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>Follow (Requires Authorization Scopes)</p>
 </h3>
                 </div>
               </div>
@@ -3589,6 +4477,19 @@ playlist itself is public or private.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Library%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/Library (Requires Authorization Scopes)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Library%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>Library (Requires Authorization Scopes)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -4392,6 +5293,238 @@ that is associated with their account in the <a href="https://www.spotify.com/se
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Personalization%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/Personalization (Requires Authorization Scopes)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Personalization%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>Personalization (Requires Authorization Scopes)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21currentUserTopArtists_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA6ArtistVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserTopArtists(_:offset:limit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21currentUserTopArtists_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA6ArtistVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF">currentUserTopArtists(_:<wbr>offset:<wbr>limit:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current user&rsquo;s top artists, calculated based on affinity.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserTopTracks_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA5TrackVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF">currentUserTopTracks(_:offset:limit:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userTopRead</code> scope.</p>
+
+<p>Affinity is a measure of the expected preference a user has for a
+particular artist. It is based on user behavior, including
+play history, but does not include actions made while in incognito
+mode. Light or infrequent users of Spotify may not have sufficient
+play history to generate a full affinity data set. As a user’s behavior
+is likely to shift over time, this preference data is available over
+three time spans. See time_range in the query parameter table for more
+information. For each time range, the top 50 artists are
+available for each user. In the future, it is likely that this
+restriction will be relaxed. This data is typically updated once
+each day for each user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserTopArtists</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">timeRange</span><span class="p">:</span> <span class="kt"><a href="../Enums/TimeRange.html">TimeRange</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeRange</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. Over what time frame the
+affinities are computed. Valid values: <code>longTerm</code>
+(calculated from several years of data and including all
+new data as it becomes available), <code>mediumTerm</code> (approximately
+last 6 months), and <code>shortTerm</code> (approximately last 4 weeks).
+Default: <code>mediumTerm</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional. The index of the first artist to return.
+Default: 0. Use with limit to get
+the next set of entities.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The number of artists to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of the full versions of artist objects
+  wrapped in a paging object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserTopTracks_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA5TrackVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserTopTracks(_:offset:limit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserTopTracks_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA5TrackVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF">currentUserTopTracks(_:<wbr>offset:<wbr>limit:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current user&rsquo;s top tracks, calculated based on affinity.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21currentUserTopArtists_6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA6ArtistVGs5Error_pGAA9TimeRangeOSg_SiSgAUtF">currentUserTopArtists(_:offset:limit:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userTopRead</code> scope.</p>
+
+<p>Affinity is a measure of the expected preference a user has for a
+particular track. It is based on user behavior, including
+play history, but does not include actions made while in incognito
+mode. Light or infrequent users of Spotify may not have sufficient
+play history to generate a full affinity data set. As a user’s behavior
+is likely to shift over time, this preference data is available over
+three time spans. See time_range in the query parameter table for more
+information. For each time range, the top 50 tracks are
+available for each user. In the future, it is likely that this
+restriction will be relaxed. This data is typically updated once
+each day for each user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserTopTracks</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">timeRange</span><span class="p">:</span> <span class="kt"><a href="../Enums/TimeRange.html">TimeRange</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Track.html">Track</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeRange</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. Over what time frame the
+affinities are computed. Valid values: <code>longTerm</code>
+(calculated from several years of data and including all
+new data as it becomes available), <code>mediumTerm</code> (approximately
+last 6 months), and <code>shortTerm</code> (approximately last 4 weeks).
+Default: <code>mediumTerm</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional. The index of the first track to return.
+Default: 0. Use with limit to get
+the next set of entities.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The number of tracks to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of the full versions of track objects
+  wrapped in a paging object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Player%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/Player (Requires Authorization Scopes)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Player%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>Player (Requires Authorization Scopes)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -5412,6 +6545,19 @@ If <code>false</code>, keep the current playback state.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Playlists%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/Playlists (Requires Authorization Scopes)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Playlists%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>Playlists (Requires Authorization Scopes)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -6240,6 +7386,19 @@ you want to target.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/User%20Profle%20%28Requires%20Authorization%20Scopes%29"></a>
+                <a name="//apple_ref/swift/Section/User Profle (Requires Authorization Scopes)" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/User%20Profle%20%28Requires%20Authorization%20Scopes%29"></a>
+                  <h3 class="section-name"><p>User Profle (Requires Authorization Scopes)</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -6282,7 +7441,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

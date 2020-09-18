@@ -16,7 +16,7 @@ let package = Package(
         ),
         .library(
             name: "_SpotifyAPITestUtilities",
-            targets: ["_SpotifyAPITestUtilities"]
+            targets: ["SpotifyAPITestUtilities"]
         )
     ],
     dependencies: [
@@ -41,7 +41,7 @@ let package = Package(
             dependencies: ["SpotifyWebAPI"]
         ),
         .target(
-            name: "_SpotifyAPITestUtilities",
+            name: "SpotifyAPITestUtilities",
             dependencies: [
                 "SpotifyWebAPI",
                 "SpotifyURIs",
@@ -58,7 +58,7 @@ let package = Package(
                 "SpotifyWebAPI",
                 "SpotifyURIs",
                 "RegularExpressions",
-                "_SpotifyAPITestUtilities"
+                "SpotifyAPITestUtilities"
             ]
         ),
         .testTarget(
@@ -67,7 +67,7 @@ let package = Package(
                 "SpotifyWebAPI",
                 "SpotifyURIs",
                 "RegularExpressions",
-                "_SpotifyAPITestUtilities"
+                "SpotifyAPITestUtilities"
             ]
         )
     ]

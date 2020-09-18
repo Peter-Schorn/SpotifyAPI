@@ -93,9 +93,9 @@ public func decodeSpotifyErrors(
  It is recommended to use the combine operator `decodeSpotifyObject(_:)`
  instead of this function, whenever possible.
  
- First tries to decode the data into `responseType`.
- If that fails, then the data is decoded into one of
- the [errors][1] returned by spotify:
+ First tries to decode the data into `responseType`. If that fails,
+ then the data is decoded into one of the [errors][1] returned by
+ spotify:
  
  * `SpotifyAuthenticationError`
  * `SpotifyError`
@@ -205,9 +205,9 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      Tries to decode the raw data from a Spotify web API request.
      You normally don't need to call this method directly.
 
-     First tries to decode the data into the specified type
-     that conforms to `Decodable`. If that fails, then
-     the data is decoded into one of the [errors][1] returned by spotify:
+     First tries to decode the data into `responseType`. If that fails,
+     then the data is decoded into one of the [errors][1] returned by
+     spotify:
 
      * `SpotifyAuthenticationError`
      * `SpotifyError`

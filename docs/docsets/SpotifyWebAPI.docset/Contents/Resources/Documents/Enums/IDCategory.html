@@ -17,7 +17,7 @@
     <a title="IDCategory Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -572,6 +594,33 @@ near the beginning of a Spotify URI.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI10IDCategoryO5genreyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/genre" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10IDCategoryO5genreyA2CmF">genre</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A genre.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">genre</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI10IDCategoryO7unknownyA2CmF"></a>
                     <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI10IDCategoryO7unknownyA2CmF">unknown</a>
@@ -596,12 +645,60 @@ near the beginning of a Spotify URI.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI10IDCategoryO8rawValueACSgSS_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rawValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10IDCategoryO8rawValueACSgSS_tcfc">init(rawValue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new instance with the specified raw value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rawValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The raw value to use for the id category.
+  <strong>It is case-insensitive</strong>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

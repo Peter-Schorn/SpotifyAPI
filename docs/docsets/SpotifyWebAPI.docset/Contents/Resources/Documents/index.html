@@ -16,7 +16,7 @@
     <a title="SpotifyWebAPI  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -53,6 +53,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -282,6 +288,9 @@
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -305,18 +314,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -347,7 +369,7 @@
 <li><a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>: Use this method if you need to access/modify user data, which requires <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. It requires the user to login to their Spotify account in a browser and approve your app.</li>
 <li><a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow">Client Credentials Flow</a>: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. The advantage of this method is that it does not require any user interaction.</li>
 </ul>
-<h3 id='authorizing-with-the-authorization-code-flow' class='heading'>Authorizing with the Authorization Code Flow</h3>
+<h2 id='authorizing-with-the-authorization-code-flow' class='heading'>Authorizing with the Authorization Code Flow</h2>
 
 <p>Create an instance of <code><a href="Classes/SpotifyAPI.html">SpotifyAPI</a></code> and assign an instance of <code><a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> to the <code>authorizationManager</code> property:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SpotifyWebAPI</span>
@@ -417,7 +439,7 @@
 
 <p>The full documentation for all of the endpoints can be found <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">here</a>.
 You are also encouraged to read the <a href="https://developer.spotify.com/documentation/web-api/reference/">Spotify web API reference</a>.</p>
-<h3 id='authorizing-with-the-client-credentials-flow' class='heading'>Authorizing with the Client Credentials Flow</h3>
+<h2 id='authorizing-with-the-client-credentials-flow' class='heading'>Authorizing with the Client Credentials Flow</h2>
 
 <p>Create an instance of <code><a href="Classes/SpotifyAPI.html">SpotifyAPI</a></code> and assign an instance of <code><a href="Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code> to the <code>authorizationManager</code> property:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SpotifyWebAPI</span>
@@ -463,7 +485,7 @@ You are also encouraged to read the <a href="https://developer.spotify.com/docum
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -68,8 +68,8 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
        to `nil`—is called.
      
      **You are discouraged from subscribing to this publisher directly.**
-     Intead, subscribe to the `authorizationManagerDidChange` publisher
-     of `SpotifyAPI`. This allows you to be notified of changes even
+     Intead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
+     publisher. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
      `authorizationManager` instance property of `SpotifyAPI`.
      

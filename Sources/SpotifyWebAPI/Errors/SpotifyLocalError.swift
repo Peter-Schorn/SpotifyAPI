@@ -43,11 +43,16 @@ public enum SpotifyLocalError: LocalizedError {
         requiredScopes: Set<Scope>, authorizedScopes: Set<Scope>
     )
     
-    /// The type of a URI didn't match one of the expected types.
+    /// The category of a URI didn't match one of the expected categories.
+    ///
+    ///  - expected: The expected categories. Some endpoints allow for
+    ///    URIS from multiple categories. For example, the endpoint for
+    ///    adding items to a playlist allows for track or episode URIs.
+    ///  - received: the id category that was received.
     ///
     /// For example, if you pass a track URI to the endpoint for retrieving
     /// an artist, you will get this error.
-    case invalidURIType(
+    case invalidIdCategory(
         expected: [IDCategory], received: IDCategory
     )
     
@@ -96,7 +101,7 @@ public enum SpotifyLocalError: LocalizedError {
                     but your app is only authorized for theses scopes:
                     \(authorized.map(\.rawValue))
                     """
-            case .invalidURIType(let expected, let received):
+            case .invalidIdCategory(let expected, let received):
                 return """
                     expected URI to be one of the following types: \
                     \(expected.map(\.rawValue)),

@@ -2,9 +2,9 @@ import Foundation
 import Combine
 import Logger
 
-// MARK: Wrappers
-
 extension SpotifyAPI {
+
+    // MARK: Wrappers
     
     /**
      Refreshes the tokens if they are expired and ensures that

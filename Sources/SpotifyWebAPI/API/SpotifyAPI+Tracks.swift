@@ -1,9 +1,9 @@
 import Foundation
 import Combine
 
-// MARK: Tracks
-
 public extension SpotifyAPI {
+
+    // MARK: Tracks
     
     /**
      Get a Track.
@@ -33,7 +33,7 @@ public extension SpotifyAPI {
         do {
             
             let trackId = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.track]
+                uri: uri, ensureCategoryMatches: [.track]
             ).id
             
             return self.getRequest(
@@ -81,7 +81,7 @@ public extension SpotifyAPI {
             
             let trackIds = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [.track]
+                    uris, ensureCategoryMatches: [.track]
                 )
             
             return self.getRequest(
@@ -132,7 +132,7 @@ public extension SpotifyAPI {
         do {
             
             let trackId = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.track]
+                uri: uri, ensureCategoryMatches: [.track]
             ).id
             
             return self.getRequest(
@@ -169,7 +169,7 @@ public extension SpotifyAPI {
         do {
             
             let trackId = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.track]
+                uri: uri, ensureCategoryMatches: [.track]
             ).id
             
             return self.getRequest(
@@ -212,7 +212,7 @@ public extension SpotifyAPI {
             
             let trackIds = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [.track]
+                    uris, ensureCategoryMatches: [.track]
                 )
             
             return self.getRequest(

@@ -17,7 +17,7 @@
     <a title="SpotifyIdentifier Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -334,8 +356,8 @@
 
                 </div>
               </div>
-            <p>Encapsulates the various formats that Spotify
-uses to uniquely identify content. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
+            <p>Encapsulates the various formats that Spotify uses to uniquely identify
+content such as artists, tracks, and playlists. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
 
 <p>You can pass an instance of this struct into any method
 that accepts a <code><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></code> type.</p>
@@ -350,9 +372,9 @@ the different formats, which include the id, the URI, and the URL.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A10IdentifierV23commaSeparatedIdsString_17ensureTypeMatchesSSx_SayAA10IDCategoryOGSgtKSTRzAA0A14URIConvertible_p7ElementRtzlFZ"></a>
-                    <a name="//apple_ref/swift/Method/commaSeparatedIdsString(_:ensureTypeMatches:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV23commaSeparatedIdsString_17ensureTypeMatchesSSx_SayAA10IDCategoryOGSgtKSTRzAA0A14URIConvertible_p7ElementRtzlFZ">commaSeparatedIdsString(_:<wbr>ensureTypeMatches:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A10IdentifierV23commaSeparatedIdsString_21ensureCategoryMatchesSSx_SayAA10IDCategoryOGSgtKSTRzAA0A14URIConvertible_p7ElementRtzlFZ"></a>
+                    <a name="//apple_ref/swift/Method/commaSeparatedIdsString(_:ensureCategoryMatches:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV23commaSeparatedIdsString_21ensureCategoryMatchesSSx_SayAA10IDCategoryOGSgtKSTRzAA0A14URIConvertible_p7ElementRtzlFZ">commaSeparatedIdsString(_:<wbr>ensureCategoryMatches:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -364,9 +386,9 @@ the different formats, which include the id, the URI, and the URL.</p>
 sequence of URIs. (used in the query parameter of some requests).</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    If <code>ensureTypeMatches</code> is not <code>nil</code> and the type of a URI
-  does not match one the required types or if an id could not be
-  parsed from a URI.
+    If <code>categories</code> is not <code>nil</code> and the id category of a URI
+  does not match one the required categories or if an id or id category
+  could not be parsed from a URI.
 
 </div>
 
@@ -376,7 +398,7 @@ sequence of URIs. (used in the query parameter of some requests).</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">commaSeparatedIdsString</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">:</span> <span class="kt">Sequence</span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="n">ensureTypeMatches</span> <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="n">ensureCategoryMatches</span> <span class="nv">categories</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span></code></pre>
 
                         </div>
@@ -400,13 +422,13 @@ sequence of URIs. (used in the query parameter of some requests).</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>ensureAllTypesAre</em>
+                                <em>categories</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Ensure the id categories of all the URIs
-match one or more categories.</p>
+                                  <p>If not <code>nil</code>, ensure the id categories of all the URIs
+match one or more categories. The default is <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -440,7 +462,7 @@ match one or more categories.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -467,7 +489,7 @@ match one or more categories.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">idCategory</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">idCategory</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span></code></pre>
 
                         </div>
                       </div>
@@ -489,11 +511,9 @@ match one or more categories.</p>
                       <div class="abstract">
                         <p>The unique resource identifier for the Spotify content.</p>
 
-<p>Eqvuivalent to&quot;</p>
-<pre class="highlight swift"><code><span class="s">"spotify:</span><span class="se">\(</span><span class="n">idCategory</span><span class="o">.</span><span class="n">rawValue</span><span class="se">)</span><span class="s">:</span><span class="se">\(</span><span class="n">id</span><span class="o">.</span><span class="nf">strip</span><span class="p">()</span><span class="se">)</span><span class="s">"</span>
+<p>Eqvuivalent to</p>
+<pre class="highlight swift"><code><span class="s">"spotify:</span><span class="se">\(</span><span class="n">idCategory</span><span class="o">.</span><span class="n">rawValue</span><span class="se">)</span><span class="s">:</span><span class="se">\(</span><span class="n">id</span><span class="se">)</span><span class="s">"</span>
 </code></pre>
-
-<p>The strip method simply removes leading and trailing whitespace.</p>
 
                       </div>
                       <div class="declaration">
@@ -524,10 +544,8 @@ match one or more categories.</p>
                         <p>Use this URL to open the content in the web player.</p>
 
 <p>Equivalent to:</p>
-<pre class="highlight swift"><code><span class="s">"https://open.spotify.com/</span><span class="se">\(</span><span class="n">idCategory</span><span class="o">.</span><span class="n">rawValue</span><span class="se">)</span><span class="s">/</span><span class="se">\(</span><span class="n">id</span><span class="o">.</span><span class="nf">strip</span><span class="p">()</span><span class="se">)</span><span class="s">"</span>
+<pre class="highlight swift"><code><span class="s">"https://open.spotify.com/</span><span class="se">\(</span><span class="n">idCategory</span><span class="o">.</span><span class="n">rawValue</span><span class="se">)</span><span class="s">/</span><span class="se">\(</span><span class="n">id</span><span class="se">)</span><span class="s">"</span>
 </code></pre>
-
-<p>The strip method simply removes leading and trailing whitespace.</p>
 
                       </div>
                       <div class="declaration">
@@ -566,15 +584,46 @@ See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-a
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Spotify id.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>idCategory</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An id category.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A10IdentifierV3uri17ensureTypeMatchesAcA0A14URIConvertible_p_SayAA10IDCategoryOGSgtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(uri:ensureTypeMatches:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV3uri17ensureTypeMatchesAcA0A14URIConvertible_p_SayAA10IDCategoryOGSgtKcfc">init(uri:<wbr>ensureTypeMatches:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A10IdentifierV3uri21ensureCategoryMatchesAcA0A14URIConvertible_p_SayAA10IDCategoryOGSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(uri:ensureCategoryMatches:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV3uri21ensureCategoryMatchesAcA0A14URIConvertible_p_SayAA10IDCategoryOGSgtKcfc">init(uri:<wbr>ensureCategoryMatches:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -584,6 +633,18 @@ See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-a
                       <div class="abstract">
                         <p>Creates an instance from a URI. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
 
+<p>Uses the following regular expression to parse the id and id categories,
+in that order:</p>
+<pre class="highlight swift"><code><span class="s">"spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"</span>
+</code></pre>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If <code>categories</code> is not <code>nil</code> and the id category of the URI
+  does not match one the required categories or if an id or id category
+  could not be parsed from the URI.
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -591,7 +652,7 @@ See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-a
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
-    <span class="n">ensureTypeMatches</span> <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="n">ensureCategoryMatches</span> <span class="nv">categories</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
@@ -615,14 +676,14 @@ See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-a
                             <tr>
                               <td>
                                 <code>
-                                <em>types</em>
+                                <em>categories</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>If not <code>nil</code>, throw an error if the type of the URI
+                                  <p>If not <code>nil</code>, throw an error if the id category of the URI
 does not match one of these id categories. See <code><a href="../Enums/IDCategory.html">IDCategory</a></code> for more
-information.</p>
+information. The default is <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -645,7 +706,23 @@ information.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates an instance from a Spotify URL to the content.</p>
+                        <p>Creates an instance from a Spotify URL to the content.
+See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
+
+<p>The first path component must be the id category. It must match
+one of the raw values of <code><a href="../Enums/IDCategory.html">IDCategory</a></code>. The second path component must
+be the id of the content. All additional path components and/or query
+parameters are ignored.</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code><span class="s">"https://open.spotify.com/playlist/33yLOStnp2emkEA76ew1Dz"</span>
+</code></pre>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If the id and id category of the content could not be parsed
+  from the URL.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -656,6 +733,26 @@ information.</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A URL that, when opened, displays the content in the
+  web player.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -664,7 +761,7 @@ information.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -1,36 +1,36 @@
 import Foundation
 import Combine
 
-// MARK: Artists
-
 public extension SpotifyAPI {
+
+    // MARK: Artists
     
     /**
      Get a single artist.
      
      No scopes are required for this endpoint.
     
-     See also `artists(uris:)` (gets multiple artists).
+     See also `artists(_:)` (gets multiple artists).
 
      Read more at the [Spotify web API reference][1].
     
-     - Parameter artist: The URI for the artist.
+     - Parameter uri: The URI for the artist.
      - Returns: The full version of an [artist][2].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/
      [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
      */
     func artist(
-        _ artist: SpotifyURIConvertible
+        _ uri: SpotifyURIConvertible
     ) -> AnyPublisher<Artist, Error>  {
         
         do {
-            let artistId = try SpotifyIdentifier(
-                uri: artist, ensureTypeMatches: [.artist]
+            let id = try SpotifyIdentifier(
+                uri: uri, ensureCategoryMatches: [.artist]
             ).id
             
             return self.getRequest(
-                path: "/artists/\(artistId)",
+                path: "/artists/\(id)",
                 queryItems: [:],
                 requiredScopes: []
             )
@@ -47,11 +47,11 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
 
-     See also `artist(uri:)` (gets a single artist).
+     See also `artist(_:)` (gets a single artist).
 
      Read more at the [Spotify web API reference][1].
      
-     - Parameter artists: An array of up to 20 URIs for artists.
+     - Parameter uris: An array of up to 20 URIs for artists.
      - Returns: An array of the full versions of [artists][2].
            Artists are returned in the order requested. If an artist
            is not found, `nil` is returned in the corresponding position.
@@ -62,19 +62,19 @@ public extension SpotifyAPI {
      [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
      */
     func artists(
-        _ artists: [SpotifyURIConvertible]
+        _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Artist?], Error> {
         
         do {
 
-            let artistIdsString = try SpotifyIdentifier
+            let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    artists, ensureTypeMatches: [.artist]
+                    uris, ensureCategoryMatches: [.artist]
                 )
             
             return self.getRequest(
                 path: "/artists",
-                queryItems: ["ids": artistIdsString],
+                queryItems: ["ids": idsString],
                 requiredScopes: []
             )
             .decodeSpotifyObject([String: [Artist?]].self)
@@ -137,7 +137,7 @@ public extension SpotifyAPI {
         do {
             
             let artistId = try SpotifyIdentifier(
-                uri: artist, ensureTypeMatches: [.artist]
+                uri: artist, ensureCategoryMatches: [.artist]
             ).id
             
             return self.getRequest(
@@ -182,7 +182,7 @@ public extension SpotifyAPI {
         do {
             
             let artistId = try SpotifyIdentifier(
-                uri: artist, ensureTypeMatches: [.artist]
+                uri: artist, ensureCategoryMatches: [.artist]
             ).id
             
             return self.getRequest(
@@ -226,7 +226,7 @@ public extension SpotifyAPI {
         do {
             
             let artistId = try SpotifyIdentifier(
-                uri: artist, ensureTypeMatches: [.artist]
+                uri: artist, ensureCategoryMatches: [.artist]
             ).id
             
             return self.getRequest(

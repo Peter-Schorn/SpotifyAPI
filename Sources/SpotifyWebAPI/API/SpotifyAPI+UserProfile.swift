@@ -1,9 +1,10 @@
 import Foundation
 import Combine
 
-// MARK: User Profile
 
 public extension SpotifyAPI {
+    
+    // MARK: User Profile
     
     /**
      Get the *public* profile information for a user.
@@ -25,7 +26,7 @@ public extension SpotifyAPI {
         do {
             
             let userId = try SpotifyIdentifier(
-                uri: uri, ensureTypeMatches: [.user]
+                uri: uri, ensureCategoryMatches: [.user]
             ).id
             
             return self.getRequest(
@@ -48,6 +49,7 @@ public extension SpotifyAPI {
 public extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
+    // MARK: User Profle (Requires Authorization Scopes)
     
     /**
      Get the profile of the current user.

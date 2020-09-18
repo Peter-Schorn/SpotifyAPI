@@ -17,7 +17,7 @@
     <a title="Other Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -336,6 +358,236 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI18RecommendationSeedV"></a>
+                    <a name="//apple_ref/swift/Struct/RecommendationSeed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI18RecommendationSeedV">RecommendationSeed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendation-seed-object">Recommendation Seed Object</a>. Returned by
+<code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code>. See also
+<code><a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a></code>.</p>
+
+                        <a href="Structs/RecommendationSeed.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RecommendationSeed</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23RecommendationsResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/RecommendationsResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23RecommendationsResponseV">RecommendationsResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendations-response-object">Recommendations Response Object</a>. Returned by
+<code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code>. See also
+<code><a href="Structs/RecommendationSeed.html">RecommendationSeed</a></code>.</p>
+
+                        <a href="Structs/RecommendationsResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RecommendationsResponse</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI17FeaturedPlaylistsV"></a>
+                    <a name="//apple_ref/swift/Struct/FeaturedPlaylists" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI17FeaturedPlaylistsV">FeaturedPlaylists</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of simplified playlist objects wrapped in a paging object
+and a message that can be displayed to the user, such as
+&ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;.</p>
+
+<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-featured-playlists/">list of featured playlists</a>.</p>
+
+                        <a href="Structs/FeaturedPlaylists.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FeaturedPlaylists</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI16NewAlbumReleasesV"></a>
+                    <a name="//apple_ref/swift/Struct/NewAlbumReleases" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI16NewAlbumReleasesV">NewAlbumReleases</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of simplified album objects wrapped in a paging object
+and a localized message that can be displayed to the user, such as
+&ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;.</p>
+
+<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-new-releases/">list of new album releases</a>.</p>
+
+                        <a href="Structs/NewAlbumReleases.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NewAlbumReleases</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A8CategoryV"></a>
+                    <a name="//apple_ref/swift/Struct/SpotifyCategory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A8CategoryV">SpotifyCategory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-category/#categoryobject">category</a> object.</p>
+
+                        <a href="Structs/SpotifyCategory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyCategory</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV"></a>
+                    <a name="//apple_ref/swift/Struct/AttributeRange" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV">AttributeRange</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a range for a track attribute. Has a minimum, target (ideal), and
+maximum value. See <code><a href="Structs/TrackAttributes.html">TrackAttributes</a></code> and the endpoint for
+<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#query-parameters">getting recommendations based on seeds</a>.</p>
+
+<p>Note that all of the properties are mutable.</p>
+
+<p>The target value should not be smaller than the minimum or larger than the
+maximum.</p>
+
+                        <a href="Structs/AttributeRange.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AttributeRange</span><span class="o">&lt;</span><span class="kt">Number</span><span class="p">:</span> <span class="kt">Numeric</span> <span class="o">&amp;</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span> <span class="o">&amp;</span>
+        <span class="kt">LosslessStringConvertible</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV"></a>
+                    <a name="//apple_ref/swift/Struct/TrackAttributes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV">TrackAttributes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes">tunable track attributes</a> used in the
+<code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code> endpoint for
+<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">getting recommendations based on seeds</a>.</p>
+
+<p>Note that all of the properties are mutable.</p>
+
+<p>For most of the attributes, a minimum, target (ideal), and maximum value can be
+provided. This is represented by <code><a href="Structs/AttributeRange.html">AttributeRange</a></code>. The target value should not
+be smaller than the minimum or larger than the maximum.</p>
+
+<p>The total number of seed artists, seed tracks and seed genres must add up to 5 or
+less</p>
+
+<p>Use <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">SpotifyAPI.recommendationGenres()</a></code> to retrive the available
+seed genres.</p>
+
+                        <a href="Structs/TrackAttributes.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TrackAttributes</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0A10IdentifierV"></a>
                     <a name="//apple_ref/swift/Struct/SpotifyIdentifier" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0A10IdentifierV">SpotifyIdentifier</a>
@@ -346,8 +598,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Encapsulates the various formats that Spotify
-uses to uniquely identify content. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
+                        <p>Encapsulates the various formats that Spotify uses to uniquely identify
+content such as artists, tracks, and playlists. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
 
 <p>You can pass an instance of this struct into any method
 that accepts a <code><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></code> type.</p>
@@ -373,7 +625,7 @@ the different formats, which include the id, the URI, and the URL.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

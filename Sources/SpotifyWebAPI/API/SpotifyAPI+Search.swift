@@ -1,9 +1,9 @@
 import Foundation
 import Combine
 
-// MARK: Search
-
 public extension SpotifyAPI {
+    
+    // MARK: Search
     
     /**
      Get Spotify Catalog information about albums, artists,
@@ -91,14 +91,13 @@ public extension SpotifyAPI {
          if this is specified, the response will include any relevant
          audio content that is hosted externally. By default external
          content is filtered out from responses.
-     
      - Returns: A `SearchResult`. The `albums`, `artist`, `playlists`,
-     `tracks`, `shows`, and `episodes` properties of this struct will
-     be non-nil for each of the types that were requested from the
-     `search` endpoint. If no results were found for a type, then the
-     `items` property of the property's paging object will be empty;
-     the property itself will only be nil if it was not requested in the search.
-     The simplified versions of all these objects will be returned.
+           `tracks`, `shows`, and `episodes` properties of this struct will
+           be non-nil for each of the types that were requested from the
+           `search` endpoint. If no results were found for a type, then the
+           `items` property of the property's paging object will be empty;
+           the property itself will only be nil if it was not requested in the
+           search. The simplified versions of all these objects will be returned.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -128,8 +127,8 @@ public extension SpotifyAPI {
                 )
             }
             
-            let requiredScopes: Set = market == "from_token" ?
-                    [Scope.userReadPrivate] : []
+            let requiredScopes: Set<Scope> = market == "from_token" ?
+                    [.userReadPrivate] : []
             
             return self.getRequest(
                 path: "/search",

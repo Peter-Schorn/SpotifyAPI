@@ -4,6 +4,11 @@ import Combine
 //import KeychainAccess
 import SpotifyWebAPI
 
+// These classes are not meant to be used. They exist to ensure that they compile.
+// For example, if a symbol was renamed, then this file would fail to compile,
+// serving as a warning that the docuemtnation needs to be updated to reflect
+// the changes.
+
 /// A skeleton for compilation tests.
 private class Keychain {
     

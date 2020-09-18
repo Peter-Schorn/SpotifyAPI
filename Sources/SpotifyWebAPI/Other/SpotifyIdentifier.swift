@@ -3,8 +3,8 @@ import RegularExpressions
 import Logger
 
 /**
- Encapsulates the various formats that Spotify
- uses to uniquely identify content. See [spotify URIs and ids][1].
+ Encapsulates the various formats that Spotify uses to uniquely identify
+ content such as artists, tracks, and playlists. See [spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method
  that accepts a `SpotifyURIConvertible` type.
@@ -22,54 +22,43 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     
      - Parameters:
        - uris: A sequence of Spotify URIs.
-       - ensureAllTypesAre: Ensure the id categories of all the URIs
-             match one or more categories.
-     - Throws: If `ensureTypeMatches` is not `nil` and the type of a URI
-           does not match one the required types or if an id could not be
-           parsed from a URI.
+       - categories: If not `nil`, ensure the id categories of all the URIs
+             match one or more categories. The default is `nil`.
+     - Throws: If `categories` is not `nil` and the id category of a URI
+           does not match one the required categories or if an id or id category
+           could not be parsed from a URI.
      - Returns: A comma-separated string of Ids.
      */
     public static func commaSeparatedIdsString<S: Sequence>(
-        _ uris: S, ensureTypeMatches types: [IDCategory]? = nil
+        _ uris: S, ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
         return try uris.map { uri in
-            
-            let spotifyIdentifier = try Self(uri: uri)
-            
-            if let types = types {
-                guard types.contains(spotifyIdentifier.idCategory) else {
-                    throw SpotifyLocalError.invalidURIType(
-                        expected: types, received: spotifyIdentifier.idCategory
-                    )
-                }
-            }
-            
-            return spotifyIdentifier.id
-            
+            try Self(
+                uri: uri, ensureCategoryMatches: categories
+            ).id
         }
         .joined(separator: ",")
     }
     
     
     /// The id for the Spotify content.
-    public var id: String
+    public let id: String
 
     /// The id category for the Spotify content.
-    public var idCategory: IDCategory
+    public let idCategory: IDCategory
 
     /**
      The unique resource identifier for the Spotify content.
      
-     Eqvuivalent to"
+     Eqvuivalent to
      ```
-     "spotify:\(idCategory.rawValue):\(id.strip())"
+     "spotify:\(idCategory.rawValue):\(id)"
      ```
-     The strip method simply removes leading and trailing whitespace.
      */
     @inlinable
     public var uri: String {
-        "spotify:\(idCategory.rawValue):\(id.strip())"
+        "spotify:\(idCategory.rawValue):\(id)"
     }
 
     /**
@@ -77,16 +66,14 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      Equivalent to:
      ```
-     "https://open.spotify.com/\(idCategory.rawValue)/\(id.strip())"
+     "https://open.spotify.com/\(idCategory.rawValue)/\(id)"
      ```
-     
-     The strip method simply removes leading and trailing whitespace.
      */
     public var url: URL? {
         guard let url =  URL(
             scheme: "https",
             host: "open.spotify.com",
-            path: "/\(idCategory.rawValue)/\(id.strip())"
+            path: "/\(idCategory.rawValue)/\(id)"
         )
         else {
             return nil
@@ -94,71 +81,150 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         return url
     }
 
-    /// Creates an instance from an id and an id category.
-    /// See [spotify URIs and ids][1].
-    ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /**
+     Creates an instance from an id and an id category.
+     See [spotify URIs and ids][1].
+    
+     - Parameters:
+       - id: A Spotify id.
+       - idCategory: An id category.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
     public init(id: String, idCategory: IDCategory) {
         self.id = id.strip()
         self.idCategory = idCategory
     }
 
-    /// Creates an instance from a URI. See [spotify URIs and ids][1].
-    ///
-    /// - Parameters:
-    ///   - uri: A Spotify URI.
-    ///   - types: If not `nil`, throw an error if the type of the URI
-    ///     does not match one of these id categories. See `IDCategory` for more
-    ///     information.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /**
+     Creates an instance from a URI. See [spotify URIs and ids][1].
+    
+     Uses the following regular expression to parse the id and id categories,
+     in that order:
+     ```
+     "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
+     ```
+     
+     - Parameters:
+       - uri: A Spotify URI.
+       - categories: If not `nil`, throw an error if the id category of the URI
+         does not match one of these id categories. See `IDCategory` for more
+         information. The default is `nil`.
+     - Throws: If `categories` is not `nil` and the id category of the URI
+           does not match one the required categories or if an id or id category
+           could not be parsed from the URI.
+    
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
     public init(
         uri: SpotifyURIConvertible,
-        ensureTypeMatches types: [IDCategory]? = nil
+        ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws {
         
-        guard
-            let captureGroups = try! uri.uri
-                    .regexMatch("spotify:(.*):(.*)")?.groups,
-            captureGroups.count >= 2,
-            let idCategoryString = captureGroups[0]?.match,
-            let idCategory = IDCategory(rawValue: idCategoryString),
-            let id = captureGroups[1]?.match
-        else {
-            throw SpotifyLocalError.identifierParsingError(
-                "could not parse spotify id and/or " +
-                "id category from string: '\(uri)'"
-            )
-        }
-
-        self.id = id.strip()
-        self.idCategory = idCategory
+        let pattern = "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
         
-        if let types = types, !types.contains(idCategory) {
-            throw SpotifyLocalError.invalidURIType(
-                expected: types, received: idCategory
-            )
+        let errorMessage: String
+        parseURI: do {
+            
+            guard uri.uri.starts(with: "spotify:") else {
+                errorMessage = ": URI must start with 'spotify:'"
+                break parseURI
+            }
+            
+            guard
+                let captureGroups = try! uri.uri.regexMatch(pattern)?.groups,
+                captureGroups.count >= 2,
+                let idCategoryString = captureGroups[0]?.match,
+                let id = captureGroups[1]?.match
+            else {
+                errorMessage = ""
+                break parseURI
+            }
+            
+            guard let idCategory = IDCategory(rawValue: idCategoryString) else {
+                errorMessage = """
+                    : id category must be one of the following: \
+                    \(IDCategory.allCases.map(\.rawValue)), \
+                    but received '\(idCategoryString)'
+                    """
+                break parseURI
+            }
+            
+            if let categories = categories,
+                    !categories.contains(idCategory) {
+                throw SpotifyLocalError.invalidIdCategory(
+                    expected: categories, received: idCategory
+                )
+            }
+            
+            self.id = id
+            self.idCategory = idCategory
+            return
+
         }
+       
+        throw SpotifyLocalError.identifierParsingError(
+            "could not parse spotify id and/or " +
+            "id category from string: '\(uri)'" + errorMessage
+        )
 
     }
     
-    /// Creates an instance from a Spotify URL to the content.
+    /**
+     Creates an instance from a Spotify URL to the content.
+     See [spotify URIs and ids][1].
+    
+     The first path component must be the id category. It must match
+     one of the raw values of `IDCategory`. The second path component must
+     be the id of the content. All additional path components and/or query
+     parameters are ignored.
+     
+     For example:
+     ```
+     "https://open.spotify.com/playlist/33yLOStnp2emkEA76ew1Dz"
+     ```
+     
+     - Parameter url: A URL that, when opened, displays the content in the
+           web player.
+     - Throws: If the id and id category of the content could not be parsed
+           from the URL.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
     public init(url: URL) throws {
-        
+
+        // If the url contains at least one "/" after the host component,
+        // then The first path component in the array will be a single "/",
+        // so the id category will actually be at index 1 and the id will be
+        // at index 2.
         let paths = url.pathComponents
         
-        guard
-            paths.count >= 2,
-            let category = IDCategory(rawValue: paths[2])
-        else {
-            throw SpotifyLocalError.identifierParsingError(
-                "could not parse spotify id category and/or id " +
-                "from url: '\(url)'"
-            )
+        let errorMessage: String
+        parseURL: do {
+            
+            guard paths.count >= 3 else {
+                errorMessage = "expected at least two path components " +
+                    "but received \(max(paths.count - 1, 0))"
+                break parseURL
+            }
+            guard let idCategory = IDCategory(rawValue: paths[1]) else {
+                errorMessage = """
+                    id category must be one of the following: \
+                    \(IDCategory.allCases.map(\.rawValue)), \
+                    but received '\(paths[1])'"
+                    """
+                break parseURL
+            }
+            self.id = paths[2]
+            self.idCategory = idCategory
+            return
+            
         }
         
-        self.id = paths[1]
-        self.idCategory = category
+        throw SpotifyLocalError.identifierParsingError(
+            "could not parse spotify id category and/or id " +
+            "from url: '\(url)': \(errorMessage)"
+        )
         
     }
 

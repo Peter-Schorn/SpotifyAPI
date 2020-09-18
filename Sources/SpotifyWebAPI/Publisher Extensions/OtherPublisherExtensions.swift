@@ -62,16 +62,18 @@ public extension Publisher {
             .replaceError(with: nil)
     }
     
-    /// Assigns each element from the upstream publisher to
-    /// an **optional** property on an object. If the upsteam publisher
-    /// fails with an error, then `nil` is assigned to the property.
-    ///
-    /// - Parameters:
-    ///   - keyPath: The key path of the property to assign.
-    ///   - object: The object on which to assign the value.
-    /// - Returns: A cancellable instance; used when you end assignment
-    ///       of the received value. Deallocation of the result
-    ///       will tear down the subscription stream.
+    /**
+     Assigns each element from the upstream publisher to
+     an **optional** property on an object. If the upsteam publisher
+     fails with an error, then `nil` is assigned to the property.
+    
+     - Parameters:
+       - keyPath: The key path of the property to assign.
+       - object: The object on which to assign the value.
+     - Returns: A cancellable instance; used when you end assignment
+           of the received value. Deallocation of the result
+           will tear down the subscription stream.
+     */
     func assignToOptional<Root>(
         _ keyPath: ReferenceWritableKeyPath<Root, Optional<Self.Output>>,
         on object: Root
@@ -105,6 +107,7 @@ public extension Publisher {
         return flatMap(
             maxPublishers: maxPublishers
         ) { output -> AnyPublisher<NewPublisher.Output, Error> in
+            
             do {
                 return try transform(output)
                     .mapError { $0 as Error }
@@ -115,7 +118,9 @@ public extension Publisher {
                     NewPublisher.Output.self
                 )
             }
+            
         }
+        
     }
     
 }
@@ -125,6 +130,10 @@ public extension Publisher where Output == Void {
     /**
      A convience wrapper for sink that only requires a `receiveCompletion`
      closure. Available when `Output` == `Void`.
+     
+     You are discouraged from using trailing closure syntax with this
+     method in order to avoid confusion with `sink(receiveValue:)`
+     (available when `Failure` is `Never`).
      
      This method creates the subscriber and immediately requests an
      unlimited number of values, prior to returning the subscriber.

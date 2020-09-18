@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -331,7 +353,7 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span>
-    <span class="kt"><a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+    <span class="kt"><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
@@ -352,7 +374,7 @@
 
 <p>The first step in the authorization code flow is to make the
 authorization URL using
-<code>makeAuthorizationURL(redirectURI:scopes:showDialog:state:)</code>.</p>
+<code>makeAuthorizationURL(redirectURI:showDialog:state:scopes:)</code>.</p>
 
 <p>Open this URL in a broswer/webview to allow the user to login
 to their Spotify account and authorize your application.
@@ -366,6 +388,10 @@ automatically when needed.</p>
 
 <p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
 for the specified scopes.</p>
+
+<p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
+and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
+which are immutable.</p>
 
           </section>
           <section class="section task-group-section">
@@ -592,8 +618,8 @@ refreshed. This occurs in <code><a href="../Classes/AuthorizationCodeFlowManager
 </ul>
 
 <p>You are discouraged from subscribing to this publisher directly.
-Instead, subscribe to the <code>authorizationManagerDidChange</code> publisher
-of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>. This allows you to be notified of changes even
+Instead, subscribe to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">SpotifyAPI.authorizationManagerDidChange</a></code>
+publisher. This allows you to be notified of changes even
 when you create a new instance of this class and assign it to the
 <code>authorizationManager</code> instance property of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
@@ -1271,7 +1297,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

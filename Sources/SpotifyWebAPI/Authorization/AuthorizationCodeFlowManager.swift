@@ -16,7 +16,7 @@ import Logger
  
  The first step in the authorization code flow is to make the
  authorization URL using
- `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`.
+ `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
  
  Open this URL in a broswer/webview to allow the user to login
  to their Spotify account and authorize your application.
@@ -30,6 +30,10 @@ import Logger
  
  Use `isAuthorized(for:)` to check if your application is authorized
  for the specified scopes.
+ 
+ Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
+ and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
+ which are immutable.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
@@ -77,8 +81,8 @@ public final class AuthorizationCodeFlowManager:
        `expirationDate`, and `scopes` to `nil`—is called.
      
      You are discouraged from subscribing to this publisher directly.
-     Instead, subscribe to the `authorizationManagerDidChange` publisher
-     of `SpotifyAPI`. This allows you to be notified of changes even
+     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
+     publisher. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
      `authorizationManager` instance property of `SpotifyAPI`.
      

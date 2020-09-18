@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AttributeRange Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/AttributeRange" class="dashAnchor"></a>
+    <a title="AttributeRange Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SpotifyWebAPI Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        AttributeRange Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../SpotifyAPI.html">SpotifyAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SpotifyAPI.html">SpotifyAPI</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authorization.html">Authorization</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Publisher%20Extensions.html">Publisher Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Object4data15httpURLResponse12responseTypex10Foundation4DataV_So17NSHTTPURLResponseCxmtKSeRzlF">decodeSpotifyObject(data:httpURLResponse:responseType:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Errors.html">Errors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyError.html">SpotifyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Paginated.html">Paginated</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Music.html">Music</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Album.html">Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Artist.html">Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Track.html">Track</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Playlist.html">Playlist</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaylistItem.html">PlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Player.html">Player</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Device.html">Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Player.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyContext.html">SpotifyContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaybackActions.html">PlaybackActions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayHistory.html">PlayHistory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ResumePoint.html">ResumePoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RepeatMode.html">RepeatMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Podcast.html">Podcast</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show.html">Show</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Post%20Requests.html">Post Requests</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeReference.html">TimeReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Audio%20Analysis.html">Audio Analysis</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AudioAnalysis.html">AudioAnalysis</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioFeatures.html">AudioFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Segment.html">Segment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyTimeInterval.html">SpotifyTimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type%20Aliases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type%20Aliases.html#/s:13SpotifyWebAPI14PlaylistTracksa">PlaylistTracks</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Aliases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Objects.html">Other Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/PagingObject.html">PagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SavedItem.html">SavedItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SearchResult.html">SearchResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyImage.html">SpotifyImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyUser.html">SpotifyUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Followers.html">Followers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CursorPagingObject.html">CursorPagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCursor.html">SpotifyCursor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackLink.html">TrackLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Result/Publisher.html">– Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AttributeRange</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AttributeRange</span><span class="o">&lt;</span><span class="kt">Number</span><span class="p">:</span> <span class="kt">Numeric</span> <span class="o">&amp;</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span> <span class="o">&amp;</span>
+        <span class="kt">LosslessStringConvertible</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Represents a range for a track attribute. Has a minimum, target (ideal), and
+maximum value. See <code><a href="../Structs/TrackAttributes.html">TrackAttributes</a></code> and the endpoint for
+<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#query-parameters">getting recommendations based on seeds</a>.</p>
+
+<p>Note that all of the properties are mutable.</p>
+
+<p>The target value should not be smaller than the minimum or larger than the
+maximum.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV3minxSgvp"></a>
+                    <a name="//apple_ref/swift/Property/min" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV3minxSgvp">min</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The minimum value for the attribute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">min</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV6targetxSgvp"></a>
+                    <a name="//apple_ref/swift/Property/target" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV6targetxSgvp">target</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The target (ideal) value for the attribute.</p>
+
+<p>Should not be smaller than the minimum or larger than the
+maximum.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV3maxxSgvp"></a>
+                    <a name="//apple_ref/swift/Property/max" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV3maxxSgvp">max</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The maximum value for the attribute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">max</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV3min6target3maxACyxGxSg_A2Htcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(min:target:max:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV3min6target3maxACyxGxSg_A2Htcfc">init(min:<wbr>target:<wbr>max:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new attribute range. All parameters are optional.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">min</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">target</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">max</span><span class="p">:</span> <span class="kt">Number</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>min</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The minimum value for the attribute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The target (ideal) value for the attribute.
+Should not be smaller than the minimum or larger than the
+maximum.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>max</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum value for the attribute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI14AttributeRangeV15queryDictionary13attributeNameSDyS2SGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/queryDictionary(attributeName:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI14AttributeRangeV15queryDictionary13attributeNameSDyS2SGSS_tF">queryDictionary(attributeName:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a dictionary in which the keys are the provided attribute name
+prefixed with <code><a href="../Structs/AttributeRange.html#/s:13SpotifyWebAPI14AttributeRangeV3minxSgvp">min</a></code>, <code><a href="../Structs/AttributeRange.html#/s:13SpotifyWebAPI14AttributeRangeV6targetxSgvp">target</a></code> and <code><a href="../Structs/AttributeRange.html#/s:13SpotifyWebAPI14AttributeRangeV3maxxSgvp">max</a></code>, and the values are the values
+for these properties converted to a string. Properties that are <code>nil</code>
+will not appear in the dictionary.</p>
+
+<p>For example, if the attribute name was &ldquo;tempo&rdquo;, then the dictionary would be:</p>
+<pre class="highlight swift"><code><span class="p">[</span>
+<span class="s">"min_tempo"</span><span class="p">:</span> <span class="n">min</span><span class="p">,</span>
+<span class="s">"target_tempo"</span><span class="p">:</span> <span class="n">target</span><span class="p">,</span>
+<span class="s">"max_tempo"</span><span class="p">:</span> <span class="n">max</span>
+<span class="p">]</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">queryDictionary</span><span class="p">(</span>
+    <span class="nv">attributeName</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>attributeName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the attribute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

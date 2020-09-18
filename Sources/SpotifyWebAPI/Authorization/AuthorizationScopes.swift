@@ -86,7 +86,7 @@ public enum Scope: String, Codable, CaseIterable, Hashable {
     /// Read access to user’s email address.
     case userReadEmail = "user-read-email"
     
-    /// Read access to user’s subscription details (type of user account).
+    /// Read access to the user’s subscription details (type of user account).
     case userReadPrivate = "user-read-private"
     
     // MARK: Playlists

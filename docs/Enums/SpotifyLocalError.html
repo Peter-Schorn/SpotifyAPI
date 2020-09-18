@@ -17,7 +17,7 @@
     <a title="SpotifyLocalError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -475,9 +497,9 @@ your app does not have the required scopes for.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A10LocalErrorO14invalidURITypeyACSayAA10IDCategoryOG_AFtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/invalidURIType(expected:received:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A10LocalErrorO14invalidURITypeyACSayAA10IDCategoryOG_AFtcACmF">invalidURIType(expected:<wbr>received:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AFtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidIdCategory(expected:received:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AFtcACmF">invalidIdCategory(expected:<wbr>received:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -485,7 +507,14 @@ your app does not have the required scopes for.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The type of a URI didn&rsquo;t match one of the expected types.</p>
+                        <p>The category of a URI didn&rsquo;t match one of the expected categories.</p>
+
+<ul>
+<li>expected: The expected categories. Some endpoints allow for
+URIS from multiple categories. For example, the endpoint for
+adding items to a playlist allows for track or episode URIs.</li>
+<li>received: the id category that was received.</li>
+</ul>
 
 <p>For example, if you pass a track URI to the endpoint for retrieving
 an artist, you will get this error.</p>
@@ -495,7 +524,7 @@ an artist, you will get this error.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">invalidURIType</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">invalidIdCategory</span><span class="p">(</span>
     <span class="nv">expected</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span> <span class="nv">received</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span>
 <span class="p">)</span></code></pre>
 
@@ -604,7 +633,7 @@ can&rsquo;t be found.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

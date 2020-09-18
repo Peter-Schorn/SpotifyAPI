@@ -1,7 +1,9 @@
 import Foundation
 import Combine
 
-private extension SpotifyAPI {
+private extension SpotifyAPI where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
     
     func saveItemsForCurrentUser(
         uris: [SpotifyURIConvertible],
@@ -13,7 +15,7 @@ private extension SpotifyAPI {
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [type]
+                    uris, ensureCategoryMatches: [type]
                 )
             
             return self.apiRequest(
@@ -45,7 +47,7 @@ private extension SpotifyAPI {
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [type]
+                    uris, ensureCategoryMatches: [type]
                 )
             
             return self.apiRequest(
@@ -79,7 +81,7 @@ private extension SpotifyAPI {
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    uris, ensureTypeMatches: [type]
+                    uris, ensureCategoryMatches: [type]
                 )
             
             return self.getRequest(
@@ -97,12 +99,12 @@ private extension SpotifyAPI {
     
 }
 
-// MARK: Library
-
 public extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
 
+    // MARK: Library (Requires Authorization Scopes)
+    
     /**
      Get the saved albums for the current user.
      

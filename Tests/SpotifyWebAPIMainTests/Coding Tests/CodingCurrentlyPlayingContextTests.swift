@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import RegularExpressions
 import SpotifyWebAPI
-import _SpotifyAPITestUtilities
+import SpotifyAPITestUtilities
 
 
 final class CodingCurrentlyPlayingContextTests: XCTestCase {

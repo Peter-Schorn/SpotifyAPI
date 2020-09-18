@@ -3,6 +3,11 @@ import Foundation
 /**
  A type that can convert itself to a [Spotify URI][1].
 
+ The only requirement is
+ ```
+ var uri: String { get }
+ ```
+ 
  `SpotifyIdentifier`, `String`, `SubString`, and some of the objects
  returned by the Spotify web API are conforming types. Usually, you
  should not need to conform additional types to this protocol.

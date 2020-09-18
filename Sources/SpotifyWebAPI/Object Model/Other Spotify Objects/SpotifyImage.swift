@@ -4,9 +4,11 @@ import Combine
 
 #if os(macOS)
 import AppKit
+/// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = NSImage
 #else
 import UIKit
+/// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = UIImage
 #endif
 
@@ -81,21 +83,25 @@ public extension SpotifyImage {
 
 public extension Sequence where Element == SpotifyImage {
     
-    /// Returns the largest image in this sequence
-    /// of `SpotifyImage`, or `nil` if the sequence is empty.
-    ///
-    /// When determining the largest image, Images with
-    /// `nil` for `height` and/or `width` are considered
-    /// to have a `height` and/or `width` of 0.
-    /// The largest image is calculated based on `height` * `width`.
+    /**
+     Returns the largest image in this sequence
+     of `SpotifyImage`, or `nil` if the sequence is empty.
+    
+     When determining the largest image, Images with
+     `nil` for `height` and/or `width` are considered
+     to have a `height` and/or `width` of 0.
+     The largest image is calculated based on `height` * `width`.
+     */
     var largest: SpotifyImage? {
         
         // areInIncreasingOrder
         // A predicate that returns true if its first argument should
         // be ordered before its second argument; otherwise, false.
-        return self.max(by: { lhs, rhs in
-            (lhs.width ?? 0) * (lhs.height ?? 0) <
-            (rhs.width ?? 0) * (rhs.height ?? 0)
+        return self.max(by: { (lhs: SpotifyImage, rhs: SpotifyImage)
+                -> Bool in
+            let lhsDimensions = (lhs.width ?? 0) * (lhs.height ?? 0)
+            let rhsDimensions = (rhs.width ?? 0) * (rhs.height ?? 0)
+            return lhsDimensions < rhsDimensions
         })
         
     }

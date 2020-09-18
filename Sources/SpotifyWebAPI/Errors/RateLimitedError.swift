@@ -19,7 +19,7 @@ import Foundation
  */
 public struct RateLimitedError: LocalizedError, Codable, Hashable {
     
-    /// the number of seconds you must wait
+    /// The number of seconds you must wait
     /// before you try the request again.
     public let retryAfter: Int?
     

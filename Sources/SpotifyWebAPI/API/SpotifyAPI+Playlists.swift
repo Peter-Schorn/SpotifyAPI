@@ -16,7 +16,7 @@ private extension SpotifyAPI {
         do {
     
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
             
             return self.apiRequest(
@@ -57,7 +57,7 @@ private extension SpotifyAPI {
         do {
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
         
             return self.getRequest(
@@ -81,10 +81,11 @@ private extension SpotifyAPI {
     
 }
 
-// MARK: Playlists
 
 public extension SpotifyAPI {
 
+    // MARK: Playlists
+    
     /**
      Makes a request to the "/playlists/{playlistId}" endpoint
      and allows you to specify fields to filter the query.
@@ -102,8 +103,8 @@ public extension SpotifyAPI {
      then copy and paste the response into this [online JSON viewer][2].
      You are also encouraged to Assign a folder to
      `SpotifyDecodingError.dataDumpFolder` so that the data will be written
-     to a file when the decoding fails. You can upload this file to the JSON
-     viewer.
+     to a file when the decoding fails. You can then upload this file to the
+     JSON viewer.
      
      Read more at the [Spotify web API reference][3].
      
@@ -144,7 +145,7 @@ public extension SpotifyAPI {
         
         do {
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
         
             let validTypes: [IDCategory] = [.track, .episode]
@@ -227,7 +228,7 @@ public extension SpotifyAPI {
         do {
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
 
             let additionalTypes: [IDCategory] = [.track, .episode]
@@ -418,7 +419,7 @@ public extension SpotifyAPI {
         do {
             
             let userId = try SpotifyIdentifier(
-                uri: userURI, ensureTypeMatches: [.user]
+                uri: userURI, ensureCategoryMatches: [.user]
             ).id
         
             return self.getRequest(
@@ -445,7 +446,7 @@ public extension SpotifyAPI {
 public extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
-    
+    // MARK: Playlists (Requires Authorization Scopes)
     
     /**
      Get a list of the current user's playlists, including those
@@ -530,7 +531,7 @@ public extension SpotifyAPI where
         do {
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
             
             return self.getRequest(
@@ -616,7 +617,7 @@ public extension SpotifyAPI where
         do {
             
             let userId = try SpotifyIdentifier(
-                uri: userURI, ensureTypeMatches: [.user]
+                uri: userURI, ensureCategoryMatches: [.user]
             ).id
             
             return self.apiRequest(
@@ -784,7 +785,7 @@ public extension SpotifyAPI where
         do {
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
     
             return self.apiRequest(
@@ -870,7 +871,7 @@ public extension SpotifyAPI where
             }
             
             let playlistId = try SpotifyIdentifier(
-                uri: playlist, ensureTypeMatches: [.playlist]
+                uri: playlist, ensureCategoryMatches: [.playlist]
             ).id
             
             func makeHeaders(accessToken: String) -> [String: String] {

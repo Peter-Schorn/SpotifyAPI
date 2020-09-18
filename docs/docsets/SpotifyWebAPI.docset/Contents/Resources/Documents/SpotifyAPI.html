@@ -17,7 +17,7 @@
     <a title="SpotifyAPI  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (91% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -54,6 +54,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
               </li>
             </ul>
           </li>
@@ -283,6 +289,9 @@
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/TimeRange.html">TimeRange</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -306,18 +315,31 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other%20Protocols.html">Other Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other%20Protocols.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
             </ul>
           </li>
@@ -345,11 +367,25 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The central class in this library.</p>
-
-<p>It provides methods for all of the Spotify web API endpoints
-and contains an authorization manager for managing the
+                        <p>The central class in this library. Provides methods for all of the Spotify
+web API endpoints and contains an authorization manager for managing the
 authorization/authentication process of your application.</p>
+
+<p>The methods that require authorization scopes and/or an access token that was
+issued on behalf of a user are declared in conditional conformances where
+<code>AuthorizationManager</code> conforms to <code><a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>.
+This protcol requires conforming types to support authorization scopes.
+This strategy provides a compile-time guarantee that you cannot call methods
+that require authorization scopes if you are using an authorization manager
+that doesn&rsquo;t support them.</p>
+
+<p>Currently, only <code><a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> conforms to
+<code><a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code> but a future version of this library will
+support the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>,
+which will also conform to this protocol.</p>
+
+<p><code><a href="Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code> is not a conforming type because it
+does not support authorization scopes.</p>
 
                         <a href="Classes/SpotifyAPI.html" class="slightly-smaller">See more</a>
                       </div>
@@ -357,7 +393,7 @@ authorization/authentication process of your application.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt">SpotifyAuthorizationManager</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SpotifyAPI</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">AuthorizationManager</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span></code></pre>
 
                         </div>
                       </div>
@@ -369,7 +405,7 @@ authorization/authentication process of your application.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

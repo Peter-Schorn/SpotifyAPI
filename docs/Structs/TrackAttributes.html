@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TrackAttributes Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/TrackAttributes" class="dashAnchor"></a>
+    <a title="TrackAttributes Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SpotifyWebAPI Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        TrackAttributes Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../SpotifyAPI.html">SpotifyAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SpotifyAPI.html">SpotifyAPI</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authorization.html">Authorization</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Publisher%20Extensions.html">Publisher Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Object4data15httpURLResponse12responseTypex10Foundation4DataV_So17NSHTTPURLResponseCxmtKSeRzlF">decodeSpotifyObject(data:httpURLResponse:responseType:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Errors.html">Errors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyError.html">SpotifyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Paginated.html">Paginated</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Music.html">Music</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Album.html">Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Artist.html">Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Track.html">Track</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Playlist.html">Playlist</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaylistItem.html">PlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Player.html">Player</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Device.html">Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Player.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyContext.html">SpotifyContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlaybackActions.html">PlaybackActions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlayHistory.html">PlayHistory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ResumePoint.html">ResumePoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RepeatMode.html">RepeatMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Podcast.html">Podcast</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show.html">Show</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Post%20Requests.html">Post Requests</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeReference.html">TimeReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Audio%20Analysis.html">Audio Analysis</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AudioAnalysis.html">AudioAnalysis</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioFeatures.html">AudioFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Segment.html">Segment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyTimeInterval.html">SpotifyTimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type%20Aliases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type%20Aliases.html#/s:13SpotifyWebAPI14PlaylistTracksa">PlaylistTracks</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Aliases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Objects.html">Other Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/PagingObject.html">PagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SavedItem.html">SavedItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SearchResult.html">SearchResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyImage.html">SpotifyImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyUser.html">SpotifyUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Followers.html">Followers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CursorPagingObject.html">CursorPagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCursor.html">SpotifyCursor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackLink.html">TrackLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TimeRange.html">TimeRange</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Result/Publisher.html">– Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>TrackAttributes</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TrackAttributes</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                </div>
+              </div>
+            <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes">tunable track attributes</a> used in the
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code> endpoint for
+<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">getting recommendations based on seeds</a>.</p>
+
+<p>Note that all of the properties are mutable.</p>
+
+<p>For most of the attributes, a minimum, target (ideal), and maximum value can be
+provided. This is represented by <code><a href="../Structs/AttributeRange.html">AttributeRange</a></code>. The target value should not
+be smaller than the minimum or larger than the maximum.</p>
+
+<p>The total number of seed artists, seed tracks and seed genres must add up to 5 or
+less</p>
+
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">SpotifyAPI.recommendationGenres()</a></code> to retrive the available
+seed genres.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV11seedArtistsSaySSGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/seedArtists" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV11seedArtistsSaySSGSgvp">seedArtists</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of artists URIs.
+The total number of seed artists, seed tracks and seed genres
+must add up to 5 or less.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">seedArtists</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV10seedTracksSaySSGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/seedTracks" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV10seedTracksSaySSGSgvp">seedTracks</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of track URIs.
+The total number of seed artists, seed tracks and seed genres
+must add up to 5 or less.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">seedTracks</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV10seedGenresSaySSGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/seedGenres" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV10seedGenresSaySSGSgvp">seedGenres</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of genres.</p>
+
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">SpotifyAPI.recommendationGenres()</a></code> to retrive the available
+genres.</p>
+
+<p>The total number of seed artists, seed tracks and seed genres
+must add up to 5 or less.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">seedGenres</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV12acousticnessAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/acousticness" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV12acousticnessAA14AttributeRangeVySdGSgvp">acousticness</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A confidence measure from 0.0 to 1.0 of whether the track is acoustic.
+1.0 represents high confidence the track is acoustic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">acousticness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV12danceabilityAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/danceability" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV12danceabilityAA14AttributeRangeVySdGSgvp">danceability</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Danceability describes how suitable a track is for dancing based on a
+combination of musical elements including tempo, rhythm stability,
+beat strength, and overall regularity. A value of 0.0 is least danceable
+and 1.0 is most danceable.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">danceability</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV10durationMSAA14AttributeRangeVySiGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/durationMS" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV10durationMSAA14AttributeRangeVySiGSgvp">durationMS</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The duration of the track in milliseonds.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">durationMS</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV6energyAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/energy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV6energyAA14AttributeRangeVySdGSgvp">energy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
+of intensity and activity.</p>
+
+<p>Typically, energetic tracks feel fast, loud, and noisy. For example, death
+metal has high energy, while a Bach prelude scores low on the scale.
+Perceptual features contributing to this attribute include dynamic range,
+perceived loudness, timbre, onset rate, and general entropy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">energy</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV16instrumentalnessAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/instrumentalness" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV16instrumentalnessAA14AttributeRangeVySdGSgvp">instrumentalness</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Predicts whether a track contains no vocals. &ldquo;Ooh&rdquo; and &ldquo;aah&rdquo; sounds are
+treated as instrumental in this context.</p>
+
+<p>A range from 0 to 1, inclusive. Rap or spoken word tracks are clearly
+&ldquo;vocal&rdquo;. The closer the instrumentalness value is to 1.0, the greater
+the likelihood the track contains no vocal content. Values above 0.5 are
+intended to represent instrumental tracks, but confidence is higher as the
+value approaches 1.0.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">instrumentalness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV3keyAA14AttributeRangeVySiGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV3keyAA14AttributeRangeVySiGSgvp">key</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The key the track is in.</p>
+
+<p>Integers map to pitches using standard <a href="https://en.wikipedia.org/wiki/Pitch_class">Pitch Class notation</a>.
+E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">key</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV8livenessAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/liveness" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV8livenessAA14AttributeRangeVySdGSgvp">liveness</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Detects the presence of an audience in the recording.</p>
+
+<p>A range from 0 to 1, inclusive. Higher liveness values represent an
+increased probability that the track was performed live. A value above
+0.8 provides strong likelihood that the track is live.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">liveness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV8loudnessAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/loudness" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV8loudnessAA14AttributeRangeVySdGSgvp">loudness</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The overall loudness of a track in decibels (dB). Loudness values are
+averaged across the entire track and are useful for comparing relative
+loudness of tracks. Loudness is the quality of a sound that is the primary
+psychological correlate of physical strength (amplitude). Values typical
+range between -60 and 0 db.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">loudness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV4modeAA14AttributeRangeVySiGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/mode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV4modeAA14AttributeRangeVySiGSgvp">mode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mode indicates the modality (major or minor) of a track, the type of
+scale from which its melodic content is derived. Major is represented
+by 1 and minor is 0.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV10popularityAA14AttributeRangeVySiGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/popularity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV10popularityAA14AttributeRangeVySiGSgvp">popularity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The popularity of the track.</p>
+
+<p>The value will be between 0 and 100, with 100 being the most popular.
+The popularity is calculated by algorithm and is based, in the most part,
+on the total number of plays the track has had and how recent those plays are.
+Note: When applying track relinking via the market parameter, it is expected to
+find relinked tracks with popularities that do not match min, max, and target
+popularities. These relinked tracks are accurate replacements for unplayable
+tracks with the expected popularity scores. Original, non-relinked tracks are
+available via the <code>linkedFrom</code> attribute of the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">relinked track response</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">popularity</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV11speechinessAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/speechiness" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV11speechinessAA14AttributeRangeVySdGSgvp">speechiness</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Speechiness detects the presence of spoken words in a track.</p>
+
+<p>A range from 0 to 1, inclusive. The more exclusively speech-like the recording
+(e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.
+Values above 0.66 describe tracks that are probably made entirely of spoken
+words. Values between 0.33 and 0.66 describe tracks that may contain both music
+and speech, either in sections or layered, including such cases as rap music.
+Values below 0.33 most likely represent music and other non-speech-like tracks.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">speechiness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV5tempoAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/tempo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV5tempoAA14AttributeRangeVySdGSgvp">tempo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The overall estimated tempo of a track in beats per minute (BPM).</p>
+
+<p>In musical terminology, tempo is the speed or pace of a given piece and derives
+directly from the average beat duration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tempo</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV13timeSignatureAA14AttributeRangeVySiGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/timeSignature" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV13timeSignatureAA14AttributeRangeVySiGSgvp">timeSignature</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An estimated overall time signature of a track.</p>
+
+<p>The time signature (meter) is a notational convention to specify how many beats
+are in each bar (or measure).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">timeSignature</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV7valenceAA14AttributeRangeVySdGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/valence" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV7valenceAA14AttributeRangeVySdGSgvp">valence</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a
+track.</p>
+
+<p>Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric),
+while tracks with low valence sound more negative (e.g. sad, depressed, angry).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">valence</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV11seedArtists0F6Tracks0F6Genres12acousticness12danceability10durationMS6energy16instrumentalness3key8liveness8loudness4mode10popularity11speechiness5tempo13timeSignature7valenceACSayAA0A14URIConvertible_pGSg_AWSaySSGSgAA14AttributeRangeVySdGSgA1_A_ySiGSgA1_A1_A3_A1_A1_A3_A3_A1_A1_A3_A1_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(seedArtists:seedTracks:seedGenres:acousticness:danceability:durationMS:energy:instrumentalness:key:liveness:loudness:mode:popularity:speechiness:tempo:timeSignature:valence:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV11seedArtists0F6Tracks0F6Genres12acousticness12danceability10durationMS6energy16instrumentalness3key8liveness8loudness4mode10popularity11speechiness5tempo13timeSignature7valenceACSayAA0A14URIConvertible_pGSg_AWSaySSGSgAA14AttributeRangeVySdGSgA1_A_ySiGSgA1_A1_A3_A1_A1_A3_A3_A1_A1_A3_A1_tcfc">init(seedArtists:<wbr>seedTracks:<wbr>seedGenres:<wbr>acousticness:<wbr>danceability:<wbr>durationMS:<wbr>energy:<wbr>instrumentalness:<wbr>key:<wbr>liveness:<wbr>loudness:<wbr>mode:<wbr>popularity:<wbr>speechiness:<wbr>tempo:<wbr>timeSignature:<wbr>valence:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates the <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes">tunable track attributes</a> used in the endpoint for
+<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">getting recommendations based on seeds</a>.</p>
+
+<p>For most of the attributes, a minimum, target (ideal), and maximum value can be
+provided. This is represented by <code><a href="../Structs/AttributeRange.html">AttributeRange</a></code>. The target value should not
+be smaller than the minimum or larger than the maximum.</p>
+
+<p>The total number of seed artists, seed tracks and seed genres must add up to 5
+or less.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">seedArtists</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">seedTracks</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">seedGenres</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">acousticness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">danceability</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">durationMS</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">energy</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">instrumentalness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">key</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">liveness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">loudness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">popularity</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">speechiness</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">tempo</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">timeSignature</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">valence</span><span class="p">:</span> <span class="kt"><a href="../Structs/AttributeRange.html">AttributeRange</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>seedArtists</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of artists URIs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>seedGenres</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of artists genres. Use
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20recommendationGenres7Combine12AnyPublisherVySaySSGs5Error_pGyF">SpotifyAPI.recommendationGenres()</a></code> to retrive the available seed
+ genres.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>seedTracks</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of track URIs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>acousticness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A confidence measure from 0.0 to 1.0 of whether the track
+is acoustic. 1.0 represents high confidence the track is acoustic.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>danceability</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Danceability describes how suitable a track is for dancing
+based on a combination of musical elements including tempo, rhythm
+stability, beat strength, and overall regularity. A value of 0.0 is
+least danceable and 1.0 is most danceable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>durationMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The duration of the track in milliseonds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>energy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Energy is a measure from 0.0 to 1.0 and represents a perceptual
+measure of intensity and activity. Typically, energetic tracks feel
+fast, loud, and noisy. For example, death metal has high energy,
+while a Bach prelude scores low on the scale. Perceptual features
+contributing to this attribute include dynamic range, perceived
+loudness, timbre, onset rate, and general entropy.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>instrumentalness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Predicts whether a track contains no vocals. &ldquo;Ooh&rdquo; and
+&ldquo;aah&rdquo; sounds are treated as instrumental in this context. A range from
+0 to 1, inclusive. Rap or spoken word tracks are clearly &ldquo;vocal&rdquo;. The
+closer the instrumentalness value is to 1.0, the greater the likelihood
+the track contains no vocal content. Values above 0.5 are intended
+to represent instrumental tracks, but confidence is higher as the value
+approaches 1.0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key the track is in. Integers map to pitches using standard
+<a href="https://en.wikipedia.org/wiki/Pitch_class">Pitch Class notation</a>. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>liveness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Detects the presence of an audience in the recording. A range
+from 0 to 1, inclusive. Higher liveness values represent an
+increased probability that the track was performed live. A value
+above 0.8 provides strong likelihood that the track is live.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>loudness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall loudness of a track in decibels (dB). Loudness
+values are averaged across the entire track and are useful for
+comparing relative loudness of tracks. Loudness is the quality of a
+sound that is the primary psychological correlate of physical strength
+(amplitude). Values typically in the range between -60 and 0 db.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Mode indicates the modality (major or minor) of a track, the
+type of scale from which its melodic content is derived. Major is
+represented by 1 and minor is 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>popularity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The popularity of the track. The value will be between 0 and
+100, with 100 being the most popular. The popularity is calculated by
+algorithm and is based, in the most part, on the total number of
+plays the track has had and how recent those plays are. Note: When
+applying track relinking via the market parameter, it is expected to
+find relinked tracks with popularities that do not match min, max,
+and target popularities. These relinked tracks are accurate replacements
+for unplayable tracks with the expected popularity scores. Original,
+non-relinked tracks are available via the <code>linkedFrom</code> attribute of
+the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide">relinked track response</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>speechiness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Speechiness detects the presence of spoken words in a track.
+A range from 0 to 1, inclusive. The more exclusively speech-like the
+recording (e.g. talk show, audio book, poetry), the closer to 1.0 the
+attribute value. Values above 0.66 describe tracks that are probably made
+entirely of spoken words. Values between 0.33 and 0.66 describe tracks
+that may contain both music and speech, either in sections or layered,
+including such cases as rap music. Values below 0.33 most likely
+represent music and other non-speech-like tracks.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tempo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall estimated tempo of a track in beats per minute (BPM).
+In musical terminology, tempo is the speed or pace of a given piece
+and derives directly from the average beat duration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeSignature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An estimated overall time signature of a track.
+The time signature (meter) is a notational convention to specify how
+many beats are in each bar (or measure).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>valence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A measure from 0.0 to 1.0 describing the musical positiveness
+conveyed by a track. Tracks with high valence sound more positive
+(e.g. happy, cheerful, euphoric), while tracks with low valence
+sound more negative (e.g. sad, depressed, angry).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15TrackAttributesV15queryDictionarySDyS2SGyKF"></a>
+                    <a name="//apple_ref/swift/Method/queryDictionary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15TrackAttributesV15queryDictionarySDyS2SGyKF">queryDictionary()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates the query dictionary that is ultimately used in the
+<a href="https://developer.spotify.com/console/get-recommendations/?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA&min_energy=0.4&min_popularity=50&market=US">endpoint to request track attributes</a>.</p>
+
+<p>You shouldn&rsquo;t need to call this directly. It is called by
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code>.</p>
+
+<p>See also <code><a href="../Structs/AttributeRange.html#/s:13SpotifyWebAPI14AttributeRangeV15queryDictionary13attributeNameSDyS2SGSS_tF">AttributeRange.queryDictionary(attributeName:)</a></code>, which
+is called on each property of this type to create the dictionary.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If an id could not be parsed from any of the artist
+  or track URIs, or if these URIs do not match the artist
+  and track categories, respectively.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">queryDictionary</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

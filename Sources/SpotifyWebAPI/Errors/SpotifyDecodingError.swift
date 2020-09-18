@@ -75,21 +75,22 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
 
         let dataString = rawData.map {
             String(data: $0, encoding: .utf8)
-        } as? String
-                ?? "The data could not be decoded into a string"
+        } as? String ?? "The data was nil or could not be decoded into a string"
+        
+        let dateString = DateFormatter.shortTime.string(from: Date())
+        let title = "\(expectedResponseType)_\(dateString)"
         
         if let folder = Self.dataDumpfolder {
             
-            let dateString = DateFormatter.shortTime.string(from: Date())
             let file = folder.appendingPathComponent(
-                "\(expectedResponseType)_\(dateString)"
+                title, isDirectory: false
             )
             
             do {
                 try dataString.write(
                     to: file, atomically: true, encoding: .utf8
                 )
-            
+                
             } catch {
                 print(
                     "SpotifyDecodingError: couldn't write data " +
@@ -98,6 +99,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             }
             
         }
+        
         
     }
     

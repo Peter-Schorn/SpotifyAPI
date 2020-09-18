@@ -1,9 +1,9 @@
 import Foundation
 import Combine
 
-// MARK: Albums
-
 public extension SpotifyAPI {
+    
+    // MARK: Albums
     
     /**
      Get an album.
@@ -35,7 +35,7 @@ public extension SpotifyAPI {
         do {
             
             let albumId = try SpotifyIdentifier(
-                uri: album, ensureTypeMatches: [.album]
+                uri: album, ensureCategoryMatches: [.album]
             ).id
             
             return self.getRequest(
@@ -86,7 +86,7 @@ public extension SpotifyAPI {
             
             let albumsIdsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
-                    albums, ensureTypeMatches: [.album]
+                    albums, ensureCategoryMatches: [.album]
                 )
             
             return self.getRequest(
@@ -145,7 +145,7 @@ public extension SpotifyAPI {
         do {
             
             let albumId = try SpotifyIdentifier(
-                uri: album, ensureTypeMatches: [.album]
+                uri: album, ensureCategoryMatches: [.album]
             ).id
             
             return self.getRequest(

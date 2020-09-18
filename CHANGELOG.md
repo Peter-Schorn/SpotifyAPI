@@ -3,6 +3,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2020-09-17
+
+All of the Spotify web API endpoints are now supported!
+
+### Added
+
+- Added the following endpoints:
+  - `category(_:country:locale:)` - Get a Spotify Category
+  - `categories(country:locale:limit:offset:)` - Get a list of categories used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).
+  - `categoryPlaylists(_:country:limit:offset:)` - Get a list of Spotify playlists tagged with a particular category.
+  - `featuredPlaylists(locale:country:timestamp:limit:offset:)` - Get a list of featured playlists (shown, for example, on a Spotify player’s “Browse” tab).
+  - `newAlbumReleases(country:limit:offset:)` - Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
+  - `recommendations(_:limit:market:)` - Get Recommendations Based on Seeds.
+  - `recommendationGenres()` - Retrieve a list of available genres seeds for recommendations.
+- Added `genre` to `IDCategory`
+
+### Changed
+- Made all the properties of all public objects used in post/put requests (as opposed to objected *returned* by Spotify) mutable. These objects are:
+  - `AttributeRange`
+  - `TrackAttributes`
+  - `PlaybackRequest`
+  - `PlaylistDetails`
+  - `ReorderPlaylistItems`
+  - `URIsWithPositionsContainer`
+  - `URIWithPositions`
+- `SpotifyIdentifier` has much more descriptive error messages when identifiers cannot be parsed and improved documentation.
+
 ## [0.2.0] - 2020-09-15
 
 ### Changed
