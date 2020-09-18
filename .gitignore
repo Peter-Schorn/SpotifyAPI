@@ -1,6 +1,5 @@
 .DS_Store
 /.build
 /Packages
-/*.xcodeproj
-.swiftpm/xcode/xcuserdata/**
+.swiftpm/xcode/xcuserdata/
 .jazzy.yaml
