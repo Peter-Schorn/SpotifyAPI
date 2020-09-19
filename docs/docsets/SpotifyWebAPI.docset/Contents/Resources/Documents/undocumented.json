@@ -58,14 +58,14 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Music Objects/Track.swift",
-      "line": 146,
+      "line": 154,
       "symbol": "Track.init(name:album:artists:uri:id:isLocal:popularity:durationMS:trackNumber:isExplicit:isPlayable:href:previewURL:externalURLs:externalIds:availableMarkets:linkedFrom:restrictions:discNumber:type:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Music Objects/Track.swift",
-      "line": 193,
+      "line": 201,
       "symbol": "Track.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
