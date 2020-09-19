@@ -7,7 +7,7 @@ extension SpotifyAPI {
     // MARK: Wrappers
     
     /**
-     Refreshes the tokens if they are expired and ensures that
+     Refreshes the access token if it is expired and ensures that
      the application is authorized for the specified scopes.
      
      - Parameter scopes: A set of Spotify authorization scopes.
@@ -216,11 +216,10 @@ extension SpotifyAPI {
      "https://api.spotify.com/v1"
      ```
      
-     A closure that accepts the access token must be used
-     to make the headers because the access token will not
-     be accessed until a call to `self.refreshAccessToken(onlyIfExpired: true)`
-     is made. This function may return a new access token, which will then
-     be used in the headers.
+     A closure that accepts the access token must be used to make the headers
+     because the access token will not be accessed until a call to
+     `self.refreshAccessToken(onlyIfExpired: true)` is made. This function may
+     return a new access token, which will then be used in the headers.
     
      - Parameters:
        - path: The path to the endpoint, which will be appended to the

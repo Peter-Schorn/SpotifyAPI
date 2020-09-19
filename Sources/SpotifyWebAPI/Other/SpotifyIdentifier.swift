@@ -30,7 +30,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      - Returns: A comma-separated string of Ids.
      */
     public static func commaSeparatedIdsString<S: Sequence>(
-        _ uris: S, ensureCategoryMatches categories: [IDCategory]? = nil
+        _ uris: S,
+        ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
         return try uris.map { uri in
@@ -39,6 +40,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             ).id
         }
         .joined(separator: ",")
+        
     }
     
     
@@ -70,15 +72,11 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
      */
     public var url: URL? {
-        guard let url =  URL(
+        return URL(
             scheme: "https",
             host: "open.spotify.com",
             path: "/\(idCategory.rawValue)/\(id)"
         )
-        else {
-            return nil
-        }
-        return url
     }
 
     /**
@@ -100,7 +98,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      Creates an instance from a URI. See [spotify URIs and ids][1].
     
      Uses the following regular expression to parse the id and id categories,
-     in that order:
+     *in that order*:
      ```
      "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
      ```
@@ -177,7 +175,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      The first path component must be the id category. It must match
      one of the raw values of `IDCategory`. The second path component must
      be the id of the content. All additional path components and/or query
-     parameters are ignored.
+     parameters, if present, are ignored.
      
      For example:
      ```
@@ -186,7 +184,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      - Parameter url: A URL that, when opened, displays the content in the
            web player.
-     - Throws: If the id and id category of the content could not be parsed
+     - Throws: If the id and/or id category of the content could not be parsed
            from the URL.
      
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

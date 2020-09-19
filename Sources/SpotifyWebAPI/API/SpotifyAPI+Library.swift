@@ -22,7 +22,7 @@ private extension SpotifyAPI where
                 path: path,
                 queryItems: ["ids": idsString],
                 httpMethod: "PUT",
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 bodyData: nil as Data?,
                 requiredScopes: [.userLibraryModify]
             )

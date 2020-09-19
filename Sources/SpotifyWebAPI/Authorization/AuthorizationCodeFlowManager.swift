@@ -332,7 +332,7 @@ public extension AuthorizationCodeFlowManager {
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
-                "show_dialog": "\(showDialog)",
+                "show_dialog": showDialog,
                 "state": state
             ])
         )
@@ -347,7 +347,7 @@ public extension AuthorizationCodeFlowManager {
      and the user either authorizes or denies authorization for your app,
      Spotify will redirect to the redirect URI you specified with query
      parameters appended to it. Pass this URL into this method to request
-     access and refresh tokens. The access token is required in all endpoints,
+     access and refresh tokens. The access token is required for all endpoints,
      even those that do not access user data.
      
      If the user denied your app's authorization request or the request failed
@@ -360,7 +360,8 @@ public extension AuthorizationCodeFlowManager {
        - state: The value of the state parameter that you provided when
              making the authorization URL. **If the state parameter in**
              redirectURIWithQuery **doesn't match this value, then an error will**
-             **be thrown.**
+             **be thrown.** If `nil`, then the state parameter must not be present
+             in the redirect URI, otherwise an error will be thrown.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      

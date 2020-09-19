@@ -26,9 +26,10 @@ public enum Headers {
     
     /// The bearer authorization and accept application JSON headers.
     ///
-    /// See `acceptApplicationJSON` and `bearerAuthorization(_:)`.
+    /// Equivalent to `bearerAuthorization(accessToken) + acceptApplicationJSON`
+    ///
     /// - Parameter accessToken: The access token from Spotify.
-    public static func bearerAuthorizationAndacceptApplicationJSON(
+    public static func bearerAuthorizationAndAcceptApplicationJSON(
         _ accessToken: String
     ) -> [String: String] {
         return bearerAuthorization(accessToken) + acceptApplicationJSON

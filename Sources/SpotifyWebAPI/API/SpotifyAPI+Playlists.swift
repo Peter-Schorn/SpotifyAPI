@@ -23,7 +23,7 @@ private extension SpotifyAPI {
                 path: "/playlists/\(playlistId)/tracks",
                 queryItems: queryItems,
                 httpMethod: httpMethod,
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 body: body,
                 requiredScopes: requiredScopes
             )
@@ -189,12 +189,12 @@ public extension SpotifyAPI {
      * `playlistItems(_:limit:offset:market:)`
      * `filteredPlaylistRequest(_:fields:additionalTypes:market:)`
      
-     In contrast to the above methods, additional data about the
-     playlist itself will be retrieved, including its name and any
-     images associated with it. See also `getPlaylistCoverImage(_:)`.
-     
-     No scopes are required for this endpoint. Both Public and
-     Private playlists belonging to any user can be retrieved.
+     In contrast to the above methods, additional data about the playlist itself will
+     be retrieved, including its name and any images associated with it. See also
+     `getPlaylistCoverImage(_:)`.
+
+     No scopes are required for this endpoint. Both Public and Private playlists
+     belonging to any user can be retrieved.
      
      # Returns:
      ```
@@ -624,7 +624,7 @@ public extension SpotifyAPI where
                 path: "/users/\(userId)/playlists",
                 queryItems: [:],
                 httpMethod: "POST",
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 body: playlistDetails,
                 requiredScopes: []
             )
@@ -792,7 +792,7 @@ public extension SpotifyAPI where
                 path: "/playlists/\(playlistId)",
                 queryItems: [:],
                 httpMethod: "PUT",
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 body: newDetails,
                 requiredScopes: []
             )

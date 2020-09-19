@@ -11,19 +11,17 @@ public struct Track: Hashable {
     /**
      The album on which the track appears.
      
-     The simplified version will be returned.
-     The album object includes a link in href
-     to full information about the album.
+     The simplified version will be returned. The album object includes a link in
+     href to full information about the album.
      
      Only available for the full track object.
      */
     public let album: Album?
 
-    /// The artists who performed the track.
-    /// The simplified versions will be returned.
+    /// The artists who performed the track. The simplified versions will be returned.
     ///
-    /// Each artist object includes a link in href
-    /// to more detailed information about the artist.
+    /// Each artist object includes a link in href to more detailed information about
+    /// the artist.
     public let artists: [Artist]?
     
     /// The [Spotify URI][1] for the track.
@@ -47,20 +45,16 @@ public struct Track: Hashable {
     /**
      The popularity of the track.
      
-     The value will be between 0 and 100, with 100 being the most popular.
-     The popularity of a track is a value between 0 and 100,
-     with 100 being the most popular.
-     The popularity is calculated by algorithm and is based,
-     in the most part, on the total number of plays the track
-     has had and how recent those plays are.
-     Generally speaking, songs that are being played a lot
-     now will have a higher popularity than songs that were played
-     a lot in the past. Duplicate tracks (e.g. the same track from
-     a single and an album) are rated independently.
-     Artist and album popularity is derived mathematically
-     from track popularity. Note that the popularity value
-     may lag actual popularity by a few days:
-     the value is not updated in real time.
+     The value will be between 0 and 100, with 100 being the most popular. The
+     popularity of a track is a value between 0 and 100, with 100 being the most
+     popular. The popularity is calculated by algorithm and is based, in the most
+     part, on the total number of plays the track has had and how recent those plays
+     are. Generally speaking, songs that are being played a lot now will have a
+     higher popularity than songs that were played a lot in the past. Duplicate
+     tracks (e.g. the same track from a single and an album) are rated independently.
+     Artist and album popularity is derived mathematically from track popularity.
+     Note that the popularity value may lag actual popularity by a few days: the
+     value is not updated in real time.
      
      Only available for the full track object.
      */
@@ -122,21 +116,19 @@ public struct Track: Hashable {
     /**
      Part of the response when [Track Relinking][1] is applied,
      and the requested track has been replaced with different track.
-     The track link contains
-     information about the originally requested track.
+     The track link contains information about the originally requested track.
     
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public let linkedFrom: TrackLink?
     
     /**
-     Part of the response when [Track Relinking][1] is applied,
-     the original track is not available in the given market,
-     and Spotify did not have any tracks to relink it with.
+     Part of the response when [Track Relinking][1] is applied, the original track is
+     not available in the given market, and Spotify did not have any tracks to relink
+     it with.
      
-     The track response will still contain metadata for
-     the original track, and a restrictions object
-     containing the reason why the track is not available:
+     The track response will still contain metadata for the original track, and a
+     restrictions object containing the reason why the track is not available:
      `{"reason" : "market"}`.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/

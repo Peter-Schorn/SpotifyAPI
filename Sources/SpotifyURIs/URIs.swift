@@ -14,8 +14,8 @@ public extension SpotifyURIConvertibleEnum {
     var uri: String { self.rawValue }
     
     @inlinable
-    static func array(_ items: Self...) -> [SpotifyURIConvertible] {
-        return items
+    static func array(_ items: Self...) -> [String] {
+        return items.map(\.uri)
     }
     
 }
@@ -98,7 +98,7 @@ public enum URIs {
         case seanCarroll112 = "spotify:episode:5LEFdZ9pYh99wSz7Go2D0g"
         case seanCarroll111 = "spotify:episode:0Bbtb2VFGYAl54Enix23Qd"
         
-        /// Miley Cyrus
+        /// Miley Cyrus.
         case joeRogan1531 = "spotify:episode:0ZEDvQuPtAEBnXE37slSoX"
     }
     

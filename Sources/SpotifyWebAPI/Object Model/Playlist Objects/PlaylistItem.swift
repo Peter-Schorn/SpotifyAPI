@@ -22,7 +22,7 @@ public enum PlaylistItem: Hashable {
     /// An episode in this `PlaylistItem`.
     case episode(Episode)
     
-    /// The name of the item
+    /// The name of the item.
     @inlinable
     public var name: String {
         switch self {
@@ -82,11 +82,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// Part of the response when [Track Relinking][1] is applied.
-    /// Else, `nil`. If `true`, the item is playable in the given market.
-    /// Otherwise, `false`.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+    /// If `true`, the item is playable in the given market. Otherwise, `false`.
     @inlinable
     public var isPlayable: Bool? {
         switch self {
@@ -98,11 +94,10 @@ public enum PlaylistItem: Hashable {
     }
     
     /**
-     A link to the Spotify web API endpoint
-     providing the full version of the item.
+     A link to the Spotify web API endpoint providing the full version of the
+     item.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the
-     full results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the full results.
      */
     @inlinable
     public var href: String? {

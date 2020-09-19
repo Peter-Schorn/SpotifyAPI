@@ -63,7 +63,7 @@ private extension SpotifyAPI where
                 path: "/me/following",
                 queryItems: ["type": type.rawValue],
                 httpMethod: httpMethod,
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 body: ["ids": idsString],
                 requiredScopes: [.userFollowModify]
             )
@@ -356,7 +356,7 @@ public extension SpotifyAPI where
                 path: "/playlists/\(playlistId)/followers",
                 queryItems: [:],
                 httpMethod: "PUT",
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 body: ["public": publicly],
                 requiredScopes: []
             )
@@ -415,7 +415,7 @@ public extension SpotifyAPI where
                 path: "/playlists/\(playlistId)/followers",
                 queryItems: [:],
                 httpMethod: "DELETE",
-                makeHeaders: Headers.bearerAuthorizationAndacceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
                 bodyData: nil as Data?,
                 requiredScopes: []
             )

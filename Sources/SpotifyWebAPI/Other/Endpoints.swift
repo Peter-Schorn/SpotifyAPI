@@ -34,6 +34,8 @@ enum Endpoints {
     static let authorize = "/authorize"
     
     /// The path for requesting tokens.
+    ///
+    /// See also `getTokens`.
     /// ```
     /// "/api/token"
     /// ```
