@@ -9,6 +9,8 @@ public extension SpotifyAPI where
     /**
      Get the user's available devices.
      
+     Note that an available device is not the same as an active device.
+     
      This endpoint requires the `userReadPlaybackState` scope.
 
      This endpoint can be used to determine which devices
@@ -44,6 +46,8 @@ public extension SpotifyAPI where
     /**
      Get information about the user's current playback, including
      the currently playing track or episode, progress, and active device.
+
+     See also `availableDevices()` and `recentlyPlayed(_:limit:)`.
      
      This endpoint requires the `userReadPlaybackState` scope.
 
@@ -55,23 +59,35 @@ public extension SpotifyAPI where
      * The progress into the currently playing track/episode
      * The current shuffle and repeat state
      
+     The information returned is for the last known state, which means an inactive
+     device could be returned if it was the last one to execute playback. When no
+     available devices are found, `nil` is returned. Always use `availableDevices()`
+     instead if you just need to get the available devices. Note that an available
+     device is not the same as an active device.
+     
+     - Note: Testing suggets that if the user is playing an episode,
+           then the `item` and `context` properties of `CurrentlyPlayingContext`
+           will be `nil`.
+     
      Read more at the [Spotify web API reference][1].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-information-about-the-users-current-playback/
      */
-    func currentPlayback() -> AnyPublisher<CurrentlyPlayingContext, Error> {
+    func currentPlayback() -> AnyPublisher<CurrentlyPlayingContext?, Error> {
         
         return self.getRequest(
             path: "/me/player",
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .decodeSpotifyObject(CurrentlyPlayingContext.self)
+        .decodeSpotifyObject(CurrentlyPlayingContext?.self)
         
     }
  
     /**
      Get the current user's recently played tracks.
+     
+     See also `availableDevices()` and `currentPlayback()`.
      
      This endpoint requires the `userReadRecentlyPlayed` scope.
      
@@ -435,7 +451,6 @@ public extension SpotifyAPI where
         .eraseToAnyPublisher()
 
     }
-    
     
     /**
      Seek to position in the currently playing track/episode.

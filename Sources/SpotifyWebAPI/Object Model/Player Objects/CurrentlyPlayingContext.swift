@@ -23,10 +23,15 @@ public struct CurrentlyPlayingContext: Hashable {
     /// `true` if shuffle mode is on; else, `false`.
     public let shuffleIsOn: Bool
     
-    /// The context of the user's playback.
-    ///
-    /// Can be `nil`. For example, If the user has a private
-    /// session enabled, then this will be `nil`.
+    /**
+     The context of the user's playback.
+    
+     Can be `nil`. For example, If the user has a private
+     session enabled, then this will be `nil`.
+     
+     - Note: Testing suggets that if the user is playing an episode,
+           then this will be `nil`.
+     */
     public let context: SpotifyContext?
     
     /// The date the data was fetched (converted from a Unix
@@ -51,6 +56,9 @@ public struct CurrentlyPlayingContext: Hashable {
     
      Can be `nil`. For example, If the user has a private
      session enabled, then this will be `nil`.
+     
+     - Note: Testing suggets that if the user is playing an episode,
+           then this will be `nil`.
      */
     public let item: PlaylistItem?
     
