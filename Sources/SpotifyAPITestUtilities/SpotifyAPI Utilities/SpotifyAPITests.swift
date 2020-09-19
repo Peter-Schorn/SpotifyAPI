@@ -1,4 +1,3 @@
-#if canImport(XCTest)
 import Foundation
 import XCTest
 import Combine
@@ -12,4 +11,3 @@ public protocol SpotifyAPITests: XCTestCase {
     static var spotify: SpotifyAPI<AuthorizationManager> { get }
     static var cancellables: Set<AnyCancellable> { get set }
 }
-#endif

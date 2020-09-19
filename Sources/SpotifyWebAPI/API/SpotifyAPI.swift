@@ -171,6 +171,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
 }
 
+// MARK: - Testing -
+
 extension SpotifyAPI {
     
     /// This function has no stable API and may change arbitrarily.
@@ -184,6 +186,11 @@ extension SpotifyAPI {
         AuthorizationCodeFlowManager.logger.level = .trace
         ClientCredentialsFlowManager.logger.level = .trace
         CurrentlyPlayingContext.logger.level = .trace
+        
+        for logger in Logger.allLoggers {
+            logger.logMsgFormatter =
+                    assertOnCriticalLogMessageFormatter
+        }
         
     }
     

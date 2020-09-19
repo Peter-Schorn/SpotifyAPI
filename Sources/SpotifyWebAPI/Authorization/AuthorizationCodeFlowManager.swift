@@ -5,15 +5,6 @@ import Logger
 /**
  Manages the authorization process for the [Authorization Code Flow][1].
  
- Contains the following properties:
- 
- * The client id
- * The client secret
- * The access token
- * The refresh token
- * The expiration date for the access token
- * The scopes that have been authorized for the access token
- 
  The first step in the authorization code flow is to make the
  authorization URL using
  `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
@@ -34,6 +25,15 @@ import Logger
  Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
  and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
  which are immutable.
+ 
+ Contains the following properties:
+ 
+ * The client id
+ * The client secret
+ * The access token
+ * The refresh token
+ * The expiration date for the access token
+ * The scopes that have been authorized for the access token
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */

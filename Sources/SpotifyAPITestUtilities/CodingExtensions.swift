@@ -1,4 +1,3 @@
-#if canImport(XCTest)
 import Foundation
 import SpotifyWebAPI
 import XCTest
@@ -143,4 +142,3 @@ public func decodeEncodeDecode<T: Codable & Equatable>(
     }
     
 }
-#endif

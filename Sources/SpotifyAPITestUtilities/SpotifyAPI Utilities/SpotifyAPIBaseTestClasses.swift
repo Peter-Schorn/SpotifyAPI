@@ -1,4 +1,3 @@
-#if canImport(XCTest)
 import Foundation
 import Combine
 import XCTest
@@ -54,4 +53,4 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
     }
     
 }
-#endif
+

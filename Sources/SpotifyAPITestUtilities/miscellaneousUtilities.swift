@@ -1,7 +1,7 @@
-#if canImport(XCTest)
+
 import Foundation
 import Combine
-
+import Logger
 import XCTest
 
 /// Assert that a url exists by making a data task request
@@ -37,4 +37,3 @@ public extension StringProtocol {
     }
 
 }
-#endif

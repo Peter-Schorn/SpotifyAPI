@@ -1,4 +1,3 @@
-#if canImport(XCTest)
 import Foundation
 import Combine
 import XCTest
@@ -36,4 +35,3 @@ public extension Publisher {
     }
 
 }
-#endif
