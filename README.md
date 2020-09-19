@@ -8,6 +8,14 @@ Read the full [documentation][1]. Additional Information is available on the wik
 * **[Authorizing with the Authorization Code Flow][9]**  
 * **[Authorizing with the Client Credentials Flow][10]**
 
+## Installation
+
+1. In Xcode, open the project that you want to add this package to.
+2. From the menu bar, select File > Swift Packages > Add Package Dependency...
+3. Paste the [url](https://github.com/Peter-Schorn/SpotifyAPI.git) for this repository into the search field.
+5. Select the `SpotifyAPI` Library.
+4. Follow the prompts for adding the package.
+
 ## Quick Start
 
 To get started, go to the [Spotify Developer Dashboard][2] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app.
