@@ -1,0 +1,116 @@
+module: SpotifyWebAPI
+
+skip_undocumented: true
+
+exclude:
+  - "Sources/SpotifyWebAPI/URLExtensions/*"
+  - "Sources/SpotifyWebAPI/Other/ApproximateEquality.swift"
+  - "Sources/SpotifyWebAPI/Other/CodingExtensions.swift"
+  - "Sources/SpotifyWebAPI/Other/DateExtensions.swift"
+  - "Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift"
+  - "Sources/SpotifyWebAPI/Other/MiscellaneousUtilities.swift"
+  - "Sources/SpotifyWebAPI/Publisher Extensions/LogOutputOperators.swift"
+  - "Sources/SpotifyWebAPI/Other/Headers.swift"
+  
+custom_categories:
+
+  - name: SpotifyAPI
+    children:
+    - SpotifyAPI
+    
+  - name: Authorization
+    children:
+    - AuthorizationCodeFlowManager
+    - ClientCredentialsFlowManager
+    - Scope
+    - SpotifyAuthorizationManager
+    - SpotifyScopeAuthorizationManager
+    
+  - name: Publisher Extensions
+    children:
+    - Publisher
+    - Error
+    - decodeSpotifyErrors(data:httpURLResponse:)
+    - decodeSpotifyObject(data:httpURLResponse:responseType:)
+    
+  - name: Errors
+    children:
+    - SpotifyError
+    - SpotifyLocalError
+    - RateLimitedError
+    - SpotifyAuthenticationError
+    - SpotifyAuthorizationError
+    - SpotifyDecodingError
+    
+  - name: Protocols
+    children:
+    - Paginated
+    - SpotifyURIConvertible
+    
+  - name: Music
+    children:
+    - Album
+    - Artist
+    - Track
+    
+  - name: Playlist
+    children:
+    - Playlist
+    - PlaylistItem
+    - PlaylistItemContainer
+    - PlaylistsItemsReference
+      
+  - name: Player
+    children:
+    - Device
+    - DeviceType
+    - CurrentlyPlayingContext
+    - SpotifyContext
+    - PlaybackActions
+    - PlayHistory
+    - ResumePoint
+    - RepeatMode
+    
+  - name: Podcast
+    children:
+    - Episode
+    - Show
+    
+  - name: Post Requests
+    children:
+    - PlaybackRequest
+    - ContextOption
+    - OffsetOption
+    - PlaylistDetails
+    - ReorderPlaylistItems
+    - TimeReference
+    - URIWithPositions
+    - URIsWithPositionsContainer
+    
+  - name: Audio Analysis
+    children:
+    - AudioAnalysis
+    - AudioFeatures
+    - Section
+    - Segment
+    - SpotifyTimeInterval
+    
+  - name: Type Aliases
+    children:
+    - PlaylistTracks
+    - PlaylistItems
+    
+  - name: Other Objects
+    children:
+    - PagingObject
+    - SavedItem
+    - SearchResult
+    - SpotifyImage
+    - SpotifyUser
+    - Followers
+    - CursorPagingObject
+    - SpotifyCursor
+    - TrackLink
+    - SpotifyCopyright
+    - AlbumGroup
+    

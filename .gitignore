@@ -2,4 +2,3 @@
 /.build
 /Packages
 .swiftpm/xcode/xcuserdata/
-.jazzy.yaml
