@@ -15,10 +15,10 @@ Read the full [documentation][1] and check out [this example app][14]. Additiona
 
 ## Supported Platforms
 
-* iOS 13
-* macOS 10.15
-* tvOS 13
-* watchOS 6
+* iOS 13+
+* macOS 10.15+
+* tvOS 13+
+* watchOS 6+
 
 ## Installation
 
