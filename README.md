@@ -7,6 +7,7 @@ Read the full [documentation][1] and check out [this example app][14]. Additiona
 
 ## Table of Contents
 
+* **[Supported Platforms](#supported-platforms)
 * **[Installation](#installation)**
 * **[Quick Start](#quick-start)**
 * **[Authorizing with the Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**  
