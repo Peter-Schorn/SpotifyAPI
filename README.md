@@ -2,11 +2,15 @@
 
 **A Swift library for the Spotify web API**
 
-Read the full [documentation][1]. Additional Information is available on the wiki page.
+Read the full [documentation][1]. Additional Information is available on the [wiki page](https://github.com/Peter-Schorn/SpotifyAPI/wiki), such as:
+* [Saving Authorization Information to Persistent Storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.)
 
-* **[Quick Start][11]**
-* **[Authorizing with the Authorization Code Flow][9]**  
-* **[Authorizing with the Client Credentials Flow][10]**
+## Table of Contents
+
+* **[Installation](#installation)**
+* **[Quick Start](#quick-start)**
+* **[Authorizing with the Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**  
+* **[Authorizing with the Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**
 
 ## Installation
 
