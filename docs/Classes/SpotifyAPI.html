@@ -2912,9 +2912,9 @@ set of playlists.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF"></a>
-                    <a name="//apple_ref/swift/Method/search(query:types:market:limit:offset:includeExternal:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:<wbr>types:<wbr>market:<wbr>limit:<wbr>offset:<wbr>includeExternal:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0aC0C6search5query10categories6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF"></a>
+                    <a name="//apple_ref/swift/Method/search(query:categories:market:limit:offset:includeExternal:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6search5query10categories6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:<wbr>categories:<wbr>market:<wbr>limit:<wbr>offset:<wbr>includeExternal:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2980,7 +2980,7 @@ around the genre keyword string if it contains spaces.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">search</span><span class="p">(</span>
     <span class="nv">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
+    <span class="nv">categories</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -3008,13 +3008,14 @@ around the genre keyword string if it contains spaces.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>types</em>
+                                <em>categories</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Required</em>. An array of id categories. Valid types: <code>album</code>,
-<code>artist</code>, <code>playlist</code>, <code>track</code>, <code>show</code>, <code>episode</code>.</p>
+                                  <p><em>Required</em>. An array of id categories.
+Valid types: <code>album</code>, <code>artist</code>, <code>playlist</code>, <code>track</code>,
+<code>show</code>, <code>episode</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3096,11 +3097,49 @@ content is filtered out from responses.</p>
                         <h4>Return Value</h4>
                         <p>A <code><a href="../Structs/SearchResult.html">SearchResult</a></code>. The <code>albums</code>, <code>artist</code>, <code>playlists</code>,
   <code>tracks</code>, <code>shows</code>, and <code>episodes</code> properties of this struct will
-  be non-nil for each of the types that were requested from the
-  <code>search</code> endpoint. If no results were found for a type, then the
+  be non-nil for each of the categories that were requested from the
+  <code>search</code> endpoint. If no results were found for a category, then the
   <code>items</code> property of the property&rsquo;s paging object will be empty;
-  the property itself will only be nil if it was not requested in the
-  search. The simplified versions of all these objects will be returned.</p>
+  the property itself will only be nil if the category was not requested
+  in the search. The simplified versions of all these objects will be
+  returned.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF"></a>
+                    <a name="//apple_ref/swift/Method/search(query:types:market:limit:offset:includeExternal:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:<wbr>types:<wbr>market:<wbr>limit:<wbr>offset:<wbr>includeExternal:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This function has been renamed to
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6search5query10categories6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:categories:market:limit:offset:includeExternal:)</a></code>.
+The &ldquo;types&rdquo; paramater was renamed to &ldquo;categories&rdquo;.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"search(query:categories:market:limit:offset:includeExternal:﹚"</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">search</span><span class="p">(</span>
+    <span class="nv">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">includeExternal</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SearchResult.html">SearchResult</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -7460,7 +7499,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-19)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

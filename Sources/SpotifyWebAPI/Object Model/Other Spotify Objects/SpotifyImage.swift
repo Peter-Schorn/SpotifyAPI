@@ -13,11 +13,18 @@ typealias PlatformImage = UIImage
 #endif
 
 
-/// A Spotify [image object][1].
-///
-/// Includes the URL to the image and its height and width.
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
+/**
+ A Spotify [image object][1].
+
+ Includes the URL to the image and its height and width.
+ 
+  - Warning: If this image belongs to a playlist, then the URL is
+        temporary and will expire in less than a day. Use
+        `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive the image
+        for a playlist.
+ 
+ [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
+ */
 public struct SpotifyImage: Codable, Hashable {
     
     /// The image height in pixels.
@@ -27,11 +34,14 @@ public struct SpotifyImage: Codable, Hashable {
     /// May be `nil`, especially if uploaded by the user.
     public let width: Int?
     
-    /// The source URL of the image.
-    ///
-    /// - Warning: If this image belongs to a playlist,
-    ///   then this it is temporary and will expire in less
-    ///   than a day.
+    /**
+     The source URL of the image.
+    
+     - Warning: If this image belongs to a playlist, then it is
+           temporary and will expire in less than a day. Use
+           `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive the image
+           for a playlist.
+     */
     public let url: String
 
     public init(height: Int?, width: Int?, url: String) {
@@ -45,13 +55,13 @@ public struct SpotifyImage: Codable, Hashable {
 public extension SpotifyImage {
     
     /// Loads the image from `url`.
-    /// Throws if the URL cannot be converted to
+    /// Fails if `url` cannot be converted to
     /// `URL` or the data cannot be converted to `Image`.
     func load() -> AnyPublisher<Image, Error> {
         
         guard let imageURL = URL(string: url) else {
             return SpotifyLocalError.other(
-                "couldn't convert string to url: '\(url)'"
+                "couldn't convert string to URL: '\(url)'"
             )
             .anyFailingPublisher(Image.self)
             

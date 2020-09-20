@@ -130,7 +130,7 @@ See the full documentation for [authorize][13].
 
 Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
 ```swift
-spotify.search(query: "Pink Floyd", types: [.track])
+spotify.search(query: "Pink Floyd", categories: [.track])
     .sink(
         receiveCompletion: { completion in
             print(completion)

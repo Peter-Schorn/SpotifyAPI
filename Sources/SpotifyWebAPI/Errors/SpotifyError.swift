@@ -21,7 +21,7 @@ public struct SpotifyError: LocalizedError, Hashable {
     public let statusCode: Int
     
     public var errorDescription: String? {
-        "\(message) (status code: \(statusCode)"
+        "\(message) (status code: \(statusCode))"
     }
     
     

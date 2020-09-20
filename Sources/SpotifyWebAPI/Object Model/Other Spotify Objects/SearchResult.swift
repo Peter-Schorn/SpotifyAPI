@@ -20,19 +20,19 @@ import Foundation
  
  If no results were found for a type, then the `items` property of the
  property's paging object will be empty; the property itself will only
- be nil if it was not requested in the search.
+ be `nil` if it was not requested in the search.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
  */
 public struct SearchResult: Hashable {
  
-    /// A `PagingObject` containing full `artist` objects.
+    /// A `PagingObject` containing full `Artist` objects.
     public let artists: PagingObject<Artist>?
 
-    /// A `PagingObject` containing simplified `album` objects.
+    /// A `PagingObject` containing simplified `Album` objects.
     public let albums: PagingObject<Album>?
 
-    /// A `PagingObject` containing full `artist` objects.
+    /// A `PagingObject` containing full `Track` objects.
     public let tracks: PagingObject<Track>?
     
     /// A `PagingObject` containing simplified `Playlist` objects.

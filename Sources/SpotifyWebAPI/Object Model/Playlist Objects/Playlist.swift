@@ -88,7 +88,7 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
     public let uri: String
     
     /**
-     Images for the playlist.
+     The Images for the playlist.
      
      The array may be empty or contain up to three images.
      The images are returned by size in descending order.
@@ -99,6 +99,8 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
      
      - Warning: The urls of these images, if returned,
            are temporary and will expire in less than a day.
+           Use `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive
+           the image for a playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      */

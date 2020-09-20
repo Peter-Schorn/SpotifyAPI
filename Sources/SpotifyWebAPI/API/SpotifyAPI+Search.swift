@@ -62,8 +62,9 @@ public extension SpotifyAPI {
      
      - Parameters:
        - query: A query string.
-       - types: *Required*. An array of id categories. Valid types: `album`,
-             `artist`, `playlist`, `track`, `show`, `episode`.
+       - categories: *Required*. An array of id categories.
+             Valid types: `album`, `artist`, `playlist`, `track`,
+             `show`, `episode`.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
              or the string "from_token". If a country code is specified,
              only artists, albums, and tracks with content
@@ -93,11 +94,12 @@ public extension SpotifyAPI {
          content is filtered out from responses.
      - Returns: A `SearchResult`. The `albums`, `artist`, `playlists`,
            `tracks`, `shows`, and `episodes` properties of this struct will
-           be non-nil for each of the types that were requested from the
-           `search` endpoint. If no results were found for a type, then the
+           be non-nil for each of the categories that were requested from the
+           `search` endpoint. If no results were found for a category, then the
            `items` property of the property's paging object will be empty;
-           the property itself will only be nil if it was not requested in the
-           search. The simplified versions of all these objects will be returned.
+           the property itself will only be nil if the category was not requested
+           in the search. The simplified versions of all these objects will be
+           returned.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -105,7 +107,7 @@ public extension SpotifyAPI {
      */
     func search(
         query: String,
-        types: [IDCategory],
+        categories: [IDCategory],
         market: String? = nil,
         limit: Int? = nil,
         offset: Int? = nil,
@@ -114,15 +116,15 @@ public extension SpotifyAPI {
         
         do {
             
-            let validTypes: [IDCategory] = [
+            let validCategories: [IDCategory] = [
                 .album, .artist, .playlist, .track, .show, .episode
             ]
-            guard types.allSatisfy({ validTypes.contains($0) }) else {
+            guard categories.allSatisfy({ validCategories.contains($0) }) else {
                 throw SpotifyLocalError.other(
                     """
-                    Valid types for the search endpoint are \
-                    \(validTypes.map(\.rawValue)), \
-                    but recieved \(types.map(\.rawValue)).
+                    Valid categories for the search endpoint are \
+                    \(validCategories.map(\.rawValue)), \
+                    but recieved \(categories.map(\.rawValue)).
                     """
                 )
             }
@@ -134,7 +136,7 @@ public extension SpotifyAPI {
                 path: "/search",
                 queryItems: [
                     "q": query,
-                    "type": types.commaSeparatedString(),
+                    "type": categories.commaSeparatedString(),
                     "market": market,
                     "limit": limit,
                     "offset": offset,
@@ -151,5 +153,31 @@ public extension SpotifyAPI {
     }
     
     
+    /// This function has been renamed to
+    /// `search(query:categories:market:limit:offset:includeExternal:)`.
+    /// The "types" paramater was renamed to "categories".
+    @available(
+        *, deprecated,
+        renamed: "search(query:categories:market:limit:offset:includeExternal:)"
+    )
+    func search(
+        query: String,
+        types: [IDCategory],
+        market: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        includeExternal: String? = nil
+    ) -> AnyPublisher<SearchResult, Error> {
+        
+        return self.search(
+            query: query,
+            categories: types,
+            market: market,
+            limit: limit,
+            offset: offset,
+            includeExternal: includeExternal
+        )
+
+    }
     
 }

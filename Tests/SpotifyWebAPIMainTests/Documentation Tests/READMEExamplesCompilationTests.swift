@@ -89,7 +89,7 @@ private class READMEExamplesCompilationTests {
             })
             .store(in: &cancellables)
         
-        spotify.search(query: "Pink Floyd", types: [.track])
+        spotify.search(query: "Pink Floyd", categories: [.track])
             .sink(
                 receiveCompletion: { completion in
                     // print(completion)
