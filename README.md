@@ -151,6 +151,8 @@ You are also encouraged to read the [Spotify web API reference][12].
 
 [1]: https://peter-schorn.github.io/SpotifyAPI/
 [2]: https://developer.spotify.com/dashboard/login
+[3]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+[4]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
 [5]: https://developer.spotify.com/documentation/general/guides/scopes/
 [6]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VSgAK_SbSSSgShyAA5ScopeOGtF
 [7]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF
