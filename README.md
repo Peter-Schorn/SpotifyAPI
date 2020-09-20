@@ -12,6 +12,13 @@ Read the full [documentation][1] and check out [this example app][14]. Additiona
 * **[Authorizing with the Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**  
 * **[Authorizing with the Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**
 
+## Supported Platforms
+
+* iOS 13
+* macOS 10.15
+* tvOS 13
+* watchOS 6
+
 ## Installation
 
 1. In Xcode, open the project that you want to add this package to.
