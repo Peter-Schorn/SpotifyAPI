@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -32,11 +32,16 @@ let package = Package(
     targets: [
         .target(
             name: "SpotifyWebAPI",
-            dependencies: ["RegularExpressions", "Logger"]
+            dependencies: ["RegularExpressions", "Logger"],
+            exclude: ["README.md"]
         ),
         .target(
             name: "SpotifyExampleContent",
-            dependencies: ["SpotifyWebAPI"]
+            dependencies: ["SpotifyWebAPI"],
+            exclude: ["README.md"],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .target(
             name: "SpotifyAPITestUtilities",
@@ -45,7 +50,8 @@ let package = Package(
                 "SpotifyExampleContent",
                 "RegularExpressions",
                 "Logger"
-            ]
+            ],
+            exclude: ["README.md"]
         ),
         
         // MARK: Test Targets

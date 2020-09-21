@@ -14,6 +14,7 @@ public extension SpotifyURIConvertibleEnum {
     var uri: String { self.rawValue }
     
     @inlinable
+    /// Creates an array of URIs.
     static func array(_ items: Self...) -> [String] {
         return items.map(\.uri)
     }
@@ -21,8 +22,6 @@ public extension SpotifyURIConvertibleEnum {
 }
 
 /// A namespace of Spotify content identifiers (mostly URIs).
-///
-/// This enum is only meant for testing purposes and has no stable API.
 public enum URIs {
     
     /// A namespace of Spotify users.

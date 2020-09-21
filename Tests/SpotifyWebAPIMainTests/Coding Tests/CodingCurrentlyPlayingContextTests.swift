@@ -22,7 +22,7 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
         
     }
     
-    static var currentlyPlayingData = """
+    static let currentlyPlayingData = """
         {
             "device": {
                 "id": "ced8d42d0a3830065dfbf4800352d23a96b76fd4",
