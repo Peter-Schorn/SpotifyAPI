@@ -72,6 +72,65 @@ public struct Segment: Hashable {
     /// following segment.
     public let loudnessEnd: Double?
 
+    /**
+     Crestes a [segment][1] of a track.
+     
+     - Parameters:
+       - start: The starting point (in seconds) of the segment.
+       - duration: The duration (in seconds) of the segment.
+       - confidence: The confidence, from 0.0 to 1.0, of the reliability of
+             the segmentation. Segments of the song which are difficult to
+             logically segment (e.g: noise) may correspond to low values in
+             this field.
+       - loudnessStart: The onset loudness of the segment in decibels (dB).
+             Combined with `loudnessMax` and `loudnessMaxTime`, these components
+             can be used to describe the “attack” of the segment.
+       - loudnessMax: The peak loudness of the segment in decibels (dB). Combined
+             with `loudnessStart` and `loudnessMaxTime`, these components can be
+             used to describe the “attack” of the segment.
+       - loudnessMaxTime: The segment-relative offset of the segment peak loudness
+             in seconds. Combined with `loudnessStart` and `loudnessMax`, these
+             components can be used to describe the “attack” of the segment.
+       - pitches: A “chroma” vector representing the pitch content of the segment,
+             corresponding to the 12 pitch classes C, C#, D to B, with values
+             ranging from 0 to 1 that describe the relative dominance of every
+             pitch in the chromatic scale. More details about how to interpret
+             this vector can be found [here][2].
+       - timbre: Timbre is the quality of a musical note or sound that
+             distinguishes different types of musical instruments, or voices.
+             Timbre vectors are best used in comparison with each other. More
+             details about how to interpret this vector can be found [here][3].
+       - loudnessEnd: The offset loudness of the segment in decibels (dB).
+             This value should be equivalent to the `loudnessStart` of the
+             following segment.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object
+     [2]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch
+     [3]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#timbre
+     */
+    public init(
+        start: Double,
+        duration: Double,
+        confidence: Double,
+        loudnessStart: Double,
+        loudnessMax: Double,
+        loudnessMaxTime: Double,
+        pitches: [Double],
+        timbre: [Double],
+        loudnessEnd: Double?
+    ) {
+        self.start = start
+        self.duration = duration
+        self.confidence = confidence
+        self.loudnessStart = loudnessStart
+        self.loudnessMax = loudnessMax
+        self.loudnessMaxTime = loudnessMaxTime
+        self.pitches = pitches
+        self.timbre = timbre
+        self.loudnessEnd = loudnessEnd
+    }
+    
+
 }
 
 extension Segment: Codable {

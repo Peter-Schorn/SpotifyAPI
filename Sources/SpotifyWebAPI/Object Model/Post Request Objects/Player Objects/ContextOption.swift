@@ -18,7 +18,7 @@ public enum ContextOption {
     /**
      A URI for the context in which to play the content.
      
-     Must be one of the following types:
+     Must be one of the following categories:
      * Album
      * Artist
      * Playlist

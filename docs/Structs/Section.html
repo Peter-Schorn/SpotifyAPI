@@ -361,7 +361,7 @@
 e.g. chorus, verse, bridge, guitar solo, etc.</p>
 
 <p>Each section contains its own descriptions of tempo, key, mode,
-time_signature, and loudness.</p>
+time signature, and loudness.</p>
 
           </section>
           <section class="section task-group-section">
@@ -722,12 +722,234 @@ in this field.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI7SectionV5start8duration10confidence8loudness5tempo0I10Confidence3key0kJ04mode0lJ013timeSignature0mnJ0ACSd_S5dSiSdSiSdSiSdtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(start:duration:confidence:loudness:tempo:tempoConfidence:key:keyConfidence:mode:modeConfidence:timeSignature:timeSignatureConfidence:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7SectionV5start8duration10confidence8loudness5tempo0I10Confidence3key0kJ04mode0lJ013timeSignature0mnJ0ACSd_S5dSiSdSiSdSiSdtcfc">init(start:<wbr>duration:<wbr>confidence:<wbr>loudness:<wbr>tempo:<wbr>tempoConfidence:<wbr>key:<wbr>keyConfidence:<wbr>mode:<wbr>modeConfidence:<wbr>timeSignature:<wbr>timeSignatureConfidence:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#section-object">Section</a> object.</p>
+
+<p>Sections are defined by large variations in rhythm or timbre,
+e.g. chorus, verse, bridge, guitar solo, etc.</p>
+
+<p>Each section contains its own descriptions of tempo, key, mode,
+time signature, and loudness.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">start</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">duration</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">confidence</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">loudness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">tempo</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">tempoConfidence</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">key</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">keyConfidence</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">mode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">modeConfidence</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">timeSignature</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">timeSignatureConfidence</span><span class="p">:</span> <span class="kt">Double</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>start</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting point (in seconds) of the section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>duration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The duration (in seconds) of the section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>confidence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The confidence, from 0.0 to 1.0, of the reliability of
+the section’s “designation”.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>loudness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall loudness of the section in decibels (dB).
+Loudness values are useful for comparing relative loudness of
+sections within tracks.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tempo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall estimated tempo of the section in beats per
+minute (BPM). In musical terminology, tempo is the speed or
+pace of a given piece and derives directly from the average
+beat duration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tempoConfidence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The confidence, from 0.0 to 1.0, of the reliability
+of the <code><a href="../Structs/Section.html#/s:13SpotifyWebAPI7SectionV5tempoSdvp">tempo</a></code>. Some tracks contain tempo changes or sounds which
+don’t contain tempo (like pure speech) which would correspond to a
+low value in this field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The estimated overall key of the section. The values in this field
+ranging from 0 to 11 mapping to pitches using standard
+<a href="https://en.wikipedia.org/wiki/Pitch_class">Pitch Class notation</a> (E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on).
+If no key was detected, the value is -1.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyConfidence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The confidence, from 0.0 to 1.0, of the reliability of
+the <code><a href="../Structs/Section.html#/s:13SpotifyWebAPI7SectionV3keySivp">key</a></code>. Songs with many key changes may correspond to low values
+in this field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Indicates the modality (major or minor) of a track, the type of
+scale from which its melodic content is derived. This field will
+contain a 0 for “minor”, a 1 for “major”, or a -1 for no result.
+Note that the major key (e.g. C major) could more likely be confused
+with the minor key at 3 semitones lower (e.g. A minor) as both keys
+carry the same pitches.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modeConfidence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The confidence, from 0.0 to 1.0, of the reliability of
+the <code><a href="../Structs/Section.html#/s:13SpotifyWebAPI7SectionV4modeSivp">mode</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeSignature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An estimated overall time signature of a track.
+The time signature (meter) is a notational convention to specify
+how many beats are in each bar (or measure). The time signature
+ranges from 3 to 7 indicating time signatures of “3/4”, to “7/4”.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeSignatureConfidence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The confidence, from 0.0 to 1.0, of the
+reliability of the time_signature. Sections with time signature
+changes may correspond to low values in this field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

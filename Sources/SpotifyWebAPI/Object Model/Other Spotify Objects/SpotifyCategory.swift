@@ -6,7 +6,7 @@ import Foundation
  [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-category/#categoryobject
  */
 public struct SpotifyCategory: Codable, Hashable {
-
+    
     /// The name of the category.
     public let name: String
     
@@ -26,5 +26,30 @@ public struct SpotifyCategory: Codable, Hashable {
 
     /// The category icon, in various sizes.
     public let icons: [SpotifyImage]
+
+    /**
+     Creates a Spotify [category][1] object.
+     
+     - Parameters:
+       - name: The name of the category.
+       - id: The [ID][2] of the category.
+       - href: A link to the Spotify web API endpoint providing the
+             full category object.
+       - icons: The category icon, in various sizes.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-category/#categoryobject
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
+    public init(
+        name: String,
+        id: String,
+        href: String,
+        icons: [SpotifyImage]
+    ) {
+        self.name = name
+        self.id = id
+        self.href = href
+        self.icons = icons
+    }
 
 }

@@ -356,7 +356,7 @@
 
                 </div>
               </div>
-            <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object">image object</a>.</p>
+            <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object">image</a> object.</p>
 
 <p>Includes the URL to the image and its height and width.</p>
 <div class="aside aside-warning">
@@ -442,6 +442,8 @@ May be <code>nil</code>, especially if uploaded by the user.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The source URL of the image.</p>
+
+<p>Consider using <code>self.load()</code> to load the image.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     If this image belongs to a playlist, then it is
@@ -466,6 +468,80 @@ May be <code>nil</code>, especially if uploaded by the user.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AGSStcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(height:width:url:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AGSStcfc">init(height:<wbr>width:<wbr>url:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object">image</a> object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">width</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>height</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image height in pixels.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>width</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image width in pixels.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source URL of the image.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0A5ImageV4load7Combine12AnyPublisherVy7SwiftUI0D0Vs5Error_pGyF"></a>
                     <a name="//apple_ref/swift/Method/load()" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV4load7Combine12AnyPublisherVy7SwiftUI0D0Vs5Error_pGyF">load()</a>
@@ -476,9 +552,10 @@ May be <code>nil</code>, especially if uploaded by the user.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Loads the image from <code><a href="../Structs/SpotifyImage.html#/s:13SpotifyWebAPI0A5ImageV3urlSSvp">url</a></code>.
-Fails if <code><a href="../Structs/SpotifyImage.html#/s:13SpotifyWebAPI0A5ImageV3urlSSvp">url</a></code> cannot be converted to
-<code>URL</code> or the data cannot be converted to <code>Image</code>.</p>
+                        <p>Loads the image from <code>self.url</code>.</p>
+
+<p>Fails if <code>self.url</code> cannot be converted to <code>URL</code>, if the data
+cannot be converted to <code>Image</code>, or if some other network error occurs.</p>
 
                       </div>
                       <div class="declaration">
@@ -497,7 +574,7 @@ Fails if <code><a href="../Structs/SpotifyImage.html#/s:13SpotifyWebAPI0A5ImageV
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

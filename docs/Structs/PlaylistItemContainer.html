@@ -497,6 +497,96 @@ in this <code>PlaylistItemContainer</code>.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(addedAt:addedBy:isLocal:item:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxtcfc">init(addedAt:<wbr>addedBy:<wbr>isLocal:<wbr>item:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Holds a track or podcast episode that is contained
+in a playlist, as well as additional information about its relationship
+to the playlist. Spotify confusingly refers to this as a
+<a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object">playlist track object</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">addedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">addedBy</span><span class="p">:</span> <span class="kt"><a href="../Structs/SpotifyUser.html">SpotifyUser</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isLocal</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>addedAt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date and time the track or episode was added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>addedBy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Spotify user who added the track or episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isLocal</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether or not the item is from a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-track-object">local file</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Either a <code><a href="../Structs/Track.html">Track</a></code>, <code><a href="../Structs/Episode.html">Episode</a></code>, or <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code> (simplified version).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
@@ -551,7 +641,7 @@ in this <code>PlaylistItemContainer</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

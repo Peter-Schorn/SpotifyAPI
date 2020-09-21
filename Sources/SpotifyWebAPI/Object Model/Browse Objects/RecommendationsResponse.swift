@@ -14,7 +14,7 @@ public struct RecommendationsResponse: Codable, Hashable {
 
      Consider using the `seedArtists`, `seedTracks`, or `seedGenres`
      convenience properties.
-     
+      
      The seeds will be returned based on the `seedArtists`, `seedTracks`, and
      `seedGenres` parameters of `TrackAttributes`, *in that order*. They will
      then be ordered by the order of each artist, track, and genre URI/id
@@ -26,7 +26,7 @@ public struct RecommendationsResponse: Codable, Hashable {
      */
     public let seeds: [RecommendationSeed]
     
-    /// An array of simplified track objects ordered according to the parameters
+    /// An array of simplified track objects ordered a ccording to the parameters
     /// supplied.
     public let tracks: [Track]
     
@@ -45,5 +45,24 @@ public struct RecommendationsResponse: Codable, Hashable {
         return seeds.filter { $0.type == .genre }
     }
     
+    /**
+     A [Recommendations Response Object][1]. Returned by
+     `SpotifyAPI.recommendations(_:limit:market:)`. See also
+     `RecommendationSeed`.
+     
+     - Parameters:
+       - seeds: An array of [recomendation seed objects][2].
+       - tracks: An array of track objects.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendations-response-object
+     [2]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendation-seed-object
+     */
+    public init(
+        seeds: [RecommendationSeed],
+        tracks: [Track]
+    ) {
+        self.seeds = seeds
+        self.tracks = tracks
+    }
 
 }

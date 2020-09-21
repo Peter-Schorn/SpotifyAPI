@@ -405,8 +405,7 @@
                       <div class="abstract">
                         <p>The album on which the track appears.</p>
 
-<p>The simplified version will be returned. The album object includes a link in
-href to full information about the album.</p>
+<p>The simplified version will be returned.</p>
 
 <p>Only available for the full track object.</p>
 
@@ -492,7 +491,7 @@ the artist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The [Spotify ID] for the track.</p>
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the track.</p>
 
                       </div>
                       <div class="declaration">
@@ -824,7 +823,7 @@ May be <code>nil</code>.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A list of the countries in which the track can be played,
-identified by their ISO 3166-1 alpha-2 code.</p>
+identified by their <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -955,12 +954,320 @@ restrictions object containing the reason why the track is not available:
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP0ACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA2_SbSiSgA3_A3_S2bSgA2_A2_SDyS2SGSgA6_SaySSGSgAA0D4LinkVSgA6_A3_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:album:artists:uri:id:isLocal:popularity:durationMS:trackNumber:isExplicit:isPlayable:href:previewURL:externalURLs:externalIds:availableMarkets:linkedFrom:restrictions:discNumber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP0ACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA2_SbSiSgA3_A3_S2bSgA2_A2_SDyS2SGSgA6_SaySSGSgAA0D4LinkVSgA6_A3_tcfc">init(name:<wbr>album:<wbr>artists:<wbr>uri:<wbr>id:<wbr>isLocal:<wbr>popularity:<wbr>durationMS:<wbr>trackNumber:<wbr>isExplicit:<wbr>isPlayable:<wbr>href:<wbr>previewURL:<wbr>externalURLs:<wbr>externalIds:<wbr>availableMarkets:<wbr>linkedFrom:<wbr>restrictions:<wbr>discNumber:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full">Spotify track</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">album</span><span class="p">:</span> <span class="kt"><a href="../Structs/Album.html">Album</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">artists</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isLocal</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">popularity</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">durationMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">trackNumber</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isExplicit</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">isPlayable</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">previewURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">externalIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">availableMarkets</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">linkedFrom</span><span class="p">:</span> <span class="kt"><a href="../Structs/TrackLink.html">TrackLink</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">restrictions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">discNumber</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>album</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The album on which the track appears.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artists</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The artists who performed the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URI</a> for the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isLocal</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether or not the track is from a <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files">local file</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>popularity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The popularity of the track. Should be between 0 and 100,
+inclusive.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>durationMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The track length in milliseconds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>trackNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The number of the track. If an album has several discs,
+the track number is the number on the specified disc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isExplicit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether or not the track has explicit lyrics.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isPlayable</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied.
+Else, <code>nil</code>. If <code>true</code>, the track is playable in the given market.
+Otherwise, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>href</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to the Spotify web API endpoint providing the full
+track object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>previewURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to a 30 second preview (MP3 format) of the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalURLs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known external IDs for the album.
+
+<ul>
+<li>key: The identifier type, for example:
+
+<ul>
+<li>&ldquo;isrc&rdquo;: <a href="http://en.wikipedia.org/wiki/International_Standard_Recording_Code">International Standard Recording Code</a></li>
+<li>&ldquo;ean&rdquo;: <a href="http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29">International Article Number</a></li>
+<li>&ldquo;upc&rdquo;: <a href="http://en.wikipedia.org/wiki/Universal_Product_Code">Universal Product Code</a></li>
+</ul></li>
+<li>value: An external identifier for the object.</li>
+</ul></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalIds</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known external IDs for the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>availableMarkets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of the countries in which the track can be
+played, identified by their <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>linkedFrom</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied,
+and the requested track has been replaced with different track.
+The track link contains information about the originally requested
+track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>restrictions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied,
+the original track is not available in the given market, and Spotify
+did not have any tracks to relink it with. The track response will
+still contain metadata for the original track, and a restrictions
+object containing the reason why the track is not available:
+<code>{&quot;reason&quot; : &quot;market&quot;}</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>discNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The disc number (usually 1 unless the album consists of more
+than one disc).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

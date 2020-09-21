@@ -13,5 +13,20 @@ public struct SpotifyCopyright: Codable, Hashable {
     /// P = the sound recording (performance) copyright.
     public let type: String
 
+    /**
+     Creates a Spotify [copyright object][1].
+     
+     - Parameters:
+       - text: The copyright text for this album.
+       - type: The type of copyright: C = the copyright;
+             P = the sound recording (performance) copyright.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#copyright-object
+     */
+    public init(text: String, type: String) {
+        self.text = text
+        self.type = type
+    }
+
 }
 

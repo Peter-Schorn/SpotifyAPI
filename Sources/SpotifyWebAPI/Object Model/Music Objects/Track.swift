@@ -11,8 +11,7 @@ public struct Track: Hashable {
     /**
      The album on which the track appears.
      
-     The simplified version will be returned. The album object includes a link in
-     href to full information about the album.
+     The simplified version will be returned.
      
      Only available for the full track object.
      */
@@ -29,7 +28,7 @@ public struct Track: Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let uri: String?
     
-    /// The [Spotify ID] for the track.
+    /// The [Spotify ID][1] for the track.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String?
@@ -110,7 +109,9 @@ public struct Track: Hashable {
     public let externalIds: [String: String]?
     
     /// A list of the countries in which the track can be played,
-    /// identified by their ISO 3166-1 alpha-2 code.
+    /// identified by their [ISO 3166-1 alpha-2 code][1].
+    ///
+    /// [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     public let availableMarkets: [String]?
 
     /**
@@ -143,26 +144,79 @@ public struct Track: Hashable {
     public let type: IDCategory
     
     
+    /**
+     Creates a [Spotify track][1].
+     
+     - Parameters:
+       - name: The name of the track.
+       - album: The album on which the track appears.
+       - artists: The artists who performed the track.
+       - uri: The [Spotify URI][2] for the track.
+       - id: The [Spotify ID][2] for the track.
+       - isLocal: Whether or not the track is from a [local file][3].
+       - popularity: The popularity of the track. Should be between 0 and 100,
+             inclusive.
+       - durationMS: The track length in milliseconds.
+       - trackNumber: The number of the track. If an album has several discs,
+             the track number is the number on the specified disc.
+       - isExplicit: Whether or not the track has explicit lyrics.
+       - isPlayable: Part of the response when [Track Relinking][4] is applied.
+             Else, `nil`. If `true`, the track is playable in the given market.
+             Otherwise, `false`.
+       - href: A link to the Spotify web API endpoint providing the full
+             track object.
+       - previewURL: A link to a 30 second preview (MP3 format) of the track.
+       - externalURLs: Known external IDs for the album.
+             - key: The identifier type, for example:
+               - "isrc": [International Standard Recording Code][5]
+               - "ean": [International Article Number][6]
+               - "upc": [Universal Product Code][7]
+             - value: An external identifier for the object.
+       - externalIds: Known external IDs for the track.
+       - availableMarkets: A list of the countries in which the track can be
+             played, identified by their [ISO 3166-1 alpha-2 code][8].
+       - linkedFrom: Part of the response when [Track Relinking][4] is applied,
+             and the requested track has been replaced with different track.
+             The track link contains information about the originally requested
+             track.
+       - restrictions: Part of the response when [Track Relinking][4] is applied,
+             the original track is not available in the given market, and Spotify
+             did not have any tracks to relink it with. The track response will
+             still contain metadata for the original track, and a restrictions
+             object containing the reason why the track is not available:
+             `{"reason" : "market"}`.
+       - discNumber: The disc number (usually 1 unless the album consists of more
+             than one disc).
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
+     [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [5]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
+     [6]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
+     [7]: http://en.wikipedia.org/wiki/Universal_Product_Code
+     [8]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     */
     public init(
         name: String,
-        album: Album?,
-        artists: [Artist]?,
-        uri: String?,
-        id: String?,
+        album: Album? = nil,
+        artists: [Artist]? = nil,
+        uri: String? = nil,
+        id: String? = nil,
         isLocal: Bool,
-        popularity: Int?,
-        durationMS: Int?,
-        trackNumber: Int?,
+        popularity: Int? = nil,
+        durationMS: Int? = nil,
+        trackNumber: Int? = nil,
         isExplicit: Bool,
-        isPlayable: Bool?,
-        href: String?,
-        previewURL: String?,
-        externalURLs: [String : String]?,
-        externalIds: [String : String]?,
-        availableMarkets: [String]?,
-        linkedFrom: TrackLink?,
-        restrictions: [String : String]?,
-        discNumber: Int?, type: IDCategory
+        isPlayable: Bool? = nil,
+        href: String? = nil,
+        previewURL: String? = nil,
+        externalURLs: [String : String]? = nil,
+        externalIds: [String : String]? = nil,
+        availableMarkets: [String]? = nil,
+        linkedFrom: TrackLink? = nil,
+        restrictions: [String : String]? = nil,
+        discNumber: Int? = nil
     ) {
         self.name = name
         self.album = album
@@ -183,7 +237,7 @@ public struct Track: Hashable {
         self.linkedFrom = linkedFrom
         self.restrictions = restrictions
         self.discNumber = discNumber
-        self.type = type
+        self.type = .artist
     }
     
 }

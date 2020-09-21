@@ -449,6 +449,33 @@ if available.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI7EpisodeV11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7EpisodeV11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A description of the episode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI7EpisodeV11resumePointAA06ResumeF0VSgvp"></a>
                     <a name="//apple_ref/swift/Property/resumePoint" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI7EpisodeV11resumePointAA06ResumeF0VSgvp">resumePoint</a>
@@ -598,7 +625,7 @@ See also <code><a href="../Structs/Episode.html#/s:13SpotifyWebAPI7EpisodeV20rel
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The [Spotify ID] for the episode.</p>
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the episode.</p>
 
                       </div>
                       <div class="declaration">
@@ -652,8 +679,7 @@ See also <code><a href="../Structs/Episode.html#/s:13SpotifyWebAPI7EpisodeV20rel
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A link to the Spotify web API endpoint
-providing the full episode object.</p>
+                        <p>A link to the Spotify web API endpoint providing the full episode object.</p>
 
 <p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in <code>Episode</code> as the
 response type to retrieve the results.</p>
@@ -773,7 +799,7 @@ Else, <code>false</code>.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A list of the languages used in the episode,
-identified by their [ISO 639] code.</p>
+identified by their <a href="https://en.wikipedia.org/wiki/ISO_639">ISO 639</a> code.</p>
 
                       </div>
                       <div class="declaration">
@@ -845,6 +871,276 @@ identified by their [ISO 639] code.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI7EpisodeV4name4show15audioPreviewURL11description11resumePoint10durationMS10isExplicit11releaseDate3uri2id6images4href0O8Playable12externalURLs0O16ExternallyHosted9languages0qR9PrecisionACSS_AA4ShowVSgSSSgSSAA06ResumeL0VSgSiSb10Foundation0R0VSgS2SSayAA0A5ImageVGSgSSSbSDyS2SGSgSbSaySSGAXtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:show:audioPreviewURL:description:resumePoint:durationMS:isExplicit:releaseDate:uri:id:images:href:isPlayable:externalURLs:isExternallyHosted:languages:releaseDatePrecision:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI7EpisodeV4name4show15audioPreviewURL11description11resumePoint10durationMS10isExplicit11releaseDate3uri2id6images4href0O8Playable12externalURLs0O16ExternallyHosted9languages0qR9PrecisionACSS_AA4ShowVSgSSSgSSAA06ResumeL0VSgSiSb10Foundation0R0VSgS2SSayAA0A5ImageVGSgSSSbSDyS2SGSgSbSaySSGAXtcfc">init(name:<wbr>show:<wbr>audioPreviewURL:<wbr>description:<wbr>resumePoint:<wbr>durationMS:<wbr>isExplicit:<wbr>releaseDate:<wbr>uri:<wbr>id:<wbr>images:<wbr>href:<wbr>isPlayable:<wbr>externalURLs:<wbr>isExternallyHosted:<wbr>languages:<wbr>releaseDatePrecision:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full">podcast episode</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">show</span><span class="p">:</span> <span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">audioPreviewURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">resumePoint</span><span class="p">:</span> <span class="kt"><a href="../Structs/ResumePoint.html">ResumePoint</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">durationMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">isExplicit</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">releaseDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">isPlayable</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isExternallyHosted</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">languages</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+    <span class="nv">releaseDatePrecision</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>show</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The show on which the episode belongs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>audioPreviewURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A URL to a 30 second preview (MP3 format) of the
+episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A description of the episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resumePoint</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user’s most recent position in the episode.
+Set if the supplied access token is a user token and has the
+<code>userReadPlaybackPosition</code> scope.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>durationMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The episode length in milliseconds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isExplicit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether or not the episode has explicit content.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>releaseDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date the episode was first released.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URI</a> for the episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the episode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>images</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cover art for the episode in various sizes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>href</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to the Spotify web API endpoint providing the full
+episode object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isPlayable</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>true</code> if the episode is playable in the given market.
+Else, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalURLs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object">external urls</a> for this artist.
+
+<ul>
+<li>key: The type of the URL, for example:
+  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>value: An external, public URL to the object.</li>
+</ul></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isExternallyHosted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>true</code> if the episode is hosted outside of
+Spotify&rsquo;s CDN (content delivery network). Else, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>languages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of the languages used in the episode,
+identified by their <a href="https://en.wikipedia.org/wiki/ISO_639">ISO 639</a> code.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>releaseDatePrecision</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The precision with which <code><a href="../Structs/Episode.html#/s:13SpotifyWebAPI7EpisodeV11releaseDate10Foundation0F0VSgvp">releaseDate</a></code> is
+known: &ldquo;year&rdquo;, &ldquo;month&rdquo;, or &ldquo;day&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
@@ -899,7 +1195,7 @@ identified by their [ISO 639] code.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

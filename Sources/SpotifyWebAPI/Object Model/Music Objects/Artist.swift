@@ -70,6 +70,52 @@ public struct Artist: Hashable {
     /// The object type. Always `artist`.
     public let type: IDCategory
     
+    /**
+     A Spotify [artist][1].
+     
+     - Parameters:
+       - name: The name of the artist.
+       - uri: The [Spotify URI][2] for the artist.
+       - id: The [Spotify ID][2] for the artist.
+       - images: Images of the artist.
+       - popularity: The popularity of the artist. Should be between 0 and 100,
+             inclusive.
+       - externalURLs: Known [external urls][3] for this artist.
+             - key: The type of the URL, for example:
+                   "spotify" - The [Spotify URL][2] for the object.
+             - value: An external, public URL to the object.
+       - followers: Information about the followers of the artist.
+       - genres: A list of the genres the artist is associated with.
+       - href: A link to the Spotify web API endpoint providing the full
+             artist object.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     */
+    public init(
+        name: String,
+        uri: String? = nil,
+        id: String? = nil,
+        images: [SpotifyImage]? = nil,
+        popularity: Int? = nil,
+        externalURLs: [String : String]? = nil,
+        followers: Followers? = nil,
+        genres: [String]? = nil,
+        href: String? = nil
+    ) {
+        self.name = name
+        self.uri = uri
+        self.id = id
+        self.images = images
+        self.popularity = popularity
+        self.externalURLs = externalURLs
+        self.followers = followers
+        self.genres = genres
+        self.href = href
+        self.type = .artist
+    }
+
 }
 
 extension Artist: Codable {

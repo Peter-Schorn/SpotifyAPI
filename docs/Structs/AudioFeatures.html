@@ -891,7 +891,7 @@ An access token is required to access this data.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Thhe object type. Always &ldquo;audio_features&rdquo;</p>
+                        <p>The object type. Always &ldquo;audio_features&rdquo;.</p>
 
                       </div>
                       <div class="declaration">
@@ -905,12 +905,326 @@ An access token is required to access this data.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI13AudioFeaturesV3key4mode13timeSignature12acousticness12danceability6energy16instrumentalness8liveness8loudness11speechiness7valence5tempo3uri2id9trackHref11analysisURL10durationMS4typeACSi_S2iS9dS4SSiSStcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(key:mode:timeSignature:acousticness:danceability:energy:instrumentalness:liveness:loudness:speechiness:valence:tempo:uri:id:trackHref:analysisURL:durationMS:type:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI13AudioFeaturesV3key4mode13timeSignature12acousticness12danceability6energy16instrumentalness8liveness8loudness11speechiness7valence5tempo3uri2id9trackHref11analysisURL10durationMS4typeACSi_S2iS9dS4SSiSStcfc">init(key:<wbr>mode:<wbr>timeSignature:<wbr>acousticness:<wbr>danceability:<wbr>energy:<wbr>instrumentalness:<wbr>liveness:<wbr>loudness:<wbr>speechiness:<wbr>valence:<wbr>tempo:<wbr>uri:<wbr>id:<wbr>trackHref:<wbr>analysisURL:<wbr>durationMS:<wbr>type:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/#audio-features-object">Audio Features</a> object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">key</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">mode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">timeSignature</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">acousticness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">danceability</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">energy</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">instrumentalness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">liveness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">loudness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">speechiness</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">valence</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">tempo</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">trackHref</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">analysisURL</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">durationMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The estimated overall key of the track.
+Integers map to pitches using standard <a href="https://en.wikipedia.org/wiki/Pitch_class">Pitch Class notation</a>.
+E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. <strong>If no key was detected,
+the value is -1.</strong></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Mode indicates the modality (major or minor) of a track,
+the type of scale from which its melodic content is derived.
+Major is represented by 1 and minor is 0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timeSignature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An estimated overall time signature of a track.
+The time signature (meter) is a notational convention to specify
+how many beats are in each bar (or measure).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>acousticness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A confidence measure from 0.0 to 1.0 of whether the track
+is acoustic. 1.0 represents high confidence the track is acoustic.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>danceability</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Danceability describes how suitable a track is for dancing
+based on a combination of musical elements including tempo, rhythm
+stability, beat strength, and overall regularity. A value of 0.0 is
+least danceable and 1.0 is most danceable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>energy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Energy is a measure from 0.0 to 1.0 and represents a perceptual
+measure of intensity and activity. Typically, energetic tracks feel
+fast, loud, and noisy. For example, death metal has high energy,
+while a Bach prelude scores low on the scale. Perceptual features
+contributing to this attribute include dynamic range, perceived
+loudness, timbre, onset rate, and general entropy.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>instrumentalness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Predicts whether a track contains no vocals.
+“Ooh” and “aah” sounds are treated as instrumental in this context.
+Rap or spoken word tracks are clearly “vocal”. The closer the
+instrumentalness value is to 1.0, the greater likelihood the track
+contains no vocal content. Values above 0.5 are intended to represent
+instrumental tracks, but confidence is higher as the value approaches
+1.0.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>liveness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Detects the presence of an audience in the recording.
+Higher liveness values represent an increased probability that
+the track was performed live. A value above 0.8 provides strong
+likelihood that the track is live.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>loudness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall loudness of a track in decibels (dB).
+Loudness values are averaged across the entire track and are
+useful for comparing relative loudness of tracks. Loudness is
+the quality of a sound that is the primary psychological correlate
+of physical strength (amplitude). Values typical range between -60
+and 0 db.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>speechiness</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Speechiness detects the presence of spoken words in a track.
+The more exclusively speech-like the recording (e.g. talk show,
+audio book, poetry), the closer to 1.0 the attribute value.
+Values above 0.66 describe tracks that are probably made entirely
+of spoken words. Values between 0.33 and 0.66 describe tracks that
+may contain both music and speech, either in sections or layered,
+including such cases as rap music. Values below 0.33 most likely
+represent music and other non-speech-like tracks.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>valence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A measure from 0.0 to 1.0 describing the musical positiveness
+conveyed by a track. Tracks with high valence sound more positive
+(e.g. happy, cheerful, euphoric), while tracks with low valence
+sound more negative (e.g. sad, depressed, angry).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tempo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The overall estimated tempo of a track in beats per minute (BPM).
+In musical terminology, tempo is the speed or pace of a given piece
+and derives directly from the average beat duration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Spotify URI for the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Spotify ID for the track.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>trackHref</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to the Web API endpoint providing full details of the
+track. Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in
+<code><a href="../Structs/Track.html">Track</a></code> as the response type to retrieve the results.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>analysisURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An HTTP URL to access the full audio analysis of this track.
+An access token is required to access this data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>durationMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The duration of the track in milliseconds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object type. Always &ldquo;audio_features&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

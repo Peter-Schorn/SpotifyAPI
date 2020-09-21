@@ -415,9 +415,10 @@ It contains just three properties:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The item that was saved in this <code>SavedItem</code>.</p>
+                        <p>The item that was saved in this <code>SavedItem</code>.
+Either a track, album, or show.</p>
 
-<p>See also <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV8itemNameAC10CodingKeysOyx_Gvp">itemName</a></code>.</p>
+<p>See also <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -434,9 +435,9 @@ It contains just three properties:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI9SavedItemV8itemNameAC10CodingKeysOyx_Gvp"></a>
-                    <a name="//apple_ref/swift/Property/itemName" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV8itemNameAC10CodingKeysOyx_Gvp">itemName</a>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp"></a>
+                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -453,9 +454,88 @@ It contains just three properties:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">itemName</span><span class="p">:</span> <span class="kt">CodingKeys</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">CodingKeys</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAC10CodingKeysOyx_Gtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(addedAt:item:type:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAC10CodingKeysOyx_Gtcfc">init(addedAt:<wbr>item:<wbr>type:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Saved Item object.</p>
+
+<p>The type of <code>Item</code> should only be <code><a href="../Structs/Track.html">Track</a></code>, <code><a href="../Structs/Album.html">Album</a></code>, or <code><a href="../Structs/Show.html">Show</a></code>,
+and this should match <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">addedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span><span class="p">,</span>
+    <span class="nv">type</span><span class="p">:</span> <span class="kt">SavedItem</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;.</span><span class="kt">CodingKeys</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>addedAt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date the item was added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item that was saved in this <code>SavedItem</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>track</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object">saved track object</a>,
+<code>album</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object">saved album object</a>, or
+<code>show</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object">saved show object</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -512,12 +592,39 @@ It contains just three properties:</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV9itemTypesSayAC10CodingKeysOyx_GGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/itemTypes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV9itemTypesSayAC10CodingKeysOyx_GGvpZ">itemTypes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The possible types for <code>self.item</code>. See also <code>self.type</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">itemTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt">CodingKeys</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

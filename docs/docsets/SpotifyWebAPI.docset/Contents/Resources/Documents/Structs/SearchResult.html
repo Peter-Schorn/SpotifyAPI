@@ -357,7 +357,7 @@
 
                 </div>
               </div>
-            <p>The Response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint.</p>
+            <p>The response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint.</p>
 
 <p>The search endpoint has a <code>types</code> parameter, which specifies
 which objects will be returned in the response.
@@ -546,12 +546,125 @@ be <code>nil</code> if it was not requested in the search.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI12SearchResultV7artists6albums6tracks9playlists8episodes5showsAcA12PagingObjectVyAA6ArtistVGSg_AKyAA5AlbumVGSgAKyAA5TrackVGSgAKyAA8PlaylistVyAA23PlaylistsItemsReferenceVGGSgAKyAA7EpisodeVGSgAKyAA4ShowVGSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(artists:albums:tracks:playlists:episodes:shows:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI12SearchResultV7artists6albums6tracks9playlists8episodes5showsAcA12PagingObjectVyAA6ArtistVGSg_AKyAA5AlbumVGSgAKyAA5TrackVGSgAKyAA8PlaylistVyAA23PlaylistsItemsReferenceVGGSgAKyAA7EpisodeVGSgAKyAA4ShowVGSgtcfc">init(artists:<wbr>albums:<wbr>tracks:<wbr>playlists:<wbr>episodes:<wbr>shows:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates the response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">artists</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">albums</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Album.html">Album</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">tracks</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Track.html">Track</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">playlists</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">episodes</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Episode.html">Episode</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">shows</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artists</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code><a href="../Structs/PagingObject.html">PagingObject</a></code> containing full <code><a href="../Structs/Artist.html">Artist</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albums</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code><a href="../Structs/PagingObject.html">PagingObject</a></code> containing simplified <code><a href="../Structs/Album.html">Album</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tracks</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code><a href="../Structs/PagingObject.html">PagingObject</a></code> containing full <code><a href="../Structs/Track.html">Track</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlists</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code><a href="../Structs/PagingObject.html">PagingObject</a></code> containing simplified <code><a href="../Structs/Playlist.html">Playlist</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>episodes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code><a href="../Structs/PagingObject.html">PagingObject</a></code> containing simplified <code><a href="../Structs/Episode.html">Episode</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>shows</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>PaginObject</code> containing simplified <code><a href="../Structs/Show.html">Show</a></code> objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

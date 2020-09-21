@@ -3,9 +3,7 @@ import Foundation
 /// A Spotify [playlist][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
-public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
-    Items: Codable & Hashable
-{
+public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashable {
     
     /// The name of the playlist.
     public let name: String
@@ -47,10 +45,10 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
      has changed since the last time you retrieved it.
      
      Can be supplied in other requests to target a specific
-     playlist version: see [Remove tracks from a playlist][2].
+     playlist version: see [Remove Tracks from a Playlist][2].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
-     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
+     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
      */
     public let snapshotId: String
     
@@ -72,19 +70,21 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
     public let followers: Followers?
     
     /**
-     A link to the Spotify web API endpoint providing
-     full details of the playlist.
+     A link to the Spotify web API endpoint providing full details of the
+     playlist.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
     public let href: String
     
-    /// The [Spotify ID] for the playlist.
+    /// The [Spotify ID][1] for the playlist.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
     
-    /// The URI for the playlist.
+    /// The [URI][1] for the playlist.
+    ///
+    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let uri: String
     
     /**
@@ -106,6 +106,76 @@ public struct Playlist<Items>: SpotifyURIConvertible, Hashable where
      */
     public let images: [SpotifyImage]
     
+    /**
+     Creates a Spotify [playlist][1].
+     
+     - Parameters:
+       - name: The name of the playlist.
+       - items: The items in the playlist.
+       - owner: The user who owns the playlist.
+       - isPublic: The playlist’s public/private status. If `true` the
+             playlist is public; if `false`, the playlist is private.
+             If `nil`, the playlist status is not relevant. For more about
+             public/private status, see [Working with Playlists][2].
+       - collaborative: `true` if context is not search (you retrieved this
+             playlist using the search endpoint) and the owner allows other
+             users to modify the playlist. Else, `false`.
+       - description: The playlist description. Only returned for modified,
+             verified playlists, else `nil`.
+       - snapshotId: The version identifier for the current playlist.
+             Every time the playlist changes, a new [snapshot id][3] is generated.
+             You can use this value to efficiently determine whether a playlist
+             has changed since the last time you retrieved it.
+             Can be supplied in other requests to target a specific
+             playlist version: see [Remove Tracks from a Playlist][4].
+       - externalURLs: Known [external urls][5] for this artist.
+             - key: The type of the URL, for example:
+                   "spotify" - The [Spotify URL][6] for the object.
+             - value: An external, public URL to the object.
+       - followers: Information about the followers of the playlist.
+       - href: A link to the Spotify web API endpoint providing full
+             details of the playlist.
+       - id: The [Spotify ID][6] for the playlist.
+       - uri: The [URI][6] for the playlist.
+       - images: The Images for the playlist.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
+     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
+     [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
+     [4]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
+     [5]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [6]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     */
+    public init(
+        name: String,
+        items: Items,
+        owner: SpotifyUser? = nil,
+        isPublic: Bool? = nil,
+        collaborative: Bool,
+        description: String? = nil,
+        snapshotId: String,
+        externalURLs: [String : String]? = nil,
+        followers: Followers? = nil,
+        href: String,
+        id: String,
+        uri: String,
+        images: [SpotifyImage]
+    ) {
+        self.name = name
+        self.items = items
+        self.owner = owner
+        self.isPublic = isPublic
+        self.collaborative = collaborative
+        self.description = description
+        self.snapshotId = snapshotId
+        self.externalURLs = externalURLs
+        self.followers = followers
+        self.href = href
+        self.id = id
+        self.uri = uri
+        self.images = images
+    }
+
 }
 
 extension Playlist: Codable {

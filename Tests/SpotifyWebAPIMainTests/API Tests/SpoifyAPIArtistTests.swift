@@ -3,7 +3,7 @@ import XCTest
 import Combine
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
-import SpotifyURIs
+import SpotifyExampleContent
 
 protocol SpotifyAPIArtistTests: SpotifyAPITests { }
 

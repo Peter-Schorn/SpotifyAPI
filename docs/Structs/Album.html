@@ -971,6 +971,322 @@ containing the reason why the track is not available:
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dV0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:tracks:artists:releaseDate:uri:id:images:popularity:label:genres:href:externalURLs:externalIds:albumType:albumGroup:availableMarkets:copyrights:releaseDatePrecision:restrictions:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dV0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc">init(name:<wbr>tracks:<wbr>artists:<wbr>releaseDate:<wbr>uri:<wbr>id:<wbr>images:<wbr>popularity:<wbr>label:<wbr>genres:<wbr>href:<wbr>externalURLs:<wbr>externalIds:<wbr>albumType:<wbr>albumGroup:<wbr>availableMarkets:<wbr>copyrights:<wbr>releaseDatePrecision:<wbr>restrictions:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full">album</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">tracks</span><span class="p">:</span> <span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Track.html">Track</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">artists</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">releaseDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">popularity</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">genres</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">externalIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">albumType</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">albumGroup</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">availableMarkets</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">copyrights</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">releaseDatePrecision</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">restrictions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tracks</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The tracks of the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artists</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The artists of the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>releaseDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date the album was first released.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URI</a> for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>images</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cover art for the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>popularity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The popularity of the album. Should be between 0 and 100,
+inclusive.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>label</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The label for the album. Do not confuse this with the name of
+the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>genres</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of the genres the artist is associated with.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>href</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to the Spotify web API endpoint providing the full
+album object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalURLs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object">external urls</a> for this artist.
+
+<ul>
+<li>key: The type of the URL, for example:
+  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>value: An external, public URL to the object.</li>
+</ul></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalIds</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known external IDs for the album.
+
+<ul>
+<li>key: The identifier type, for example:
+
+<ul>
+<li>&ldquo;isrc&rdquo;: <a href="http://en.wikipedia.org/wiki/International_Standard_Recording_Code">International Standard Recording Code</a></li>
+<li>&ldquo;ean&rdquo;: <a href="http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29">International Article Number</a></li>
+<li>&ldquo;upc&rdquo;: <a href="http://en.wikipedia.org/wiki/Universal_Product_Code">Universal Product Code</a></li>
+</ul></li>
+<li>value: An external identifier for the object.</li>
+</ul></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The type of the album: one of <code>album</code>, <code>single</code>, or
+<code>compilation</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>albumGroup</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This field is present when getting an artist’s albums.
+Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>,
+and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0D5GroupOSgvp">albumType</a></code> this field represents
+the relationship between the artist and the album.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>availableMarkets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The markets in which the album is available:
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country codes</a>.
+Note that an album is considered available in a market
+when at least 1 of its tracks is available in that market.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>copyrights</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of copyright objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>releaseDatePrecision</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The precision with which <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV11releaseDate10Foundation0F0VSgvp">releaseDate</a></code> is known:
+&ldquo;year&rdquo;, &ldquo;month&rdquo;, or &ldquo;day&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>restrictions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied,
+the original track is not available in the given market,
+and Spotify did not have any tracks to relink it with.
+The track response will still contain metadata for
+the original track, and a restrictions object
+containing the reason why the track is not available:
+<code>{&quot;reason&quot; : &quot;market&quot;}</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
@@ -1025,7 +1341,7 @@ containing the reason why the track is not available:
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

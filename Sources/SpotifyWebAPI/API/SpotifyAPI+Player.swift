@@ -406,11 +406,11 @@ public extension SpotifyAPI where
          start playback.
        *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
-     * positionMS: Indicates from what position to start playback.
-       Must be a positive number. If `nil`, then the track/episode
-       will start from the beginning. Passing in a position that is
-       greater than the length of the track will cause the player
-       to start playing the next song.
+     * positionMS: Indicates from what position to start playback in
+       milliseconds. If `nil`, then the track/episode will start from
+       the beginning. Passing in a position that is greater than the
+       length of the track/episode will cause the player to start playing the
+       next item.
      
      When performing an action that is restricted,
      404 NOT FOUND or 403 FORBIDDEN will be returned together with

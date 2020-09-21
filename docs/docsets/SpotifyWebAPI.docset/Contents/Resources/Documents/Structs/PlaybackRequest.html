@@ -384,11 +384,11 @@ One of the following:</p>
 start playback.</li>
 <li><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</li>
 </ul></li>
-<li><p>positionMS: Indicates from what position to start playback.
-Must be a positive number. If <code>nil</code>, then the track/episode
-will start from the beginning. Passing in a position that is
-greater than the length of the track will cause the player
-to start playing the next song.</p></li>
+<li><p>positionMS: Indicates from what position to start playback in
+milliseconds. If <code>nil</code>, then the track/episode will start from
+the beginning. Passing in a position that is greater than the
+length of the track/episode will cause the player to start playing
+the next item.</p></li>
 </ul>
 
           </section>
@@ -489,12 +489,11 @@ will be played, depending on whether the user has shuffle on.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates from what position to start playback.</p>
+                        <p>Indicates from what position to start playback in milliseconds.</p>
 
 <p>If <code>nil</code>, then the track/episode will start from the beginning.
-Must be a positive number. Passing in a position that is
-greater than the length of the track will cause the player
-to start playing the next song.</p>
+Passing in a position that is greater than the length of the track
+will cause the player to start playing the next song.</p>
 
                       </div>
                       <div class="declaration">
@@ -524,6 +523,9 @@ to start playing the next song.</p>
                         <p>Creates a request to play Spotify content for the current user.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
+
+<p>See also <code><a href="../Structs/PlaybackRequest.html#/s:13SpotifyWebAPI15PlaybackRequestV_10positionMSAcA0A14URIConvertible_p_SiSgtcfc">init(_:positionMS:)</a></code>—a convenience initializer that makes a
+request to play a single track/episode.</p>
 
                       </div>
                       <div class="declaration">
@@ -578,11 +580,79 @@ is used for the context. One of the following:</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Indicates from what position to start playback.
-Must be a positive number. If <code>nil</code>, then the track/episode
-will start from the beginning. Passing in a position that is
-greater than the length of the track will cause the player
-to start playing the next song.</p>
+                                  <p>Indicates from what position to start playback in
+milliseconds. If <code>nil</code>, then the track/episode will start from
+the beginning. Passing in a position that is greater than the
+length of the track/episode will cause the player to start playing
+the next item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackRequestV_10positionMSAcA0A14URIConvertible_p_SiSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:positionMS:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackRequestV_10positionMSAcA0A14URIConvertible_p_SiSgtcfc">init(_:<wbr>positionMS:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A convenience initializer that makes a request to play a single
+track/episode.</p>
+
+<p>See also <code><a href="../Structs/PlaybackRequest.html#/s:13SpotifyWebAPI15PlaybackRequestV7context6offset10positionMSAcA13ContextOptionO_AA06OffsetK0OSgSiSgtcfc">init(context:offset:positionMS:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">positionMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A track or episode URI.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>positionMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Indicates from what position to start playback in
+milliseconds. If <code>nil</code>, then the track/episode will start from
+the beginning. Passing in a position that is greater than the
+length of the track/episode will cause the player to start playing
+the next item.</p>
                                 </div>
                               </td>
                             </tr>
@@ -649,7 +719,7 @@ to start playing the next song.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

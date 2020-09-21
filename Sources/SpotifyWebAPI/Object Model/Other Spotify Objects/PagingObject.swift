@@ -6,10 +6,9 @@ import Logger
  A Spotify [paging object][1].
  
  The offset-based paging object is a container for a set of objects.
- It contains a key called items
- (whose value is an array of the requested objects)
- along with other keys like previous,
- next and limit that can be useful in future calls.
+ It contains a key called items (whose value is an array of the requested
+ objects) along with other keys like previous, next and limit that can be
+ useful in future calls.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
  */
@@ -56,6 +55,47 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /// `PagingObject`.
     public let total: Int
     
+    /**
+     Creates a Spotify [paging object][1].
+     
+     The offset-based paging object is a container for a set of objects.
+     It contains a key called items (whose value is an array of the requested
+     objects) along with other keys like previous, next and limit that can be
+     useful in future calls.
+     
+     - Parameters:
+       - href: A link to the Spotify web API endpoint returning
+             the full result of the request.
+       - items: An array of the requested data in this `PagingObject`.
+       - limit: The maximum number of items in this page (as set in the
+             query or by default).
+       - next: The URL (href) to the next page of items or `nil` if none.
+       - previous: The URL (href) to the previous page of items or `nil`
+             if none in this `PagingObject`.
+       - offset: The offset of the items returned (as set in the query or
+             by default).
+       - total: The maximum number of items available to return.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
+     */
+    public init(
+        href: String,
+        items: [Item],
+        limit: Int,
+        next: String? = nil,
+        previous: String? = nil,
+        offset: Int,
+        total: Int
+    ) {
+        self.href = href
+        self.items = items
+        self.limit = limit
+        self.next = next
+        self.previous = previous
+        self.offset = offset
+        self.total = total
+    }
+
 }
 
 // MARK: - Convienence Methods -

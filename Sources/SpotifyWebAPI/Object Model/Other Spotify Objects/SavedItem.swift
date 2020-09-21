@@ -23,8 +23,9 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     public let addedAt: Date
     
     /// The item that was saved in this `SavedItem`.
+    /// Either a track, album, or show.
     ///
-    /// See also `itemName`.
+    /// See also `type`.
     public let item: Item
     
     /**
@@ -36,8 +37,35 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
      [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object
      [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object
      */
-    public var itemName: CodingKeys
+    public let type: CodingKeys
     
+    /**
+     Creates a Saved Item object.
+     
+     The type of `Item` should only be `Track`, `Album`, or `Show`,
+     and this should match `type`.
+     
+     - Parameters:
+       - addedAt: The date the item was added.
+       - item: The item that was saved in this `SavedItem`.
+       - type: `track` if this is a [saved track object][1],
+             `album` if this is a [saved album object][2], or
+             `show` if this is a [saved show object][3].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object
+     [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object
+     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object
+     */
+    public init(
+        addedAt: Date,
+        item: Item,
+        type: SavedItem<Item>.CodingKeys
+    ) {
+        self.addedAt = addedAt
+        self.item = item
+        self.type = type
+    }
+
 }
 
 
@@ -51,27 +79,35 @@ extension SavedItem: Codable {
             forKey: .addedAt
         )
         
-        for key in CodingKeys.itemKeys {
-            
-            if let item = try? container.decode(
-                Item.self, forKey: key
-            ) {
-                self.item = item
-                self.itemName = key
-                return
-            }
-        }
         
-        let debugDescription = """
-            expected to find one of the following keys:
-            \(CodingKeys.itemKeys.map(\.rawValue))
-            """
-        throw DecodingError.dataCorrupted(
-            DecodingError.Context(
-                codingPath: container.codingPath,
-                debugDescription: debugDescription
-            )
-        )
+        switch Item.self {
+            case is Track.Type:
+                self.item = try container.decode(
+                    Item.self, forKey: .track
+                )
+                self.type = .track
+            case is Album.Type:
+                self.item = try container.decode(
+                    Item.self, forKey: .album
+                )
+                self.type = .album
+            case is Show.Type:
+                self.item = try container.decode(
+                    Item.self, forKey: .show
+                )
+                self.type = .show
+            default:
+                let debugDescription = """
+                    Expected generic type Item be either Track, Album, or \
+                    Show, but got '\(Item.self)'
+                    """
+                throw DecodingError.dataCorrupted(
+                    DecodingError.Context(
+                        codingPath: container.codingPath,
+                        debugDescription: debugDescription
+                    )
+                )
+        }
         
     }
     
@@ -84,11 +120,11 @@ extension SavedItem: Codable {
             self.addedAt, forKey: .addedAt
         )
         
-        guard CodingKeys.itemKeys.contains(self.itemName) else {
+        guard Self.itemTypes.contains(self.type) else {
             let debugDescription = """
-                expected self.itemName to be one of the following:
-                \(CodingKeys.itemKeys.map(\.rawValue))
-                but got '\(self.itemName)'
+                expected self.type to be one of the following:
+                \(Self.itemTypes.map(\.rawValue))
+                but got '\(self.type.rawValue)'
                 """
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -99,21 +135,23 @@ extension SavedItem: Codable {
         }
         
         try container.encode(
-            self.item, forKey: self.itemName
+            self.item, forKey: self.type
+        )
+        try container.encode(
+            self.type, forKey: .type
         )
         
     }
     
+    /// The possible types for `self.item`. See also `self.type`.
+    public static var itemTypes: [CodingKeys] { [.track, .album, .show] }
     
-    public enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey, Codable {
         case addedAt = "added_at"
         case track
         case album
         case show
-        
-        public static var itemKeys: [Self] {
-            [.track, .album, .show]
-        }
+        case type
     }
     
 }

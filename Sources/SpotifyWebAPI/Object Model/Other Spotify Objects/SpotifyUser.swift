@@ -5,7 +5,7 @@ import Foundation
  
  Can represent both the public and private version.
  
- https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private
+ [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private
  */
 public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     
@@ -23,7 +23,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
     
-    /// The user's profile image.
+    /// The user's profile image in various sizes.
     public let images: [SpotifyImage]?
     
     /**
@@ -56,7 +56,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
      granted access to the `userReadEmail` scope.
      
      - Warning: This email address is unverified; there is no proof that
-     it actually belongs to the user.
+           it actually belongs to the user.
      */
     public let email: String?
     
@@ -85,6 +85,63 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     
     /// The object type. Always `user`.
     public let type: IDCategory
+    
+    /**
+     Creates a [Spotify user][1].
+     
+     - Parameters:
+       - displayName: The name displayed on the user’s profile.
+       - uri: The [Spotify URI][2] for this user.
+       - id: The [Spotify user ID][2] for this user.
+       - images: The user's profile image in various sizes.
+       - href: A link to the Spotify web API endpoint for this user.
+       - followers: Information about the followers of this user.
+       - country: The country of the user, as set in the user’s account
+             profile. An [ISO 3166-1 alpha-2 country code][3]. This field
+             is only available when the current user has granted access to
+             the `userReadPrivate` scope.
+       - email: The user’s email address, as entered by the user when
+             creating their account. This field is only available when
+             the current user has granted access to the `userReadEmail` scope.
+       - product:  The user’s Spotify subscription level:
+             "premium", "free", etc. (The subscription level "open"
+             can be considered the same as "free".) This field is only
+             available when the current user has granted access to the
+             `userReadPrivate` scope.
+       - externalURLs: Known [external urls][4] for this artist.
+             - key: The type of the URL, for example:
+                   "spotify" - The [Spotify URL][2] for the object.
+             - value: An external, public URL to the object.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     */
+    public init(
+        displayName: String? = nil,
+        uri: String,
+        id: String,
+        images: [SpotifyImage]? = nil,
+        href: String,
+        followers: Followers? = nil,
+        country: String? = nil,
+        email: String? = nil,
+        product: String? = nil,
+        externalURLs: [String : String]? = nil
+    ) {
+        self.displayName = displayName
+        self.uri = uri
+        self.id = id
+        self.images = images
+        self.href = href
+        self.followers = followers
+        self.country = country
+        self.email = email
+        self.product = product
+        self.externalURLs = externalURLs
+        self.type = .user
+    }
     
     public enum CodingKeys: String, CodingKey {
         case displayName = "display_name"

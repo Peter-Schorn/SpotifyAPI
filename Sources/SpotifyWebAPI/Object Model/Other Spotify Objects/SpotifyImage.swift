@@ -14,7 +14,7 @@ typealias PlatformImage = UIImage
 
 
 /**
- A Spotify [image object][1].
+ A Spotify [image][1] object.
 
  Includes the URL to the image and its height and width.
  
@@ -30,13 +30,16 @@ public struct SpotifyImage: Codable, Hashable {
     /// The image height in pixels.
     /// May be `nil`, especially if uploaded by the user.
     public let height: Int?
+    
     /// The image width in pixels.
     /// May be `nil`, especially if uploaded by the user.
     public let width: Int?
     
     /**
      The source URL of the image.
-    
+     
+     Consider using `self.load()` to load the image.
+     
      - Warning: If this image belongs to a playlist, then it is
            temporary and will expire in less than a day. Use
            `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive the image
@@ -44,19 +47,34 @@ public struct SpotifyImage: Codable, Hashable {
      */
     public let url: String
 
-    public init(height: Int?, width: Int?, url: String) {
+    /**
+     Creates a Spotify [image][1] object.
+     
+     - Parameters:
+       - height: The image height in pixels.
+       - width: The image width in pixels.
+       - url: The source URL of the image.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
+     */
+    public init(
+        height: Int? = nil,
+        width: Int? = nil,
+        url: String
+    ) {
         self.height = height
         self.width = width
         self.url = url
     }
-    
+
 }
 
 public extension SpotifyImage {
     
-    /// Loads the image from `url`.
-    /// Fails if `url` cannot be converted to
-    /// `URL` or the data cannot be converted to `Image`.
+    /// Loads the image from `self.url`.
+    ///
+    /// Fails if `self.url` cannot be converted to `URL`, if the data
+    /// cannot be converted to `Image`, or if some other network error occurs.
     func load() -> AnyPublisher<Image, Error> {
         
         guard let imageURL = URL(string: url) else {

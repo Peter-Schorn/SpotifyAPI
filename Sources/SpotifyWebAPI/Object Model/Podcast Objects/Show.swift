@@ -14,8 +14,8 @@ public struct Show: Hashable {
     /// A description of the show.
     public let description: String
     
-    /// An array of simplified episode objects wrapped in a paging object.
-    /// Only available for the full version.
+    /// The episodes for this show: An array of simplified episode objects
+    /// wrapped in a paging object. Only available for the full version.
     public let episodes: PagingObject<Episode>?
     
     /// Whether or not the episode has explicit content.
@@ -27,7 +27,7 @@ public struct Show: Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let uri: String
 
-    /// The [Spotify ID] for the episode.
+    /// The [Spotify ID][1] for the episode.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
@@ -42,8 +42,7 @@ public struct Show: Hashable {
     public let availableMarkets: [String]
     
     /**
-     A link to the Spotify web API endpoint providing the
-     full show object.
+     A link to the Spotify web API endpoint providing the full show object.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Show` as the
      response type to retrieve the results.
@@ -85,6 +84,75 @@ public struct Show: Hashable {
     /// The object type. Always `episode`.
     public let type: IDCategory
     
+    /**
+     Creates a Spotify [podcast show][1].
+     
+     - Parameters:
+       - name: The name of the show.
+       - description: A description of the show.
+       - episodes: The episodes for this show: An array of simplified episode
+             objects wrapped in a paging object.
+       - isExplicit: Whether or not the episode has explicit content.
+       - uri: The [Spotify URI][2] for the episode.
+       - id: The [Spotify ID][2] for the episode.
+       - images: The cover art for the episode.
+       - availableMarkets: A list of the countries in which the show can be
+             played, identified by their [ISO 3166-1 alpha-2][3] code.
+       - href: A link to the Spotify web API endpoint providing the full show
+             object.
+       - externalURLs: Known [external urls][4] for this artist.
+             - key: The type of the URL, for example:
+                   "spotify" - The [Spotify URL][2] for the object.
+             - value: An external, public URL to the object.
+       - isExternallyHosted: `true` if the episode is hosted outside of
+             Spotify's CDN (content delivery network). Else, `false`.
+       - languages: A list of the languages used in the episode,
+             identified by their [ISO 639][5] code.
+       - copyrights: An array of copyright objects.
+       - mediaType: The media type of the show.
+       - publisher: The publisher of the show.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [3]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [5]: https://en.wikipedia.org/wiki/ISO_639
+     */
+    public init(
+        name: String,
+        description: String,
+        episodes: PagingObject<Episode>? = nil,
+        isExplicit: Bool,
+        uri: String,
+        id: String,
+        images: [SpotifyImage]? = nil,
+        availableMarkets: [String],
+        href: String,
+        externalURLs: [String : String]? = nil,
+        isExternallyHosted: Bool,
+        languages: [String],
+        copyrights: [SpotifyCopyright]? = nil,
+        mediaType: String,
+        publisher: String
+    ) {
+        self.name = name
+        self.description = description
+        self.episodes = episodes
+        self.isExplicit = isExplicit
+        self.uri = uri
+        self.id = id
+        self.images = images
+        self.availableMarkets = availableMarkets
+        self.href = href
+        self.externalURLs = externalURLs
+        self.isExternallyHosted = isExternallyHosted
+        self.languages = languages
+        self.copyrights = copyrights
+        self.mediaType = mediaType
+        self.publisher = publisher
+        self.type = .show
+    }
+
 }
 
 extension Show: Codable {

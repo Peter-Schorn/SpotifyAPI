@@ -25,11 +25,11 @@ import Foundation
      start playback.
    *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
  
- * positionMS: Indicates from what position to start playback.
-   Must be a positive number. If `nil`, then the track/episode
-   will start from the beginning. Passing in a position that is
-   greater than the length of the track will cause the player
-   to start playing the next song.
+ * positionMS: Indicates from what position to start playback in
+   milliseconds. If `nil`, then the track/episode will start from
+   the beginning. Passing in a position that is greater than the
+   length of the track/episode will cause the player to start playing
+   the next item.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
  */
@@ -67,12 +67,11 @@ public struct PlaybackRequest: Hashable {
     public var offset: OffsetOption?
     
     /**
-     Indicates from what position to start playback.
-    
+     Indicates from what position to start playback in milliseconds.
+     
      If `nil`, then the track/episode will start from the beginning.
-     Must be a positive number. Passing in a position that is
-     greater than the length of the track will cause the player
-     to start playing the next song.
+     Passing in a position that is greater than the length of the track
+     will cause the player to start playing the next song.
      */
     public var positionMS: Int?
     
@@ -81,6 +80,9 @@ public struct PlaybackRequest: Hashable {
      Creates a request to play Spotify content for the current user.
      
      Read more at the [Spotify web API reference][1].
+     
+     See also `init(_:positionMS:)`—a convenience initializer that makes a
+     request to play a single track/episode.
      
      - Parameters:
        - context: The context in which to play the content.
@@ -101,11 +103,11 @@ public struct PlaybackRequest: Hashable {
              start playback.
          *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
          
-       - positionMS: Indicates from what position to start playback.
-             Must be a positive number. If `nil`, then the track/episode
-             will start from the beginning. Passing in a position that is
-             greater than the length of the track will cause the player
-             to start playing the next song.
+       - positionMS: Indicates from what position to start playback in
+             milliseconds. If `nil`, then the track/episode will start from
+             the beginning. Passing in a position that is greater than the
+             length of the track/episode will cause the player to start playing
+             the next item.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
      */
@@ -118,7 +120,32 @@ public struct PlaybackRequest: Hashable {
         self.offset = offset
         self.positionMS = positionMS
     }
-    
+ 
+    /**
+     A convenience initializer that makes a request to play a single
+     track/episode.
+     
+     See also `init(context:offset:positionMS:)`.
+     
+     - Parameters:
+       - item: A track or episode URI.
+       - positionMS: Indicates from what position to start playback in
+             milliseconds. If `nil`, then the track/episode will start from
+             the beginning. Passing in a position that is greater than the
+             length of the track/episode will cause the player to start playing
+             the next item.
+     */
+    public init(
+        _ item: SpotifyURIConvertible,
+        positionMS: Int? = nil
+    ) {
+        self.init(
+            context: .uris([item]),
+            offset: nil,
+            positionMS: positionMS
+        )
+    }
+
 }
 
 extension PlaybackRequest: Codable {

@@ -18,4 +18,24 @@ public struct FeaturedPlaylists: Codable, Hashable {
     /// The featured playlists.
     public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>
     
+    /**
+     Creates a Featured Playlists object.
+     
+     Returned by the endpoint for a [list of featured playlists][1].
+     
+     - Parameters:
+       - message: A message that can be displayed to the user,
+             such as "Good Morning", or "Editors's picks".
+       - playlists: The featured playlists.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-list-featured-playlists/
+     */
+    public init(
+        message: String? = nil,
+        playlists: PagingObject<Playlist<PlaylistsItemsReference>>
+    ) {
+        self.message = message
+        self.playlists = playlists
+    }
+
 }

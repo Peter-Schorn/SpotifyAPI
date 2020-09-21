@@ -352,8 +352,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">Items</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Hashable</span> <span class="k">where</span>
-    <span class="kt">Items</span><span class="p">:</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">Items</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Items</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Items</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Items</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Playlist</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                 </div>
@@ -551,12 +550,12 @@ verified playlists, else <code>nil</code>.</p>
                       <div class="abstract">
                         <p>The version identifier for the current playlist.</p>
 
-<p>Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">snapshot id</a> is generated.
+<p>Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated.
 You can use this value to efficiently determine whether a playlist
 has changed since the last time you retrieved it.</p>
 
 <p>Can be supplied in other requests to target a specific
-playlist version: see <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">Remove tracks from a playlist</a>.</p>
+playlist version: see <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">Remove Tracks from a Playlist</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -645,8 +644,8 @@ playlist version: see <a href="https://developer.spotify.com/documentation/gener
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A link to the Spotify web API endpoint providing
-full details of the playlist.</p>
+                        <p>A link to the Spotify web API endpoint providing full details of the
+playlist.</p>
 
 <p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results.</p>
 
@@ -675,7 +674,7 @@ full details of the playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The [Spotify ID] for the playlist.</p>
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the playlist.</p>
 
                       </div>
                       <div class="declaration">
@@ -702,7 +701,7 @@ full details of the playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The URI for the playlist.</p>
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">URI</a> for the playlist.</p>
 
                       </div>
                       <div class="declaration">
@@ -758,12 +757,234 @@ uploaded by the user.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic13collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDyS2SGSgAA9FollowersVSgS3SSayAA0A5ImageVGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:items:owner:isPublic:collaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic13collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDyS2SGSgAA9FollowersVSgS3SSayAA0A5ImageVGtcfc">init(name:<wbr>items:<wbr>owner:<wbr>isPublic:<wbr>collaborative:<wbr>description:<wbr>snapshotId:<wbr>externalURLs:<wbr>followers:<wbr>href:<wbr>id:<wbr>uri:<wbr>images:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full">playlist</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">items</span><span class="p">:</span> <span class="kt">Items</span><span class="p">,</span>
+    <span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Structs/SpotifyUser.html">SpotifyUser</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isPublic</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">followers</span><span class="p">:</span> <span class="kt"><a href="../Structs/Followers.html">Followers</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>items</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The items in the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>owner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user who owns the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isPublic</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The playlist’s public/private status. If <code>true</code> the
+playlist is public; if <code>false</code>, the playlist is private.
+If <code>nil</code>, the playlist status is not relevant. For more about
+public/private status, see <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status">Working with Playlists</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collaborative</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>true</code> if context is not search (you retrieved this
+playlist using the search endpoint) and the owner allows other
+users to modify the playlist. Else, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The playlist description. Only returned for modified,
+verified playlists, else <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>snapshotId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The version identifier for the current playlist.
+Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated.
+You can use this value to efficiently determine whether a playlist
+has changed since the last time you retrieved it.
+Can be supplied in other requests to target a specific
+playlist version: see <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">Remove Tracks from a Playlist</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>externalURLs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object">external urls</a> for this artist.
+
+<ul>
+<li>key: The type of the URL, for example:
+  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>value: An external, public URL to the object.</li>
+</ul></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>followers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Information about the followers of the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>href</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A link to the Spotify web API endpoint providing full
+details of the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify ID</a> for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uri</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">URI</a> for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>images</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Images for the playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

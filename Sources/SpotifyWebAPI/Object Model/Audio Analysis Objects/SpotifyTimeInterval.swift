@@ -5,10 +5,10 @@ import Foundation
  within Audio Analysis. For information about Bars, Beats, Tatums, Sections,
  and Segments are determined, please see [Rhythm][1].
  
- Read more at the [Spotify web API reference][1].
+ Read more at the [Spotify web API reference][2].
  
- [2]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#rhythm
- [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#time-interval-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#rhythm
+ [2]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#time-interval-object
  */
 public struct SpotifyTimeInterval: Codable, Hashable {
     
@@ -20,4 +20,31 @@ public struct SpotifyTimeInterval: Codable, Hashable {
     
     /// The confidence, from 0.0 to 1.0, of the reliability of the interval.
     public let confidence: Double
+    
+    /**
+     Creates a Spotify [Time Interval][1].
+     
+     This is a generic object used to represent various time intervals
+     within Audio Analysis. For information about Bars, Beats, Tatums, Sections,
+     and Segments are determined, please see [Rhythm][2].
+     
+     - Parameters:
+       - start: The starting point (in seconds) of the time interval.
+       - duration: The duration (in seconds) of the time interval.
+       - confidence: The confidence, from 0.0 to 1.0, of the reliability of the
+             interval.
+
+     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#time-interval-object
+     [2]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#rhythm
+     */
+    public init(
+        start: Double,
+        duration: Double,
+        confidence: Double
+    ) {
+        self.start = start
+        self.duration = duration
+        self.confidence = confidence
+    }
+
 }

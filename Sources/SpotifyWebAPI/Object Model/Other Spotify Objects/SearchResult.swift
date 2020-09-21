@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The Response from the [search][1] endpoint.
+ The response from the [search][1] endpoint.
  
  The search endpoint has a `types` parameter, which specifies
  which objects will be returned in the response.
@@ -25,7 +25,7 @@ import Foundation
  [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
  */
 public struct SearchResult: Hashable {
- 
+    
     /// A `PagingObject` containing full `Artist` objects.
     public let artists: PagingObject<Artist>?
 
@@ -44,6 +44,35 @@ public struct SearchResult: Hashable {
     /// A `PaginObject` containing simplified `Show` objects.
     public let shows: PagingObject<Show>?
     
+    /**
+     Creates the response from the [search][1] endpoint.
+     
+     - Parameters:
+       - artists: A `PagingObject` containing full `Artist` objects.
+       - albums: A `PagingObject` containing simplified `Album` objects.
+       - tracks: A `PagingObject` containing full `Track` objects.
+       - playlists: A `PagingObject` containing simplified `Playlist` objects.
+       - episodes: A `PagingObject` containing simplified `Episode` objects.
+       - shows: A `PaginObject` containing simplified `Show` objects.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
+     */
+    public init(
+        artists: PagingObject<Artist>? = nil,
+        albums: PagingObject<Album>? = nil,
+        tracks: PagingObject<Track>? = nil,
+        playlists: PagingObject<Playlist<PlaylistsItemsReference>>? = nil,
+        episodes: PagingObject<Episode>? = nil,
+        shows: PagingObject<Show>? = nil
+    ) {
+        self.artists = artists
+        self.albums = albums
+        self.tracks = tracks
+        self.playlists = playlists
+        self.episodes = episodes
+        self.shows = shows
+    }
+
 }
 
 extension SearchResult: Codable {

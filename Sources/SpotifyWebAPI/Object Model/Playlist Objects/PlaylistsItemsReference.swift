@@ -12,8 +12,8 @@ import Foundation
 public struct PlaylistsItemsReference: Codable, Hashable {
     
     /**
-     A link to the Spotify web API endpoint
-     providing the full list of tracks/episodes.
+     A link to the Spotify web API endpoint providing the full list of
+     tracks/episodes.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
@@ -22,4 +22,29 @@ public struct PlaylistsItemsReference: Codable, Hashable {
     /// The total number of tracks/episodes.
     public let total: Int
     
+    /**
+     Creates a Playlist Items Reference object.
+     
+     Provides a link to the endpoint that retrieves the full list
+     of tracks/episodes in a playlist.
+     
+     For example, the endpoint that retrieves a list
+     of all the user's playlists returns this object inside
+     of every playlist, instead of an array of tracks,
+     which prevents the response from becoming too long.
+     
+     - Parameters:
+       - href: A link to the Spotify web API endpoint providing the full list
+             of tracks/episodes.
+       - total: The total number of tracks/episodes.
+     */
+    public init(
+        href: String?,
+        total: Int
+    ) {
+        self.href = href
+        self.total = total
+    }
+    
+
 }
