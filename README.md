@@ -34,7 +34,7 @@ To get started, go to the [Spotify Developer Dashboard][2] and create an app. Yo
 
 The next step is authorizing your app. *All* requests to the Spotify web API—whether they require authorization scopes or not—require authorization This library supports two authorization methods:
 
-* [Authorization Code Flow][3]: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser and approve your app.
+* [Authorization Code Flow][3]: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.
 * [Client Credentials Flow][4]: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5]. The advantage of this method is that it does not require any user interaction.
 
 ## Authorizing with the Authorization Code Flow
