@@ -30,7 +30,7 @@ Read the full [documentation][1] and check out [this example app][14]. Additiona
 
 ## Quick Start
 
-To get started, go to the [Spotify Developer Dashboard][2] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app.
+To get started, go to the [Spotify Developer Dashboard][2] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app. **DO NOT add a forward-slash to the end of the redirect URI**.
 
 The next step is authorizing your app. *All* requests to the Spotify web API—whether they require authorization scopes or not—require authorization This library supports two authorization methods:
 
