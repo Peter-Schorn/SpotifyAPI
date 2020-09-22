@@ -1,6 +1,7 @@
 import Foundation
 import SpotifyWebAPI
 
+/// An enum for which the raw values of all the cases are Spotify URIs.
 public protocol SpotifyURIConvertibleEnum:
     SpotifyURIConvertible,
     CaseIterable,
@@ -13,8 +14,10 @@ public extension SpotifyURIConvertibleEnum {
     @inlinable
     var uri: String { self.rawValue }
     
-    @inlinable
     /// Creates an array of URIs.
+    ///
+    /// - Parameter items: A variadic array of URIs.
+    @inlinable
     static func array(_ items: Self...) -> [String] {
         return items.map(\.uri)
     }
@@ -24,7 +27,7 @@ public extension SpotifyURIConvertibleEnum {
 /// A namespace of Spotify content identifiers (mostly URIs).
 public enum URIs {
     
-    /// A namespace of Spotify users.
+    /// A namespace of Spotify user URIs.
     public enum Users: String, SpotifyURIConvertibleEnum {
         case peter = "spotify:user:petervschorn"
         case april = "spotify:user:p8gjjfbirm8ucyt82ycfi9zuu"
@@ -36,7 +39,7 @@ public enum URIs {
         public static let petersComputer = "ced8d42d0a3830065dfbf4800352d23a96b76fd4"
     }
     
-    /// A namespace of playlists.
+    /// A namespace of playlist URIs.
     public enum Playlists: String, SpotifyURIConvertibleEnum {
         case test = "spotify:playlist:0ijeB2eFmJL1euREk6Wu6C"
         case new = "spotify:playlist:5MlKAGFZNoN2d0Up8sQc0N"
@@ -47,9 +50,12 @@ public enum URIs {
         case thisIsSpoon = "spotify:playlist:37i9dQZF1DX3zc219hYxy3"
         case bluesClassics = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk"
         case thisIsPinkFloyd = "spotify:playlist:37i9dQZF1DXaQ34lqGBfrU"
+        case localSongs = "spotify:playlist:13S3Kgy80FmqaRjYoECK3U"
+        case thisIsStevieRayVaughan = "spotify:playlist:37i9dQZF1DZ06evO35m9Q4"
+        case thisIsJimiHendrix = "spotify:playlist:37i9dQZF1DWTNV753no4ic"
     }
 
-    /// A namespace of artists.
+    /// A namespace of artist URIs.
     public enum Artists: String, SpotifyURIConvertibleEnum {
         case crumb = "spotify:artist:4kSGbjWGxTchKpIxXPJv0B"
         case levitationRoom = "spotify:artist:0SVxQVCnJn1BNUMY9ZcRO4"
@@ -57,9 +63,10 @@ public enum URIs {
         case skinshape = "spotify:artist:1itM5tXaK5THggpXA7ovAe"
         case mildHighClub = "spotify:artist:5J81VungUjSVHxlPpTI9KG"
         case pinkFloyd = "spotify:artist:0k17h0D3J5VfsdmQ1iZtE9"
+        case theBeatles = "spotify:artist:3WrFJ7ztbogyGnTHbHJFl2"
     }
     
-    /// A namespace of albums.
+    /// A namespace of album URIs.
     public enum Albums: String, SpotifyURIConvertibleEnum {
         case jinx = "spotify:album:3vukTUpiENDHDoYTVrwqtz"
         case locket = "spotify:album:2Q61Zm3rOli876QegmVY50"
@@ -67,27 +74,51 @@ public enum URIs {
         case tiger = "spotify:album:4OPBRShV2OxYoT4hAenDPl"
         case saladDays = "spotify:album:7xPhDaYZ2ejV04aNtdBdvj"
         case meddle = "spotify:album:468ZwCchVtzEbt9BHmXopb"
+        case darkSideOfTheMoon = "spotify:album:4LH4d3cOWNNsVw41Gqt2kv"
         case longestAlbum = "spotify:album:1Hnvk7i2oLf4ZQnOB8kYqt"
+        case inRainbows = "spotify:album:7eyQXxuf2nGj9d2367Gi5f"
+        case abbeyRoad = "spotify:album:0ETFjACtuP2ADo6LFhL6HN"
     }
 
-    /// A namespace of tracks.
+    /// A namespace of track URIs.
     public enum Tracks: String, SpotifyURIConvertibleEnum {
         case locket = "spotify:track:0bxcUgWlOURkU6lZt4zog0"
         case jinx = "spotify:track:7qAy6TR1MrSeUV8OpMlNS1"
         case plants = "spotify:track:2cOzI3LOIkRIKEidcGZ1Bc"
         case faces = "spotify:track:1u7LOyLuApChbPeqMfXFKC"
-        case friends = "spotify:track:43NI5sAcvDLG7QQAmUc7UU"
+        case partIII = "spotify:track:4HDLmWf73mge8isanCASnU"
+
         case illWind = "spotify:track:7vuVUQV0dDnjXUyLPzJLPi"
+        
+        case friends = "spotify:track:43NI5sAcvDLG7QQAmUc7UU"
         case theBay = "spotify:track:4x0QYD0DhErAC1sPvvPmq9"
         case wadingOut = "spotify:track:3e7WFkI9OBb9ANwqJroJwZ"
-        case partIII = "spotify:track:4HDLmWf73mge8isanCASnU"
         case nuclearFusion = "spotify:track:1pmImsdC9t35L3TkD26ax8"
         case honey = "spotify:track:01IuTsgAlgKlgrvPhZ2c95"
+        
         case anyColourYouLike = "spotify:track:6FBPOJLxUZEair6x4kLDhf"
         case fearless = "spotify:track:7AalBKBoLDR4UmRYRJpdbj"
+        case breathe = "spotify:track:2ctvdKmETyOzPb2GiJJT53"
+        case time = "spotify:track:3TO7bbrUKrOSPGRTB5MeCz"
+        
+        case odeToViceroy = "spotify:track:7JIV9UYKpti5xWgq6lfNNJ"
+        case saladDays = "spotify:track:4keAoywVf4jxRvXU7ON0hV"
+        case blueBoy = "spotify:track:6EcWBNVhDlGn8AiSpkUg6T"
+        
+        case reckoner = "spotify:track:56Z7hbyMrndw1naxb6I5Oi"
+        case houseOfCards = "spotify:track:3Jc6X15OZCCyhGSHBF4hwB"
+        
+        /// Right now.
+        case comeTogether = "spotify:track:2EqlS6tkEnglzr7tkKAAYD"
+        
+        /// The sky is blue.
+        case because = "spotify:track:1rxoyGj1QuPoVi8fOft1Kt"
+        
+        /// The love that you take is equal to the love that you make.
+        case theEnd = "spotify:track:5aHHf6jrqDRb1fcBmue2kn"
     }
     
-    /// A namespace of episodes.
+    /// A namespace of episode URIs.
     public enum Episodes: String, SpotifyURIConvertibleEnum {
         case samHarris215 = "spotify:episode:1Vrpa83y0vBdWZqeEbkKk3"
         case samHarris214 = "spotify:episode:3d1cFPfj3kZB27D4b8ZJm2"
@@ -101,7 +132,7 @@ public enum URIs {
         case joeRogan1531 = "spotify:episode:0ZEDvQuPtAEBnXE37slSoX"
     }
     
-    /// A namespace of shows.
+    /// A namespace of show URIs.
     public enum Shows: String, SpotifyURIConvertibleEnum {
         case samHarris = "spotify:show:5rgumWEx4FsqIY8e1wJNAk"
         case joeRogan = "spotify:show:4rOoJ6Egrf8K2IrywzwOMk"

@@ -101,7 +101,7 @@ public extension SpotifyAPI {
      
      Use the [Spotify console][1] to test your queries,
      then copy and paste the response into this [online JSON viewer][2].
-     You are also encouraged to Assign a folder to
+     You are also encouraged to assign a folder to
      `SpotifyDecodingError.dataDumpFolder` so that the data will be written
      to a file when the decoding fails. You can then upload this file to the
      JSON viewer.

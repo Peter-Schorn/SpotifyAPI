@@ -184,7 +184,9 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
         return self.tryMap { data, response in
 
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError("could not cast URLResponse to HTTPURLResponse")
+                fatalError(
+                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                )
             }
 
             if let error = SpotifyWebAPI.decodeSpotifyErrors(
@@ -231,9 +233,67 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
         return self.tryMap { data, response -> ResponseType in
 
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError("could not cast URLResponse to HTTPURLResponse")
+                fatalError(
+                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                )
             }
 
+            return try SpotifyWebAPI.decodeSpotifyObject(
+                data: data,
+                httpURLResponse: httpURLResponse,
+                responseType: responseType
+            )
+
+        }
+        .eraseToAnyPublisher()
+
+    }
+
+    
+    /**
+     Tries to decode the raw data from a Spotify web API request.
+     You normally don't need to call this method directly.
+
+     Unlike `decodeSpotifyObject(_:)`, first checks to see if the data
+     is empty. If so, returns `nil`. Simply passing in an optional type
+     to `decodeSpotifyObject(_:)` does not work because empty data is not
+     considered valid json.
+     
+     First tries to decode the data into `responseType`. If that fails,
+     then the data is decoded into one of the [errors][1] returned by
+     spotify:
+
+     * `SpotifyAuthenticationError`
+     * `SpotifyError`
+     * `RateLimitedError`
+
+     If decoding into the error objects fails, `SpotifyDecodingError` is thrown
+     as a last resort.
+
+     **Note**: `SpotifyDecodingError` represents the error encountered
+     when decoding the `responseType`, not the error objects.
+
+     - Parameter responseType: The json response that you are
+     are expecting from the Spotify web API.
+
+     [1]: https://developer.spotify.com/documentation/web-api/#response-schema
+     */
+    func decodeOptionalSpotifyObject<ResponseType: Decodable>(
+        _ responseType: ResponseType.Type
+    ) -> AnyPublisher<ResponseType?, Error> {
+        
+        return self.tryMap { data, response -> ResponseType? in
+
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                fatalError(
+                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                )
+            }
+
+            if data.count == 0 {
+                return nil
+            }
+            
             return try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,
                 httpURLResponse: httpURLResponse,

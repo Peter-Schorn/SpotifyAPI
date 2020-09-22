@@ -15,10 +15,11 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase {
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
         spotify.setupDebugging()
-        #if os(macOS)
-        SpotifyDecodingError.dataDumpfolder =
-                FileManager.default.homeDirectoryForCurrentUser
-        #endif
+        if let dataDumpFolder = ProcessInfo.processInfo
+                .environment["data_dump_folder"] {
+            let url = URL(fileURLWithPath: dataDumpFolder)
+            SpotifyDecodingError.dataDumpfolder = url
+        }
         setupAuthorization()
     }
     
@@ -41,10 +42,11 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
         spotify.setupDebugging()
-        #if os(macOS)
-        SpotifyDecodingError.dataDumpfolder =
-                FileManager.default.homeDirectoryForCurrentUser
-        #endif
+        if let dataDumpFolder = ProcessInfo.processInfo
+                .environment["data_dump_folder"] {
+            let url = URL(fileURLWithPath: dataDumpFolder)
+            SpotifyDecodingError.dataDumpfolder = url
+        }
         setupAuthorization()
     }
 

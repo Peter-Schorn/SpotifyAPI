@@ -80,7 +80,7 @@ public extension SpotifyAPI where
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .decodeSpotifyObject(CurrentlyPlayingContext?.self)
+        .decodeOptionalSpotifyObject(CurrentlyPlayingContext.self)
         
     }
  

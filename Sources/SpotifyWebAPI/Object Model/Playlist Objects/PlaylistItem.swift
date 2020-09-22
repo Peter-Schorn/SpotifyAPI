@@ -153,9 +153,9 @@ extension PlaylistItem: Codable {
         
         switch type {
             case .track:
-                self = try .track(Track(from: decoder))
+                self = .track(try Track(from: decoder))
             case .episode:
-                self = try .episode(Episode(from: decoder))
+                self = .episode(try Episode(from: decoder))
             default:
                 let debugDescription = "expected type of object to be " +
                     "track or episode but received \(type.rawValue)"

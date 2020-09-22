@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.4.0] - 2020-09-22
+
+### Added
+
+- Added a wealth of sample data to the `SpotifyExampleContent` module. It includes URIs and various sample objects from the object model. This is particularly useful for SwiftUI Previews. You are highly encouraged to browse the source code for this module to see all of the available sample data.
+
+### Changed
+
+- Fixed bug in which calling `SpotifyAPI.currentPlayback()` when where were no available devices returned an error because Spotify returned no data. Now, `nil` is returned when Spotify returns no data.
+
 ## [0.3.3] - 2020-09-21
 
 ### Changed 
