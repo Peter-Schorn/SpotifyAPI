@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Fixed bug in which calling `SpotifyAPI.currentPlayback()` when where were no available devices returned an error because Spotify returned no data. Now, `nil` is returned when Spotify returns no data.
+- Bumped the swift tools version to 5.3 so that resources can be used by this package.
 
 ## [0.3.3] - 2020-09-21
 

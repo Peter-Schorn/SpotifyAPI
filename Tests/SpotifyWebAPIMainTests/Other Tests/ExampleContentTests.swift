@@ -86,6 +86,15 @@ final class ExampleContentTests: XCTestCase {
         print(Playlist<PlaylistItems>.localSongs, to: &sink)
         print(Playlist<PlaylistItems>.crumb, to: &sink)
         
+        print(Playlist.lucyInTheSkyWithDiamonds, to: &sink)
+        print(Playlist.thisIsMFDoom, to: &sink)
+        print(Playlist.rockClassics, to: &sink)
+        print(Playlist.thisIsSonicYouth, to: &sink)
+        print(Playlist.thisIsRadiohead, to: &sink)
+        print(Playlist.thisIsSkinshape, to: &sink)
+        print(Playlist.modernPsychedelia, to: &sink)
+        print(Playlist.thisIsMildHighClub, to: &sink)
+        print(Playlist.menITrust, to: &sink)
         
     }
     
