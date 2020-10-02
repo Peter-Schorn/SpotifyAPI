@@ -4,23 +4,30 @@
       "id" : "8E3BCCAC-23D4-4567-8AF8-E6F1E3551E55",
       "name" : "Configuration 1",
       "options" : {
-
+        "addressSanitizer" : {
+          "enabled" : false
+        }
       }
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
     "environmentVariableEntries" : [
       {
         "key" : "client_secret",
         "value" : "e07ae33822714130aa7b8492b49bf824"
       },
       {
+        "key" : "data_dump_folder",
+        "value" : "\/Users\/pschorn\/Desktop"
+      },
+      {
         "key" : "client_id",
         "value" : "f9b05de1274c4851a2293a540cb8705e"
       }
     ],
-    "threadSanitizerEnabled" : true
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true,
+    "undefinedBehaviorSanitizerEnabled" : true
   },
   "testTargets" : [
     {

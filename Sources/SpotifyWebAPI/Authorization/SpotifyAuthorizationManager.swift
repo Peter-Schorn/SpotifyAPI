@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
 /**
  A type that can manage the authorization process for the

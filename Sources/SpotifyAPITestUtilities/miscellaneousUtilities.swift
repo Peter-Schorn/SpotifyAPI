@@ -1,7 +1,7 @@
 
 import Foundation
 import Combine
-import Logger
+import Logging
 import XCTest
 
 /// Assert that a url exists by making a data task request
@@ -31,7 +31,7 @@ public func assertURLExists(
 public extension StringProtocol {
     
     /// Parses an id from a uri by returning all characters after the
-    /// last ":"
+    /// last ":".
     var spotifyId: String? {
         return self.split(separator: ":").last.map { String($0) }
     }

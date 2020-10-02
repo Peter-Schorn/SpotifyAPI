@@ -33,7 +33,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The [Spotify URI][1] for the item.
+    /// The [Spotify URI][1] for this `PlaylistItem`.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     @inlinable
@@ -46,7 +46,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The [Spotify ID] for the item.
+    /// The [Spotify ID] for this `PlaylistItem`.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     @inlinable
@@ -59,7 +59,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The length of the item in milliseconds.
+    /// The length, in milliseconds, of this `PlaylistItem`.
     @inlinable
     public var durationMS: Int? {
         switch self {
@@ -70,7 +70,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// Whether or not the item has explicit content.
+    /// Whether or not this `PlaylistItem` has explicit content.
     /// `false` if unknown.
     @inlinable
     public var isExplicit: Bool {

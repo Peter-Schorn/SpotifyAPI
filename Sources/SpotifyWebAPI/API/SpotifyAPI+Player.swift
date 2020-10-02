@@ -66,7 +66,7 @@ public extension SpotifyAPI where
      device is not the same as an active device.
      
      - Note: Testing suggets that if the user is playing an episode,
-           then the `item` and `context` properties of `CurrentlyPlayingContext`
+           then the `currentlyPlayingItem` and `context` properties of `CurrentlyPlayingContext`
            will be `nil`.
      
      Read more at the [Spotify web API reference][1].
@@ -91,7 +91,7 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userReadRecentlyPlayed` scope.
      
-     *Note:** Currently doesn’t support podcast episodes. Returns the
+     **Note:** Currently doesn’t support podcast episodes. Returns the
      most recent 50 tracks played by a user. Note that a track currently
      playing will not be visible in play history until it has completed.
      A track must be played for more than 30 seconds to be included in play
@@ -117,7 +117,6 @@ public extension SpotifyAPI where
              millisecond-precision timestamps. Only results that are within
              the specified time period will be returned. If `nil`, the most
              recently played tracks will be returned.
-       
        - limit: *Optional*. The maximum number of items to return.
              Default: 20; Minimum: 1; Maximum: 50.
      - Returns: A an array of simplified tracks wrapped in a
@@ -356,6 +355,8 @@ public extension SpotifyAPI where
            leave this as `nil` (default) to target the active device.
            If you provide the id of a device that is not active, you may
            get a 403 "Player command failed: Restriction violated" error.
+           If you want to resume playback on a non-active device, call
+           `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
@@ -428,6 +429,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to play content on a non-active device, call
+             `transferPlayback(to:play:)` first.
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
@@ -671,9 +674,13 @@ public extension SpotifyAPI where
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to.
-             See `availableDevices()`.
+             Must be one of the devices returned by `availableDevices()`.
        - play: If `true`, ensure playback happens on the new device.
-             If `false`, keep the current playback state.
+             If `false`, keep the current playback state. Note that a
+             value of `false` will **NOT** pause playback. To ensure
+             that playback is paused on the new device you should call
+             `pausePlayback(deviceId:)` (and wait for completion) *before*
+             transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/

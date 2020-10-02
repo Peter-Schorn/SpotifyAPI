@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
 
 /**
@@ -29,7 +29,7 @@ import Logger
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     /// The logger for this class. By default, its level is `critical`.
-    public static let logger = Logger(
+    public static var logger = Logger(
         label: "ClientCredentialsFlowManager", level: .critical
     )
     
@@ -39,20 +39,44 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// The client secret for your application.
     public let clientSecret: String
     
-    /// Spotify authorization scopes. **Always** an empty set
+    /// The Spotify authorization scopes. **Always** an empty set
     /// because the client credentials flow does not support
     /// authorization scopes.
     public let scopes: Set<Scope>? = []
     
-    /// The access token used in all of the requests
-    /// to the Spotify web API.
-    public var accessToken: String?
+    /**
+     The access token used in all of the requests
+     to the Spotify web API.
+     
+     # Thread Safety
+     
+     Access to this property is synchronized; therefore, it is always
+     thread-safe.
+     */
+    public var accessToken: String? {
+        return self.updateAuthInfoDispatchQueue.sync {
+            self._accessToken
+        }
+    }
+    private var _accessToken: String?
     
-    /// The expiration date of the access token.
-    ///
-    /// You are encouraged to use `accessTokenIsExpired(tolerance:)`
-    /// to check if the token is expired.
-    public var expirationDate: Date?
+    /**
+     The expiration date of the access token.
+    
+     You are encouraged to use `accessTokenIsExpired(tolerance:)`
+     to check if the token is expired.
+     
+     # Thread Safety
+     
+     Access to this property is synchronized; therefore, it is always
+     thread-safe.
+     */
+    public var expirationDate: Date? {
+        return self.updateAuthInfoDispatchQueue.sync {
+            self._expirationDate
+        }
+    }
+    private var _expirationDate: Date?
     
     /**
      A Publisher that emits **after** this `ClientCredentialsFlowManager`
@@ -72,6 +96,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      `authorizationManager` instance property of `SpotifyAPI`.
      
      # Thread Safety
+     
      No guarantees are made about which thread this subject will emit on.
      Always receive on the main thread if you plan on updating the UI.
      */
@@ -117,24 +142,12 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         self.clientSecret = clientSecret
     }
     
-    
-    func updateFromAuthInfo(_ authInfo: AuthInfo) {
-        updateAuthInfoDispatchQueue.sync {
-            self.accessToken = authInfo.accessToken
-            self.expirationDate = authInfo.expirationDate
-            self.didChange.send()
-            Self.logger.trace(
-                "updated from auth Info; self.didChange.send()"
-            )
-        }
-    }
-    
     public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
         
-        self.accessToken = codingWrapper.accessToken
-        self.expirationDate = codingWrapper.expirationDate
+        self._accessToken = codingWrapper.accessToken
+        self._expirationDate = codingWrapper.expirationDate
         
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
@@ -149,11 +162,11 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     public func encode(to encoder: Encoder) throws {
         
-        let codingWrapper = updateAuthInfoDispatchQueue.sync {
+        let codingWrapper = self.updateAuthInfoDispatchQueue.sync {
             AuthInfo(
-                accessToken: self.accessToken,
+                accessToken: self._accessToken,
                 refreshToken: nil,
-                expirationDate: self.expirationDate,
+                expirationDate: self._expirationDate,
                 scopes: nil
             )
         }
@@ -174,7 +187,6 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
 }
 
-
 public extension ClientCredentialsFlowManager {
     
     /**
@@ -186,13 +198,18 @@ public extension ClientCredentialsFlowManager {
      
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
+     
+     # Thread Safety
+     
+     This method is thread-safe.
      */
     func deauthorize() {
-        updateAuthInfoDispatchQueue.sync {
-            self.accessToken = nil
-            self.expirationDate = nil
-            self.didChange.send()
+        self.updateAuthInfoDispatchQueue.sync {
+            self._accessToken = nil
+            self._expirationDate = nil
+            self.refreshTokensPublisher = nil
         }
+        self.didChange.send()
     }
     
     /**
@@ -210,21 +227,14 @@ public extension ClientCredentialsFlowManager {
      - Returns: `true` if `expirationDate` - `tolerance` is
            equal to or before the current date or if `accessToken`
            is `nil`. Else, `false`.
+     
+     # Thread Safety
+     
+     This method is thread-safe.
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
-        return updateAuthInfoDispatchQueue.sync {
-            if (accessToken == nil) != (self.expirationDate == nil) {
-                let expirationDateString = self.expirationDate?
-                    .description(with: .current) ?? "nil"
-                Self.logger.critical(
-                    "accessToken or expirationDate was nil, but not both: " +
-                        "accessToken == nil: \(accessToken == nil);" +
-                    "expiration date: \(expirationDateString)"
-                )
-            }
-            guard accessToken != nil else { return true }
-            guard let expirationDate = expirationDate else { return true }
-            return expirationDate.addingTimeInterval(-tolerance) <= Date()
+        return self.updateAuthInfoDispatchQueue.sync {
+            return self.accessTokenIsExpiredNOTTHreadSafe(tolerance: tolerance)
         }
     }
     
@@ -238,11 +248,15 @@ public extension ClientCredentialsFlowManager {
            authorization scopes; it only supports endpoints that do not
            access user data.
      
+     # Thread Safety
+     
+     This method is thread-safe.
+     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
-        return updateAuthInfoDispatchQueue.sync {
-            if accessToken == nil { return false }
+        return self.updateAuthInfoDispatchQueue.sync {
+            if _accessToken == nil { return false }
             return scopes.isEmpty
         }
     }
@@ -274,9 +288,10 @@ public extension ClientCredentialsFlowManager {
             headers: headers,
             body: body
         )
+        // decoding into `AuthInfo` never fails because all of its,
+        // properties are optional, so we must try to decode errors
+        // first.
         .decodeSpotifyErrors()
-        // decoding into `AuthInfo` never fails, so we must
-        // try to decode errors first.
         .decodeSpotifyObject(AuthInfo.self)
         .map { authInfo in
          
@@ -305,9 +320,9 @@ public extension ClientCredentialsFlowManager {
     
      **You shouldn't need to call this method**. It gets
      called automatically each time you make a request to the
-     Spotify API.
+     Spotify web API.
      
-     The [Client Credentials Flow][1] does not return a refresh token,
+     The [Client Credentials Flow][1] does not provide a refresh token,
      so calling this method and passing in `false` for `onlyIfExpired`
      is equivalent to calling `authorize`.
      
@@ -322,6 +337,15 @@ public extension ClientCredentialsFlowManager {
              equal to or before the current date. This parameter has
              no effect if `onlyIfExpired` is `false`.
      
+     # Thread Safety
+     
+     Calling this method is thread-safe. If a network request to refresh the tokens
+     is already in progress, additional calls will return a reference to the same
+     publisher as a class instance.
+     
+     **However**, no guarentees are made about the thread that the publisher
+     returned by this method will emit on.
+     
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
     func refreshTokens(
@@ -329,47 +353,105 @@ public extension ClientCredentialsFlowManager {
         tolerance: Double = 120
     ) -> AnyPublisher<Void, Error> {
         
-        if onlyIfExpired && !self.accessTokenIsExpired(tolerance: tolerance) {
-            Self.logger.trace("access token not expired; returning early")
-            return Result<Void, Error>
-                .Publisher(())
-                .eraseToAnyPublisher()
-        }
-        
-        Self.logger.trace("access token is expired, authorizing again")
-        
-        if let refreshTokensPublisher = self.refreshTokensPublisher {
-            Self.logger.notice("Using previous publisher")
-            return refreshTokensPublisher
-        }
-        Self.logger.trace("Creating new publisher")
-        
-        // The process for refreshing the token is the same as that
-        // for authorizing the application. The client credentials flow
-        // does not return a refresh token, unlike the authorization code
-        // flow.
-        let refreshTokensPublisher = self.authorize()
-            .handleEvents(
-                // once this publisher finishes, we must
-                // set `self.refreshTokensPublisher` to `nil`
-                // so that the caller does not receive a publisher
-                // that has already finished.
-                receiveOutput: { _ in
-                    self.refreshTokensPublisher = nil
-                },
-                receiveCompletion: { _ in
-                    self.refreshTokensPublisher = nil
+        return updateAuthInfoDispatchQueue
+            .sync { () -> AnyPublisher<Void, Error> in
+                
+                if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
+                    tolerance: tolerance
+                ) {
+                    Self.logger.trace("access token not expired; returning early")
+                    return Result<Void, Error>
+                        .Publisher(())
+                        .eraseToAnyPublisher()
                 }
-            )
-            .share()
-            .eraseToAnyPublisher()
-        
-        self.refreshTokensPublisher = refreshTokensPublisher
-        return refreshTokensPublisher
-        
+                
+                Self.logger.trace("access token is expired; authorizing again")
+                
+                // If another request to refresh the tokens is currently
+                // in progress, return the same request instead of creating
+                // a new network request.
+                if let publisher = self.refreshTokensPublisher {
+                    Self.logger.trace("using previous publisher")
+                    return publisher
+                }
+                
+                Self.logger.trace("creating new publisher")
+                
+                // The process for refreshing the token is the same as that
+                // for authorizing the application. The client credentials flow
+                // does not return a refresh token, unlike the authorization code
+                // flow.
+                let refreshTokensPublisher = self.authorize()
+                    .handleEvents(
+                        // once this publisher finishes, we must
+                        // set `self.refreshTokensPublisher` to `nil`
+                        // so that the caller does not receive a publisher
+                        // that has already finished.
+                        receiveCompletion: { _ in
+                            self.updateAuthInfoDispatchQueue.sync {
+                                Self.logger.trace(
+                                    """
+                                    refreshTokensPublisher received completion; \
+                                    setting to nil"
+                                    """
+                                )
+                                self.refreshTokensPublisher = nil
+                            }
+                        }
+                    )
+                    .share()
+                    .eraseToAnyPublisher()
+                
+                self.refreshTokensPublisher = refreshTokensPublisher
+                return refreshTokensPublisher
+                
+            }
     }
     
     
+}
+
+private extension ClientCredentialsFlowManager {
+    
+    func updateFromAuthInfo(_ authInfo: AuthInfo) {
+        self.updateAuthInfoDispatchQueue.sync {
+            self._accessToken = authInfo.accessToken
+            self._expirationDate = authInfo.expirationDate
+            self.refreshTokensPublisher = nil
+        }
+        self.didChange.send()
+        Self.logger.trace("self.didChange.send()")
+    }
+    
+    /// This method should **ALWAYS** be called within
+    /// `updateAuthInfoDispatchQueue`.
+    func accessTokenIsExpiredNOTTHreadSafe(tolerance: Double = 120) -> Bool {
+        if (_accessToken == nil) != (_expirationDate == nil) {
+            let expirationDateString = _expirationDate?
+                .description(with: .current) ?? "nil"
+            Self.logger.critical(
+                """
+                accessToken or expirationDate was nil, but not both:
+                accessToken == nil: \(_accessToken == nil); \
+                expiration date: \(expirationDateString)
+                """
+            )
+        }
+        if _accessToken == nil { return true }
+        guard let expirationDate = _expirationDate else { return true }
+        return expirationDate.addingTimeInterval(-tolerance) <= Date()
+    }
+    
+}
+
+extension ClientCredentialsFlowManager {
+    
+    func assertNotOnUpdateAuthInfoDispatchQueue() {
+        dispatchPrecondition(
+            condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
+        )
+    }
+
 }
 
 // MARK: - Hashable and Equatable -
@@ -377,10 +459,12 @@ public extension ClientCredentialsFlowManager {
 extension ClientCredentialsFlowManager: Hashable {
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(clientId)
-        hasher.combine(clientSecret)
-        hasher.combine(accessToken)
-        hasher.combine(expirationDate)
+        self.updateAuthInfoDispatchQueue.sync {
+            hasher.combine(clientId)
+            hasher.combine(clientSecret)
+            hasher.combine(_accessToken)
+            hasher.combine(_expirationDate)
+        }
     }
     
     public static func == (
@@ -388,17 +472,28 @@ extension ClientCredentialsFlowManager: Hashable {
         rhs: ClientCredentialsFlowManager
     ) -> Bool {
         
+        let (lhsAccessToken, lhsExpirationDate) =
+                lhs.updateAuthInfoDispatchQueue.sync {
+            return (lhs._accessToken, lhs._expirationDate)
+        }
+        
+        let (rhsAccessToken, rhsExpirationDate) =
+                rhs.updateAuthInfoDispatchQueue.sync {
+            return (rhs._accessToken, rhs._expirationDate)
+        }
+       
         if lhs.clientId != rhs.clientId ||
                 lhs.clientSecret != rhs.clientSecret ||
-                lhs.accessToken != rhs.accessToken {
+                lhsAccessToken != rhsAccessToken {
             return false
         }
+        
         return abs(
-            (lhs.expirationDate?.timeIntervalSince1970 ?? 0) -
-            (rhs.expirationDate?.timeIntervalSince1970 ?? 0)
-        ) <= 5
+            (lhsExpirationDate?.timeIntervalSince1970 ?? 0) -
+                (rhsExpirationDate?.timeIntervalSince1970 ?? 0)
+        ) <= 3
+        
     }
-    
     
 }
 
@@ -407,20 +502,21 @@ extension ClientCredentialsFlowManager: Hashable {
 extension ClientCredentialsFlowManager: CustomStringConvertible {
     
     public var description: String {
-        return updateAuthInfoDispatchQueue.sync {
-            
-            let expirationDateString = expirationDate?
+        // print("ClientCredentialsFlowManager.description: WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("ClientCredentialsFlowManager.description: INSIDE queue")
+            let expirationDateString = _expirationDate?
                 .description(with: .autoupdatingCurrent)
                 ?? "nil"
         
             return """
-            ClientCredentialsFlowManager(
-            access_token: "\(accessToken ?? "nil")"
-            expirationDate: \(expirationDateString)
-            client id: "\(clientId)"
-            client secret: "\(clientSecret)"
-            )
-            """
+                ClientCredentialsFlowManager(
+                    access_token: "\(_accessToken ?? "nil")"
+                    expirationDate: \(expirationDateString)
+                    client id: "\(clientId)"
+                    client secret: "\(clientSecret)"
+                )
+                """
         
         }
     }
@@ -434,19 +530,31 @@ extension ClientCredentialsFlowManager {
     /// This method sets random values for various properties
     /// for testing purposes. Do not call it outside of test cases.
     func mockValues() {
-        updateAuthInfoDispatchQueue.sync {
-            self.expirationDate = Date()
-            self.accessToken = UUID().uuidString
+        self.updateAuthInfoDispatchQueue.sync {
+            self._expirationDate = Date()
+            self._accessToken = UUID().uuidString
+        }
+    }
+    
+    /// Only use for testing purposes.
+    func makeCopy() -> Self {
+        let instance = Self(
+            clientId: self.clientId, clientSecret: self.clientSecret
+        )
+        return self.updateAuthInfoDispatchQueue.sync {
+            instance._accessToken = self._accessToken
+            instance._expirationDate = self._expirationDate
+            return instance
         }
     }
     
     /// Only use for testing purposes.
     func setExpirationDate(to date: Date) {
-        updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoDispatchQueue.sync {
             Self.logger.notice(
                 "mock date: \(date.description(with: .current))"
             )
-            self.expirationDate = date
+            self._expirationDate = date
         }
     }
     

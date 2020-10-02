@@ -298,6 +298,9 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -333,6 +336,9 @@
                 <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
               </li>
               <li class="nav-group-task">
@@ -366,9 +372,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV6deviceAA6DeviceVvp"></a>
-                    <a name="//apple_ref/swift/Property/device" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV6deviceAA6DeviceVvp">device</a>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV12activeDeviceAA0H0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/activeDevice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV12activeDeviceAA0H0Vvp">activeDevice</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -383,7 +389,35 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Structs/Device.html">Device</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">activeDevice</span><span class="p">:</span> <span class="kt"><a href="../Structs/Device.html">Device</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV6deviceAA6DeviceVvp"></a>
+                    <a name="//apple_ref/swift/Property/device" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV6deviceAA6DeviceVvp">device</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This property has been renamed to <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV12activeDeviceAA0H0Vvp">activeDevice</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"activeDevice"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Structs/Device.html">Device</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -570,9 +604,9 @@ session enabled, then this will be <code>nil</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp"></a>
-                    <a name="//apple_ref/swift/Property/item" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV09currentlyE4ItemAA08PlaylistH0OSgvp"></a>
+                    <a name="//apple_ref/swift/Property/currentlyPlayingItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV09currentlyE4ItemAA08PlaylistH0OSgvp">currentlyPlayingItem</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -583,7 +617,7 @@ session enabled, then this will be <code>nil</code>.</p>
                         <p>The currently playing track/episode.</p>
 
 <p>Although the type is <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>, this does not necessarily
-mean that item is playing in the context of a playlist.</p>
+mean that the item is playing in the context of a playlist.</p>
 
 <p>Can be <code>nil</code>. For example, If the user has a private
 session enabled, then this will be <code>nil</code>.</p>
@@ -599,7 +633,35 @@ session enabled, then this will be <code>nil</code>.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">item</span><span class="p">:</span> <span class="kt"><a href="../Enums/PlaylistItem.html">PlaylistItem</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">currentlyPlayingItem</span><span class="p">:</span> <span class="kt"><a href="../Enums/PlaylistItem.html">PlaylistItem</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp"></a>
+                    <a name="//apple_ref/swift/Property/item" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This property has been renamed to <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV09currentlyE4ItemAA08PlaylistH0OSgvp">currentlyPlayingItem</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"currentlyPlayingItem"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">item</span><span class="p">:</span> <span class="kt"><a href="../Enums/PlaylistItem.html">PlaylistItem</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -649,8 +711,14 @@ Can be <code>track</code>, <code>episode</code>, or <code>unknown</code>.</p>
                       <div class="abstract">
                         <p>The playback actions that are allowed within the given context.</p>
 
+<p>Attemping to perform actions that are not contained within this set
+will result in an error from the Spotify web API.</p>
+
 <p>For example, you cannot skip to the previous or next track/episode
 or seek to a position in a track/episode while an ad is playing.</p>
+
+<p>You could use this property to disable UI elements that perform
+actions that are not contained within this set.</p>
 
                       </div>
                       <div class="declaration">
@@ -721,7 +789,7 @@ or seek to a position in a track/episode while an ad is playing.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -68,7 +68,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     ) {
         self.snapshotId = snapshotId
         self.urisWithPositions = urisWithPositions.map { item in
-            URIWithPositions(uri: item.uri.uri, positions: item.positions)
+            URIWithPositions(uri: item.uri, positions: item.positions)
         }
     }
     

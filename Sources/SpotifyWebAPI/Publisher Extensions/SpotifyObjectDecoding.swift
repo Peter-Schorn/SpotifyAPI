@@ -1,9 +1,10 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
-public let spotifyDecodeLogger = Logger(
-    label: "spotifyDecode", level: .warning
+
+public var spotifyDecodeLogger = Logger(
+    label: "spotifyDecode", level: .critical
 )
 
 // MARK: - Decode Spotify Objects -
@@ -46,9 +47,11 @@ public func decodeSpotifyErrors(
         }
         else {
             spotifyDecodeLogger.error(
-                "got 429 rate limit error, but couldn't " +
-                "get value for Retry-After header and/or " +
-                "convert to Int"
+                """
+                got 429 rate limit error, but couldn't \
+                get value for Retry-After header and/or \
+                convert to Int
+                """
             )
         }
         
@@ -77,9 +80,11 @@ public func decodeSpotifyErrors(
     // of the error objects. A Violation of this assumption
     // is a serious error.
     if [401, 401, 403, 404, 500, 502, 503].contains(statusCode) {
-        spotifyDecodeLogger.critical(
-            "http response status code was \(statusCode) (error), " +
-            "but couldn't decode error response objects"
+        spotifyDecodeLogger.error(
+            """
+            http response status code was \(statusCode) (error) \
+            but couldn't decode error response objects"
+            """
         )
     }
     
@@ -139,8 +144,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         }
         
         spotifyDecodeLogger.error(
-            "couldn't decode \(responseType) or " +
-            "the spotify error objects"
+            "couldn't decode \(responseType) or the spotify error objects"
         )
         
         /*
@@ -207,6 +211,10 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      Tries to decode the raw data from a Spotify web API request.
      You normally don't need to call this method directly.
 
+     Use `decodeOptionalSpotifyObject(_:)` instead if the data might be empty.
+     Simply passing in an optional type does not work because empty data is
+     not considered valid json.
+     
      First tries to decode the data into `responseType`. If that fails,
      then the data is decoded into one of the [errors][1] returned by
      spotify:

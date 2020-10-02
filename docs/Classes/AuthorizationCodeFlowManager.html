@@ -298,6 +298,9 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -331,6 +334,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
@@ -400,33 +406,6 @@ which are immutable.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC6logger6LoggerAECvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/logger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC6logger6LoggerAECvpZ">logger</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The logger for this class. By default, its level is <code>critical</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientIdSSvp"></a>
                     <a name="//apple_ref/swift/Property/clientId" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientIdSSvp">clientId</a>
@@ -493,13 +472,17 @@ which are immutable.</p>
                       <div class="abstract">
                         <p>The access token used in all of the requests
 to the Spotify web API.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>Access to this property is synchronized; therefore, it is always
+thread-safe.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -520,13 +503,17 @@ to the Spotify web API.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Used to refresh the access token.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>Access to this property is synchronized; therefore, it is always
+thread-safe.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -550,13 +537,17 @@ to the Spotify web API.</p>
 
 <p>You are encouraged to use <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC20accessTokenIsExpired9toleranceSbSd_tF">accessTokenIsExpired(tolerance:)</a></code>
 to check if the token is expired.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>Access to this property is synchronized; therefore, it is always
+thread-safe.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">expirationDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">expirationDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -578,12 +569,19 @@ to check if the token is expired.</p>
                       <div class="abstract">
                         <p>The scopes that have been authorized for the access token.</p>
 
+<p>You are encouraged to use <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC12isAuthorized3forSbShyAA5ScopeOG_tF">isAuthorized(for:)</a></code>to check
+which scopes the access token is authorized for.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>Access to this property is synchronized; therefore, it is always
+thread-safe.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -777,6 +775,9 @@ again before accessing any of the Spotify web API endpoints.</p>
 
 <p>If this instance is stored in persistent storage, consider
 removing it after calling this method.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>This method is thread-safe.</p>
 
                       </div>
                       <div class="declaration">
@@ -811,6 +812,9 @@ within the given tolerance.</p>
 <p>The access token is refreshed automatically when necessary
 before each request to the spotify web API is made.
 Therefore, <strong>you should never need to call this method directly.</strong></p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>This method is thread-safe.</p>
 
                       </div>
                       <div class="declaration">
@@ -865,6 +869,9 @@ Therefore, <strong>you should never need to call this method directly.</strong><
                       <div class="abstract">
                         <p>Returns <code>true</code> if <code><a href="../Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC11accessTokenSSSgvp">accessToken</a></code> is not <code>nil</code> and the application
 is authorized for the specified scopes, else <code>false</code>.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>This method is thread-safe.</p>
 
                       </div>
                       <div class="declaration">
@@ -1060,9 +1067,17 @@ even those that do not access user data.</p>
 for some other reason, then <code><a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code> will be thrown to
 downstream subscribers. Use the <code>accessWasDenied</code> boolean property of this
 error to check if the user denied your app&rsquo;s authorization request.</p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>Calling this method is thread-safe. If a network request to refresh the tokens
+is already in progress, additional calls will return a reference to the same
+publisher as a class instance.</p>
+
+<p><strong>However</strong>, no guarentees are made about the thread that the publisher
+returned by this method will emit on.</p>
 
 <ul>
-<li><p>Tag: requestAccessAndRefreshTokens-redirectURIWithQuery</p></li>
+<li>Tag: requestAccessAndRefreshTokens-redirectURIWithQuery</li>
 </ul>
 
                       </div>
@@ -1298,7 +1313,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

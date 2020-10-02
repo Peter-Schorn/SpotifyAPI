@@ -3,7 +3,7 @@ import XCTest
 import SpotifyWebAPI
 import SpotifyExampleContent
 
-/// Ensure that the example content is correctly decoded from JSON.
+/// Ensure that the example content is correctly decoded from JSON
 /// without errors.
 final class ExampleContentTests: XCTestCase {
     
@@ -83,8 +83,8 @@ final class ExampleContentTests: XCTestCase {
         
         print(PagingObject.thisIsStevieRayVaughan, to: &sink)
 
-        print(Playlist<PlaylistItems>.localSongs, to: &sink)
-        print(Playlist<PlaylistItems>.crumb, to: &sink)
+        print(Playlist.localSongs, to: &sink)
+        print(Playlist.crumb, to: &sink)
         
         print(Playlist.lucyInTheSkyWithDiamonds, to: &sink)
         print(Playlist.thisIsMFDoom, to: &sink)

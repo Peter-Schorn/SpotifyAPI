@@ -298,6 +298,9 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -331,6 +334,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
@@ -497,9 +503,9 @@ Always receive on the main thread if you plan on updating the UI.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C6logger7Logging6LoggerVvp"></a>
                     <a name="//apple_ref/swift/Property/logger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6logger6LoggerAECvp">logger</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6logger7Logging6LoggerVvp">logger</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -514,7 +520,7 @@ Always receive on the main thread if you plan on updating the UI.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
 
                         </div>
                       </div>
@@ -524,9 +530,9 @@ Always receive on the main thread if you plan on updating the UI.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C16apiRequestLogger7Logging0F0Vvp"></a>
                     <a name="//apple_ref/swift/Property/apiRequestLogger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16apiRequestLogger0F0AECvp">apiRequestLogger</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16apiRequestLogger7Logging0F0Vvp">apiRequestLogger</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -543,7 +549,7 @@ data to a string.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
 
                         </div>
                       </div>
@@ -2379,10 +2385,13 @@ Private playlists belonging to any user can be retrieved.</p>
 
 <p>Use the <a href="https://developer.spotify.com/console/get-playlist/">Spotify console</a> to test your queries,
 then copy and paste the response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.
-You are also encouraged to Assign a folder to
+You are also encouraged to assign a folder to
 <code>SpotifyDecodingError.dataDumpFolder</code> so that the data will be written
 to a file when the decoding fails. You can then upload this file to the
 JSON viewer.</p>
+
+<p>When decoding the data, it is recommended that you use the combine
+operator <code>decodeSpotifyObject(_:)</code> instead of <code>decode(type:decoder:)</code>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/">Spotify web API reference</a>.</p>
 
@@ -3875,7 +3884,18 @@ including it in the current response in order to limit the size.</p>
 
 <p>For example, the endpoint for getting all of a user&rsquo;s playlists
 returns an href inside of each playlist object which provides
-the full list of tracks.</p>
+the full list of tracks/episodes. However, for this specific case,
+it is recommended that you use one of the following methods instead,
+passing in the URI of the playlist:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+</ul>
+
+<p>These methods are preferred because you do not have to worry about
+figuring out the response type yourself.</p>
 
                       </div>
                       <div class="declaration">
@@ -4003,6 +4023,47 @@ For example, to just get the next page, use <code>1</code>. Leave as
                         <p>A publisher that immediately republishes the <code>results</code>
   that were passed in, as well as additional pages that are
   returned by the Spotify web API.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Testing"></a>
+                <a name="//apple_ref/swift/Section/Testing" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Testing"></a>
+                  <h3 class="section-name"><p>Testing</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C14setupDebuggingyyF"></a>
+                    <a name="//apple_ref/swift/Method/setupDebugging()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C14setupDebuggingyyF">setupDebugging()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This function has no stable API and may change arbitrarily.
+Only use it for testing purposes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setupDebugging</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -5642,7 +5703,7 @@ device is not the same as an active device.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     Testing suggets that if the user is playing an episode,
-  then the <code>item</code> and <code>context</code> properties of <code><a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a></code>
+  then the <code>currentlyPlayingItem</code> and <code>context</code> properties of <code><a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a></code>
   will be <code>nil</code>.
 
 </div>
@@ -5680,7 +5741,7 @@ device is not the same as an active device.</p>
 
 <p>This endpoint requires the <code>userReadRecentlyPlayed</code> scope.</p>
 
-<p><em>Note:</em>* Currently doesn’t support podcast episodes. Returns the
+<p><strong>Note:</strong> Currently doesn’t support podcast episodes. Returns the
 most recent 50 tracks played by a user. Note that a track currently
 playing will not be visible in play history until it has completed.
 A track must be played for more than 30 seconds to be included in play
@@ -6093,7 +6154,9 @@ the PREMIUM_REQUIRED reason.</p>
   See <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code>. It is highly recommended that you
   leave this as <code>nil</code> (default) to target the active device.
   If you provide the id of a device that is not active, you may
-  get a 403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+  get a 403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+  If you want to resume playback on a non-active device, call
+  <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6191,7 +6254,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to play content on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6580,7 +6645,7 @@ the PREMIUM_REQUIRED reason.</p>
                               <td>
                                 <div>
                                   <p>The id of a device to transfer the playback to.
-See <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code>.</p>
+Must be one of the devices returned by <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6593,7 +6658,11 @@ See <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25Scop
                               <td>
                                 <div>
                                   <p>If <code>true</code>, ensure playback happens on the new device.
-If <code>false</code>, keep the current playback state.</p>
+If <code>false</code>, keep the current playback state. Note that a
+value of <code>false</code> will <strong>NOT</strong> pause playback. To ensure
+that playback is paused on the new device you should call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13pausePlayback8deviceId7Combine12AnyPublisherVyyts5Error_pGSSSg_tF">pausePlayback(deviceId:)</a></code> (and wait for completion) <em>before</em>
+transferring playback to the new device.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6708,9 +6777,9 @@ set of playlists.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF"></a>
-                    <a name="//apple_ref/swift/Method/getPlaylistCoverImage(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistCoverImage(_:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF"></a>
+                    <a name="//apple_ref/swift/Method/getPlaylistImage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -6733,7 +6802,7 @@ the owner of this playlist.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPlaylistCoverImage</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPlaylistImage</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
@@ -6762,6 +6831,36 @@ the owner of this playlist.</p>
                         <h4>Return Value</h4>
                         <p>An array of image objects, which contain the URL for
   the image and its dimensions.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF"></a>
+                    <a name="//apple_ref/swift/Method/getPlaylistCoverImage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistCoverImage(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"getPlaylistImage(_:﹚"</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">getPlaylistCoverImage</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -6872,7 +6971,7 @@ appended to the list.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a playlist for a Spotify user.</p>
+                        <p>Create a playlist for the <strong>current</strong> user.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/">Spotify web API reference</a>.</p>
 
@@ -6942,9 +7041,13 @@ issued on behalf of this user.</strong></p>
                       <div class="abstract">
                         <p>Reorders the tracks/episodes in a playlist.</p>
 
-<p>See also `<code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code>,
-<code>removeAllOccurencesFromPlaylist(_:uris:)</code>, and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23replaceAllPlaylistItems_4with7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">replaceAllPlaylistItems(_:with:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code></li>
+<li><code>removeAllOccurencesFromPlaylist(_:uris:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23replaceAllPlaylistItems_4with7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">replaceAllPlaylistItems(_:with:)</a></code></li>
+</ul>
 
 <p>Reordering items in the current user’s public playlists requires
 authorization of the <code>playlistModifyPublic</code> scope; reordering items
@@ -6955,18 +7058,22 @@ requires the <code>playlistModifyPrivate</code> scope.</p>
 
 <ul>
 <li>rangeStart: The position of the first item to be reordered.</li>
-<li>rangeLength: The amount of items to be reordered. Defaults to 1.</li>
+<li>rangeLength: The amount of items to be reordered. Defaults to 1.
+The range of items to be reordered begins from the <code>rangeStart</code> position
+(inclusive), and includes the <code>rangeLength</code> subsequent items.
+For example, if <code>rangeLength</code> is 1, then the item at index <code>rangeStart</code>
+will be inserted before the item at index <code>insertBefore</code>.</li>
 <li>insertBefore: The position where the items should be inserted.</li>
 <li>snapshotId: <em>Optional</em>. The version identifier for the current playlist.</li>
 </ul>
 <h1 id='examples' class='heading'>Examples:</h1>
 
 <p>To reorder the first item to the last position in a playlist with 10 items,
-set <code>rangeStart</code> to 0, set <code>rangeLength</code> to 0 (default) and
+set <code>rangeStart</code> to 0, set <code>rangeLength</code> to 1 (default) and
 <code>insertBefore</code> to 10.</p>
 
 <p>To reorder the last item in a playlist with 10 items to the start of
-the playlist, set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 0 (default)
+the playlist, set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 1 (default)
 and set <code>insertBefore</code> to 0.</p>
 
 <p>To move the items at index 9-10 to the start of the playlist,
@@ -7044,6 +7151,10 @@ set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 2, and set
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Replace all the tracks/episodes in a playlist with new items.</p>
+
+<p>Replace all the items in a playlist, overwriting its existing items.
+This powerful request can be useful for replacing items, re-ordering
+existing items, or clearing the playlist.</p>
 
 <p>See also <code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code>,
 <code>removeAllOccurencesFromPlaylist(_:uris:)</code>, and
@@ -7385,6 +7496,9 @@ items.</p>
 of the <code>playlistModifyPublic</code> scope; removing items from a
 private playlist requires the <code>playlistModifyPrivate</code> scope.</p>
 
+<p><strong>If a given item is not found at a given position,</strong>
+<strong>the entire request will fail and no edits will take place.</strong></p>
+
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">Spotify web API reference</a>.</p>
 
                       </div>
@@ -7499,7 +7613,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -297,6 +297,9 @@
             <a href="Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -332,6 +335,9 @@
                 <a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyCategory.html">SpotifyCategory</a>
               </li>
               <li class="nav-group-task">
@@ -352,12 +358,27 @@
 
 <p><strong>A Swift library for the Spotify web API</strong></p>
 
-<p>Read the full <a href="https://peter-schorn.github.io/SpotifyAPI/">documentation</a>. Additional Information is available on the wiki page.</p>
+<p>Read the full <a href="https://peter-schorn.github.io/SpotifyAPI/">documentation</a> and check out <a href="https://github.com/Peter-Schorn/SpotifyAPIExampleApp">this example app</a>. Additional Information is available on the <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki">wiki page</a>, including:</p>
 
 <ul>
-<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#quick-start">Quick Start</a></strong></li>
-<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-authorization-code-flow">Authorizing with the Authorization Code Flow</a></strong><br></li>
-<li><strong><a href="https://github.com/Peter-Schorn/SpotifyAPI#authorizing-with-the-client-credentials-flow">Authorizing with the Client Credentials Flow</a></strong></li>
+<li><a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">Saving Authorization Information to Persistent Storage</a></li>
+</ul>
+<h2 id='table-of-contents' class='heading'>Table of Contents</h2>
+
+<ul>
+<li><strong><a href="#supported-platforms">Supported Platforms</a></strong></li>
+<li><strong><a href="#installation">Installation</a></strong></li>
+<li><strong><a href="#quick-start">Quick Start</a></strong></li>
+<li><strong><a href="#authorizing-with-the-authorization-code-flow">Authorizing with the Authorization Code Flow</a></strong><br></li>
+<li><strong><a href="#authorizing-with-the-client-credentials-flow">Authorizing with the Client Credentials Flow</a></strong></li>
+</ul>
+<h2 id='supported-platforms' class='heading'>Supported Platforms</h2>
+
+<ul>
+<li>iOS 13+</li>
+<li>macOS 10.15+</li>
+<li>tvOS 13+</li>
+<li>watchOS 6+</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
@@ -372,10 +393,10 @@
 
 <p>To get started, go to the <a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app. You will receive a client id and client secret. Then, click on &ldquo;edit settings&rdquo; and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app.</p>
 
-<p>The next step is authorizing your app. This library supports two authorization methods:</p>
+<p>The next step is authorizing your app. <em>All</em> requests to the Spotify web API—whether they require authorization scopes or not—require authorization This library supports two authorization methods:</p>
 
 <ul>
-<li><a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>: Use this method if you need to access/modify user data, which requires <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. It requires the user to login to their Spotify account in a browser and approve your app.</li>
+<li><a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>: Use this method if you need to access/modify user data, which requires <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. It requires the user to login to their Spotify account in a browser/web view and approve your app.</li>
 <li><a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow">Client Credentials Flow</a>: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. The advantage of this method is that it does not require any user interaction.</li>
 </ul>
 <h2 id='authorizing-with-the-authorization-code-flow' class='heading'>Authorizing with the Authorization Code Flow</h2>
@@ -494,7 +515,7 @@ You are also encouraged to read the <a href="https://developer.spotify.com/docum
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

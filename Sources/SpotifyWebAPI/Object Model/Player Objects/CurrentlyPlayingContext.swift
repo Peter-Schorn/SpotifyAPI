@@ -1,5 +1,5 @@
 import Foundation
-import Logger
+import Logging
 
 /**
  The [context][1] of the currently playing track/episode.
@@ -9,12 +9,16 @@ import Logger
 public struct CurrentlyPlayingContext: Hashable {
     
     /// Logs messages for this struct.
-    static let logger = Logger(
+    static var logger = Logger(
         label: "CurrentlyPlayingContext", level: .critical
     )
     
     /// The device that is currently active.
-    public let device: Device
+    public let activeDevice: Device
+    
+    /// This property has been renamed to `activeDevice`.
+    @available(*, deprecated, renamed: "activeDevice")
+    public var device: Device { activeDevice }
     
     /// The repeat mode of the player.
     /// Either `off`, `track`, or `context`.
@@ -25,7 +29,7 @@ public struct CurrentlyPlayingContext: Hashable {
     
     /**
      The context of the user's playback.
-    
+     
      Can be `nil`. For example, If the user has a private
      session enabled, then this will be `nil`.
      
@@ -52,7 +56,7 @@ public struct CurrentlyPlayingContext: Hashable {
      The currently playing track/episode.
      
      Although the type is `PlaylistItem`, this does not necessarily
-     mean that item is playing in the context of a playlist.
+     mean that the item is playing in the context of a playlist.
     
      Can be `nil`. For example, If the user has a private
      session enabled, then this will be `nil`.
@@ -60,17 +64,28 @@ public struct CurrentlyPlayingContext: Hashable {
      - Note: Testing suggets that if the user is playing an episode,
            then this will be `nil`.
      */
-    public let item: PlaylistItem?
+    public let currentlyPlayingItem: PlaylistItem?
+    
+    /// This property has been renamed to `currentlyPlayingItem`.
+    @available(*, deprecated, renamed: "currentlyPlayingItem")
+    public var item: PlaylistItem? { currentlyPlayingItem }
     
     /// The object type of the currently playing item.
     /// Can be `track`, `episode`, or `unknown`.
     public let currentlyPlayingType: IDCategory
-
     
-    /// The playback actions that are allowed within the given context.
-    ///
-    /// For example, you cannot skip to the previous or next track/episode
-    /// or seek to a position in a track/episode while an ad is playing.
+    /**
+     The playback actions that are allowed within the given context.
+    
+     Attemping to perform actions that are not contained within this set
+     will result in an error from the Spotify web API.
+     
+     For example, you cannot skip to the previous or next track/episode
+     or seek to a position in a track/episode while an ad is playing.
+    
+     You could use this property to disable UI elements that perform
+     actions that are not contained within this set.
+     */
     public let allowedActions: Set<PlaybackActions>
     
 }
@@ -78,19 +93,19 @@ public struct CurrentlyPlayingContext: Hashable {
 extension CurrentlyPlayingContext: Codable {
     
     enum CodingKeys: String, CodingKey {
-        case device
+        case activeDevice = "device"
         case repeatState = "repeat_state"
         case shuffleIsOn = "shuffle_state"
         case context
         case timestamp
         case progressMS = "progress_ms"
         case isPlaying = "is_playing"
-        case item
+        case currentlyPlayingItem = "item"
         case currentlyPlayingType = "currently_playing_type"
         case allowedActions = "actions"
     }
     
-    // the keys for the dictionary must be `String` or `Int`, or `JSNDecoder`
+    // the keys for the dictionary must be `String` or `Int`, or `JSONDecoder`
     // will try and fail to decode the dictionary into an array
     // see https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
     private typealias DisallowsObject = [String: [String: Bool?]]
@@ -99,8 +114,8 @@ extension CurrentlyPlayingContext: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.device = try container.decode(
-            Device.self, forKey: .device
+        self.activeDevice = try container.decode(
+            Device.self, forKey: .activeDevice
         )
         self.repeatState = try container.decode(
             RepeatMode.self, forKey: .repeatState
@@ -120,8 +135,8 @@ extension CurrentlyPlayingContext: Codable {
         self.isPlaying = try container.decode(
             Bool.self, forKey: .isPlaying
         )
-        self.item = try container.decodeIfPresent(
-            PlaylistItem.self, forKey: .item
+        self.currentlyPlayingItem = try container.decodeIfPresent(
+            PlaylistItem.self, forKey: .currentlyPlayingItem
         )
         self.currentlyPlayingType = try container.decode(
             IDCategory.self, forKey: .currentlyPlayingType
@@ -151,21 +166,23 @@ extension CurrentlyPlayingContext: Codable {
          see https://developer.spotify.com/documentation/web-api/reference/object-model/#disallows-object
          */
         
-        let disallowedActions: [PlaybackActions] = disallowsDictionary.compactMap {
-            item -> PlaybackActions? in
-            
-            if item.value == true {
-                if let action = PlaybackActions(rawValue: item.key) {
-                    return action
+        let disallowedActions: [PlaybackActions] = disallowsDictionary
+            .compactMap { item -> PlaybackActions? in
+                if item.value == true {
+                    if let action = PlaybackActions(rawValue: item.key) {
+                        return action
+                    }
+                    Self.logger.error(
+                        """
+                        unexpected PlaybackAction: '\(item.key)'; \
+                        must be one of the following: \
+                        \(PlaybackActions.allCases.map(\.rawValue))
+                        """
+                    )
+                    return nil
                 }
-                Self.logger.error(
-                    "couldn't initialize PlaybackActions " +
-                    "from rawValue '\(item.key)'"
-                )
                 return nil
             }
-            return nil
-        }
         
         self.allowedActions = PlaybackActions.allCases.subtracting(
             disallowedActions
@@ -173,13 +190,12 @@ extension CurrentlyPlayingContext: Codable {
         
     }
     
-    
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(
-            self.device, forKey: .device
+            self.activeDevice, forKey: .activeDevice
         )
         try container.encode(
             self.repeatState, forKey: .repeatState
@@ -200,25 +216,22 @@ extension CurrentlyPlayingContext: Codable {
             self.isPlaying, forKey: .isPlaying
         )
         try container.encodeIfPresent(
-            self.item, forKey: .item
+            self.currentlyPlayingItem, forKey: .currentlyPlayingItem
         )
         try container.encode(
             self.currentlyPlayingType, forKey: .currentlyPlayingType
         )
         
-        // encode `allowedActions` by working backwards from how
+        // Encode `allowedActions` by working backwards from how
         // it is decoded so that it can always be decoded the same way.
-        
         let disallowedActions = PlaybackActions.allCases.subtracting(
             self.allowedActions
         )
      
-        let disallowsDictionary: [String: Bool?] = disallowedActions.reduce(into: [:]) {
-            dict, disallowedAction in
-            
-            dict[disallowedAction.rawValue] = true
-            
-        }
+        let disallowsDictionary: [String: Bool?] = disallowedActions
+            .reduce(into: [:]) { dict, disallowedAction in
+                dict[disallowedAction.rawValue] = true
+            }
         
         // wrap it in a dictionary with the same top-level key
         // that Spotify returns
@@ -231,8 +244,6 @@ extension CurrentlyPlayingContext: Codable {
         )
         
     }
-    
-    
     
 }
 

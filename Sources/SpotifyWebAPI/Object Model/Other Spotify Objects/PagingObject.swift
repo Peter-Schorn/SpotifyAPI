@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
 /**
  A Spotify [paging object][1].

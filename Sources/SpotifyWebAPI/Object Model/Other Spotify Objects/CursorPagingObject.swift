@@ -34,7 +34,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     public let next: String?
     
     /// Used to find the next and previous items.
-    public let cursors: SpotifyCursor
+    public let cursors: SpotifyCursor?
     
     /// The maximum number of items available to return.
     public let total: Int?
@@ -62,7 +62,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
         items: [Item],
         limit: Int,
         next: String? = nil,
-        cursors: SpotifyCursor,
+        cursors: SpotifyCursor? = nil,
         total: Int? = nil
     ) {
         self.href = href

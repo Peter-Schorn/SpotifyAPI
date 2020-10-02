@@ -105,7 +105,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     }
     
     /// Blocks the thread until the application has been authorized
-    /// and the refresh and acess tokens have been retrieved.
+    /// and the refresh and access tokens have been retrieved.
     /// Returns early if the application is already authorized.
     func authorizeAndWaitForTokens(
         scopes: Set<Scope>,
@@ -118,7 +118,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        let cancellable = self.testAuthorize(scopes: Scope.allCases)
+        let cancellable = self.testAuthorize(scopes: scopes)
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished:

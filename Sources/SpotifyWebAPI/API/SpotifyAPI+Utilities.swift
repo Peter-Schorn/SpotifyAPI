@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
 public extension SpotifyAPI {
 
@@ -18,7 +18,16 @@ public extension SpotifyAPI {
      
      For example, the endpoint for getting all of a user's playlists
      returns an href inside of each playlist object which provides
-     the full list of tracks.
+     the full list of tracks/episodes. However, for this specific case,
+     it is recommended that you use one of the following methods instead,
+     passing in the URI of the playlist:
+     
+     * `playlist(_:market:)`
+     * `playlistTracks(_:limit:offset:market:)`
+     * `playlistItems(_:limit:offset:market:)`
+     
+     These methods are preferred because you do not have to worry about
+     figuring out the response type yourself.
      
      - Parameters:
        - href: The full URL to a Spotify web API endpoint.

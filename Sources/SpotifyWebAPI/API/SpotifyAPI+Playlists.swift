@@ -106,6 +106,9 @@ public extension SpotifyAPI {
      to a file when the decoding fails. You can then upload this file to the
      JSON viewer.
      
+     When decoding the data, it is recommended that you use the combine
+     operator `decodeSpotifyObject(_:)` instead of `decode(type:decoder:)`.
+     
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
@@ -524,7 +527,7 @@ public extension SpotifyAPI where
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/
      */
-    func getPlaylistCoverImage(
+    func getPlaylistImage(
         _ playlist: SpotifyURIConvertible
     ) -> AnyPublisher<[SpotifyImage], Error> {
         
@@ -545,6 +548,14 @@ public extension SpotifyAPI where
             return error.anyFailingPublisher([SpotifyImage].self)
         }
         
+    }
+    
+    /// This method has been renamed to `getPlaylistImage(_:)`.
+    @available(*, deprecated, renamed: "getPlaylistImage(_:)")
+    func getPlaylistCoverImage(
+        _ playlist: SpotifyURIConvertible
+    ) -> AnyPublisher<[SpotifyImage], Error> {
+        return getPlaylistImage(playlist)
     }
     
     /**
@@ -597,7 +608,7 @@ public extension SpotifyAPI where
     }
     
     /**
-     Create a playlist for a Spotify user.
+     Create a playlist for the **current** user.
      
      Read more at the [Spotify web API reference][1].
      
@@ -639,9 +650,11 @@ public extension SpotifyAPI where
     /**
      Reorders the tracks/episodes in a playlist.
      
-     See also ``removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`,
-     `removeAllOccurencesFromPlaylist(_:uris:)`, and
-     `replaceAllPlaylistItems(_:with:)`.
+     See also:
+     
+     * `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`
+     * `removeAllOccurencesFromPlaylist(_:uris:)`
+     * `replaceAllPlaylistItems(_:with:)`
      
      Reordering items in the current user’s public playlists requires
      authorization of the `playlistModifyPublic` scope; reordering items
@@ -652,17 +665,21 @@ public extension SpotifyAPI where
      
      * rangeStart: The position of the first item to be reordered.
      * rangeLength: The amount of items to be reordered. Defaults to 1.
+       The range of items to be reordered begins from the `rangeStart` position
+       (inclusive), and includes the `rangeLength` subsequent items.
+       For example, if `rangeLength` is 1, then the item at index `rangeStart`
+       will be inserted before the item at index `insertBefore`.
      * insertBefore: The position where the items should be inserted.
      * snapshotId: *Optional*. The version identifier for the current playlist.
      
      # Examples:
      
      To reorder the first item to the last position in a playlist with 10 items,
-     set `rangeStart` to 0, set `rangeLength` to 0 (default) and
+     set `rangeStart` to 0, set `rangeLength` to 1 (default) and
      `insertBefore` to 10.
      
      To reorder the last item in a playlist with 10 items to the start of
-     the playlist, set `rangeStart` to 9, set `rangeLength` to 0 (default)
+     the playlist, set `rangeStart` to 9, set `rangeLength` to 1 (default)
      and set `insertBefore` to 0.
      
      To move the items at index 9-10 to the start of the playlist,
@@ -703,6 +720,10 @@ public extension SpotifyAPI where
     
     /**
      Replace all the tracks/episodes in a playlist with new items.
+     
+     Replace all the items in a playlist, overwriting its existing items.
+     This powerful request can be useful for replacing items, re-ordering
+     existing items, or clearing the playlist.
      
      See also `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`,
      `removeAllOccurencesFromPlaylist(_:uris:)`, and
@@ -806,7 +827,6 @@ public extension SpotifyAPI where
         
     }
     
-    
     /**
      Upload an image for a playlist.
      
@@ -860,10 +880,10 @@ public extension SpotifyAPI where
                     """
                     --------------------------------------------------------
                     SpotifyAPI.uploadPlaylistImage: WARNING:
-                    the size of the image that you are uploading (\(size))
+                    the size of the image that you are uploading (\(size)) \
                     is larger than Spotify's limit of 256 KB.
-                    You may experience errors, such as those indicating you
-                    lost connection to the network.
+                    You may experience errors, such as those indicating \
+                    connection to the network was lost.
                     --------------------------------------------------------
                     """
                 )
@@ -960,6 +980,9 @@ public extension SpotifyAPI where
      Removing items from a user’s public playlist requires authorization
      of the `playlistModifyPublic` scope; removing items from a
      private playlist requires the `playlistModifyPrivate` scope.
+     
+     **If a given item is not found at a given position,**
+     **the entire request will fail and no edits will take place.**
      
      Read more at the [Spotify web API reference][1].
      

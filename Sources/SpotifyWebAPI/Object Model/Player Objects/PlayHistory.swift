@@ -29,7 +29,7 @@ extension PlayHistory: Codable {
         
         self.track = try container.decode(Track.self, forKey: .track)
         self.playedAt = try container.decodeSpotifyTimestamp(
-            forKey: .playedAd
+            forKey: .playedAt
         )
         self.context = try container.decodeIfPresent(
             SpotifyContext.self, forKey: .context
@@ -44,7 +44,7 @@ extension PlayHistory: Codable {
             self.track, forKey: .track
         )
         try container.encodeSpotifyTimestamp(
-            self.playedAt, forKey: .playedAd
+            self.playedAt, forKey: .playedAt
         )
         try container.encodeIfPresent(
             self.context, forKey: .context
@@ -56,7 +56,7 @@ extension PlayHistory: Codable {
     
     public enum CodingKeys: String, CodingKey {
         case track
-        case playedAd = "played_at"
+        case playedAt = "played_at"
         case context
     }
     

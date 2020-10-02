@@ -24,15 +24,18 @@ let package = Package(
             "2.0.7"..<"3.0.0"
         ),
         .package(
-            name: "Logger",
-            url: "https://github.com/Peter-Schorn/Logger.git",
-            "1.0.0"..<"2.0.0"
+            name: "swift-log",
+            url: "https://github.com/apple/swift-log.git",
+            from: "1.4.0"
         )
     ],
     targets: [
         .target(
             name: "SpotifyWebAPI",
-            dependencies: ["RegularExpressions", "Logger"],
+            dependencies: [
+                "RegularExpressions",
+                .product(name: "Logging", package: "swift-log")
+            ],
             exclude: ["README.md"]
         ),
         .target(
@@ -48,8 +51,8 @@ let package = Package(
             dependencies: [
                 "SpotifyWebAPI",
                 "SpotifyExampleContent",
-                "RegularExpressions",
-                "Logger"
+                "RegularExpressions"
+                // "swift-log"
             ],
             exclude: ["README.md"]
         ),

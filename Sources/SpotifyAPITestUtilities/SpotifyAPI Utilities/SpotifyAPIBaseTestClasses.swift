@@ -15,16 +15,22 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase {
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
         spotify.setupDebugging()
-        if let dataDumpFolder = ProcessInfo.processInfo
-                .environment["data_dump_folder"] {
+        let environment = ProcessInfo.processInfo.environment
+        if let dataDumpFolder = environment["data_dump_folder"] {
             let url = URL(fileURLWithPath: dataDumpFolder)
             SpotifyDecodingError.dataDumpfolder = url
+        }
+        else {
+            print(
+                "Couldn't find 'data_dump_folder' in environment variables"
+            )
+            
         }
         setupAuthorization()
     }
     
     open class func setupAuthorization() {
-        spotify.authorizeAndWaitForTokens(scopes: [])
+        spotify.authorizeAndWaitForTokens(scopes: Scope.allCases)
     }
     
 
@@ -47,6 +53,10 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
             let url = URL(fileURLWithPath: dataDumpFolder)
             SpotifyDecodingError.dataDumpfolder = url
         }
+        else {
+            print("Couldn't find 'data_dump_folder' in environment variables")
+        }
+        
         setupAuthorization()
     }
 

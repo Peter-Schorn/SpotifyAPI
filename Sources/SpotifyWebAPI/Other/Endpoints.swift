@@ -1,5 +1,5 @@
 import Foundation
-import Logger
+import Logging
 
 
 /// A namespace of endpoints and endpoint components.

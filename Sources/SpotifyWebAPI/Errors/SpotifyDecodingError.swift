@@ -90,6 +90,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
                 try dataString.write(
                     to: file, atomically: true, encoding: .utf8
                 )
+                let fileString = file.absoluteString.removingPercentEncoding ?? "nil"
+                print("saved data to '\(fileString)'")
                 
             } catch {
                 print(

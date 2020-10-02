@@ -1,6 +1,6 @@
 import Foundation
 import RegularExpressions
-import Logger
+import Logging
 
 /**
  Encapsulates the various formats that Spotify uses to uniquely identify

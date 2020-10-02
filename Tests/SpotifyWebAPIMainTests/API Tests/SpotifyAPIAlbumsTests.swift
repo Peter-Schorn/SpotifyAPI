@@ -21,11 +21,16 @@ extension SpotifyAPIAlbumsTests {
             XCTAssertEqual(album.label, "Crumb Records")
             XCTAssertEqual(album.type, .album)
 
-            XCTAssert(
-                album.releaseDate?.timeIntervalSince1970.isApproximatelyEqual(
-                    to: 1560470400, absoluteTolerance: 60 * 60 * 12
-                ) ?? false
-            )
+            if let releaseDate = album.releaseDate {
+                XCTAssertEqual(
+                    releaseDate.timeIntervalSince1970,
+                    1560470400,
+                    accuracy: 43_200
+                )
+            }
+            else {
+                XCTFail("release date should not be nil")
+            }
             XCTAssertEqual(album.releaseDatePrecision, "day")
             
             guard let tracks = album.tracks?.items else {
@@ -68,41 +73,67 @@ extension SpotifyAPIAlbumsTests {
         func receiveAlbums(_ albums: [Album?]) {
 
             for album in albums {
-                guard let album = album else {
-                    XCTFail("album shouldn't be nil")
-                    continue
-                }
                 encodeDecode(album)
             }
             
+            guard albums.count == 4 else {
+                XCTFail("should've received 4 albums (got \(albums.count)")
+                return
+            }
+            
+            XCTAssertNil(albums[2])
+            
             XCTAssertEqual(albums[0]?.name, "Jinx")
             XCTAssertEqual(albums[1]?.name, "Locket")
-            XCTAssertEqual(albums[2]?.name, "Meddle")
+            XCTAssertEqual(albums[3]?.name, "Meddle")
             
             XCTAssertEqual(albums[0]?.tracks?.items.count, 10)
             XCTAssertEqual(albums[1]?.tracks?.items.count, 4)
-            XCTAssertEqual(albums[2]?.tracks?.items.count, 6)
+            XCTAssertEqual(albums[3]?.tracks?.items.count, 6)
             
-            XCTAssert(
-                albums[0]?.releaseDate?.timeIntervalSince1970.isApproximatelyEqual(
-                    to: 1560470400, absoluteTolerance: 60 * 60 * 12
-                ) ?? false
-            )
-            XCTAssert(
-                albums[1]?.releaseDate?.timeIntervalSince1970.isApproximatelyEqual(
-                    to: 1498176000, absoluteTolerance: 60 * 60 * 12
-                ) ?? false
-            )
-            XCTAssert(
-                albums[2]?.releaseDate?.timeIntervalSince1970.isApproximatelyEqual(
-                    to: 58665600, absoluteTolerance: 60 * 60 * 12
-                ) ?? false
-            )
+            if let releaseDate = albums[0]?.releaseDate {
+                XCTAssertEqual(
+                    releaseDate.timeIntervalSince1970,
+                    1560470400,
+                    accuracy: 43_200
+                )
+            }
+            else {
+                XCTFail("release date should not be nil")
+            }
+            if let releaseDate = albums[1]?.releaseDate {
+                XCTAssertEqual(
+                    releaseDate.timeIntervalSince1970,
+                    1498176000,
+                    accuracy: 43_200
+                )
+            }
+            else {
+                XCTFail("release date should not be nil")
+            }
+            if let releaseDate = albums[3]?.releaseDate {
+                XCTAssertEqual(
+                    releaseDate.timeIntervalSince1970,
+                    58665600,
+                    accuracy: 43_200
+                )
+            }
+            else {
+                XCTFail("release date should not be nil")
+            }
+            
         }
         
         let expectation = XCTestExpectation(description: "testAlbums")
         
-        Self.spotify.albums(URIs.Albums.array(.jinx, .locket, .meddle))
+        let albums: [SpotifyURIConvertible] = [
+            URIs.Albums.jinx,
+            URIs.Albums.locket,
+            "spotify:album:invaliduri",
+            URIs.Albums.meddle
+        ]
+        
+        Self.spotify.albums(albums)
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -116,6 +147,8 @@ extension SpotifyAPIAlbumsTests {
     
     func theLongestAlbumTracks() {
            
+        var cancellables: Set<AnyCancellable> = []
+        
         let expectation = XCTestExpectation(
             description: "testTheLongestAlbumTracks"
         )
@@ -131,6 +164,9 @@ extension SpotifyAPIAlbumsTests {
         func receiveAlbumTracks(_ album: PagingObject<Track>) {
             
             encodeDecode(album)
+            for track in album.items {
+                encodeDecode(track)
+            }
             
             let tracks = album.items
             if tracks.count < 50 {
@@ -200,7 +236,7 @@ extension SpotifyAPIAlbumsTests {
                     receiveAlbumTracksPage2(firstAlbumPage: album, secondAlbumPage: secondAlbum)
                 }
             )
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         }
         
         func receiveAlbumTracksPage2(
@@ -229,7 +265,7 @@ extension SpotifyAPIAlbumsTests {
                 receiveCompletion: { _ in expectation3.fulfill() },
                 receiveValue: receiveAlbumTracksPage3(_:)
             )
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
             
 
         }
@@ -257,16 +293,16 @@ extension SpotifyAPIAlbumsTests {
                receiveCompletion: { _ in expectation.fulfill() },
                receiveValue: receiveAlbumTracks(_:)
            )
-           .store(in: &Self.cancellables)
+           .store(in: &cancellables)
 
-       wait(for: [expectation, expectation2, expectation3], timeout: 60)
+       wait(for: [expectation, expectation2, expectation3], timeout: 180)
            
     }
 
 }
 
 
-class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
+final class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
         SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIAlbumsTests
 {
 
@@ -282,7 +318,7 @@ class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
 
 }
 
-class SpotifyAPIClientCredentialsFlowAlbumsTests:
+final class SpotifyAPIClientCredentialsFlowAlbumsTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIAlbumsTests
 {
 

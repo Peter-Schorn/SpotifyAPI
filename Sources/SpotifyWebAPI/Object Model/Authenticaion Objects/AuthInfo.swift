@@ -4,7 +4,7 @@ import Foundation
  The authorization info that spotify returns
  for the Authorization Code Flow and the
  Client Credentials Flow.
- 
+
  This is used in various different contexts, including:
  
  * When decoding the respose after requesting the access and refresh tokens
@@ -17,12 +17,28 @@ import Foundation
  Because of its diverse uses, all of its properties are `nil`,
  which means that it will never fail to decode itself from data,
  so be careful about swallowing errors.
+ 
+ Includes the following properties:
+ 
+ * `accessToken`: used in all of the requests to the Spotify web API
+   for authorization.
+ * `refreshToken`: Used to refresh the access token.
+ * `expirationDate`: The expiration date of the access token.
+ * `scopes`: The scopes that have been authorized for the access token.
  */
 struct AuthInfo: Codable, Hashable {
     
+    /// The access token used in all of the requests
+    /// to the Spotify web API.
     public let accessToken: String?
+    
+    /// Used to refresh the access token.
     public let refreshToken: String?
+    
+    /// The expiration date of the access token.
     public let expirationDate: Date?
+    
+    /// The scopes that have been authorized for the access token.
     public let scopes: Set<Scope>?
 
     init(
@@ -37,7 +53,7 @@ struct AuthInfo: Codable, Hashable {
         self.scopes = scopes
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
             keyedBy: CodingKeys.self
@@ -87,7 +103,7 @@ struct AuthInfo: Codable, Hashable {
         
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(
             keyedBy: CodingKeys.self
@@ -108,7 +124,7 @@ struct AuthInfo: Codable, Hashable {
         
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case refreshToken = "refresh_token"
         case expirationDate = "expiration_date"
@@ -151,7 +167,7 @@ extension AuthInfo {
     
     /// Creates an instance with random values.
     /// Only use for tests.
-    static func withMockedValues() -> Self {
+    static func withRandomValues() -> Self {
         return Self(
             accessToken: UUID().uuidString,
             refreshToken: UUID().uuidString,

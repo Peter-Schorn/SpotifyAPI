@@ -31,7 +31,11 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /// `true` if context is not search (you retrieved this playlist
     /// using the search endpoint) and the owner allows
     /// other users to modify the playlist. Else, `false`.
-    public let collaborative: Bool
+    public let isCollaborative: Bool
+    
+    /// This property has been renamed to `isCollaborative`.
+    @available(*, deprecated, renamed: "isCollaborative")
+    public var collaborative: Bool { isCollaborative }
     
     /// The playlist description. Only returned for modified,
     /// verified playlists, else `nil`.
@@ -151,6 +155,41 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         items: Items,
         owner: SpotifyUser? = nil,
         isPublic: Bool? = nil,
+        isCollaborative: Bool,
+        description: String? = nil,
+        snapshotId: String,
+        externalURLs: [String : String]? = nil,
+        followers: Followers? = nil,
+        href: String,
+        id: String,
+        uri: String,
+        images: [SpotifyImage]
+    ) {
+        self.name = name
+        self.items = items
+        self.owner = owner
+        self.isPublic = isPublic
+        self.isCollaborative = isCollaborative
+        self.description = description
+        self.snapshotId = snapshotId
+        self.externalURLs = externalURLs
+        self.followers = followers
+        self.href = href
+        self.id = id
+        self.uri = uri
+        self.images = images
+    }
+    
+    @available(
+        *,
+        deprecated,
+        renamed: "init(name:items:owner:isPublic:isCollaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)"
+    )
+    public init(
+        name: String,
+        items: Items,
+        owner: SpotifyUser? = nil,
+        isPublic: Bool? = nil,
         collaborative: Bool,
         description: String? = nil,
         snapshotId: String,
@@ -165,7 +204,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         self.items = items
         self.owner = owner
         self.isPublic = isPublic
-        self.collaborative = collaborative
+        self.isCollaborative = collaborative
         self.description = description
         self.snapshotId = snapshotId
         self.externalURLs = externalURLs
@@ -185,7 +224,7 @@ extension Playlist: Codable {
         case items = "tracks"
         case owner
         case isPublic = "public"
-        case collaborative
+        case isCollaborative = "collaborative"
         case description
         case snapshotId = "snapshot_id"
         case externalURLs = "external_urls"

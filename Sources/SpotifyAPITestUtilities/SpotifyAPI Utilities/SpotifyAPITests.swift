@@ -11,3 +11,20 @@ public protocol SpotifyAPITests: XCTestCase {
     static var spotify: SpotifyAPI<AuthorizationManager> { get }
     static var cancellables: Set<AnyCancellable> { get set }
 }
+
+public extension SpotifyAuthorizationManager {
+    
+    /// Only use for testing purposes.
+    func setExpirationDate(to date: Date) {
+        if let authManager = self as? AuthorizationCodeFlowManager {
+            authManager.setExpirationDate(to: Date())
+        }
+        else if let authManager = self as? ClientCredentialsFlowManager {
+            authManager.setExpirationDate(to: Date())
+        }
+        else {
+            fatalError("not implemented")
+        }
+    }
+    
+}

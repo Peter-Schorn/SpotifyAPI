@@ -47,12 +47,14 @@ public enum URIs {
         case all = "spotify:playlist:01KRdno32jt1vmG7s5pVFg"
         case index = "spotify:playlist:17gneMykp6L6O5R70wm0gE"
         case thisIsMacDeMarco = "spotify:playlist:37i9dQZF1DXe8E8oqpmTDI"
+        case macDeMarco = "spotify:playlist:6oyVZ3dZZVCkXJm451Hj5v"
         case thisIsSpoon = "spotify:playlist:37i9dQZF1DX3zc219hYxy3"
         case bluesClassics = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk"
         case thisIsPinkFloyd = "spotify:playlist:37i9dQZF1DXaQ34lqGBfrU"
         case localSongs = "spotify:playlist:13S3Kgy80FmqaRjYoECK3U"
         case thisIsStevieRayVaughan = "spotify:playlist:37i9dQZF1DZ06evO35m9Q4"
         case thisIsJimiHendrix = "spotify:playlist:37i9dQZF1DWTNV753no4ic"
+        case thisIsTheBeatles = "spotify:playlist:37i9dQZF1DXdLtD0qszB1w"
     }
 
     /// A namespace of artist URIs.
@@ -64,6 +66,10 @@ public enum URIs {
         case mildHighClub = "spotify:artist:5J81VungUjSVHxlPpTI9KG"
         case pinkFloyd = "spotify:artist:0k17h0D3J5VfsdmQ1iZtE9"
         case theBeatles = "spotify:artist:3WrFJ7ztbogyGnTHbHJFl2"
+        case stevieRayVaughan = "spotify:artist:5fsDcuclIe8ZiBD5P787K1"
+        /// Are you on point Phife?
+        case aTribeCalledQuest = "spotify:artist:09hVIj6vWgoCDtT03h8ZCa"
+        case ledZeppelin = "spotify:artist:36QJpDe2go2KgaRleHCDTp"
     }
     
     /// A namespace of album URIs.

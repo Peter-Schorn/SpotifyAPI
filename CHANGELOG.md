@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.5.0] - 2020-10-01
+
+### Changed
+
+- Renamed the following symbols
+  - `CurrentlyPlayingContext.device` -> `activeDevice`
+  - `CurrentlyPlayingContext.item` -> `currentlyPlayingItem`
+  - `PlaylistDetails.collaborative` -> `isCollaborative`
+  - `SpotifyAPI.getPlaylistCoverImage(_:)` -> `getPlaylistImage(_:)`
+  - `SpotifyAPI.search(query:types:market:limit:offset:includeExternal:)` -> `search(query:categories:market:limit:offset:includeExternal:)`
+
+- The `refreshTokens` method of `ClientCredentialsFlowManager` and `AuthorizationCodeFlowManager` 
+is now fully synchronized, meaning it is thread-safe. Calling it multiple times concurrently will always result in a **single** network request being made. Additional calls while a request is still in progress will return a reference to the same publisher as a class instance.
+
+- The `accessToken`, `refreshToken`, `expirationDate`, and `scopes` properties of `AuthorizationCodeFlowManager` and the `accessToken` and `expirationDate` properties of `ClientCredentialsFlowManager` are now synchronized, meaning that they are thread-safe.
+
 ## [0.4.0] - 2020-09-22
 
 ### Added
@@ -55,7 +71,7 @@ All of the Spotify web API endpoints are now supported!
 - Added `genre` to `IDCategory`
 
 ### Changed
-- Made all the properties of all public objects used in post/put requests (as opposed to objected *returned* by Spotify) mutable. These objects are:
+- Made all the properties of all public objects used in post/put requests (as opposed to objects *returned* by Spotify) mutable. These objects are:
   - `AttributeRange`
   - `TrackAttributes`
   - `PlaybackRequest`

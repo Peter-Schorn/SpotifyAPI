@@ -11,11 +11,11 @@ import Foundation
  
  * name: The new name for the playlist.
  * isPublic: If `true` the playlist will be public;
-       if `false` it will be private.
+       if `false` it will be private. Default: `true`.
  * collaborative: If `true`, the playlist will become collaborative
        and other users will be able to modify the playlist in their
-       Spotify client. **Note**: You can only set collaborative to `true`
-       on non-public playlists.
+       Spotify client. Default: `false`. **Note**: You can only set
+       collaborative to `true` on non-public playlists.
  * description: A new playlist description as displayed in
        Spotify Clients and in the Web API.
  */
@@ -25,15 +25,23 @@ public struct PlaylistDetails: Hashable {
     public var name: String?
     
     /// *Optional*. If `true` the playlist will be public;
-    /// if `false` it will be private.
+    /// if `false` it will be private. Default: `true`.
     public var isPublic: Bool?
 
-    /// *Optional*. If `true`, the playlist will become collaborative
-    /// and other users will be able to modify the playlist in their
-    /// Spotify client. **Note**: You can only set collaborative to `true`
-    /// on non-public playlists.
-    public var collaborative: Bool?
+    /**
+     *Optional*. If `true`, the playlist will become collaborative
+     and other users will be able to modify the playlist in their
+     Spotify client. Default: `false`.
+    
+     - Warning: You can only set collaborative to `true` on non-public
+           playlists.
+     */
+    public var isCollaborative: Bool?
 
+    /// This property has been renamed to `isCollaborative`.
+    @available(*, deprecated, renamed: "isCollaborative")
+    public var collaborative: Bool? { isCollaborative }
+    
     /// *Optional*. A new playlist description as displayed in
     /// Spotify Clients and in the Web API.
     public var description: String?
@@ -46,14 +54,29 @@ public struct PlaylistDetails: Hashable {
      - Parameters:
        - name: The new name for the playlist.
        - isPublic: If `true` the playlist will be public;
-             if `false` it will be private.
+             if `false` it will be private. Default: `true`.
        - collaborative: If `true`, the playlist will become collaborative
              and other users will be able to modify the playlist in their
-             Spotify client. **Note**: You can only set collaborative to `true`
-             on non-public playlists.
+             Spotify client. Default: `false`. **Note**: You can only set
+             collaborative to `true` on non-public playlists.
        - description: A new playlist description as displayed in
              Spotify Clients and in the Web API.
      */
+    public init(
+        name: String? = nil,
+        isPublic: Bool? = nil,
+        isCollaborative: Bool? = nil,
+        description: String? = nil
+    ) {
+        self.name = name
+        self.isPublic = isPublic
+        self.isCollaborative = isCollaborative
+        self.description = description
+    }
+    
+    /// This method has been renamed to
+    /// `init(name:isPublic:isCollaborative:description:)`.
+    @available(*, deprecated, renamed: "init(name:isPublic:isCollaborative:description:)")
     public init(
         name: String? = nil,
         isPublic: Bool? = nil,
@@ -62,9 +85,10 @@ public struct PlaylistDetails: Hashable {
     ) {
         self.name = name
         self.isPublic = isPublic
-        self.collaborative = collaborative
+        self.isCollaborative = collaborative
         self.description = description
     }
+    
     
 }
 
@@ -73,7 +97,7 @@ extension PlaylistDetails: Codable {
     enum CodingKeys: String, CodingKey {
         case name
         case isPublic = "public"
-        case collaborative
+        case isCollaborative = "collaborative"
         case description
     }
     

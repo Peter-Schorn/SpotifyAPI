@@ -12,7 +12,7 @@ final class CodingAuthInfoTests: XCTestCase {
     func testCodingAuthInfo() {
         
         for _ in 1...100 {
-            let authInfo = AuthInfo.withMockedValues()
+            let authInfo = AuthInfo.withRandomValues()
             encodeDecode(authInfo)
         }
         

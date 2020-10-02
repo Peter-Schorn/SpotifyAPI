@@ -48,6 +48,7 @@ public extension Track {
 public extension PagingObject where Item == Track {
     
     /// Sample data for testing purposes.
+    /// All of the tracks from the album "Jinx" by Crumb.
     static let jinxTracks = Bundle.module.decodeJson(
         forResource: "Jinx - PagingObject<Track>", type: Self.self
     )!

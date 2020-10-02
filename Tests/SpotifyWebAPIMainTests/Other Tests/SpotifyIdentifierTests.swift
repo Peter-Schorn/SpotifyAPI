@@ -21,7 +21,7 @@ final class SpotifyIdentifierTests: XCTestCase {
     
     func validateURI(
         uri: SpotifyURIConvertible, idCategory: IDCategory, id: String
-    ) throws -> XCTestExpectation? {
+    ) throws {
         
         // MARK: Initialize from a URI
         let spotifyIdentifierURI = try SpotifyIdentifier(
@@ -60,7 +60,7 @@ final class SpotifyIdentifierTests: XCTestCase {
         
         guard let spotifyIdentifierIDURL = spotifyIdentifierID.url else {
             XCTFail("spotifyIdentifierID.url should not be nil")
-            return nil
+            return
         }
         
         // MARK: Initialize from a URL
@@ -75,27 +75,7 @@ final class SpotifyIdentifierTests: XCTestCase {
             URL(string: "https://open.spotify.com/\(idCategory.rawValue)/\(id)")!
         )
         
-        
-        
-        // MARK: Assert that the URL actually exists
-        guard let url = spotifyIdentifierURI.url else {
-            XCTFail("url should not be nil")
-            return nil
-        }
-        
-        let expectation = XCTestExpectation(description: "url existence")
-        
-        assertURLExists(url).sink(receiveCompletion: { _ in
-            print("exists: \(url)")
-            expectation.fulfill()
-        })
-        .store(in: &Self.cancellables)
-        
-        return expectation
-        
-        // wait(for: [expectation], timeout: 30)
-        
-        
+        XCTAssertNotNil(spotifyIdentifierURI.url)
         
     }
     
@@ -121,19 +101,43 @@ final class SpotifyIdentifierTests: XCTestCase {
 
     }
     
-    
-    func testTrackURIs() throws {
+    func assertURLsExist<C: Collection>(
+        _ uris: C
+    ) throws where C.Element: SpotifyURIConvertible {
         
         var expectations: [XCTestExpectation] = []
         
+        for uri in uris {
+            guard let url = try SpotifyIdentifier(uri: uri).url else {
+                XCTFail("URL should not be nil for '\(uri)'")
+                continue
+            }
+           
+            let expectation = XCTestExpectation(
+                description: "assert URL exists: '\(url)'"
+            )
+            expectations.append(expectation)
+            assertURLExists(url).sink(receiveCompletion: { _ in
+                print("exists: \(url)")
+                expectation.fulfill()
+            })
+            .store(in: &Self.cancellables)
+            
+        }
+        
+        wait(for: expectations, timeout: TimeInterval(uris.count * 20))
+
+    }
+    
+    
+    func testTrackURIs() throws {
+        
         for track in URIs.Tracks.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: track,
                 idCategory: .track,
                 id: track.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Tracks.allCases.shuffled(),
@@ -145,118 +149,99 @@ final class SpotifyIdentifierTests: XCTestCase {
             categories: [.track, .episode]
         )
         
-        wait(for: expectations, timeout: 120)
+        let tracks = URIs.Tracks.allCases.shuffled().prefix(3)
+        try assertURLsExist(tracks)
         
     }
     
     func testArtistURIs() throws {
-        
-        var expectations: [XCTestExpectation] = []
-        
+                
         for artist in URIs.Artists.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: artist,
                 idCategory: .artist,
                 id: artist.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Artists.allCases.shuffled(),
             categories: [.artist]
         )
-
-        wait(for: expectations, timeout: 120)
         
+        let artists = URIs.Artists.allCases.shuffled().prefix(3)
+        try assertURLsExist(artists)
     }
     
     func testAlbumURIs() throws {
         
-        var expectations: [XCTestExpectation] = []
-        
         for album in URIs.Albums.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: album,
                 idCategory: .album,
                 id: album.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Albums.allCases.shuffled(),
             categories: [.album]
         )
+        let albums = URIs.Albums.allCases.shuffled().prefix(3)
+        try assertURLsExist(albums)
         
-        wait(for: expectations, timeout: 120)
-
     }
     
     func testPlaylistURIs() throws {
         
-        var expectations: [XCTestExpectation] = []
-        
         for playlist in URIs.Playlists.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: playlist,
                 idCategory: .playlist,
                 id: playlist.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Playlists.allCases.shuffled(),
             categories: [.playlist]
         )
+        let playlist = URIs.Playlists.bluesClassics
+        try assertURLsExist([playlist])
         
-        wait(for: expectations, timeout: 120)
-
     }
     
     func testEpisodeURIs() throws {
         
-        var expectations: [XCTestExpectation] = []
-        
         for episode in URIs.Episodes.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: episode,
                 idCategory: .episode,
                 id: episode.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Episodes.allCases.shuffled(),
             categories: [.episode]
         )
+        let episodes = URIs.Episodes.allCases.shuffled().prefix(3)
+        try assertURLsExist(episodes)
         
-        wait(for: expectations, timeout: 120)
-
     }
     
     func testShowURIs() throws {
         
-        var expectations: [XCTestExpectation] = []
-        
         for show in URIs.Shows.allCases {
-            if let expectation = try validateURI(
+            try validateURI(
                 uri: show,
                 idCategory: .show,
                 id: show.uri.spotifyId!
-            ) {
-                expectations.append(expectation)
-            }
+            )
         }
         try validateCommaSeparatedIdsString(
             URIs.Shows.allCases.shuffled(),
             categories: [.show]
         )
+        let shows = URIs.Shows.allCases.shuffled().prefix(3)
+        try assertURLsExist(shows)
         
-        wait(for: expectations, timeout: 120)
-
     }
     
     func testInvalidURIs() throws {

@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Logger
+import Logging
 
 extension SpotifyAPI {
 
@@ -11,28 +11,35 @@ extension SpotifyAPI {
      the application is authorized for the specified scopes.
      
      - Parameter scopes: A set of Spotify authorization scopes.
+     - Throws: If the access token or refresh token is `nil` or a network
+           error occurs.
      - Returns: The access token unwrapped from
-           `self.authorizationManager.accessToken`.
+           `self.authorizationManager.accessToken`. This is required
+           in the header of requests to all endpoints.
      */
     func refreshTokensAndEnsureAuthorized(
         for scopes: Set<Scope>
     ) -> AnyPublisher<String, Error> {
         
         /*
-         It's more informative for the client to notifiy
-         them that they haven't retrieved an access token for
-         their application before throwing other errors, so that's
-         why this check is performed first.
-         
+         It's more informative for the client to notifiy them that
+         they haven't retrieved an access token for their application
+         before throwing other errors, so that's why this check is
+         performed first.
+
+         Additionally, all other errors usually indicate a bug with
+         this library.
+
          If an access token hasn't been retrieved, then a refresh
-         token hasn't been retrieved either and, without this check,
+         token hasn't been retrieved either, and, without this check,
          `authorizationManager.refreshTokens` would throw an error
-         indicating that a refresh token hasn't been retrieved, instead
-         of an error indicating that an access token hasn't been retrieved.
-         This would make it harder for the client to understand that they
-         probably haven't authorized their application yet.
+         indicating that a refresh token hasn't been retrieved,
+         instead of an error indicating that an access token hasn't
+         been retrieved. This would make it harder for the client to
+         understand that they probably haven't authorized their
+         application yet.
          */
-        guard self.authorizationManager.accessToken != nil else {
+        if self.authorizationManager.accessToken == nil {
             return SpotifyLocalError.unauthorized(
                 "unauthorized: no access token"
             )
@@ -47,7 +54,7 @@ extension SpotifyAPI {
             // Since we already checked to see if the access token was
             // `nil` above, it should never be `nil` at this point.
             guard let acccessToken = self.authorizationManager.accessToken else {
-                self.logger.error(
+                self.logger.critical(
                     "second check for accessToken shouldn't ever fail"
                 )
                 throw SpotifyLocalError.unauthorized(
@@ -114,7 +121,7 @@ extension SpotifyAPI {
      A closure that accepts the access token must be used
      to make the headers because the access token will not
      be accessed until a call to `self.refreshAccessToken(onlyIfExpired: true)`
-     is made. This function may return a new access token, which will then
+     is made. This method may return a new access token, which will then
      be used in the headers.
      
      - Parameters:
@@ -147,17 +154,18 @@ extension SpotifyAPI {
             .flatMap { accessToken ->
                         AnyPublisher<(data: Data, response: URLResponse), Error> in
             
-                // ensure unnecessary work is not done converting the
-                // body to a string.
+                // Ensure unnecessary work is not done converting the
+                // body to a string. In some cases, the body may be very large.
                 #if DEBUG
-                if self.apiRequestLogger.level <= .warning {
-                    
+                if self.apiRequestLogger.logLevel <= .warning {
+                
                     if let bodyData = bodyData {
                         if let bodyString = String(data: bodyData, encoding: .utf8) {
                             self.apiRequestLogger.trace(
                                 """
                                 \(httpMethod) request to "\(endpoint)"; \
-                                request body:\n\(bodyString)
+                                request body:
+                                \(bodyString)
                                 """
                             )
                         }
@@ -175,7 +183,7 @@ extension SpotifyAPI {
                             "\(httpMethod) request to \"\(endpoint)\""
                         )
                     }
-                    
+                
                 }
                 #endif
                 
@@ -218,7 +226,7 @@ extension SpotifyAPI {
      
      A closure that accepts the access token must be used to make the headers
      because the access token will not be accessed until a call to
-     `self.refreshAccessToken(onlyIfExpired: true)` is made. This function may
+     `self.refreshAccessToken(onlyIfExpired: true)` is made. This method may
      return a new access token, which will then be used in the headers.
     
      - Parameters:
@@ -266,8 +274,6 @@ extension SpotifyAPI {
         
     }
     
-    
-    
     // MARK: - Get Request -
     
     /**
@@ -303,5 +309,4 @@ extension SpotifyAPI {
         
     }
     
-   
 }

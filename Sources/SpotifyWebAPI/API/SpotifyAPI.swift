@@ -1,5 +1,5 @@
 import Foundation
-import Logger
+import Logging
 import Combine
 
 /**
@@ -27,18 +27,25 @@ import Combine
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
     
+    
+    
     // MARK: - Authorization -
     
     /// Manages the authorization process for your application.
     public var authorizationManager: AuthorizationManager {
         didSet {
+            self.assertNotOnUpdateAuthInfoDispatchQueue()
+            
             self.authDidChangeLogger.trace(
                 "did set authorizationManager"
             )
             
             self.authManagerDidChangeCancellable =
-                    self.authorizationManager.didChange
-                        .subscribe(authorizationManagerDidChange)
+                self.authorizationManager.didChange
+                    .handleEvents(receiveOutput: { _ in
+                        self.assertNotOnUpdateAuthInfoDispatchQueue()
+                    })
+                    .subscribe(authorizationManagerDidChange)
             
             self.authDidChangeLogger.trace(
                 "authorizationManagerDidChange.send()"
@@ -87,16 +94,16 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     // MARK: - Loggers -
     
     /// Logs general messages for this class.
-    public let logger = Logger(label: "SpotifyAPI", level: .critical)
+    public var logger = Logger(label: "SpotifyAPI", level: .critical)
     
-    public let authDidChangeLogger = Logger(
+    public var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )
     
     /// Logs the urls of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
-    public let apiRequestLogger = Logger(label: "APIRequest", level: .critical)
+    public var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
     
     // MARK: - Initializers -
 
@@ -116,9 +123,13 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         self.authorizationManager = authorizationManager
         
         self.authManagerDidChangeCancellable =
-                self.authorizationManager.didChange
-                    .subscribe(authorizationManagerDidChange)
+            self.authorizationManager.didChange
+                .handleEvents(receiveOutput: { _ in
+                    self.assertNotOnUpdateAuthInfoDispatchQueue()
+                })
+                .subscribe(authorizationManagerDidChange)
         
+        SpotifyAPILogHandler.bootstrap()
     }
     
     deinit {
@@ -143,6 +154,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
+        SpotifyAPILogHandler.bootstrap()
     }
     
     /**
@@ -177,23 +189,29 @@ extension SpotifyAPI {
     
     /// This function has no stable API and may change arbitrarily.
     /// Only use it for testing purposes.
-    func setupDebugging() {
+    public func setupDebugging() {
 
-        self.logger.level = .trace
-        self.apiRequestLogger.level = .trace
-        self.authDidChangeLogger.level = .trace
+        self.logger.logLevel = .trace
+        self.apiRequestLogger.logLevel = .trace
+        self.authDidChangeLogger.logLevel = .trace
         
-        AuthorizationCodeFlowManager.logger.level = .trace
-        ClientCredentialsFlowManager.logger.level = .trace
-        CurrentlyPlayingContext.logger.level = .trace
+        AuthorizationCodeFlowManager.logger.logLevel = .trace
+        ClientCredentialsFlowManager.logger.logLevel = .trace
+        CurrentlyPlayingContext.logger.logLevel = .trace
+        spotifyDecodeLogger.logLevel = .trace
         
-        for logger in Logger.allLoggers {
-            logger.logMsgFormatter =
-                    assertOnCriticalLogMessageFormatter
+        SpotifyAPILogHandler.allLoggersAssertOnCritical = true
+            
+    }
+    
+    func assertNotOnUpdateAuthInfoDispatchQueue() {
+        if let authManager = self.authorizationManager as? AuthorizationCodeFlowManager {
+            authManager.assertNotOnUpdateAuthInfoDispatchQueue()
         }
-        
+        else if let authManager = self.authorizationManager as? ClientCredentialsFlowManager {
+            authManager.assertNotOnUpdateAuthInfoDispatchQueue()
+        }
     }
     
 }
-
 

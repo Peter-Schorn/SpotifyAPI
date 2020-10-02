@@ -2,16 +2,23 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 92,
+      "line": 99,
       "symbol": "SpotifyAPI.authDidChangeLogger",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 168,
+      "line": 180,
       "symbol": "SpotifyAPI.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/AuthorizationCodeFlowManager.swift",
+      "line": 44,
+      "symbol": "AuthorizationCodeFlowManager.logger",
+      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
@@ -310,7 +317,14 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/Playlist.swift",
-      "line": 183,
+      "line": 188,
+      "symbol": "Playlist.init(name:items:owner:isPublic:collaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/Playlist.swift",
+      "line": 222,
       "symbol": "Playlist.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -373,7 +387,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/ReorderPlaylistItems.swift",
-      "line": 82,
+      "line": 136,
       "symbol": "ReorderPlaylistItems.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -387,7 +401,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Publisher Extensions/SpotifyObjectDecoding.swift",
-      "line": 5,
+      "line": 6,
       "symbol": "spotifyDecodeLogger",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"

@@ -94,7 +94,6 @@ public extension SpotifyAPI {
         
     }
     
-
     /**
      Get an artist's albums
      

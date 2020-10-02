@@ -38,7 +38,7 @@ private class Keychain {
  Conforms to the `ObservableObject` protocol, so you can use it in a SwiftUI
  `View` to update the user interface.
  */
-private final class Spotify: ObservableObject {
+private class Spotify: ObservableObject {
     
     private static let clientID: String = {
         if let clientID = ProcessInfo.processInfo

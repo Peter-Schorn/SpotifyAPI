@@ -298,6 +298,9 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -333,6 +336,9 @@
                 <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
               </li>
               <li class="nav-group-task">
@@ -359,6 +365,36 @@
               </div>
             <p>Used in the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">SpotifyAPI.reorderPlaylistItems(_:body:)</a></code> request to
 reorder a playlist&rsquo;s items.</p>
+
+<p>Read more at the [Spotify web API reference][1]</p>
+
+<p>The body of the request contains the following properties:</p>
+
+<ul>
+<li>rangeStart: The position of the first item to be reordered.</li>
+<li>rangeLength: The amount of items to be reordered. Defaults to 1.
+The range of items to be reordered begins from the <code>rangeStart</code> position
+(inclusive), and includes the <code>rangeLength</code> subsequent items.
+For example, if <code>rangeLength</code> is 1, then the item at index <code>rangeStart</code>
+will be inserted before the item at index <code>insertBefore</code>.</li>
+<li>insertBefore: The position where the items should be inserted.</li>
+<li>snapshotId: <em>Optional</em>. The version identifier for the current playlist.</li>
+</ul>
+<h1 id='examples' class='heading'>Examples:</h1>
+
+<p>To reorder the first item to the last position in a playlist with 10 items,
+set <code>rangeStart</code> to 0, set <code>rangeLength</code> to 1 (default) and
+<code>insertBefore</code> to 10.</p>
+
+<p>To reorder the last item in a playlist with 10 items to the start of
+the playlist, set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 1 (default)
+and set <code>insertBefore</code> to 0.</p>
+
+<p>To move the items at index 9-10 to the start of the playlist,
+set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 2, and set
+<code>insertBefore</code> to 0.</p>
+
+<p><a href="https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/">https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/</a></p>
 
           </section>
           <section class="section task-group-section">
@@ -406,8 +442,11 @@ reorder a playlist&rsquo;s items.</p>
                       <div class="abstract">
                         <p>The amount of items to be reordered. Defaults to 1.</p>
 
-<p>The range of items to be reordered begins from the <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> position,
-and includes <code>rangeLength</code> subsequent items.</p>
+<p>The range of items to be reordered begins from the <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> position
+(inclusive), and includes <code>rangeLength</code> subsequent items.</p>
+
+<p>For example, if <code>rangeLength</code> is 1, then the item at index <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code>
+will be inserted before the item at index <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV12insertBeforeSivp">insertBefore</a></code>.</p>
 <h1 id='example' class='heading'>Example:</h1>
 
 <p>To move the items at index 9-10 to the start of the playlist,
@@ -446,10 +485,11 @@ set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20Reor
 <h1 id='examples' class='heading'>Examples:</h1>
 
 <p>To reorder the first item to the last position in a playlist with 10 items,
-set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 0, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 0 (default) and
-<code>insertBefore</code> to 10.
-To reorder the last item in a playlist with 10 items to the start of
-the playlist, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 9, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 0 (default)
+set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 0, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 1 (default) and
+<code>insertBefore</code> to 10.</p>
+
+<p>To reorder the last item in a playlist with 10 items to the start of
+the playlist, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 9, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 1 (default)
 and set <code>insertBefore</code> to 0.</p>
 
                       </div>
@@ -511,6 +551,20 @@ has changed since the last time you retrieved it.</p>
                         <p>Creates an instance that contains details about
 tracks/episodes in a playlist that need to be reordered.</p>
 
+<p>To reorder the first item to the last position in a playlist with 10 items,
+set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 0, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 1 (default) and
+<code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV12insertBeforeSivp">insertBefore</a></code> to 10.</p>
+
+<p>To reorder the last item in a playlist with 10 items to the start of
+the playlist, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 9, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 1 (default)
+and set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV12insertBeforeSivp">insertBefore</a></code> to 0.</p>
+
+<p>To move the items at index 9-10 to the start of the playlist,
+set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> to 9, set <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> to 2, and set
+<code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV12insertBeforeSivp">insertBefore</a></code> to 0.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/">Spotify web API reference</a></p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -549,7 +603,12 @@ tracks/episodes in a playlist that need to be reordered.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The amount of items to be reordered. Defaults to 1.</p>
+                                  <p>The amount of items to be reordered. Defaults to 1.
+The range of items to be reordered begins from the <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code>
+position (inclusive), and includes <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> subsequent items.
+For example, if <code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV11rangeLengthSivp">rangeLength</a></code> is 1, then the item at index
+<code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV10rangeStartSivp">rangeStart</a></code> will be inserted before the item at index
+<code><a href="../Structs/ReorderPlaylistItems.html#/s:13SpotifyWebAPI20ReorderPlaylistItemsV12insertBeforeSivp">insertBefore</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -589,7 +648,7 @@ current playlist.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

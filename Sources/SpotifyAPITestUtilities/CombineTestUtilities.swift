@@ -4,9 +4,13 @@ import XCTest
 
 public extension Publisher {
     
-    /// Calls through to `XCTFail` when an error is received
-    /// and replaces the error with a publisher that completes
-    /// immediately: `Empty<Output, Failure>`.
+    /**
+     Calls through to `XCTFail` when an error is received
+     and replaces the error with a publisher that completes
+     immediately successfully: `Empty<Output, Failure>`. This ensures that
+     when this method is used multiple times in a publishing stream,
+     the same error will not get logged by additional downstream calls.
+     */
     func XCTAssertNoFailure(
         _ message: String = "",
         file: StaticString = #file,

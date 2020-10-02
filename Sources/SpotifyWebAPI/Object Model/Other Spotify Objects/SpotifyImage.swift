@@ -76,18 +76,18 @@ public extension SpotifyImage {
     /// Fails if `self.url` cannot be converted to `URL`, if the data
     /// cannot be converted to `Image`, or if some other network error occurs.
     func load() -> AnyPublisher<Image, Error> {
-        
+
         guard let imageURL = URL(string: url) else {
             return SpotifyLocalError.other(
                 "couldn't convert string to URL: '\(url)'"
             )
             .anyFailingPublisher(Image.self)
-            
         }
         
         return URLSession.shared.dataTaskPublisher(for: imageURL)
             .tryMap { data, response -> Image in
-                guard let image = PlatformImage(data: data).map({
+                
+                if let image = PlatformImage(data: data).map({
                     image -> Image in
                     
                     #if os(macOS)
@@ -95,13 +95,13 @@ public extension SpotifyImage {
                     #else
                     return Image(uiImage: image)
                     #endif
-                })
-                else {
-                    throw SpotifyLocalError.other(
-                        "couldn't get image from data"
-                    )
+                }) {
+                    return image
                 }
-                return image
+                throw SpotifyLocalError.other(
+                    "couldn't get image from data"
+                )
+                
             }
             .eraseToAnyPublisher()
         

@@ -298,6 +298,9 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
@@ -331,6 +334,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyCategory.html">SpotifyCategory</a>
@@ -368,11 +374,11 @@ will be used to update the details of the playlist.</p>
 <ul>
 <li>name: The new name for the playlist.</li>
 <li>isPublic: If <code>true</code> the playlist will be public;
-  if <code>false</code> it will be private.</li>
+  if <code>false</code> it will be private. Default: <code>true</code>.</li>
 <li>collaborative: If <code>true</code>, the playlist will become collaborative
   and other users will be able to modify the playlist in their
-  Spotify client. <strong>Note</strong>: You can only set collaborative to <code>true</code>
-  on non-public playlists.</li>
+  Spotify client. Default: <code>false</code>. <strong>Note</strong>: You can only set
+  collaborative to <code>true</code> on non-public playlists.</li>
 <li>description: A new playlist description as displayed in
   Spotify Clients and in the Web API.</li>
 </ul>
@@ -422,7 +428,7 @@ will be used to update the details of the playlist.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p><em>Optional</em>. If <code>true</code> the playlist will be public;
-if <code>false</code> it will be private.</p>
+if <code>false</code> it will be private. Default: <code>true</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -430,6 +436,41 @@ if <code>false</code> it will be private.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isPublic</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV15isCollaborativeSbSgvp"></a>
+                    <a name="//apple_ref/swift/Property/isCollaborative" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV15isCollaborativeSbSgvp">isCollaborative</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><em>Optional</em>. If <code>true</code>, the playlist will become collaborative
+and other users will be able to modify the playlist in their
+Spotify client. Default: <code>false</code>.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    You can only set collaborative to <code>true</code> on non-public
+  playlists.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isCollaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -449,17 +490,15 @@ if <code>false</code> it will be private.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><em>Optional</em>. If <code>true</code>, the playlist will become collaborative
-and other users will be able to modify the playlist in their
-Spotify client. <strong>Note</strong>: You can only set collaborative to <code>true</code>
-on non-public playlists.</p>
+                        <p>This property has been renamed to <code><a href="../Structs/PlaylistDetails.html#/s:13SpotifyWebAPI15PlaylistDetailsV15isCollaborativeSbSgvp">isCollaborative</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"isCollaborative"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -497,9 +536,9 @@ Spotify Clients and in the Web API.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(name:isPublic:collaborative:description:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:<wbr>isPublic:<wbr>collaborative:<wbr>description:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic0G13Collaborative11descriptionACSSSg_SbSgAiHtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:isPublic:isCollaborative:description:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic0G13Collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:<wbr>isPublic:<wbr>isCollaborative:<wbr>description:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -519,7 +558,7 @@ property will be used update the details of the playlist.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">isPublic</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isCollaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span></code></pre>
 
@@ -550,7 +589,7 @@ property will be used update the details of the playlist.</p>
                               <td>
                                 <div>
                                   <p>If <code>true</code> the playlist will be public;
-if <code>false</code> it will be private.</p>
+if <code>false</code> it will be private. Default: <code>true</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -564,8 +603,8 @@ if <code>false</code> it will be private.</p>
                                 <div>
                                   <p>If <code>true</code>, the playlist will become collaborative
 and other users will be able to modify the playlist in their
-Spotify client. <strong>Note</strong>: You can only set collaborative to <code>true</code>
-on non-public playlists.</p>
+Spotify client. Default: <code>false</code>. <strong>Note</strong>: You can only set
+collaborative to <code>true</code> on non-public playlists.</p>
                                 </div>
                               </td>
                             </tr>
@@ -588,12 +627,46 @@ Spotify Clients and in the Web API.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:isPublic:collaborative:description:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:<wbr>isPublic:<wbr>collaborative:<wbr>description:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method has been renamed to
+<code><a href="../Structs/PlaylistDetails.html#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic0G13Collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:isPublic:isCollaborative:description:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"init(name:isPublic:isCollaborative:description:﹚"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">isPublic</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-21)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

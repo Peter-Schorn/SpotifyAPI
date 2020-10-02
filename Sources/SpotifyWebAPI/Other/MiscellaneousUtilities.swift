@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import Logger
 
 public extension String {
     
@@ -261,17 +260,4 @@ public extension Sequence where Element: AnyOptional {
         return self.compactMap { $0.optional }
     }
     
-}
-
-
-/// Calls `assertionFailure` if a log with a `critical` level is received.
-let assertOnCriticalLogMessageFormatter: Logger.LogMsgFormatter = {
-    date, label, level, file, function, line, message in
-    
-    if case .critical = level {
-        assertionFailure(
-            "[\(label): \(level): \(function): line \(line)] \(message())"
-        )
-    }
-    print("[\(label): \(level): \(function): line \(line)] \(message())")
 }
