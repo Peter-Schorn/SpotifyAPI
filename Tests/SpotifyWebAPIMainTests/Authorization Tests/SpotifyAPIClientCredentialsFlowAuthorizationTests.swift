@@ -20,8 +20,17 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
                 didChangeCount += 1
             })
             .store(in: &Self.cancellables)
+
+        XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                        for: [Scope.allCases.randomElement()!]
+            )
+        )
         
         Self.spotify.authorizationManager.deauthorize()
+        
+        XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized())
         
         let expectation = XCTestExpectation(
             description: "testDeauthorizeReauthorize"
@@ -35,6 +44,14 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             .store(in: &Self.cancellables)
      
         wait(for: [expectation], timeout: 60)
+        
+        XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                        for: [Scope.allCases.randomElement()!]
+            )
+        )
+
         XCTAssertEqual(
             didChangeCount, 2,
             "authorizationManagerDidChange should emit once when " +

@@ -6,25 +6,24 @@
       "options" : {
         "addressSanitizer" : {
           "enabled" : false
-        }
+        },
+        "targetForVariableExpansion" : null
       }
     }
   ],
   "defaultOptions" : {
     "environmentVariableEntries" : [
       {
-        "key" : "client_secret",
-        "value" : "e07ae33822714130aa7b8492b49bf824"
-      },
-      {
-        "key" : "data_dump_folder",
-        "value" : "\/Users\/pschorn\/Desktop"
-      },
-      {
-        "key" : "client_id",
-        "value" : "f9b05de1274c4851a2293a540cb8705e"
+        "enabled" : false,
+        "key" : "spotify_credentials_path",
+        "value" : "path\/to\/file"
       }
     ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:",
+      "identifier" : "SpotifyAPI",
+      "name" : "SpotifyAPI"
+    },
     "testExecutionOrdering" : "random",
     "threadSanitizerEnabled" : true,
     "undefinedBehaviorSanitizerEnabled" : true

@@ -3,3 +3,5 @@
 /Packages
 .swiftpm/xcode/xcuserdata
 .swiftpm/xcode/package.xcworkspace/xcuserdata
+/Tests/Private
+spotify_credentials.txt

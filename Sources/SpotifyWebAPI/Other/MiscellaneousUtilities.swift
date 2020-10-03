@@ -1,45 +1,7 @@
 import Foundation
 import Combine
 
-public extension String {
-    
-    /// Alias for self.trimmingCharacters(in: characterSet)
-    /// The default argument strips all trailing and leading white space,
-    /// including new lines.
-    func strip(
-        _ characterSet: CharacterSet = .whitespacesAndNewlines
-    ) -> String {
-        
-        return self.trimmingCharacters(in: characterSet)
-    }
-    
-    /// Base64-encodes self.
-    func base64Encoded(
-        _ options: Data.Base64EncodingOptions = []
-    ) -> String? {
-        
-        return self.data(using: .utf8)?
-            .base64EncodedString(options: options)
-    }
-    
-    /// Base64-decodes self.
-    func base64Decoded(
-        encoding: Encoding = .utf8,
-        options: Data.Base64DecodingOptions = []
-    ) -> String? {
-        
-        guard let data = Data(base64Encoded: self) else {
-            return nil
-        }
-        return String(data: data, encoding: encoding)
-        
-    }
-        
-}
-
-
 public extension Dictionary where Key == String, Value == String {
-    
     
     /// Encodes a dictionary of into data according to
     /// `application/x-www-form-urlencoded`.
@@ -56,7 +18,6 @@ public extension Dictionary where Key == String, Value == String {
         }
         return urlComponents.query?.data(using: .utf8)
     }
-    
     
 }
 
@@ -157,15 +118,17 @@ public extension Sequence where
     Element.RawValue: StringProtocol
 {
     
-    /// Creates a comma separated string of the raw values of
-    /// the sequence's elements. No spaces are added between the commas.
-    ///
-    /// Available when Sequence.Element conforms to `RawRepresentable`
-    /// and `Element.RawValue` conforms to `StringProtocol`
-    /// (`String` or `SubString`).
-    ///
-    /// Equivalent to `self.map(\.rawValue).joined(separator: ",")`.
-    @inlinable
+    /**
+     Creates a comma separated string of the raw values of
+     the sequence's elements. No spaces are added between the commas.
+    
+     Available when Sequence.Element conforms to `RawRepresentable`
+     and `Element.RawValue` conforms to `StringProtocol`
+     (`String` or `SubString`).
+    
+     Equivalent to `self.map(\.rawValue).joined(separator: ",")`.
+     */
+    @inlinable @inline(__always)
     func commaSeparatedString() -> String {
         return self.map(\.rawValue).joined(separator: ",")
     }

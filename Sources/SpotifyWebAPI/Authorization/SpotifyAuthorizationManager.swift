@@ -3,12 +3,19 @@ import Combine
 import Logging
 
 /**
- A type that can manage the authorization process for the
- Spotify web API.
+ A type that can manage the [authorization process][1] for the
+ Spotify web API. It also contains all the authorization information.
  
- It provides an access token, the scopes
- that have been authorized for the access token, and a method
- for refreshing the access token.
+ It provides an access token, the scopes that have been authorized for the
+ access token, and a method for refreshing the access token.
+ 
+ Note that this protocol inherits from `Codable`.
+ It is this type that you should encode to data using a `JSONEncoder`
+ in order to save it to persistent storage. See this [article][2] for more
+ information.
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/
+ [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public protocol SpotifyAuthorizationManager: Codable {
     

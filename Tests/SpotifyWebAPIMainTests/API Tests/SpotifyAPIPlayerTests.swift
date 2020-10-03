@@ -464,3 +464,26 @@ final class SpotifyAPIAuthorizationCodeFlowManagerPlayerTests:
     
 }
 
+final class SpotifyAPIAuthorizationCodeFlowPKCEManagerPlayerTests:
+    SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIPlayerTests
+{
+    
+    static let allTests = [
+        ("testPlayPause", testPlayPause),
+        ("testPlayback", testPlayback),
+        ("testSingleTrackPlayback", testSingleTrackPlayback),
+        ("testShuffle", testShuffle),
+        ("testRepeatMode", testRepeatMode),
+        ("testPlayHistory", testPlayHistory),
+        ("testAddToQueue", testAddToQueue)
+    ]
+    
+    func testPlayPause() { playPause() }
+    func testPlayback() { playback() }
+    func testSingleTrackPlayback() { singleTrackPlayback() }
+    func testPlayHistory() { playHistory() }
+    func testAddToQueue() { addToQueue() }
+    func testShuffle() { shuffle() }
+    func testRepeatMode() { repeatMode() }
+    
+}

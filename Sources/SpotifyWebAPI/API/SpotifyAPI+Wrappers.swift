@@ -5,6 +5,12 @@ import Logging
 extension SpotifyAPI {
 
     // MARK: Wrappers
+    /*
+     All requests to endpoints other than those for authorizing
+     the app and retrieving/refreshing the tokens call through
+     to these methods.
+     
+     */
     
     /**
      Refreshes the access token if it is expired and ensures that
@@ -20,6 +26,8 @@ extension SpotifyAPI {
     func refreshTokensAndEnsureAuthorized(
         for scopes: Set<Scope>
     ) -> AnyPublisher<String, Error> {
+        
+        self.logger.trace("scopes: \(scopes)")
         
         /*
          It's more informative for the client to notifiy them that
@@ -40,6 +48,7 @@ extension SpotifyAPI {
          application yet.
          */
         if self.authorizationManager.accessToken == nil {
+            self.logger.warning("unauthorized: no access token")
             return SpotifyLocalError.unauthorized(
                 "unauthorized: no access token"
             )
@@ -55,7 +64,7 @@ extension SpotifyAPI {
             // `nil` above, it should never be `nil` at this point.
             guard let acccessToken = self.authorizationManager.accessToken else {
                 self.logger.critical(
-                    "second check for accessToken shouldn't ever fail"
+                    "second check for accessToken failed"
                 )
                 throw SpotifyLocalError.unauthorized(
                     "unauthorized: no access token"
@@ -154,9 +163,6 @@ extension SpotifyAPI {
             .flatMap { accessToken ->
                         AnyPublisher<(data: Data, response: URLResponse), Error> in
             
-                // Ensure unnecessary work is not done converting the
-                // body to a string. In some cases, the body may be very large.
-                #if DEBUG
                 if self.apiRequestLogger.logLevel <= .warning {
                 
                     if let bodyData = bodyData {
@@ -170,7 +176,7 @@ extension SpotifyAPI {
                             )
                         }
                         else {
-                            self.apiRequestLogger.trace(
+                            self.apiRequestLogger.warning(
                                 "\(httpMethod) request to \"\(endpoint)\""
                             )
                             self.apiRequestLogger.warning(
@@ -185,7 +191,6 @@ extension SpotifyAPI {
                     }
                 
                 }
-                #endif
                 
                 return URLSession.shared.dataTaskPublisher(
                     url: endpoint,

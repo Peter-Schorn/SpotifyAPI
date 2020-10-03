@@ -4,41 +4,8 @@ import XCTest
 @testable import SpotifyWebAPI
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowManager>`.
-open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase {
-    
-    public static let spotify =
-            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
-    public static var cancellables: Set<AnyCancellable> = []
-
-    /// If you only need to setup the authorization,
-    /// override `setupAuthorization()` instead.
-    override open class func setUp() {
-        spotify.setupDebugging()
-        let environment = ProcessInfo.processInfo.environment
-        if let dataDumpFolder = environment["data_dump_folder"] {
-            let url = URL(fileURLWithPath: dataDumpFolder)
-            SpotifyDecodingError.dataDumpfolder = url
-        }
-        else {
-            print(
-                "Couldn't find 'data_dump_folder' in environment variables"
-            )
-            
-        }
-        setupAuthorization()
-    }
-    
-    open class func setupAuthorization() {
-        spotify.authorizeAndWaitForTokens(scopes: Scope.allCases)
-    }
-    
-
-}
-
-/// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
-open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
+open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
     
     public static let spotify =
             SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
@@ -47,16 +14,11 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
     /// If you only need to setup the authorization,
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
-        spotify.setupDebugging()
-        if let dataDumpFolder = ProcessInfo.processInfo
-                .environment["data_dump_folder"] {
-            let url = URL(fileURLWithPath: dataDumpFolder)
-            SpotifyDecodingError.dataDumpfolder = url
-        }
-        else {
-            print("Couldn't find 'data_dump_folder' in environment variables")
-        }
-        
+        print(
+            "setup debugging and authorization for " +
+            "SpotifyAPIClientCredentialsFlowTests"
+        )
+        setUpDebugging()
         setupAuthorization()
     }
 
@@ -66,3 +28,56 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase {
     
 }
 
+
+
+/// The base class for all tests involving
+/// `SpotifyAPI<AuthorizationCodeFlowManager>`.
+open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
+    
+    public static let spotify =
+            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
+    public static var cancellables: Set<AnyCancellable> = []
+
+    /// If you only need to setup the authorization,
+    /// override `setupAuthorization()` instead.
+    override open class func setUp() {
+        print(
+            "setup debugging and authorization for " +
+            "SpotifyAPIAuthorizationCodeFlowTests"
+        )
+        setUpDebugging()
+        setupAuthorization()
+    }
+
+    open class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
+        spotify.authorizeAndWaitForTokens(scopes: scopes)
+    }
+    
+
+}
+
+/// The base class for all tests involving
+/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
+open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests {
+    
+    public static let spotify =
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
+    public static var cancellables: Set<AnyCancellable> = []
+
+    /// If you only need to setup the authorization,
+    /// override `setupAuthorization()` instead.
+    override open class func setUp() {
+        print(
+            "setup debugging and authorization for " +
+            "SpotifyAPIAuthorizationCodeFlowPKCETests"
+        )
+        setUpDebugging()
+        setupAuthorization()
+    }
+
+    open class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
+        spotify.authorizeAndWaitForTokens(scopes: scopes)
+    }
+    
+
+}

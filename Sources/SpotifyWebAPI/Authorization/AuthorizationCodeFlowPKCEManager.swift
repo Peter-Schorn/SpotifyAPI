@@ -2,26 +2,57 @@ import Foundation
 import Combine
 import Logging
 
+
 /**
- Manages the authorization process for the [Authorization Code Flow][1].
+ Manages the authorization process for the
+ [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
+ 
+ The authorization code flow with PKCE is the best option for mobile and desktop
+ applications where it is unsafe to store your client secret. It provides your
+ app with an access token that can be refreshed. For further information about
+ this flow, see [IETF RFC-7636][2].
+ 
+ Before each authentication request your app should generate a code verifier and
+ a code challenge. The code verifier is a cryptographically random string between
+ 43 and 128 characters in length. It can contain letters, digits, underscores,
+ periods, hyphens, or tildes.
+ 
+ In order to generate the code challenge, your app should hash the code verifier
+ using the SHA256 algorithm. Then, [base64url][3] encode the hash that you generated.
+ **Do not include any** `=` **padding characters** (percent-encoded or not).
+
+ You can use `String.randomURLSafe(length:using:)` or
+ `String.randomURLSafe(length:)` to generate the code verifier. You can Use the
+ `String.makeCodeChallenge()` instance method to create the code challenge
+ from the code verifier. For example:
+ 
+ ```
+ let codeVerifier = String.randomURLSafe(length: 128)
+ let codeChallenge = codeVerifier.makeCodeChallenge()
+ ```
+ 
+ If you use your own method to create these values, you can validate them
+ using this [PKCE generator tool][4]. See also `Data.base64URLEncodedString()`
+ and `String.urlSafeCharacters`.
  
  The first step in the authorization code flow is to make the
  authorization URL using
- `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
+ `makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)`.
  Open this URL in a broswer/webview to allow the user to login
- to their Spotify account and authorize your application.
+ to their Spotify account and authorize your application. It displays a
+ permissions dialog to the user.
  
- After they either authorize or deny authorization for your application,
+ After the user either authorizes or denies authorization for your application,
  Spotify will redirect to the redirect URI specified in the authorization
  URL with query parameters appended to it. Pass this URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to request
- the refresh and access tokens. After that, you can begin making requests
- to the Spotify API. The access token will be refreshed for you
+ `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
+ to request the refresh and access tokens. After that, you can begin making
+ requests to the Spotify API. The access token will be refreshed for you
  automatically when needed.
  
  Note that this type inherits from `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][2] for more information.
+ See this [article][5] for more information.
  
  Use `isAuthorized(for:)` to check if your application is authorized
  for the specified scopes.
@@ -39,17 +70,20 @@ import Logging
  * The expiration date for the access token
  * The scopes that have been authorized for the access token
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
- [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://tools.ietf.org/html/rfc7636
+ [3]: https://tools.ietf.org/html/rfc4648#section-5
+ [4]: https://tonyxu-io.github.io/pkce-generator/
+ [5]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class AuthorizationCodeFlowManager:
+public final class AuthorizationCodeFlowPKCEManager:
     AuthorizationCodeFlowManagerBase,
     SpotifyScopeAuthorizationManager
 {
     
     /// The logger for this class.
     public static var logger = Logger(
-        label: "AuthorizationCodeFlowManager", level: .critical
+        label: "AuthorizationCodeFlowPKCEManager", level: .critical
     )
     
     /**
@@ -90,21 +124,46 @@ public final class AuthorizationCodeFlowManager:
     
 }
 
-public extension AuthorizationCodeFlowManager {
+public extension AuthorizationCodeFlowPKCEManager {
     
     /**
-     The first step in the [Authorization Code Flow][1].
+     The first step in the authorization process
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
      
      Creates the URL that is used to request authorization for your app. It
      displays a permissins dialog to the user. Open the URL in a
      browser/webview so that the user can login to their Spotify account and
      authorize your app.
+
+     Before each authentication request your app should generate a code verifier
+     and a code challenge. The code verifier is a cryptographically random string
+     between 43 and 128 characters in length. It can contain letters, digits,
+     underscores, periods, hyphens, or tildes.
+     
+     In order to generate the code challenge, your app should hash the code verifier
+     using the SHA256 algorithm. Then, [base64url][2] encode the hash that you
+     generated.  **Do not include any** `=` **padding characters**
+     (percent-encoded or not).
+
+     You can use `String.randomURLSafe(length:using:)` or
+     `String.randomURLSafe(length:)` to generate the code verifier. You can Use the
+     `String.makeCodeChallenge()` instance method to create the code challenge
+     from the code verifier. For example:
+     
+     ```
+     let codeVerifier = String.randomURLSafe(length: 128)
+     let codeChallenge = codeVerifier.makeCodeChallenge()
+     ```
+     
+     If you use your own method to create these values, you can validate them
+     using this [PKCE generator tool][3]. See also `Data.base64URLEncodedString()`
+     and `String.urlSafeCharacters`.
      
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
      appended to it. Pass that URL into
-     `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to complete
-     the authorization process.
+     `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
+     to complete the authorization process.
      
      # Warning:
      
@@ -129,6 +188,7 @@ public extension AuthorizationCodeFlowManager {
              may be automatically redirected to the `redirectURI`.
              If `true`, the user will not be automatically
              redirected and will have to approve the app again.
+       - codeChallenge: The code challenge. See above.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
              `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
@@ -141,19 +201,22 @@ public extension AuthorizationCodeFlowManager {
              validate the response to additionally ensure that the request and
              response originated in the same browser. This provides protection
              against attacks such as cross-site request forgery.
-       - scopes: A set of [Spotify Authorization scopes][2].
+       - scopes: A set of [Spotify Authorization scopes][4].
      - Returns: The URL that must be opened to authorize your app. May return
            `nil` if the URL could not be created.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: x-source-tag://Scopes
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [2]: https://tools.ietf.org/html/rfc4648#section-5
+     [3]: https://tonyxu-io.github.io/pkce-generator/
+     [4]: x-source-tag://Scopes
      
-     - Tag: makeAuthorizationURL
+     - Tag: PKCEmakeAuthorizationURL
      */
     func makeAuthorizationURL(
         redirectURI: URL,
         showDialog: Bool,
-        state: String? = nil,
+        codeChallenge: String,
+        state: String?,
         scopes: Set<Scope>
     ) -> URL? {
         
@@ -167,14 +230,17 @@ public extension AuthorizationCodeFlowManager {
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
                 "show_dialog": showDialog,
-                "state": state
+                "state": state,
+                "code_challenge_method": "S256",
+                "code_challenge": codeChallenge
             ])
         )
         
     }
     
     /**
-     The second and final step in the [Authorization Code Flow][1].
+     The second and final step in the authorization process for the
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
      
      After you open the URL from
      `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`
@@ -191,6 +257,8 @@ public extension AuthorizationCodeFlowManager {
      
      - Parameters:
        - redirectURIWithQuery: The redirect URI with query parameters appended to it.
+       - codeVerifier: The code verifier that you generated when creating the
+             authorization URL. **This must be between 43 and 128 characters long.**
        - state: The value of the state parameter that you provided when
              making the authorization URL. **If the state parameter in**
              redirectURIWithQuery **doesn't match this value, then an error will**
@@ -203,15 +271,23 @@ public extension AuthorizationCodeFlowManager {
      **Therefore, do not percent-encode them yourself before passing them**
      **into this method.**
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     
-     - Tag: requestAccessAndRefreshTokens-redirectURIWithQuery
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+
+     - Tag: PKCErequestAccessAndRefreshTokens-redirectURIWithQuery
      */
     func requestAccessAndRefreshTokens(
         redirectURIWithQuery: URL,
-        state: String? = nil
+        codeVerifier: String,
+        state: String?
     ) -> AnyPublisher<Void, Error> {
 
+        let count = codeVerifier.count
+        assert(
+            (43...128).contains(count),
+            "The code verifier must be between 43 and 128 characters " +
+            "(recevied \(count))"
+        )
+        
         Self.logger.trace(
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
@@ -261,11 +337,11 @@ public extension AuthorizationCodeFlowManager {
             .removingQueryItems()
             .removingTrailingSlashInPath()
         
-        let body = TokensRequest(
+        let body = PKCETokensRequest(
             code: code,
             redirectURI: baseRedirectURI,
-            clientId: clientId,
-            clientSecret: clientSecret
+            clientId: self.clientId,
+            codeVerifier: codeVerifier
         )
         .formURLEncoded()
         
@@ -381,19 +457,10 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                    guard let header = Headers.basicBase64Encoded(
-                        clientId: self.clientId, clientSecret: self.clientSecret
-                    )
-                    else {
-                        // this error should never occur
-                        let message = "couldn't base 64 encode " +
-                            "client id and client secret"
-                        Self.logger.critical("\(message)")
-                        throw SpotifyLocalError.other(message)
-                    }
-                    
-                    let body = RefreshAccessTokenRequest(
-                        refreshToken: refreshToken
+                   
+                    let body = PKCERefreshAccessTokenRequest(
+                        refreshToken: refreshToken,
+                        clientId: self.clientId
                     )
                     .formURLEncoded()
                     
@@ -409,7 +476,7 @@ public extension AuthorizationCodeFlowManager {
                     let refreshTokensPublisher = URLSession.shared.dataTaskPublisher(
                         url: Endpoints.getTokens,
                         httpMethod: "POST",
-                        headers: header,
+                        headers: Headers.formURLEncoded,
                         body: body
                     )
                     // decoding into `AuthInfo` never fails because all of its,
@@ -421,13 +488,22 @@ public extension AuthorizationCodeFlowManager {
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")
                         
+                        /*
+                         Unlike the Authorization Code Flow, a refresh token that
+                         has been obtained through PKCE can be exchanged for an
+                         access token only once, after which it becomes invalid.
+                         This implies that Spotify should always return a new
+                         refresh token in addition to an access token.
+                         */
+                        
                         if authInfo.accessToken == nil ||
+                                authInfo.refreshToken == nil ||
                                 authInfo.expirationDate == nil ||
                                 authInfo.scopes == nil {
-
+                            
                             let errorMessage = """
-                                missing properties after refreshing \
-                                access token (expected access token, \
+                                missing properties after refreshing access token \
+                                (expected access token, refresh token, \
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
@@ -468,7 +544,7 @@ public extension AuthorizationCodeFlowManager {
 
 // MARK: - Custom String Convertible
 
-extension AuthorizationCodeFlowManager: CustomStringConvertible {
+extension AuthorizationCodeFlowPKCEManager: CustomStringConvertible {
     
     public var description: String {
         // print("AuthorizationCodeFlowManager.description WAITING for queue")
@@ -482,7 +558,7 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
                     ?? "nil"
             
             return """
-                AuthorizationCodeFlowManager(
+                AuthorizationCodeFlowPKCEManager(
                     access_token: "\(_accessToken ?? "nil")"
                     scopes: \(scopeString)
                     expirationDate: \(expirationDateString)
@@ -498,7 +574,7 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
 
 // MARK: - Hashable and Equatable -
 
-extension AuthorizationCodeFlowManager: Hashable {
+extension AuthorizationCodeFlowPKCEManager: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
@@ -512,8 +588,8 @@ extension AuthorizationCodeFlowManager: Hashable {
     }
 
     public static func == (
-        lhs: AuthorizationCodeFlowManager,
-        rhs: AuthorizationCodeFlowManager
+        lhs: AuthorizationCodeFlowPKCEManager,
+        rhs: AuthorizationCodeFlowPKCEManager
     ) -> Bool {
         
         var areEqual = true

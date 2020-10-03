@@ -1028,7 +1028,26 @@ extension SpotifyAPIPlaylistsTests where
     
 }
 
-class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
+final class SpotifyAPIClientCredentialsFlowPlaylistsTests:
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIPlaylistsTests
+{
+
+    static let allTests = [
+        ("testGetCrumbPlaylist", testGetCrumbPlaylist),
+        ("testGetCrumPlaylistTracks", testGetCrumbPlaylistTracks),
+        ("testFilteredPlaylist", testFilteredPlaylist),
+        ("testOtherUserCurrentPlaylists", testOtherUserCurrentPlaylists)
+    ]
+    
+    func testGetCrumbPlaylist() { getCrumbPlaylist() }
+    func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }
+    func testFilteredPlaylist() { filteredPlaylist() }
+    func testOtherUserCurrentPlaylists() { otherUserCurrentPlaylists() }
+
+}
+
+
+final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlaylistsTests
 {
 
@@ -1078,22 +1097,53 @@ class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
 
 }
 
-final class SpotifyAPIClientCredentialsFlowPlaylistsTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIPlaylistsTests
+final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
+    SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIPlaylistsTests
 {
 
     static let allTests = [
         ("testGetCrumbPlaylist", testGetCrumbPlaylist),
         ("testGetCrumPlaylistTracks", testGetCrumbPlaylistTracks),
         ("testFilteredPlaylist", testFilteredPlaylist),
-        ("testOtherUserCurrentPlaylists", testOtherUserCurrentPlaylists)
+        ("testOtherUserCurrentPlaylists", testOtherUserCurrentPlaylists),
+        (
+            "testCreatePlaylistAndAddTracksThenUnfollowIt",
+            testCreatePlaylistAndAddTracksThenUnfollowIt
+        ),
+        (
+            "testCreatePlaylistAddRemoveReorderItems",
+            testCreatePlaylistAddRemoveReorderItems
+        ),
+        ("testPlaylistCoverImage", testPlaylistCoverImage),
+        (
+            "testRemoveAllOccurencesFromPlaylist",
+            testRemoveAllOccurencesFromPlaylist
+        ),
+        (
+            "testRemoveSpecificOccurencesFromPlaylist",
+            testRemoveSpecificOccurencesFromPlaylist
+        ),
+        ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist)
     ]
     
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
     func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }
     func testFilteredPlaylist() { filteredPlaylist() }
     func testOtherUserCurrentPlaylists() { otherUserCurrentPlaylists() }
+    func testCreatePlaylistAndAddTracksThenUnfollowIt() {
+        createPlaylistAndAddTracksThenUnfollowIt()
+    }
+    func testCreatePlaylistAddRemoveReorderItems() {
+        createPlaylistAddRemoveReorderItems()
+    }
+    func testPlaylistCoverImage() { playlistCoverImage() }
+    func testRemoveAllOccurencesFromPlaylist() {
+        removeAllOccurencesFromPlaylist()
+    }
+    func testRemoveSpecificOccurencesFromPlaylist() {
+        removeSpecificOccurencesFromPlaylist()
+    }
+    func testReplaceItemsInPlaylist() { replaceItemsInPlaylist() }
 
 }
-
 

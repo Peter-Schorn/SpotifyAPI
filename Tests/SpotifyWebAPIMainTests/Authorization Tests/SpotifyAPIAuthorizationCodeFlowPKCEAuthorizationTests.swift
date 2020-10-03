@@ -4,8 +4,8 @@ import Combine
 import SpotifyAPITestUtilities
 @testable import SpotifyWebAPI
 
-final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
-    SpotifyAPIAuthorizationCodeFlowTests
+final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
+    SpotifyAPIAuthorizationCodeFlowPKCETests
 {
     
     static var allTests = [
@@ -13,16 +13,16 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     ]
     
     func testDeauthorizeReauthorize() {
-        
+    
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
             .sink(receiveValue: {
                 didChangeCount += 1
             })
             .store(in: &Self.cancellables)
-        
+    
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
-        
+    
         XCTAssertTrue(
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
             "\(currentScopes)"
@@ -35,7 +35,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         Self.spotify.authorizeAndWaitForTokens(
             scopes: currentScopes, showDialog: false
         )
-        
+    
         XCTAssertTrue(
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
             "\(Self.spotify.authorizationManager.scopes ?? [])"
@@ -46,7 +46,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             "authorizationManagerDidChange should emit once when " +
             "deauthorizing and once when authorizing"
         )
-        
+    
     }
     
     

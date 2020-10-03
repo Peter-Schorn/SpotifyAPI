@@ -16,6 +16,10 @@ import Logging
  The advantage of this authorization proccess is that no user interaction is
  required.
  
+ Note that this type inherits from `Codable`. It is this type that you should
+ encode to data using a `JSONEncoder` in order to save it to persistent storage.
+ See this [article][3] for more information.
+ 
  Contains the following properties:
  
  * The client id
@@ -25,6 +29,7 @@ import Logging
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
@@ -82,18 +87,19 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      A Publisher that emits **after** this `ClientCredentialsFlowManager`
      has changed.
      
+     **You are discouraged from subscribing to this publisher directly.**
+     
+     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
+     publisher. This allows you to be notified of changes even
+     when you create a new instance of this class and assign it to the
+     `authorizationManager` instance property of `SpotifyAPI`.
+     
      Emits after the following events occur:
      * After the access token is retrieved using the `authorize()` method.
      * After a new access token is retrieved. This occurs in
        `refreshTokens(onlyIfExpired:tolerance:)`.
      * After `deauthorize()`—which sets `accessToken` and `expirationDate`
        to `nil`—is called.
-     
-     **You are discouraged from subscribing to this publisher directly.**
-     Intead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
-     publisher. This allows you to be notified of changes even
-     when you create a new instance of this class and assign it to the
-     `authorizationManager` instance property of `SpotifyAPI`.
      
      # Thread Safety
      
@@ -123,8 +129,13 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      access user information can be accessed. This means that endpoints
      that require [authorization scopes][2] cannot be accessed.
      
-     To get your client id and secret, see the
-     [guide for registering your app][3].
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][3] and create an app.
+     see the README in the root directory of this package for more information.
+
+     Note that this type inherits from `Codable`. It is this type that you should
+     encode to data using a `JSONEncoder` in order to save it to persistent storage.
+     See this [article][4] for more information.
      
      - Parameters:
        - clientId: The client id for your application.
@@ -132,7 +143,8 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
-     [3]: https://developer.spotify.com/documentation/general/guides/app-settings/
+     [3]: https://developer.spotify.com/dashboard/login
+     [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(
         clientId: String,
@@ -272,11 +284,15 @@ public extension ClientCredentialsFlowManager {
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
-        Self.logger.trace("authorizing")
-        
         let body = [
             "grant_type": "client_credentials"
         ].formURLEncoded()!
+
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+    
+        Self.logger.trace(
+            "authorizing; body: \(bodyString)"
+        )
         
         let headers = Headers.basicBase64Encoded(
             clientId: clientId, clientSecret: clientSecret
@@ -293,19 +309,20 @@ public extension ClientCredentialsFlowManager {
         // first.
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
-        .map { authInfo in
+        .tryMap { authInfo in
          
             Self.logger.trace("received authInfo:\n\(authInfo)")
             
             if authInfo.accessToken == nil ||
                     authInfo.expirationDate == nil {
                 
-                Self.logger.critical(
-                    """
-                    missing properties after requesting access token:
+                let errorMessage = """
+                    missing properties after requesting access token \
+                    (expected access token and expiration date):
                     \(authInfo)
                     """
-                )
+                Self.logger.critical("\(errorMessage)")
+                throw SpotifyLocalError.other(errorMessage)
             }
             
             self.updateFromAuthInfo(authInfo)

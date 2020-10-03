@@ -9,34 +9,11 @@ import UIKit
 import Combine
 import SpotifyWebAPI
 
-public let clientId: String = {
-    guard let clientId = ProcessInfo.processInfo
-            .environment["client_id"] else {
-        fatalError(
-            "you must provide 'client_id' in the environment variables"
-        )
-    }
-    return clientId
-}()
-
-public let clientSecret: String = {
-    guard let clientSecret = ProcessInfo.processInfo
-            .environment["client_secret"] else {
-        fatalError(
-            "you must provide 'client_secret' in the environment variables"
-        )
-    }
-    return clientSecret
-}()
-
-/// "http://localhost"
-public let localHostURL = URL(string: "http://localhost")!
-
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowManager(
+        authorizationManager: AuthorizationCodeFlowPKCEManager(
             clientId: clientId, clientSecret: clientSecret
         )
     )
@@ -49,14 +26,22 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         showDialog: Bool = false
     ) -> AnyPublisher<Void, Error> {
     
+        let codeVerifier = String.randomURLSafe(length: 128)
+        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let state = String.randomURLSafe(length: 128)
+        
         guard let authorizationURL = self.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: showDialog,
+            codeChallenge: codeChallenge,
+            state: state,
             scopes: scopes
         )
         else {
             fatalError("couldn't make authorization URL")
         }
+        
+        print("authorization URL: '\(authorizationURL)'")
         
         #if os(macOS)
         NSWorkspace.shared.open(authorizationURL)
@@ -96,10 +81,10 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         }
         
         return self.authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: redirectURLWithQuery
-        )
-        .XCTAssertNoFailure(
-            "error requesting access and refresh tokens"
+            redirectURIWithQuery: redirectURLWithQuery,
+            codeVerifier: codeVerifier,
+            state: state
+            
         )
         
     }
@@ -136,43 +121,4 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         
     }
     
-}
-
-public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager {
-    
-    /// A shared instance used for testing purposes.
-    static let sharedTest = SpotifyAPI(
-        authorizationManager: ClientCredentialsFlowManager(
-            clientId: clientId, clientSecret: clientSecret
-        )
-    )
-    
-    /// Calls `authorizationManager.authorize()` and blocks
-    /// until the publisher finishes.
-    /// Returns early if the application is already authorized.
-    func waitUntilAuthorized() {
-        
-        if self.authorizationManager.isAuthorized() { return }
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let cancellable = self.authorizationManager.authorize()
-            .XCTAssertNoFailure()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                    case .finished:
-                        semaphore.signal()
-                    case .failure(let error):
-                        fatalError(
-                            "couldn't authorize application:\n\(error)"
-                        )
-                }
-            })
-        
-        _ = cancellable  // supress warnings
-        
-        semaphore.wait()
-
-    }
-
 }

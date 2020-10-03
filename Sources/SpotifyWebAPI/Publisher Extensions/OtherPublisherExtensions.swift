@@ -139,7 +139,6 @@ public extension Publisher where Output == Void {
      unlimited number of values, prior to returning the subscriber.
      
      - Parameter receiveCompletion: The closure to execute on completion.
-           If `nil`, the sink uses an empty closure.
      - Returns: A subscriber that performs the provided closure upon
            receiving completion.
      */

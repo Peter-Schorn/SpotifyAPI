@@ -1,21 +1,24 @@
 import Foundation
 
 /**
- Used during the [Authorization Code Flow][1] to retrieve a new access
- token using the refresh token. Spotify may also return a new refresh token.
+ Used during the [Authorization Code Flow with Proof Key for Code Exchange][1]
+ to retrieve a new access token using the refresh token. Spotify may also return
+ a new refresh token.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-struct RefreshAccessTokenRequest: Codable, Hashable {
+struct PKCERefreshAccessTokenRequest: Codable, Hashable {
     
     let grantType = "refresh_token"
     let refreshToken: String
+    let clientId: String
     
     public func formURLEncoded() -> Data {
         
         guard let data = [
             "grant_type": grantType,
-            "refresh_token": refreshToken
+            "refresh_token": refreshToken,
+            "client_id": clientId
         ].formURLEncoded()
         else {
             fatalError(
@@ -28,6 +31,7 @@ struct RefreshAccessTokenRequest: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
         case refreshToken = "refresh_token"
         case grantType = "grant_type"
+        case clientId = "client_id"
     }
     
 }

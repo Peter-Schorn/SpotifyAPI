@@ -2,9 +2,15 @@ import Foundation
 import Combine
 import SpotifyWebAPI
 
-/// Ensure that the examples in the README compile.
-/// These methods should not be called.
-/// This class is intentionally **NOT** a subclass of `XCTestCase`.
+/**
+ Ensure that the examples in the README compile.
+ These methods should not be called.
+ This class is intentionally **NOT** a subclass of `XCTestCase`.
+
+ For example, if a symbol was renamed, then this file would fail to compile,
+ serving as a warning that the documentation needs to be updated to reflect
+ the changes.
+ */
 private class READMEExamplesCompilationTests {
     
     private var cancellables: Set<AnyCancellable> = []

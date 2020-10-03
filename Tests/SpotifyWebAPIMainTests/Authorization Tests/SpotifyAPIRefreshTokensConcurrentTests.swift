@@ -170,6 +170,25 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
     }
   
  }
+
+final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIRefreshTokensConcurrentTests
+{
+    
+    static let allCases = [
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh)
+    ]
+    
+    func testConcurrentTokensRefresh() {
+        for i in 0..<20 {
+            print("\n--- TOP LEVEL \(i) ---\n")
+            Self.spotify.authorizationManager.setExpirationDate(to: Date())
+            self.concurrentTokensRefresh(topLevel: i)
+        }
+    }
+    
+}
+
  
 final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIRefreshTokensConcurrentTests
@@ -190,8 +209,8 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
     
 }
 
-final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIRefreshTokensConcurrentTests
+final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
+    SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIRefreshTokensConcurrentTests
 {
     
     static let allCases = [
@@ -206,5 +225,5 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
         }
     }
     
+    
 }
-

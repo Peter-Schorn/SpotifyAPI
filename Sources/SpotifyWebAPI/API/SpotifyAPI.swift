@@ -5,7 +5,7 @@ import Combine
 /**
  The central class in this library. Provides methods for all of the Spotify
  web API endpoints and contains an authorization manager for managing the
- authorization/authentication process of your application.
+ authorization process of your application.
  
  The methods that require authorization scopes and/or an access token that was
  issued on behalf of a user are declared in conditional conformances where
@@ -15,13 +15,9 @@ import Combine
  that require authorization scopes if you are using an authorization manager
  that doesn't support them.
  
- Currently, only `AuthorizationCodeFlowManager` conforms to
- `SpotifyScopeAuthorizationManager` but a future version of this library will
- support the [Authorization Code Flow with Proof Key for Code Exchange][1],
- which will also conform to this protocol.
- 
- `ClientCredentialsFlowManager` is not a conforming type because it
- does not support authorization scopes.
+ `AuthorizationCodeFlowManager` and `AuthorizationCodeFlowPKCEManager`
+ conform to `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowManager`
+ is not a conforming type because it does not support authorization scopes.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -30,8 +26,17 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     
     
     // MARK: - Authorization -
-    
-    /// Manages the authorization process for your application.
+
+    /**
+     Manages the authorization process for your application and contains all the
+     authorization information.
+     
+     It is this property that you should encode to data using a `JSONEncoder`
+     in order to save it to persistent storage. See this [article][1] for more
+     information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     */
     public var authorizationManager: AuthorizationManager {
         didSet {
             self.assertNotOnUpdateAuthInfoDispatchQueue()
@@ -83,6 +88,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      It also emits a signal in the didSet block of `authorizationManager`.
      
      # Thread Safety
+     
      No guarantees are made about which thread this subject will emit on.
      Always receive on the main thread if you plan on updating the UI.
      */
@@ -94,16 +100,16 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     // MARK: - Loggers -
     
     /// Logs general messages for this class.
-    public var logger = Logger(label: "SpotifyAPI", level: .critical)
+    public lazy var logger = Logger(label: "SpotifyAPI", level: .critical)
     
-    public var authDidChangeLogger = Logger(
+    public lazy var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )
     
     /// Logs the urls of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
-    public var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
+    public lazy var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
     
     // MARK: - Initializers -
 
@@ -111,13 +117,19 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      Creates an instance of `SpotifyAPI`, which contains
      all the methods for making requests to the Spotify web API.
      
-     To get your client id and secret,
-     see the [guide for registering your app][1].
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][1] and create an app.
+     see the README in the root directory of this package for more information.
      
      - Parameter authorizationManager: An instance of a type that
-           conforms to `SpotifyAuthorizationManager`.
+           conforms to `SpotifyAuthorizationManager`. It Manages the authorization
+           process for your application and contains all the authorization
+           information. It is this property that you should encode to data using a
+           `JSONEncoder` in order to save it to persistent storage. See this
+           [article][2] for more information.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/
+     [1]: https://developer.spotify.com/dashboard/login
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(authorizationManager: AuthorizationManager)  {
         self.authorizationManager = authorizationManager
@@ -133,7 +145,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     }
     
     deinit {
-        self.logger.notice("\n\n\(self): DEINIT\n\n")
+        self.logger.notice("\n--- \(self): DEINIT ---\n")
     }
     
     // MARK: - Codable -
@@ -195,17 +207,39 @@ extension SpotifyAPI {
         self.apiRequestLogger.logLevel = .trace
         self.authDidChangeLogger.logLevel = .trace
         
+        AuthorizationCodeFlowManagerBase.baseLogger.logLevel = .trace
         AuthorizationCodeFlowManager.logger.logLevel = .trace
+        AuthorizationCodeFlowPKCEManager.logger.logLevel = .trace
         ClientCredentialsFlowManager.logger.logLevel = .trace
+        
         CurrentlyPlayingContext.logger.logLevel = .trace
+        
         spotifyDecodeLogger.logLevel = .trace
         
         SpotifyAPILogHandler.allLoggersAssertOnCritical = true
-            
+        
+        if let dataDumpFolder = ProcessInfo.processInfo
+                .environment["data_dump_folder"] {
+            let url = URL(fileURLWithPath: dataDumpFolder)
+            SpotifyDecodingError.dataDumpfolder = url
+            let urlString = url.absoluteString
+                .removingPercentEncoding ?? "nil"
+            self.logger.trace(
+                "SpotifyDecodingError.dataDumpfolder: '\(urlString)'"
+            )
+        }
+        else {
+            self.logger.notice(
+                "could not find 'data_dump_folder' in environment variables"
+            )
+        }
+
+        self.logger.trace("\(Self.self) did setup debugging")
+        
     }
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
-        if let authManager = self.authorizationManager as? AuthorizationCodeFlowManager {
+        if let authManager = self.authorizationManager as? AuthorizationCodeFlowManagerBase {
             authManager.assertNotOnUpdateAuthInfoDispatchQueue()
         }
         else if let authManager = self.authorizationManager as? ClientCredentialsFlowManager {

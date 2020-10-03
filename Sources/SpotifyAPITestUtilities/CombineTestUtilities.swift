@@ -18,7 +18,9 @@ public extension Publisher {
      ) -> AnyPublisher<Output, Failure> {
         
         return self.catch { error -> Empty<Output, Failure> in
-            XCTFail("\(message): \(error)", file: file, line: line)
+            DispatchQueue.main.async {
+                XCTFail("\(message): \(error)", file: file, line: line)
+            }
             return Empty<Output, Failure>(completeImmediately: true)
         }
         .eraseToAnyPublisher()

@@ -405,6 +405,30 @@ extension SpotifyAPIArtistTests {
     
 }
 
+final class SpotifyAPIClientCredentialsFlowArtistTests:
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIArtistTests
+{
+
+    static let allTests = [
+        ("testArtist", testArtist),
+        ("testArtists", testArtists),
+        ("testArtistAlbums", testArtistAlbums),
+        ("testArtistAlbumsSingles", testArtistAlbumsSingles),
+        ("testArtistTopTracks", testArtistTopTracks),
+        ("testRelatedArtists", testRelatedArtists)
+        
+    ]
+    
+    func testArtist() { artist() }
+    func testArtists() { artists() }
+    func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsSingles() { artistAlbumsSingles() }
+    func testArtistTopTracks() { artistTopTracks() }
+    func testRelatedArtists() { relatedArtists() }
+    
+}
+
+
 final class SpotifyAPIAuthorizationCodeFlowArtistTests:
         SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIArtistTests
 {
@@ -428,8 +452,8 @@ final class SpotifyAPIAuthorizationCodeFlowArtistTests:
     
 }
 
-final class SpotifyAPIClientCredentialsFlowArtistTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIArtistTests
+final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
+        SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIArtistTests
 {
 
     static let allTests = [

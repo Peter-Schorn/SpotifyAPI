@@ -301,6 +301,21 @@ extension SpotifyAPIAlbumsTests {
 
 }
 
+final class SpotifyAPIClientCredentialsFlowAlbumsTests:
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIAlbumsTests
+{
+
+    static let allTests = [
+        ("testAlbum", testAlbum),
+        ("testAlbums", testAlbums),
+        ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
+    ]
+
+    func testAlbum() { albumJinx() }
+    func testAlbums() { albums() }
+    func testTheLongestAlbumTracks() { theLongestAlbumTracks() }
+
+}
 
 final class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
         SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIAlbumsTests
@@ -318,8 +333,9 @@ final class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
 
 }
 
-final class SpotifyAPIClientCredentialsFlowAlbumsTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIAlbumsTests
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests:
+        SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIAlbumsTests
 {
 
     static let allTests = [
@@ -327,7 +343,7 @@ final class SpotifyAPIClientCredentialsFlowAlbumsTests:
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
-
+    
     func testAlbum() { albumJinx() }
     func testAlbums() { albums() }
     func testTheLongestAlbumTracks() { theLongestAlbumTracks() }

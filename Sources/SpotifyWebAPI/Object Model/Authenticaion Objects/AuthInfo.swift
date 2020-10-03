@@ -25,6 +25,7 @@ import Foundation
  * `refreshToken`: Used to refresh the access token.
  * `expirationDate`: The expiration date of the access token.
  * `scopes`: The scopes that have been authorized for the access token.
+ 
  */
 struct AuthInfo: Codable, Hashable {
     
@@ -135,6 +136,8 @@ struct AuthInfo: Codable, Hashable {
     }
     
 }
+
+// MARK: - Custom String Convertible -
 
 extension AuthInfo: CustomStringConvertible {
     

@@ -24,6 +24,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      are created. This is intended for debugging purposes.
      By default, it is nil.
      
+     **This property may be set automatically based on the**
+     **"data_dump_folder" environment variable.**
+     
      The name of the file will be `expectedResponseType` with the current
      time appended to it.
      You are encouraged to upload the file to this [online JSON viewer][1].
