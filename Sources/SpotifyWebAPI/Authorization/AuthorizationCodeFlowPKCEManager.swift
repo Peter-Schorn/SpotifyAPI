@@ -126,6 +126,8 @@ public final class AuthorizationCodeFlowPKCEManager:
 
 public extension AuthorizationCodeFlowPKCEManager {
     
+    // MARK: - Authorization -
+    
     /**
      The first step in the authorization process
      [Authorization Code Flow with Proof Key for Code Exchange][1].
@@ -193,7 +195,7 @@ public extension AuthorizationCodeFlowPKCEManager {
              **for this parameter, you must pass the same value to**
              `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
              **otherwise an error will be thrown.** The state can be useful for
-             correlating requests and responses. Because your redirect_uri can
+             correlating requests and responses. Because your redirect URI can
              be guessed, using a state value can increase your assurance that
              an incoming connection is the result of an authentication request
              that you made. If you generate a random string or encode the hash of

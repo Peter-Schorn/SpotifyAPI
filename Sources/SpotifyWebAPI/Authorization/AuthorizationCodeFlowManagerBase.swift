@@ -30,7 +30,7 @@ import Logging
 public class AuthorizationCodeFlowManagerBase {
     
     /// The logger for this class. Sub-classes will not use this logger;
-    /// instead, they will create their own logger
+    /// instead, they will create their own logger.
     public static var baseLogger = Logger(
         label: "AuthorizationCodeFlowManagerBase", level: .critical
     )
@@ -158,6 +158,8 @@ public class AuthorizationCodeFlowManagerBase {
         self.clientSecret = clientSecret
     }
     
+    // MARK: - Codable -
+    
     init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -206,6 +208,8 @@ public class AuthorizationCodeFlowManagerBase {
 }
 
 public extension AuthorizationCodeFlowManagerBase {
+    
+    // MARK: - Authorization -
     
     /**
      Sets `accessToken`, `refreshToken`, `expirationDate`, and
@@ -264,10 +268,10 @@ public extension AuthorizationCodeFlowManagerBase {
      is authorized for the specified scopes, else `false`.
      
      - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
-           Use an empty set (default) to check if an `accessToken`
-           has been retrieved for the application, which is still
-           required for all endpoints, even those that do not require
-           scopes.
+     Use an empty set (default) to check if an `accessToken`
+     has been retrieved for the application, which is still
+     required for all endpoints, even those that do not require
+     scopes.
      
      # Thread Safety
      
@@ -296,7 +300,7 @@ extension AuthorizationCodeFlowManagerBase {
             self._scopes = authInfo.scopes
             self.refreshTokensPublisher = nil
         }
-        Self.baseLogger.trace("didChange.send()")
+        Self.baseLogger.trace("\(Self.self): didChange.send()")
         self.didChange.send()
     }
     
@@ -309,10 +313,10 @@ extension AuthorizationCodeFlowManagerBase {
                 .description(with: .current) ?? "nil"
             Self.baseLogger.critical(
                 """
-                    accessToken or expirationDate was nil, but not both:
-                    accessToken == nil: \(_accessToken == nil); \
-                    expiration date: \(expirationDateString)
-                    """
+                \(Self.self): accessToken or expirationDate was nil, but not both:
+                accessToken == nil: \(_accessToken == nil); \
+                expiration date: \(expirationDateString)
+                """
             )
         }
         if _accessToken == nil { return true }
@@ -362,9 +366,7 @@ extension AuthorizationCodeFlowManagerBase {
     func subscribeToDidChange() {
         
         self.didChange
-            .print(
-                "AuthorizationCodeFlowManager.subscribeToDidChange"
-            )
+            .print("\(Self.self): subscribeToDidChange")
             .sink(receiveValue: { _ in })
             .store(in: &cancellables)
         

@@ -20,6 +20,7 @@ custom_categories:
     
   - name: Authorization
     children:
+    - AuthorizationCodeFlowPKCEManager
     - AuthorizationCodeFlowManager
     - ClientCredentialsFlowManager
     - Scope

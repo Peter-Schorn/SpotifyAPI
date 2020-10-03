@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (93% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -46,6 +46,9 @@
           <li class="nav-group-name">
             <a href="../Authorization.html">Authorization</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
               </li>
@@ -284,6 +287,14 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -297,6 +308,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
@@ -364,7 +378,7 @@
               </div>
             <p>The central class in this library. Provides methods for all of the Spotify
 web API endpoints and contains an authorization manager for managing the
-authorization/authentication process of your application.</p>
+authorization process of your application.</p>
 
 <p>The methods that require authorization scopes and/or an access token that was
 issued on behalf of a user are declared in conditional conformances where
@@ -374,13 +388,9 @@ This strategy provides a compile-time guarantee that you cannot call methods
 that require authorization scopes if you are using an authorization manager
 that doesn&rsquo;t support them.</p>
 
-<p>Currently, only <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> conforms to
-<code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code> but a future version of this library will
-support the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>,
-which will also conform to this protocol.</p>
-
-<p><code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code> is not a conforming type because it
-does not support authorization scopes.</p>
+<p><code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> and <code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a></code>
+conform to <code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>. <code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code>
+is not a conforming type because it does not support authorization scopes.</p>
 
           </section>
           <section class="section task-group-section">
@@ -408,7 +418,12 @@ does not support authorization scopes.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Manages the authorization process for your application.</p>
+                        <p>Manages the authorization process for your application and contains all the
+authorization information.</p>
+
+<p>It is this property that you should encode to data using a <code>JSONEncoder</code>
+in order to save it to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more
+information.</p>
 
                       </div>
                       <div class="declaration">
@@ -520,7 +535,7 @@ Always receive on the main thread if you plan on updating the UI.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -549,7 +564,7 @@ data to a string.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">apiRequestLogger</span><span class="p">:</span> <span class="kt">Logger</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -585,8 +600,9 @@ data to a string.</p>
                         <p>Creates an instance of <code>SpotifyAPI</code>, which contains
 all the methods for making requests to the Spotify web API.</p>
 
-<p>To get your client id and secret,
-see the <a href="https://developer.spotify.com/documentation/general/guides/app-settings/">guide for registering your app</a>.</p>
+<p>To get a client id and client secret, go to the
+<a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app.
+see the README in the root directory of this package for more information.</p>
 
                       </div>
                       <div class="declaration">
@@ -610,7 +626,11 @@ see the <a href="https://developer.spotify.com/documentation/general/guides/app-
                               <td>
                                 <div>
                                   <p>An instance of a type that
-  conforms to <code><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></code>.</p>
+  conforms to <code><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></code>. It Manages the authorization
+  process for your application and contains all the authorization
+  information. It is this property that you should encode to data using a
+  <code>JSONEncoder</code> in order to save it to persistent storage. See this
+  <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
                                 </div>
                               </td>
                             </tr>
@@ -7613,7 +7633,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-02)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

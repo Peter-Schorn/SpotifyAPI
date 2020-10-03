@@ -153,7 +153,9 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         self.clientId = clientId
         self.clientSecret = clientSecret
     }
-    
+
+    // MARK: - Codable -
+
     public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -200,6 +202,8 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
 }
 
 public extension ClientCredentialsFlowManager {
+    
+    // MARK: - Authorization -
     
     /**
      Sets `accessToken` and `expirationDate` to `nil`.

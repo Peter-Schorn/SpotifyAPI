@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.6.0]
 
+### Added
 
+- Added support for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce)! This is the best option for mobile and desktop applications where it is unsafe to store your client secret. See `AuthorizationCodeFlowPKCEManager`. 
+
+### Changed
+
+- Added `AuthorizationCodeFlowManagerBase` and refactored `AuthorizationCodeFlowManager` to inherit from it.  `AuthorizationCodeFlowPKCEManager` also inherits from this class.
+- The methods for retrieving and refreshing tokens now return an error if the expected properties weren't returned from Spotify. This would've caused an error at a later point anyway.
 
 ## [0.5.0] - 2020-10-01
 

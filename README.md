@@ -2,9 +2,7 @@
 
 **A Swift library for the Spotify web API**
 
-Read the full [documentation][1] and check out [this example app][14]. Additional Information is available on the [wiki page](https://github.com/Peter-Schorn/SpotifyAPI/wiki), including:
-* [Saving Authorization Information to Persistent Storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.)
-
+Read the full [documentation][1] and check out [this example app][14]. Additional Information is available on the [wiki page][17].
 ## Table of Contents
 
 * **[Supported Platforms](#supported-platforms)**
@@ -32,10 +30,125 @@ Read the full [documentation][1] and check out [this example app][14]. Additiona
 
 To get started, go to the [Spotify Developer Dashboard][2] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app. **DO NOT add a forward-slash to the end of the redirect URI**.
 
-The next step is authorizing your app. *All* requests to the Spotify web API—whether they require authorization scopes or not—require authorization This library supports two authorization methods:
+The next step is authorizing your app. *All* requests to the Spotify web API—whether they require authorization scopes or not—require authorization This library supports three authorization methods:
+
+* [Authorization Code Flow with Proof Key for Code Exchange][15]: This is the best option for mobile and desktop applications where it is unsafe to store your client secret. It is more secure than the Authorization Code Flow. Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.
 
 * [Authorization Code Flow][3]: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.
+
 * [Client Credentials Flow][4]: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5]. The advantage of this method is that it does not require any user interaction.
+
+When creating an application that uses this library, you will probably want to save the authorization information to persistent storage so that the user does not have to login again every time the application is quit and re-launched. See the [Saving Authorization Information to Persistent Storage][16] wiki page for a guide on how to do this.
+
+
+## Authorizing with the Authorization Code Flow with Proof Key for Code Exchange
+
+Create an instance of `SpotifyAPI` and assign an instance of `AuthorizationCodeFlowPKCEManager` to the `authorizationManager` property:
+```swift
+import SpotifyWebAPI
+
+let spotify = SpotifyAPI(
+    authorizationManager: AuthorizationCodeFlowPKCEManager(
+        clientId: "Your Client Id", clientSecret: "Your Client Secret"
+    )
+)
+```
+
+
+Before each authentication request your app should generate a code verifier and a code challenge. The code verifier is a cryptographically random string between 43 and 128 characters in length. It can contain letters, digits, underscores, periods, hyphens, or tildes.
+
+In order to generate the code challenge, your app should hash the code verifier using the SHA256 algorithm. Then, [base64url][19] encode the hash that you generated. **Do not include any** `=` **padding characters** (percent-encoded or not).
+
+You can use `String.randomURLSafe(length:using:)` or `String.randomURLSafe(length:)` to generate the code verifier. You can Use the `String.makeCodeChallenge()` instance method to create the code challenge from the code verifier. For example:
+
+```swift
+let codeVerifier = String.randomURLSafe(length: 128) 
+let codeChallenge = codeVerifier.makeCodeChallenge() 
+```
+
+If you use your own method to create these values, you can validate them using this [PKCE generator tool][18]. See also `Data.base64URLEncodedString()` and `String.urlSafeCharacters`.
+
+Next, create the authorization URL that will be opened in a browser (or web view). When opened, it displays a permissions dialog to the user. The user can then choose to either authorize or deny authorization for your application.
+
+```swift
+let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
+    redirectURI: URL(string: "Your Redirect URI")!,
+    showDialog: false,
+    codeChallenge: codeChallenge,
+    state: state,
+    scopes: [
+        .playlistModifyPrivate,
+        .userModifyPlaybackState,
+        .playlistReadCollaborative,
+        .userReadPlaybackPosition
+    ]
+)!
+```
+
+See the full documentation for [makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)][20].
+
+The redirect URI needs to have been entered in the Redirect URI whitelist that you specified when you registered your application using the [Spotify Developer Dashboard][2].
+**DO NOT add a forward-slash to the end of the redirect URI.**
+
+The documentation for each endpoint lists the [authorization scopes][5] that are required. You can always authorize your application again for different scopes, if necessary. However, this is not an additive process. You must specify all the scopes that you need each time you create the authorization URL.
+
+You can decide how to open the URL. If you are creating an iOS app, the simplest method is to use `UIApplication.shared.open(authorizationURL)` to open the URL in the browser.
+
+After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into [requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)][21] to request the access and refresh tokens:
+```swift
+spotify.authorizationManager.requestAccessAndRefreshTokens(
+    redirectURIWithQuery: url,
+    // Must match the code verifier that was used to generate the code challenge when creating the authorization URL.
+    codeVerifier: codeVerifier,
+    // Must match the value used when creating the authorization URL.
+    state: state
+)
+.sink(receiveCompletion: { completion in
+    switch completion {
+        case .finished:
+            print("successfully authorized")
+        case .failure(let error):
+            if let authError = error as? SpotifyAuthorizationError, authError.accessWasDenied {
+                print("The user denied the authorization request")
+            }
+            else {
+                print("couldn't authorize application: \(error)")
+            }
+    }
+})
+.store(in: &cancellables)
+```
+
+Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
+```swift
+import SpotifyExampleContent
+
+let playbackRequest = PlaybackRequest(
+    context: .uris(
+        URIs.Tracks.array(.faces, .illWind, .fearless)
+    ),
+    offset: .uri(URIs.Tracks.fearless),
+    positionMS: 50_000
+)
+
+spotify.api.play(playbackRequest)
+    .store(in: &cancellables)
+```
+
+The full documentation for all of the endpoints can be found [here][8].
+You are also encouraged to read the [Spotify web API reference][12].
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Authorizing with the Authorization Code Flow
 
@@ -49,7 +162,8 @@ let spotify = SpotifyAPI(
     )
 )
 ```
-Next, create the authorization URL that will be opened in a browser (or web view):
+
+Next, create the authorization URL that will be opened in a browser (or web view). When opened, it displays a permissions dialog to the user. The user can then choose to either authorize or deny authorization for your application.
 ```swift
 let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
     redirectURI: URL(string: "Your Redirect URI")!,
@@ -70,7 +184,7 @@ The redirect URI needs to have been entered in the Redirect URI whitelist that y
 
 The documentation for each endpoint lists the [authorization scopes][5] that are required. You can always authorize your application again for different scopes, if necessary. However, this is not an additive process. You must specify all the scopes that you need each time you create the authorization URL.
 
-If you are creating an iOS app, then you can use `UIApplication.shared.open(authorizationURL)` to open the URL in the browser. The user will then be asked to login to their Spotify account and approve your application. 
+You can decide how to open the URL. If you are creating an iOS app, the simplest method is to use `UIApplication.shared.open(authorizationURL)` to open the URL in the browser.
 
 After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into [requestAccessAndRefreshTokens(redirectURIWithQuery:state:)][7] to request the access and refresh tokens:
 ```swift
@@ -168,3 +282,10 @@ You are also encouraged to read the [Spotify web API reference][12].
 [12]: https://developer.spotify.com/documentation/web-api/reference/
 [13]: https://peter-schorn.github.io/SpotifyAPI/Classes/ClientCredentialsFlowManager.html#/s:13SpotifyWebAPI28ClientCredentialsFlowManagerC9authorize7Combine12AnyPublisherVyyts5Error_pGyF
 [14]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp
+[15]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+[16]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+[17]: https://github.com/Peter-Schorn/SpotifyAPI/wiki
+[18]: https://tonyxu-io.github.io/pkce-generator/
+[19]: https://tools.ietf.org/html/rfc4648#section-5
+[20]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI10showDialog13codeChallenge5state6scopes10Foundation0I0VSgAL_SbS2SSgShyAA5ScopeOGtF
+[21]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF
