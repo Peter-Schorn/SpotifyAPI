@@ -5,8 +5,8 @@ import Foundation
  The user denied your app's authorization request or there
  was an error during the process of authorizing your app.
  
- This error will only be thrown in
- `AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+ This error will only be thrown during the process of requesting access and
+ refresh tokens.
  
  Do not confuse this with `SpotifyAuthenticationError`. See also
  `SpotifyError` and `SpotifyLocalError`.

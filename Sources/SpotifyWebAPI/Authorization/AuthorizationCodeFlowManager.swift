@@ -5,6 +5,11 @@ import Logging
 /**
  Manages the authorization process for the [Authorization Code Flow][1].
  
+ For applications where it is unsafe to store your client secret, consider
+ using `AuthorizationCodeFlowPKCEManager`, which manages the
+ [Authorization Code Flow with Proof Key for Code Exchange][2]; it provides
+ an additional layer of security.
+ 
  The first step in the authorization code flow is to make the
  authorization URL using
  `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
@@ -21,7 +26,7 @@ import Logging
  
  Note that this type inherits from `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][2] for more information.
+ See this [article][3] for more information.
  
  Use `isAuthorized(for:)` to check if your application is authorized
  for the specified scopes.
@@ -39,8 +44,9 @@ import Logging
  * The expiration date for the access token
  * The scopes that have been authorized for the access token
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
- [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class AuthorizationCodeFlowManager:
     AuthorizationCodeFlowManagerBase,

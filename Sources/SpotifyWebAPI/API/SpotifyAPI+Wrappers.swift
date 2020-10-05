@@ -5,11 +5,11 @@ import Logging
 extension SpotifyAPI {
 
     // MARK: Wrappers
+    
     /*
      All requests to endpoints other than those for authorizing
      the app and retrieving/refreshing the tokens call through
      to these methods.
-     
      */
     
     /**

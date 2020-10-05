@@ -9,7 +9,7 @@ import Logging
  The Client Credentials flow is used in server-to-server authentication. Only
  endpoints that do not access user information can be accessed. This means that
  endpoints that require [authorization scopes][2] cannot be accessed.
-
+ 
  The only method you must call to authorize your application is `authorize()`.
  After that, you may begin making requests to the Soptify web API.
 

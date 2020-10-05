@@ -10,10 +10,11 @@ import Foundation
  authorization, such as retrieving an access token or refreshing
  an access token.
  
- The error response follows RFC 6749 on the OAuth 2.0 Authorization
+ The error response follows [RFC 6749][2] on the OAuth 2.0 Authorization
  Framework.
  
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
+ [2]: https://tools.ietf.org/html/rfc6749
  */
 public struct SpotifyAuthenticationError: LocalizedError, Hashable {
     

@@ -24,15 +24,19 @@ public struct RateLimitedError: LocalizedError, Codable, Hashable {
     public let retryAfter: Int?
     
     public var errorDescription: String? {
-        var description = "rate limiting error"
+        var description = "You have made too many requests (rate limiting error)."
         if let seconds = retryAfter {
             if seconds == 1 {
-                description += ". Try again in 1 second."
+                description += " Try again in 1 second."
             }
             else {
-                description += ". Try again in \(seconds) seconds."
+                description += " Try again in \(seconds) seconds."
             }
         }
+        else {
+            description += "Try again later."
+        }
+        
         return description
     }
     

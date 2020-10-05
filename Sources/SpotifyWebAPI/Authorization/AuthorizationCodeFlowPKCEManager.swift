@@ -8,9 +8,9 @@ import Logging
  [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
- applications where it is unsafe to store your client secret. It provides your
- app with an access token that can be refreshed. For further information about
- this flow, see [IETF RFC-7636][2].
+ applications where it is unsafe to store your client secret. It provides an
+ additional layer of security compared to the authorization code flow. For further
+ information about this flow, see [IETF RFC-7636][2].
  
  Before each authentication request your app should generate a code verifier and
  a code challenge. The code verifier is a cryptographically random string between

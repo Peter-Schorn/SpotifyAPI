@@ -25,7 +25,7 @@ public let spotifyCredentials: Credentials = {
     }
     let url = URL(fileURLWithPath: path)
     do {
-        let data = try! Data(contentsOf: url)
+        let data = try Data(contentsOf: url)
         let credentials = try JSONDecoder()
                 .decode(Credentials.self, from: data)
         return credentials

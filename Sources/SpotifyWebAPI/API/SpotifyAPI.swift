@@ -234,7 +234,7 @@ extension SpotifyAPI {
             )
         }
 
-        self.logger.trace("\(Self.self) did setup debugging")
+        self.logger.trace("\(Self.self): did setup debugging")
         
     }
     

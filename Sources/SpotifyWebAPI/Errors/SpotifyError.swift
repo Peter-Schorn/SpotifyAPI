@@ -41,7 +41,6 @@ public struct SpotifyError: LocalizedError, Hashable {
         "\(message) (status code: \(statusCode))"
     }
     
-    
 }
 
 

@@ -138,7 +138,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     }
     
     public var errorDescription: String? {
-        return "The data from Spotify could not be understood"
+        return """
+            The data from Spotify could not be decoded into the expected format.
+            """
     }
 
 }
