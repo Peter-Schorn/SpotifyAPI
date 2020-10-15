@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-* Added documentation about how omitting the market parameter when using the client credentials flow causes episodes and shows to not be returned.
+* Added documentation about how omitting the market parameter when using the client credentials flow causes episodes and shqows to not be returned.
 * Added `SpotifyAPI.filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`.
 * Added `snapshotId` parameter to `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
 * Added `SpotifyPlayerError`; This error object is returned by Spotify when there are errors related to the player endpoints.
