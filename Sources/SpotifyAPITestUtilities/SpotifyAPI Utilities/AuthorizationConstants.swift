@@ -3,9 +3,9 @@ import Foundation
 /**
  The client id and client secret.
  
- These values are retrieved from the file specified by the
+ These values are retrieved from the file at the path specified by the
  "spotify_credentials_path" environment variable. This file
- should contain JSON data that can be decoded into `Credentials`.
+ should contain JSON data that can be decoded into `SpotifyCredentials`.
  
  For example:
  ```
@@ -15,7 +15,7 @@ import Foundation
  }
  ```
  */
-public let spotifyCredentials: Credentials = {
+public let spotifyCredentials: SpotifyCredentials = {
    
     guard let path = ProcessInfo.processInfo
             .environment["spotify_credentials_path"] else {
@@ -27,26 +27,44 @@ public let spotifyCredentials: Credentials = {
     do {
         let data = try Data(contentsOf: url)
         let credentials = try JSONDecoder()
-                .decode(Credentials.self, from: data)
+                .decode(SpotifyCredentials.self, from: data)
         return credentials
         
     } catch {
-        fatalError("could not retrieve Spotify credentials:\n\(error)")
+        fatalError(
+            """
+            could not retrieve Spotify credentials from '\(path)':
+            \(error)
+            """
+        )
     }
-
+    
+    
 }()
 
-public let clientId = spotifyCredentials.clientId
-public let clientSecret = spotifyCredentials.clientSecret
-
-/// "http://localhost".
+/// ```
+/// "http://localhost"
+/// ```
 public let localHostURL = URL(string: "http://localhost")!
 
-
-/// Contains the client id and client secret.
-public struct Credentials: Codable {
+/**
+ Contains the client id and client secret.
+ 
+ Can be decoded from JSON data in the following format:
+ 
+ ```
+ {
+     "client_id": "abc",
+     "client_secret": "def"
+ }
+ ```
+ */
+public struct SpotifyCredentials: Codable {
     
+    /// The client id for the application.
     public let clientId: String
+    
+    /// The client secret for the application.
     public let clientSecret: String
     
     public enum CodingKeys: String, CodingKey {

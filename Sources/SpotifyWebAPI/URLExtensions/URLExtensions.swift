@@ -12,8 +12,10 @@ public extension URL {
             return nil
         }
 
+        // The query items that were already in the URL.
         var currentQueryItems = urlComponents.queryItems ??  []
 
+        // Add the new query items to the existing ones.
         currentQueryItems.append(contentsOf: queryItems)
 
         urlComponents.queryItems = currentQueryItems
@@ -29,34 +31,6 @@ public extension URL {
         }
         return self.appending(queryItems: urlQueryItems)
 
-    }
-
-    /// Appends the query items to the URL.
-    ///
-    /// - Warning: Throws a fatalError if a new URL could
-    ///       not be constructed.
-    mutating func append(queryItems: [URLQueryItem]) {
-        guard let url = self.appending(queryItems: queryItems) else {
-            fatalError(
-                """
-                could not construct new url after appending query items.
-                original url: '\(self)'
-                queryItems: '\(queryItems)'
-                """
-            )
-        }
-        self = url
-    }
-
-    /// Appends the query items to the URL.
-    ///
-    /// - Warning: Throws a fatalError if a new URL could
-    ///       not be constructed.
-    mutating func append(queryItems: [String: String]) {
-        let urlQueryItems = queryItems.map { item in
-            URLQueryItem(name: item.key, value: item.value)
-        }
-        self.append(queryItems: urlQueryItems)
     }
 
     /// Returns a new URL with the query items removed.
@@ -96,8 +70,6 @@ public extension URL {
         self = self.removingTrailingSlashInPath()
     }
     
-    
-    
     /// Removes the query items from the URL.
     /// If the URL has fragments, they will be removed too.
     mutating func removeQueryItems() {
@@ -124,8 +96,6 @@ public extension URL {
             url: self, resolvingAgainstBaseURL: false
         )
     }
-
-
 
     init?(
         scheme: String?,

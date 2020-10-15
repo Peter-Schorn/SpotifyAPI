@@ -43,11 +43,17 @@ public struct PlaylistItemContainer<Item>: Hashable where
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
      */
     public let isLocal: Bool?
-    
-    /// Either a `Track`, `Episode`, or `PlaylistItem` (simplified version)
-    /// in this `PlaylistItemContainer`.
-    public let item: Item
 
+    /**
+     Either a `Track`, `Episode`, or `PlaylistItem` (simplified version)
+     in this `PlaylistItemContainer`.
+     
+     If this is an episode and was retrieved while using
+     the client credentials flow and you did not provide a value
+     for the market parameter, then this property will be `nil`.
+     */
+    public let item: Item?
+    
     /**
      Holds a track or podcast episode that is contained
      in a playlist, as well as additional information about its relationship
@@ -67,7 +73,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
         addedAt: Date? = nil,
         addedBy: SpotifyUser? = nil,
         isLocal: Bool? = nil,
-        item: Item
+        item: Item?
     ) {
         self.addedAt = addedAt
         self.addedBy = addedBy
@@ -102,7 +108,10 @@ extension PlaylistItemContainer: Codable {
         self.isLocal = try container.decodeIfPresent(
             Bool.self, forKey: .isLocal
         )
-        self.item = try container.decode(Item.self, forKey: .item)
+        
+        self.item = try container.decodeIfPresent(
+            Item.self, forKey: .item
+        )
         
     }
     
@@ -120,7 +129,7 @@ extension PlaylistItemContainer: Codable {
         try container.encodeIfPresent(
             self.isLocal, forKey: .isLocal
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.item, forKey: .item
         )
         

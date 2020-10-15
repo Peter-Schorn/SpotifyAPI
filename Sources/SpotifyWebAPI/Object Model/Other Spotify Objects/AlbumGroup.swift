@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- An album group.
+ An album type.
  
  One of the following:
  
@@ -11,7 +11,7 @@ import Foundation
  * `compilation`
  
  */
-public enum AlbumGroup: String, CaseIterable, Codable, Hashable {
+public enum AlbumType: String, CaseIterable, Codable, Hashable {
     
     case album
     case single
@@ -19,3 +19,7 @@ public enum AlbumGroup: String, CaseIterable, Codable, Hashable {
     case compilation
     
 }
+
+/// This type has ben renamed to `AlbumType`.
+@available(*, deprecated, renamed: "AlbumType")
+public typealias AlbumGroup = AlbumType

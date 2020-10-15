@@ -114,9 +114,7 @@ public extension Publisher {
                     .eraseToAnyPublisher()
                 
             } catch {
-                return error.anyFailingPublisher(
-                    NewPublisher.Output.self
-                )
+                return error.anyFailingPublisher()
             }
             
         }
@@ -143,7 +141,7 @@ public extension Publisher where Output == Void {
            receiving completion.
      */
     func sink(
-        receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void)
+        receiveCompletion: @escaping (Subscribers.Completion<Self.Failure>) -> Void
     ) -> AnyCancellable {
         
         return self
@@ -158,12 +156,14 @@ public extension Publisher where Output == Void {
 
 public extension Result.Publisher where Failure == Error {
     
-    /// Creates a new publisher by evaluating a throwing closure,
-    /// capturing the returned value as a success and
-    /// sending it downstream, or immediately failing
-    /// with the error thrown from `body`.
-    ///
-    /// - Parameter body: A throwing closure to evaluate.
+    /**
+     Creates a new publisher by evaluating a throwing closure,
+     capturing the returned value as a success and
+     sending it downstream, or immediately failing
+     with the error thrown from `body`.
+    
+     - Parameter body: A throwing closure to evaluate.
+     */
     static func catching(_ body: () throws -> Success) -> Self {
         return Self(Result(catching: body))
     }
@@ -182,9 +182,10 @@ public extension Error {
      ```
     
      - Parameter outputType: The output type for the publisher.
+           It can usually be inferred from the context.
      */
     func anyFailingPublisher<Output>(
-        _ outputType: Output.Type
+        _ outputType: Output.Type = Output.self
     ) -> AnyPublisher<Output, Error> {
         
         return Fail<Output, Error>(error: self)

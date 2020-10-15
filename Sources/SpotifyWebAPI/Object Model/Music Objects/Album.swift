@@ -14,10 +14,11 @@ public struct Album: Hashable {
     /**
      The tracks of the album.
      
-     For certain endpoints, this property may be nil,
-     especially if it is nested inside a much larger object.
-     For example, it will be `nil` if retrieved from the search
-     endpoint.
+     For certain endpoints, this property may be nil, especially if it is
+     nested inside a much larger object. For example, it will be `nil` if
+     retrieved from the search endpoint or if nested inside a `Track`. When
+     this property is `nil`, use `albumTracks(_:market:limit:offset:)`
+     instead, passing in the URI of this album.
      */
     public let tracks: PagingObject<Track>?
     
@@ -109,18 +110,19 @@ public struct Album: Hashable {
     public let externalIds: [String: String]?
     
     /// The type of the album: one of `album`, `single`,
-    /// or `compilation`.
-    public let albumType: AlbumGroup?
+    /// or `compilation`. See also `albumGroup`.
+    public let albumType: AlbumType?
 
     /**
      This field is present when getting an artist’s albums.
+     
+     See also `albumType`.
      
      Possible values are `album`, `single`, `compilation`,
      and `appearsOn`. Compared to `albumType` this field represents
      the relationship between the artist and the album.
      */
-    public let albumGroup: AlbumGroup?
-    
+    public let albumGroup: AlbumType?
     /**
      The markets in which the album is available:
      [ISO 3166-1 alpha-2 country codes][1].
@@ -229,8 +231,8 @@ public struct Album: Hashable {
         href: String? = nil,
         externalURLs: [String : String]? = nil,
         externalIds: [String : String]? = nil,
-        albumType: AlbumGroup? = nil,
-        albumGroup: AlbumGroup? = nil,
+        albumType: AlbumType? = nil,
+        albumGroup: AlbumType? = nil,
         availableMarkets: [String]? = nil,
         copyrights: [SpotifyCopyright]? = nil,
         releaseDatePrecision: String? = nil,
@@ -314,11 +316,10 @@ extension Album: Codable {
             [String: String].self, forKey: .externalIds
         )
         self.albumType = try container.decodeIfPresent(
-            AlbumGroup.self, forKey: .albumGroup
+            AlbumType.self, forKey: .albumType
         )
-        
         self.albumGroup = try container.decodeIfPresent(
-            AlbumGroup.self, forKey: .albumGroup
+            AlbumType.self, forKey: .albumGroup
         )
         self.availableMarkets = try container.decodeIfPresent(
             [String].self, forKey: .availableMarkets

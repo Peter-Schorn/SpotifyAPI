@@ -7,7 +7,7 @@ import Logging
  
  The offset-based paging object is a container for a set of objects.
  It contains a key called items (whose value is an array of the requested
- objects) along with other keys like previous, next and limit that can be
+ objects) along with other keys like `previous`, `next` and `limit` that can be
  useful in future calls.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
@@ -19,22 +19,30 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
      the full result of the request in this `PagingObject`.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject` to retrieve the results.
+     `PagingObject`—NOT the type of `Item`—to retrieve the results.
      */
     public let href: String
     
     /// An array of the requested data in this `PagingObject`.
     public let items: [Item]
      
-    /// The maximum number of items in this page (as set in the
-    /// query or by default) in this `PagingObject`.
+    /**
+     The maximum number of items in **this** page (as set in the
+     query or by default).
+     
+     This is not necessarily the same as the actual number of items in
+     this page. For example, if this is the last page of results, then
+     the actual number of items in this page may be less than `limit`.
+
+     See also `total` (the maximum number of items available to return).
+     */
     public let limit: Int
     
     /**
      The URL (href) to the next page of items or `nil` if none.
     
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject` to retrieve the results.
+     `PagingObject`—NOT the type of `Item`—to retrieve the results.
      */
     public let next: String?
     
@@ -43,7 +51,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
      in this `PagingObject`.
     
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject` to retrieve the results.
+     `PagingObject`—NOT the type of `Item`—to retrieve the results.
      */
     public let previous: String?
 
@@ -51,8 +59,11 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
     /// by default) in this `PagingObject`.
     public let offset: Int
 
-    /// The maximum number of items available to return in this
-    /// `PagingObject`.
+    /**
+     The maximum number of items available to return.
+     
+     See also `limit` (the maximum number of items in **this** page).
+     */
     public let total: Int
     
     /**
@@ -103,33 +114,40 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
 extension PagingObject {
     
     /**
-     The total number of pages available, including this page.
+     The estimated total number of pages available, including this page.
      
      This property is calculated by dividing `total` by `limit`
      and rounding up to the nearest integer. For example, if `total` is
      745 and `limit` is 100, then `estimatedTotalPages` is 8.
      
-     * `total` represents the maximum number of items available to return.
-     * `limit` represents the maximum number of items in this page (as set
-       in the query or by default).
+     * `total` The maximum number of items available to return.
+     * `limit` The maximum number of items in **this** page (as set
+       in the query or by default). This is not necessarily the same as the
+       actual number of items in this page. For example, if this is the last
+       page of results, then the actual number of items in this page may be
+       less than `limit`.
      
      - Warning: This calculation assumes that the limit for each page
-           will be the same as *this* page.
+           will be the same as *this* page. If you request additional pages
+           and provide a different value for `limit`, then
+          `estimatedTotalPages` may be incorrect.
      */
     public var estimatedTotalPages: Int {
         
         // avoid division by zero error
         if limit == 0 { return 1 }
         
-        // performs integer division and rounds up the result.
-        // equivalent to `Int(ceil(Double(total) / Double(itemsCount)))`,
-        // but avoids unnecessary type conversion
-        // see https://stackoverflow.com/a/17974/12394554
+        // Performs integer division and rounds up the result.
+        // Equivalent to `Int(ceil(Double(total) / Double(itemsCount)))`,
+        // but avoids unnecessary type conversion.
+        // See https://stackoverflow.com/a/17974/12394554
         return (total + limit - 1) / limit
     }
     
     
 }
+
+// MARK: - Codable and Hashable -
 
 extension PagingObject: Codable {
     

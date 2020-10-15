@@ -62,7 +62,8 @@ public struct CurrentlyPlayingContext: Hashable {
      session enabled, then this will be `nil`.
      
      - Note: Testing suggets that if the user is playing an episode,
-           then this will be `nil`.
+           then this will be `nil`, although the documentation does
+           not mention anything about this.
      */
     public let currentlyPlayingItem: PlaylistItem?
     

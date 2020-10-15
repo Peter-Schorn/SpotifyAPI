@@ -282,7 +282,7 @@
                 <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -389,7 +406,22 @@
                       <div class="abstract">
                         <p>The <a href="https://developer.spotify.com/documentation/web-api/#regular-error-object">Regular Error Object</a> returned by the Spotify web API.</p>
 
-<p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">Response Status Codes</a>:</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
+<li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+</ul>
+
+<p>It has two properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response header.</li>
+</ul>
+
+<p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">status Codes</a>:</p>
 
 <ul>
 <li><strong>400: Bad Request</strong> - The request could not be understood by the server due to
@@ -417,7 +449,7 @@ You can choose to resend the request again.</li>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyError</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyError</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
                       </div>
@@ -520,8 +552,17 @@ Get Several Tracks, Get Several Albums or Get Several Artists, instead.</p>
 authorization, such as retrieving an access token or refreshing
 an access token.</p>
 
-<p>The error response follows RFC 6749 on the OAuth 2.0 Authorization
+<p>The error response follows <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a> on the OAuth 2.0 Authorization
 Framework.</p>
+
+<p>See also:</p>
+
+<ul>
+<li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+<li><code><a href="Enums/SpotifyLocalError.html">SpotifyLocalError</a></code></li>
+</ul>
 
                         <a href="Structs/SpotifyAuthenticationError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -553,11 +594,17 @@ Framework.</p>
                         <p>The user denied your app&rsquo;s authorization request or there
 was an error during the process of authorizing your app.</p>
 
-<p>This error will only be thrown in
-<code><a href="Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>.</p>
+<p>This error will only be thrown during the process of requesting access and
+refresh tokens.</p>
 
-<p>Do not confuse this with <code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>. See also
-<code><a href="Structs/SpotifyError.html">SpotifyError</a></code> and <code><a href="Enums/SpotifyLocalError.html">SpotifyLocalError</a></code>.</p>
+<p>Do not confuse this with <code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>. See also:</p>
+
+<ul>
+<li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+<li><code><a href="Enums/SpotifyLocalError.html">SpotifyLocalError</a></code></li>
+</ul>
 
 <p>See the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#example-1:%7E:text=If%20the%20user%20does%20not%20accept,example%20https%3A%2F%2Fexample.com%2Fcallback%3Ferror%3Daccess_denied%26state%3DSTATE%2C%20contains%20the%20following%20parameters%3A">authorization process</a>.</p>
 
@@ -587,20 +634,22 @@ was an error during the process of authorizing your app.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The data from the Spotify web API could not be decoded
-into any of the expected types.</p>
+                        <p>The data from the Spotify web API could not be decoded into any of the
+expected types.</p>
 
-<p>Assign a folder URL to the static var <code>dataDumpfolder</code>
-to write the json response from the Spotify web API to disk
-to when instances of this error are created.
-This is intended for debugging purposes. By default, it is nil.</p>
+<p>Assign a folder URL to the static var <code>dataDumpfolder</code> to write the json
+response from the Spotify web API to disk when instances of this error are
+created. See <code>writeToFolder(_:)</code>. This is intended for debugging purposes.
+It it initialzed to the path specified by the &ldquo;data_dump_folder&rdquo; environment
+variable, if it exists. You can change this if necessary.</p>
 
-<p>This is almost always due to an error in this library.
-Report a bug if you get this error.</p>
+<p>This error is almost always due to an error in this library. Report a bug
+if you get this error.</p>
 
-<p>Do not <code>dump</code> this error; instead, use its string representation
-for debugging (e.g., print it to the console). Only use
-<code>localizedDescription</code> for displaying the error to the end user.</p>
+<p>Do not <code>dump</code> this error; instead, use its string representation for
+debugging (e.g., print it to the standard output, use string interpolation
+or use <code>String(describing:)</code>). Only use <code>localizedDescription</code> for
+displaying the error to the end user.</p>
 
                         <a href="Structs/SpotifyDecodingError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -620,7 +669,7 @@ for debugging (e.g., print it to the console). Only use
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

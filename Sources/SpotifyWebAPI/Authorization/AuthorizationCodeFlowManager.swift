@@ -240,7 +240,7 @@ public extension AuthorizationCodeFlowManager {
                 return SpotifyAuthorizationError(
                     error: error, state: queryDict["state"]
                 )
-                .anyFailingPublisher(Void.self)
+                .anyFailingPublisher()
             }
             
             Self.logger.error("unkown error")
@@ -251,7 +251,7 @@ public extension AuthorizationCodeFlowManager {
                 '\(redirectURIWithQuery.absoluteString)'
                 """
             )
-            .anyFailingPublisher(Void.self)
+            .anyFailingPublisher()
             
         }
         
@@ -262,7 +262,7 @@ public extension AuthorizationCodeFlowManager {
             return SpotifyLocalError.invalidState(
                 supplied: queryDict["state"], received: state
             )
-            .anyFailingPublisher(Void.self)
+            .anyFailingPublisher()
         }
         
         let baseRedirectURI = redirectURIWithQuery
@@ -281,7 +281,8 @@ public extension AuthorizationCodeFlowManager {
         
         Self.logger.trace(
             """
-            sending request for refresh and access tokens; body:
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for requesting access and refresh tokens); body:
             \(bodyString)
             """
         )
@@ -366,7 +367,7 @@ public extension AuthorizationCodeFlowManager {
                             "access token not expired; returning early"
                         )
                         return Result<Void, Error>
-                            .Publisher(())
+                            .Publisher.init(())
                             .eraseToAnyPublisher()
                     }
                     
@@ -389,7 +390,7 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                    guard let header = Headers.basicBase64Encoded(
+                    guard let headers = Headers.basicBase64Encoded(
                         clientId: self.clientId, clientSecret: self.clientSecret
                     )
                     else {
@@ -409,7 +410,8 @@ public extension AuthorizationCodeFlowManager {
                     
                     Self.logger.trace(
                         """
-                        body of refresh tokens request:
+                        POST request to "\(Endpoints.getTokens)" \
+                        (URL for refreshing access token); body:
                         \(bodyString)
                         """
                     )
@@ -417,7 +419,7 @@ public extension AuthorizationCodeFlowManager {
                     let refreshTokensPublisher = URLSession.shared.dataTaskPublisher(
                         url: Endpoints.getTokens,
                         httpMethod: "POST",
-                        headers: header,
+                        headers: headers,
                         body: body
                     )
                     // decoding into `AuthInfo` never fails because all of its,
@@ -467,7 +469,7 @@ public extension AuthorizationCodeFlowManager {
             }
         
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
         
     }

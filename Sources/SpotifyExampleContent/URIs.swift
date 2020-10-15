@@ -7,10 +7,14 @@ public protocol SpotifyURIConvertibleEnum:
     CaseIterable,
     RawRepresentable where RawValue == String {
     
+    /// A Spotify URI.
+    var uri: String { get }
+
 }
 
 public extension SpotifyURIConvertibleEnum {
     
+    /// A Spotify URI.
     @inlinable
     var uri: String { self.rawValue }
     
@@ -55,6 +59,7 @@ public enum URIs {
         case thisIsStevieRayVaughan = "spotify:playlist:37i9dQZF1DZ06evO35m9Q4"
         case thisIsJimiHendrix = "spotify:playlist:37i9dQZF1DWTNV753no4ic"
         case thisIsTheBeatles = "spotify:playlist:37i9dQZF1DXdLtD0qszB1w"
+        case menITrust = "spotify:playlist:2EgZjzog2eSfApWQHZVn6t"
     }
 
     /// A namespace of artist URIs.
@@ -102,10 +107,19 @@ public enum URIs {
         case nuclearFusion = "spotify:track:1pmImsdC9t35L3TkD26ax8"
         case honey = "spotify:track:01IuTsgAlgKlgrvPhZ2c95"
         
-        case anyColourYouLike = "spotify:track:6FBPOJLxUZEair6x4kLDhf"
-        case fearless = "spotify:track:7AalBKBoLDR4UmRYRJpdbj"
+        // MARK: Dark Side of the Moon
+        case speakToMe = "spotify:track:574y1r7o2tRA009FW0LE7v"
         case breathe = "spotify:track:2ctvdKmETyOzPb2GiJJT53"
+        case onTheRun = "spotify:track:73OIUNKRi2y24Cu9cOLrzM"
         case time = "spotify:track:3TO7bbrUKrOSPGRTB5MeCz"
+        case theGreatGigInTheSky = "spotify:track:2TjdnqlpwOjhijHCwHCP2d"
+        case money = "spotify:track:0vFOzaXqZHahrZp6enQwQb"
+        case usAndThem = "spotify:track:1TKTiKp3zbNgrBH2IwSwIx"
+        case anyColourYouLike = "spotify:track:6FBPOJLxUZEair6x4kLDhf"
+        case brainDamage = "spotify:track:05uGBKRCuePsf43Hfm0JwX"
+        case eclipse = "spotify:track:1tDWVeCR9oWGX8d5J9rswk"
+        
+        case fearless = "spotify:track:7AalBKBoLDR4UmRYRJpdbj"
         
         case odeToViceroy = "spotify:track:7JIV9UYKpti5xWgq6lfNNJ"
         case saladDays = "spotify:track:4keAoywVf4jxRvXU7ON0hV"
@@ -116,12 +130,12 @@ public enum URIs {
         
         /// Right now.
         case comeTogether = "spotify:track:2EqlS6tkEnglzr7tkKAAYD"
-        
         /// The sky is blue.
         case because = "spotify:track:1rxoyGj1QuPoVi8fOft1Kt"
-        
         /// The love that you take is equal to the love that you make.
         case theEnd = "spotify:track:5aHHf6jrqDRb1fcBmue2kn"
+        
+        case lauren = "spotify:track:7vptmeNwSEVkcwDdqk7UQO"
     }
     
     /// A namespace of episode URIs.

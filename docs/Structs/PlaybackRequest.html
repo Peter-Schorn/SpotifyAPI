@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -377,7 +394,7 @@
 
                 </div>
               </div>
-            <p>A request to play Spotify content for the current user.</p>
+            <p>A request to play Spotify content for a user.</p>
 
 <p>Used in the body of <code>SpotifyAPI.resumePlayback(_:deviceId:)</code>.</p>
 
@@ -540,7 +557,7 @@ will cause the player to start playing the next song.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a request to play Spotify content for the current user.</p>
+                        <p>Creates a request to play Spotify content for a user.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -632,13 +649,21 @@ track/episode.</p>
 
 <p>See also <code><a href="../Structs/PlaybackRequest.html#/s:13SpotifyWebAPI15PlaybackRequestV7context6offset10positionMSAcA13ContextOptionO_AA06OffsetK0OSgSiSgtcfc">init(context:offset:positionMS:)</a></code>.</p>
 
+<p>Equivalent to</p>
+<pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
+    <span class="nv">context</span><span class="p">:</span> <span class="o">.</span><span class="nf">uris</span><span class="p">([</span><span class="n">uri</span><span class="p">]),</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">positionMS</span><span class="p">:</span> <span class="n">positionMS</span>
+<span class="p">)</span>
+</code></pre>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
     <span class="nv">positionMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span></code></pre>
 
@@ -651,7 +676,7 @@ track/episode.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>item</em>
+                                <em>uri</em>
                                 </code>
                               </td>
                               <td>
@@ -739,7 +764,7 @@ the next item.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

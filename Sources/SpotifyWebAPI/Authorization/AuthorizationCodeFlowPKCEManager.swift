@@ -35,8 +35,8 @@ import Logging
  using this [PKCE generator tool][4]. See also `Data.base64URLEncodedString()`
  and `String.urlSafeCharacters`.
  
- The first step in the authorization code flow is to make the
- authorization URL using
+ The first step in the authorization proccess is to make the authorization
+ URL using
  `makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)`.
  Open this URL in a broswer/webview to allow the user to login
  to their Spotify account and authorize your application. It displays a
@@ -193,7 +193,7 @@ public extension AuthorizationCodeFlowPKCEManager {
        - codeChallenge: The code challenge. See above.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
-             `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
+             `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
              **otherwise an error will be thrown.** The state can be useful for
              correlating requests and responses. Because your redirect URI can
              be guessed, using a state value can increase your assurance that
@@ -294,10 +294,10 @@ public extension AuthorizationCodeFlowPKCEManager {
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
-        // a dictionary of the query items in the URL
+        // A dictionary of the query items in the URL
         let queryDict = redirectURIWithQuery.queryItemsDict
 
-        // if the code is found in the query,
+        // If the code is found in the query,
         // then the user successfully authorized the application.
         // this is required for requesting the access and refresh tokens.
         guard let code = queryDict["code"] else {
@@ -310,7 +310,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                 return SpotifyAuthorizationError(
                     error: error, state: queryDict["state"]
                 )
-                .anyFailingPublisher(Void.self)
+                .anyFailingPublisher()
             }
             
             Self.logger.error("unkown error")
@@ -321,20 +321,22 @@ public extension AuthorizationCodeFlowPKCEManager {
                 '\(redirectURIWithQuery.absoluteString)'
                 """
             )
-            .anyFailingPublisher(Void.self)
+            .anyFailingPublisher()
             
         }
         
-        // if a state parameter was provided in the query string of the
+        // If a state parameter was provided in the query string of the
         // redirect URI, then ensure that it matches the value for the state
         // parameter passed to this method.
         guard state == queryDict["state"] else {
             return SpotifyLocalError.invalidState(
                 supplied: queryDict["state"], received: state
             )
-            .anyFailingPublisher(Void.self)
+            .anyFailingPublisher()
         }
         
+        // This must matche the redirectURI provided when making the
+        // authorization URL.
         let baseRedirectURI = redirectURIWithQuery
             .removingQueryItems()
             .removingTrailingSlashInPath()
@@ -351,7 +353,8 @@ public extension AuthorizationCodeFlowPKCEManager {
         
         Self.logger.trace(
             """
-            sending request for refresh and access tokens; body:
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for requesting access and refresh tokens); body:
             \(bodyString)
             """
         )
@@ -470,7 +473,8 @@ public extension AuthorizationCodeFlowPKCEManager {
                     
                     Self.logger.trace(
                         """
-                        body of refresh tokens request:
+                        POST request to "\(Endpoints.getTokens)" \
+                        (URL for refreshing access token); body:
                         \(bodyString)
                         """
                     )
@@ -537,7 +541,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             }
         
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
         
     }

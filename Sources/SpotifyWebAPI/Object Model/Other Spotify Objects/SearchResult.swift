@@ -3,22 +3,21 @@ import Foundation
 /**
  The response from the [search][1] endpoint.
  
- The search endpoint has a `types` parameter, which specifies
- which objects will be returned in the response.
- Valid types are:
+ The search endpoint has a `categories` parameter, which specifies
+ which objects will be returned in the response. Valid categories are:
  
- * album
- * artist
- * playlist
- * track
- * show
- * episode
+ * `album`
+ * `artist`
+ * `playlist`
+ * `track`
+ * `show`
+ * `episode`
  
  The corresponding `albums`, `artist`, `playlists`, `tracks`, `shows`,
  and `episodes` properties of this struct will be non-nil
- for each of the types that were requested from the `search` endpoint.
+ for each of the categories that were requested from the `search` endpoint.
  
- If no results were found for a type, then the `items` property of the
+ If no results were found for a category, then the `items` property of the
  property's paging object will be empty; the property itself will only
  be `nil` if it was not requested in the search.
  

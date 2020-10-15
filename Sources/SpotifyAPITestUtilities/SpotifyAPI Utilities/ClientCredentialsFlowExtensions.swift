@@ -1,11 +1,4 @@
 import Foundation
-
-#if os(macOS)
-import Cocoa
-#else
-import UIKit
-#endif
-
 import Combine
 import SpotifyWebAPI
 
@@ -14,7 +7,8 @@ public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowM
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
         authorizationManager: ClientCredentialsFlowManager(
-            clientId: clientId, clientSecret: clientSecret
+            clientId: spotifyCredentials.clientId,
+            clientSecret: spotifyCredentials.clientSecret
         )
     )
     

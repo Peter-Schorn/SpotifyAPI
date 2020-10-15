@@ -15,13 +15,13 @@ import Foundation
  The total number of seed artists, seed tracks and seed genres must add up to 5 or
  less
  
- Use `SpotifyAPI.recommendationGenres()` to retrive the available
+ Use `SpotifyAPI.recommendationGenres()` to retrieve the available
  seed genres.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes
  [2]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
-public struct TrackAttributes: Codable, Hashable {
+public struct TrackAttributes: Hashable {
 
     /// An array of artists URIs.
     /// The total number of seed artists, seed tracks and seed genres
@@ -36,7 +36,7 @@ public struct TrackAttributes: Codable, Hashable {
     /**
      An array of genres.
     
-     Use `SpotifyAPI.recommendationGenres()` to retrive the available
+     Use `SpotifyAPI.recommendationGenres()` to retrieve the available
      genres.
     
      The total number of seed artists, seed tracks and seed genres
@@ -174,17 +174,17 @@ public struct TrackAttributes: Codable, Hashable {
      Creates the [tunable track attributes][1] used in the endpoint for
      [getting recommendations based on seeds][2].
      
-     For most of the attributes, a minimum, target (ideal), and maximum value can be
-     provided. This is represented by `AttributeRange`. The target value should not
-     be smaller than the minimum or larger than the maximum.
+     For most of the attributes, a minimum, target (ideal), and maximum value can
+     be provided. This is represented by `AttributeRange`. The target value should
+     not be smaller than the minimum or larger than the maximum.
      
-     The total number of seed artists, seed tracks and seed genres must add up to 5
-     or less.
+     **The total number of seed artists, seed tracks and seed genres must add up**
+     **to 5 or less.**
      
      - Parameters:
        - seedArtists: An array of artists URIs.
        - seedGenres: An array of artists genres. Use
-             `SpotifyAPI.recommendationGenres()` to retrive the available seed
+             `SpotifyAPI.recommendationGenres()` to retrieve the available seed
               genres.
        - seedTracks: An array of track URIs.
        - acousticness: A confidence measure from 0.0 to 1.0 of whether the track
@@ -295,7 +295,8 @@ public struct TrackAttributes: Codable, Hashable {
 
     /**
      Creates the query dictionary that is ultimately used in the
-     [endpoint to request track attributes][1].
+     [endpoint to request track attributes][1]:
+     `SpotifyAPI.recommendations(_:limit:market:)`
      
      You shouldn't need to call this directly. It is called by
      `SpotifyAPI.recommendations(_:limit:market:)`.
@@ -341,7 +342,7 @@ public struct TrackAttributes: Codable, Hashable {
                 """
                 TrackAttributes: WARNING: the total number of seed artists \
                 seed tracks and seed genres must add up to 5 or less \
-                (received \(seedsCount). You may recevie an error from \
+                (received \(seedsCount)). You may recevie an error from \
                 the Spotify web API.
                 """
             )
@@ -422,6 +423,69 @@ public struct TrackAttributes: Codable, Hashable {
         
     }
     
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else, returns
+     `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        for properties in [
+            [self.seedArtists, other.seedArtists],
+            [self.seedTracks, other.seedTracks],
+            [self.seedGenres, other.seedGenres]
+        ] {
+            if properties[0] != properties[1] {
+                return false
+            }
+        }
+        
+        // AttributeRange<Double>?
+        for (lhs, rhs) in [
+            (self.acousticness, other.acousticness),
+            (self.danceability, other.danceability),
+            (self.energy, other.energy),
+            (self.instrumentalness, other.instrumentalness),
+            (self.liveness, other.liveness),
+            (self.loudness, other.loudness),
+            (self.speechiness, other.speechiness),
+            (self.tempo, other.tempo),
+            (self.valence, other.valence)
+        ] {
+            if let lhs = lhs, let rhs = rhs {
+                if !lhs.isApproximatelyEqual(to: rhs) {
+                    return false
+                }
+            }
+            else if (lhs == nil) != (rhs == nil) {
+                return false
+            }
+            
+        }
+        
+        // AttributeRange<Int>?
+        for (lhs, rhs) in [
+            (self.durationMS, other.durationMS),
+            (self.key, other.key),
+            (self.mode, other.mode),
+            (self.popularity, other.popularity),
+            (self.timeSignature, other.timeSignature)
+        ] {
+            if lhs != rhs {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+}
+
+extension TrackAttributes: Codable {
+    
     public enum CodingKeys: String, CodingKey {
         case seedArtists = "seed_artists"
         case seedTracks = "seed_tracks"
@@ -441,6 +505,5 @@ public struct TrackAttributes: Codable, Hashable {
         case timeSignature = "time_signature"
         case valence
     }
-    
-}
 
+}

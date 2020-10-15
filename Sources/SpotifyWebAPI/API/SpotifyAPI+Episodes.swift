@@ -19,16 +19,21 @@ public extension SpotifyAPI {
      - Parameters:
        - uri: The URI of an episode.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
-             If a country code is specified, only shows and episodes that
-             are available in that market will be returned. If a valid user
-             access token is specified in the request header, the country
-             associated with the user account will take priority over this
-             parameter. Note: If neither market or user country are provided,
-             the content is considered unavailable for the client. Users can
-             view the country that is associated with their account in the
-             [account settings][3].
-             
-     - Returns: The full version of an episode object.
+             If a country code is specified, the episode will only be returned
+             if it is available in that market. If the access token was granted
+             on behalf of a user (i.e., if you authorized your application using
+             the authorization code flow or the authorization code flow with proof
+             key for code exchange), the country associated with the user account
+             will take priority over this parameter. Users can view the country that
+             is associated with their account in the [account settings][3].
+     
+            **Note: If neither market or user country are provided, the**
+             **episode is considered unavailable for the client and**
+             **Spotify will return a 404 error with the message**
+             **"non existing id". Therefore, if you authorized your**
+             **application using the client credentials flow, you must provide**
+             **a value for this parameter.**
+     - Returns: The full version of an `Episode` object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -53,7 +58,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(Episode.self)
     
         } catch {
-            return error.anyFailingPublisher(Episode.self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -72,23 +77,30 @@ public extension SpotifyAPI {
      - Parameters:
        - uris: An array of episode URIs. Maximum: 50.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
-             If a country code is specified, only shows and episodes that
-             are available in that market will be returned. If a valid user
-             access token is specified in the request header, the country
-             associated with the user account will take priority over this
-             parameter. Note: If neither market or user country are provided,
-             the content is considered unavailable for the client. Users can
-             view the country that is associated with their account in the
-             [account settings][3].
+             If a country code is specified, only episodes that are available
+             in that market will be returned. If the access token was granted
+             on behalf of a user (i.e., if you authorized your application
+             using the client credentials flow), the country associated with
+             the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in
+             the [account settings][3].
              
-     - Returns: The full versions of up to 50 episode objects. Episodes
-           are returned in the order requested. If an episode is not found,
-           `nil` is returned in the appropriate position. Duplicate episode
-           URIs in the request will result in duplicate episodes in the response.
+            **Note: If neither market or user country are provided, the**
+             **episodes are considered unavailable for the client and**
+             **Spotify will return** `nil` **for all of the episodes.**
+             **Therefore, if you authorized your application using the**
+             **client credentials flow, you must provide a value for this**
+             **parameter.**
+     - Returns: The full versions of up to 50 [episode][4] objects. Episodes
+           are returned in the order requested. If an episode is not found
+           or is unavailable in the specified market/country, `nil` is
+           returned in the appropriate positions. Duplicate episode URIs in
+           the request will result in duplicate episodes in the response.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/se/account/overview/
+     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full
      */
     func episodes(
         _ uris: [SpotifyURIConvertible],
@@ -122,7 +134,7 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
 
         } catch {
-            return error.anyFailingPublisher([Episode?].self)
+            return error.anyFailingPublisher()
         }
 
     }

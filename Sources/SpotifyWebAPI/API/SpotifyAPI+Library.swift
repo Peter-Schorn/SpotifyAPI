@@ -22,7 +22,7 @@ private extension SpotifyAPI where
                 path: path,
                 queryItems: ["ids": idsString],
                 httpMethod: "PUT",
-                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
                 bodyData: nil as Data?,
                 requiredScopes: [.userLibraryModify]
             )
@@ -31,7 +31,7 @@ private extension SpotifyAPI where
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -66,7 +66,7 @@ private extension SpotifyAPI where
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -92,7 +92,7 @@ private extension SpotifyAPI where
             .decodeSpotifyObject([Bool].self)
             
         } catch {
-            return error.anyFailingPublisher([Bool].self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -123,8 +123,7 @@ public extension SpotifyAPI where
        - limit: *Optional*. The maximum number of albums to return.
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first album to return.
-             Default: 0. Use with `limit` to get the next
-             set of albums.
+             Default: 0. Use with `limit` to get the next set of albums.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][3].
@@ -221,8 +220,7 @@ public extension SpotifyAPI where
        - limit: *Optional*. The maximum number of shows to return.
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first show to return.
-             Default: 0. Use with `limit` to get the next
-             set of shows.
+             Default: 0. Use with `limit` to get the next set of shows.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][3].

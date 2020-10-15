@@ -2,7 +2,15 @@ import Foundation
 import Combine
 import Logging
 
-
+/**
+ Logs messages related to the decoding of data.
+ 
+ Set the `logLevel` to `trace` to print the raw data received from
+ each request to the Spotify web API to the standard outuput.
+ 
+ Set the `logLevel` to `warning` to print various error messages to
+ the standard output.
+ */
 public var spotifyDecodeLogger = Logger(
     label: "spotifyDecode", level: .critical
 )
@@ -17,11 +25,12 @@ public var spotifyDecodeLogger = Logger(
  It is recommended to use the combine operator `decodeSpotifyErrors()`
  instead of this function, whenever possible.
  
- The error objects are:
+ The error objects that this method tries to decode are:
  
  * `SpotifyAuthenticationError`
- * `SpotifyError`,
- * `RateLimitedError`.
+ * `SpotifyError`
+ * `SpotifyPlayerError`
+ * `RateLimitedError`
  
  If the data cannot be decoded into one of these errors,
  then `nil` is returned.
@@ -49,8 +58,9 @@ public func decodeSpotifyErrors(
             spotifyDecodeLogger.error(
                 """
                 got 429 rate limit error, but couldn't \
-                get value for Retry-After header and/or \
-                convert to Int
+                get value for "Retry-After" header and/or \
+                convert to Int. `HTTPURLResponse.allHeaderFields`:
+                \(httpURLResponse.allHeaderFields)
                 """
             )
         }
@@ -67,6 +77,12 @@ public func decodeSpotifyErrors(
         return error
     }
 
+    if let error = try? decoder.decode(
+        SpotifyPlayerError.self, from:  data
+    ) {
+        return error
+    }
+    
     if let error = try? decoder.decode(
         SpotifyError.self, from: data
     ) {
@@ -96,7 +112,8 @@ public func decodeSpotifyErrors(
  You normally don't need to call this method directly.
  
  It is recommended to use the combine operator `decodeSpotifyObject(_:)`
- instead of this function, whenever possible.
+ or `decodeOptionalSpotifyObject` instead of this function, whenever
+ possible.
  
  First tries to decode the data into `responseType`. If that fails,
  then the data is decoded into one of the [errors][1] returned by
@@ -104,20 +121,22 @@ public func decodeSpotifyErrors(
  
  * `SpotifyAuthenticationError`
  * `SpotifyError`
+ * `SpotifyPlayerError`
  * `RateLimitedError`
  
  If decoding into the error objects fails, `SpotifyDecodingError` is thrown
  as a last resort.
  
- **Note**: `SpotifyDecodingError` represents the error encountered
- when decoding the `responseType`, not the error objects.
+ - Note: `SpotifyDecodingError` represents the error encountered
+       when decoding the `responseType`, not the error objects.
  
- - Parameter responseType: The json response that you are
-       are expecting from the Spotify web API.
- - Parameter data: The data from the server.
- - Parameter httpURLResponse: The http response metadata.
+ - Parameters:
+   - responseType: The json response that you are
+         are expecting from the Spotify web API.
+   - data: The data from the server.
+   - httpURLResponse: The http response metadata.
  - Throws: If the data cannot be decoded into the specified `responseType`.
- - Returns: The decoded object.
+ - Returns: The object decoded into `ResponseType`.
  
  [1]: https://developer.spotify.com/documentation/web-api/#response-schema
  */
@@ -128,6 +147,16 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 ) throws -> ResponseType {
 
     do {
+        if spotifyDecodeLogger.logLevel == .trace {
+            let dataString = String(data: data, encoding: .utf8)
+                    ?? "Couldn't decode data into string"
+            spotifyDecodeLogger.trace(
+                """
+                will try to decode raw data into '\(responseType)':
+                \(dataString)
+                """
+            )
+        }
         
         return try JSONDecoder().decode(
             ResponseType.self, from: data
@@ -135,7 +164,9 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
     
     } catch let responseTypeDecodingError {
 
-        spotifyDecodeLogger.warning("couldn't decode response object")
+        spotifyDecodeLogger.warning(
+            "couldn't decode response object for '\(responseType)'"
+        )
         
         if let spotifyError = decodeSpotifyErrors(
             data: data, httpURLResponse: httpURLResponse
@@ -144,7 +175,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         }
         
         spotifyDecodeLogger.error(
-            "couldn't decode \(responseType) or the spotify error objects"
+            "couldn't decode '\(responseType)' or the spotify error objects"
         )
         
         /*
@@ -152,7 +183,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
          error objects, then it is probably because Spotify
          did not return an error object; instead, it returned
          the data that was requested, but the data is not properly
-         modeled by `responseType`. Therefore, it is more useful to
+         modeled by `responseType`. Therefore, it makes more sense to
          throw the error encountered when decoding the
          expected `responseType` (`responseTypeDecodingError`)
          back to the caller.
@@ -175,13 +206,23 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
     /**
      Tries to decode the raw data from a Spotify web API request
      into one of the error objects that Spotify returns for
-     most endpoints: `SpotifyAuthenticationError`, `SpotifyError`,
-     or `RateLimitedError`.
+     most endpoints.
+     
+     The error objects that this method tries to decode are:
+     
+     * `SpotifyAuthenticationError`
+     * `SpotifyError`
+     * `SpotifyPlayerError`
+     * `RateLimitedError`
      
      If the data can be decoded into one of these errors,
      then this error object is thrown as an error to downstream subscribers.
      Otherwise, the data is passed through unmodified to downstream
      subscribers.
+     
+     - Warning: This method force-downcasts `URLResponse` to
+           `HTTPURLResponse`. Only use this method if you are making an
+            HTTP request.
      */
     func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
 
@@ -221,6 +262,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
      * `SpotifyAuthenticationError`
      * `SpotifyError`
+     * `SpotifyPlayerError`
      * `RateLimitedError`
 
      If decoding into the error objects fails, `SpotifyDecodingError` is thrown
@@ -232,6 +274,10 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      - Parameter responseType: The json response that you are
      are expecting from the Spotify web API.
 
+     - Warning: This method force-downcasts `URLResponse` to
+           `HTTPURLResponse`. Only use this method if you are making an
+            HTTP request.
+     
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeSpotifyObject<ResponseType: Decodable>(
@@ -257,7 +303,6 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
     }
 
-    
     /**
      Tries to decode the raw data from a Spotify web API request.
      You normally don't need to call this method directly.
@@ -273,6 +318,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
      * `SpotifyAuthenticationError`
      * `SpotifyError`
+     * `SpotifyPlayerError`
      * `RateLimitedError`
 
      If decoding into the error objects fails, `SpotifyDecodingError` is thrown
@@ -284,6 +330,10 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      - Parameter responseType: The json response that you are
      are expecting from the Spotify web API.
 
+     - Warning: This method force-downcasts `URLResponse` to
+           `HTTPURLResponse`. Only use this method if you are making an
+            HTTP request.
+     
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeOptionalSpotifyObject<ResponseType: Decodable>(

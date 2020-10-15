@@ -8,7 +8,7 @@ public extension SpotifyAPI {
     /**
      Get a Track.
      
-     See also `tracks(_:market:)` (gets multiple tracks).
+     See also `tracks(_:market:)` - gets multiple tracks
      
      No scopes are required for this endpoint.
      
@@ -44,7 +44,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(Track.self)
             
         } catch {
-            return error.anyFailingPublisher(Track.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -52,7 +52,7 @@ public extension SpotifyAPI {
     /**
      Get multiple Tracks.
      
-     See also `track(_:market:)` (gets a single track).
+     See also `track(_:market:)` - gets a single track
      
      No scopes are required for this endpoint.
      
@@ -63,7 +63,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
-     - Returns: The full versions of up to 50 `Track` object . Tracks are returned
+     - Returns: The full versions of up to 50 `Track` objects. Tracks are returned
            in the order requested. If a track is not found, `nil` is
            returned in the appropriate position. Duplicate tracks URIs
            in the request will result in duplicate tracks in the response.
@@ -104,18 +104,29 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher([Track?].self)
+            return error.anyFailingPublisher()
         }
         
     }
     
-    
     /**
      Get audio analysis for a track.
      
-     See also `trackAudioFeatures(_:)` (gets the audio features for
-     a single track) and `tracksAudioFeatures(_:)` (get the audio features
-     for multiple tracks).
+     The Audio Analysis endpoint provides low-level audio analysis for all of
+     the tracks in the Spotify catalog. The Audio Analysis describes the
+     track’s structure and musical content, including rhythm, pitch, and timbre.
+     All information is precise to the audio sample.
+     
+     Many elements of analysis include confidence values, a floating-point
+     number ranging from 0.0 to 1.0. Confidence indicates the reliability of
+     its corresponding attribute. Elements carrying a small confidence value
+     should be considered speculative. There may not be sufficient data in the
+     audio to compute the attribute with high certainty.
+     
+     See also:
+     
+     * `trackAudioFeatures(_:)` - gets the audio features for a single track
+     * `tracksAudioFeatures(_:)` - gets the audio features for multiple tracks
      
      No scopes are required for this endpoint.
      
@@ -143,7 +154,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(AudioAnalysis.self)
             
         } catch {
-            return error.anyFailingPublisher(AudioAnalysis.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -151,8 +162,10 @@ public extension SpotifyAPI {
     /**
      Get audio features for a track.
 
-     See also `tracksAudioFeatures(_:)` (gets the audio features for
-     multiple tracks) and `trackAudioAnalysis(_:)`.
+     See also:
+     
+     * `tracksAudioFeatures(_:)` - gets the audio features for multiple tracks
+     * `trackAudioAnalysis(_:)` - gets audio analysis for a track
      
      No scopes are required for this endpoint.
      
@@ -180,7 +193,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(AudioFeatures.self)
             
         } catch {
-            return error.anyFailingPublisher(AudioFeatures.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -188,8 +201,10 @@ public extension SpotifyAPI {
     /**
      Get audio features for multiple tracks.
      
-     See also `trackAudioFeatures(_:)` (gets the audio features for
-     a single track) and `trackAudioAnalysis(_:)`.
+     See also:
+     
+     * `trackAudioFeatures(_:)` - gets the audio features for a single track
+     * `trackAudioAnalysis(_:)` - gets audio analysis for a track.
      
      No scopes are required for this endpoint.
      
@@ -233,10 +248,9 @@ public extension SpotifyAPI {
             
             
         } catch {
-            return error.anyFailingPublisher([AudioFeatures?].self)
+            return error.anyFailingPublisher()
         }
         
     }
-    
     
 }

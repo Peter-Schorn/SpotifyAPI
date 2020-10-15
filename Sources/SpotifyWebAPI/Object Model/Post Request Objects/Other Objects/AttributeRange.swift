@@ -10,22 +10,22 @@ import Foundation
  The target value should not be smaller than the minimum or larger than the
  maximum.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#query-parameters
+ [1]: https://developer.spotify.com/console/get-recommendations/?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA&min_energy=0.4&min_popularity=50&market=US
  */
-public struct AttributeRange<Number: Numeric & Codable & Hashable &
+public struct AttributeRange<Value: Numeric & Codable & Hashable &
         LosslessStringConvertible>: Codable, Hashable {
     
     /// The minimum value for the attribute.
-    public var min: Number?
+    public var min: Value?
     
     /// The target (ideal) value for the attribute.
     ///
     /// Should not be smaller than the minimum or larger than the
     /// maximum.
-    public var target: Number?
+    public var target: Value?
     
     /// The maximum value for the attribute.
-    public var max: Number?
+    public var max: Value?
 
     /**
      Creates a new attribute range. All parameters are optional.
@@ -38,9 +38,9 @@ public struct AttributeRange<Number: Numeric & Codable & Hashable &
        - max: The maximum value for the attribute.
      */
     public init(
-        min: Number? = nil,
-        target: Number? = nil,
-        max: Number? = nil
+        min: Value? = nil,
+        target: Value? = nil,
+        max: Value? = nil
     ) {
         self.min = min
         self.target = target
@@ -54,12 +54,12 @@ public struct AttributeRange<Number: Numeric & Codable & Hashable &
      for these properties converted to a string. Properties that are `nil`
      will not appear in the dictionary.
      
-     For example, if the attribute name was "tempo", then the dictionary would be:
+     For example, if the `attributeName` is "tempo", then the dictionary will be:
      ```
      [
-     "min_tempo": min,
-     "target_tempo": target,
-     "max_tempo": max
+         "min_tempo": self.min,
+         "target_tempo": self.target,
+         "max_tempo": self.max
      ]
      ```
      
@@ -70,11 +70,62 @@ public struct AttributeRange<Number: Numeric & Codable & Hashable &
     ) -> [String: String] {
 
         return removeIfNil([
-            "min_\(attributeName)": min,
-            "target_\(attributeName)": target,
-            "max_\(attributeName)": max
+            "min_\(attributeName)": self.min,
+            "target_\(attributeName)": self.target,
+            "max_\(attributeName)": self.max
         ])
         
     }
     
+}
+
+public extension AttributeRange where Value: BinaryFloatingPoint {
+    
+    /**
+     Returns `true` if all the properties of `self` are approximately
+     equal to those of `other` within an absolute tolerance of 0.001.
+     Else, returns `false`.
+     
+     Available when `Value` conforms to `BinaryFloatingPoint`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    func isApproximatelyEqual(to other: Self) -> Bool {
+    
+        if let min = self.min, let otherMin = other.min {
+            if !min.isApproximatelyEqual(
+                to: otherMin, absoluteTolerance: 0.001
+            ) {
+                return false
+            }
+        }
+        else if (self.min == nil) != (other.min == nil) {
+            return false
+        }
+        
+        if let target = self.target, let otherTarget = other.target {
+            if !target.isApproximatelyEqual(
+                to: otherTarget, absoluteTolerance: 0.001
+            ) {
+                return false
+            }
+        }
+        else if (self.target == nil) != (other.target == nil) {
+            return false
+        }
+        
+        if let max = self.max, let otherMax = other.max {
+            return max.isApproximatelyEqual(
+                to: otherMax, absoluteTolerance: 0.001
+            )
+        }
+        else if (self.target == nil) != (other.target == nil) {
+            return false
+        }
+        
+        return true
+        
+    }
+    
+
 }

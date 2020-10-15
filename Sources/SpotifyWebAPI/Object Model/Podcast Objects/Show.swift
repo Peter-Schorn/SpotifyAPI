@@ -81,7 +81,7 @@ public struct Show: Hashable {
     /// The publisher of the show.
     public let publisher: String
     
-    /// The object type. Always `episode`.
+    /// The object type. Always `show`.
     public let type: IDCategory
     
     /**

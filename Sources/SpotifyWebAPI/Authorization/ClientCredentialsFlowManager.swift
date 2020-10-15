@@ -295,12 +295,23 @@ public extension ClientCredentialsFlowManager {
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
     
         Self.logger.trace(
-            "authorizing; body: \(bodyString)"
+            """
+            authorizing: POST request to "\(Endpoints.getTokens)"; body:
+            \(bodyString)
+            """
         )
         
-        let headers = Headers.basicBase64Encoded(
-            clientId: clientId, clientSecret: clientSecret
+        guard let headers = Headers.basicBase64Encoded(
+            clientId: self.clientId, clientSecret: self.clientSecret
         )
+        else {
+            // this error should never occur
+            let message = "couldn't base 64 encode " +
+                "client id and client secret"
+            Self.logger.critical("\(message)")
+            return SpotifyLocalError.other(message)
+                .anyFailingPublisher()
+        }
         
         return URLSession.shared.dataTaskPublisher(
             url: Endpoints.getTokens,

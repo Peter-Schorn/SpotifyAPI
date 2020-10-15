@@ -282,7 +282,7 @@
                 <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -391,7 +408,7 @@
 
 <p>The offset-based paging object is a container for a set of objects.
 It contains a key called items (whose value is an array of the requested
-objects) along with other keys like previous, next and limit that can be
+objects) along with other keys like <code>previous</code>, <code>next</code> and <code>limit</code> that can be
 useful in future calls.</p>
 
                         <a href="Structs/PagingObject.html" class="slightly-smaller">See more</a>
@@ -465,24 +482,23 @@ It contains just three properties:</p>
                       <div class="abstract">
                         <p>The response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint.</p>
 
-<p>The search endpoint has a <code>types</code> parameter, which specifies
-which objects will be returned in the response.
-Valid types are:</p>
+<p>The search endpoint has a <code>categories</code> parameter, which specifies
+which objects will be returned in the response. Valid categories are:</p>
 
 <ul>
-<li>album</li>
-<li>artist</li>
-<li>playlist</li>
-<li>track</li>
-<li>show</li>
-<li>episode</li>
+<li><code>album</code></li>
+<li><code>artist</code></li>
+<li><code>playlist</code></li>
+<li><code>track</code></li>
+<li><code>show</code></li>
+<li><code>episode</code></li>
 </ul>
 
 <p>The corresponding <code>albums</code>, <code>artist</code>, <code>playlists</code>, <code>tracks</code>, <code>shows</code>,
 and <code>episodes</code> properties of this struct will be non-nil
-for each of the types that were requested from the <code>search</code> endpoint.</p>
+for each of the categories that were requested from the <code>search</code> endpoint.</p>
 
-<p>If no results were found for a type, then the <code>items</code> property of the
+<p>If no results were found for a category, then the <code>items</code> property of the
 property&rsquo;s paging object will be empty; the property itself will only
 be <code>nil</code> if it was not requested in the search.</p>
 
@@ -520,7 +536,7 @@ be <code>nil</code> if it was not requested in the search.</p>
     <p class="aside-title">Warning</p>
     If this image belongs to a playlist, then the URL is
    temporary and will expire in less than a day. Use
-   <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">SpotifyAPI.getPlaylistCoverImage(_:)</a></code> to retrive the image
+   <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">SpotifyAPI.playlistImage(_:)</a></code> to retrieve the image
    for a playlist.
 
 </div>
@@ -719,9 +735,9 @@ See also the <a href="https://developer.spotify.com/documentation/general/guides
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI10AlbumGroupO"></a>
-                    <a name="//apple_ref/swift/Enum/AlbumGroup" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                    <a name="/s:13SpotifyWebAPI10AlbumGroupa"></a>
+                    <a name="//apple_ref/swift/Alias/AlbumGroup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -729,23 +745,15 @@ See also the <a href="https://developer.spotify.com/documentation/general/guides
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An album group.</p>
-
-<p>One of the following:</p>
-
-<ul>
-<li><code>album</code></li>
-<li><code>single</code></li>
-<li><code>appearsOn</code></li>
-<li><code>compilation</code></li>
-</ul>
+                        <p>This type has ben renamed to <code><a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AlbumGroup</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"AlbumType"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">AlbumGroup</span> <span class="o">=</span> <span class="kt"><a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -757,7 +765,7 @@ See also the <a href="https://developer.spotify.com/documentation/general/guides
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

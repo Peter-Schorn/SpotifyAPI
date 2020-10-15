@@ -3,9 +3,9 @@ import SpotifyWebAPI
 import XCTest
 
 /**
- Encodes the object into data, then decodes it again (2x) and ensures that
- the decoded version exactly matches the value that was originally passed in.
- This ensures that no information was lost during encoding and decoding.
+ Encodes the object into data, then decodes it again (2x) and ensures that the
+ decoded version exactly matches the value that was originally passed in. This
+ ensures that no information was lost or changed during encoding and decoding.
  
  - Parameters:
    - object: The object to encode and decode.
@@ -61,10 +61,9 @@ public func encodeDecode<T: Codable & Equatable>(
 
 
 /**
- Decodes the data into the specified type, encodes the data, then
- re-decodes it again. Ensures that the decoded version matches the
- re-decoded version, which ensures that no information was lost
- during encoding and decoding.
+ Decodes the data into the specified type, encodes the data, then re-decodes it
+ again. Ensures that the decoded version matches the re-decoded version, which
+ ensures that no information was lost or changed during encoding and decoding.
  
  - Parameters:
    - data: The data to decode and encode.

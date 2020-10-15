@@ -34,43 +34,45 @@ public enum SpotifyLocalError: LocalizedError {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     case identifierParsingError(String)
 
-    /// You tried to access an endpoint that
-    /// your app does not have the required scopes for.
-    ///
-    /// - requiredScopes: The scopes that are required for this endpoint.
-    /// - authorizedScopes: The scopes that your app is authroized for.
+    /**
+     You tried to access an endpoint that
+     your app does not have the required scopes for.
+    
+     - requiredScopes: The scopes that are required for this endpoint.
+     - authorizedScopes: The scopes that your app is authroized for.
+     */
     case insufficientScope(
         requiredScopes: Set<Scope>, authorizedScopes: Set<Scope>
     )
     
-    /// The category of a URI didn't match one of the expected categories.
-    ///
-    ///  - expected: The expected categories. Some endpoints allow for
-    ///    URIS from multiple categories. For example, the endpoint for
-    ///    adding items to a playlist allows for track or episode URIs.
-    ///  - received: the id category that was received.
-    ///
-    /// For example, if you pass a track URI to the endpoint for retrieving
-    /// an artist, you will get this error.
+    /**
+     The category of a URI didn't match one of the expected categories.
+    
+      - expected: The expected categories. Some endpoints allow for
+        URIS from multiple categories. For example, the endpoint for
+        adding items to a playlist allows for track or episode URIs.
+      - received: the id category that was received.
+    
+     For example, if you pass a track URI to the endpoint for retrieving
+     an artist, you will get this error.
+     */
     case invalidIdCategory(
         expected: [IDCategory], received: IDCategory
     )
     
     /**
-     Spotify sometimes returns data wrapped in
-     an extraneous top-level dictionary that
-     the client doesn't need to care about.
-     This error is thrown if the expected top level
-     key associated with the data is not found.
+     Spotify sometimes returns data wrapped in an extraneous top-level
+     dictionary that the client doesn't need to care about. This error
+     is thrown if the expected top level key associated with the data
+     is not found.
      
-     For example, adding a tracks to a playlist returns
-     the following response:
+     For example, adding a tracks to a playlist returns the following
+     response:
      ```
      { "snapshot_id" : "3245kj..." }
      ```
-     The value of the snapshot id is returned instead
-     of the entire dictionary or this error is thrown if it
-     can't be found.
+     The value of the snapshot id is returned instead of the entire
+     dictionary or this error is thrown if the key can't be found.
      */
     case topLevelKeyNotFound(
         key: String, dict: [AnyHashable: Any]

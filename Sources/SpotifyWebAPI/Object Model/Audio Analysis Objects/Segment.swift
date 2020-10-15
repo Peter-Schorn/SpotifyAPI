@@ -37,7 +37,6 @@ public struct Segment: Hashable {
      */
     public let loudnessMax: Double
     
-    
     /**
      The segment-relative offset of the segment peak loudness in seconds.
      Combined with `loudnessStart` and `loudnessMax`, these components can
@@ -70,7 +69,7 @@ public struct Segment: Hashable {
     ///
     /// This value should be equivalent to the `loudnessStart` of the
     /// following segment.
-    public let loudnessEnd: Double?
+    public let loudnessEnd: Double
 
     /**
      Crestes a [segment][1] of a track.
@@ -117,7 +116,7 @@ public struct Segment: Hashable {
         loudnessMaxTime: Double,
         pitches: [Double],
         timbre: [Double],
-        loudnessEnd: Double?
+        loudnessEnd: Double
     ) {
         self.start = start
         self.duration = duration
@@ -130,7 +129,59 @@ public struct Segment: Hashable {
         self.loudnessEnd = loudnessEnd
     }
     
-
+    /**
+     Returns `true` if all the properties of `self` are approximately
+     equal to those of `other` within an absolute tolerance of 0.001.
+     Else, returns `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        if !self.start.isApproximatelyEqual(
+            to: other.start, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.duration.isApproximatelyEqual(
+            to: other.duration, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.confidence.isApproximatelyEqual(
+            to: other.confidence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.loudnessStart.isApproximatelyEqual(
+            to: other.loudnessStart, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.loudnessMax.isApproximatelyEqual(
+            to: other.loudnessMax, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.loudnessMaxTime.isApproximatelyEqual(
+            to: other.loudnessMaxTime, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        for (lhs, rhs) in zip(self.pitches, other.pitches) {
+            if !lhs.isApproximatelyEqual(to: rhs, absoluteTolerance: 0.001) {
+                return false
+            }
+        }
+        for (lhs, rhs) in zip(self.timbre, other.timbre) {
+            if !lhs.isApproximatelyEqual(to: rhs, absoluteTolerance: 0.001) {
+                return false
+            }
+        }
+        return self.loudnessEnd.isApproximatelyEqual(
+            to: other.loudnessEnd, absoluteTolerance: 0.001
+        )
+    }
 }
 
 extension Segment: Codable {

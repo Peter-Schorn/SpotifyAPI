@@ -34,8 +34,7 @@ public extension SpotifyAPI where
              last 6 months), and `shortTerm` (approximately last 4 weeks).
              Default: `mediumTerm`.
        - offset: Optional. The index of the first artist to return.
-             Default: 0. Use with limit to get
-             the next set of entities.
+             Default: 0. Use with limit to get the next set of artists.
        - limit: *Optional*. The number of artists to return.
              Default: 20; Minimum: 1; Maximum: 50.
      - Returns: An array of the full versions of artist objects
@@ -87,8 +86,7 @@ public extension SpotifyAPI where
              last 6 months), and `shortTerm` (approximately last 4 weeks).
              Default: `mediumTerm`.
        - offset: Optional. The index of the first track to return.
-             Default: 0. Use with limit to get
-             the next set of entities.
+             Default: 0. Use with limit to get the next set of tracks.
        - limit: *Optional*. The number of tracks to return.
              Default: 20; Minimum: 1; Maximum: 50.
      - Returns: An array of the full versions of track objects

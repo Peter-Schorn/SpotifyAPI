@@ -48,7 +48,7 @@ public struct AudioAnalysis: Codable, Hashable {
     /// Sections are defined by large variations in rhythm or timbre,
     /// e.g. chorus, verse, bridge, guitar solo, etc. Each section contains
     /// its own descriptions of tempo, key, mode, time_signature, and loudness.
-    public let sections: [[String: Double]]
+    public let sections: [Section]
     
     /// Audio segments attempts to subdivide a song into many segments,
     /// with each segment containing a roughly consistent sound throughout
@@ -95,7 +95,7 @@ public struct AudioAnalysis: Codable, Hashable {
         bars: [SpotifyTimeInterval],
         beats: [SpotifyTimeInterval],
         tatums: [SpotifyTimeInterval],
-        sections: [[String : Double]],
+        sections: [Section],
         segments: [Segment]
     ) {
         self.bars = bars
@@ -105,4 +105,41 @@ public struct AudioAnalysis: Codable, Hashable {
         self.segments = segments
     }
     
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else, returns
+     `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+
+        for properties in [
+            [self.bars, other.bars],
+            [self.beats, other.beats],
+            [self.tatums, other.tatums]
+        ] {
+            for (lhs, rhs) in zip(properties[0], properties[1]) {
+                if !lhs.isApproximatelyEqual(to: rhs) {
+                    return false
+                }
+            }
+        }
+        
+        for (lhs, rhs) in zip(self.sections, other.sections) {
+            if !lhs.isApproximatelyEqual(to: rhs) {
+                return false
+            }
+        }
+        
+        for (lhs, rhs) in zip(self.segments, other.segments) {
+            if !lhs.isApproximatelyEqual(to: rhs) {
+                return false
+            }
+        }
+        
+        return true
+    }
+
 }

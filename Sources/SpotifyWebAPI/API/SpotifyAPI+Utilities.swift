@@ -10,24 +10,13 @@ public extension SpotifyAPI {
      Retrieves the data linked to by an href and decodes it
      into `responseType`.
      
-     The access token is automatically refreshed if necessary.
-     
      An href is a property provided in many of the responses from
      the Spotify web API which links to addtional data instead of
      including it in the current response in order to limit the size.
      
-     For example, the endpoint for getting all of a user's playlists
-     returns an href inside of each playlist object which provides
-     the full list of tracks/episodes. However, for this specific case,
-     it is recommended that you use one of the following methods instead,
-     passing in the URI of the playlist:
-     
-     * `playlist(_:market:)`
-     * `playlistTracks(_:limit:offset:market:)`
-     * `playlistItems(_:limit:offset:market:)`
-     
-     These methods are preferred because you do not have to worry about
-     figuring out the response type yourself.
+     Always prefer using a different method whenever possible because
+     this method adds the additional complexity of determining the
+     appropriate `ResponseType`.
      
      - Parameters:
        - href: The full URL to a Spotify web API endpoint.
@@ -64,18 +53,19 @@ public extension SpotifyAPI {
                 .eraseToAnyPublisher()
         
         } catch {
-            return error.anyFailingPublisher(ResponseType.self)
+            return error.anyFailingPublisher()
         }
         
     }
 
     /**
-     Retrieves additional pages of results from a `Paginated`
-     type.
+     Retrieves additional pages of results from a `Paginated` type.
      
      This method is also available as a combine operator (same name)
      for all publishers where `Output`: `Paginated`.
      
+     This method immediately republishes the page of results that
+     were passed in and then begins requesting additional pages.
      Each time an additional page is received, its `next` property
      is used to retrieve the next page of results, and so on, until
      `next` is `nil` or `maxExtraPages` is reached. This means that
@@ -143,9 +133,9 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
         
         return nextPagePublisher
-            // a page of results (not necessarily the first) was already
+            // A page of results (not necessarily the first) was already
             // retrieved before this method was called, so pass it through
-            // to downstream subscribers
+            // to downstream subscribers.
             .prepend(results)
             .eraseToAnyPublisher()
         

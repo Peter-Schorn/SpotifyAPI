@@ -3,13 +3,20 @@ import Foundation
 /// A namespace of HTTP Headers.
 public enum Headers {
     
+    /**
+     Makes the bearer authorization header using the access token.
     
-    /// Makes the bearer authorization header using the access token.
-    ///
-    /// ```
-    /// ["Authorization": "Bearer \(accessToken)"]
-    /// ```
-    /// - Parameter accessToken: The access token from Spotify.
+     This header must be present in all requests to the Spotify web API,
+     except for those involved in retrieving refresh and/or access tokens
+     and authorizing your application.
+     
+     See also `bearerAuthorizationAndContentTypeJSON`.
+     
+     ```
+     ["Authorization": "Bearer \(accessToken)"]
+     ```
+     - Parameter accessToken: The access token from Spotify.
+     */
     public static func bearerAuthorization(
         _ accessToken: String
     ) -> [String: String] {
@@ -17,22 +24,40 @@ public enum Headers {
     }
     
     
-    /// ```
-    /// ["Accept": "application/json"]
-    /// ```
-    public static let acceptApplicationJSON = [
-        "Accept": "application/json"
+    /**
+     The JSON Content-Type header. This tells the server that
+     the body of the request is JSON.
+     
+     ```
+     ["Content-Type": "application/json"]
+     ```
+     */
+    public static let contentTypeJSON = [
+        "Content-Type": "application/json"
     ]
     
-    /// The bearer authorization and accept application JSON headers.
-    ///
-    /// Equivalent to `bearerAuthorization(accessToken) + acceptApplicationJSON`
-    ///
-    /// - Parameter accessToken: The access token from Spotify.
-    public static func bearerAuthorizationAndAcceptApplicationJSON(
+    /**
+     The bearer authorization and JSON Content-Type headers.
+    
+     The JSON Content-Type header tells the server that the body
+     of the request is JSON. The authorization header is required for
+     all requests to the Spotify web API other than those for
+     authorizing/authenticating your application.
+     
+     Equivalent to `bearerAuthorization(accessToken) + contentTypeJSON`
+     ```
+     [
+         "Authorization": "Bearer \(accessToken)",
+         "Content-Type": "application/json"
+     ]
+     ```
+     
+     - Parameter accessToken: The access token from Spotify.
+     */
+    public static func bearerAuthorizationAndContentTypeJSON(
         _ accessToken: String
     ) -> [String: String] {
-        return bearerAuthorization(accessToken) + acceptApplicationJSON
+        return bearerAuthorization(accessToken) + contentTypeJSON
     }
     
     /// ```
@@ -74,9 +99,9 @@ public enum Headers {
     }
     
     /// ```
-    /// ["Accept": "image/jpeg"]
+    /// ["Content-Type": "image/jpeg"]
     /// ```
-    public static let imageJpeg = ["Accept": "image/jpeg"]
+    public static let contentTypeImageJpeg = ["Content-Type": "image/jpeg"]
     
     
 }

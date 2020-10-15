@@ -103,7 +103,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      
      - Warning: The urls of these images, if returned,
            are temporary and will expire in less than a day.
-           Use `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive
+           Use `SpotifyAPI.playlistImage(_:)` to retrieve
            the image for a playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/

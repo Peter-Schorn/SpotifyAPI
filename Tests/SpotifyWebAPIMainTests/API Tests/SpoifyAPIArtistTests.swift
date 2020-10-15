@@ -9,42 +9,97 @@ protocol SpotifyAPIArtistTests: SpotifyAPITests { }
 
 extension SpotifyAPIArtistTests {
     
-    func artist() {
+    func receivePinkFloyd(_ artist: Artist) {
+        print("receivePinkFloyd")
+        encodeDecode(artist)
         
-        func receiveArtist(_ artist: Artist) {
-
-            encodeDecode(artist)
-            
-            XCTAssertEqual(artist.name, "Pink Floyd")
-            XCTAssertEqual(artist.type, .artist)
-            XCTAssertEqual(artist.uri, "spotify:artist:0k17h0D3J5VfsdmQ1iZtE9")
-            XCTAssertEqual(artist.id, "0k17h0D3J5VfsdmQ1iZtE9")
-            if let genres = artist.genres {
-                XCTAssert(genres.contains("art rock"))
-                XCTAssert(genres.contains("album rock"))
-                XCTAssert(genres.contains("classic rock"))
-                XCTAssert(genres.contains("progressive rock"))
-                XCTAssert(genres.contains("psychedelic rock"))
-                XCTAssert(genres.contains("rock"))
-                XCTAssert(genres.contains("symphonic rock"))
-            }
-            else {
-                XCTFail("genres should not be nil")
-            }
-            
-            XCTAssertNotNil(artist.popularity)
-            XCTAssertNotNil(artist.href)
-            
-            
+        XCTAssertEqual(artist.name, "Pink Floyd")
+        XCTAssertEqual(artist.type, .artist)
+        XCTAssertEqual(artist.uri, "spotify:artist:0k17h0D3J5VfsdmQ1iZtE9")
+        XCTAssertEqual(artist.id, "0k17h0D3J5VfsdmQ1iZtE9")
+        XCTAssertEqual(
+            artist.href,
+            "https://api.spotify.com/v1/artists/0k17h0D3J5VfsdmQ1iZtE9"
+        )
+        if let popularity = artist.popularity {
+            XCTAssert((0...100).contains(popularity), "\(popularity)")
         }
+        else {
+            XCTFail("popularity should not be nil")
+        }
+        
+        if let genres = artist.genres {
+            XCTAssert(genres.contains("art rock"))
+            XCTAssert(genres.contains("album rock"))
+            XCTAssert(genres.contains("classic rock"))
+            XCTAssert(genres.contains("progressive rock"))
+            XCTAssert(genres.contains("psychedelic rock"))
+            XCTAssert(genres.contains("rock"))
+            XCTAssert(genres.contains("symphonic rock"))
+        }
+        else {
+            XCTFail("genres should not be nil")
+        }
+
+        if let externalURLs = artist.externalURLs {
+            XCTAssertEqual(
+                externalURLs["spotify"],
+                "https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9",
+                "\(externalURLs)"
+            )
+        }
+        else {
+            XCTFail("externalURLs should not be nil")
+        }
+        
+        if let followers = artist.followers {
+            XCTAssert(followers.total > 1_000_000, "\(followers.total)")
+        }
+        else {
+            XCTFail("followers should not be nil")
+        }
+        
+        // MARK: Check Images
+        guard let images = artist.images else {
+            XCTFail("images should not be nil")
+            return
+        }
+        
+        var imageExpectations: [XCTestExpectation] = []
+        for (i, image) in images.enumerated() {
+            XCTAssertNotNil(image.height)
+            XCTAssertNotNil(image.width)
+            guard let url = URL(string: image.url) else {
+                XCTFail("couldn't convert to URL: '\(image.url)'")
+                continue
+            }
+            let imageExpectation = XCTestExpectation(
+                description: "loadImage \(i)"
+            )
+            imageExpectations.append(imageExpectation)
+            
+            assertURLExists(url)
+                .sink(receiveCompletion: { _ in
+                    imageExpectation.fulfill()
+                })
+                .store(in: &Self.cancellables)
+        }
+        
+        wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+        
+        
+    }
+    
+    func artist() {
         
         let expectation = XCTestExpectation(description: "testArtist")
         
         Self.spotify.artist(URIs.Artists.pinkFloyd)
             .XCTAssertNoFailure()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: receiveArtist(_:)
+                receiveValue: receivePinkFloyd(_:)
             )
             .store(in: &Self.cancellables)
         
@@ -64,8 +119,8 @@ extension SpotifyAPIArtistTests {
             }
             
             
-            guard artists.count == 4 else {
-                XCTFail("should've received 4 artists (got \(artists.count)")
+            guard artists.count == 5 else {
+                XCTFail("should've received 5 artists (got \(artists.count)")
                 return
             }
             
@@ -73,6 +128,7 @@ extension SpotifyAPIArtistTests {
                 artists[1],
                 "second artist should be nil because URI is invalid"
             )
+            
             XCTAssertEqual(artists[0]?.name, "levitation room")
             XCTAssertEqual(artists[0]?.uri, "spotify:artist:0SVxQVCnJn1BNUMY9ZcRO4")
             XCTAssertEqual(artists[0]?.id, "0SVxQVCnJn1BNUMY9ZcRO4")
@@ -84,7 +140,13 @@ extension SpotifyAPIArtistTests {
             XCTAssertEqual(artists[3]?.name, "Radiohead")
             XCTAssertEqual(artists[3]?.uri, "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb")
             XCTAssertEqual(artists[3]?.id, "4Z8W4fKeB5YxbusRsdQVPb")
-            
+
+            if let pinkFloyd = artists[4] {
+                receivePinkFloyd(pinkFloyd)
+            }
+            else {
+                XCTFail("fifth artist should not be nil")
+            }
             
         }
         
@@ -92,13 +154,15 @@ extension SpotifyAPIArtistTests {
             URIs.Artists.levitationRoom,
             "spotify:artist:invaliduri",
             URIs.Artists.theBeatles,
-            URIs.Artists.radiohead
+            URIs.Artists.radiohead,
+            URIs.Artists.pinkFloyd
         ]
         
         let expectation = XCTestExpectation(description: "testArtists")
         
         Self.spotify.artists(artists)
             .XCTAssertNoFailure()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveArtists(_:)
@@ -210,6 +274,7 @@ extension SpotifyAPIArtistTests {
             limit: 50,
             offset: 0
         )
+        .receive(on: DispatchQueue.main)
         .XCTAssertNoFailure()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },

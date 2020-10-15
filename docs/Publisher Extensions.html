@@ -282,7 +282,7 @@
                 <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -464,12 +481,13 @@ most endpoints.</p>
 <p>It is recommended to use the combine operator <code>decodeSpotifyErrors()</code>
 instead of this function, whenever possible.</p>
 
-<p>The error objects are:</p>
+<p>The error objects that this method tries to decode are:</p>
 
 <ul>
 <li><code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
-<li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code>,</li>
-<li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code>.</li>
+<li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
 <p>If the data cannot be decoded into one of these errors,
@@ -537,7 +555,8 @@ then <code>nil</code> is returned.</p>
 You normally don&rsquo;t need to call this method directly.</p>
 
 <p>It is recommended to use the combine operator <code>decodeSpotifyObject(_:)</code>
-instead of this function, whenever possible.</p>
+or <code>decodeOptionalSpotifyObject</code> instead of this function, whenever
+possible.</p>
 
 <p>First tries to decode the data into <code>responseType</code>. If that fails,
 then the data is decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by
@@ -546,17 +565,20 @@ spotify:</p>
 <ul>
 <li><code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
 <li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
 <li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
 <p>If decoding into the error objects fails, <code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown
 as a last resort.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p><code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
+  when decoding the <code>responseType</code>, not the error objects.</p>
 
-<p><strong>Note</strong>: <code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
-when decoding the <code>responseType</code>, not the error objects.</p>
-<div class="aside aside-throws">
+</div><div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    If the data cannot be decoded into the specified <code>responseType</code>.
+    <p>If the data cannot be decoded into the specified <code>responseType</code>.</p>
 
 </div>
 
@@ -586,7 +608,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                               <td>
                                 <div>
                                   <p>The json response that you are
-  are expecting from the Spotify web API.</p>
+are expecting from the Spotify web API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -619,7 +641,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The decoded object.</p>
+                        <p>The object decoded into <code>ResponseType</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -629,7 +651,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

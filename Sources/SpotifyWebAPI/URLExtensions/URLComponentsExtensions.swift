@@ -36,10 +36,11 @@ public extension URLComponents {
         if let path = path {
             self.path = path
         }
-        if !(queryItems?.isEmpty ?? true) {
+        if let queryItems = queryItems, !queryItems.isEmpty {
             self.queryItems = queryItems
+            
         }
-        if !(fragment?.isEmpty ?? true) {
+        if let fragment = fragment, !fragment.isEmpty {
             self.fragment = fragment
         }
     }
@@ -58,16 +59,19 @@ public extension URLComponents {
         if let path = path {
             self.path = path
         }
-        if !(query?.isEmpty ?? true) {
+        
+        if let queryString = queryString, !queryString.isEmpty {
             self.query = queryString
         }
-        if !(fragment?.isEmpty ?? true) {
+        if let fragment = fragment, !fragment.isEmpty {
             self.fragment = fragment
+            
         }
+        
     }
 
 
-    /// A dictionary of the query items in the URL components.
+    /// A dictionary of the query items in the URL.
     var queryItemsDict: [String: String] {
 
         return self.queryItems?.reduce(into: [:]) { dict, query in

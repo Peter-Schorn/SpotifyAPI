@@ -8,8 +8,12 @@ import Foundation
  This error will only be thrown during the process of requesting access and
  refresh tokens.
  
- Do not confuse this with `SpotifyAuthenticationError`. See also
- `SpotifyError` and `SpotifyLocalError`.
+ Do not confuse this with `SpotifyAuthenticationError`. See also:
+ 
+ * `SpotifyError`
+ * `SpotifyPlayerError`
+ * `RateLimitedError`
+ * `SpotifyLocalError`
  
  See the [authorization process][1].
  

@@ -26,14 +26,21 @@ public extension DateFormatter {
         return formatter
     }()
     
-    /// Used for debugging purposes.
-    ///
-    /// ```
-    /// "hh-mm-ss"
-    /// ```
-    static let shortTime: DateFormatter = {
+    /**
+     Used for debugging purposes. Safe for use in file/folder names.
+    
+     ```
+     "y-MM-dd h-mm-ss.SSSS a"
+     ```
+     
+     For example:
+     ```
+     "2020-10-13 4-58-40.0750 PM"
+     ```
+     */
+    static let millisecondsTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh-mm-ss"
+        formatter.dateFormat = "y-MM-dd h-mm-ss.SSSS a"
         formatter.locale = .autoupdatingCurrent
         return formatter
     }()

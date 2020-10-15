@@ -2,12 +2,22 @@ import Foundation
 import SpotifyWebAPI
 
 struct FilteredPlaylist: Codable, Equatable {
+
+    /**
+     The filters that must be used to retrieve the appropriate data
+     for this type.
+     
+     ```
+     "name,uri,owner.display_name,tracks.items(track.artists(name,uri,type))"
+     ```
+     */
+    static let filters =
+            "name,uri,owner.display_name,tracks.items(track.artists(name,uri,type))"
     
     let name: String
     let uri: String
     let ownerDisplayName: String
-    let tracks: [FilteredTrack]  // MARK: TODO
-    
+    let tracks: [FilteredTrack]
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -373,13 +390,28 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyError</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyError</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                 </div>
               </div>
             <p>The <a href="https://developer.spotify.com/documentation/web-api/#regular-error-object">Regular Error Object</a> returned by the Spotify web API.</p>
 
-<p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">Response Status Codes</a>:</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
+<li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+</ul>
+
+<p>It has two properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response header.</li>
+</ul>
+
+<p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">status Codes</a>:</p>
 
 <ul>
 <li><strong>400: Bad Request</strong> - The request could not be understood by the server due to
@@ -444,8 +476,28 @@ You can choose to resend the request again.</li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The HTTP status code that is also returned in the response header.
-For further information, see <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">Response Status Codes</a>.</p>
+                        <p>The HTTP status code that is also returned in the response header.</p>
+
+<p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">status Codes</a>:</p>
+
+<ul>
+<li><strong>400: Bad Request</strong> - The request could not be understood by the server due to
+malformed syntax. The message body will contain more information</li>
+<li><strong>401: Unauthorized</strong> - The request requires user authentication or, if the
+request included authorization credentials, authorization has been refused for
+those credentials.</li>
+<li><strong>403: Forbidden</strong> - The server understood the request, but is refusing to
+fulfill it.</li>
+<li><strong>404: Not Found</strong> -  The requested resource could not be found. This error
+can be due to a temporary or permanent condition.</li>
+<li><strong>500: Internal Server Error.</strong> You should never receive this error because
+our clever coders catch them all.</li>
+<li><strong>502: Bad Gateway</strong> - The server was acting as a gateway or proxy and
+received an invalid response from the upstream server.</li>
+<li><strong>503: Service Unavailable</strong> - The server is currently unable to handle the
+request due to a temporary condition which will be alleviated after some delay.
+You can choose to resend the request again.</li>
+</ul>
 
                       </div>
                       <div class="declaration">
@@ -511,12 +563,38 @@ For further information, see <a href="https://developer.spotify.com/documentatio
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

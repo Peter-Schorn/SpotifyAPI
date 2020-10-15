@@ -14,18 +14,24 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowPKCEManager(
-            clientId: clientId, clientSecret: clientSecret
+            clientId: spotifyCredentials.clientId,
+            clientSecret: spotifyCredentials.clientSecret
         )
     )
     
     /// Authorizes the application. You should probably use
     /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
     /// which authorizes and retrieves the refresh and access tokens.
+    /// Returns early if the application is already authorized.
     func testAuthorize(
         scopes: Set<Scope>,
         showDialog: Bool = false
     ) -> AnyPublisher<Void, Error> {
     
+        if self.authorizationManager.isAuthorized(for: scopes) {
+            return Empty().eraseToAnyPublisher()
+        }
+        
         let codeVerifier = String.randomURLSafe(length: 128)
         let codeChallenge = codeVerifier.makeCodeChallenge()
         let state = String.randomURLSafe(length: 128)

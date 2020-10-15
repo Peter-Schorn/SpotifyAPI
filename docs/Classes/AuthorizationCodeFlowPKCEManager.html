@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -384,9 +401,9 @@
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a> (PKCE).</p>
 
 <p>The authorization code flow with PKCE is the best option for mobile and desktop
-applications where it is unsafe to store your client secret. It provides your
-app with an access token that can be refreshed. For further information about
-this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
+applications where it is unsafe to store your client secret. It provides an
+additional layer of security compared to the authorization code flow. For further
+information about this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
 
 <p>Before each authentication request your app should generate a code verifier and
 a code challenge. The code verifier is a cryptographically random string between
@@ -409,8 +426,8 @@ from the code verifier. For example:</p>
 using this <a href="https://tonyxu-io.github.io/pkce-generator/">PKCE generator tool</a>. See also <code><a href="../Extensions/Data.html#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF">Data.base64URLEncodedString()</a></code>
 and <code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE17urlSafeCharactersSSvpZ">String.urlSafeCharacters</a></code>.</p>
 
-<p>The first step in the authorization code flow is to make the
-authorization URL using
+<p>The first step in the authorization proccess is to make the authorization
+URL using
 <code>makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)</code>.
 Open this URL in a broswer/webview to allow the user to login
 to their Spotify account and authorize your application. It displays a
@@ -761,7 +778,7 @@ redirected and will have to approve the app again.</p>
                                 <div>
                                   <p>Optional, but strongly recommended. <strong>If you provide a value</strong>
 <strong>for this parameter, you must pass the same value to</strong>
-<code>requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</code>,
+<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a></code>,
 <strong>otherwise an error will be thrown.</strong> The state can be useful for
 correlating requests and responses. Because your redirect URI can
 be guessed, using a state value can increase your assurance that
@@ -1090,7 +1107,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

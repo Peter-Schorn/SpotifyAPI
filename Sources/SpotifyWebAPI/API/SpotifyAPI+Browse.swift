@@ -347,7 +347,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(RecommendationsResponse.self)
 
         } catch {
-            return error.anyFailingPublisher(RecommendationsResponse.self)
+            return error.anyFailingPublisher()
         }
         
     }

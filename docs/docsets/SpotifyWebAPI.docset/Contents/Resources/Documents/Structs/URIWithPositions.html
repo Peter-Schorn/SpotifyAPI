@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -372,16 +389,18 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIWithPositions</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIWithPositions</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">URIWithPositions</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">URIWithPositions</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            <p>A Spotify URI and its positions in a collection.
-Used in the body of <code>removeSpecificOccurencesFromPlaylist</code>.</p>
+            <p>A Spotify URI and its positions in a collection (usually a playlist).
+Used in the body of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
 
-<p>For example, this may represent all of the positions
-in a playlist of a specific track. The positions of the URIs
-are necessary in case the collection has duplicate items.</p>
+<p>For example, this may represent all of the positions in a playlist of
+a specific track. The positions of the URI is necessary in case the
+collection has duplicate items.</p>
 
 <p>See also <code>URIWithPositionsContainer</code>.</p>
 
@@ -392,9 +411,9 @@ are necessary in case the collection has duplicate items.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI16URIWithPositionsV3uriSSvp"></a>
+                    <a name="/s:13SpotifyWebAPI16URIWithPositionsV3uriAA0A14URIConvertible_pvp"></a>
                     <a name="//apple_ref/swift/Property/uri" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI16URIWithPositionsV3uriSSvp">uri</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI16URIWithPositionsV3uriAA0A14URIConvertible_pvp">uri</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -402,14 +421,14 @@ are necessary in case the collection has duplicate items.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The URI for the Spotify content</p>
+                        <p>The URI for the Spotify content.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span></code></pre>
 
                         </div>
                       </div>
@@ -429,8 +448,12 @@ are necessary in case the collection has duplicate items.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The positions of the item associated with the URI in
+                        <p>The zero-indexed positions of the item corresponding to <code><a href="../Structs/URIWithPositions.html#/s:13SpotifyWebAPI16URIWithPositionsV3uriAA0A14URIConvertible_pvp">uri</a></code> in
 a collection (usually a playlist).</p>
+
+<p>For example, if the track/epidosde corresponding to <code><a href="../Structs/URIWithPositions.html#/s:13SpotifyWebAPI16URIWithPositionsV3uriAA0A14URIConvertible_pvp">uri</a></code>
+appears in the first and third position of a playlist,
+then <code>positions</code> would be <code>[0, 2]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -496,8 +519,8 @@ are necessary in case the collection has duplicate items.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The positions of the item associated with the uri
-in a collection (usually a playlist).</p>
+                                  <p>The zero-indexed positions of the item associated with
+the uri in a collection (usually a playlist).</p>
                                 </div>
                               </td>
                             </tr>
@@ -507,12 +530,116 @@ in a collection (usually a playlist).</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SH4hash4intoys6HasherVz_tF"></a>
+                    <a name="//apple_ref/swift/Method/hash(into:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SH4hash4intoys6HasherVz_tF">hash(into:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="n">into</span> <span class="nv">hasher</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Hasher</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

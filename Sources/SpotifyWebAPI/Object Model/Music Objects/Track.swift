@@ -87,8 +87,10 @@ public struct Track: Hashable {
      */
     public let href: String?
 
-    /// A link to a 30 second preview (MP3 format) of the track.
-    /// May be `nil`.
+    /// A link to a 30 second preview of the track in MP3 format.
+    ///
+    /// Will be `nil` if this track was retrieved while using the client
+    /// credentials flow manager.
     public let previewURL: String?
     
     /**
@@ -140,9 +142,13 @@ public struct Track: Hashable {
     /// (usually 1 unless the album consists of more than one disc).
     public let discNumber: Int?
 
-    /// The object type. Always `track`.
+    /**
+     The object type. Usually `track`, but may be `episode` if
+     this was retrieved from a playlist.
+     
+     See also `SpotifyAPI.playlistTracks(_:limit:offset:market:)`.
+     */
     public let type: IDCategory
-    
     
     /**
      Creates a [Spotify track][1].
@@ -253,11 +259,11 @@ extension Track: Codable {
         case isLocal = "is_local"
         case popularity
         case durationMS = "duration_ms"
-        case trackNumber
+        case trackNumber = "track_number"
         case isExplicit = "explicit"
         case isPlayable = "is_playable"
         case href
-        case previewURL
+        case previewURL = "preview_url"
         case externalURLs = "external_urls"
         case externalIds = "external_ids"
         case availableMarkets = "available_markets"

@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import SpotifyWebAPI
+import SpotifyExampleContent
 
 /**
  Ensure that the examples in the README compile.
@@ -14,6 +15,75 @@ import SpotifyWebAPI
 private class READMEExamplesCompilationTests {
     
     private var cancellables: Set<AnyCancellable> = []
+    
+    func testDocsAuthorizationCodeFlowPKCE() {
+        
+        let spotify = SpotifyAPI(
+            authorizationManager: AuthorizationCodeFlowPKCEManager(
+                clientId: "Your Client Id", clientSecret: "Your Client Secret"
+            )
+        )
+        
+        let codeVerifier = String.randomURLSafe(length: 128)
+        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let state = String.randomURLSafe(length: 128)
+        
+        let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
+            redirectURI: URL(string: "Your Redirect URI")!,
+            showDialog: false,
+            codeChallenge: codeChallenge,
+            state: state,
+            scopes: [
+                .playlistModifyPrivate,
+                .userModifyPlaybackState,
+                .playlistReadCollaborative,
+                .userReadPlaybackPosition
+            ]
+        )!
+        
+        _ = authorizationURL
+        
+        let url = URL(string: "redirectURIWithQuery")!
+        
+        spotify.authorizationManager.requestAccessAndRefreshTokens(
+            redirectURIWithQuery: url,
+            // Must match the code verifier that was used to generate the
+            // code challenge when creating the authorization URL.
+            codeVerifier: codeVerifier,
+            // Must match the value used when creating the authorization URL.
+            state: state
+        )
+        .sink(receiveCompletion: { completion in
+            switch completion {
+                case .finished:
+                    print("successfully authorized")
+                case .failure(let error):
+                    if let authError = error as? SpotifyAuthorizationError,
+                           authError.accessWasDenied {
+                        print("The user denied the authorization request")
+                    }
+                    else {
+                        print("couldn't authorize application: \(error)")
+                    }
+            }
+        })
+        .store(in: &cancellables)
+        
+        let playbackRequest = PlaybackRequest(
+            context: .uris(
+                URIs.Tracks.array(.faces, .illWind, .fearless)
+            ),
+            offset: .uri(URIs.Tracks.fearless),
+            positionMS: 50_000
+        )
+
+        spotify.play(playbackRequest)
+            .sink(receiveCompletion: { completion in
+                print(completion)
+            })
+            .store(in: &cancellables)
+
+    }
     
     func testDocsAuthorizationCodeFlow() {
         
@@ -36,8 +106,6 @@ private class READMEExamplesCompilationTests {
 
         _ = authorizationURL
         
-        // UIApplication.shared.open(authorizationURL)
-
         let url = URL(string: "redirectURIWithQuery")!
         
         spotify.authorizationManager.requestAccessAndRefreshTokens(
@@ -46,15 +114,15 @@ private class READMEExamplesCompilationTests {
         .sink(receiveCompletion: { completion in
             switch completion {
                 case .finished:
-                    // print("successfully authorized")
+                    print("successfully authorized")
                     break
                 case .failure(let error):
                     if let authError = error as? SpotifyAuthorizationError,
                             authError.accessWasDenied {
-                        // print("The user denied the authorization request")
+                        print("The user denied the authorization request")
                     }
                     else {
-                        // print("couldn't authorize application: \(error)")
+                        print("couldn't authorize application: \(error)")
                     }
             }
         })
@@ -64,10 +132,10 @@ private class READMEExamplesCompilationTests {
             .extendPages(spotify)
             .sink(
                 receiveCompletion: { completion in
-                    // print(completion)
+                    print(completion)
                 },
                 receiveValue: { results in
-                    // print(results)
+                    print(results)
                 }
             )
             .store(in: &cancellables)
@@ -86,11 +154,9 @@ private class READMEExamplesCompilationTests {
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished:
-                        break
-                    // print("successfully authorized application")
+                        print("successfully authorized application")
                     case .failure(let error):
-                        _ = error
-                    // print("could not authorize application: \(error)")
+                        print("could not authorize application: \(error)")
                 }
             })
             .store(in: &cancellables)
@@ -98,10 +164,10 @@ private class READMEExamplesCompilationTests {
         spotify.search(query: "Pink Floyd", categories: [.track])
             .sink(
                 receiveCompletion: { completion in
-                    // print(completion)
+                    print(completion)
                 },
                 receiveValue: { results in
-                    // print(results)
+                    print(results)
                 }
             )
             .store(in: &cancellables)

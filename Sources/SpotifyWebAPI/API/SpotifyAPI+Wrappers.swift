@@ -27,7 +27,7 @@ extension SpotifyAPI {
         for scopes: Set<Scope>
     ) -> AnyPublisher<String, Error> {
         
-        self.logger.trace("scopes: \(scopes)")
+        self.logger.trace("scopes: \(scopes.map(\.rawValue))")
         
         /*
          It's more informative for the client to notifiy them that
@@ -52,7 +52,7 @@ extension SpotifyAPI {
             return SpotifyLocalError.unauthorized(
                 "unauthorized: no access token"
             )
-            .anyFailingPublisher(String.self)
+            .anyFailingPublisher()
         }
         
         return self.authorizationManager.refreshTokens(
@@ -136,7 +136,8 @@ extension SpotifyAPI {
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
              base URL above. Do **NOT** forget the leading forward-slash.
-       - queryItems: The URL query items.
+       - queryItems: The URL query items. Each value in the the dictionary
+             that is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and
              returns a dictionary of headers. See the `Headers`
@@ -185,7 +186,7 @@ extension SpotifyAPI {
                     }
                     else {
                         self.apiRequestLogger.trace(
-                            #"\(httpMethod) request to "\#(endpoint)""#
+                            #"\#(httpMethod) request to "\#(endpoint)""#
                         )
                     }
                 
@@ -236,7 +237,8 @@ extension SpotifyAPI {
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
              base URL above. Do **NOT** forget the leading forward-slash.
-       - queryItems: The URL query items.
+       - queryItems: The URL query items. Each value in the the dictionary
+             that is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and
              returns a dictionary of headers. See the `Headers`
@@ -271,9 +273,7 @@ extension SpotifyAPI {
             )
             
         } catch {
-            return error.anyFailingPublisher(
-                (data: Data, response: URLResponse).self
-            )
+            return error.anyFailingPublisher()
         }
         
     }
@@ -292,7 +292,8 @@ extension SpotifyAPI {
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
              base URL above.
-       - queryItems: The URL query items.
+       - queryItems: The URL query items. Each value in the the dictionary
+             that is NOT `nil` will be added to the query string.
        - requiredScopes: The scopes required for this endpoint.
      - Returns: The raw data and the URL response from the server.
      */

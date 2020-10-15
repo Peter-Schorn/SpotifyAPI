@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 
+// MARK: Dictionary Extensions
+
 public extension Dictionary where Key == String, Value == String {
     
     /// Encodes a dictionary of into data according to
@@ -20,7 +22,6 @@ public extension Dictionary where Key == String, Value == String {
     }
     
 }
-
 
 public extension Dictionary {
     
@@ -109,9 +110,7 @@ public extension DecodingError {
     
 }
 
-
-
-// MARK: - Comma separated string -
+// MARK: - Comma Separated String -
 
 public extension Sequence where
     Element: RawRepresentable,
@@ -141,12 +140,12 @@ public extension Sequence where
 
 /**
  Returns a new dictionary in which the key-value pairs
- for which the values are nil are removed from the dictionary
+ for which the values are `nil` are removed from the dictionary
  and the remaining values are converted to strings.
  
  The LosslessStringConvertible protocol prevents you from using
  types that cannot be converted to strings without losing information.
- (it should be possible to re-create an instance of a conforming type
+ (It should be possible to re-create an instance of a conforming type
  from its string representation.)
  
  `String` and `Int` are examples of conforming types.
@@ -167,17 +166,19 @@ public func removeIfNil(
 
 
 /**
- Type-erases the wrapped value for Optional.
+ Allows for writing code that is generic over the
+ wrapped type of `Optional`.
+ 
  This protocol allows for extending other protocols
  contingent on one or more of their associated types
- being any optional type.
+ being a generic optional type.
  
  For example, this extension to Array adds an instance method
  that returns a new array in which each of the elements
  are either unwrapped or removed if nil. You must use self.optional
- for swift to recognize that the generic type is an Optional.
+ for swift to recognize that the generic type as an Optional.
  ```
- extension Array where Element: AnyOptional {
+ extension Array where Element: SomeOptional {
 
      func removedIfNil() -> [Self.Element.Wrapped] {
          return self.compactMap { $0.optional }
@@ -191,13 +192,13 @@ public func removeIfNil(
  var value: Wrapped? { get set }
  ```
  */
-public protocol AnyOptional {
+public protocol SomeOptional {
 
     associatedtype Wrapped
     var optional: Wrapped? { get set }
 }
 
-extension Optional: AnyOptional {
+extension Optional: SomeOptional {
 
     /// A computed property that directly gets and sets `self`.
     /// **Does not unwrap self**. This must be used
@@ -211,11 +212,11 @@ extension Optional: AnyOptional {
 
 }
 
-public extension Sequence where Element: AnyOptional {
+public extension Sequence where Element: SomeOptional {
 
     /// Returns a new array in which each element in the Sequence
     /// is either unwrapped and added to the new array,
-    /// or not added to the new array if nil.
+    /// or not added to the new array if `nil`.
     ///
     /// Equivalent to `self.compactMap { $0 }`.
     @inlinable

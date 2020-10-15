@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -489,9 +506,9 @@ to be <code>nil</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV4itemxvp"></a>
+                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV4itemxSgvp"></a>
                     <a name="//apple_ref/swift/Property/item" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV4itemxvp">item</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV4itemxSgvp">item</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -502,12 +519,16 @@ to be <code>nil</code>.</p>
                         <p>Either a <code><a href="../Structs/Track.html">Track</a></code>, <code><a href="../Structs/Episode.html">Episode</a></code>, or <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code> (simplified version)
 in this <code>PlaylistItemContainer</code>.</p>
 
+<p>If this is an episode and was retrieved while using
+the client credentials flow and you did not provide a value
+for the market parameter, then this property will be <code>nil</code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -517,9 +538,9 @@ in this <code>PlaylistItemContainer</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxtcfc"></a>
+                    <a name="/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(addedAt:addedBy:isLocal:item:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxtcfc">init(addedAt:<wbr>addedBy:<wbr>isLocal:<wbr>item:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI21PlaylistItemContainerV7addedAt0G2By7isLocal4itemACyxG10Foundation4DateVSg_AA0A4UserVSgSbSgxSgtcfc">init(addedAt:<wbr>addedBy:<wbr>isLocal:<wbr>item:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -541,7 +562,7 @@ to the playlist. Spotify confusingly refers to this as a
     <span class="nv">addedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">addedBy</span><span class="p">:</span> <span class="kt"><a href="../Structs/SpotifyUser.html">SpotifyUser</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">isLocal</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span><span class="p">?</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -661,7 +682,7 @@ to the playlist. Spotify confusingly refers to this as a
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

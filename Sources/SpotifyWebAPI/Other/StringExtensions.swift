@@ -23,7 +23,17 @@ public extension String {
         return self.trimmingCharacters(in: characterSet)
     }
     
-    /// Base-64 encodes `self`. See also `String.base64URLEncoded()`.
+    /**
+     Base-64 encodes `self`. See also `String.base64URLEncoded()`.
+     
+     Equivalent to
+     ```
+     self.data(using: .utf8)?
+     .base64EncodedString(options: options)
+     ```
+     
+     - Parameter options: Options to use when encoding the data.
+     */
     func base64Encoded(
         _ options: Data.Base64EncodingOptions = []
     ) -> String? {
@@ -53,10 +63,14 @@ public extension String {
      These are all the valid characters that can be used for creating
      the code verifier when authorizing with the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
-     
+
      See also `String.randomURLSafe(length:)` and
      `String.randomURLSafe(length:using:)` which generate a random string
      containing only these characters.
+     
+     ```
+     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-~"
+     ```
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
@@ -156,27 +170,4 @@ public extension String {
         
     }
     
-}
-
-public extension Data {
-    
-    /**
-     Converts `self` to a Base-64 URL-encoded string.
-     The `=` padding character will be removed.
-     
-     Equivalent to
-     ```
-     self.base64EncodedString()
-         .replacingOccurrences(of: "+", with: "-")
-         .replacingOccurrences(of: "/", with: "_")
-         .replacingOccurrences(of: "=", with: "")
-     ```
-     */
-    func base64URLEncodedString() -> String {
-        return self.base64EncodedString()
-            .replacingOccurrences(of: "+", with: "-")
-            .replacingOccurrences(of: "/", with: "_")
-            .replacingOccurrences(of: "=", with: "")
-    }
-
 }

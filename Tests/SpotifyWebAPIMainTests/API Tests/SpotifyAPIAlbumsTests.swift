@@ -9,58 +9,179 @@ protocol SpotifyAPIAlbumsTests: SpotifyAPITests { }
 
 extension SpotifyAPIAlbumsTests {
 
-    func albumJinx() {
+    func receiveJinxAlbum(_ album: Album) {
+        print("receiveJinxAlbum")
+        encodeDecode(album)
         
-        func receiveAlbum(_ album: Album) {
-            
-            encodeDecode(album)
-            
-            XCTAssertEqual(album.name, "Jinx")
-            XCTAssertEqual(album.tracks?.items.count, 10)
-            XCTAssertEqual(album.tracks?.total, 10)
-            XCTAssertEqual(album.label, "Crumb Records")
-            XCTAssertEqual(album.type, .album)
+        XCTAssertEqual(album.name, "Jinx")
+        XCTAssertEqual(album.uri, "spotify:album:3vukTUpiENDHDoYTVrwqtz")
+        XCTAssertEqual(album.id, "3vukTUpiENDHDoYTVrwqtz")
+        XCTAssertEqual(album.albumType, .album)
+        XCTAssertEqual(album.label, "Crumb Records")
+        XCTAssertEqual(album.type, .album)
+        XCTAssertEqual(album.tracks?.items.count, 10)
+        XCTAssertEqual(album.tracks?.total, 10)
+        if let popularity = album.popularity {
+            XCTAssert((0...100).contains(popularity), "\(popularity)")
+        }
+        else {
+            XCTFail("popularity should not be nil")
+        }
+        
+        // XCTAssertEqual(album.availableMarkets?.contains("US"), true)
+        
+        XCTAssertEqual(
+            album.href,
+            "https://api.spotify.com/v1/albums/3vukTUpiENDHDoYTVrwqtz"
+        )
 
-            if let releaseDate = album.releaseDate {
+        if let releaseDate = album.releaseDate {
+            XCTAssertEqual(
+                releaseDate.timeIntervalSince1970,
+                1560470400,
+                accuracy: 43_200
+            )
+        }
+        else {
+            XCTFail("release date should not be nil")
+        }
+        XCTAssertEqual(album.releaseDatePrecision, "day")
+        
+        if let copyrights = album.copyrights {
+            XCTAssertEqual(copyrights[0].text, "2019 Crumb Records")
+            XCTAssertEqual(copyrights[0].type, "C")
+            XCTAssertEqual(copyrights[1].text, "2019 Crumb Records")
+            XCTAssertEqual(copyrights[1].type, "P")
+        }
+        else {
+            XCTFail("copyrights should not be nil")
+        }
+
+        if let externalURLs = album.externalURLs {
+            XCTAssertEqual(
+                externalURLs["spotify"],
+                "https://open.spotify.com/album/3vukTUpiENDHDoYTVrwqtz",
+                "\(externalURLs)"
+            )
+        }
+        else {
+            XCTFail("externalURLs should not be nil")
+        }
+        
+        if let externalIds = album.externalIds {
+            XCTAssertEqual(
+                externalIds["upc"], "656605343648",
+                "\(externalIds)"
+            )
+        }
+        else {
+            XCTFail("externalIds should not be nil")
+        }
+        
+        
+        // MARK: Check Artist
+        if let artist = album.artists?.first {
+            XCTAssertEqual(
+                artist.href,
+                "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B"
+            )
+            XCTAssertEqual(artist.uri, "spotify:artist:4kSGbjWGxTchKpIxXPJv0B")
+            XCTAssertEqual(artist.id, "4kSGbjWGxTchKpIxXPJv0B")
+            XCTAssertEqual(artist.type, .artist)
+            if let externalURLs = artist.externalURLs {
                 XCTAssertEqual(
-                    releaseDate.timeIntervalSince1970,
-                    1560470400,
-                    accuracy: 43_200
+                    externalURLs["spotify"],
+                    "https://open.spotify.com/artist/4kSGbjWGxTchKpIxXPJv0B",
+                    "\(externalURLs)"
                 )
             }
             else {
-                XCTFail("release date should not be nil")
+                XCTFail("externalURLs should not be nil")
             }
-            XCTAssertEqual(album.releaseDatePrecision, "day")
-            
-            guard let tracks = album.tracks?.items else {
-                XCTFail("tracks shouldn't be nil")
-                return
-            }
+        }
+        else {
+            XCTFail(
+                "artists should not be nil or empty: \(album.artists as Any)"
+            )
+        }
+        
+        
+        // MARK: Check Tracks
+        if let tracks = album.tracks?.items {
             for track in tracks {
                 XCTAssertEqual(track.artists?.first?.name, "Crumb")
+                XCTAssertEqual(
+                    track.artists?.first?.uri,
+                    "spotify:artist:4kSGbjWGxTchKpIxXPJv0B"
+                )
+            }
+            XCTAssertEqual(tracks[0].name, "Cracking")
+            XCTAssertEqual(tracks[0].uri, "spotify:track:4A4RgEk7hEFKwk9IUKdB8a")
+            XCTAssertEqual(tracks[1].name, "Nina")
+            XCTAssertEqual(tracks[1].uri, "spotify:track:6pMNKv4Ad6gSsoKGA4fkct")
+            XCTAssertEqual(tracks[2].name, "Ghostride")
+            XCTAssertEqual(tracks[2].uri, "spotify:track:476QHG5G8xxNI9VHTBFfjp")
+            XCTAssertEqual(tracks[3].name, "Fall Down")
+            XCTAssertEqual(tracks[3].uri, "spotify:track:6IqcbrxCPlbXaQuNoQMB8v")
+            XCTAssertEqual(tracks[4].name, "M.R.")
+            XCTAssertEqual(tracks[4].uri, "spotify:track:0GDHyRVlxRVxofJfrw3aVF")
+            XCTAssertEqual(tracks[5].name, "The Letter")
+            XCTAssertEqual(tracks[5].uri, "spotify:track:0UUP7ADHBTUMbDw31mcZPZ")
+            XCTAssertEqual(tracks[6].name, "Part III")
+            XCTAssertEqual(tracks[6].uri, "spotify:track:4HDLmWf73mge8isanCASnU")
+            XCTAssertEqual(tracks[7].name, "And It Never Ends")
+            XCTAssertEqual(tracks[7].uri, "spotify:track:00kOafrPnrR7jQhxYYg777")
+            XCTAssertEqual(tracks[8].name, "Faces")
+            XCTAssertEqual(tracks[8].uri, "spotify:track:1u7LOyLuApChbPeqMfXFKC")
+            XCTAssertEqual(tracks[9].name, "Jinx")
+            XCTAssertEqual(tracks[9].uri, "spotify:track:7qAy6TR1MrSeUV8OpMlNS1")
+        }
+        else {
+            XCTFail("tracks shouldn't be nil")
+        }
+        
+        // MARK: Check Images
+        if let images = album.images {
+            var imageExpectations: [XCTestExpectation] = []
+            for (i, image) in images.enumerated() {
+                XCTAssertNotNil(image.height)
+                XCTAssertNotNil(image.width)
+                guard let url = URL(string: image.url) else {
+                    XCTFail("couldn't convert to URL: '\(image.url)'")
+                    continue
+                }
+                let imageExpectation = XCTestExpectation(
+                    description: "loadImage \(i)"
+                )
+                imageExpectations.append(imageExpectation)
+                
+                assertURLExists(url)
+                    .sink(receiveCompletion: { _ in
+                        imageExpectation.fulfill()
+                    })
+                    .store(in: &Self.cancellables)
             }
             
-            XCTAssertEqual(tracks[0].name, "Cracking")
-            XCTAssertEqual(tracks[1].name, "Nina")
-            XCTAssertEqual(tracks[2].name, "Ghostride")
-            XCTAssertEqual(tracks[3].name, "Fall Down")
-            XCTAssertEqual(tracks[4].name, "M.R.")
-            XCTAssertEqual(tracks[5].name, "The Letter")
-            XCTAssertEqual(tracks[6].name, "Part III")
-            XCTAssertEqual(tracks[7].name, "And It Never Ends")
-            XCTAssertEqual(tracks[8].name, "Faces")
-            XCTAssertEqual(tracks[9].name, "Jinx")
-            
+            print("waiting for \(imageExpectations.count) expectations")
+            wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+            print("FINISHED waiting for image expectations")
         }
+        else {
+            XCTFail("images should not be nil")
+        }
+
+    }
+    
+    func albumJinx() {
         
         let expectation = XCTestExpectation(description: "testAlbum")
         
         Self.spotify.album(URIs.Albums.jinx)
             .XCTAssertNoFailure()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: receiveAlbum(_:)
+                receiveValue: receiveJinxAlbum(_:)
             )
             .store(in: &Self.cancellables)
         
@@ -72,6 +193,13 @@ extension SpotifyAPIAlbumsTests {
 
         func receiveAlbums(_ albums: [Album?]) {
 
+            if let jinxAlbum = albums[0] {
+                receiveJinxAlbum(jinxAlbum)
+            }
+            else {
+                XCTFail("jinx album should not be nil")
+            }
+            
             for album in albums {
                 encodeDecode(album)
             }
@@ -84,6 +212,8 @@ extension SpotifyAPIAlbumsTests {
             XCTAssertNil(albums[2])
             
             XCTAssertEqual(albums[0]?.name, "Jinx")
+            
+            
             XCTAssertEqual(albums[1]?.name, "Locket")
             XCTAssertEqual(albums[3]?.name, "Meddle")
             
@@ -135,44 +265,218 @@ extension SpotifyAPIAlbumsTests {
         
         Self.spotify.albums(albums)
             .XCTAssertNoFailure()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveAlbums(_:)
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 120)
         
     }
     
     func theLongestAlbumTracks() {
-           
-        var cancellables: Set<AnyCancellable> = []
         
-        let expectation = XCTestExpectation(
-            description: "testTheLongestAlbumTracks"
+        let internalQueue = DispatchQueue(
+            label: "theLongestAlbumTracks internal"
         )
         
-        let expectation2 = XCTestExpectation(
-            description: "testTheLongestAlbumTracks2"
-        )
+        var receiveAlbumTracksPage1CalledCount = 0
+        var receiveAlbumTracksPage2CalledCount = 0
+        var receiveAlbumTracksPage3CalledCount = 0
         
-        let expectation3 = XCTestExpectation(
-            description: "testTheLongestAlbumTracks3"
-        )
+        func main() {
+            
+            let albumTracksOffsetExpectation = XCTestExpectation(
+                description: "album tracks offset"
+            )
+            
+            Self.spotify.albumTracks(URIs.Albums.longestAlbum, limit: 50)
+                .XCTAssertNoFailure()
+                .flatMap { albumTracks -> AnyPublisher<PagingObject<Track>, Error> in
+                    receiveAlbumTracksPage1(albumTracks)
+                    return Self.spotify.albumTracks(
+                        URIs.Albums.longestAlbum, limit: 50, offset: 50
+                    )
+                }
+                .XCTAssertNoFailure()
+                .flatMap { albumTracks -> AnyPublisher<PagingObject<Track>, Error> in
+                    receiveAlbumTracksPage2(albumTracks)
+                    return Self.spotify.albumTracks(
+                        URIs.Albums.longestAlbum, limit: 50, offset: 100
+                    )
+                }
+                .XCTAssertNoFailure()
+                .flatMap { albumTracks -> AnyPublisher<PagingObject<Track>, Error> in
+                    receiveAlbumTracksPage3(albumTracks)
+                    guard let previous = albumTracks.previous else {
+                        return SpotifyLocalError.other(
+                            "third page of results should have prevous href"
+                        )
+                        .anyFailingPublisher()
+                    }
+                    return Self.spotify.getFromHref(
+                        previous,
+                        responseType: PagingObject<Track>.self
+                    )
+                }
+                .XCTAssertNoFailure()
+                .sink(
+                    receiveCompletion: { _ in
+                        albumTracksOffsetExpectation.fulfill()
+                    },
+                    receiveValue: receiveAlbumTracksPage2(_:)
+                )
+                .store(in: &Self.cancellables)
+            
+            
+            var currentPage: Int? = 1
+            var receivedPages = 0
+            
+            var currentPageHref: Int? = 1
+            var receivedPagesHref = 0
+            
+            let albumTracksExtendPagesExpectation = XCTestExpectation(
+                description: "album tracks extend pages"
+            )
+            
+            Self.spotify.albumTracks(URIs.Albums.longestAlbum, limit: 50)
+                .XCTAssertNoFailure()
+                .extendPages(Self.spotify)
+                .XCTAssertNoFailure()
+                .flatMap { albumTracks -> AnyPublisher<PagingObject<Track>, Error> in
+                    print(
+                        "\nalbumTracks FLATMAP receiveValue: " +
+                        "offset: \(albumTracks.offset)\n"
+                    )
+                    receivedPages += 1
+                    if currentPage == 1 {
+                        XCTAssertEqual(
+                            albumTracks.offset, 0,
+                            "first page should be recieved first"
+                        )
+                        XCTAssertEqual(receivedPages, 1)
+                        currentPage = 2
+                        receiveAlbumTracksPage1(albumTracks)
+                    }
+                    else if currentPage == 2 {
+                        XCTAssertEqual(
+                            albumTracks.offset, 50,
+                            "second page should be recieved second"
+                        )
+                        XCTAssertEqual(receivedPages, 2)
+                        currentPage = 3
+                        receiveAlbumTracksPage2(albumTracks)
+                    }
+                    else if currentPage == 3 {
+                        XCTAssertEqual(
+                            albumTracks.offset, 100,
+                            "third page should be recieved third"
+                        )
+                        XCTAssertEqual(receivedPages, 3)
+                        currentPage = nil
+                        receiveAlbumTracksPage3(albumTracks)
+                    }
+                    else {
+                        XCTFail(
+                            "current page should be 1, 2, or 3, " +
+                            "not \(currentPage as Any)"
+                        )
+                    }
+                    return Self.spotify.getFromHref(
+                        albumTracks.href,
+                        responseType: PagingObject<Track>.self
+                    )
+                }
+                .XCTAssertNoFailure()
+                .sink(
+                    receiveCompletion: { _ in
+                        print("\nfullfilling expectationExtendPages\n")
+                        albumTracksExtendPagesExpectation.fulfill()
+                    },
+                    receiveValue: { albumTracks in
+                        print(
+                            "\nalbumTracks SINK receiveValue: " +
+                            "offset: \(albumTracks.offset)\n"
+                        )
+                        receivedPagesHref += 1
+                        if currentPageHref == 1 {
+                            XCTAssertEqual(
+                                albumTracks.offset, 0,
+                                "first page should be recieved first"
+                            )
+                            XCTAssertEqual(receivedPagesHref, 1)
+                            currentPageHref = 2
+                            receiveAlbumTracksPage1(albumTracks)
+                        }
+                        else if currentPageHref == 2 {
+                            XCTAssertEqual(
+                                albumTracks.offset, 50,
+                                "second page should be recieved second"
+                            )
+                            XCTAssertEqual(receivedPagesHref, 2)
+                            currentPageHref = 3
+                            receiveAlbumTracksPage2(albumTracks)
+                        }
+                        else if currentPageHref == 3 {
+                            XCTAssertEqual(
+                                albumTracks.offset, 100,
+                                "third page should be recieved third"
+                            )
+                            XCTAssertEqual(receivedPagesHref, 3)
+                            currentPageHref = nil
+                            receiveAlbumTracksPage3(albumTracks)
+                        }
+                        else {
+                            XCTFail(
+                                "current page should be 1, 2, or 3, " +
+                                "not \(currentPageHref as Any)"
+                            )
+                        }
+                    }
+                )
+                .store(in: &Self.cancellables)
+            
+            wait(
+                for: [
+                    albumTracksOffsetExpectation,
+                    albumTracksExtendPagesExpectation
+                ],
+                timeout: 500
+            )
+            
+            XCTAssertNil(currentPage)
+            XCTAssertNil(currentPageHref)
+            XCTAssertEqual(receivedPages, 3, "should've received 3 pages")
+            XCTAssertEqual(receivedPagesHref, 3, "should've received 3 pages")
+            XCTAssertEqual(receiveAlbumTracksPage1CalledCount, 3)
+            XCTAssertEqual(receiveAlbumTracksPage2CalledCount, 4)
+            XCTAssertEqual(receiveAlbumTracksPage3CalledCount, 3)
+            
+        }
         
-        func receiveAlbumTracks(_ album: PagingObject<Track>) {
+        func receiveAlbumTracksPage1(_ album: PagingObject<Track>) {
+            print("begin receiveAlbumTracksPage1")
             
             encodeDecode(album)
             for track in album.items {
                 encodeDecode(track)
             }
             
+            XCTAssertEqual(album.estimatedTotalPages, 3)
+            XCTAssertEqual(album.limit, 50)
+            XCTAssertEqual(album.total, 125)
+            XCTAssertNil(album.previous)
+            XCTAssertNotNil(album.next)
+            XCTAssertEqual(album.offset, 0)
+            
+            XCTAssertNotNil(URL(string: album.href))
+            XCTAssertNotNil(album.next.map(URL.init(string:)))
+            
             let tracks = album.items
-            if tracks.count < 50 {
-                XCTFail("tracks count should be 50")
-                return
-            }
+            XCTAssertEqual(album.items.count, 50)
+            if tracks.count < 50 { return }
             do {
                 XCTAssertEqual(tracks[0].name, "Maski Dolu")
                 XCTAssertEqual(tracks[1].name, "Chista Ludost")
@@ -225,78 +529,153 @@ extension SpotifyAPIAlbumsTests {
                 XCTAssertEqual(tracks[48].name, "Change the World")
                 XCTAssertEqual(tracks[49].name, "Space Cowboy - Dian Solo Mix")
             }
-         
-            Self.spotify.albumTracks(
-                URIs.Albums.longestAlbum, limit: 50, offset: 50
-            )
-            .XCTAssertNoFailure()
-            .sink(
-                receiveCompletion: { _ in expectation2.fulfill() },
-                receiveValue: { secondAlbum in
-                    receiveAlbumTracksPage2(firstAlbumPage: album, secondAlbumPage: secondAlbum)
-                }
-            )
-            .store(in: &cancellables)
+            
+            internalQueue.sync {
+                receiveAlbumTracksPage1CalledCount += 1
+            }
+            print("end receiveAlbumTracksPage1")
+            
         }
         
-        func receiveAlbumTracksPage2(
-            firstAlbumPage: PagingObject<Track>,
-            secondAlbumPage: PagingObject<Track>
-        ) {
-            encodeDecode(secondAlbumPage)
-            let tracks = secondAlbumPage.items
+        func receiveAlbumTracksPage2(_ album: PagingObject<Track>) {
+            print("begin receiveAlbumTracksPage2")
+            
+            encodeDecode(album)
+            
+            XCTAssertEqual(album.estimatedTotalPages, 3)
+            XCTAssertEqual(album.limit, 50)
+            XCTAssertEqual(album.total, 125)
+            XCTAssertNotNil(album.next)
+            XCTAssertNotNil(album.next.map(URL.init(string:)))
+            XCTAssertNotNil(album.previous)
+            XCTAssertNotNil(album.previous.map(URL.init(string:)))
+            XCTAssertEqual(album.offset, 50)
+            XCTAssertNotNil(URL(string: album.href))
+            
+            let tracks = album.items
             XCTAssertEqual(tracks.count, 50)
             if tracks.count < 50 { return }
             do {
                 XCTAssertEqual(tracks[0].name, "One More Time - Dian Solo Version")
+                XCTAssertEqual(tracks[1].name, "Ethnika - Club Mix")
+                XCTAssertEqual(tracks[2].name, "Moon Landing - Angry Outsider - Club Mix")
+                XCTAssertEqual(tracks[3].name, "My Love")
+                XCTAssertEqual(tracks[4].name, "Piano Fantasia")
+                XCTAssertEqual(tracks[5].name, "Please Don't Go")
+                XCTAssertEqual(tracks[6].name, "Dve sledi")
+                XCTAssertEqual(tracks[7].name, "Vsiaka Nedelia")
+                XCTAssertEqual(tracks[8].name, "Daniela 2012 - Dian Solo Rework")
+                XCTAssertEqual(tracks[9].name, "Vlizam v teb - Club Mix")
                 XCTAssertEqual(tracks[10].name, "I Feel Like I Am")
+                XCTAssertEqual(tracks[11].name, "Spasenie - Club Mix")
+                XCTAssertEqual(tracks[12].name, "Vsichko e lyubov")
+                XCTAssertEqual(tracks[13].name, "Mystika")
+                XCTAssertEqual(tracks[14].name, "Kumcho Vulcho - Club Mix")
+                XCTAssertEqual(tracks[15].name, "Sexy producent")
+                XCTAssertEqual(tracks[16].name, "Znak Za Lyubov")
+                XCTAssertEqual(tracks[17].name, "Detstvo Moe - Club Mix")
+                XCTAssertEqual(tracks[18].name, "Bosa po asvalta - Club Mix")
+                XCTAssertEqual(tracks[19].name, "Edna Bulgarska Roza - Club Mix")
                 XCTAssertEqual(tracks[20].name, "Bogatstvo - Club Mix")
+                XCTAssertEqual(tracks[21].name, "Bulgari Napred - Club Mix")
+                XCTAssertEqual(tracks[22].name, "Nashia Signal")
+                XCTAssertEqual(tracks[23].name, "Clap Your Hands")
+                XCTAssertEqual(tracks[24].name, "Magic")
+                XCTAssertEqual(tracks[25].name, "Arrogance Life Style 1")
+                XCTAssertEqual(tracks[26].name, "Izvikai silno")
+                XCTAssertEqual(tracks[27].name, "On Fire")
+                XCTAssertEqual(tracks[28].name, "Slave")
+                XCTAssertEqual(tracks[29].name, "Vyrni se")
                 XCTAssertEqual(tracks[30].name, "Welcome To The Deep Zone")
+                XCTAssertEqual(tracks[31].name, "Zvezden Grad")
+                XCTAssertEqual(tracks[32].name, "Made for Loving You - Radio Mix")
+                XCTAssertEqual(tracks[33].name, "Liatoto Doide")
+                XCTAssertEqual(tracks[34].name, "Play")
+                XCTAssertEqual(tracks[35].name, "Walking People - Short Version")
+                XCTAssertEqual(tracks[36].name, "Dark Side - EDM Mix")
+                XCTAssertEqual(tracks[37].name, "Chance to Love You - Juratone Version")
+                XCTAssertEqual(tracks[38].name, "Az sum tuk - Remix")
+                XCTAssertEqual(tracks[39].name, "Dama Na Bezbroi Muje - Jazzy Mix")
                 XCTAssertEqual(tracks[40].name, "Nov Jivot")
+                XCTAssertEqual(tracks[41].name, "Svetut E Za Dvama - Club Mix")
+                XCTAssertEqual(tracks[42].name, "I Feel")
+                XCTAssertEqual(tracks[43].name, "Obeshtai Mi Lyubov")
+                XCTAssertEqual(tracks[44].name, "Water - Remix")
+                XCTAssertEqual(tracks[45].name, "Ledeno Kafe")
+                XCTAssertEqual(tracks[46].name, "Up 2 the Sky")
+                XCTAssertEqual(tracks[47].name, "Varviat li dvama - Club Mix")
+                XCTAssertEqual(tracks[48].name, "Budi zvezda - Club Mix")
                 XCTAssertEqual(tracks[49].name, "Fresh")
+                
+                // XCTAssertEqual(tracks[<#I#>].name, "<#name#>")
                 
             }
             
-            Self.spotify.albumTracks(
-                URIs.Albums.longestAlbum, limit: 50, offset: 100
-            )
-            .XCTAssertNoFailure()
-            .sink(
-                receiveCompletion: { _ in expectation3.fulfill() },
-                receiveValue: receiveAlbumTracksPage3(_:)
-            )
-            .store(in: &cancellables)
+            internalQueue.sync {
+                receiveAlbumTracksPage2CalledCount += 1
+            }
+            print("end receiveAlbumTracksPage2")
             
-
         }
         
         func receiveAlbumTracksPage3(_ album: PagingObject<Track>) {
+            print("begin receiveAlbumTracksPage3")
+            
             encodeDecode(album)
+            
+            XCTAssertEqual(album.estimatedTotalPages, 3)
+            
+            XCTAssertEqual(album.limit, 50)
+            XCTAssertEqual(album.total, 125)
+            XCTAssertNotNil(album.previous)
+            XCTAssertNotNil(album.previous.map(URL.init(string:)))
+            XCTAssertNil(album.next)
+            XCTAssertEqual(album.offset, 100)
+            XCTAssertNotNil(URL(string: album.href))
+            
+            
             let tracks = album.items
             XCTAssertEqual(tracks.count, 25)
             if tracks.count < 25 { return }
+            
             do {
                 XCTAssertEqual(tracks[0].name, "Tazi Nosht")
+                XCTAssertEqual(tracks[1].name, "X-Perience")
+                XCTAssertEqual(tracks[2].name, "Tancuvam na volia")
+                XCTAssertEqual(tracks[3].name, "I'm Not Right")
+                XCTAssertEqual(tracks[4].name, "Waiting 4 You")
+                XCTAssertEqual(tracks[5].name, "Celuvka Za Sbogom - Club Mix")
+                XCTAssertEqual(tracks[6].name, "Sunny Days - Juratone Version")
+                XCTAssertEqual(tracks[7].name, "Prerodena - Extended Version")
+                XCTAssertEqual(tracks[8].name, "Terminal 2 - Balkan Mix")
+                XCTAssertEqual(tracks[9].name, "As Long as I Have You - Juratone Version")
                 XCTAssertEqual(tracks[10].name, "Na Ryba Na Ludostta - Extended Mix")
+                XCTAssertEqual(tracks[11].name, "Another Dimension - Dian Solo Mix")
+                XCTAssertEqual(tracks[12].name, "Let's Get Down")
+                XCTAssertEqual(tracks[13].name, "Zalojnik Na Dansinga - Club Mix")
+                XCTAssertEqual(tracks[14].name, "Tancuvam s Viatura - Club Mix")
+                XCTAssertEqual(tracks[15].name, "Funky Bass & Strings")
+                XCTAssertEqual(tracks[16].name, "Izpii Me")
+                XCTAssertEqual(tracks[17].name, "The Dance of the World")
+                XCTAssertEqual(tracks[18].name, "Suck My Jackpot")
+                XCTAssertEqual(tracks[19].name, "Vechnata taina")
                 XCTAssertEqual(tracks[20].name, "Viarvai")
+                XCTAssertEqual(tracks[21].name, "I'll Not Forget You - Juratone Version")
                 XCTAssertEqual(tracks[22].name, "Drama Queen - Radio Mix")
                 XCTAssertEqual(tracks[23].name, "Maski Dolu - Club Remix")
                 XCTAssertEqual(tracks[24].name, "Jore Dos - Club Mix")
                 
             }
-
+            
+            internalQueue.sync {
+                receiveAlbumTracksPage3CalledCount += 1
+            }
+            print("end receiveAlbumTracksPage3")
+            
         }
-           
-       Self.spotify.albumTracks(URIs.Albums.longestAlbum, limit: 50)
-           .XCTAssertNoFailure()
-           .sink(
-               receiveCompletion: { _ in expectation.fulfill() },
-               receiveValue: receiveAlbumTracks(_:)
-           )
-           .store(in: &cancellables)
-
-       wait(for: [expectation, expectation2, expectation3], timeout: 180)
-           
+        
+        main()
+        
     }
 
 }
@@ -349,3 +728,4 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests:
     func testTheLongestAlbumTracks() { theLongestAlbumTracks() }
 
 }
+

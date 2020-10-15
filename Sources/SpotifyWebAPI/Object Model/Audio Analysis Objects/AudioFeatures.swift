@@ -5,7 +5,7 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/#audio-features-object
  */
-public struct AudioFeatures: Codable {
+public struct AudioFeatures: Codable, Hashable {
 
     /**
      The estimated overall key of the track.
@@ -73,7 +73,6 @@ public struct AudioFeatures: Codable {
      */
     public let instrumentalness: Double
 
-
     /**
      Detects the presence of an audience in the recording.
      Higher liveness values represent an increased probability
@@ -129,14 +128,24 @@ public struct AudioFeatures: Codable {
     /// The Spotify ID for the track.
     public let id: String
     
-    /// A link to the Web API endpoint providing full details of the track.
-    ///
-    /// Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track`
-    /// as the response type to retrieve the results.
+    /**
+     A link to the Web API endpoint providing full details of the track.
+    
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track`
+     as the response type to retrieve the results. This is equivalent to
+     using `SpotifyAPI.track(_:market:)`, passing in the URI of this
+     track.
+     */
     public let trackHref: String
     
-    /// An HTTP URL to access the full audio analysis of this track.
-    /// An access token is required to access this data.
+    /**
+     An href to the full audio analysis of this track.
+
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `AudioAnalysis`
+     as the response type to retrieve the results. This is equivalent to
+     using `SpotifyAPI.trackAudioAnalysis(_:)`, passing in the URI of this
+     track.
+     */
     public let analysisURL: String
 
     /// The duration of the track in milliseconds.
@@ -275,6 +284,89 @@ public struct AudioFeatures: Codable {
         self.analysisURL = analysisURL
         self.durationMS = durationMS
         self.type = type
+    }
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else, returns
+     `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        if self.key != other.key {
+            return false
+        }
+        if self.mode != other.mode {
+            return false
+        }
+        if self.timeSignature != other.timeSignature {
+            return false
+        }
+        if !self.acousticness.isApproximatelyEqual(
+            to: other.acousticness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.danceability.isApproximatelyEqual(
+            to: other.danceability, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.energy.isApproximatelyEqual(
+            to: other.energy, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.instrumentalness.isApproximatelyEqual(
+            to: other.instrumentalness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.liveness.isApproximatelyEqual(
+            to: other.liveness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.loudness.isApproximatelyEqual(
+            to: other.loudness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.speechiness.isApproximatelyEqual(
+            to: other.speechiness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.valence.isApproximatelyEqual(
+            to: other.valence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.tempo.isApproximatelyEqual(
+            to: other.tempo, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if self.uri != other.uri {
+            return false
+        }
+        if self.id != other.id {
+            return false
+        }
+        if self.trackHref != other.trackHref {
+            return false
+        }
+        if self.analysisURL != other.analysisURL {
+            return false
+        }
+        if self.durationMS != other.durationMS {
+            return false
+        }
+        return self.type == other.type
+        
     }
 
 }

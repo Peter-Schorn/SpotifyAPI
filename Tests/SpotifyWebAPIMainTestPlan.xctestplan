@@ -17,6 +17,11 @@
         "enabled" : false,
         "key" : "spotify_credentials_path",
         "value" : "path\/to\/file"
+      },
+      {
+        "enabled" : false,
+        "key" : "data_dump_folder",
+        "value" : "path\/to\/folder"
       }
     ],
     "targetForVariableExpansion" : {

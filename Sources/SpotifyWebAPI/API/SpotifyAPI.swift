@@ -19,11 +19,12 @@ import Combine
  conform to `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowManager`
  is not a conforming type because it does not support authorization scopes.
  
+ All of the endpoints are documented at the the [web API reference][2].
+ 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://developer.spotify.com/documentation/web-api/reference/
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
-    
-    
     
     // MARK: - Authorization -
 
@@ -214,26 +215,10 @@ extension SpotifyAPI {
         
         CurrentlyPlayingContext.logger.logLevel = .trace
         
-        spotifyDecodeLogger.logLevel = .trace
+        spotifyDecodeLogger.logLevel = .warning
         
         SpotifyAPILogHandler.allLoggersAssertOnCritical = true
         
-        if let dataDumpFolder = ProcessInfo.processInfo
-                .environment["data_dump_folder"] {
-            let url = URL(fileURLWithPath: dataDumpFolder)
-            SpotifyDecodingError.dataDumpfolder = url
-            let urlString = url.absoluteString
-                .removingPercentEncoding ?? "nil"
-            self.logger.trace(
-                "SpotifyDecodingError.dataDumpfolder: '\(urlString)'"
-            )
-        }
-        else {
-            self.logger.notice(
-                "could not find 'data_dump_folder' in environment variables"
-            )
-        }
-
         self.logger.trace("\(Self.self): did setup debugging")
         
     }

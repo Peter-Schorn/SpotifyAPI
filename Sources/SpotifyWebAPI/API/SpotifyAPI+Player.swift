@@ -91,21 +91,21 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userReadRecentlyPlayed` scope.
      
-     **Note:** Currently doesn’t support podcast episodes. Returns the
-     most recent 50 tracks played by a user. Note that a track currently
-     playing will not be visible in play history until it has completed.
-     A track must be played for more than 30 seconds to be included in play
-     history.
+     - Note: Currently doesn’t support podcast episodes. Returns the
+           most recent 50 tracks played by a user. Note that a track currently
+           playing will not be visible in play history until it has completed.
+           **A track must be played for more than 30 seconds to be included**
+           **in the play history.**
      
      Any tracks listened to while the user had “Private Session”
      enabled in their client will not be returned in the list of recently
      played tracks.
      
-     The endpoint uses a bidirectional cursor for paging.
-     Follow the next field with the before parameter to move back in time,
-     or use the after parameter to move forward in time. If you supply no
-     before or after parameter, the endpoint will return the most recently
-     played track, and the next link will page back in time.
+     This endpoint uses a bidirectional cursor for paging. Follow the next
+     field with the before parameter to move back in time, or use the after
+     parameter to move forward in time. If you supply no before or after
+     parameter, the endpoint will return the most recently played tracks,
+     and the next link will page back in time.
      
      Read more at the [Spotify web API reference][1].
      
@@ -119,7 +119,7 @@ public extension SpotifyAPI where
              recently played tracks will be returned.
        - limit: *Optional*. The maximum number of items to return.
              Default: 20; Minimum: 1; Maximum: 50.
-     - Returns: A an array of simplified tracks wrapped in a
+     - Returns: An array of simplified tracks wrapped in a
            `CursorPagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/

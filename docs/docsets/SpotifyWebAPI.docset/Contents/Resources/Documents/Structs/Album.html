@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -428,10 +445,11 @@ the value may be an empty string.</p>
                       <div class="abstract">
                         <p>The tracks of the album.</p>
 
-<p>For certain endpoints, this property may be nil,
-especially if it is nested inside a much larger object.
-For example, it will be <code>nil</code> if retrieved from the search
-endpoint.</p>
+<p>For certain endpoints, this property may be nil, especially if it is
+nested inside a much larger object. For example, it will be <code>nil</code> if
+retrieved from the search endpoint or if nested inside a <code><a href="../Structs/Track.html">Track</a></code>. When
+this property is <code>nil</code>, use <code>albumTracks(_:market:limit:offset:)</code>
+instead, passing in the URI of this album.</p>
 
                       </div>
                       <div class="declaration">
@@ -785,9 +803,9 @@ response type to retrieve the results.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI5AlbumV9albumTypeAA0D5GroupOSgvp"></a>
+                    <a name="/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp"></a>
                     <a name="//apple_ref/swift/Property/albumType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0D5GroupOSgvp">albumType</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -796,14 +814,14 @@ response type to retrieve the results.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The type of the album: one of <code>album</code>, <code>single</code>,
-or <code>compilation</code>.</p>
+or <code>compilation</code>. See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV10albumGroupAA0D4TypeOSgvp">albumGroup</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">albumType</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">albumType</span><span class="p">:</span> <span class="kt"><a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -813,9 +831,9 @@ or <code>compilation</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI5AlbumV10albumGroupAA0dF0OSgvp"></a>
+                    <a name="/s:13SpotifyWebAPI5AlbumV10albumGroupAA0D4TypeOSgvp"></a>
                     <a name="//apple_ref/swift/Property/albumGroup" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV10albumGroupAA0dF0OSgvp">albumGroup</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV10albumGroupAA0D4TypeOSgvp">albumGroup</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -825,8 +843,10 @@ or <code>compilation</code>.</p>
                       <div class="abstract">
                         <p>This field is present when getting an artist’s albums.</p>
 
+<p>See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code>.</p>
+
 <p>Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>,
-and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0D5GroupOSgvp">albumType</a></code> this field represents
+and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents
 the relationship between the artist and the album.</p>
 
                       </div>
@@ -834,7 +854,7 @@ the relationship between the artist and the album.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">albumGroup</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">albumGroup</span><span class="p">:</span> <span class="kt"><a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -991,9 +1011,9 @@ containing the reason why the track is not available:
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dV0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc"></a>
+                    <a name="/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dU0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(name:tracks:artists:releaseDate:uri:id:images:popularity:label:genres:href:externalURLs:externalIds:albumType:albumGroup:availableMarkets:copyrights:releaseDatePrecision:restrictions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dV0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc">init(name:<wbr>tracks:<wbr>artists:<wbr>releaseDate:<wbr>uri:<wbr>id:<wbr>images:<wbr>popularity:<wbr>label:<wbr>genres:<wbr>href:<wbr>externalURLs:<wbr>externalIds:<wbr>albumType:<wbr>albumGroup:<wbr>availableMarkets:<wbr>copyrights:<wbr>releaseDatePrecision:<wbr>restrictions:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5AlbumV4name6tracks7artists11releaseDate3uri2id6images10popularity5label6genres4href12externalURLs0Q3Ids9albumType0T5Group16availableMarkets10copyrights0hI9Precision12restrictionsACSS_AA12PagingObjectVyAA5TrackVGSgSayAA6ArtistVGSg10Foundation0I0VSgSSSgA9_SayAA0A5ImageVGSgSiSgA9_SaySSGSgA9_SDyS2SGSgA18_AA0dU0OSgA21_A16_SayAA0A9CopyrightVGSgA9_A18_tcfc">init(name:<wbr>tracks:<wbr>artists:<wbr>releaseDate:<wbr>uri:<wbr>id:<wbr>images:<wbr>popularity:<wbr>label:<wbr>genres:<wbr>href:<wbr>externalURLs:<wbr>externalIds:<wbr>albumType:<wbr>albumGroup:<wbr>availableMarkets:<wbr>copyrights:<wbr>releaseDatePrecision:<wbr>restrictions:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1022,8 +1042,8 @@ containing the reason why the track is not available:
     <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">externalIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">albumType</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">albumGroup</span><span class="p">:</span> <span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">albumType</span><span class="p">:</span> <span class="kt"><a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">albumGroup</span><span class="p">:</span> <span class="kt"><a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">availableMarkets</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">copyrights</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">releaseDatePrecision</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -1235,7 +1255,7 @@ album object.</p>
                                 <div>
                                   <p>This field is present when getting an artist’s albums.
 Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>,
-and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0D5GroupOSgvp">albumType</a></code> this field represents
+and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents
 the relationship between the artist and the album.</p>
                                 </div>
                               </td>
@@ -1361,7 +1381,7 @@ containing the reason why the track is not available:
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

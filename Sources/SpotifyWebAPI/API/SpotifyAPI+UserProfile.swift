@@ -37,7 +37,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(SpotifyUser.self)
             
         } catch {
-            return error.anyFailingPublisher(SpotifyUser.self)
+            return error.anyFailingPublisher()
         }
         
 

@@ -282,7 +282,7 @@
                 <a href="Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -387,7 +404,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A request to play Spotify content for the current user.</p>
+                        <p>A request to play Spotify content for a user.</p>
 
 <p>Used in the body of <code>SpotifyAPI.resumePlayback(_:deviceId:)</code>.</p>
 
@@ -672,12 +689,12 @@ Dates are converted to millisecond-precision timestamps.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify URI and its positions in a collection.
-Used in the body of <code>removeSpecificOccurencesFromPlaylist</code>.</p>
+                        <p>A Spotify URI and its positions in a collection (usually a playlist).
+Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
 
-<p>For example, this may represent all of the positions
-in a playlist of a specific track. The positions of the URIs
-are necessary in case the collection has duplicate items.</p>
+<p>For example, this may represent all of the positions in a playlist of
+a specific track. The positions of the URI is necessary in case the
+collection has duplicate items.</p>
 
 <p>See also <code>URIWithPositionsContainer</code>.</p>
 
@@ -687,7 +704,9 @@ are necessary in case the collection has duplicate items.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIWithPositions</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URIWithPositions</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">URIWithPositions</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">URIWithPositions</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -711,11 +730,15 @@ are necessary in case the collection has duplicate items.</p>
 the <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of the playlist that the items associated with the URIs
 (usually tracks/episodes) are contained in.</p>
 
-<p>Used in the body of <code>removeSpecificOccurencesFromPlaylist</code>.</p>
+<p>Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
 
 <p>This is used for removing specific occurences of items from a playlist.
 The positions of the URIs are necessary in case the playlist has duplicate
 items.</p>
+
+<p>Compare with <code><a href="Structs/URIsContainer.html">URIsContainer</a></code>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">Spotify web API reference</a>.</p>
 
                         <a href="Structs/URIsWithPositionsContainer.html" class="slightly-smaller">See more</a>
                       </div>
@@ -735,7 +758,7 @@ items.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0]
+
+### Added
+
+* Added documentation about how omitting the market parameter when using the client credentials flow causes episodes and shows to not be returned.
+* Added `SpotifyAPI.filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`.
+* Added `snapshotId` parameter to `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
+* Added `SpotifyPlayerError`; This error object is returned by Spotify when there are errors related to the player endpoints.
+
+### Changed
+
+* Renamed `SpotifyAPI.filteredPlaylistRequest(_:filters:additionalTypes:market:)` to `SpotifyAPI.filteredPlaylist(_:filters:additionalTypes:market:)`.
+* Renamed `SpotifyAPI.getPlaylistImage(_:)` to `SpotifyAPI.playlistImage(_:)`.
+* Renamed `AlbumGroup` to `AlbumType`.
+* The generic `Item` type of `PlaylistItemContainer` is now optional because the episodes in a playlist will be `nil` If they were retrieved using the client credentials flow manager and a value for the `market` parameter was not provided or if they are not available in the specifed market.
+
+### Fixed
+
+* Fixed issues with additional types parameter for the playlist endpoints and added clearer documentation to `filteredPlaylist` and `filteredPlaylistItems`.
+* Fixed bug with decoding of `Album` where both the `albumGroup` and `albumType` properties were being decoded from the `albumGroup` JSON key.
+* Fixed bug where the incorrect coding key was being used for the `trackNumber` and `previewURL` properties of `Track`, causing them to never be decoded from the data and always set to `nil`.
+* Fixed bug where `externalURLs` property of `SpotifyContext` was not being decoded because the JSON key name was incorrect.
 
 ## [0.6.0]
 
@@ -99,4 +121,3 @@ All of the Spotify web API endpoints are now supported!
 - Refactored `resumePlayback` into two separate methods: `resumePlayback(deviceId:)` only resumes the user's current playback. `play(_:deviceId:)` (added) plays specific content for the current user.
 - When multiple asyncronous requests are made to refresh the access token, only one network request will be made. While this request is in progress, additional requests to refresh the access token will receive the same publisher as a class instance.
 - If you try to make a request to the Spotify web API before your application is authorized, then a more informative error indicating that you haven't retrieved an access token is returned, instead of one indicating that you haven't retrieved a refresh token.
-//

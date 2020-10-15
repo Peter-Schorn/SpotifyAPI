@@ -20,7 +20,7 @@ typealias PlatformImage = UIImage
  
   - Warning: If this image belongs to a playlist, then the URL is
         temporary and will expire in less than a day. Use
-        `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive the image
+        `SpotifyAPI.playlistImage(_:)` to retrieve the image
         for a playlist.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
@@ -42,7 +42,7 @@ public struct SpotifyImage: Codable, Hashable {
      
      - Warning: If this image belongs to a playlist, then it is
            temporary and will expire in less than a day. Use
-           `SpotifyAPI.getPlaylistCoverImage(_:)` to retrive the image
+           `SpotifyAPI.playlistImage(_:)` to retrieve the image
            for a playlist.
      */
     public let url: String
@@ -81,7 +81,7 @@ public extension SpotifyImage {
             return SpotifyLocalError.other(
                 "couldn't convert string to URL: '\(url)'"
             )
-            .anyFailingPublisher(Image.self)
+            .anyFailingPublisher()
         }
         
         return URLSession.shared.dataTaskPublisher(for: imageURL)

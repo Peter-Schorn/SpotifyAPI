@@ -35,7 +35,7 @@ private extension SpotifyAPI where
             .decodeSpotifyObject([Bool].self)
 
         } catch {
-            return error.anyFailingPublisher([Bool].self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -63,7 +63,7 @@ private extension SpotifyAPI where
                 path: "/me/following",
                 queryItems: ["type": type.rawValue],
                 httpMethod: httpMethod,
-                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
                 body: ["ids": idsString],
                 requiredScopes: [.userFollowModify]
             )
@@ -73,7 +73,7 @@ private extension SpotifyAPI where
             
             
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -145,7 +145,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject([Bool].self)
             
         } catch {
-            return error.anyFailingPublisher([Bool].self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -356,7 +356,7 @@ public extension SpotifyAPI where
                 path: "/playlists/\(playlistId)/followers",
                 queryItems: [:],
                 httpMethod: "PUT",
-                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
                 body: ["public": publicly],
                 requiredScopes: []
             )
@@ -365,7 +365,7 @@ public extension SpotifyAPI where
             .eraseToAnyPublisher()
 
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
 
     }
@@ -415,7 +415,7 @@ public extension SpotifyAPI where
                 path: "/playlists/\(playlistId)/followers",
                 queryItems: [:],
                 httpMethod: "DELETE",
-                makeHeaders: Headers.bearerAuthorizationAndAcceptApplicationJSON(_:),
+                makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
                 bodyData: nil as Data?,
                 requiredScopes: []
             )
@@ -424,7 +424,7 @@ public extension SpotifyAPI where
             .eraseToAnyPublisher()
 
         } catch {
-            return error.anyFailingPublisher(Void.self)
+            return error.anyFailingPublisher()
         }
 
     }

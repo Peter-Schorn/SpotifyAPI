@@ -1,6 +1,9 @@
 import Foundation
 import SpotifyWebAPI
 
+// These methods exist to ensure that they compile.
+// They are not meant to be called.
+
 private func testCodeVerifierCodeChallenge() {
 
     let codeVerifier = String.randomURLSafe(length: 128)
@@ -11,3 +14,22 @@ private func testCodeVerifierCodeChallenge() {
     _ = codeChallenge
 
 }
+
+
+#if canImport(UIKit)
+import UIKit
+
+private func uploadPlaylistImageDocsTest(
+    uiImage: UIImage, spotify: SpotifyAPI<AuthorizationCodeFlowManager>
+) {
+    
+    let jpegData = uiImage.jpegData(
+        compressionQuality: 0.5
+    )!
+    let base64EncodedData = jpegData.base64EncodedData()
+    
+    _ = spotify.uploadPlaylistImage("", imageData: base64EncodedData)
+
+}
+
+#endif

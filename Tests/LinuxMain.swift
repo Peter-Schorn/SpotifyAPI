@@ -1,4 +1,5 @@
 import XCTest
+
 import SpotifyWebAPIMainTests
 
 var tests = [XCTestCaseEntry]()

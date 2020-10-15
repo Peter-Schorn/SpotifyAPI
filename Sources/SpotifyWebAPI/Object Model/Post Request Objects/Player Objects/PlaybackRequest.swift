@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- A request to play Spotify content for the current user.
+ A request to play Spotify content for a user.
  
  Used in the body of `SpotifyAPI.resumePlayback(_:deviceId:)`.
  
@@ -77,7 +77,7 @@ public struct PlaybackRequest: Hashable {
     
     
     /**
-     Creates a request to play Spotify content for the current user.
+     Creates a request to play Spotify content for a user.
      
      Read more at the [Spotify web API reference][1].
      
@@ -127,8 +127,17 @@ public struct PlaybackRequest: Hashable {
      
      See also `init(context:offset:positionMS:)`.
      
+     Equivalent to
+     ```
+     init(
+         context: .uris([uri]),
+         offset: nil,
+         positionMS: positionMS
+     )
+     ```
+     
      - Parameters:
-       - item: A track or episode URI.
+       - uri: A track or episode URI.
        - positionMS: Indicates from what position to start playback in
              milliseconds. If `nil`, then the track/episode will start from
              the beginning. Passing in a position that is greater than the
@@ -136,11 +145,11 @@ public struct PlaybackRequest: Hashable {
              the next item.
      */
     public init(
-        _ item: SpotifyURIConvertible,
+        _ uri: SpotifyURIConvertible,
         positionMS: Int? = nil
     ) {
         self.init(
-            context: .uris([item]),
+            context: .uris([uri]),
             offset: nil,
             positionMS: positionMS
         )

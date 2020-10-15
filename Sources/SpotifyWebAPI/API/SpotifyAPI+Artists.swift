@@ -37,7 +37,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(Artist.self)
             
         } catch {
-            return error.anyFailingPublisher(Artist.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -89,7 +89,7 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher([Artist?].self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -118,7 +118,7 @@ public extension SpotifyAPI {
        - limit: *Optional*. The number of album objects to return.
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first album to return.
-             Default: 0. Use with `limit` to get the next set of albums
+             Default: 0. Use with `limit` to get the next set of albums.
      - Returns: An array of simplified album objects wrapped in a paging
            object.
      
@@ -127,7 +127,7 @@ public extension SpotifyAPI {
      */
     func artistAlbums(
         _ artist: SpotifyURIConvertible,
-        groups: [AlbumGroup]? = nil,
+        groups: [AlbumType]? = nil,
         country: String? = nil,
         limit: Int? = nil,
         offset: Int? = nil
@@ -152,7 +152,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(PagingObject<Album>.self)
             
         } catch {
-            return error.anyFailingPublisher(PagingObject<Album>.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -201,7 +201,7 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher([Track].self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -245,7 +245,7 @@ public extension SpotifyAPI {
             .eraseToAnyPublisher()
             
         } catch {
-            return error.anyFailingPublisher([Artist].self)
+            return error.anyFailingPublisher()
         }
         
     }

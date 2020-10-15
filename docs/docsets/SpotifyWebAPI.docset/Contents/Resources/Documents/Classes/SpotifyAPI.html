@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -391,6 +408,8 @@ that doesn&rsquo;t support them.</p>
 <p><code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> and <code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a></code>
 conform to <code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>. <code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code>
 is not a conforming type because it does not support authorization scopes.</p>
+
+<p>All of the endpoints are documented at the the <a href="https://developer.spotify.com/documentation/web-api/reference/">web API reference</a>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -786,7 +805,7 @@ encoder&rsquo;s format.</p>
                       <div class="abstract">
                         <p>Get an album.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O5GroupOGSgSSSgSiSgAYtF">artistAlbums(_:groups:country:limit:offset:)</a></code> and
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O4TypeOGSgSSSgSiSgAYtF">artistAlbums(_:groups:country:limit:offset:)</a></code> and
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6albums_6market7Combine12AnyPublisherVySayAA5AlbumVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">albums(_:market:)</a></code> (gets multiple albums).</p>
 
 <p>No scopes are required for this endpoint.</p>
@@ -860,7 +879,7 @@ to apply <a href="https://developer.spotify.com/documentation/web-api/reference/
                       <div class="abstract">
                         <p>Get multiple albums.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O5GroupOGSgSSSgSiSgAYtF">artistAlbums(_:groups:country:limit:offset:)</a></code> and
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O4TypeOGSgSSSgSiSgAYtF">artistAlbums(_:groups:country:limit:offset:)</a></code> and
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5album_6market7Combine12AnyPublisherVyAA5AlbumVs5Error_pGAA0A14URIConvertible_p_SSSgtF">album(_:market:)</a></code> (gets a single album).</p>
 
 <p>No scopes are required for this endpoint.</p>
@@ -914,7 +933,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An array of the full versions of <code><a href="../Structs/Album.html">Album</a></code> objects.
+                        <p>An array of the full versions of up to 20 <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full">album</a> objects.
   Albums are returned in the order requested. If an album
   is not found, <code>nil</code> is returned in the corresponding position.
   Duplicate albums in the request will result in duplicate artists
@@ -1008,7 +1027,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. The index of the first track to return.
-Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
+Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1017,8 +1036,8 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An array of simplified <code><a href="../Structs/Track.html">Track</a></code> objects, wrapped in a
-  <code><a href="../Structs/PagingObject.html">PagingObject</a></code>.</p>
+                        <p>An array of simplified <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full">track</a> objects, wrapped in a
+  <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object">paging object</a>.</p>
                       </div>
                     </section>
                   </div>
@@ -1159,9 +1178,9 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O5GroupOGSgSSSgSiSgAYtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O4TypeOGSgSSSgSiSgAYtF"></a>
                     <a name="//apple_ref/swift/Method/artistAlbums(_:groups:country:limit:offset:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O5GroupOGSgSSSgSiSgAYtF">artistAlbums(_:<wbr>groups:<wbr>country:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C12artistAlbums_6groups7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA5AlbumVGs5Error_pGAA0A14URIConvertible_p_SayAA0O4TypeOGSgSSSgSiSgAYtF">artistAlbums(_:<wbr>groups:<wbr>country:<wbr>limit:<wbr>offset:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1185,7 +1204,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">artistAlbums</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
-    <span class="nv">groups</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">groups</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
@@ -1262,7 +1281,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. The index of the first album to return.
-Default: 0. Use with <code>limit</code> to get the next set of albums</p>
+Default: 0. Use with <code>limit</code> to get the next set of albums.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2161,14 +2180,13 @@ required.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
-If a country code is specified, only shows and episodes that
-are available in that market will be returned. If a valid user
-access token is specified in the request header, the country
-associated with the user account will take priority over this
-parameter. Note: If neither market or user country are provided,
-the content is considered unavailable for the client. Users can
-view the country that is associated with their account in the
-<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+If a country code is specified, the episode will only be returned
+if it is available in that market. If the access token was granted
+on behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with proof
+key for code exchange), the country associated with the user account
+will take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2177,7 +2195,7 @@ view the country that is associated with their account in the
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The full version of an episode object.</p>
+                        <p>The full version of an <code><a href="../Structs/Episode.html">Episode</a></code> object.</p>
                       </div>
                     </section>
                   </div>
@@ -2242,14 +2260,13 @@ required.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
-If a country code is specified, only shows and episodes that
-are available in that market will be returned. If a valid user
-access token is specified in the request header, the country
-associated with the user account will take priority over this
-parameter. Note: If neither market or user country are provided,
-the content is considered unavailable for the client. Users can
-view the country that is associated with their account in the
-<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+If a country code is specified, only episodes that are available
+in that market will be returned. If the access token was granted
+on behalf of a user (i.e., if you authorized your application
+using the client credentials flow), the country associated with
+the user account will take priority over this parameter. Users
+can view the country that is associated with their account in
+the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2258,10 +2275,11 @@ view the country that is associated with their account in the
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The full versions of up to 50 episode objects. Episodes
-  are returned in the order requested. If an episode is not found,
-  <code>nil</code> is returned in the appropriate position. Duplicate episode
-  URIs in the request will result in duplicate episodes in the response.</p>
+                        <p>The full versions of up to 50 <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full">episode</a> objects. Episodes
+  are returned in the order requested. If an episode is not found
+  or is unavailable in the specified market/country, <code>nil</code> is
+  returned in the appropriate positions. Duplicate episode URIs in
+  the request will result in duplicate episodes in the response.</p>
                       </div>
                     </section>
                   </div>
@@ -2389,29 +2407,70 @@ are following it. See also <a href="https://developer.spotify.com/documentation/
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>This method has been renamed to
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"filteredPlaylist(_:filters:additionalTypes:market:﹚"</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">filteredPlaylistRequest</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">filters</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">additionalTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/filteredPlaylist(_:filters:additionalTypes:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:<wbr>filters:<wbr>additionalTypes:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
                         <p>Makes a request to the &ldquo;/playlists/{playlistId}&rdquo; endpoint
 and allows you to specify fields to filter the query.</p>
 
 <p>See also:</p>
 
 <ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
-<p>No scopes are required for this endpoint. Both Public and
-Private playlists belonging to any user can be retrieved.</p>
+<p>No scopes are required for this endpoint. Both Public and Private
+playlists belonging to any user can be retrieved.</p>
 
-<p>Use the <a href="https://developer.spotify.com/console/get-playlist/">Spotify console</a> to test your queries,
-then copy and paste the response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.
-You are also encouraged to assign a folder to
-<code>SpotifyDecodingError.dataDumpFolder</code> so that the data will be written
-to a file when the decoding fails. You can then upload this file to the
-JSON viewer.</p>
+<p>Use the <a href="https://developer.spotify.com/console/get-playlist/">Spotify console</a> to test your queries, then copy and paste the
+response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a>.</p>
 
-<p>When decoding the data, it is recommended that you use the combine
-operator <code>decodeSpotifyObject(_:)</code> instead of <code>decode(type:decoder:)</code>.</p>
+<p>You are also encouraged to assign a folder to
+<code>SpotifyDecodingError.dataDumpFolder</code>—or assign a value to the environment
+variable &ldquo;data_dump_folder&rdquo;, which is what <code>dataDumpFolder</code> is initialized
+to—so that the data will be written to a folder when the decoding fails.
+You can then upload this file to the JSON viewer. Set the <code>logLevel</code> of
+<code><a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a></code> to <code>trace</code> to print the raw data of all requests to
+the standard output.</p>
+
+<p>When decoding the data, use the combine operators <code>decodeSpotifyObject(_:)</code>
+or <code>decodeOptionalSpotifyObject(_:)</code> instead of <code>decode(type:decoder:)</code>,
+otherwise the above doesn&rsquo;t apply.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/">Spotify web API reference</a>.</p>
 
@@ -2420,7 +2479,7 @@ operator <code>decodeSpotifyObject(_:)</code> instead of <code>decode(type:decod
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">filteredPlaylistRequest</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">filteredPlaylist</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
     <span class="nv">filters</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">additionalTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
@@ -2453,7 +2512,7 @@ operator <code>decodeSpotifyObject(_:)</code> instead of <code>decode(type:decod
                               </td>
                               <td>
                                 <div>
-                                  <p><em>required</em>. Filters for the query: a comma-separated list
+                                  <p><em>Required</em>. Filters for the query: a comma-separated list
 (no spaces) of the fields to return. If omitted, all fields are
 returned. For example, to get just the playlist’s description
 and URI: &ldquo;description,uri&rdquo;. A dot separator can be used to specify
@@ -2461,7 +2520,8 @@ non-reoccurring fields, while parentheses can be used to specify
 reoccurring fields within objects. For example, to get just the added
 date and user ID of the adder: &ldquo;tracks.items(added_at,added_by.id)&rdquo;.
 Use multiple parentheses to drill down into nested objects, for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;. Fields can be
-excluded by prefixing them with an exclamation mark, for example: &ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
+excluded by prefixing them with an exclamation mark, for example:
+&ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2473,8 +2533,15 @@ excluded by prefixing them with an exclamation mark, for example: &ldquo;tracks.
                               </td>
                               <td>
                                 <div>
-                                  <p><em>required</em>. An array of id categories.
-Valid types are <code>track</code> and <code>episode</code></p>
+                                  <p><em>Required</em>. An array of id categories. Valid types
+are <code>track</code> and <code>episode</code>. If you provide <code>[]</code> or <code>[.track]</code>,
+then both tracks and episodes will be returned in the <code><a href="../Structs/Track.html">Track</a></code>
+format. In this case, trying to decode episodes into <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>
+or <code><a href="../Structs/Episode.html">Episode</a></code> will always fail. Instead, both tracks and episodes
+must be decoded into <code><a href="../Structs/Track.html">Track</a></code>. If you expect the the playlist to
+have both tracks and episodes, then use <code>[.episode]</code> or
+<code>[.track, .episode]</code> and decode the tracks and episodes into
+<code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2486,9 +2553,14 @@ Valid types are <code>track</code> and <code>episode</code></p>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>
-or the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. For tracks, Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>. For episodes, if the access token was granted on
+behalf of a user (i.e., if you authorized your application using the
+authorization code flow or the authorization code flow with proof key
+for code exchange), the country associated with the user account will
+take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2497,11 +2569,12 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The raw data and URL response from the server.
-  Because the response is entirely dependent on the filters you specify,
-  you are responsible for decoding the data. However, any error objects
-  returned by Spotify will be decoded automatically and thrown as an
-  error to downstream subscribers.</p>
+                        <p>The raw data and URL response from the server. Because the response
+  is entirely dependent on the filters you specify, you are responsible
+  for decoding the data. Use the combine operators
+  <code>decodeSpotifyObject(_:)</code> or <code>decodeOptionalSpotifyObject(_:)</code> instead
+  <code>decode(type:decoder:)</code>. Any error objects returned by Spotify will be
+  decoded automatically and thrown as an error to downstream subscribers.</p>
                       </div>
                     </section>
                   </div>
@@ -2525,25 +2598,26 @@ information about it.</p>
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
-<li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
+<li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
 <p>In contrast to the above methods, additional data about the playlist itself will
-be retrieved, including its name and any images associated with it. See also
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistCoverImage(_:)</a></code>.</p>
+be retrieved, including its name and any images associated with it.</p>
 
 <p>No scopes are required for this endpoint. Both Public and Private playlists
 belonging to any user can be retrieved.</p>
-<h1 id='returns' class='heading'>Returns:</h1>
+<h1 id='returnss' class='heading'>Returnss:</h1>
 <pre class="highlight swift"><code><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">PlaylistItemContainer</span><span class="o">&lt;</span><span class="kt">PlaylistItem</span><span class="o">&gt;&gt;&gt;</span>
 </code></pre>
 
 <p>The full version of the playlist will be returned.</p>
 
 <p>To access just the tracks/episodes, use:</p>
-<pre class="highlight swift"><code><span class="n">playlist</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">playlistItems</span><span class="p">:</span> <span class="p">[</span><span class="kt">PlaylistItem</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlist</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">compactMap</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/">Spotify web API reference</a>.</p>
@@ -2584,14 +2658,198 @@ belonging to any user can be retrieved.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>
-or the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. For tracks, Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>. For episodes, if the access token was granted on
+behalf of a user (i.e., if you authorized your application using the
+authorization code flow or the authorization code flow with proof key
+for code exchange), the country associated with the user account will
+take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:<wbr>filters:<wbr>additionalTypes:<wbr>limit:<wbr>offset:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Makes a request to the &ldquo;/playlists/{playlistId}/tracks&rdquo; endpoint
+and allows you to specify fields to filter the query.</p>
+
+<p>Unlike, <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code>,
+this endpoint allows you to request different pages of results.</p>
+
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
+</ul>
+
+<p>No scopes are required for this endpoint. Both Public and Private
+playlists belonging to any user can be retrieved.</p>
+
+<p>You are also encouraged to assign a folder to
+<code>SpotifyDecodingError.dataDumpFolder</code>—or assign a value to the environment
+variable &ldquo;data_dump_folder&rdquo;, which is what <code>dataDumpFolder</code> is initialized
+to—so that the data will be written to a folder when the decoding fails.
+You can then upload this file to the JSON viewer. Set the <code>logLevel</code> of
+<code><a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a></code> to <code>trace</code> to print the raw data of all requests to
+the standard output.</p>
+
+<p>When decoding the data, use the combine operators <code>decodeSpotifyObject(_:)</code>
+or <code>decodeOptionalSpotifyObject(_:)</code> instead of <code>decode(type:decoder:)</code>,
+otherwise the above doesn&rsquo;t apply.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">filteredPlaylistItems</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
+    <span class="nv">filters</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">additionalTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>playlist</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI of a playlist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Required</em>. Filters for the query: a comma-separated list
+(no spaces) of the fields to return. If omitted, all fields are
+returned. For example, to get just the playlist’s description
+and URI: &ldquo;description,uri&rdquo;. A dot separator can be used to specify
+non-reoccurring fields, while parentheses can be used to specify
+reoccurring fields within objects. For example, to get just the added
+date and user ID of the adder: &ldquo;tracks.items(added_at,added_by.id)&rdquo;.
+Use multiple parentheses to drill down into nested objects, for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;. Fields can be
+excluded by prefixing them with an exclamation mark, for example:
+&ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>additionalTypes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Required</em>. An array of id categories. Valid types
+are <code>track</code> and <code>episode</code>. If you provide <code>[]</code> or <code>[.track]</code>,
+then both tracks and episodes will be returned in the <code><a href="../Structs/Track.html">Track</a></code>
+format. In this case, trying to decode episodes into <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>
+or <code><a href="../Structs/Episode.html">Episode</a></code> will always fail. Instead, both tracks and episodes
+must be decoded into <code><a href="../Structs/Track.html">Track</a></code>. If you expect the the playlist to
+have both tracks and episodes, then use <code>[.episode]</code> or
+<code>[.track, .episode]</code> and decode the tracks and episodes into
+<code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of items to return.
+Default: 100; minimum: 1; maximum: 100.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The index of the first item to return.
+Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. For tracks, Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>. For episodes, if the access token was granted on
+behalf of a user (i.e., if you authorized your application using the
+authorization code flow or the authorization code flow with proof key
+for code exchange), the country associated with the user account will
+take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The raw data and URL response from the server. Because the response
+  is entirely dependent on the filters you specify, you are responsible
+  for decoding the data. Use the combine operators
+  <code>decodeSpotifyObject(_:)</code> or <code>decodeOptionalSpotifyObject(_:)</code> instead
+  <code>decode(type:decoder:)</code>. Any error objects returned by Spotify will be
+  decoded automatically and thrown as an error to downstream subscribers.</p>
                       </div>
                     </section>
                   </div>
@@ -2609,15 +2867,24 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Get all of the tracks in a playlist.
-Episodes in the playlist will not be returned.</p>
+                        <p>Get all of the tracks in a playlist.</p>
+<h1 id='warning' class='heading'>Warning</h1>
+
+<p><strong>This endpoint does NOT return only the tracks in a playlist.</strong>
+Instead, it returns both the tracks and episodes in <code><a href="../Structs/Track.html">Track</a></code> format.
+You are discouraged from using this endpoint unless you are certain
+that the playlist only contains tracks. If unsure, use
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code> instead. Use the <code>type</code> property
+of <code><a href="../Structs/Track.html">Track</a></code> to check if it is actually a track.</p>
 
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
-<li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
 <p>No scopes are required for this endpoint. Tracks from both Public
@@ -2629,7 +2896,7 @@ and Private playlists belonging to any user can be retrieved.</p>
 <p>The full versions of the tracks will be returned.</p>
 
 <p>To get an array of just the tracks, use:</p>
-<pre class="highlight swift"><code><span class="n">playlistTracks</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">tracks</span><span class="p">:</span> <span class="p">[</span><span class="kt">Track</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlistTracks</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">compactMap</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/">Spotify web API reference</a>.</p>
@@ -2698,9 +2965,14 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>
-or the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. For tracks, Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>. For episodes, if the access token was granted on
+behalf of a user (i.e., if you authorized your application using the
+authorization code flow or the authorization code flow with proof key
+for code exchange), the country associated with the user account will
+take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2728,9 +3000,11 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
-<li><code>filteredPlaylistRequest(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
+<li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
 <p>No scopes are required for this endpoint. Tracks from both Public
@@ -2740,7 +3014,7 @@ and Private playlists belonging to any user can be retrieved.</p>
 </code></pre>
 
 <p>To get an array of just the tracks/episdoes, use:</p>
-<pre class="highlight swift"><code><span class="n">playlistTracks</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">PlaylistItem</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlistItems</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">compactMap</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/">Spotify web API reference</a>.</p>
@@ -2809,9 +3083,14 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>
-or the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or the string
+&ldquo;from_token&rdquo;. For tracks, Provide this parameter if you want to apply
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>. For episodes, if the access token was granted on
+behalf of a user (i.e., if you authorized your application using the
+authorization code flow or the authorization code flow with proof key
+for code exchange), the country associated with the user account will
+take priority over this parameter. Users can view the country that
+is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2854,11 +3133,11 @@ See also <a href="https://developer.spotify.com/documentation/general/guides/wor
 <p>The simplified versions of the playlists will be returned.</p>
 
 <p>A <code><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></code> simply contains a link to all of the
-tracks/episodes and the total number in the playlist. However,
-to get all of the tracks in each playlist, you should use
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code> instead, passing in
-the URI of each of the playlists. To get all of the URIs, use:</p>
-<pre class="highlight swift"><code><span class="n">playlists</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+tracks/episodes and the total number in the playlist. To get all
+of the tracks and episodes in each playlist, you can use
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code>, passing in the URI of
+each of the playlists. To get all of the URIs, use:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlists</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
 </code></pre>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-list-users-playlists/">Spotify web API reference</a>.</p>
@@ -3201,8 +3480,13 @@ The &ldquo;types&rdquo; paramater was renamed to &ldquo;categories&rdquo;.</p>
                       <div class="abstract">
                         <p>Get a show.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows) and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> - gets multiple shows</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
+show</li>
+</ul>
 
 <p>Reading the user’s resume points on episode objects requires the
 <code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
@@ -3247,13 +3531,13 @@ required.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
-If a country code is specified, only shows and episodes that
-are available in that market will be returned. If a valid user
-access token is specified in the request header, the country
-associated with the user account will take priority over this
-parameter. Note: If neither market or user country are provided,
-the content is considered unavailable for the client. Users can
-view the country that is associated with their account in the
+If a country code is specified, the show will only be returned
+if it is available in that market. If the access token was granted
+on behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with
+proof key for code exchange), the country associated with the user
+account will take priority over this parameter. Users can view the
+country that is associated with their account in the
 <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
@@ -3283,8 +3567,13 @@ view the country that is associated with their account in the
                       <div class="abstract">
                         <p>Get multiple shows.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show) and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> - gets a single show</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
+show</li>
+</ul>
 
 <p>Reading the user’s resume points on episode objects requires the
 <code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
@@ -3329,12 +3618,12 @@ required.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
-If a country code is specified, only shows and episodes that
-are available in that market will be returned. If a valid user
-access token is specified in the request header, the country
-associated with the user account will take priority over this
-parameter. Note: If neither market or user country are provided,
-the content is considered unavailable for the client. Users can
+If a country code is specified, only shows that are available in
+that market will be returned. If the access token was granted on
+behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with
+proof key for code exchange), the country associated with the
+user account will take priority over this parameter. Users can
 view the country that is associated with their account in the
 <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
@@ -3368,8 +3657,12 @@ view the country that is associated with their account in the
                       <div class="abstract">
                         <p>Get a show&rsquo;s episodes.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> (gets multiple shows) and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> (gets a single show).</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> - gets multiple shows</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> - gets a single show</li>
+</ul>
 
 <p>Reading the user’s resume points on episode objects requires the
 <code>userReadPlaybackPosition</code> scope. Otherwise, no scopes are
@@ -3416,13 +3709,12 @@ required.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
-If a country code is specified, only shows and episodes that
-are available in that market will be returned. If a valid user
-access token is specified in the request header, the country
-associated with the user account will take priority over this
-parameter. Note: If neither market or user country are provided,
-the content is considered unavailable for the client. Users can
-view the country that is associated with their account in the
+If a country code is specified, only episodes that are available
+in that market will be returned. If the access token was granted
+on behalf of a user (i.e., if you authorized your application
+using the client credentials flow), the country associated with
+the user account will take priority over this parameter. Users
+can view the country that is associated with their account in the
 <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
@@ -3449,8 +3741,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. The index of the first episode to return.
-Default: 0. Use with <code>limit</code> to get the next
-set of episodes.</p>
+Default: 0. Use with <code>limit</code> to get the next set of episodes.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3493,7 +3784,7 @@ set of episodes.</p>
                       <div class="abstract">
                         <p>Get a Track.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6tracks_6market7Combine12AnyPublisherVySayAA5TrackVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">tracks(_:market:)</a></code> (gets multiple tracks).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6tracks_6market7Combine12AnyPublisherVySayAA5TrackVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">tracks(_:market:)</a></code> - gets multiple tracks</p>
 
 <p>No scopes are required for this endpoint.</p>
 
@@ -3566,7 +3857,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       <div class="abstract">
                         <p>Get multiple Tracks.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5track_6market7Combine12AnyPublisherVyAA5TrackVs5Error_pGAA0A14URIConvertible_p_SSSgtF">track(_:market:)</a></code> (gets a single track).</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5track_6market7Combine12AnyPublisherVyAA5TrackVs5Error_pGAA0A14URIConvertible_p_SSSgtF">track(_:market:)</a></code> - gets a single track</p>
 
 <p>No scopes are required for this endpoint.</p>
 
@@ -3619,7 +3910,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The full versions of up to 50 <code><a href="../Structs/Track.html">Track</a></code> object . Tracks are returned
+                        <p>The full versions of up to 50 <code><a href="../Structs/Track.html">Track</a></code> objects. Tracks are returned
   in the order requested. If a track is not found, <code>nil</code> is
   returned in the appropriate position. Duplicate tracks URIs
   in the request will result in duplicate tracks in the response.</p>
@@ -3642,9 +3933,23 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                       <div class="abstract">
                         <p>Get audio analysis for a track.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioFeaturesy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioFeatures(_:)</a></code> (gets the audio features for
-a single track) and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19tracksAudioFeaturesy7Combine12AnyPublisherVySayAA0eF0VSgGs5Error_pGSayAA0A14URIConvertible_pGF">tracksAudioFeatures(_:)</a></code> (get the audio features
-for multiple tracks).</p>
+<p>The Audio Analysis endpoint provides low-level audio analysis for all of
+the tracks in the Spotify catalog. The Audio Analysis describes the
+track’s structure and musical content, including rhythm, pitch, and timbre.
+All information is precise to the audio sample.</p>
+
+<p>Many elements of analysis include confidence values, a floating-point
+number ranging from 0.0 to 1.0. Confidence indicates the reliability of
+its corresponding attribute. Elements carrying a small confidence value
+should be considered speculative. There may not be sufficient data in the
+audio to compute the attribute with high certainty.</p>
+
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioFeaturesy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioFeatures(_:)</a></code> - gets the audio features for a single track</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19tracksAudioFeaturesy7Combine12AnyPublisherVySayAA0eF0VSgGs5Error_pGSayAA0A14URIConvertible_pGF">tracksAudioFeatures(_:)</a></code> - gets the audio features for multiple tracks</li>
+</ul>
 
 <p>No scopes are required for this endpoint.</p>
 
@@ -3698,8 +4003,12 @@ for multiple tracks).</p>
                       <div class="abstract">
                         <p>Get audio features for a track.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19tracksAudioFeaturesy7Combine12AnyPublisherVySayAA0eF0VSgGs5Error_pGSayAA0A14URIConvertible_pGF">tracksAudioFeatures(_:)</a></code> (gets the audio features for
-multiple tracks) and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioAnalysisy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioAnalysis(_:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19tracksAudioFeaturesy7Combine12AnyPublisherVySayAA0eF0VSgGs5Error_pGSayAA0A14URIConvertible_pGF">tracksAudioFeatures(_:)</a></code> - gets the audio features for multiple tracks</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioAnalysisy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioAnalysis(_:)</a></code> - gets audio analysis for a track</li>
+</ul>
 
 <p>No scopes are required for this endpoint.</p>
 
@@ -3753,8 +4062,12 @@ multiple tracks) and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAP
                       <div class="abstract">
                         <p>Get audio features for multiple tracks.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioFeaturesy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioFeatures(_:)</a></code> (gets the audio features for
-a single track) and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioAnalysisy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioAnalysis(_:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioFeaturesy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioFeatures(_:)</a></code> - gets the audio features for a single track</li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C18trackAudioAnalysisy7Combine12AnyPublisherVyAA0eF0Vs5Error_pGAA0A14URIConvertible_pF">trackAudioAnalysis(_:)</a></code> - gets audio analysis for a track.</li>
+</ul>
 
 <p>No scopes are required for this endpoint.</p>
 
@@ -3896,26 +4209,13 @@ a single track) and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI
                         <p>Retrieves the data linked to by an href and decodes it
 into <code>responseType</code>.</p>
 
-<p>The access token is automatically refreshed if necessary.</p>
-
 <p>An href is a property provided in many of the responses from
 the Spotify web API which links to addtional data instead of
 including it in the current response in order to limit the size.</p>
 
-<p>For example, the endpoint for getting all of a user&rsquo;s playlists
-returns an href inside of each playlist object which provides
-the full list of tracks/episodes. However, for this specific case,
-it is recommended that you use one of the following methods instead,
-passing in the URI of the playlist:</p>
-
-<ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
-</ul>
-
-<p>These methods are preferred because you do not have to worry about
-figuring out the response type yourself.</p>
+<p>Always prefer using a different method whenever possible because
+this method adds the additional complexity of determining the
+appropriate <code>ResponseType</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -3980,13 +4280,14 @@ figuring out the response type yourself.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code>
-type.</p>
+                        <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code> type.</p>
 
 <p>This method is also available as a combine operator (same name)
 for all publishers where <code>Output</code>: <code><a href="../Protocols/Paginated.html">Paginated</a></code>.</p>
 
-<p>Each time an additional page is received, its <code>next</code> property
+<p>This method immediately republishes the page of results that
+were passed in and then begins requesting additional pages.
+Each time an additional page is received, its <code>next</code> property
 is used to retrieve the next page of results, and so on, until
 <code>next</code> is <code>nil</code> or <code>maxExtraPages</code> is reached. This means that
 the next page will not be requested until the previous one
@@ -4674,8 +4975,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. The index of the first album to return.
-Default: 0. Use with <code>limit</code> to get the next
-set of albums.</p>
+Default: 0. Use with <code>limit</code> to get the next set of albums.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4862,8 +5162,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. The index of the first show to return.
-Default: 0. Use with <code>limit</code> to get the next
-set of shows.</p>
+Default: 0. Use with <code>limit</code> to get the next set of shows.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5500,8 +5799,7 @@ Default: <code>mediumTerm</code>.</p>
                               <td>
                                 <div>
                                   <p>Optional. The index of the first artist to return.
-Default: 0. Use with limit to get
-the next set of entities.</p>
+Default: 0. Use with limit to get the next set of artists.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5603,8 +5901,7 @@ Default: <code>mediumTerm</code>.</p>
                               <td>
                                 <div>
                                   <p>Optional. The index of the first track to return.
-Default: 0. Use with limit to get
-the next set of entities.</p>
+Default: 0. Use with limit to get the next set of tracks.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5760,22 +6057,25 @@ device is not the same as an active device.</p>
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code> and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGyF">currentPlayback()</a></code>.</p>
 
 <p>This endpoint requires the <code>userReadRecentlyPlayed</code> scope.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Currently doesn’t support podcast episodes. Returns the
+  most recent 50 tracks played by a user. Note that a track currently
+  playing will not be visible in play history until it has completed.
+  <strong>A track must be played for more than 30 seconds to be included</strong>
+  <strong>in the play history.</strong>
 
-<p><strong>Note:</strong> Currently doesn’t support podcast episodes. Returns the
-most recent 50 tracks played by a user. Note that a track currently
-playing will not be visible in play history until it has completed.
-A track must be played for more than 30 seconds to be included in play
-history.</p>
+</div>
 
 <p>Any tracks listened to while the user had “Private Session”
 enabled in their client will not be returned in the list of recently
 played tracks.</p>
 
-<p>The endpoint uses a bidirectional cursor for paging.
-Follow the next field with the before parameter to move back in time,
-or use the after parameter to move forward in time. If you supply no
-before or after parameter, the endpoint will return the most recently
-played track, and the next link will page back in time.</p>
+<p>This endpoint uses a bidirectional cursor for paging. Follow the next
+field with the before parameter to move back in time, or use the after
+parameter to move forward in time. If you supply no before or after
+parameter, the endpoint will return the most recently played tracks,
+and the next link will page back in time.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/">Spotify web API reference</a>.</p>
 
@@ -5831,7 +6131,7 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A an array of simplified tracks wrapped in a
+                        <p>An array of simplified tracks wrapped in a
   <code><a href="../Structs/CursorPagingObject.html">CursorPagingObject</a></code>.</p>
                       </div>
                     </section>
@@ -6737,10 +7037,10 @@ always private. See also <a href="https://developer.spotify.com/documentation/ge
 
 <p>A <code><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></code> simply contains a link to all of the
 tracks/episodes and the total number in the playlist. To get all
-of the tracks in each playlist, you can use
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code>, passing in the URI of
+of the tracks and episodes in each playlist, you can use
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code>, passing in the URI of
 each of the playlists. To get all of the URIs, use:</p>
-<pre class="highlight swift"><code><span class="n">playlists</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlists</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
 </code></pre>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/">Spotify web API reference</a>.</p>
@@ -6797,9 +7097,9 @@ set of playlists.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF"></a>
-                    <a name="//apple_ref/swift/Method/getPlaylistImage(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF"></a>
+                    <a name="//apple_ref/swift/Method/playlistImage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -6822,7 +7122,7 @@ the owner of this playlist.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPlaylistImage</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">playlistImage</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
@@ -6858,6 +7158,36 @@ the owner of this playlist.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF"></a>
+                    <a name="//apple_ref/swift/Method/getPlaylistImage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"playlistImage(_:﹚"</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">getPlaylistImage</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF"></a>
                     <a name="//apple_ref/swift/Method/getPlaylistCoverImage(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistCoverImage(_:<wbr>)</a>
@@ -6868,14 +7198,14 @@ the owner of this playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:)</a></code>.</p>
+                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"getPlaylistImage(_:﹚"</span><span class="p">)</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"playlistImage(_:﹚"</span><span class="p">)</span>
 <span class="kd">func</span> <span class="nf">getPlaylistCoverImage</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
@@ -6944,8 +7274,8 @@ playlists) requires the <code>playlistModifyPrivate</code> scope.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An Array of URIs for tracks/episodes.
-A maximum of 100 items can be added in one request.</p>
+                                  <p>An Array of URIs for tracks/episodes. A maximum of 100 items can
+be added in one request.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6959,7 +7289,7 @@ A maximum of 100 items can be added in one request.</p>
                                 <div>
                                   <p><em>Optional</em>. The position to insert the items.
 A zero-based index. If <code>nil</code>, the items will be
-appended to the list.</p>
+appended to the playlist.</p>
                                 </div>
                               </td>
                             </tr>
@@ -7176,9 +7506,13 @@ set <code>rangeStart</code> to 9, set <code>rangeLength</code> to 2, and set
 This powerful request can be useful for replacing items, re-ordering
 existing items, or clearing the playlist.</p>
 
-<p>See also <code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code>,
-<code>removeAllOccurencesFromPlaylist(_:uris:)</code>, and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">reorderPlaylistItems(_:body:)</a></code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code></li>
+<li><code>removeAllOccurencesFromPlaylist(_:uris:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">reorderPlaylistItems(_:body:)</a></code></li>
+</ul>
 
 <p>Setting items in the current user’s public playlists requires
 authorization of the <code>playlistModifyPublic</code> scope; setting items in
@@ -7224,8 +7558,8 @@ requires the <code>playlistModifyPrivate</code> scope.</p>
                               <td>
                                 <div>
                                   <p>The new items to replace all of the current items with.
-<strong>Pass in an empty array to remove all of the items from
-the playlist</strong>.</p>
+A maximum of 100 items can be sent at once. <strong>Pass in an empty</strong>
+<strong>array to remove all of the items from the playlist</strong>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -7414,9 +7748,9 @@ return the image.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE31removeAllOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF"></a>
-                    <a name="//apple_ref/swift/Method/removeAllOccurencesFromPlaylist(_:of:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE31removeAllOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">removeAllOccurencesFromPlaylist(_:<wbr>of:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE31removeAllOccurencesFromPlaylist_2of10snapshotId7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaM_pGSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/removeAllOccurencesFromPlaylist(_:of:snapshotId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE31removeAllOccurencesFromPlaylist_2of10snapshotId7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaM_pGSSSgtF">removeAllOccurencesFromPlaylist(_:<wbr>of:<wbr>snapshotId:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -7427,8 +7761,13 @@ return the image.</p>
                         <p>Removes <strong>all</strong> occurences of the specified tracks/episodes
 from a playlist.</p>
 
-<p>See also
-<code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code>removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23replaceAllPlaylistItems_4with7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">replaceAllPlaylistItems(_:with:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">reorderPlaylistItems(_:body:)</a></code></li>
+</ul>
 
 <p>Removing items from a user’s public playlist requires authorization
 of the <code>playlistModifyPublic</code> scope; removing items from a
@@ -7443,7 +7782,8 @@ private playlist requires the <code>playlistModifyPrivate</code> scope.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeAllOccurencesFromPlaylist</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
-    <span class="n">of</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+    <span class="n">of</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">],</span>
+    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -7472,8 +7812,21 @@ private playlist requires the <code>playlistModifyPrivate</code> scope.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An Array of URIs for tracks/episodes.
-A maximum of 100 items can be removed at once.</p>
+                                  <p>An Array of URIs for tracks/episodes. A maximum of 100 items can
+be removed at once.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>snapshotId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of the playlist to target. If <code>nil</code>,
+the most recent version of the playist is targeted.</p>
                                 </div>
                               </td>
                             </tr>
@@ -7509,8 +7862,13 @@ A maximum of 100 items can be removed at once.</p>
 from a playlist. This is useful if the playlist contains duplicate
 items.</p>
 
-<p>See also
-<code>removeAllOccurencesFromPlaylist(_:uris:)</code>.</p>
+<p>See also:</p>
+
+<ul>
+<li><code>removeAllOccurencesFromPlaylist(_:uris:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23replaceAllPlaylistItems_4with7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">replaceAllPlaylistItems(_:with:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20reorderPlaylistItems_4body7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA07ReorderhI0VtF">reorderPlaylistItems(_:body:)</a></code></li>
+</ul>
 
 <p>Removing items from a user’s public playlist requires authorization
 of the <code>playlistModifyPublic</code> scope; removing items from a
@@ -7559,7 +7917,7 @@ private playlist requires the <code>playlistModifyPrivate</code> scope.</p>
                                 <div>
                                   <p>A collection of URIs along with their positions
 in a playlist and, optionally, the snapshot id of the playlist
-you want to target.</p>
+you want to target. A maximum of 100 items can be sent at once.</p>
                                 </div>
                               </td>
                             </tr>
@@ -7633,7 +7991,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

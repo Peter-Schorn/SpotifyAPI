@@ -8,7 +8,7 @@
  case episode(Episode)
  ```
  
- It also has convenience properties for every property
+ It also has convenience computed properties for every property
  that is common to both tracks and episodes, such as the name and URI.
  
  This is usually, but not always, returned in the context of
@@ -129,14 +129,14 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// Either `track` or `episode`.
+    /// The underlying type of the object. Either `track` or `episode`.
     @inlinable
     public var type: IDCategory {
         switch self {
-            case .track(_):
-                return .track
-            case .episode(_):
-                return .episode
+            case .track(let track):
+                return track.type
+            case .episode(let episode):
+                return episode.type
         }
     }
 

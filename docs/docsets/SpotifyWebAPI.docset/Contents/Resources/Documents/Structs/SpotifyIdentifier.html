@@ -282,7 +282,7 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupO">AlbumGroup</a>
+                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
               </li>
             </ul>
           </li>
@@ -295,8 +295,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Enums.html#/s:13SpotifyWebAPI9AlbumTypeO">AlbumType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -359,7 +370,13 @@
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
               </li>
             </ul>
           </li>
@@ -403,7 +420,7 @@ the different formats, which include the id, the URI, and the URL.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a comma separated string (with no spaces) of ids from a
-sequence of URIs. (used in the query parameter of some requests).</p>
+sequence of URIs (used in the query parameter of some requests).</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     If <code>categories</code> is not <code>nil</code> and the id category of a URI
@@ -536,6 +553,8 @@ match one or more categories. The default is <code>nil</code>.</p>
 <pre class="highlight swift"><code><span class="s">"spotify:</span><span class="se">\(</span><span class="n">idCategory</span><span class="o">.</span><span class="n">rawValue</span><span class="se">)</span><span class="s">:</span><span class="se">\(</span><span class="n">id</span><span class="se">)</span><span class="s">"</span>
 </code></pre>
 
+<p>See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -580,6 +599,19 @@ match one or more categories. The default is <code>nil</code>.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><p>Initializers</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -654,15 +686,29 @@ See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-a
                       <div class="abstract">
                         <p>Creates an instance from a URI. See <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">spotify URIs and ids</a>.</p>
 
-<p>Uses the following regular expression to parse the id and id categories,
-<em>in that order</em>:</p>
+<p>Uses the following <a href="https://regex101.com/r/P8j2R3/1">regular expression</a> to parse the id and id
+categories, <em>in that order</em>:</p>
 <pre class="highlight swift"><code><span class="s">"spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"</span>
 </code></pre>
-<div class="aside aside-throws">
+
+<p>The id category must be one of the following, or an error will be thrown:</p>
+
+<ul>
+<li><code>artist</code></li>
+<li><code>album</code></li>
+<li><code>track</code></li>
+<li><code>playlist</code></li>
+<li><code>show</code></li>
+<li><code>episode</code></li>
+<li><code>local</code></li>
+<li><code>user</code></li>
+<li><code>genre</code></li>
+<li><p><code>unknown</code></p></li>
+</ul><div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    If <code>categories</code> is not <code>nil</code> and the id category of the URI
+    <p>If <code>categories</code> is not <code>nil</code> and the id category of the URI
   does not match one the required categories or if an id or id category
-  could not be parsed from the URI.
+  could not be parsed from the URI.</p>
 
 </div>
 
@@ -782,7 +828,7 @@ parameters, if present, are ignored.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-03)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

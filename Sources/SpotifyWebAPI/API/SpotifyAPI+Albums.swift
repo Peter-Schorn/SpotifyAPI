@@ -46,7 +46,7 @@ public extension SpotifyAPI {
             .decodeSpotifyObject(Album.self)
             
         } catch {
-            return error.anyFailingPublisher(Album.self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -66,7 +66,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][3].
-     - Returns: An array of the full versions of `Album` objects.
+     - Returns: An array of the full versions of up to 20 [album][4] objects.
            Albums are returned in the order requested. If an album
            is not found, `nil` is returned in the corresponding position.
            Duplicate albums in the request will result in duplicate artists
@@ -107,7 +107,7 @@ public extension SpotifyAPI {
             
             
         } catch {
-            return error.anyFailingPublisher([Album?].self)
+            return error.anyFailingPublisher()
         }
         
     }
@@ -127,13 +127,15 @@ public extension SpotifyAPI {
        - limit: *Optional*. The maximum number of tracks to return.
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first track to return.
-             Default: 0. Use with `limit` to get the next set of tracks
-     - Returns: An array of simplified `Track` objects, wrapped in a
-           `PagingObject`.
+             Default: 0. Use with `limit` to get the next set of tracks.
+     - Returns: An array of simplified [track][4] objects, wrapped in a
+           [paging object][5].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/albums/get-albums-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
+     [5]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
      */
     func albumTracks(
         _ album: SpotifyURIConvertible,
@@ -161,7 +163,7 @@ public extension SpotifyAPI {
             
             
         } catch {
-            return error.anyFailingPublisher(PagingObject<Track>.self)
+            return error.anyFailingPublisher()
         }
         
     }

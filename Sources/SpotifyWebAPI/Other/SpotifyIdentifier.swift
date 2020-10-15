@@ -18,7 +18,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /**
      Creates a comma separated string (with no spaces) of ids from a
-     sequence of URIs. (used in the query parameter of some requests).
+     sequence of URIs (used in the query parameter of some requests).
     
      - Parameters:
        - uris: A sequence of Spotify URIs.
@@ -57,6 +57,10 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
      "spotify:\(idCategory.rawValue):\(id)"
      ```
+     
+     See [spotify URIs and ids][1].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     @inlinable
     public var uri: String {
@@ -79,6 +83,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         )
     }
 
+    // MARK: Initializers
+    
     /**
      Creates an instance from an id and an id category.
      See [spotify URIs and ids][1].
@@ -97,11 +103,24 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     /**
      Creates an instance from a URI. See [spotify URIs and ids][1].
     
-     Uses the following regular expression to parse the id and id categories,
-     *in that order*:
+     Uses the following [regular expression][2] to parse the id and id
+     categories, *in that order*:
      ```
      "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
      ```
+     
+     The id category must be one of the following, or an error will be thrown:
+     
+     * `artist`
+     * `album`
+     * `track`
+     * `playlist`
+     * `show`
+     * `episode`
+     * `local`
+     * `user`
+     * `genre`
+     * `unknown`
      
      - Parameters:
        - uri: A Spotify URI.
@@ -113,6 +132,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
            could not be parsed from the URI.
     
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: https://regex101.com/r/P8j2R3/1
      */
     public init(
         uri: SpotifyURIConvertible,

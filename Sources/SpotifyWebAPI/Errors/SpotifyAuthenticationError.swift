@@ -13,6 +13,13 @@ import Foundation
  The error response follows [RFC 6749][2] on the OAuth 2.0 Authorization
  Framework.
  
+ See also:
+ 
+ * `SpotifyError`
+ * `SpotifyPlayerError`
+ * `RateLimitedError`
+ * `SpotifyLocalError`
+ 
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
  [2]: https://tools.ietf.org/html/rfc6749
  */

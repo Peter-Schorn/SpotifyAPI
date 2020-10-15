@@ -173,6 +173,68 @@ public struct Section: Hashable {
         self.timeSignatureConfidence = timeSignatureConfidence
     }
     
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else, returns
+     `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        if !self.start.isApproximatelyEqual(
+            to: other.start, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.duration.isApproximatelyEqual(
+            to: other.duration, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.confidence.isApproximatelyEqual(
+            to: other.confidence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.loudness.isApproximatelyEqual(
+            to: other.loudness, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.tempo.isApproximatelyEqual(
+            to: other.tempo, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if !self.tempoConfidence.isApproximatelyEqual(
+            to: other.tempoConfidence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if self.key != other.key {
+            return false
+        }
+        if !self.keyConfidence.isApproximatelyEqual(
+            to: other.keyConfidence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if self.mode != other.mode {
+            return false
+        }
+        if !self.modeConfidence.isApproximatelyEqual(
+            to: other.modeConfidence, absoluteTolerance: 0.001
+        ) {
+            return false
+        }
+        if self.timeSignature != other.timeSignature {
+            return false
+        }
+        return self.timeSignatureConfidence.isApproximatelyEqual(
+            to: other.timeSignatureConfidence, absoluteTolerance: 0.001
+        )
+    }
 }
 
 extension Section: Codable {
