@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.7.0]
+## [0.7.0] - 2020-10-15
 
 ### Added
 
@@ -26,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Fixed bug where the incorrect coding key was being used for the `trackNumber` and `previewURL` properties of `Track`, causing them to never be decoded from the data and always set to `nil`.
 * Fixed bug where `externalURLs` property of `SpotifyContext` was not being decoded because the JSON key name was incorrect.
 
-## [0.6.0]
+## [0.6.0] - 2020-10-03
 
 ### Added
 
