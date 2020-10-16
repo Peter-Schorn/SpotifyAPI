@@ -749,7 +749,7 @@ closure. Available when <code>Output</code> == <code>Void</code>.</p>
 
 <p>You are discouraged from using trailing closure syntax with this
 method in order to avoid confusion with <code>sink(receiveValue:)</code>
-(available when <code>Failure</code> is <code>Never</code>).</p>
+(available when <code>Failure</code> == <code>Never</code>).</p>
 
 <p>This method creates the subscriber and immediately requests an
 unlimited number of values, prior to returning the subscriber.</p>
@@ -760,7 +760,7 @@ unlimited number of values, prior to returning the subscriber.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sink</span><span class="p">(</span>
-    <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Completion</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+    <span class="nv">receiveCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Completion</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyCancellable</span></code></pre>
 
                         </div>

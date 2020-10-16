@@ -2186,7 +2186,7 @@ on behalf of a user (i.e., if you authorized your application using
 the authorization code flow or the authorization code flow with proof
 key for code exchange), the country associated with the user account
 will take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2266,7 +2266,7 @@ on behalf of a user (i.e., if you authorized your application
 using the client credentials flow), the country associated with
 the user account will take priority over this parameter. Users
 can view the country that is associated with their account in
-the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2519,9 +2519,10 @@ and URI: &ldquo;description,uri&rdquo;. A dot separator can be used to specify
 non-reoccurring fields, while parentheses can be used to specify
 reoccurring fields within objects. For example, to get just the added
 date and user ID of the adder: &ldquo;tracks.items(added_at,added_by.id)&rdquo;.
-Use multiple parentheses to drill down into nested objects, for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;. Fields can be
-excluded by prefixing them with an exclamation mark, for example:
-&ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
+Use multiple parentheses to drill down into nested objects,
+for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;.
+Fields can be excluded by prefixing them with an exclamation mark,
+for example: &ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2560,7 +2561,7 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2665,7 +2666,7 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2768,9 +2769,10 @@ and URI: &ldquo;description,uri&rdquo;. A dot separator can be used to specify
 non-reoccurring fields, while parentheses can be used to specify
 reoccurring fields within objects. For example, to get just the added
 date and user ID of the adder: &ldquo;tracks.items(added_at,added_by.id)&rdquo;.
-Use multiple parentheses to drill down into nested objects, for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;. Fields can be
-excluded by prefixing them with an exclamation mark, for example:
-&ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
+Use multiple parentheses to drill down into nested objects,
+for example: &ldquo;tracks.items(track(name,href,album(name,href)))&rdquo;.
+Fields can be excluded by prefixing them with an exclamation mark,
+for example: &ldquo;tracks.items(track(name,href,album(!name,href)))&rdquo;.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2835,7 +2837,7 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2972,7 +2974,7 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3090,7 +3092,7 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3278,8 +3280,20 @@ only works with album searches. Depending on object types being
 searched for, other field filters, include genre (applicable to tracks
 and artists), upc, and isrc. Use double quotation marks
 around the genre keyword string if it contains spaces.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    If a country code is specified, only shows that are available in
+that market will be returned. If the access token was granted on
+behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with
+proof key for code exchange), the country associated with the
+user account will take priority over this parameter. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
 
-<p>Read more at the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">Spotify web API reference</a>.</p>
+</div>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">Spotify web API reference</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -3335,17 +3349,18 @@ Valid types: <code>album</code>, <code>artist</code>, <code>playlist</code>, <co
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://www.spotify.com/se/account/overview/">ISO 3166-1 alpha-2 country code</a>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>
 or the string &ldquo;from_token&rdquo;. If a country code is specified,
-only artists, albums, and tracks with content
-that is playable in that market is returned.
+only content that is playable in that market is returned.
 <strong>Note:</strong> Playlist results are not affected by the
 market parameter. If market is set to &ldquo;from_token&rdquo;,
-and a valid access token is specified in the request header,
-only content playable in the country associated with the
+and the access token was granted on behalf of a user (i.e., if
+you authorized your application using the authorization code
+flow or the authorization code flow with proof key for code
+exchange), only content playable in the country associated with the
 user account, is returned. Users can view the country
 that is associated with their account in the
-[account settings][3]. A user must grant access to the
+<a href="https://www.spotify.com/account/overview/">account settings</a>. A user must grant access to the
 <code>userReadPrivate</code> scope prior to when the access
 token is issued.</p>
                                 </div>
@@ -3538,7 +3553,7 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with the user
 account will take priority over this parameter. Users can view the
 country that is associated with their account in the
-<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3625,7 +3640,7 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with the
 user account will take priority over this parameter. Users can
 view the country that is associated with their account in the
-<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3715,7 +3730,7 @@ on behalf of a user (i.e., if you authorized your application
 using the client credentials flow), the country associated with
 the user account will take priority over this parameter. Users
 can view the country that is associated with their account in the
-<a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3826,9 +3841,9 @@ Default: 0. Use with <code>limit</code> to get the next set of episodes.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or
+                                  <p><em>Optional</em>. An <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">ISO 3166-1 alpha-2 country code</a> or
 the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+to apply <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">Track Relinking</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4374,7 +4389,7 @@ For example, to just get the next page, use <code>1</code>. Leave as
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This function has no stable API and may change arbitrarily.
+                        <p>This method has no stable API and may change arbitrarily.
 Only use it for testing purposes.</p>
 
                       </div>
@@ -5702,7 +5717,7 @@ specified in the request header, the country associated with the
 user account will take priority over this parameter.
 Note: If neither market or user country are provided, the content
 is considered unavailable for the client. Users can view the country
-that is associated with their account in the <a href="https://www.spotify.com/se/account/overview/">account settings</a>.</p>
+that is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5961,8 +5976,8 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
 
 <p>This endpoint requires the <code>userReadPlaybackState</code> scope.</p>
 
-<p>This endpoint can be used to determine which devices
-are currently active.</p>
+<p>You can use this endpoint to determine which devices are currently active
+by checking each device&rsquo;s <code>isActice</code> property.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/">Spotify web API reference</a>.</p>
 
@@ -5985,9 +6000,9 @@ are currently active.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGyF"></a>
-                    <a name="//apple_ref/swift/Method/currentPlayback()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGyF">currentPlayback()</a>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback6market7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGSSSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/currentPlayback(market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback6market7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGSSSg_tF">currentPlayback(market:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -6015,15 +6030,8 @@ the currently playing track or episode, progress, and active device.</p>
 <p>The information returned is for the last known state, which means an inactive
 device could be returned if it was the last one to execute playback. When no
 available devices are found, <code>nil</code> is returned. Always use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code>
-instead if you just need to get the available devices. Note that an available
-device is not the same as an active device.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Testing suggets that if the user is playing an episode,
-  then the <code>currentlyPlayingItem</code> and <code>context</code> properties of <code><a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a></code>
-  will be <code>nil</code>.
-
-</div>
+instead if you just need to get the available and active devices. Note that an
+available device is not the same as an active device.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-information-about-the-users-current-playback/">Spotify web API reference</a>.</p>
 
@@ -6032,9 +6040,32 @@ device is not the same as an active device.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentPlayback</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a></span><span class="p">?,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentPlayback</span><span class="p">(</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a></span><span class="p">?,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">ISO 3166-1 alpha-2 country code</a> or
+  the string &ldquo;from_token&rdquo;. Provide this parameter if you want
+  to apply <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">Track Relinking</a>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -6054,18 +6085,19 @@ device is not the same as an active device.</p>
                       <div class="abstract">
                         <p>Get the current user&rsquo;s recently played tracks.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code> and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGyF">currentPlayback()</a></code>.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code> and <code>currentPlayback()</code>.</p>
 
 <p>This endpoint requires the <code>userReadRecentlyPlayed</code> scope.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Currently doesn’t support podcast episodes. Returns the
-  most recent 50 tracks played by a user. Note that a track currently
-  playing will not be visible in play history until it has completed.
-  <strong>A track must be played for more than 30 seconds to be included</strong>
-  <strong>in the play history.</strong>
+    Currently doesn’t support podcast episodes.
 
 </div>
+
+<p>Returns the most recent 50 tracks played by a user. Note that a track
+currently playing will not be visible in play history until it has
+completed. <strong>A track must be played for more than 30 seconds to be included</strong>
+<strong>in the play history.</strong></p>
 
 <p>Any tracks listened to while the user had “Private Session”
 enabled in their client will not be returned in the list of recently
@@ -6204,7 +6236,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to add to the queue for a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6268,7 +6302,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to skip to the next item on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6332,7 +6368,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to skip to the previous item on a non-active device,
+call <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6364,7 +6402,7 @@ of a device that is not active, you may get a
 
 <p>Due to the asynchronous nature of the issuance of the command,
 you should use the Get Information About The User’s Current Playback
-endpoint (<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGyF">currentPlayback()</a></code>) to check that your issued command was
+endpoint (<code>currentPlayback()</code>) to check that your issued command was
 handled correctly by the player.</p>
 
 <p>When performing an action that is restricted,
@@ -6404,7 +6442,9 @@ the PREMIUM_REQUIRED reason.</p>
   It is highly recommended that you leave this as <code>nil</code>
   (default) to target the active device. If you provide the id
   of a device that is not active, you may get a
-  403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+  403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+  If you want to pause playback on a non-active device, call
+  <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6668,7 +6708,9 @@ next song.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to seek to a position on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6747,7 +6789,9 @@ the current track. context will repeat the current context.
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to set the repeat mode on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6824,7 +6868,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to set the volume on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6847,7 +6893,7 @@ of a device that is not active, you may get a
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Toggle shuffle fo the user&rsquo;s playback.</p>
+                        <p>Set the shuffle mode for the user&rsquo;s playback.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
@@ -6901,7 +6947,9 @@ the PREMIUM_REQUIRED reason.</p>
 It is highly recommended that you leave this as <code>nil</code>
 (default) to target the active device. If you provide the id
 of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.</p>
+403 &ldquo;Player command failed: Restriction violated&rdquo; error.
+If you want to set the shuffle mode on a non-active device, call
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6925,6 +6973,9 @@ of a device that is not active, you may get a
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Transfer the user&rsquo;s playback to a different device.</p>
+
+<p>After you transfer playback to a different device, that device will
+be considered active.</p>
 
 <p>See also <code>resumePlayback(_:deviceId:)</code> and <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE4play_8deviceId7Combine12AnyPublisherVyyts5Error_pGAA15PlaybackRequestV_SSSgtF">play(_:deviceId:)</a></code>.</p>
 
