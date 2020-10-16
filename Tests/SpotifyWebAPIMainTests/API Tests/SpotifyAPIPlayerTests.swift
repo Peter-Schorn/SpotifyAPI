@@ -8,7 +8,7 @@ import SpotifyExampleContent
 protocol SpotifyAPIPlayerTests: SpotifyAPITests { }
 
 extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthorizationManager {
-    
+
     func playPause() {
         
         let expectation = XCTestExpectation(description: "testPlayPause")
@@ -36,8 +36,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             XCTAssert((0...20).contains(difference), "timestamp is incorrect")
             
             XCTAssertTrue(context.isPlaying)
-            XCTAssertEqual(context.currentlyPlayingType, .track)
-            if let currentItem = context.currentlyPlayingItem {
+            XCTAssertEqual(context.itemType, .track)
+            if let currentItem = context.item {
                 XCTAssert(
                     currentItem.name.starts(with: "Any Colour You Like"),
                     "\(currentItem.name) should start with " +
@@ -55,7 +55,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             else {
                 XCTFail("context.progressMS should not be nil")
             }
-            if case .track(let track) = context.currentlyPlayingItem {
+            if case .track(let track) = context.item {
                 XCTAssertEqual(track.artists?.first?.name, "Pink Floyd")
                 XCTAssert(
                     track.album?.name.starts(with: "The Dark Side Of The Moon") ?? false,
@@ -75,7 +75,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 checkPlaybackContext(context)
@@ -83,7 +85,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 encodeDecode(context)
@@ -97,7 +101,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -107,6 +113,170 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             
         wait(for: [expectation], timeout: 120)
         
+
+    }
+    
+    func playAndCurrentPlaybackForEpisode() {
+        
+        func checkContext(_ context: CurrentlyPlayingContext?) {
+            encodeDecode(context)
+            guard let context = context else {
+                XCTFail("CurrentlyPlayingContext should not be nil")
+                return
+            }
+            encodeDecode(context)
+
+            XCTAssertTrue(context.isPlaying)
+            XCTAssertEqual(context.itemType, .episode)
+            
+            let difference = Date().timeIntervalSince1970 -
+                    context.timestamp.timeIntervalSince1970
+            XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+            
+            if let progress = context.progressMS {
+                XCTAssert((2_000_000...2_020_000).contains(progress))
+            }
+            else {
+                XCTFail("context.progressMS should not be nil")
+            }
+
+            if let context = context.context {
+                XCTAssertEqual(context.uri, URIs.Shows.samHarris.uri)
+                XCTAssertEqual(context.type, .show)
+                XCTAssertEqual(
+                    context.href,
+                    "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk"
+                )
+                if let externalURLs = context.externalURLs {
+                    XCTAssertEqual(
+                        externalURLs["spotify"],
+                        "https://open.spotify.com/show/5rgumWEx4FsqIY8e1wJNAk",
+                        "\(externalURLs)"
+                    )
+                }
+                else {
+                    XCTFail("externalURLs should not be nil")
+                }
+            }
+            
+            if let playlistItem = context.item {
+                XCTAssertEqual(
+                    playlistItem.name, "#217 — The New Religion of Anti-Racism"
+                )
+                XCTAssertEqual(
+                    playlistItem.uri, "spotify:episode:7nsYz7tSJryO5vVYtkKiot"
+                )
+                
+                if case .episode(let episode) = playlistItem {
+                    XCTAssertEqual(
+                        episode.name, "#217 — The New Religion of Anti-Racism"
+                    )
+                    XCTAssertEqual(
+                        episode.uri, "spotify:episode:7nsYz7tSJryO5vVYtkKiot"
+                    )
+                    XCTAssertEqual(
+                        episode.type, .episode
+                    )
+                    
+                    XCTAssertEqual(
+                        episode.description,
+                        """
+                        In this episode of the podcast, Sam Harris speaks with \
+                        John McWhorter about race, racism, and “anti-racism” in \
+                        America. They discuss how conceptions of racism have \
+                        changed, the ubiquitous threat of being branded a \
+                        “racist,” the contradictions within identity politics, \
+                        recent echoes of the OJ verdict, willingness among \
+                        progressives to lose the 2020 election, racism as the \
+                        all-purpose explanation of racial disparities in the \
+                        U.S., double standards for the black community, the war \
+                        on drugs, the lure of identity politics, police violence, \
+                        the enduring riddle of affirmative action, the politics of \
+                        “black face,” and other topics. SUBSCRIBE to gain access \
+                        to all content on samharris.org/subscribe
+                        """.strip()
+                    )
+                    
+                    if let releaseDate = episode.releaseDate {
+                        XCTAssertEqual(
+                            releaseDate.timeIntervalSince1970,
+                            1600300800,
+                            accuracy: 43_200  // 12 hours
+                        )
+                    }
+                    else {
+                        XCTFail("release date should not be nil")
+                    }
+                    XCTAssertEqual(episode.releaseDatePrecision, "day")
+                    
+                    if let show = episode.show {
+                        XCTAssertEqual(
+                            show.description,
+                            """
+                            Join neuroscientist, philosopher, and best-selling author \
+                            Sam Harris as he explores important and controversial \
+                            questions about the human mind, society, and current \
+                            events.  Sam Harris is the author of The End of Faith, \
+                            Letter to a Christian Nation, The Moral Landscape, \
+                            Free Will, Lying, Waking Up, and Islam and the Future \
+                            of Tolerance (with Maajid Nawaz). The End of Faith won \
+                            the 2005 PEN Award for Nonfiction. His writing has been \
+                            published in more than 20 languages. Mr. Harris and \
+                            his work have been discussed in The New York Times, \
+                            Time, Scientific American, Nature, Newsweek, Rolling \
+                            Stone, and many other journals. His writing has appeared \
+                            in The New York Times, The Los Angeles Times, The \
+                            Economist, Newsweek, The Times (London), The Boston \
+                            Globe, The Atlantic, The Annals of Neurology, and \
+                            elsewhere.  Mr. Harris received a degree in philosophy \
+                            from Stanford University and a Ph.D. in neuroscience \
+                            from UCLA.
+                            """.strip()
+                        )
+                        
+                    }
+                    else {
+                        XCTFail("episode should contain show")
+                    }
+                }
+                else {
+                    XCTFail("PlaylistItem should be episode")
+                }
+                
+            }
+            else {
+                XCTFail("context.currentlyPlayingItem should not be nil")
+            }
+            
+            
+        }
+        
+        let expectation = XCTestExpectation(
+            description: "testPlayCurrentPlaybackForEpisode"
+        )
+        
+        let playbackRequest = PlaybackRequest(
+            context: .contextURI(URIs.Shows.samHarris),
+            offset: .uri(URIs.Episodes.samHarris217),
+            positionMS: 2_000_000  // 33:20
+        )
+        
+        encodeDecode(playbackRequest)
+
+        Self.spotify.play(playbackRequest)
+            .XCTAssertNoFailure()
+            .delay(for: 1, scheduler: DispatchQueue.main)
+            .flatMap {
+                Self.spotify.currentPlayback(market: "us")
+            }
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: checkContext(_:)
+            )
+            .store(in: &Self.cancellables)
+            
+        wait(for: [expectation], timeout: 120)
 
     }
     
@@ -202,7 +372,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
             .delay(for: 2, scheduler: DispatchQueue.main)
-            .flatMap(maxPublishers: .max(1), Self.spotify.currentPlayback)
+            .flatMap(maxPublishers: .max(1)) {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap(maxPublishers: .max(1)) { playback -> AnyPublisher<Void, Error> in
                 guard let playback = playback else {
@@ -220,11 +392,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 XCTAssertEqual(playback.repeatState, .context)
                 XCTAssertTrue(playback.isPlaying)
                 XCTAssertEqual(
-                    playback.currentlyPlayingType, .track,
+                    playback.itemType, .track,
                     "\(playback)"
                 )
                 XCTAssertEqual(
-                    playback.currentlyPlayingItem?.uri,
+                    playback.item?.uri,
                     URIs.Tracks.money.uri,
                     "\(playback)"
                 )
@@ -240,7 +412,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 //            .print("\(#line)")
             .delay(for: 2, scheduler: DispatchQueue.main)
             // .print("\(#line)")
-            .flatMap(maxPublishers: .max(1), Self.spotify.currentPlayback)
+            .flatMap(maxPublishers: .max(1))  {
+                Self.spotify.currentPlayback()
+            }
             // .print("\(#line)")
             .delay(for: 2, scheduler: DispatchQueue.main)
 //            .print("\(#line)")
@@ -258,9 +432,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 XCTAssertFalse(playback.shuffleIsOn)
                 XCTAssertEqual(playback.repeatState, .context)
                 XCTAssertTrue(playback.isPlaying)
-                XCTAssertEqual(playback.currentlyPlayingType, .track)
+                XCTAssertEqual(playback.itemType, .track)
                 XCTAssertEqual(
-                    playback.currentlyPlayingItem?.uri,
+                    playback.item?.uri,
                     URIs.Tracks.usAndThem.uri
                 )
                 XCTAssert(
@@ -274,7 +448,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 2, scheduler: DispatchQueue.main)
-            .flatMap(maxPublishers: .max(1), Self.spotify.currentPlayback)
+            .flatMap(maxPublishers: .max(1))  {
+                Self.spotify.currentPlayback()
+            }
             .sink(
                 receiveCompletion: { completion in
                     XCTAssertFinishedNormally(completion)
@@ -296,9 +472,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     XCTAssertFalse(playback.shuffleIsOn)
                     XCTAssertEqual(playback.repeatState, .context)
                     XCTAssertTrue(playback.isPlaying)
-                    XCTAssertEqual(playback.currentlyPlayingType, .track)
+                    XCTAssertEqual(playback.itemType, .track)
                     XCTAssertEqual(
-                        playback.currentlyPlayingItem?.uri,
+                        playback.item?.uri,
                         URIs.Tracks.money.uri
                     )
                 
@@ -366,7 +542,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { playback -> AnyPublisher<Void, Error> in
                 guard let playback = playback else {
@@ -379,7 +557,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 XCTAssert((0...20).contains(difference), "timestamp is incorrect")
                 XCTAssertTrue(playback.isPlaying)
                 XCTAssertEqual(
-                    playback.currentlyPlayingType, .track,
+                    playback.itemType, .track,
                     "\(playback)"
                 )
                 XCTAssertEqual(
@@ -387,7 +565,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     URIs.Albums.inRainbows.uri
                 )
 
-                if case .track(let track) = playback.currentlyPlayingItem {
+                if case .track(let track) = playback.item {
                     XCTAssertEqual(
                         track.artists?.first?.name,
                         "Radiohead"
@@ -403,10 +581,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     XCTFail("current playback should be track")
                 }
                 
-                trackDuration = playback.currentlyPlayingItem?.durationMS
+                trackDuration = playback.item?.durationMS
              
                 print(
-                    "setting volume for \(playback.activeDevice.name) " +
+                    "setting volume for \(playback.device.name) " +
                     "to \(newVolume)"
                 )
                 return Self.spotify.setVolume(to: newVolume)
@@ -441,7 +619,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -456,7 +636,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     XCTAssert((0...20).contains(difference), "timestamp is incorrect")
                     XCTAssertTrue(playback.isPlaying)
                     XCTAssertEqual(
-                        playback.currentlyPlayingType, .track,
+                        playback.itemType, .track,
                         "\(playback)"
                     )
                     XCTAssertEqual(
@@ -518,9 +698,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     context.timestamp.timeIntervalSince1970
             XCTAssert((0...20).contains(difference), "timestamp is incorrect")
             XCTAssertTrue(context.isPlaying)
-            XCTAssertEqual(context.currentlyPlayingType, .track)
-            XCTAssertEqual(context.activeDevice.id, activeDeviceId)
-            XCTAssertEqual(context.currentlyPlayingItem?.uri, selectedItem)
+            XCTAssertEqual(context.itemType, .track)
+            XCTAssertEqual(context.device.id, activeDeviceId)
+            XCTAssertEqual(context.item?.uri, selectedItem)
             if let progress = context.progressMS {
                 XCTAssert((150_000...170_000).contains(progress))
             }
@@ -549,7 +729,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -582,9 +764,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     context.timestamp.timeIntervalSince1970
             XCTAssert((0...20).contains(difference), "timestamp is incorrect")
             XCTAssertTrue(context.isPlaying)
-            XCTAssertEqual(context.currentlyPlayingType, .track)
-            XCTAssertEqual(context.activeDevice.id, activeDeviceId)
-            XCTAssertEqual(context.currentlyPlayingItem?.uri, track.uri)
+            XCTAssertEqual(context.itemType, .track)
+            XCTAssertEqual(context.device.id, activeDeviceId)
+            XCTAssertEqual(context.item?.uri, track.uri)
         }
         
         let expectation = XCTestExpectation(description: "testPlayPause")
@@ -606,7 +788,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -749,7 +933,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
@@ -762,7 +948,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
@@ -775,7 +963,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -807,7 +997,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
@@ -820,7 +1012,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
@@ -833,7 +1027,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
@@ -846,7 +1042,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -927,7 +1125,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
-            .flatMap(Self.spotify.currentPlayback)
+            .flatMap {
+                Self.spotify.currentPlayback()
+            }
             .delay(for: 4, scheduler: DispatchQueue.global())
             .XCTAssertNoFailure()
             .sink(
@@ -937,10 +1137,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         XCTFail("playback was nil")
                         return
                     }
-                    XCTAssertNotNil(playback.activeDevice.id)
+                    XCTAssertNotNil(playback.device.id)
                     XCTAssertNotNil(transferDevice?.id)
                     XCTAssertEqual(
-                        playback.activeDevice.id,
+                        playback.device.id,
                         transferDevice?.id
                     )
                 }
@@ -964,6 +1164,7 @@ final class SpotifyAPIAuthorizationCodeFlowManagerPlayerTests:
     
     static let allTests = [
         ("testPlayPause", testPlayPause),
+        ("testPlayAndCurrentPlaybackForEpisode", testPlayAndCurrentPlaybackForEpisode),
         ("testPlaySkipToNextAndPrevious", testPlaySkipToNextAndPrevious),
         ("testPlaySeekToPositionAndSetVolume", testPlaySeekToPositionAndSetVolume),
         ("testPlayback", testPlayback),
@@ -985,6 +1186,9 @@ final class SpotifyAPIAuthorizationCodeFlowManagerPlayerTests:
     }
     
     func testPlayPause() { playPause() }
+    func testPlayAndCurrentPlaybackForEpisode() {
+        playAndCurrentPlaybackForEpisode()
+    }
     func testPlaySkipToNextAndPrevious() {
         // let max = 5
         // for i in 1...max {
@@ -1012,6 +1216,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEManagerPlayerTests:
     
     static let allTests = [
         ("testPlayPause", testPlayPause),
+        ("testPlayAndCurrentPlaybackForEpisode", testPlayAndCurrentPlaybackForEpisode),
         ("testPlaySkipToNextAndPrevious", testPlaySkipToNextAndPrevious),
         ("testPlaySeekToPositionAndSetVolume", testPlaySeekToPositionAndSetVolume),
         ("testPlayback", testPlayback),
@@ -1033,8 +1238,16 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEManagerPlayerTests:
     }
     
     func testPlayPause() { playPause() }
+    func testPlayAndCurrentPlaybackForEpisode() {
+        playAndCurrentPlaybackForEpisode()
+    }
     func testPlaySkipToNextAndPrevious() {
-        playSkipToNextAndPrevious()
+        // let max = 5
+        // for i in 1...max {
+            // print("\n--- Toplevel \(i) ---\n")
+            playSkipToNextAndPrevious()
+            // if i != max { sleep(5) }
+        // }
     }
     func testPlaySeekToPositionAndSetVolume() {
         playSeekToPositionAndSetVolume()

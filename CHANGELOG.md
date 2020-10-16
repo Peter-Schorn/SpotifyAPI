@@ -1,7 +1,16 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.7.2] - 2020-10-15
+
+### Changed
+
+* Added the `market` parameter to `SpotifyAPI.currentPlayback(market:)` and fixed a bug that caused episodes to not be returned.
+* Renamed `CurrentlyPlayingContext.activeDevice` to `device` because this device is not necessarily active. 
+* Renamed `CurrentlyPlayingContext.currentlyPlayingType` to `itemType` because this item is not necessarily currently playing. Use `CurrentlyPlayingContext.currentlyPlayingType.isPlaying` to determine if the content is currently playing. 
 
 ## [0.7.0] - 2020-10-15
 
@@ -9,8 +18,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Added documentation about how omitting the market parameter when using the client credentials flow causes episodes and shqows to not be returned.
 * Added `SpotifyAPI.filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`.
-* Added `snapshotId` parameter to `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
-* Added `SpotifyPlayerError`; This error object is returned by Spotify when there are errors related to the player endpoints.
+* Added `snapshotId` parameter to `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`.
+* Added `SpotifyPlayerError`; this error object is returned by Spotify when there are errors related to the player endpoints.
 
 ### Changed
 

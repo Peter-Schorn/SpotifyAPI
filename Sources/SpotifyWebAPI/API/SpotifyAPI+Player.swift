@@ -13,8 +13,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userReadPlaybackState` scope.
 
-     This endpoint can be used to determine which devices
-     are currently active.
+     You can use this endpoint to determine which devices are currently active
+     by checking each device's `isActice` property.
      
      Read more at the [Spotify web API reference][1].
      
@@ -46,11 +46,11 @@ public extension SpotifyAPI where
     /**
      Get information about the user's current playback, including
      the currently playing track or episode, progress, and active device.
-
+     
      See also `availableDevices()` and `recentlyPlayed(_:limit:)`.
      
      This endpoint requires the `userReadPlaybackState` scope.
-
+     
      The notable details that are returned are:
      
      * The user's currently active device
@@ -62,22 +62,29 @@ public extension SpotifyAPI where
      The information returned is for the last known state, which means an inactive
      device could be returned if it was the last one to execute playback. When no
      available devices are found, `nil` is returned. Always use `availableDevices()`
-     instead if you just need to get the available devices. Note that an available
-     device is not the same as an active device.
-     
-     - Note: Testing suggets that if the user is playing an episode,
-           then the `currentlyPlayingItem` and `context` properties of `CurrentlyPlayingContext`
-           will be `nil`.
+     instead if you just need to get the available and active devices. Note that an
+     available device is not the same as an active device.
      
      Read more at the [Spotify web API reference][1].
      
+     - Parameter market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
+           the string "from_token". Provide this parameter if you want
+           to apply [Track Relinking][3].
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-information-about-the-users-current-playback/
+     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
-    func currentPlayback() -> AnyPublisher<CurrentlyPlayingContext?, Error> {
+    func currentPlayback(
+        market: String? = nil
+    ) -> AnyPublisher<CurrentlyPlayingContext?, Error> {
         
         return self.getRequest(
             path: "/me/player",
-            queryItems: [:],
+            queryItems: [
+                "additional_types": "track,episode",
+                "market": market
+            ],
             requiredScopes: [.userReadPlaybackState]
         )
         .decodeOptionalSpotifyObject(CurrentlyPlayingContext.self)
@@ -91,11 +98,12 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userReadRecentlyPlayed` scope.
      
-     - Note: Currently doesn’t support podcast episodes. Returns the
-           most recent 50 tracks played by a user. Note that a track currently
-           playing will not be visible in play history until it has completed.
-           **A track must be played for more than 30 seconds to be included**
-           **in the play history.**
+     - Note: Currently doesn’t support podcast episodes.
+     
+     Returns the most recent 50 tracks played by a user. Note that a track
+     currently playing will not be visible in play history until it has
+     completed. **A track must be played for more than 30 seconds to be included**
+     **in the play history.**
      
      Any tracks listened to while the user had “Private Session”
      enabled in their client will not be returned in the list of recently
@@ -165,6 +173,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to add to the queue for a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
@@ -212,6 +222,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to skip to the next item on a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-next-track/
@@ -255,6 +267,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to skip to the previous item on a non-active device,
+             call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
@@ -307,6 +321,8 @@ public extension SpotifyAPI where
                (default) to target the active device. If you provide the id
                of a device that is not active, you may get a
                403 "Player command failed: Restriction violated" error.
+               If you want to pause playback on a non-active device, call
+               `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/
@@ -480,6 +496,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to seek to a position on a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/seek-to-position-in-currently-playing-track/
@@ -531,6 +549,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to set the repeat mode on a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
@@ -580,6 +600,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to set the volume on a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-volume-for-users-playback/
@@ -608,7 +630,7 @@ public extension SpotifyAPI where
     
         
     /**
-     Toggle shuffle fo the user's playback.
+     Set the shuffle mode for the user's playback.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
@@ -629,6 +651,8 @@ public extension SpotifyAPI where
              (default) to target the active device. If you provide the id
              of a device that is not active, you may get a
              403 "Player command failed: Restriction violated" error.
+             If you want to set the shuffle mode on a non-active device, call
+             `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      [2]: https://developer.spotify.com/documentation/web-api/reference/player/toggle-shuffle-for-users-playback/
@@ -657,6 +681,9 @@ public extension SpotifyAPI where
     
     /**
      Transfer the user's playback to a different device.
+     
+     After you transfer playback to a different device, that device will
+     be considered active.
      
      See also `resumePlayback(_:deviceId:)` and `play(_:deviceId:)`.
      

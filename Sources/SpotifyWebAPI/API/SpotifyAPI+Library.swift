@@ -460,7 +460,7 @@ public extension SpotifyAPI where
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-shows-user/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      */
     func removeSavedShowsForCurrentUser(
         _ uris: [SpotifyURIConvertible],

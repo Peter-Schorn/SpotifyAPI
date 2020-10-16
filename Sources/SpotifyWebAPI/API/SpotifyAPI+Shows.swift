@@ -41,7 +41,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      */
     func show(
         _ uri: SpotifyURIConvertible,
@@ -108,7 +108,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      */
     func shows(
         _ uris: [SpotifyURIConvertible],
@@ -187,7 +187,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-shows-episodes/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      */
     func showEpisodes(
         _ uri: SpotifyURIConvertible,

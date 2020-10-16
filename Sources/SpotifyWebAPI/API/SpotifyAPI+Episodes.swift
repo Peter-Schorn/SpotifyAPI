@@ -37,7 +37,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      */
     func episode(
         _ uri: SpotifyURIConvertible,
@@ -99,7 +99,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://www.spotify.com/se/account/overview/
+     [3]: https://www.spotify.com/account/overview/
      [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full
      */
     func episodes(

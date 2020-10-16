@@ -200,7 +200,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
 extension SpotifyAPI {
     
-    /// This function has no stable API and may change arbitrarily.
+    /// This method has no stable API and may change arbitrarily.
     /// Only use it for testing purposes.
     public func setupDebugging() {
 

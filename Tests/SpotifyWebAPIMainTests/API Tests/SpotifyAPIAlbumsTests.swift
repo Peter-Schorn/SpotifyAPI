@@ -685,12 +685,12 @@ final class SpotifyAPIClientCredentialsFlowAlbumsTests:
 {
 
     static let allTests = [
-        ("testAlbum", testAlbum),
+        ("testAlbumJinx", testAlbumJinx),
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
 
-    func testAlbum() { albumJinx() }
+    func testAlbumJinx() { albumJinx() }
     func testAlbums() { albums() }
     func testTheLongestAlbumTracks() { theLongestAlbumTracks() }
 
@@ -701,12 +701,12 @@ final class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
 {
 
     static let allTests = [
-        ("testAlbum", testAlbum),
+        ("testAlbumJinx", testAlbumJinx),
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
-    
-    func testAlbum() { albumJinx() }
+
+    func testAlbumJinx() { albumJinx() }
     func testAlbums() { albums() }
     func testTheLongestAlbumTracks() { theLongestAlbumTracks() }
 
@@ -718,12 +718,12 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests:
 {
 
     static let allTests = [
-        ("testAlbum", testAlbum),
+        ("testAlbumJinx", testAlbumJinx),
         ("testAlbums", testAlbums),
         ("testTheLongestAlbumTracks", testTheLongestAlbumTracks)
     ]
-    
-    func testAlbum() { albumJinx() }
+
+    func testAlbumJinx() { albumJinx() }
     func testAlbums() { albums() }
     func testTheLongestAlbumTracks() { theLongestAlbumTracks() }
 

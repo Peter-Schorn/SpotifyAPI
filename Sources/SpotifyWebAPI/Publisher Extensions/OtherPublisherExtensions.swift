@@ -131,7 +131,7 @@ public extension Publisher where Output == Void {
      
      You are discouraged from using trailing closure syntax with this
      method in order to avoid confusion with `sink(receiveValue:)`
-     (available when `Failure` is `Never`).
+     (available when `Failure` == `Never`).
      
      This method creates the subscriber and immediately requests an
      unlimited number of values, prior to returning the subscriber.

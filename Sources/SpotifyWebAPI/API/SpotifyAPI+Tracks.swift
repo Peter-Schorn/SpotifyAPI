@@ -16,14 +16,14 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uri: The URI for a track.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
-             to apply [Track Relinking][2].
+             to apply [Track Relinking][3].
      - Returns: The full version of a track.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     func track(
         _ uri: SpotifyURIConvertible,

@@ -47,13 +47,13 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
     }
     
     func checkContext(_ context: CurrentlyPlayingContext) {
-        XCTAssertEqual(context.activeDevice.id, "ced8d42d0a3830065dfbf4800352d23a96b76fd4")
-        XCTAssertTrue(context.activeDevice.isActive)
-        XCTAssertFalse(context.activeDevice.isPrivateSession)
-        XCTAssertFalse(context.activeDevice.isRestricted)
-        XCTAssertEqual(context.activeDevice.name, "Peter’s MacBook Pro")
-        XCTAssertEqual(context.activeDevice.type, .computer)
-        XCTAssertEqual(context.activeDevice.volumePercent, 100)
+        XCTAssertEqual(context.device.id, "ced8d42d0a3830065dfbf4800352d23a96b76fd4")
+        XCTAssertTrue(context.device.isActive)
+        XCTAssertFalse(context.device.isPrivateSession)
+        XCTAssertFalse(context.device.isRestricted)
+        XCTAssertEqual(context.device.name, "Peter’s MacBook Pro")
+        XCTAssertEqual(context.device.type, .computer)
+        XCTAssertEqual(context.device.volumePercent, 100)
         XCTAssertFalse(context.shuffleIsOn)
         XCTAssertEqual(context.repeatState, .context)
         let expectedTimestamp = Date.init(millisecondsSince1970: 1598344731322)
@@ -80,7 +80,7 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
             "spotify:user:petervschorn:playlist:2EgZjzog2eSfApWQHZVn6t"
         )
         XCTAssertEqual(context.progressMS, 11467)
-        XCTAssertEqual(context.currentlyPlayingType, .track)
+        XCTAssertEqual(context.itemType, .track)
         let expectedAllowedActions: Set<PlaybackActions> = [
             .interruptPlayback,
             .pause,
@@ -97,7 +97,7 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
         XCTAssertTrue(context.isPlaying)
         
         // MARK: Check Track
-        guard let playlistItem = context.currentlyPlayingItem else {
+        guard let playlistItem = context.item else {
             XCTFail("currentlyPlayingItem should not be nil")
             return
         }

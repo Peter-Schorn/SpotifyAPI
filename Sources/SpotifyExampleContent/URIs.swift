@@ -140,6 +140,8 @@ public enum URIs {
     
     /// A namespace of episode URIs.
     public enum Episodes: String, SpotifyURIConvertibleEnum {
+        case samHarris217 = "spotify:episode:7nsYz7tSJryO5vVYtkKiot"
+        case samHarris216 = "spotify:episode:3CSvovzvlYeuWGGoby8mbd"
         case samHarris215 = "spotify:episode:1Vrpa83y0vBdWZqeEbkKk3"
         case samHarris214 = "spotify:episode:3d1cFPfj3kZB27D4b8ZJm2"
         case samHarris213 = "spotify:episode:7jrEoNMrNicZSxIuKhATHN"

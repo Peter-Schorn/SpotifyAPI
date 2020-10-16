@@ -179,9 +179,10 @@ public extension SpotifyAPI {
              non-reoccurring fields, while parentheses can be used to specify
              reoccurring fields within objects. For example, to get just the added
              date and user ID of the adder: "tracks.items(added_at,added_by.id)".
-             Use multiple parentheses to drill down into nested objects, for example: "tracks.items(track(name,href,album(name,href)))". Fields can be
-             excluded by prefixing them with an exclamation mark, for example:
-             "tracks.items(track(name,href,album(!name,href)))".
+             Use multiple parentheses to drill down into nested objects,
+             for example: "tracks.items(track(name,href,album(name,href)))".
+             Fields can be excluded by prefixing them with an exclamation mark,
+             for example: "tracks.items(track(name,href,album(!name,href)))".
        - additionalTypes: *Required*. An array of id categories. Valid types
              are `track` and `episode`. If you provide `[]` or `[.track]`,
              then both tracks and episodes will be returned in the `Track`
@@ -219,7 +220,7 @@ public extension SpotifyAPI {
      [3]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [5]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [6]: https://www.spotify.com/se/account/overview/
+     [6]: https://www.spotify.com/account/overview/
      */
     func filteredPlaylist(
         _ playlist: SpotifyURIConvertible,
@@ -308,7 +309,7 @@ public extension SpotifyAPI {
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [4]: https://www.spotify.com/se/account/overview/
+     [4]: https://www.spotify.com/account/overview/
      */
     func playlist(
         _ playlist: SpotifyURIConvertible,
@@ -380,9 +381,10 @@ public extension SpotifyAPI {
              non-reoccurring fields, while parentheses can be used to specify
              reoccurring fields within objects. For example, to get just the added
              date and user ID of the adder: "tracks.items(added_at,added_by.id)".
-             Use multiple parentheses to drill down into nested objects, for example: "tracks.items(track(name,href,album(name,href)))". Fields can be
-             excluded by prefixing them with an exclamation mark, for example:
-             "tracks.items(track(name,href,album(!name,href)))".
+             Use multiple parentheses to drill down into nested objects,
+             for example: "tracks.items(track(name,href,album(name,href)))".
+             Fields can be excluded by prefixing them with an exclamation mark,
+             for example: "tracks.items(track(name,href,album(!name,href)))".
        - additionalTypes: *Required*. An array of id categories. Valid types
              are `track` and `episode`. If you provide `[]` or `[.track]`,
              then both tracks and episodes will be returned in the `Track`
@@ -424,7 +426,7 @@ public extension SpotifyAPI {
      [3]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [5]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [6]: https://www.spotify.com/se/account/overview/
+     [6]: https://www.spotify.com/account/overview/
      */
     func filteredPlaylistItems(
         _ playlist: SpotifyURIConvertible,
@@ -509,7 +511,7 @@ public extension SpotifyAPI {
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [4]: https://www.spotify.com/se/account/overview/
+     [4]: https://www.spotify.com/account/overview/
      */
     func playlistTracks(
         _ playlist: SpotifyURIConvertible,
@@ -582,7 +584,7 @@ public extension SpotifyAPI {
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [4]: https://www.spotify.com/se/account/overview/
+     [4]: https://www.spotify.com/account/overview/
      */
     func playlistItems(
         _ playlist: SpotifyURIConvertible,

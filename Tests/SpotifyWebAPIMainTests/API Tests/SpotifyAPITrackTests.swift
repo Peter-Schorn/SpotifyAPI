@@ -824,12 +824,14 @@ final class SpotifyAPIClientCredentialsFlowTrackTests:
  
     static let allTests = [
         ("testTrack", testTrack),
+        ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
         ("testTracksAudioFeatures", testTracksAudioFeatures)
     ]
     
     func testTrack() { track() }
+    func testTracks() { tracks() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }

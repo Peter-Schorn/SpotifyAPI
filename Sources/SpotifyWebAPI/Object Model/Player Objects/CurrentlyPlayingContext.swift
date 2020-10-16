@@ -13,12 +13,21 @@ public struct CurrentlyPlayingContext: Hashable {
         label: "CurrentlyPlayingContext", level: .critical
     )
     
-    /// The device that is currently active.
-    public let activeDevice: Device
+    /// This property has been renamed to `device`.
+    @available(*, deprecated, renamed: "device")
+    public var activeDevice: Device { device }
     
-    /// This property has been renamed to `activeDevice`.
-    @available(*, deprecated, renamed: "activeDevice")
-    public var device: Device { activeDevice }
+    /**
+     The device that the content is or was playing on.
+     
+     The information returned by `SpotifyAPI.currentPlayback(market:)`
+     is for the last known state, which means an inactive device could be
+     returned if it was the last one to execute playback.
+     
+     Use `SpotifyAPI.availableDevices()` to get the current user's available
+     and active devices.
+     */
+    public let device: Device
     
     /// The repeat mode of the player.
     /// Either `off`, `track`, or `context`.
@@ -53,7 +62,10 @@ public struct CurrentlyPlayingContext: Hashable {
     public let isPlaying: Bool
     
     /**
-     The currently playing track/episode.
+     The full version of a track or episode. Represents the content
+     that is, or was most recently, playing.
+     
+     Use `isPlaying` to check if the content is currently playing.
      
      Although the type is `PlaylistItem`, this does not necessarily
      mean that the item is playing in the context of a playlist.
@@ -61,19 +73,22 @@ public struct CurrentlyPlayingContext: Hashable {
      Can be `nil`. For example, If the user has a private
      session enabled, then this will be `nil`.
      
-     - Note: Testing suggets that if the user is playing an episode,
-           then this will be `nil`, although the documentation does
-           not mention anything about this.
      */
-    public let currentlyPlayingItem: PlaylistItem?
+    public let item: PlaylistItem?
     
-    /// This property has been renamed to `currentlyPlayingItem`.
-    @available(*, deprecated, renamed: "currentlyPlayingItem")
-    public var item: PlaylistItem? { currentlyPlayingItem }
+    /// This property has been renamed to `item`.
+    @available(*, deprecated, renamed: "item")
+    public var currentlyPlayingItem: PlaylistItem? { item }
     
-    /// The object type of the currently playing item.
+    /// The object type of `item`—the content that is, or was most
+    /// recently, playing.
+    ///
     /// Can be `track`, `episode`, or `unknown`.
-    public let currentlyPlayingType: IDCategory
+    public let itemType: IDCategory
+    
+    /// This property has been renamed to `itemType`.
+    @available(*, deprecated, renamed: "itemType")
+    public var currentlyPlayingType: IDCategory { itemType }
     
     /**
      The playback actions that are allowed within the given context.
@@ -94,15 +109,15 @@ public struct CurrentlyPlayingContext: Hashable {
 extension CurrentlyPlayingContext: Codable {
     
     enum CodingKeys: String, CodingKey {
-        case activeDevice = "device"
+        case device
         case repeatState = "repeat_state"
         case shuffleIsOn = "shuffle_state"
         case context
         case timestamp
         case progressMS = "progress_ms"
         case isPlaying = "is_playing"
-        case currentlyPlayingItem = "item"
-        case currentlyPlayingType = "currently_playing_type"
+        case item
+        case itemType = "currently_playing_type"
         case allowedActions = "actions"
     }
     
@@ -115,8 +130,8 @@ extension CurrentlyPlayingContext: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.activeDevice = try container.decode(
-            Device.self, forKey: .activeDevice
+        self.device = try container.decode(
+            Device.self, forKey: .device
         )
         self.repeatState = try container.decode(
             RepeatMode.self, forKey: .repeatState
@@ -136,11 +151,11 @@ extension CurrentlyPlayingContext: Codable {
         self.isPlaying = try container.decode(
             Bool.self, forKey: .isPlaying
         )
-        self.currentlyPlayingItem = try container.decodeIfPresent(
-            PlaylistItem.self, forKey: .currentlyPlayingItem
+        self.item = try container.decodeIfPresent(
+            PlaylistItem.self, forKey: .item
         )
-        self.currentlyPlayingType = try container.decode(
-            IDCategory.self, forKey: .currentlyPlayingType
+        self.itemType = try container.decode(
+            IDCategory.self, forKey: .itemType
         )
         
         // allowedActions = "actions"
@@ -196,7 +211,7 @@ extension CurrentlyPlayingContext: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(
-            self.activeDevice, forKey: .activeDevice
+            self.device, forKey: .device
         )
         try container.encode(
             self.repeatState, forKey: .repeatState
@@ -217,10 +232,10 @@ extension CurrentlyPlayingContext: Codable {
             self.isPlaying, forKey: .isPlaying
         )
         try container.encodeIfPresent(
-            self.currentlyPlayingItem, forKey: .currentlyPlayingItem
+            self.item, forKey: .item
         )
         try container.encode(
-            self.currentlyPlayingType, forKey: .currentlyPlayingType
+            self.itemType, forKey: .itemType
         )
         
         // Encode `allowedActions` by working backwards from how

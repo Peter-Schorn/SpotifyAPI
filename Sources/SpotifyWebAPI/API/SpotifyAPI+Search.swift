@@ -58,6 +58,15 @@ public extension SpotifyAPI {
      and artists), upc, and isrc. Use double quotation marks
      around the genre keyword string if it contains spaces.
      
+     - Warning: If a country code is specified, only shows that are available in
+     that market will be returned. If the access token was granted on
+     behalf of a user (i.e., if you authorized your application using
+     the authorization code flow or the authorization code flow with
+     proof key for code exchange), the country associated with the
+     user account will take priority over this parameter. Users can
+     view the country that is associated with their account in the
+     [account settings][3].
+
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
@@ -67,17 +76,25 @@ public extension SpotifyAPI {
              `show`, `episode`.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
              or the string "from_token". If a country code is specified,
-             only artists, albums, and tracks with content
-             that is playable in that market is returned.
+             only content that is playable in that market is returned.
              **Note:** Playlist results are not affected by the
              market parameter. If market is set to "from_token",
-             and a valid access token is specified in the request header,
-             only content playable in the country associated with the
+             and the access token was granted on behalf of a user (i.e., if
+             you authorized your application using the authorization code
+             flow or the authorization code flow with proof key for code
+             exchange), only content playable in the country associated with the
              user account, is returned. Users can view the country
              that is associated with their account in the
              [account settings][3]. A user must grant access to the
              `userReadPrivate` scope prior to when the access
              token is issued.
+     
+            **Note: If neither market or user country are provided, the**
+             **shows and episodes are considered unavailable for the client and**
+             **Spotify will return** `nil` **for all of the shows and episodes.**
+             **Therefore, if you authorized your application using the**
+             **client credentials flow, you must provide a value for this**
+             **parameter in order to retrieve shows and episodes.**
        - limit: *Optional*. Maximum number of results to return.
              Default: 20; Minimum: 1; Maximum: 50. **Note:** The limit is
              applied within each type, not on the total response.
@@ -102,8 +119,8 @@ public extension SpotifyAPI {
            returned.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
-     [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [2]: https://www.spotify.com/se/account/overview/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://www.spotify.com/account/overview/
      */
     func search(
         query: String,
