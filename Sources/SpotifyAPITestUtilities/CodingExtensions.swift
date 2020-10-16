@@ -42,6 +42,7 @@ public func encodeDecode<T: Codable & Equatable>(
         let rawData = try? JSONEncoder().encode(object)
         
         let decodingError = SpotifyDecodingError(
+            url: nil,
             rawData: rawData,
             responseType: T.self,
             statusCode: nil,
@@ -124,6 +125,7 @@ public func decodeEncodeDecode<T: Codable & Equatable>(
     } catch {
         
         let decodingError = SpotifyDecodingError(
+            url: nil,
             rawData: data,
             responseType: T.self,
             statusCode: nil,

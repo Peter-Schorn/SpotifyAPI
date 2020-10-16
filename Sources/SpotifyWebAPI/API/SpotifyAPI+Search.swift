@@ -42,35 +42,26 @@ public extension SpotifyAPI {
      
      # Field filters
      
-     By default, results are returned when a match is found
-     in any field of the target object type. Searches can be
-     made more specific by specifying an album, artist or track
-     field filter. To limit the results to a particular year,
-     use the field filter year with album, artist, and
-     track searches. For example: `bob year:2014` Or with a date range.
-     For example: `bob year:1980-2020`. To retrieve only albums released
-     in the last two weeks, use the field filter tag:new in album searches.
+     By default, results are returned when a match is found in any field of the
+     target object type. Searches can be made more specific by specifying an
+     album, artist or track field filter. To limit the results to a particular
+     year, use the field filter year with album, artist, and track searches.
+     For example: `query: "bob year:2014"` Or with a date range.
+     For example: `query: "bob year:1980-2020"`. To retrieve only albums released
+     in the last two weeks, use the field filter "tag:new" in album searches.
      
-     To retrieve only albums with the lowest 10% popularity, use the
-     field filter tag:hipster in album searches. Note: This field filter
-     only works with album searches. Depending on object types being
-     searched for, other field filters, include genre (applicable to tracks
-     and artists), upc, and isrc. Use double quotation marks
-     around the genre keyword string if it contains spaces.
+     To retrieve only albums with the lowest 10% popularity, use the field filter
+     "tag:hipster" in album searches. Note: This field filter only works with
+     album searches. Depending on object types being searched for, other field
+     filters, include genre (applicable to tracks and artists), upc, and isrc.
+     Use double quotation marks around the genre keyword string if it contains
+     spaces.
      
-     - Warning: If a country code is specified, only shows that are available in
-     that market will be returned. If the access token was granted on
-     behalf of a user (i.e., if you authorized your application using
-     the authorization code flow or the authorization code flow with
-     proof key for code exchange), the country associated with the
-     user account will take priority over this parameter. Users can
-     view the country that is associated with their account in the
-     [account settings][3].
-
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - query: A query string.
+       - query: A query string. Do NOT percent encode it yourself.
+             It will be percent-encoded automatically.
        - categories: *Required*. An array of id categories.
              Valid types: `album`, `artist`, `playlist`, `track`,
              `show`, `episode`.
@@ -85,9 +76,7 @@ public extension SpotifyAPI {
              exchange), only content playable in the country associated with the
              user account, is returned. Users can view the country
              that is associated with their account in the
-             [account settings][3]. A user must grant access to the
-             `userReadPrivate` scope prior to when the access
-             token is issued.
+             [account settings][3].
      
             **Note: If neither market or user country are provided, the**
              **shows and episodes are considered unavailable for the client and**

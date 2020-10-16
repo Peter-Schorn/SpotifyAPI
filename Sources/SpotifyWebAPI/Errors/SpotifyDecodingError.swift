@@ -34,7 +34,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      
      You are encouraged to upload the data to this [online JSON viewer][1].
      
-     [1]: https://jsoneditoronline.org/#left=local.yefire&right=local.redama
+     [1]: https://jsoneditoronline.org
      */
     public static var dataDumpfolder: URL? = {
         if let folder = ProcessInfo.processInfo
@@ -43,6 +43,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         }
         return nil
     }()
+    
+    /// The URL that was used to make the request for the data.
+    public let url: URL?
     
     /**
      The raw data returned by the server.
@@ -87,6 +90,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      `writeToFolder(_:)`.
      
      - Parameters:
+       - url: The URL that was used to make the request for the data.
        - rawData: The raw data from the server.
        - responseType: The expected response type.
        - statusCode: The HTTP status code.
@@ -94,21 +98,22 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
              decode the data. Usually `DecodingError`.
      */
     public init (
+        url: URL?,
         rawData: Data?,
         responseType: Any.Type,
         statusCode: Int?,
         underlyingError: Error?
     ) {
+        self.url = url
         self.rawData = rawData
-        
         self.expectedResponseType = responseType
         self.statusCode = statusCode
         self.underlyingError = underlyingError
         
         if let folder = Self.dataDumpfolder {
             do {
-                let folder = try writeToFolder(folder)
-                let folderString = folder.path
+                let subFolder = try self.writeToFolder(folder)
+                let folderString = subFolder.path
                 print("SpotifyDecodingError: saved data to '\(folderString)'")
                 
             } catch {
@@ -139,7 +144,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
            writing the data.
      - Returns: The sub-folder that the data was written to.
      
-     [1]: https://jsoneditoronline.org/#left=local.yefire&right=local.redama
+     [1]: https://jsoneditoronline.org
      */
     @discardableResult
     public func writeToFolder(_ folder: URL) throws -> URL {
@@ -178,11 +183,13 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
 
     }
     
-    /// Debug information that is useful in diagnosing the cause
-    /// of this error.
-    ///
-    /// This property, along with `rawData`, is written to a file
-    /// when you call `writeToFolder(_:)`.
+    /**
+     Debug information that is useful in diagnosing the cause
+     of this error.
+    
+     This property, along with `rawData`, is written to a file
+     when you call `writeToFolder(_:)`.
+     */
     public var debugErrorDescription: String {
        
         var underlyingErrorString = ""
@@ -209,6 +216,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         return """
             SpotifyDecodingError: The data from the Spotify web API \
             could not be decoded into '\(expectedResponseType)'
+            URL: \(self.url?.absoluteString ?? "nil")
             http status code: \(statusCodeString)
             pretty coding path: \(codingPath)
             Underlying error:

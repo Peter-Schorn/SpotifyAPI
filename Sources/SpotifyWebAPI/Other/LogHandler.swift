@@ -131,7 +131,7 @@ public extension Logger {
      The `label` should identify the creator of the `Logger`. This can be an
      application, a sub-system, or even a datatype. This initializer provides an
      escape hatch in case the global default logging backend implementation
-     (set up using `LoggingSystem.bootstrap` is not appropriate for this
+     (set up using `LoggingSystem.bootstrap`) is not appropriate for this
      particular logger.
 
      - parameters:

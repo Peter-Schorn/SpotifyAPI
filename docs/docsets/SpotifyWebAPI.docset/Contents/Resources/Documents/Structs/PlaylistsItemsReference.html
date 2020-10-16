@@ -393,12 +393,11 @@
 
                 </div>
               </div>
-            <p>Provides a link to the endpoint that retrieves the full list
-of tracks/episodes in a playlist.</p>
+            <p>Provides a link to the endpoint that retrieves the full list of
+tracks/episodes in a playlist.</p>
 
-<p>For example, the endpoint that retrieves a list
-of all the user&rsquo;s playlists returns this object inside
-of every playlist, instead of an array of tracks,
+<p>For example, the endpoint that retrieves a list of all the user&rsquo;s playlists
+returns this object inside of every playlist, instead of an array of tracks,
 which prevents the response from becoming too long.</p>
 
           </section>
@@ -421,7 +420,10 @@ which prevents the response from becoming too long.</p>
                         <p>A link to the Spotify web API endpoint providing the full list of
 tracks/episodes.</p>
 
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results.</p>
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results,
+passing in <code><a href="../Type%20Aliases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a></code> as the response type. Alternatively,
+use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">SpotifyAPI.playlistItems(_:limit:offset:market:)</a></code>, passing in
+the URI of this playlist.</p>
 
                       </div>
                       <div class="declaration">

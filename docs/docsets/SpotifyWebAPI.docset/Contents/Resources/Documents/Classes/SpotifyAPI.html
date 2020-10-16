@@ -3265,33 +3265,20 @@ either of the terms. Only one OR operator can be used in a query.</p>
 Otherwise, they are handled as normal keywords to be matched.</p>
 <h1 id='field-filters' class='heading'>Field filters</h1>
 
-<p>By default, results are returned when a match is found
-in any field of the target object type. Searches can be
-made more specific by specifying an album, artist or track
-field filter. To limit the results to a particular year,
-use the field filter year with album, artist, and
-track searches. For example: <code>bob year:2014</code> Or with a date range.
-For example: <code>bob year:1980-2020</code>. To retrieve only albums released
-in the last two weeks, use the field filter tag:new in album searches.</p>
+<p>By default, results are returned when a match is found in any field of the
+target object type. Searches can be made more specific by specifying an
+album, artist or track field filter. To limit the results to a particular
+year, use the field filter year with album, artist, and track searches.
+For example: <code>query: &quot;bob year:2014&quot;</code> Or with a date range.
+For example: <code>query: &quot;bob year:1980-2020&quot;</code>. To retrieve only albums released
+in the last two weeks, use the field filter &ldquo;tag:new&rdquo; in album searches.</p>
 
-<p>To retrieve only albums with the lowest 10% popularity, use the
-field filter tag:hipster in album searches. Note: This field filter
-only works with album searches. Depending on object types being
-searched for, other field filters, include genre (applicable to tracks
-and artists), upc, and isrc. Use double quotation marks
-around the genre keyword string if it contains spaces.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    If a country code is specified, only shows that are available in
-that market will be returned. If the access token was granted on
-behalf of a user (i.e., if you authorized your application using
-the authorization code flow or the authorization code flow with
-proof key for code exchange), the country associated with the
-user account will take priority over this parameter. Users can
-view the country that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.
-
-</div>
+<p>To retrieve only albums with the lowest 10% popularity, use the field filter
+&ldquo;tag:hipster&rdquo; in album searches. Note: This field filter only works with
+album searches. Depending on object types being searched for, other field
+filters, include genre (applicable to tracks and artists), upc, and isrc.
+Use double quotation marks around the genre keyword string if it contains
+spaces.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">Spotify web API reference</a>.</p>
 
@@ -3323,7 +3310,8 @@ view the country that is associated with their account in the
                               </td>
                               <td>
                                 <div>
-                                  <p>A query string.</p>
+                                  <p>A query string. Do NOT percent encode it yourself.
+It will be percent-encoded automatically.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3360,9 +3348,7 @@ flow or the authorization code flow with proof key for code
 exchange), only content playable in the country associated with the
 user account, is returned. Users can view the country
 that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>. A user must grant access to the
-<code>userReadPrivate</code> scope prior to when the access
-token is issued.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>

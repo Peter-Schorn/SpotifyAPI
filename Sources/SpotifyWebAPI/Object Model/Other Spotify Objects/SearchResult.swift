@@ -1,7 +1,8 @@
 import Foundation
 
 /**
- The response from the [search][1] endpoint.
+ The response from the [search][1] endpoint:
+ `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)`.
  
  The search endpoint has a `categories` parameter, which specifies
  which objects will be returned in the response. Valid categories are:
@@ -38,10 +39,10 @@ public struct SearchResult: Hashable {
     public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>?
     
     /// A `PagingObject` containing simplified `Episode` objects.
-    public let episodes: PagingObject<Episode>?
+    public let episodes: PagingObject<Episode?>?
     
-    /// A `PaginObject` containing simplified `Show` objects.
-    public let shows: PagingObject<Show>?
+    /// A `PagingObject` containing simplified `Show` objects.
+    public let shows: PagingObject<Show?>?
     
     /**
      Creates the response from the [search][1] endpoint.
@@ -61,8 +62,8 @@ public struct SearchResult: Hashable {
         albums: PagingObject<Album>? = nil,
         tracks: PagingObject<Track>? = nil,
         playlists: PagingObject<Playlist<PlaylistsItemsReference>>? = nil,
-        episodes: PagingObject<Episode>? = nil,
-        shows: PagingObject<Show>? = nil
+        episodes: PagingObject<Episode?>? = nil,
+        shows: PagingObject<Show?>? = nil
     ) {
         self.artists = artists
         self.albums = albums

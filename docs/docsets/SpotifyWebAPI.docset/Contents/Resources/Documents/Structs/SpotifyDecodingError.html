@@ -438,7 +438,7 @@ necessary.</p>
 <p>The name of the folder will be <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code> with the current
 date appended to it.</p>
 
-<p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org/#left=local.yefire&right=local.redama">online JSON viewer</a>.</p>
+<p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org">online JSON viewer</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -446,6 +446,33 @@ date appended to it.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">dataDumpfolder</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV3url10Foundation3URLVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV3url10Foundation3URLVSgvp">url</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The URL that was used to make the request for the data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -598,9 +625,9 @@ from a Swift type; for example, “items[27].track.album.release_date”.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV7rawData12responseType10statusCode010underlyingE0AC10Foundation0G0VSg_ypXpSiSgs0E0_pSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(rawData:responseType:statusCode:underlyingError:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData12responseType10statusCode010underlyingE0AC10Foundation0G0VSg_ypXpSiSgs0E0_pSgtcfc">init(rawData:<wbr>responseType:<wbr>statusCode:<wbr>underlyingError:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV3url7rawData12responseType10statusCode010underlyingE0AC10Foundation3URLVSg_AI0H0VSgypXpSiSgs0E0_pSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(url:rawData:responseType:statusCode:underlyingError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV3url7rawData12responseType10statusCode010underlyingE0AC10Foundation3URLVSg_AI0H0VSgypXpSiSgs0E0_pSgtcfc">init(url:<wbr>rawData:<wbr>responseType:<wbr>statusCode:<wbr>underlyingError:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -621,6 +648,7 @@ specified by <code>Self.dataDumpfolder</code>, if it is non-<code>nil</code>, us
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span> <span class="p">(</span>
+    <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?,</span>
     <span class="nv">rawData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?,</span>
     <span class="nv">responseType</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
     <span class="nv">statusCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
@@ -633,6 +661,18 @@ specified by <code>Self.dataDumpfolder</code>, if it is non-<code>nil</code>, us
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL that was used to make the request for the data.</p>
+                                </div>
+                              </td>
+                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -708,10 +748,10 @@ within the specified folder.</p>
 current date appended to it.</p>
 
 <p>If <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ">dataDumpfolder</a></code> is non-<code>nil</code>, then this method is called by
-<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData12responseType10statusCode010underlyingE0AC10Foundation0G0VSg_ypXpSiSgs0E0_pSgtcfc">init(rawData:responseType:statusCode:underlyingError:)</a></code>, passing in
+<code>init(rawData:responseType:statusCode:underlyingError:)</code>, passing in
 <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ">dataDumpfolder</a></code>.</p>
 
-<p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org/#left=local.yefire&right=local.redama">online JSON viewer</a>.</p>
+<p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org">online JSON viewer</a>.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     If an error is encountered when creating the sub-folder or

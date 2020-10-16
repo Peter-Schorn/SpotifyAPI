@@ -147,12 +147,15 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 ) throws -> ResponseType {
 
     do {
+        
         if spotifyDecodeLogger.logLevel == .trace {
             let dataString = String(data: data, encoding: .utf8)
                     ?? "Couldn't decode data into string"
+            let urlString = httpURLResponse.url?.absoluteString ?? "nil"
             spotifyDecodeLogger.trace(
                 """
-                will try to decode raw data into '\(responseType)':
+                will try to decode the raw data from the URL '\(urlString)' into \
+                '\(responseType)':
                 \(dataString)
                 """
             )
@@ -189,6 +192,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
          back to the caller.
          */
         throw SpotifyDecodingError(
+            url: httpURLResponse.url,
             rawData: data,
             responseType: responseType,
             statusCode: httpURLResponse.statusCode,

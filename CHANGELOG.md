@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.3] -2020-10-16
+
+### Changed
+
+* The type of `SearchResult.episodes` has been changed from `PagingObject<Episode>?` to `PagingObject<Episode?>?` and The type of `SearchResult.shows` has been changed from `PagingObject<Show>?` to `PagingObject<Show?>?`. This change was necessary because Spotify can return nil for these properties if the shows and/or episodes are not available in the specified markets.
+
 ## [0.7.2] - 2020-10-15
 
 ### Changed
