@@ -101,10 +101,14 @@ public extension SpotifyAPI {
              **Therefore, if you authorized your application using the**
              **client credentials flow, you must provide a value for this**
              **parameter.**
-     - Returns: The full versions of up to 50 show objects. Shows
+     - Returns: The **simple** versions of up to 50 show objects. Shows
            are returned in the order requested. If a show is not found,
            `nil` is returned in the appropriate position. Duplicate shows
            URIs in the request will result in duplicate shows in the response.
+           **Unlike many of the other endpoints for retrieving multiple**
+           **objects, if one of the URIs is invalid, then the entire request**
+           **will fail with a 400 "invalid id" error.**
+            
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -167,22 +171,24 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
              If a country code is specified, only episodes that are available
              in that market will be returned. If the access token was granted
-             on behalf of a user (i.e., if you authorized your application
-             using the client credentials flow), the country associated with
+             on behalf of a user (i.e., if you authorized your application using
+             the authorization code flow or the authorization code flow with
+             proof key for code exchange), the country associated with
              the user account will take priority over this parameter. Users
              can view the country that is associated with their account in the
              [account settings][3].
         
             **Note: If neither market or user country are provided, the show**
-             **is considered unavailable for the client and Spotify will return**
-             **a 404 error with the message "non existing id". Therefore, if you**
-             **authorized your application using the client credentials flow,**
-             **you must provide a value for this parameter.**
+             **and all of its episodes are considered unavailable for the**
+             **client and Spotify will return a 404 error with the message**
+             **"non existing id". Therefore, if you authorized your**
+             **application using the client credentials flow, you must**
+             **provide a value for this parameter.**
        - limit: *Optional*. The maximum number of episodes to return.
              Default: 20; Minimum: 1; Maximum: 50.
        - offset: *Optional*. The index of the first episode to return.
              Default: 0. Use with `limit` to get the next set of episodes.
-     - Returns: The simplified versions of show objects wrapped in a
+     - Returns: The simplified versions of episode objects wrapped in a
            paging object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/shows/get-shows-episodes/
@@ -194,13 +200,13 @@ public extension SpotifyAPI {
         market: String? = nil,
         offset: Int? = nil,
         limit: Int? = nil
-    ) -> AnyPublisher<PagingObject<Show>, Error> {
+    ) -> AnyPublisher<PagingObject<Episode>, Error> {
         
         do {
             
             let id = try SpotifyIdentifier(
                 uri: uri, ensureCategoryMatches: [.show]
-            )
+            ).id
             
             return self.getRequest(
                 path: "/shows/\(id)/episodes",
@@ -211,7 +217,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Show>.self)
+            .decodeSpotifyObject(PagingObject<Episode>.self)
             
         } catch {
             return error.anyFailingPublisher()

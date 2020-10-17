@@ -47,11 +47,11 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             )
             
             self.authManagerDidChangeCancellable =
-                self.authorizationManager.didChange
-                    .handleEvents(receiveOutput: { _ in
-                        self.assertNotOnUpdateAuthInfoDispatchQueue()
-                    })
-                    .subscribe(authorizationManagerDidChange)
+                    self.authorizationManager.didChange
+                        .handleEvents(receiveOutput: { _ in
+                            self.assertNotOnUpdateAuthInfoDispatchQueue()
+                        })
+                        .subscribe(authorizationManagerDidChange)
             
             self.authDidChangeLogger.trace(
                 "authorizationManagerDidChange.send()"
@@ -95,7 +95,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
 
-    private var cancellables: Set<AnyCancellable> = []
     private var authManagerDidChangeCancellable: AnyCancellable? = nil
     
     // MARK: - Loggers -
@@ -103,6 +102,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     /// Logs general messages for this class.
     public lazy var logger = Logger(label: "SpotifyAPI", level: .critical)
     
+    /// Logs a message every time `authorizationManagerDidChange` emits
+    /// a signal.
     public lazy var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )

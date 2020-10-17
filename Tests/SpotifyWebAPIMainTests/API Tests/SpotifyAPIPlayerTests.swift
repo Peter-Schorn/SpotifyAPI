@@ -134,7 +134,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             XCTAssert((0...20).contains(difference), "timestamp is incorrect")
             
             if let progress = context.progressMS {
-                XCTAssert((2_000_000...2_020_000).contains(progress))
+                XCTAssert(
+                    (2_000_000...2_020_000).contains(progress),
+                    "\(progress)"
+                )
             }
             else {
                 XCTFail("context.progressMS should not be nil")
@@ -251,6 +254,23 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             
         }
         
+        func checkEpisode(_ episode: Episode) {
+            if let resumePoint = episode.resumePoint {
+                XCTAssertFalse(resumePoint.fullyPlayed)
+                let resumePosition = resumePoint.resumePositionMS
+                XCTAssert(
+                    (2_000_000...2_020_000).contains(resumePosition),
+                    "\(resumePosition)"
+                )
+            }
+            else {
+                XCTFail("resume point should not be nil")
+            }
+            XCTAssertEqual(episode.uri, "spotify:episode:7nsYz7tSJryO5vVYtkKiot")
+            XCTAssertEqual(episode.id, "7nsYz7tSJryO5vVYtkKiot")
+            XCTAssertEqual(episode.name, "#217 — The New Religion of Anti-Racism")
+        }
+        
         let expectation = XCTestExpectation(
             description: "testPlayCurrentPlaybackForEpisode"
         )
@@ -267,12 +287,20 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .XCTAssertNoFailure()
             .delay(for: 1, scheduler: DispatchQueue.main)
             .flatMap {
-                Self.spotify.currentPlayback(market: "us")
+                Self.spotify.currentPlayback(market: "US")
+            }
+            .XCTAssertNoFailure()
+            .flatMap { playback -> AnyPublisher<Episode, Error> in
+                checkContext(playback)
+                return Self.spotify.episode(
+                    URIs.Episodes.samHarris217,
+                    market: "US"
+                )
             }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: checkContext(_:)
+                receiveValue: checkEpisode(_:)
             )
             .store(in: &Self.cancellables)
             

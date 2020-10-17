@@ -83,7 +83,7 @@ final class ExampleContentTests: XCTestCase {
         
         print(PagingObject.thisIsStevieRayVaughan, to: &sink)
 
-        print(Playlist.localSongs, to: &sink)
+        print(Playlist.episodesAndLocalTracks, to: &sink)
         print(Playlist.crumb, to: &sink)
         
         print(Playlist.lucyInTheSkyWithDiamonds, to: &sink)
@@ -96,6 +96,16 @@ final class ExampleContentTests: XCTestCase {
         print(Playlist.thisIsMildHighClub, to: &sink)
         print(Playlist.menITrust, to: &sink)
         
+    }
+    
+    func testPlaylistItems() {
+        print(PlaylistItem.samHarris216, to: &sink)
+        print(PlaylistItem.samHarris217, to: &sink)
+        print(PlaylistItem.joeRogan1536, to: &sink)
+        print(PlaylistItem.joeRogan1537, to: &sink)
+        print(PlaylistItem.oceanBloom, to: &sink)
+        print(PlaylistItem.echoesAcousticVersion, to: &sink)
+        print(PlaylistItem.killshot, to: &sink)
     }
     
     func testSearch() {

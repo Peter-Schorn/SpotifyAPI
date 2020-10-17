@@ -2,14 +2,7 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 106,
-      "symbol": "SpotifyAPI.authDidChangeLogger",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 193,
+      "line": 194,
       "symbol": "SpotifyAPI.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -100,7 +93,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/SearchResult.swift",
-      "line": 79,
+      "line": 80,
       "symbol": "SearchResult.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -296,7 +289,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/ResumePoint.swift",
-      "line": 18,
+      "line": 21,
       "symbol": "ResumePoint.init(fullyPlayed:resumePositionMS:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -331,14 +324,14 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Podcast Objects/Episode.swift",
-      "line": 318,
+      "line": 321,
       "symbol": "Episode.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Podcast Objects/Show.swift",
-      "line": 160,
+      "line": 169,
       "symbol": "Show.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

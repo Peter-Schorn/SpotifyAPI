@@ -93,7 +93,7 @@ public class AuthorizationCodeFlowManagerBase {
     /**
      The scopes that have been authorized for the access token.
     
-     You are encouraged to use `isAuthorized(for:)`to check
+     You are encouraged to use `isAuthorized(for:)` to check
      which scopes the access token is authorized for.
      
      # Thread Safety

@@ -1334,16 +1334,15 @@ extension SpotifyAPIPlaylistsTests where
             print("line \(#line): recevied \(images.count) images")
             XCTAssertFalse(images.isEmpty)
             
+            var imageExpectations: [XCTestExpectation] = []
             for (i, image) in images.enumerated() {
                 
                 let loadImageExpectation = XCTestExpectation(
                     description: "load image \(i)"
                 )
-                DispatchQueue.main.async {
-                    expectations.append(loadImageExpectation)
-                }
+                imageExpectations.append(loadImageExpectation)
                 
-                let cancellable = image.load()
+                image.load()
                     .XCTAssertNoFailure()
                     .sink(
                         receiveCompletion: { _ in
@@ -1354,39 +1353,58 @@ extension SpotifyAPIPlaylistsTests where
                             print("received image \(i): \(image)")
                         }
                     )
+                    .store(in: &Self.cancellables)
                 
-                DispatchQueue.main.async {
-                    cancellables.append(cancellable)
+                guard let url = URL(string: image.url) else {
+                    XCTFail("couldn't convert to URL: '\(image.url)'")
+                    continue
                 }
                 
+                let assertImageExistsExpectation = XCTestExpectation(
+                    description: "assert image exists \(i)"
+                )
+                imageExpectations.append(assertImageExistsExpectation)
                 
-                if let url = URL(string: image.url) {
-                    let urlExists = XCTestExpectation(
-                        description: "url exists \(i)"
+                assertURLExists(url)
+                    .sink(
+                        receiveCompletion: { _ in
+                            print("urlExists.fulfill() '\(image.url)'")
+                            assertImageExistsExpectation.fulfill()
+                        },
+                        receiveValue: { _ in
+                            print("urlExists receiveValue '\(image.url)'")
+                        }
                     )
-                    DispatchQueue.main.async {
-                        expectations.append(urlExists)
-                    }
-                    let cancellable = assertURLExists(url)
-                        .sink(
-                            receiveCompletion: { _ in
-                                print("urlExists.fulfill() '\(image.url)'")
-                                urlExists.fulfill()
-                            },
-                            receiveValue: { _ in
-                                print("urlExists receiveValue '\(image.url)'")
-                            }
-                        )
-                    DispatchQueue.main.async {
-                        cancellables.append(cancellable)
-                    }
-                    
-                } else {
-                    XCTFail("couldn't convert string to URL: '\(image.url)'")
-                }
+                    .store(in: &Self.cancellables)
+                
+                // if let url = URL(string: image.url) {
+                //     let urlExists = XCTestExpectation(
+                //         description: "url exists \(i)"
+                //     )
+                //     DispatchQueue.main.async {
+                //         expectations.append(urlExists)
+                //     }
+                //     let cancellable = assertURLExists(url)
+                //         .sink(
+                //             receiveCompletion: { _ in
+                //                 print("urlExists.fulfill() '\(image.url)'")
+                //                 urlExists.fulfill()
+                //             },
+                //             receiveValue: { _ in
+                //                 print("urlExists receiveValue '\(image.url)'")
+                //             }
+                //         )
+                //     DispatchQueue.main.async {
+                //         cancellables.append(cancellable)
+                //     }
+                //
+                // } else {
+                //     XCTFail("couldn't convert string to URL: '\(image.url)'")
+                // }
                 
             }
-            
+         
+            wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
         }
         
         let playlists: [URIs.Playlists] = [
@@ -1400,6 +1418,7 @@ extension SpotifyAPIPlaylistsTests where
             expectations.append(playlistImageExpectation)
             
             Self.spotify.playlistImage(playlist)
+                .receive(on: DispatchQueue.main)
                 .XCTAssertNoFailure()
                 .sink(
                     receiveCompletion: { _ in

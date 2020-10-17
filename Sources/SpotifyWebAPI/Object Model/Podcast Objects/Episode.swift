@@ -22,9 +22,12 @@ public struct Episode: Hashable {
     /// A description of the episode.
     public let description: String
     
-    /// The user’s most recent position in the episode.
-    /// Set if the supplied access token is a user token and
-    /// has the `userReadPlaybackPosition` scope.
+    /**
+     The user’s most recent position in the episode.
+    
+     Non-`nil` only if the application has been authorized for the
+     `userReadPlaybackPosition` scope.
+     */
     public let resumePoint: ResumePoint?
     
     /// The episode length in milliseconds.

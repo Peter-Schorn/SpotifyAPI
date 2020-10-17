@@ -282,7 +282,7 @@ public extension ClientCredentialsFlowManager {
      
      This is the only method you need to call to authorize your application.
      After this publisher completes successfully, you can begin making
-     requests to the Spotify web API. This method retrieves the access token.
+     requests to the Spotify web API.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */

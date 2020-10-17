@@ -564,6 +564,34 @@ Always receive on the main thread if you plan on updating the UI.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C19authDidChangeLogger7Logging0G0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/authDidChangeLogger" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C19authDidChangeLogger7Logging0G0Vvp">authDidChangeLogger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs a message every time <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code> emits
+a signal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">authDidChangeLogger</span><span class="p">:</span> <span class="kt">Logger</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0C16apiRequestLogger7Logging0F0Vvp"></a>
                     <a name="//apple_ref/swift/Property/apiRequestLogger" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0C16apiRequestLogger7Logging0F0Vvp">apiRequestLogger</a>
@@ -2262,11 +2290,12 @@ required.</p>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
 If a country code is specified, only episodes that are available
 in that market will be returned. If the access token was granted
-on behalf of a user (i.e., if you authorized your application
-using the client credentials flow), the country associated with
-the user account will take priority over this parameter. Users
-can view the country that is associated with their account in
-the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+on behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with
+proof key for code exchange), the country associated with the
+user account will take priority over this parameter. Users can
+view the country that is associated with their account in the
+<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2279,7 +2308,10 @@ the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p
   are returned in the order requested. If an episode is not found
   or is unavailable in the specified market/country, <code>nil</code> is
   returned in the appropriate positions. Duplicate episode URIs in
-  the request will result in duplicate episodes in the response.</p>
+  the request will result in duplicate episodes in the response.
+  <strong>Unlike many of the other endpoints for retrieving multiple</strong>
+  <strong>objects, if one of the URIs is invalid, then the entire request</strong>
+  <strong>will fail with a 400 &ldquo;invalid id&rdquo; error.</strong></p>
                       </div>
                     </section>
                   </div>
@@ -3485,7 +3517,7 @@ The &ldquo;types&rdquo; paramater was renamed to &ldquo;categories&rdquo;.</p>
 
 <ul>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5shows_6market7Combine12AnyPublisherVySayAA4ShowVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">shows(_:market:)</a></code> - gets multiple shows</li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA7EpisodeVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
 show</li>
 </ul>
 
@@ -3572,7 +3604,7 @@ country that is associated with their account in the
 
 <ul>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C4show_6market7Combine12AnyPublisherVyAA4ShowVs5Error_pGAA0A14URIConvertible_p_SSSgtF">show(_:market:)</a></code> - gets a single show</li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA7EpisodeVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:market:offset:limit:)</a></code> - gets all of the episodes for a
 show</li>
 </ul>
 
@@ -3635,10 +3667,13 @@ view the country that is associated with their account in the
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The full versions of up to 50 show objects. Shows
+                        <p>The <strong>simple</strong> versions of up to 50 show objects. Shows
   are returned in the order requested. If a show is not found,
   <code>nil</code> is returned in the appropriate position. Duplicate shows
-  URIs in the request will result in duplicate shows in the response.</p>
+  URIs in the request will result in duplicate shows in the response.
+  <strong>Unlike many of the other endpoints for retrieving multiple</strong>
+  <strong>objects, if one of the URIs is invalid, then the entire request</strong>
+  <strong>will fail with a 400 &ldquo;invalid id&rdquo; error.</strong></p>
                       </div>
                     </section>
                   </div>
@@ -3646,9 +3681,9 @@ view the country that is associated with their account in the
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA7EpisodeVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF"></a>
                     <a name="//apple_ref/swift/Method/showEpisodes(_:market:offset:limit:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA4ShowVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:<wbr>market:<wbr>offset:<wbr>limit:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C12showEpisodes_6market6offset5limit7Combine12AnyPublisherVyAA12PagingObjectVyAA7EpisodeVGs5Error_pGAA0A14URIConvertible_p_SSSgSiSgATtF">showEpisodes(_:<wbr>market:<wbr>offset:<wbr>limit:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3681,7 +3716,7 @@ required.</p>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Episode.html">Episode</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -3712,8 +3747,9 @@ required.</p>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.
 If a country code is specified, only episodes that are available
 in that market will be returned. If the access token was granted
-on behalf of a user (i.e., if you authorized your application
-using the client credentials flow), the country associated with
+on behalf of a user (i.e., if you authorized your application using
+the authorization code flow or the authorization code flow with
+proof key for code exchange), the country associated with
 the user account will take priority over this parameter. Users
 can view the country that is associated with their account in the
 <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
@@ -3751,7 +3787,7 @@ Default: 0. Use with <code>limit</code> to get the next set of episodes.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The simplified versions of show objects wrapped in a
+                        <p>The simplified versions of episode objects wrapped in a
   paging object.</p>
                       </div>
                     </section>
@@ -8028,7 +8064,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-15)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

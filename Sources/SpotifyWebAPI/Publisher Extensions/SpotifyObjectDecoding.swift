@@ -43,6 +43,17 @@ public func decodeSpotifyErrors(
     data: Data, httpURLResponse: HTTPURLResponse
 ) -> Error? {
     
+    if spotifyDecodeLogger.logLevel == .trace {
+        let dataString = String(data: data, encoding: .utf8) ?? "nil"
+        let urlString = httpURLResponse.url?.absoluteString ?? "nil"
+        spotifyDecodeLogger.trace(
+            """
+            will try to decode data from URL '\(urlString)' into error objects:
+            \(dataString)
+            """
+        )
+    }
+    
     if httpURLResponse.statusCode == 429 {
         
         let retryAfter = httpURLResponse.value(
@@ -104,6 +115,9 @@ public func decodeSpotifyErrors(
         )
     }
     
+    spotifyDecodeLogger.trace(
+        "couldn't decode above data into error objects"
+    )
     return nil
 }
 

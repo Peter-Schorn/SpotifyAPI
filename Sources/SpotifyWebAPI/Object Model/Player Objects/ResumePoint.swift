@@ -1,8 +1,11 @@
 import Foundation
 
 /**
- A Spotify [resume point object][1].
- 
+ A Spotify [resume point object][1]. Represents the user’s most recent
+ position in an episode.
+
+ Retrieving this object requires the `userReadPlaybackPosition` scope.
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#resume-point-object
  */
 public struct ResumePoint: Codable, Hashable {

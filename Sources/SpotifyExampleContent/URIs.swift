@@ -14,7 +14,7 @@ public protocol SpotifyURIConvertibleEnum:
 
 public extension SpotifyURIConvertibleEnum {
     
-    /// A Spotify URI.
+    /// A Spotify URI. Returns `self.rawValue`.
     @inlinable
     var uri: String { self.rawValue }
     
@@ -159,6 +159,7 @@ public enum URIs {
         case samHarris = "spotify:show:5rgumWEx4FsqIY8e1wJNAk"
         case joeRogan = "spotify:show:4rOoJ6Egrf8K2IrywzwOMk"
         case seanCarroll = "spotify:show:622lvLwp8CVu6dvCsYAJhN"
+        case scienceSalon = "spotify:show:4eDCVvVXJVwKCa0QfNbuXA"
     }
 
 }

@@ -85,9 +85,14 @@ public extension String {
      tilde character.
      
      This method can be used for creating the code verifier when authorizing
-     with the [Authorization Code Flow with Proof Key for Code Exchange][1].
+     with the [Authorization Code Flow with Proof Key for Code Exchange][1],
+     and for creating the state parameter.
      
-     See also `String.urlSafeCharacters` and `String.randomURLSafe(length:)`.
+     See also:
+     
+     * `String.urlSafeCharacters`
+     * `String.randomURLSafe(length:)`
+     * `makeCodeChallenge()`  - makes the code challenge from the code verifier
      
      - Parameters:
        - length: The legnth of the string.
@@ -115,12 +120,16 @@ public extension String {
      tilde character.
      
      This method can be used for creating the code verifier when authorizing
-     with the [Authorization Code Flow with Proof Key for Code Exchange][1].
+     with the [Authorization Code Flow with Proof Key for Code Exchange][1],
+     and for creating the state parameter.
      
-     See also  `String.urlSafeCharacters` and
-     `String.randomURLSafe(length:using:)`, which allows you to specify
-     the random number generator to use.
-
+     See also:
+     
+     * `String.urlSafeCharacters`
+     * `String.randomURLSafe(length:using:)` - allows you to specify the random
+       number generator to use.
+     * `makeCodeChallenge()` - makes the code challenge from the code verifier
+     
      - Parameter length: The length of the string.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce

@@ -178,17 +178,14 @@ public extension AuthorizationCodeFlowPKCEManager {
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
              after the user authorizes or denies authorization for your app.
-             Usually, this should link to a location in your app.
-             This URI needs to have been entered in the Redirect URI whitelist
-             that you specified when you registered your application.
-             The value must exactly match one of the values you entered when
-             you registered your application, including upper or lowercase,
-             terminating slashes, and such.
+             Usually, this should be a custom URL scheme that redirects to a
+             location in your app.cThis URI needs to have been entered in the
+             Redirect URI whitelist that you specified when you
+             [registered your application][4].
        - showDialog: Whether or not to force the user to approve the app again
-             if they’ve already done so. If `false`,
-             a user who has already approved the application
-             may be automatically redirected to the `redirectURI`.
-             If `true`, the user will not be automatically
+             if they’ve already done so. If `false`, a user who has already
+             approved the application may be automatically redirected to the
+             `redirectURI`. If `true`, the user will not be automatically
              redirected and will have to approve the app again.
        - codeChallenge: The code challenge. See above.
        - state: Optional, but strongly recommended. **If you provide a value**
@@ -203,14 +200,15 @@ public extension AuthorizationCodeFlowPKCEManager {
              validate the response to additionally ensure that the request and
              response originated in the same browser. This provides protection
              against attacks such as cross-site request forgery.
-       - scopes: A set of [Spotify Authorization scopes][4].
+       - scopes: A set of [Spotify Authorization scopes][5].
      - Returns: The URL that must be opened to authorize your app. May return
            `nil` if the URL could not be created.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://tools.ietf.org/html/rfc4648#section-5
      [3]: https://tonyxu-io.github.io/pkce-generator/
-     [4]: x-source-tag://Scopes
+     [4]: https://developer.spotify.com/dashboard/applications
+     [5]: x-source-tag://Scopes
      
      - Tag: PKCEmakeAuthorizationURL
      */
@@ -470,7 +468,6 @@ public extension AuthorizationCodeFlowPKCEManager {
                     .formURLEncoded()
                     
                     let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-                    
                     Self.logger.trace(
                         """
                         POST request to "\(Endpoints.getTokens)" \
@@ -485,7 +482,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                         headers: Headers.formURLEncoded,
                         body: body
                     )
-                    // decoding into `AuthInfo` never fails because all of its,
+                    // Decoding into `AuthInfo` never fails because all of its,
                     // properties are optional, so we must try to decode errors
                     // first.
                     .decodeSpotifyErrors()

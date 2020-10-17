@@ -125,17 +125,14 @@ public extension AuthorizationCodeFlowManager {
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
              after the user authorizes or denies authorization for your app.
-             Usually, this should link to a location in your app.
-             This URI needs to have been entered in the Redirect URI whitelist
-             that you specified when you registered your application.
-             The value must exactly match one of the values you entered when
-             you registered your application, including upper or lowercase,
-             terminating slashes, and such.
+             Usually, this should be a custom URL scheme that redirects to a
+             location in your app.cThis URI needs to have been entered in the
+             Redirect URI whitelist that you specified when you
+             [registered your application][2].
        - showDialog: Whether or not to force the user to approve the app again
-             if they’ve already done so. If `false`,
-             a user who has already approved the application
-             may be automatically redirected to the `redirectURI`.
-             If `true`, the user will not be automatically
+             if they’ve already done so. If `false`, a user who has already
+             approved the application may be automatically redirected to the
+             `redirectURI`. If `true`, the user will not be automatically
              redirected and will have to approve the app again.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
@@ -149,12 +146,13 @@ public extension AuthorizationCodeFlowManager {
              validate the response to additionally ensure that the request and
              response originated in the same browser. This provides protection
              against attacks such as cross-site request forgery.
-       - scopes: A set of [Spotify Authorization scopes][2].
+       - scopes: A set of [Spotify Authorization scopes][3].
      - Returns: The URL that must be opened to authorize your app. May return
            `nil` if the URL could not be created.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: x-source-tag://Scopes
+     [2]: https://developer.spotify.com/dashboard/applications
+     [3]: x-source-tag://Scopes
      
      - Tag: makeAuthorizationURL
      */
@@ -293,7 +291,7 @@ public extension AuthorizationCodeFlowManager {
             headers: Headers.formURLEncoded,
             body: body
         )
-        // decoding into `AuthInfo` never fails, so we must
+        // Decoding into `AuthInfo` never fails, so we must
         // try to decode errors first.
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)

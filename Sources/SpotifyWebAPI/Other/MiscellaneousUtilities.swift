@@ -5,13 +5,13 @@ import Combine
 
 public extension Dictionary where Key == String, Value == String {
     
-    /// Encodes a dictionary of into data according to
-    /// `application/x-www-form-urlencoded`.
-    ///
-    /// Returns `nil` if the query string cannot be converted to
-    /// `Data` using a utf-8 character encoding.
-    ///
-    /// - Parameter dict: The dictionary to form-url-encode.
+    /**
+     Encodes this dictionary into data according to
+     `application/x-www-form-urlencoded`.
+    
+     Returns `nil` if the query string cannot be converted to
+     `Data` using a utf-8 character encoding.
+     */
     func formURLEncoded() -> Data? {
         
         var urlComponents = URLComponents()
@@ -166,7 +166,7 @@ public func removeIfNil(
 
 
 /**
- Allows for writing code that is generic over the
+ Allows for writing code that is generisc over the
  wrapped type of `Optional`.
  
  This protocol allows for extending other protocols

@@ -26,7 +26,7 @@ extension SpotifyAPITrackTests {
         XCTAssertEqual(track.durationMS, 165666)
         XCTAssertFalse(track.isExplicit)
         XCTAssertEqual(track.isPlayable, true)
-        XCTAssertNotNil(track.availableMarkets)
+        // XCTAssertNotNil(track.availableMarkets)
         
         // if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
         //     XCTAssertNotNil(
@@ -293,6 +293,7 @@ extension SpotifyAPITrackTests {
         
         Self.spotify.tracks(tracks, market: "us")
             .XCTAssertNoFailure()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveTracks(_:)

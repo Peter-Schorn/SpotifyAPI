@@ -99,7 +99,7 @@ public extension SpotifyImage {
                     return image
                 }
                 throw SpotifyLocalError.other(
-                    "couldn't get image from data"
+                    "couldn't convert data to image"
                 )
                 
             }

@@ -14,9 +14,20 @@ public struct Show: Hashable {
     /// A description of the show.
     public let description: String
     
-    /// The episodes for this show: An array of simplified episode objects
-    /// wrapped in a paging object. Only available for the full version.
+    /**
+     The episodes for this show: An array of simplified episode objects
+     wrapped in a paging object.
+     
+     Only available for the full version.
+     
+     See also `totalEpisodes`.
+     */
     public let episodes: PagingObject<Episode>?
+    
+    /// The total number of episodes in the show.
+    ///
+    /// Only available for the full version.
+    public let totalEpisodes: Int?
     
     /// Whether or not the episode has explicit content.
     /// `false` if unknown.
@@ -36,7 +47,7 @@ public struct Show: Hashable {
     public let images: [SpotifyImage]?
     
     /// A list of the countries in which the show can be played,
-    /// identified by their [ISO 3166-1 alpha-2] code.
+    /// identified by their [ISO 3166-1 alpha-2][1] code.
     ///
     /// [1]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     public let availableMarkets: [String]
@@ -66,7 +77,7 @@ public struct Show: Hashable {
     public let isExternallyHosted: Bool
     
     /// A list of the languages used in the episode,
-    /// identified by their [ISO 639] code.
+    /// identified by their [ISO 639][1] code.
     ///
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
     public let languages: [String]
@@ -122,6 +133,7 @@ public struct Show: Hashable {
         name: String,
         description: String,
         episodes: PagingObject<Episode>? = nil,
+        totalEpisodes: Int,
         isExplicit: Bool,
         uri: String,
         id: String,
@@ -138,6 +150,7 @@ public struct Show: Hashable {
         self.name = name
         self.description = description
         self.episodes = episodes
+        self.totalEpisodes = totalEpisodes
         self.isExplicit = isExplicit
         self.uri = uri
         self.id = id
@@ -161,6 +174,7 @@ extension Show: Codable {
         case name
         case description
         case episodes
+        case totalEpisodes = "total_episodes"
         case isExplicit = "explicit"
         case uri
         case id
