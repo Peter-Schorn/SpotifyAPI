@@ -441,8 +441,12 @@ is not a conforming type because it does not support authorization scopes.</p>
 authorization information.</p>
 
 <p>It is this property that you should encode to data using a <code>JSONEncoder</code>
-in order to save it to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more
-information.</p>
+in order to save it to persistent storage. This prevents the user from
+having to login again everytime the app is quit and relaunched. See this
+<a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+
+<p>Assigning a new authorization manager to this property causes
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code> to emit a signal.</p>
 
                       </div>
                       <div class="declaration">
@@ -469,41 +473,24 @@ information.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A publisher that emits whenever <code>authorizationManager.didChange</code>
-emits, or when you assign a new instance of <code>AuthorizationManager</code>
-to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.</p>
+                        <p>A pass-through subject that emits whenever the authorization information
+changes.</p>
 
-<p>Emits after the following events occur:</p>
+<p>Subscribe to this subject in order to update the persistent storage of
+the authorization information. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
-<ul>
-<li>After the access token (and possibly the refresh token as well) is
-refreshed. This occurs in
-<code>authorizationManager.refreshTokens(onlyIfExpired:tolerance:)</code>.</li>
-<li>If the type of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>:
+<p>Emits after any of the following events occur:</p>
 
 <ul>
-<li>After the access and refresh tokens are retrieved using
-<code>authorizationManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</code>.</li>
-</ul></li>
-<li>If the type of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> is <code><a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code>:
-
-<ul>
-<li>After the access token is retrieved using the <code>authorizationManager.authorize()</code>
-method.</li>
-</ul></li>
+<li>After the access and/or refresh tokens are retrieved.</li>
+<li>After the access token (and possible the refresh token) is refreshed.</li>
 <li>After <code>authorizationManager.deauthorize()</code> is called.</li>
 </ul>
 
-<p>Subscribing to this publisher is preferred over subscribing to the
-<code>didChange</code> publisher of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> because it allows you
-to be notified of changes to the authorization manager even when you
-create a new instance of it and assign it to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>
-property of this class.</p>
-
 <p>This publisher subscribes to the <code>didChange</code> publisher of
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> in the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerACyxGx_tcfc">init(authorizationManager:)</a></code> method
-of this class and in the didSet block of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.
-It also emits a signal in the didSet block of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>.</p>
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> and emits whenever it emits; it also emits
+whenever you assign a new instance to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>
+property.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
 <p>No guarantees are made about which thread this subject will emit on.
@@ -602,7 +589,7 @@ a signal.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Logs the urls of the requests made to Spotify and,
+                        <p>Logs the URLs of the requests made to Spotify and,
 if present, the body of the requests by converting the raw
 data to a string.</p>
 
@@ -4182,6 +4169,12 @@ audio to compute the attribute with high certainty.</p>
 
 <p>No scopes are required for this endpoint.</p>
 
+<p>The <code>country</code>, <code>email</code>, and <code>product</code> properties of <code><a href="../Structs/SpotifyUser.html">SpotifyUser</a></code>
+will always be <code>nil</code> even if the URI of the current user is provided
+and the application is authorized for the <code>userReadPrivate</code> and
+<code>userReadEmail</code> scopes. You must use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE18currentUserProfile7Combine12AnyPublisherVyAA0aH0Vs5Error_pGyF">currentUserProfile()</a></code> to retrieve
+these properties.</p>
+
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/users-profile/get-users-profile/">Spotify web API reference</a>.</p>
 
                       </div>
@@ -6575,16 +6568,17 @@ playback. See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0
 
 <ul>
 <li><code>contextURI(SpotifyURIConvertible)</code>: A URI for the context in which to
-play the content. Must be one of the following types:</li>
+play the content. Must be in one of the following categories:</li>
 <li>Album</li>
 <li>Artist</li>
+<li>Show</li>
 <li>Playlist</li>
 <li><code>uris([SpotifyURIConvertible])</code>: An array of track/episode URIs.</li>
 </ul></li>
 <li><p>offset: Indicates where in the context playback should start.
-Only available when <code>contextURI</code> is an album or playlist (not an artist)
-or when <code>uris([SpotifyURIConvertible])</code> is used for the context.
-One of the following:</p>
+Only available when <code>contextURI</code> is an album, playlist, or show
+(not an artist) or when <code>uris([SpotifyURIConvertible])</code> is used for
+the context. One of the following:</p>
 
 <ul>
 <li><code>position(Int)</code>: The index of the item in the context at which to
@@ -8039,11 +8033,16 @@ you want to target. A maximum of 100 items can be sent at once.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11userProfiley7Combine12AnyPublisherVyAA0A4UserVs5Error_pGAA0A14URIConvertible_pF">userProfile(_:)</a></code>.</p>
 
-<p>The access token must have been issued on behalf of a user.
-Reading the user’s email address requires the <code>userReadEmail</code> scope;
-reading country and product subscription level requires the
-<code>userReadPrivate</code> scope. If the application is not authorized for
-these scopes, then these properties will be <code>nil</code>.</p>
+<p>The access token must have been issued on behalf of a user.</p>
+
+<p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV7countrySSSgvp">SpotifyUser.country</a></code> requires the <code>userReadPrivate</code> scope.</p>
+
+<p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV5emailSSSgvp">SpotifyUser.email</a></code> requires the <code>userReadEmail</code> scope.</p>
+
+<p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV7productSSSgvp">SpotifyUser.product</a></code> requires the <code>userReadPrivate</code> scope.</p>
+
+<p>If the application is not authorized for these scopes, then these
+properties will be <code>nil</code>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/">Spotify web API reference</a>.</p>
 
@@ -8064,7 +8063,7 @@ these scopes, then these properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-17)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

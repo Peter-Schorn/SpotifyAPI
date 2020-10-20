@@ -13,6 +13,12 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
      
+     The `country`, `email`, and `product` properties of `SpotifyUser`
+     will always be `nil` even if the URI of the current user is provided
+     and the application is authorized for the `userReadPrivate` and
+     `userReadEmail` scopes. You must use `currentUserProfile()` to retrieve
+     these properties.
+     
      Read more at the [Spotify web API reference][1].
      
      - Parameter uri: The URI of a Spotify user.
@@ -43,7 +49,6 @@ public extension SpotifyAPI {
 
     }
     
-    
 }
 
 public extension SpotifyAPI where
@@ -57,10 +62,15 @@ public extension SpotifyAPI where
      See also `userProfile(_:)`.
      
      The access token must have been issued on behalf of a user.
-     Reading the user’s email address requires the `userReadEmail` scope;
-     reading country and product subscription level requires the
-     `userReadPrivate` scope. If the application is not authorized for
-     these scopes, then these properties will be `nil`.
+     
+     `SpotifyUser.country` requires the `userReadPrivate` scope.
+     
+     `SpotifyUser.email` requires the `userReadEmail` scope.
+     
+     `SpotifyUser.product` requires the `userReadPrivate` scope.
+     
+     If the application is not authorized for these scopes, then these
+     properties will be `nil`.
      
      Read more at the [Spotify web API reference][1].
      
@@ -73,7 +83,7 @@ public extension SpotifyAPI where
             queryItems: [:],
             requiredScopes: []
         )
-            .decodeSpotifyObject(SpotifyUser.self)
+        .decodeSpotifyObject(SpotifyUser.self)
         
     }
     

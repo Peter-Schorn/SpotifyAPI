@@ -8,10 +8,11 @@ import Foundation
  authorized your application yet, you will get a `.unauthorized(String)`
  error, which is thrown before any network requests are even made.
  
- Consider using the `localizedDescription` of this error for more
- a more detailed description.
+ Use `localizedDescription` for an error message suitable for displaying
+ to the end user. Use the string representation of this instance for a more
+ detailed description suitable for debugging.
  */
-public enum SpotifyLocalError: LocalizedError {
+public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     
     /// You tried to access an endpoint that requires authorization,
     /// but you have not authorized your app yet.
@@ -22,7 +23,7 @@ public enum SpotifyLocalError: LocalizedError {
      access and refresh tokens didn't match the value returned from spotify
      in the query string of the redirect URI.
      
-     - supplied: The value supplied in `AuthorizationCodeFlowManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+     - supplied: The value supplied when requesting access and refresh tokens.
      - received: The value in the query string of the redirect URI.
      */
     case invalidState(supplied: String?, received: String?)
@@ -83,6 +84,34 @@ public enum SpotifyLocalError: LocalizedError {
     
     public var errorDescription: String? {
         switch self {
+             case .unauthorized(_):
+                return """
+                    Authorization has not been granted for this \
+                    operation.
+                    """
+            case .invalidState(_, _):
+                return """
+                    The authorization request has expired or is \
+                    otherwise invalid.
+                    """
+            case .identifierParsingError(_):
+                return "An internal error occurred."
+            case .insufficientScope(_, _):
+                return """
+                    Authorization has not been granted for this \
+                    operation.
+                    """
+            case .invalidIdCategory(_, _):
+                return "An internal error occurred"
+            case .topLevelKeyNotFound(_, _):
+                return "The format of the data from Spotify was invalid."
+            case .other(_):
+                return "An unexpected error occurred."
+        }
+    }
+    
+    public var description: String {
+        switch self {
              case .unauthorized(let message):
                 return "\(message)"
             case .invalidState(let supplied, let received):
@@ -109,7 +138,7 @@ public enum SpotifyLocalError: LocalizedError {
                     \(expected.map(\.rawValue)),
                     but received \(received.rawValue)
                     """
-            case .topLevelKeyNotFound(key: let key, dict: let dict):
+            case .topLevelKeyNotFound(let key, let dict):
                 return """
                     The expected top level key '\(key)' \
                     was not found in the dictionary:

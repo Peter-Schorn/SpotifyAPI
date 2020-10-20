@@ -9,6 +9,7 @@ import Foundation
    play the content. Must correspond to one of the following:
    * Album
    * Artist
+   * Show
    * Playlist
  
  * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
@@ -21,6 +22,7 @@ public enum ContextOption {
      Must be one of the following categories:
      * Album
      * Artist
+     * Show
      * Playlist
      */
     case contextURI(SpotifyURIConvertible)

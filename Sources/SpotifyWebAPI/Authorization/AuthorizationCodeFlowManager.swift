@@ -24,7 +24,7 @@ import Logging
  to the Spotify API. The access token will be refreshed for you
  automatically when needed.
  
- Note that this type inherits from `Codable`. It is this type that you should
+ Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save it to persistent storage.
  See this [article][3] for more information.
  
@@ -65,7 +65,7 @@ public final class AuthorizationCodeFlowManager:
      [Spotify Developer Dashboard][2] and create an app.
      see the README in the root directory of this package for more information.
      
-     Note that this type inherits from `Codable`. It is this type that you should
+     Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save it to persistent storage.
      See this [article][3] for more information.
      
@@ -118,9 +118,9 @@ public extension AuthorizationCodeFlowManager {
      
      **DO NOT add a forward-slash to the end of the redirect URI**.
      
-     **All of these values will be automatically percent-encoded.**
-     **Therefore, do not percent-encode them yourself before passing them**
-     **into this method.**
+     All of these values will be automatically percent-encoded.
+     Therefore, do not percent-encode them yourself before passing them
+     into this method.
 
      - Parameters:
        - redirectURI: The location that Spotify will redirect to
@@ -167,7 +167,7 @@ public extension AuthorizationCodeFlowManager {
             scheme: "https",
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
-            queryItems: removeIfNil([
+            queryItems: urlQueryDictionary([
                 "client_id": self.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
@@ -195,19 +195,30 @@ public extension AuthorizationCodeFlowManager {
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
      
+     If the request for the access and refresh tokens suceeds, `self.didChange`
+     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
+     to emit a signal.
+     
      - Parameters:
-       - redirectURIWithQuery: The redirect URI with query parameters appended to it.
+       - redirectURIWithQuery: The redirect URI with query parameters appended to
+             it.
        - state: The value of the state parameter that you provided when
-             making the authorization URL. **If the state parameter in**
-             redirectURIWithQuery **doesn't match this value, then an error will**
+             making the authorization URL. The state can be useful for
+             correlating requests and responses. Because your redirect URI can
+             be guessed, using a state value can increase your assurance that
+             an incoming connection is the result of an authentication request
+             that you made. **If the state parameter in the query string of**
+             `redirectURIWithQuery` **doesn't match this value, then an error will**
              **be thrown.** If `nil`, then the state parameter must not be present
-             in the redirect URI, otherwise an error will be thrown.
+             in `redirectURIWithQuery` either, otherwise an error will be thrown.
+             After this request has completed, you should generate a new value
+             for this parameter in preparation for the next authorization process.
      
      # Warning:
      
-     **All of these values will be automatically percent-encoded.**
-     **Therefore, do not percent-encode them yourself before passing them**
-     **into this method.**
+     All of these values will be automatically percent-encoded.
+     Therefore, do not percent-encode them yourself before passing them
+     into this method.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      
@@ -253,12 +264,11 @@ public extension AuthorizationCodeFlowManager {
             
         }
         
-        // if a state parameter was provided in the query string of the
-        // redirect URI, then ensure that it matches the value for the state
-        // parameter passed to this method.
+        // Ensure the state paramter in the query string of the redirect
+        // URI matches the value provided to this method.
         guard state == queryDict["state"] else {
             return SpotifyLocalError.invalidState(
-                supplied: queryDict["state"], received: state
+                supplied: state, received: queryDict["state"]
             )
             .anyFailingPublisher()
         }
@@ -291,8 +301,9 @@ public extension AuthorizationCodeFlowManager {
             headers: Headers.formURLEncoded,
             body: body
         )
-        // Decoding into `AuthInfo` never fails, so we must
-        // try to decode errors first.
+        // Decoding into `AuthInfo` never fails because all of its
+        // properties are optional, so we must try to decode errors
+        // first.
         .decodeSpotifyErrors()
         .decodeSpotifyObject(AuthInfo.self)
         .tryMap { authInfo in
@@ -325,15 +336,18 @@ public extension AuthorizationCodeFlowManager {
     /**
      Uses the refresh token to get a new access token.
     
-     **You shouldn't need to call this method**. It gets
-     called automatically each time you make a request to the
-     Spotify API.
+     **You shouldn't need to call this method**. It gets called automatically
+     each time you make a request to the Spotify API.
+     
+     If the access and/or refresh tokens are refreshed, then `self.didChange`
+     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
+     to emit a signal.
      
      # Thread Safety
      
-     Calling this method is thread-safe. If a network request to refresh the tokens
-     is already in progress, additional calls will return a reference to the same
-     publisher as a class instance.
+     Calling this method is thread-safe. If a network request to refresh the
+     tokens is already in progress, additional calls will return a reference
+     to the same publisher as a class instance.
      
      **However**, no guarentees are made about the thread that the publisher
      returned by this method will emit on.
@@ -365,7 +379,7 @@ public extension AuthorizationCodeFlowManager {
                             "access token not expired; returning early"
                         )
                         return Result<Void, Error>
-                            .Publisher.init(())
+                            .Publisher(())
                             .eraseToAnyPublisher()
                     }
                     
@@ -420,7 +434,7 @@ public extension AuthorizationCodeFlowManager {
                         headers: headers,
                         body: body
                     )
-                    // decoding into `AuthInfo` never fails because all of its,
+                    // Decoding into `AuthInfo` never fails because all of its
                     // properties are optional, so we must try to decode errors
                     // first.
                     .decodeSpotifyErrors()

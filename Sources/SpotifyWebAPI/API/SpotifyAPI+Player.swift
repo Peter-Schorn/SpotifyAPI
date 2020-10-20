@@ -407,17 +407,18 @@ public extension SpotifyAPI where
      
      * context: The context in which to play the content. One of the following:
        * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-         play the content. Must be one of the following types:
+         play the content. Must be in one of the following categories:
          * Album
          * Artist
+         * Show
          * Playlist
      
        * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
      * offset: Indicates where in the context playback should start.
-       Only available when `contextURI` is an album or playlist (not an artist)
-       or when `uris([SpotifyURIConvertible])` is used for the context.
-       One of the following:
+       Only available when `contextURI` is an album, playlist, or show
+       (not an artist) or when `uris([SpotifyURIConvertible])` is used for
+       the context. One of the following:
      
        * `position(Int)`: The index of the item in the context at which to
          start playback.

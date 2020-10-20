@@ -109,8 +109,8 @@ public class AuthorizationCodeFlowManagerBase {
     var _scopes: Set<Scope>? = nil
     
     /**
-     A Publisher that emits **after** this `AuthorizationCodeFlowManager`
-     has changed.
+     A Publisher that emits **after** the authorization information
+     changes.
      
      **You are discouraged from subscribing to this publisher directly.**
      
@@ -123,7 +123,13 @@ public class AuthorizationCodeFlowManagerBase {
      * After the access token (and possibly the refresh token as well) is
        refreshed. This occurs in `refreshTokens(onlyIfExpired:tolerance:)`.
      * After the access and refresh tokens are retrieved using
-       `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+       ```
+       requestAccessAndRefreshTokens(redirectURIWithQuery:state:)
+       ```
+       or
+       ```
+       requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
+       ```
      * After `deauthorize()`—which sets `accessToken`, `refreshToken`,
        `expirationDate`, and `scopes` to `nil`—is called.
      
@@ -222,6 +228,9 @@ public extension AuthorizationCodeFlowManagerBase {
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
      
+     Calling this method causes `self.didChange` to emit a signal, which will
+     cause `SpotifyAPI.authorizationManagerDidChange` to emit a signal.
+
      # Thread Safety
      
      This method is thread-safe.
@@ -238,13 +247,13 @@ public extension AuthorizationCodeFlowManagerBase {
     }
     
     /**
-     Determines whether the access token is expired
-     within the given tolerance.
+     Determines whether the access token is expired within the given
+     tolerance.
      
      See also `isAuthorized(for:)`.
      
      The access token is refreshed automatically when necessary
-     before each request to the spotify web API is made.
+     before each request to the Spotify web API is made.
      Therefore, **you should never need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds.
@@ -281,7 +290,7 @@ public extension AuthorizationCodeFlowManagerBase {
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoDispatchQueue.sync {
-            if _accessToken == nil { return false }
+            if self._accessToken == nil { return false }
             return scopes.isSubset(of: self._scopes ?? [])
         }
     }

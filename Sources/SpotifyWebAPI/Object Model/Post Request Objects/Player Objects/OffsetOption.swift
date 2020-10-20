@@ -4,7 +4,7 @@ import Foundation
  Indicates where in the context playback should start.
  See `PlaybackRequest`.
  
- Only available when `contextURI` is an album or playlist (not an artist)
+ Only available when `contextURI` is an album, show, or playlist (not an artist)
  or when `uris([SpotifyURIConvertible])` is used for the context.
  One of the following:
  

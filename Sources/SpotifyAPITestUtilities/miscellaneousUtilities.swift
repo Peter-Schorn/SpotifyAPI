@@ -8,7 +8,9 @@ import SpotifyWebAPI
 /// Assert that a url exists by making a data task request
 /// and asserting that the status code is 200.
 public func assertURLExists(
-    _ url: URL, file: StaticString = #file, line: UInt = #line
+    _ url: URL,
+    file: StaticString = #file,
+    line: UInt = #line
 ) -> AnyPublisher<Void, URLError> {
     
     var request = URLRequest(url: url)
@@ -71,3 +73,54 @@ public func XCTAssertFinishedNormally<E: Error>(
     }
 }
 
+
+/**
+ Assert the the Spotify Images exist.
+ 
+ - Parameter images: An array of Spotify images.
+ - Returns: An array of expectations that will be fullfilled when
+       each image is loaded from its URL.
+ */
+public func XCTAssertImagesExist(
+    _ images: [SpotifyImage],
+    file: StaticString = #file,
+    line: UInt = #line
+) -> (expectations: [XCTestExpectation], cancellables: Set<AnyCancellable>) {
+    var cancellables: Set<AnyCancellable> = []
+    var imageExpectations: [XCTestExpectation] = []
+    for (i, image) in images.enumerated() {
+        XCTAssertNotNil(image.height)
+        XCTAssertNotNil(image.width)
+        guard let url = URL(string: image.url) else {
+            XCTFail("couldn't convert to URL: '\(image.url)'")
+            continue
+        }
+        let existsExpectation = XCTestExpectation(
+            description: "image exists \(i)"
+        )
+        imageExpectations.append(existsExpectation)
+        
+        assertURLExists(url, file: file, line: line)
+            .sink(receiveCompletion: { _ in
+                existsExpectation.fulfill()
+            })
+            .store(in: &cancellables)
+
+        let loadExpectation = XCTestExpectation(
+            description: "load image \(i)"
+        )
+        imageExpectations.append(loadExpectation)
+        
+        image.load()
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in
+                    loadExpectation.fulfill()
+                },
+                receiveValue: { _ in }
+            )
+            .store(in: &cancellables)
+    }
+
+    return (expectations: imageExpectations, cancellables: cancellables)
+}

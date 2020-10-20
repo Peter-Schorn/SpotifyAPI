@@ -331,7 +331,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Podcast Objects/Show.swift",
-      "line": 169,
+      "line": 173,
       "symbol": "Show.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

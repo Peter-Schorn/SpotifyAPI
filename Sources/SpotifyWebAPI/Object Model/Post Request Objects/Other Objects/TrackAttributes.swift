@@ -6,31 +6,37 @@ import Foundation
  `SpotifyAPI.recommendations(_:limit:market:)` endpoint for
  [getting recommendations based on seeds][2].
  
- Note that all of the properties are mutable.
- 
  For most of the attributes, a minimum, target (ideal), and maximum value can be
  provided. This is represented by `AttributeRange`. The target value should not
  be smaller than the minimum or larger than the maximum.
 
- The total number of seed artists, seed tracks and seed genres must add up to 5 or
- less
+ **The total number of seed artists, seed tracks, and seed genres must add up**
+ **to 5 or less.**
  
  Use `SpotifyAPI.recommendationGenres()` to retrieve the available
  seed genres.
+ 
+ Note that all of the properties are mutable.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes
  [2]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
 public struct TrackAttributes: Hashable {
 
-    /// An array of artists URIs.
-    /// The total number of seed artists, seed tracks and seed genres
-    /// must add up to 5 or less.
+    /**
+     An array of artists URIs.
+    
+     The total number of seed artists, seed tracks, and seed genres
+     must add up to 5 or less.
+     */
     public var seedArtists: [String]?
 
-    /// An array of track URIs.
-    /// The total number of seed artists, seed tracks and seed genres
-    /// must add up to 5 or less.
+    /**
+     An array of track URIs.
+    
+     The total number of seed artists, seed tracks, and seed genres
+     must add up to 5 or less.
+     */
     public var seedTracks: [String]?
     
     /**
@@ -39,7 +45,7 @@ public struct TrackAttributes: Hashable {
      Use `SpotifyAPI.recommendationGenres()` to retrieve the available
      genres.
     
-     The total number of seed artists, seed tracks and seed genres
+     The total number of seed artists, seed tracks, and seed genres
      must add up to 5 or less.
      */
     public var seedGenres: [String]?
@@ -178,7 +184,7 @@ public struct TrackAttributes: Hashable {
      be provided. This is represented by `AttributeRange`. The target value should
      not be smaller than the minimum or larger than the maximum.
      
-     **The total number of seed artists, seed tracks and seed genres must add up**
+     **The total number of seed artists, seed tracks, and seed genres must add up**
      **to 5 or less.**
      
      - Parameters:
@@ -340,8 +346,8 @@ public struct TrackAttributes: Hashable {
         if seedsCount > 5 {
             print(
                 """
-                TrackAttributes: WARNING: the total number of seed artists \
-                seed tracks and seed genres must add up to 5 or less \
+                TrackAttributes: WARNING: the total number of seed artists, \
+                seed tracks, and seed genres must add up to 5 or less \
                 (received \(seedsCount)). You may recevie an error from \
                 the Spotify web API.
                 """

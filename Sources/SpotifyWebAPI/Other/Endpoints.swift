@@ -98,7 +98,7 @@ enum Endpoints {
             scheme: "https",
             host: apiBase,
             path: apiVersion1 + path,
-            queryItems: removeIfNil(queryItems)
+            queryItems: urlQueryDictionary(queryItems)
         )!
         
     }

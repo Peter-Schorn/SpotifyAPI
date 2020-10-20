@@ -15,8 +15,8 @@ import Foundation
  
  Do not `dump` this error; instead, use its string representation for
  debugging (e.g., print it to the standard output, use string interpolation
- or use `String(describing:)`). Only use `localizedDescription` for
- displaying the error to the end user.
+ or use `String(describing:)`). Use `localizedDescription` for displaying
+ the error to the end user.
  */
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
@@ -48,9 +48,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     public let url: URL?
     
     /**
-     The raw data returned by the server.
-     You should almost always be able to decode
-     this into a string.
+     The raw data returned by the server. You should almost always be
+     able to decode this into a string.
      
      This property, along with `debugErrorDescription`, is written to
      a file when you call `writeToFolder(_:)`.

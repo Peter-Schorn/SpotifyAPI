@@ -9,15 +9,16 @@ import Foundation
  
  * context: The context in which to play the content. One of the following:
    * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-     play the content. Must be one of the following types:
+     play the content. Must be in one of the following categories:
      * Album
      * Artist
+     * Show
      * Playlist
  
    * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
  
  * offset: Indicates where in the context playback should start.
-   Only available when `contextURI` is an album or playlist (not an artist)
+   Only available when `contextURI` is an album, playlist, or show (not an artist)
    or when `uris([SpotifyURIConvertible])` is used for the context.
    One of the following:
  
@@ -41,9 +42,10 @@ public struct PlaybackRequest: Hashable {
      One of the following:
      
      * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-       play the content. Must correspond to one of the following:
+       play the content. Must be in one of the following categories:
        * Album
        * Artist
+       * Show
        * Playlist
      
      * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
@@ -53,8 +55,8 @@ public struct PlaybackRequest: Hashable {
     /**
      Indicates where in the context playback should start.
      
-     Only available when `contextURI` is an album or playlist (not an artist)
-     or when `uris([SpotifyURIConvertible])` is used for the context.
+     Only available when `contextURI` is an album, playlist, or show (not
+     an artist) or when `uris([SpotifyURIConvertible])` is used for the context.
      One of the following:
      
      * `position(Int)`: The index of the item in the context at which to
@@ -79,23 +81,25 @@ public struct PlaybackRequest: Hashable {
     /**
      Creates a request to play Spotify content for a user.
      
-     Read more at the [Spotify web API reference][1].
-     
      See also `init(_:positionMS:)`—a convenience initializer that makes a
      request to play a single track/episode.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - context: The context in which to play the content.
          One of the following:
          * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to play
-           the content. Must correspond to one of the following:
+           the content. Must be in one of the following categories:
            * Album
            * Artist
+           * Show
            * Playlist
+     
          * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
        - offset: Indicates where in the context playback should start.
-         Only available when `contextURI` is an album or playlist
+         Only available when `contextURI` is an album, playlist, or show
          (not an artist) or when `uris([SpotifyURIConvertible])`
          is used for the context. One of the following:
          

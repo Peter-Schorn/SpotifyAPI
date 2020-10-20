@@ -41,8 +41,8 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
      The country of the user, as set in the user’s account profile.
      An [ISO 3166-1 alpha-2 country code][1].
     
-     This field is only available when the current user
-     has granted access to the `userReadPrivate` scope.
+     This field is only available for the current user and requires
+     the `userReadPrivate` scope.
      
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
@@ -52,8 +52,8 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
      The user’s email address, as entered by the user when
      creating their account.
      
-     This field is only available when the current user has
-     granted access to the `userReadEmail` scope.
+     This field is only available for the current user and requires
+     the `userReadEmail` scope.
      
      - Warning: This email address is unverified; there is no proof that
            it actually belongs to the user.
@@ -62,11 +62,11 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     
     /**
      The user’s Spotify subscription level:
-     "premium", "free", etc. (The subscription level "open"
-     can be considered the same as "free".)
+     "premium", "free", etc. (The subscription level "open" can be
+     considered the same as "free".)
      
-     This field is only available when the current user
-     has granted access to the `userReadPrivate` scope.
+     This field is only available for the current user and requires
+     the `userReadPrivate` scope.
      */
     public let product: String?
     

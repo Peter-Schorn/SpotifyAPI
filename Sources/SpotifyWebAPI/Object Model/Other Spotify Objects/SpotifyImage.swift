@@ -28,11 +28,11 @@ typealias PlatformImage = UIImage
 public struct SpotifyImage: Codable, Hashable {
     
     /// The image height in pixels.
-    /// May be `nil`, especially if uploaded by the user.
+    /// May be `nil`, especially if uploaded by a user.
     public let height: Int?
     
     /// The image width in pixels.
-    /// May be `nil`, especially if uploaded by the user.
+    /// May be `nil`, especially if uploaded by a user.
     public let width: Int?
     
     /**

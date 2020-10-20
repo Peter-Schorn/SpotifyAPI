@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.5] - 2020-10-20
+
+### Changed
+
+* Updated documentation for playing content to mention that shows can be used for `contextURI`.
+* Simplified the `localizedDescription` for the error objects. The descriptions are now more suitable for the end user. Always use the string representation of the error objects for debugging purposes; only use `localizedDescription` to display the error to the end user.
+
+### Fixed
+
+* Fixed a bug where the values passed into `SpotifyLocalError.invalidState` were transposed.
+
 ## [0.7.4] - 2020-10-17
 
 ### Fixed

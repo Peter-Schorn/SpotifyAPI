@@ -69,7 +69,7 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
         attributeName: String
     ) -> [String: String] {
 
-        return removeIfNil([
+        return urlQueryDictionary([
             "min_\(attributeName)": self.min,
             "target_\(attributeName)": self.target,
             "max_\(attributeName)": self.max

@@ -2,11 +2,12 @@ import Foundation
 
 
 /**
- The user denied your app's authorization request or there
- was an error during the process of authorizing your app.
+ The user denied your app's authorization request or there was an error
+ during the process of authorizing your app.
  
  This error will only be thrown during the process of requesting access and
- refresh tokens.
+ refresh tokens using `AuthorizationCodeFlowManager` or
+ `AuthorizationCodeFlowPKCEManager`.
  
  Do not confuse this with `SpotifyAuthenticationError`. See also:
  
@@ -21,9 +22,12 @@ import Foundation
  */
 public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
     
-    /// The reason authorization failed; for example: "access_denied".
-    /// Use the `accessWasDenied` boolean property to check if the user
-    /// denied access to your application.
+    /**
+     The reason authorization failed; for example: "access_denied".
+    
+     Use the `accessWasDenied` boolean property to check if the user
+     denied access to your application.
+     */
     public let error: String
     
     /// The value of the state parameter supplied in the request.
@@ -37,7 +41,7 @@ public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
     }
     
     public var errorDescription: String? {
-        return "error: \"\(error)\", state:\"\(state ?? "nil")\""
+        return error
     }
     
 }

@@ -16,7 +16,7 @@ import Logging
  The advantage of this authorization proccess is that no user interaction is
  required.
  
- Note that this type inherits from `Codable`. It is this type that you should
+ Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save it to persistent storage.
  See this [article][3] for more information.
  
@@ -133,7 +133,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      [Spotify Developer Dashboard][3] and create an app.
      see the README in the root directory of this package for more information.
 
-     Note that this type inherits from `Codable`. It is this type that you should
+     Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save it to persistent storage.
      See this [article][4] for more information.
      
@@ -215,6 +215,9 @@ public extension ClientCredentialsFlowManager {
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
      
+     Calling this method causes `self.didChange` to emit a signal, which will
+     cause `SpotifyAPI.authorizationManagerDidChange` to emit a signal.
+     
      # Thread Safety
      
      This method is thread-safe.
@@ -235,7 +238,7 @@ public extension ClientCredentialsFlowManager {
      See also `isAuthorized(for:)`.
      
      The access token is refreshed automatically when necessary
-     before each request to the spotify web API is made.
+     before each request to the Spotify web API is made.
      Therefore, **you should never need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds.
@@ -272,7 +275,7 @@ public extension ClientCredentialsFlowManager {
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoDispatchQueue.sync {
-            if _accessToken == nil { return false }
+            if self._accessToken == nil { return false }
             return scopes.isEmpty
         }
     }
@@ -283,6 +286,10 @@ public extension ClientCredentialsFlowManager {
      This is the only method you need to call to authorize your application.
      After this publisher completes successfully, you can begin making
      requests to the Spotify web API.
+     
+     If the authorization request succeeds, then `self.didChange` will emit
+     a signal, causing `SpotifyAPI.authorizationManagerDidChange` to emit
+     a signal.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
@@ -319,7 +326,7 @@ public extension ClientCredentialsFlowManager {
             headers: headers,
             body: body
         )
-        // decoding into `AuthInfo` never fails because all of its,
+        // Decoding into `AuthInfo` never fails because all of its
         // properties are optional, so we must try to decode errors
         // first.
         .decodeSpotifyErrors()
@@ -357,6 +364,10 @@ public extension ClientCredentialsFlowManager {
      The [Client Credentials Flow][1] does not provide a refresh token,
      so calling this method and passing in `false` for `onlyIfExpired`
      is equivalent to calling `authorize`.
+     
+     If a new access token is successfully retrieved, then `self.didChange`
+     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
+     to emit a signal.
      
      - Parameters:
        - onlyIfExpired: Only retrieve a new access token if the current

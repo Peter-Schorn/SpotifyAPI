@@ -337,7 +337,7 @@ public extension SpotifyAPI {
         do {
             
             let queryDict = try trackAttributes.queryDictionary() +
-                removeIfNil(["limit": limit, "market": market])
+                urlQueryDictionary(["limit": limit, "market": market])
             
             return self.getRequest(
                 path: "/recommendations",

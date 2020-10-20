@@ -33,8 +33,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      authorization information.
      
      It is this property that you should encode to data using a `JSONEncoder`
-     in order to save it to persistent storage. See this [article][1] for more
-     information.
+     in order to save it to persistent storage. This prevents the user from
+     having to login again everytime the app is quit and relaunched. See this
+     [article][1] for more information.
+     
+     Assigning a new authorization manager to this property causes
+     `authorizationManagerDidChange` to emit a signal.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
@@ -49,6 +53,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             self.authManagerDidChangeCancellable =
                     self.authorizationManager.didChange
                         .handleEvents(receiveOutput: { _ in
+                            self.authDidChangeLogger.trace(
+                                """
+                                received signal from \
+                                self.authorizationManager.didChange
+                                """
+                            )
                             self.assertNotOnUpdateAuthInfoDispatchQueue()
                         })
                         .subscribe(authorizationManagerDidChange)
@@ -61,37 +71,29 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     }
 
     /**
-     A publisher that emits whenever `authorizationManager.didChange`
-     emits, or when you assign a new instance of `AuthorizationManager`
-     to `authorizationManager`.
+     A pass-through subject that emits whenever the authorization information
+     changes.
      
-     Emits after the following events occur:
-     * After the access token (and possibly the refresh token as well) is
-       refreshed. This occurs in
-       `authorizationManager.refreshTokens(onlyIfExpired:tolerance:)`.
-     * If the type of `authorizationManager` is `AuthorizationCodeFlowManager`:
-         * After the access and refresh tokens are retrieved using
-           `authorizationManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
-     * If the type of `authorizationManager` is `ClientCredentialsFlowManager`:
-         * After the access token is retrieved using the `authorizationManager.authorize()`
-           method.
-     * After `authorizationManager.deauthorize()` is called.
+     Subscribe to this subject in order to update the persistent storage of
+     the authorization information. See this [article][1] for more information.
+     
+     Emits after any of the following events occur:
 
-     Subscribing to this publisher is preferred over subscribing to the
-     `didChange` publisher of `authorizationManager` because it allows you
-     to be notified of changes to the authorization manager even when you
-     create a new instance of it and assign it to the `authorizationManager`
-     property of this class.
+     * After the access and/or refresh tokens are retrieved.
+     * After the access token (and possible the refresh token) is refreshed.
+     * After `authorizationManager.deauthorize()` is called.
      
      This publisher subscribes to the `didChange` publisher of
-     `authorizationManager` in the `init(authorizationManager:)` method
-     of this class and in the didSet block of `authorizationManager`.
-     It also emits a signal in the didSet block of `authorizationManager`.
+     `authorizationManager` and emits whenever it emits; it also emits
+     whenever you assign a new instance to the `authorizationManager`
+     property.
      
      # Thread Safety
      
      No guarantees are made about which thread this subject will emit on.
      Always receive on the main thread if you plan on updating the UI.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
 
@@ -108,7 +110,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         label: "authDidChange", level: .critical
     )
     
-    /// Logs the urls of the requests made to Spotify and,
+    /// Logs the URLs of the requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
     public lazy var apiRequestLogger = Logger(label: "APIRequest", level: .critical)

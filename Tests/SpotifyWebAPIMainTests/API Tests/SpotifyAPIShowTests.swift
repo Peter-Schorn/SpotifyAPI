@@ -10,6 +10,7 @@ protocol SpotifyAPIShowTests: SpotifyAPITests { }
 extension SpotifyAPIShowTests {
     
     func receiveSeanCarroll(_ show: Show, isFullVersion: Bool) {
+        encodeDecode(show)
         XCTAssert(show.availableMarkets.contains("US"))
         XCTAssertEqual(
             show.name,
@@ -139,6 +140,7 @@ extension SpotifyAPIShowTests {
     func shows() {
         
         func receiveShows(_ shows: [Show?]) {
+            encodeDecode(shows)
             if let seanCarroll = shows[0] {
                 receiveSeanCarroll(seanCarroll, isFullVersion: false)
             }
@@ -217,6 +219,7 @@ extension SpotifyAPIShowTests {
     func showEpisodes() {
         
         func receiveShowEpisodes(_ show: PagingObject<Episode>) {
+            encodeDecode(show)
             XCTAssertEqual(
                 show.href,
                 "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=10&limit=30&market=US"

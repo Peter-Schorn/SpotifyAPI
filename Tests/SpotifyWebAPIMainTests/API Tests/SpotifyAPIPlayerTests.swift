@@ -1186,7 +1186,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
     
 }
 
-final class SpotifyAPIAuthorizationCodeFlowManagerPlayerTests:
+final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlayerTests
 {
     
@@ -1238,7 +1238,7 @@ final class SpotifyAPIAuthorizationCodeFlowManagerPlayerTests:
     
 }
 
-final class SpotifyAPIAuthorizationCodeFlowPKCEManagerPlayerTests:
+final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIPlayerTests
 {
     

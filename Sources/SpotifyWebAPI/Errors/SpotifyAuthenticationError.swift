@@ -29,7 +29,7 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
     public let description: String
 
     public var errorDescription: String? {
-        "\(error): \(description)"
+        return description
     }
     
 }

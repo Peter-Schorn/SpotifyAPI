@@ -157,7 +157,7 @@ public extension Sequence where
        unambiguous way.
  */
 @inlinable
-public func removeIfNil(
+public func urlQueryDictionary(
     _ dictionary: [String: LosslessStringConvertible?]
 ) -> [String: String] {
     let unwrapped = dictionary.compactMapValues { $0 }
