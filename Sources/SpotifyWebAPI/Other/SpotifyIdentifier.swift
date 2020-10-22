@@ -182,8 +182,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         }
        
         throw SpotifyLocalError.identifierParsingError(
-            "could not parse spotify id and/or " +
-            "id category from string: '\(uri)'" + errorMessage
+            message: "could not parse spotify id and/or " +
+                     "id category from string: '\(uri)'" + errorMessage
         )
 
     }
@@ -240,8 +240,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         }
         
         throw SpotifyLocalError.identifierParsingError(
-            "could not parse spotify id category and/or id " +
-            "from url: '\(url)': \(errorMessage)"
+            message: "could not parse spotify id category and/or id " +
+                     "from url: '\(url)': \(errorMessage)"
         )
         
     }

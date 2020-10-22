@@ -23,8 +23,10 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
      access and refresh tokens didn't match the value returned from spotify
      in the query string of the redirect URI.
      
-     - supplied: The value supplied when requesting access and refresh tokens.
-     - received: The value in the query string of the redirect URI.
+     - supplied: The value supplied when requesting the access and refresh
+       tokens.
+     - received: The value received from Spotify in the query string of
+       the redirect URI.
      */
     case invalidState(supplied: String?, received: String?)
     
@@ -33,7 +35,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     /// could not be parsed. The message will contain more information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    case identifierParsingError(String)
+    case identifierParsingError(message: String)
 
     /**
      You tried to access an endpoint that
@@ -56,6 +58,8 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     
      For example, if you pass a track URI to the endpoint for retrieving
      an artist, you will get this error.
+     
+     See also `IDCategory`.
      */
     case invalidIdCategory(
         expected: [IDCategory], received: IDCategory
@@ -113,39 +117,39 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     public var description: String {
         switch self {
              case .unauthorized(let message):
-                return "\(message)"
+                return "SpotifyLocalError.unauthorized: \(message)"
             case .invalidState(let supplied, let received):
                 return """
-                    The value for the state parameter provided when \
-                    requesting access and refresh tokens '\(supplied ?? "nil")'
-                    did not match the value in the query string of the \
-                    redirect URI:
+                    SpotifyLocalError.invalidState: The value for the state \
+                    parameter provided when requesting access and refresh \
+                    tokens '\(supplied ?? "nil")' did not match the value \
+                    received from Spotify in the query string of the redirect URI:
                     '\(received ?? "nil")'
                     """
-            case .identifierParsingError(_):
-                return "identifier parsing error: \(self)"
+            case .identifierParsingError(let message):
+                return "SpotifyLocalError.identifierParsingError: \(message)"
             case .insufficientScope(let required, let authorized):
                 return """
-                    The endpoint you tried to access \
-                    requires the following scopes:
+                    SpotifyLocalError.insufficientScope: The endpoint you \
+                    tried to access requires the following scopes:
                     \(required.map(\.rawValue))
                     but your app is only authorized for theses scopes:
                     \(authorized.map(\.rawValue))
                     """
             case .invalidIdCategory(let expected, let received):
                 return """
-                    expected URI to be one of the following types: \
-                    \(expected.map(\.rawValue)),
+                    SpotifyLocalError.invalidIdCategory: expected URI to be \
+                    one of the following types: \(expected.map(\.rawValue)),
                     but received \(received.rawValue)
                     """
             case .topLevelKeyNotFound(let key, let dict):
                 return """
-                    The expected top level key '\(key)' \
-                    was not found in the dictionary:
+                    SpotifyLocalError.topLevelKeyNotFound: The expected top \
+                    level key '\(key)' was not found in the dictionary:
                     \(dict)
                     """
             case .other(let message):
-                return "\(message)"
+                return "SpotifyLocalError.other: \(message)"
         }
     }
   

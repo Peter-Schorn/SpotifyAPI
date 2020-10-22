@@ -1,9 +1,14 @@
-
 import Foundation
 import Combine
 import Logging
 import XCTest
 import SpotifyWebAPI
+
+#if os(macOS)
+import Cocoa
+#else
+import UIKit
+#endif
 
 /// Assert that a url exists by making a data task request
 /// and asserting that the status code is 200.
@@ -123,4 +128,51 @@ public func XCTAssertImagesExist(
     }
 
     return (expectations: imageExpectations, cancellables: cancellables)
+}
+
+/**
+ Opens the authorization URL and waits for the user to login
+ and copy and paste the redirect URL into standard input.
+ 
+ - Parameter authorizationURL: The authorization URL.
+ - Returns: The redirect URI with the query, which is used for
+       requesting access and refresh tokens
+ */
+public func openAuthorizationURLAndWaitForRedirect(
+    _ authorizationURL: URL
+) -> URL? {
+    
+    #if os(macOS)
+    NSWorkspace.shared.open(authorizationURL)
+    #else
+    UIApplication.shared.open(authorizationURL)
+    #endif
+
+    print(
+        """
+
+        ======================================================\
+        ===============================================
+        After You approve the application and are redirected, \
+        paste the url that you were redirected to here:
+        """
+    )
+    
+    guard var redirectURLString = readLine() else {
+        fatalError("couldn't read redirect URI from standard input")
+    }
+    
+    // see the documentation for `readLine`
+    // see also https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Unicode_chart
+    let replacementCharacters: [Character] = [
+        "\u{FFF9}", "\u{FFFA}", "\u{FFFB}", "\u{FFFC}", "\u{FFFD}",
+        "\u{F702}"
+    ]
+    
+    redirectURLString.removeAll(where: { character in
+        replacementCharacters.contains(character)
+    })
+    
+    return URL(string: redirectURLString.strip())
+
 }

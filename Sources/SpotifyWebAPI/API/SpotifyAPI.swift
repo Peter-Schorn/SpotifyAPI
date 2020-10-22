@@ -82,11 +82,11 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      * After the access and/or refresh tokens are retrieved.
      * After the access token (and possible the refresh token) is refreshed.
      * After `authorizationManager.deauthorize()` is called.
+     * After you assign a new authorization manager to the
+       `authorizationManager` property of this class.
      
      This publisher subscribes to the `didChange` publisher of
-     `authorizationManager` and emits whenever it emits; it also emits
-     whenever you assign a new instance to the `authorizationManager`
-     property.
+     `authorizationManager` and emits whenever it emits.
      
      # Thread Safety
      

@@ -211,7 +211,7 @@ public extension AuthorizationCodeFlowManager {
              `redirectURIWithQuery` **doesn't match this value, then an error will**
              **be thrown.** If `nil`, then the state parameter must not be present
              in `redirectURIWithQuery` either, otherwise an error will be thrown.
-             After this request has completed, you should generate a new value
+             After this request has been made, you should generate a new value
              for this parameter in preparation for the next authorization process.
      
      # Warning:

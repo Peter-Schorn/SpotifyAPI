@@ -25,7 +25,20 @@ import Foundation
  */
 public struct SpotifyAuthenticationError: LocalizedError, Hashable {
     
+    /**
+     A high level description of the error as specified in
+     [RFC 6749 Section 5.2][1].
+    
+     [1]: https://tools.ietf.org/html/rfc6749#section-5.2
+     */
     public let error: String
+    
+    /**
+     A more detailed description of the error as specified in
+     [RFC 6749 Section 4.1.2.1][1].
+     
+     [1]: https://tools.ietf.org/html/rfc6749#section-4.1.2.1
+     */
     public let description: String
 
     public var errorDescription: String? {

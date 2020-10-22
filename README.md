@@ -127,7 +127,7 @@ spotify.authorizationManager.requestAccessAndRefreshTokens(
 .store(in: &cancellables)
 ```
 
-Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
+Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. **Ensure that you generate a new value for the state parameter, code verifier, and code challenge before making another authorization request**. The access token will be refreshed automatically when necessary. For example:
 ```swift
 import SpotifyExampleContent
 
@@ -204,7 +204,8 @@ spotify.authorizationManager.requestAccessAndRefreshTokens(
 .store(in: &cancellables)
 ```
 
-Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. The access token will be refreshed automatically when necessary. For example:
+Once this publisher completes successfully, your application is authorized and you may begin making requests to the Spotify web API. **Ensure that you generate a new value for the state parameter before making another authorization request**. The access token will be refreshed automatically when necessary. For example:
+
 ```swift
 spotify.currentUserPlaylists()
     .extendPages(spotify)
@@ -219,7 +220,7 @@ spotify.currentUserPlaylists()
     .store(in: &cancellables)
 ```
 
-The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
+This authorization process is fully implemented in this [example app][22]. The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
 
 ## Authorizing with the Client Credentials Flow
 
@@ -285,3 +286,5 @@ The full documentation for all of the endpoints can be found [here][8]. You are 
 [19]: https://tools.ietf.org/html/rfc4648#section-5
 [20]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI10showDialog13codeChallenge5state6scopes10Foundation0I0VSgAL_SbS2SSgShyAA5ScopeOGtF
 [21]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF
+
+[22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works

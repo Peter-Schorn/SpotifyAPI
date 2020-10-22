@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-* Fixed a bug where the values passed into `SpotifyLocalError.invalidState` were transposed.
+* Fixed a bug where the values passed into `SpotifyLocalError.invalidState` were transposed. **Edit**: Due to a source-control issue, this change was not released in this version. It was released in the next version.
 
 ## [0.7.4] - 2020-10-17
 

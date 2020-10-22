@@ -275,7 +275,7 @@ public extension AuthorizationCodeFlowPKCEManager {
              `redirectURIWithQuery` **doesn't match this value, then an error will**
              **be thrown.** If `nil`, then the state parameter must not be present
              in `redirectURIWithQuery` either, otherwise an error will be thrown.
-             After this request has completed, you should generate a new value
+             After this request has been made, you should generate a new value
              for this parameter in preparation for the next authorization process.
      
      # Warning:
@@ -340,7 +340,7 @@ public extension AuthorizationCodeFlowPKCEManager {
         // URI matches the value provided to this method.
         guard state == queryDict["state"] else {
             return SpotifyLocalError.invalidState(
-                supplied: queryDict["state"], received: state
+                supplied: state, received: queryDict["state"]
             )
             .anyFailingPublisher()
         }
@@ -509,12 +509,12 @@ public extension AuthorizationCodeFlowPKCEManager {
                         
                         /*
                          Unlike the Authorization Code Flow, a refresh token that
-                         has been obtained through PKCE can be exchanged for an
+                         has been obtained using the Authorization Code Flow with
+                         Proof Key for Code Exchange can be exchanged for an
                          access token only once, after which it becomes invalid.
                          This implies that Spotify should always return a new
                          refresh token in addition to an access token.
                          */
-                        
                         if authInfo.accessToken == nil ||
                                 authInfo.refreshToken == nil ||
                                 authInfo.expirationDate == nil ||

@@ -21,7 +21,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     
     /// Authorizes the application. You should probably use
     /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
-    /// which authorizes and retrieves the refresh and access tokens.
+    /// blocks the thread until the application is authorized.
     /// 
     /// Returns early if the application is already authorized.
     func testAuthorize(
@@ -33,9 +33,12 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
             return Empty().eraseToAnyPublisher()
         }
         
+        let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
+        
         guard let authorizationURL = self.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: showDialog,
+            state: state,
             scopes: scopes
         )
         else {
@@ -44,45 +47,16 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         
         print("authorization URL: '\(authorizationURL)'")
         
-        #if os(macOS)
-        NSWorkspace.shared.open(authorizationURL)
-        #else
-        UIApplication.shared.open(authorizationURL)
-        #endif
-
-        print(
-            """
-
-            ======================================================\
-            ===============================================
-            After You approve the application and are redirected, \
-            paste the url that you were redirected to here:
-            """
+        let redirectURLwithQuery = openAuthorizationURLAndWaitForRedirect(
+            authorizationURL
         )
         
-        guard var redirectURLString = readLine(strippingNewline: true) else {
-            fatalError("couldn't read redirect URI from standard input")
-        }
-        
-        // see the documentation for `readLine`
-        // see also https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Unicode_chart
-        let replacementCharacters: [Character] = [
-            "\u{FFF9}", "\u{FFFA}", "\u{FFFB}", "\u{FFFC}", "\u{FFFD}",
-            "\u{F702}"
-        ]
-        
-        redirectURLString.removeAll(where: { character in
-            replacementCharacters.contains(character)
-        })
-        
-        guard let redirectURLWithQuery = URL(string: redirectURLString.strip()) else {
-            fatalError(
-                "couldn't convert redirect URI to URL: '\(redirectURLString)'"
-            )
+        guard let redirectURLWithQuery = redirectURLwithQuery else {
+            fatalError("couldn't convert redirect URI to URL")
         }
         
         return self.authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: redirectURLWithQuery
+            redirectURIWithQuery: redirectURLWithQuery, state: state
         )
 
     }
