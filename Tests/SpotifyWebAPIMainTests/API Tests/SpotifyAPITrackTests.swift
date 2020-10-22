@@ -28,12 +28,13 @@ extension SpotifyAPITrackTests {
         XCTAssertEqual(track.isPlayable, true)
         // XCTAssertNotNil(track.availableMarkets)
         
-        // if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
-        //     XCTAssertNotNil(
-        //         track.previewURL,
-        //         "\(Self.self): authorization manager: \(type(of: Self.spotify.authorizationManager))"
-        //     )
-        // }
+        if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
+            XCTAssertNotNil(
+                track.previewURL,
+                "PREVIEW URL WAS NIL \(Self.self): authorization manager: " +
+                "\(type(of: Self.spotify.authorizationManager))"
+            )
+        }
         
         XCTAssertEqual(track.discNumber, 1)
         XCTAssertEqual(track.trackNumber, 8)
@@ -147,7 +148,7 @@ extension SpotifyAPITrackTests {
         
         let expectation = XCTestExpectation(description: "testTrack")
         
-        Self.spotify.track(URIs.Tracks.because, market: "us")
+        Self.spotify.track(URIs.Tracks.because, market: "US")
             .XCTAssertNoFailure()
             .receive(on: DispatchQueue.main)
             .sink(
@@ -291,7 +292,7 @@ extension SpotifyAPITrackTests {
             URIs.Tracks.reckoner
         ]
         
-        Self.spotify.tracks(tracks, market: "us")
+        Self.spotify.tracks(tracks, market: "US")
             .XCTAssertNoFailure()
             .receive(on: DispatchQueue.main)
             .sink(

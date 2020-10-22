@@ -595,7 +595,7 @@ extension ClientCredentialsFlowManager {
     func setExpirationDate(to date: Date) {
         self.updateAuthInfoDispatchQueue.sync {
             Self.logger.notice(
-                "mock date: \(date.description(with: .current))"
+                "mock expiration date: \(date.description(with: .current))"
             )
             self._expirationDate = date
         }

@@ -89,8 +89,8 @@ public struct Track: Hashable {
 
     /// A link to a 30 second preview of the track in MP3 format.
     ///
-    /// Will be `nil` if this track was retrieved while using the client
-    /// credentials flow manager.
+    /// Will probably be `nil` if this track was retrieved while using the
+    /// client credentials flow manager.
     public let previewURL: String?
     
     /**

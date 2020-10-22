@@ -22,8 +22,8 @@ public extension SpotifyAPI {
      - Returns: The full version of a track.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
-     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     func track(
         _ uri: SpotifyURIConvertible,

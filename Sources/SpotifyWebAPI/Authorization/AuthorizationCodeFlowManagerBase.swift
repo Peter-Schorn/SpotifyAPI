@@ -385,7 +385,7 @@ extension AuthorizationCodeFlowManagerBase {
     func setExpirationDate(to date: Date) {
         self.updateAuthInfoDispatchQueue.sync {
             Self.baseLogger.notice(
-                "\(Self.self): mock date: \(date.description(with: .current))"
+                "\(Self.self): mock expiration date: \(date.description(with: .current))"
             )
             self._expirationDate = date
         }

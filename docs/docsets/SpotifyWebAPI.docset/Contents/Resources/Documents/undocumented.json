@@ -2,7 +2,7 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 194,
+      "line": 196,
       "symbol": "SpotifyAPI.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -288,13 +288,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/ResumePoint.swift",
-      "line": 21,
-      "symbol": "ResumePoint.init(fullyPlayed:resumePositionMS:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/SpotifyContext.swift",
       "line": 48,
       "symbol": "SpotifyContext.CodingKeys",
@@ -338,14 +331,14 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Other Objects/TrackAttributes.swift",
-      "line": 489,
+      "line": 495,
       "symbol": "TrackAttributes.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Player Objects/ContextOption.swift",
-      "line": 81,
+      "line": 83,
       "symbol": "ContextOption.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
@@ -359,7 +352,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Player Objects/PlaybackRequest.swift",
-      "line": 272,
+      "line": 276,
       "symbol": "PlaybackRequest.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
