@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2020-10-23
+
+### Added
+
+* Added the following initializers to the authorization managers:
+    * `AuthorizationCodeFlowPKCEManager.init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:)`
+    * `AuthorizationCodeFlowManager.init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:)`
+    * `ClientCredentialsFlowManager.init(clientId:clientSecret:accessToken:expirationDate:)`
+
+These initializers should rarely be needed. They should only be used if the authorization information was retrieved from an external source outside this library. In cases where you simply need to save the authorization information to persistent storage, encode the entire authorization manager instance to data using a `JSONEncoder` and then decode the data from storage later. See [Saving authorization information to persistent storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.) for more information.
+
+* Added the prefix "sample" to some of the properties in the `SpotifyExampleContent` module to prevent potential confusion.
+
+### Fixed
+
+* Fixed a bug with the JSON data not being decoded from the `SpotifyAPI.recommendations(_:limit:market:)` endpoint because some of the values were in all uppercase.
+
 ## [0.7.6] - 2020-10-22
 
 ### Fixed
@@ -104,7 +121,7 @@ is now fully synchronized, meaning it is thread-safe. Calling it multiple times 
 
 ### Changed
 
-- Fixed bug in which calling `SpotifyAPI.currentPlayback()` when where were no available devices returned an error because Spotify returned no data. Now, `nil` is returned when Spotify returns no data.
+- Fixed bug in which calling `SpotifyAPI.currentPlayback()` when there were no available devices returned an error because Spotify returned no data. Now, `nil` is returned when Spotify returns no data.
 - Bumped the swift tools version to 5.3 so that resources can be used by this package.
 
 ## [0.3.3] - 2020-09-21

@@ -2,7 +2,7 @@ import Foundation
 
 
 /**
- A [Recommendation Seed Object][1]. Returned by
+ A [Recommendation Seed Object][1]. Part of the response returned by
  `SpotifyAPI.recommendations(_:limit:market:)`. See also
  `RecommendationsResponse`.
  

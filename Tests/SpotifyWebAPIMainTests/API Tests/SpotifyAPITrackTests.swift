@@ -26,15 +26,16 @@ extension SpotifyAPITrackTests {
         XCTAssertEqual(track.durationMS, 165666)
         XCTAssertFalse(track.isExplicit)
         XCTAssertEqual(track.isPlayable, true)
+        
         // XCTAssertNotNil(track.availableMarkets)
         
-        if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
-            XCTAssertNotNil(
-                track.previewURL,
-                "PREVIEW URL WAS NIL \(Self.self): authorization manager: " +
-                "\(type(of: Self.spotify.authorizationManager))"
-            )
-        }
+        // if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
+        //     XCTAssertNotNil(
+        //         track.previewURL,
+        //         "PREVIEW URL WAS NIL \(Self.self): authorization manager: " +
+        //         "\(type(of: Self.spotify.authorizationManager))"
+        //     )
+        // }
         
         XCTAssertEqual(track.discNumber, 1)
         XCTAssertEqual(track.trackNumber, 8)
@@ -161,6 +162,54 @@ extension SpotifyAPITrackTests {
         
         wait(for: [expectation], timeout: 120)
         spotifyDecodeLogger.logLevel = decodeLogLevel
+    }
+    
+    func trackLink() {
+        
+        func receiveTrack(_ track: Track) {
+            XCTAssertEqual(track.uri, "spotify:track:6ozxplTAjWO0BlUxN8ia0A")
+            XCTAssertEqual(track.name, "Heaven and Hell")
+            
+            guard let linkedTrack = track.linkedFrom else {
+                XCTFail("linkedFrom should not be nil")
+                return
+            }
+            
+            XCTAssertEqual(
+                linkedTrack.href,
+                "https://api.spotify.com/v1/tracks/6kLCHFM39wkFjOuyPGLGeQ"
+            )
+            XCTAssertEqual(linkedTrack.id, "6kLCHFM39wkFjOuyPGLGeQ")
+            XCTAssertEqual(linkedTrack.type, .track)
+            XCTAssertEqual(linkedTrack.uri, "spotify:track:6kLCHFM39wkFjOuyPGLGeQ")
+            
+            if let externalURLs = linkedTrack.externalURLs {
+                XCTAssertEqual(
+                    externalURLs["spotify"],
+                    "https://open.spotify.com/track/6kLCHFM39wkFjOuyPGLGeQ",
+                    "\(externalURLs)"
+                )
+            }
+            else {
+                XCTFail("externalURLs should not be nil")
+            }
+            
+        }
+        
+        // https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+        
+        let expectation = XCTestExpectation(description: "testTrackLink")
+        
+        Self.spotify.track(URIs.Tracks.heavenAndHell, market: "US")
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: receiveTrack(_:)
+            )
+            .store(in: &Self.cancellables)
+        
+        wait(for: [expectation], timeout: 120)
+
     }
     
     func tracks() {
@@ -826,6 +875,7 @@ final class SpotifyAPIClientCredentialsFlowTrackTests:
  
     static let allTests = [
         ("testTrack", testTrack),
+        ("testTrackLink", testTrackLink),
         ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
@@ -833,6 +883,7 @@ final class SpotifyAPIClientCredentialsFlowTrackTests:
     ]
     
     func testTrack() { track() }
+    func testTrackLink() { trackLink() }
     func testTracks() { tracks() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
@@ -846,12 +897,16 @@ final class SpotifyAPIAuthorizationCodeFlowTrackTests:
  
     static let allTests = [
         ("testTrack", testTrack),
+        ("testTrackLink", testTrackLink),
+        ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
         ("testTracksAudioFeatures", testTracksAudioFeatures)
     ]
     
     func testTrack() { track() }
+    func testTrackLink() { trackLink() }
+    func testTracks() { tracks() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }
@@ -864,12 +919,16 @@ final class SpotifyAPIAuthorizationCodeFlowPKCETrackTests:
  
     static let allTests = [
         ("testTrack", testTrack),
+        ("testTrackLink", testTrackLink),
+        ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
         ("testTracksAudioFeatures", testTracksAudioFeatures)
     ]
     
     func testTrack() { track() }
+    func testTrackLink() { trackLink() }
+    func testTracks() { tracks() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }

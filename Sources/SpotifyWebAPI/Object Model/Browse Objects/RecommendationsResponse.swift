@@ -13,7 +13,7 @@ public struct RecommendationsResponse: Codable, Hashable {
      An array of [recomendation seed objects][1].
 
      Consider using the `seedArtists`, `seedTracks`, or `seedGenres`
-     convenience properties.
+     computed properties, which are backed by this property.
       
      The seeds will be returned based on the `seedArtists`, `seedTracks`, and
      `seedGenres` parameters of `TrackAttributes`, *in that order*. They will
@@ -26,7 +26,7 @@ public struct RecommendationsResponse: Codable, Hashable {
      */
     public let seeds: [RecommendationSeed]
     
-    /// An array of simplified track objects ordered a ccording to the parameters
+    /// An array of simplified track objects ordered according to the parameters
     /// supplied.
     public let tracks: [Track]
     

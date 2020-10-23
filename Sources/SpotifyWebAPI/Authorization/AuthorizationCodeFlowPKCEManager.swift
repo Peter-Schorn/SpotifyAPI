@@ -87,7 +87,8 @@ public final class AuthorizationCodeFlowPKCEManager:
     )
     
     /**
-     Creates an authorization manager for the [Authorization Code Flow][1].
+     Creates an authorization manager for the
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
      
      To get a client id and client secret, go to the
      [Spotify Developer Dashboard][2] and create an app.
@@ -101,7 +102,7 @@ public final class AuthorizationCodeFlowPKCEManager:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
@@ -110,6 +111,52 @@ public final class AuthorizationCodeFlowPKCEManager:
         clientSecret: String
     ) {
         super.init(clientId: clientId, clientSecret: clientSecret)
+    }
+    
+    /**
+     Creates an authorization manager for the
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     
+     **In general, only use this initializer if you have retrieved the**
+     **authorization information from an external source.** Otherwise, use
+     `init(clientId:clientSecret:)`.
+    
+     You are discouraged from individually saving the properties of this instance
+     to persistent storage and then retrieving them later and passing them into
+     this initializer. Instead, encode this entire instance to data using a
+     `JSONEncoder` and then decode the data from storage later. See
+     [Saving authorization information to persistent storage][2] for more
+     information.
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][3] and create an app. see the README in the root
+     directory of this package for more information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - accessToken: The access token.
+       - expirationDate: The expiration date of the access token.
+       - refreshToken: The refresh token.
+       - scopes: The scopes that have been authorized for the access token.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [3]: https://developer.spotify.com/dashboard/login
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        expirationDate: Date,
+        refreshToken: String,
+        scopes: Set<Scope>
+    ) {
+        self.init(clientId: clientId, clientSecret: clientSecret)
+        self._accessToken = accessToken
+        self._expirationDate = expirationDate
+        self._refreshToken = refreshToken
+        self._scopes = scopes
     }
     
     // MARK: - Codable -

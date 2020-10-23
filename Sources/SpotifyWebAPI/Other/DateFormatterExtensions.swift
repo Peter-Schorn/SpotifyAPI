@@ -45,6 +45,22 @@ public extension DateFormatter {
         return formatter
     }()
     
+    /**
+     The format used by the
+     `SpotifyAPI.featuredPlaylists(locale:country:timestamp:limit:offset:)`
+     endpoint.
+     
+     ```
+     "yyyy-MM-dd'T'HH:mm:ss"
+     ```
+     */
+    static let featuredPlaylists: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return formatter
+    }()
+    
+    
 }
 
 /// A formatter that converts between dates and Spotify timestamp strings.

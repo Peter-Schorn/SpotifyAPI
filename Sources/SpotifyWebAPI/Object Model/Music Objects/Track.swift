@@ -72,11 +72,15 @@ public struct Track: Hashable {
     /// `false` if unknown.
     public let isExplicit: Bool
     
-    /// Part of the response when [Track Relinking][1] is applied.
-    /// Else, `nil`. If `true`, the track is playable in the given market.
-    /// Otherwise, `false`.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+    /**
+     Part of the response when [Track Relinking][1] is applied.
+     Else, `nil`. If `true`, the track is playable in the given market.
+     Otherwise, `false`.
+    
+     See also `restrictions`.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
     public let isPlayable: Bool?
 
     /**
@@ -110,10 +114,19 @@ public struct Track: Hashable {
     /// Only available for the full track object.
     public let externalIds: [String: String]?
     
-    /// A list of the countries in which the track can be played,
-    /// identified by their [ISO 3166-1 alpha-2 code][1].
-    ///
-    /// [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+    /**
+     A list of the countries in which the track can be played,
+     identified by their [ISO 3166-1 alpha-2 code][1].
+    
+     If a market parameter was supplied in the request that returned
+     this track, then this property will be `nil`and `isPlayable`
+     will be non-`nil`.
+    
+     See also `restrictions` and the [Track Relinking Guide][2].
+     
+     [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     */
     public let availableMarkets: [String]?
 
     /**

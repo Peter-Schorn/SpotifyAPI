@@ -6,7 +6,7 @@ import SpotifyWebAPI
 
 private extension SpotifyAPI {
     
-    func testPlaylistMapping() {
+    func _testPlaylistMapping() {
         
         _ = self.playlist("")
             .sinkIgnoringCompletion{ (playlist: Playlist<PlaylistItems>) in
@@ -16,7 +16,7 @@ private extension SpotifyAPI {
         
     }
     
-    func testPlaylistTracksMapping() {
+    func _testPlaylistTracksMapping() {
         
         _ = self.playlistTracks("")
             .sinkIgnoringCompletion { (playlistTracks: PlaylistTracks) in
@@ -26,7 +26,7 @@ private extension SpotifyAPI {
         
     }
     
-    func testPlaylistItemsMapping() {
+    func _testPlaylistItemsMapping() {
         
         _ = self.playlistItems("")
             .sinkIgnoringCompletion { (playlistItems: PlaylistItems) in
@@ -36,7 +36,7 @@ private extension SpotifyAPI {
         
     }
     
-    func testUserPlaylistsMapping() {
+    func _testUserPlaylistsMapping() {
         
         _ = self.userPlaylists(for: "")
             .sinkIgnoringCompletion { (playlists: PagingObject<Playlist<PlaylistsItemsReference>>) in
@@ -52,7 +52,7 @@ private extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
 
-    func testCurrentUserPlaylistsMapping() {
+    func _testCurrentUserPlaylistsMapping() {
         
         _ = self.currentUserPlaylists()
             .sinkIgnoringCompletion { (playlists: PagingObject<Playlist<PlaylistsItemsReference>>) in

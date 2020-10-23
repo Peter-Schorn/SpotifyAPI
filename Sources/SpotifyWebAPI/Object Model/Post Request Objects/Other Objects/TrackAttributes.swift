@@ -187,6 +187,17 @@ public struct TrackAttributes: Hashable {
      **The total number of seed artists, seed tracks, and seed genres must add up**
      **to 5 or less.**
      
+     When using `AttributeRange`, consider taking advantage of Swift's ability
+     to infer the contextual type of a method. For example:
+     ```
+     let trackAttributes = TrackAttributes(
+         energy: .init(min: 0.1, target: 0.43, max: 0.8),
+         popularity: .init(min: 20),
+         timeSignature: .init(max: 5),
+         valence: .init(target: 0.3)
+     )
+     ```
+     
      - Parameters:
        - seedArtists: An array of artists URIs.
        - seedGenres: An array of artists genres. Use
@@ -439,16 +450,12 @@ public struct TrackAttributes: Hashable {
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {
         
-        for properties in [
-            [self.seedArtists, other.seedArtists],
-            [self.seedTracks, other.seedTracks],
-            [self.seedGenres, other.seedGenres]
-        ] {
-            if properties[0] != properties[1] {
-                return false
-            }
-        }
         
+        if [self.seedArtists, self.seedTracks, self.seedGenres] !=
+                [other.seedArtists, other.seedTracks, other.seedGenres] {
+            return false
+        }
+            
         // AttributeRange<Double>?
         for (lhs, rhs) in [
             (self.acousticness, other.acousticness),

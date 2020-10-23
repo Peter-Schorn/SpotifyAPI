@@ -224,9 +224,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<FeaturedPlaylists, Error> {
        
         let formattedTimestamp: String? = timestamp.map { timestamp in
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            return formatter.string(from: timestamp)
+            DateFormatter.featuredPlaylists.string(from: timestamp)
         }
                 
         return self.getRequest(
@@ -363,7 +361,7 @@ public extension SpotifyAPI {
      
      Read more at the [Spotify web API reference][2].
      
-     - Returns: An array of genres.
+     - Returns: An array of genres ids.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
      [2]: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-recommendation-genres

@@ -52,9 +52,9 @@ final class ExampleContentTests: XCTestCase {
     }
     
     func testBrowse() {
-        print(PagingObject.categoryPlaylists, to: &sink)
-        print(FeaturedPlaylists.featuredPlaylists, to: &sink)
-        print(SpotifyCategory.categories, to: &sink)
+        print(PagingObject.sampleCategoryPlaylists, to: &sink)
+        print(FeaturedPlaylists.sampleFeaturedPlaylists, to: &sink)
+        print(SpotifyCategory.sampleCategories, to: &sink)
     }
     
     func testEpisodes() {
@@ -66,12 +66,12 @@ final class ExampleContentTests: XCTestCase {
     }
     
     func testLibrary() {
-        print(PagingObject.currentUserSavedAlbums, to: &sink)
+        print(PagingObject.sampleCurrentUserSavedAlbums, to: &sink)
     }
     
     func testPlayer() {
-        print(CursorPagingObject.recentlyPlayed, to: &sink)
-        print(CurrentlyPlayingContext.currentPlayback, to: &sink)
+        print(CursorPagingObject.sampleRecentlyPlayed, to: &sink)
+        print(CurrentlyPlayingContext.sampleCurrentPlayback, to: &sink)
     }
     
     func testPlaylists() {
@@ -131,7 +131,7 @@ final class ExampleContentTests: XCTestCase {
     }
  
     func testUserProfile() {
-        print(SpotifyUser.currentUserProfile, to: &sink)
+        print(SpotifyUser.sampleCurrentUserProfile, to: &sink)
     }
 
     // print(<#type#>.<#property#>, to: &sink)

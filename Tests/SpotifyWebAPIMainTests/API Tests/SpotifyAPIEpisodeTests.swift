@@ -84,7 +84,10 @@ extension SpotifyAPIEpisodeTests {
         if Self.spotify.authorizationManager.isAuthorized(
             for: [.userReadPlaybackPosition]
         ) {
-            XCTAssertNotNil(episode.resumePoint)
+            XCTAssertNotNil(
+                episode.resumePoint,
+                "\(type(of: Self.spotify.authorizationManager))"
+            )
         }
         
         // MARK: Check Show
@@ -306,7 +309,7 @@ final class SpotifyAPIAuthorizationCodeFlowEpisodeTests:
     
 }
 
-final class SpotifyAPIAuthorizationCodeFlowPKCEEpisodeTests:
+final class SpotifyAPIAuthorizationCodeFlowPKCEpisodeTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIEpisodeTests
 {
 

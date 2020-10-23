@@ -95,7 +95,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      `authorizationManager` instance property of `SpotifyAPI`.
      
      Emits after the following events occur:
-     * After the access token is retrieved using the `authorize()` method.
+     * After an access token is retrieved using the `authorize()` method.
      * After a new access token is retrieved. This occurs in
        `refreshTokens(onlyIfExpired:tolerance:)`.
      * After `deauthorize()`—which sets `accessToken` and `expirationDate`
@@ -152,6 +152,45 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+    }
+    
+    /**
+     Creates an authorization manager for the [Client Credentials Flow][1].
+     
+     **In general, only use this initializer if you have retrieved the**
+     **authorization information from an external source.** Otherwise, use
+     `init(clientId:clientSecret:)`.
+    
+     You are discouraged from individually saving the properties of this instance
+     to persistent storage and then retrieving them later and passing them into
+     this initializer. Instead, encode this entire instance to data using a
+     `JSONEncoder` and then decode the data from storage later. See
+     [Saving authorization information to persistent storage][2] for more
+     information.
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][3] and create an app. see the README in the root
+     directory of this package for more information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - accessToken: The access token.
+       - expirationDate: The expiration date of the access token.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [3]: https://developer.spotify.com/dashboard/login
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        expirationDate: Date
+    ) {
+        self.init(clientId: clientId, clientSecret: clientSecret)
+        self._accessToken = accessToken
+        self._expirationDate = expirationDate
     }
 
     // MARK: - Codable -

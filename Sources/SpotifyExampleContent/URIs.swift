@@ -5,7 +5,8 @@ import SpotifyWebAPI
 public protocol SpotifyURIConvertibleEnum:
     SpotifyURIConvertible,
     CaseIterable,
-    RawRepresentable where RawValue == String {
+    RawRepresentable where RawValue == String
+{
     
     /// A Spotify URI.
     var uri: String { get }
@@ -136,6 +137,8 @@ public enum URIs {
         case theEnd = "spotify:track:5aHHf6jrqDRb1fcBmue2kn"
         
         case lauren = "spotify:track:7vptmeNwSEVkcwDdqk7UQO"
+        
+        case heavenAndHell = "spotify:track:6kLCHFM39wkFjOuyPGLGeQ"
     }
     
     /// A namespace of episode URIs.

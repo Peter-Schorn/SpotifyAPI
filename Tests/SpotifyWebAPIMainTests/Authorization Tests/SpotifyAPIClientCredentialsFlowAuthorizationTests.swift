@@ -14,6 +14,8 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
     
     func testDeauthorizeReauthorize() {
         
+        encodeDecode(Self.spotify.authorizationManager)
+        
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
             .sink(receiveValue: {
@@ -24,7 +26,7 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
         XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
-                        for: [Scope.allCases.randomElement()!]
+                for: [Scope.allCases.randomElement()!]
             )
         )
         
@@ -38,9 +40,9 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
         
         Self.spotify.authorizationManager.authorize()
             .XCTAssertNoFailure()
-            .sink { _ in
+            .sink(receiveCompletion: { _ in
                 expectation.fulfill()
-            }
+            })
             .store(in: &Self.cancellables)
      
         wait(for: [expectation], timeout: 60)
@@ -48,7 +50,7 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
         XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
-                        for: [Scope.allCases.randomElement()!]
+                for: [Scope.allCases.randomElement()!]
             )
         )
 
@@ -58,6 +60,38 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             "deauthorizing and once when authorizing"
         )
         
+        encodeDecode(Self.spotify.authorizationManager)
+        
+    }
+    
+    func testConvenienceInitializer() throws {
+        
+        let authManagerData = try JSONEncoder().encode(
+            Self.spotify.authorizationManager
+        )
+        
+        let decodedAuthManager = try JSONDecoder().decode(
+            ClientCredentialsFlowManager.self,
+            from: authManagerData
+        )
+        
+        guard
+            let accessToken = decodedAuthManager.accessToken,
+            let expirationDate = decodedAuthManager.expirationDate
+        else {
+            XCTFail("none of the properties should be nil: \(decodedAuthManager)")
+            return
+        }
+        
+        let newAuthorizationManager = ClientCredentialsFlowManager(
+            clientId: decodedAuthManager.clientId,
+            clientSecret: decodedAuthManager.clientSecret,
+            accessToken: accessToken,
+            expirationDate: expirationDate
+        )
+        
+        XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
+
     }
     
     

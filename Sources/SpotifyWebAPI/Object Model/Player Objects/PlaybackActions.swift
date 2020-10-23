@@ -28,6 +28,8 @@ public enum PlaybackActions: String, Codable, Hashable {
 
 extension PlaybackActions: CaseIterable {
     
+    // The default implementation returns an array,
+    // but a set is more useful.
     public static var allCases: Set<PlaybackActions> {
         return [
             .interruptPlayback,

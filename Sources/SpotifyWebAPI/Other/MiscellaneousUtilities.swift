@@ -83,10 +83,11 @@ public extension DecodingError {
         }
     }
     
-    /// Formats the coding path as if you were
-    /// accessing nested properties from a Swift type;
-    /// e.g., "items[27].track.album.release_date".
-    ///
+    /**
+     Formats the coding path as if you were
+     accessing nested properties from a Swift type;
+     e.g., "items[27].track.album.release_date".
+     */
     var prettyCodingPath: String? {
     
         guard let context = self.context else {

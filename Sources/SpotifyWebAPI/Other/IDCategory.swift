@@ -52,11 +52,12 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     /**
      Creates a new instance with the specified raw value.
      
-     - Parameter rawValue: The raw value to use for the id category.
+     - Parameter rawValue: The raw value for an id category.
            **It is case-insensitive**.
      */
     @inlinable
     public init?(rawValue: String) {
+        
         // This is all because of one endpoint that just HAD to return the
         // id cateogry in all-uppercase, unlike all the other endpoints.
         switch rawValue.lowercased() {

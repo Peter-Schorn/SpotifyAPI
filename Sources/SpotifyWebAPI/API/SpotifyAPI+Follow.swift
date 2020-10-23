@@ -106,7 +106,7 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uri: The URI for a playlist
-       - userURIs: An array of up to **5** user URIs.
+       - userURIs: An array of **up to 5 user URIs**.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether each
            user is following the playlist.

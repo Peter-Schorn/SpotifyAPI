@@ -14,6 +14,8 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     
     func testDeauthorizeReauthorize() {
         
+        encodeDecode(Self.spotify.authorizationManager)
+        
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
             .sink(receiveValue: {
@@ -52,6 +54,42 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             "deauthorizing and once when authorizing"
         )
         
+        encodeDecode(Self.spotify.authorizationManager)
+        
+    }
+    
+    func testConvenienceInitializer() throws {
+        
+        let authManagerData = try JSONEncoder().encode(
+            Self.spotify.authorizationManager
+        )
+        
+        let decodedAuthManager = try JSONDecoder().decode(
+            AuthorizationCodeFlowManager.self,
+            from: authManagerData
+        )
+        
+        guard
+            let accessToken = decodedAuthManager.accessToken,
+            let expirationDate = decodedAuthManager.expirationDate,
+            let refreshToken = decodedAuthManager.refreshToken,
+            let scopes = decodedAuthManager.scopes
+        else {
+            XCTFail("none of the properties should be nil: \(decodedAuthManager)")
+            return
+        }
+        
+        let newAuthorizationManager = AuthorizationCodeFlowManager(
+            clientId: decodedAuthManager.clientId,
+            clientSecret: decodedAuthManager.clientSecret,
+            accessToken: accessToken,
+            expirationDate: expirationDate,
+            refreshToken: refreshToken,
+            scopes: scopes
+        )
+        
+        XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
+
     }
     
     /// No state provided when making the authorization URL; state provided
@@ -134,7 +172,6 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
             
-
     }
     
     /// State provided when making the authorization URL, but no state provided

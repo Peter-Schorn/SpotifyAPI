@@ -1,18 +1,14 @@
 import Foundation
 
 /**
- The authorization info that spotify returns
- for the Authorization Code Flow and the
- Client Credentials Flow.
+ The authorization info that spotify returns during the authorization
+ process.
 
  This is used in various different contexts, including:
  
  * When decoding the respose after requesting the access and refresh tokens
-   in `AuthorizationCodeFlowManager`.
- * When decoding the response after refreshing the tokens for
-   `AuthorizationCodeFlowManager` or `ClientCredentialsFlowManager`
- * As a wrapper for decoding and encoding `AuthorizationCodeFlowManager`
-   and `ClientCredentialsFlowManager`.
+ * When decoding the response after refreshing the tokens
+ * As a wrapper for decoding and encoding the authorization information.
  
  Because of its diverse uses, all of its properties are `nil`,
  which means that it will never fail to decode itself from data,
@@ -31,16 +27,16 @@ struct AuthInfo: Codable, Hashable {
     
     /// The access token used in all of the requests
     /// to the Spotify web API.
-    public let accessToken: String?
+    let accessToken: String?
     
     /// Used to refresh the access token.
-    public let refreshToken: String?
+    let refreshToken: String?
     
     /// The expiration date of the access token.
-    public let expirationDate: Date?
+    let expirationDate: Date?
     
     /// The scopes that have been authorized for the access token.
-    public let scopes: Set<Scope>?
+    let scopes: Set<Scope>?
 
     init(
         accessToken: String?,
@@ -54,7 +50,7 @@ struct AuthInfo: Codable, Hashable {
         self.scopes = scopes
     }
     
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
             keyedBy: CodingKeys.self
@@ -64,11 +60,6 @@ struct AuthInfo: Codable, Hashable {
             String.self, forKey: .accessToken
         )
         
-        // this struct is used to get the refresh and access
-        // tokens after the app is authorized, and to get
-        // a fresh access token using the refresh token.
-        // In the latter case, the refresh token is usually nil.
-        // Furthermore, this is used to
         self.refreshToken = try container.decodeIfPresent(
             String.self, forKey: .refreshToken
         )
@@ -76,7 +67,7 @@ struct AuthInfo: Codable, Hashable {
             forKey: .scopes
         )
         
-        // if the json data was retrieved directly from the spotify API,
+        // If the json data was retrieved directly from the spotify API,
         // then the expiration date will be an integer representing
         // the number of seconds after the current date
         // that the access token expires.
@@ -88,7 +79,7 @@ struct AuthInfo: Codable, Hashable {
         }
 
         /*
-         if the json data was retrieved from elsewhere,
+         If the json data was retrieved from elsewhere,
          such as persistent storage, then the expiration date
          will be stored in ISO 8601 format as
          Coordinated Universal Time (UTC) with a zero offset:
@@ -104,7 +95,7 @@ struct AuthInfo: Codable, Hashable {
         
     }
 
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(
             keyedBy: CodingKeys.self
@@ -125,7 +116,7 @@ struct AuthInfo: Codable, Hashable {
         
     }
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case refreshToken = "refresh_token"
         case expirationDate = "expiration_date"
@@ -141,7 +132,7 @@ struct AuthInfo: Codable, Hashable {
 
 extension AuthInfo: CustomStringConvertible {
     
-    public var description: String {
+    var description: String {
         
         let expirationDateString = expirationDate?
                 .description(with: .autoupdatingCurrent)

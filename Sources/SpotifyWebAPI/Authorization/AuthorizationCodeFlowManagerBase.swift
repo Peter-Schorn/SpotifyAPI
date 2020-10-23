@@ -120,8 +120,6 @@ public class AuthorizationCodeFlowManagerBase {
      `authorizationManager` instance property of `SpotifyAPI`.
      
      Emits after the following events occur:
-     * After the access token (and possibly the refresh token as well) is
-       refreshed. This occurs in `refreshTokens(onlyIfExpired:tolerance:)`.
      * After the access and refresh tokens are retrieved using
        ```
        requestAccessAndRefreshTokens(redirectURIWithQuery:state:)
@@ -130,6 +128,8 @@ public class AuthorizationCodeFlowManagerBase {
        ```
        requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
        ```
+     * After the access token (and possibly the refresh token as well) is
+       refreshed. This occurs in `refreshTokens(onlyIfExpired:tolerance:)`.
      * After `deauthorize()`—which sets `accessToken`, `refreshToken`,
        `expirationDate`, and `scopes` to `nil`—is called.
      
