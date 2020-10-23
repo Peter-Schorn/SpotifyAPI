@@ -368,7 +368,7 @@ public extension AuthorizationCodeFlowManager {
                     expiration date, and scopes):
                     \(authInfo)
                     """
-                Self.logger.critical("\(errorMessage)")
+                Self.logger.error("\(errorMessage)")
                 throw SpotifyLocalError.other(errorMessage)
                 
             }
@@ -456,7 +456,7 @@ public extension AuthorizationCodeFlowManager {
                         // this error should never occur
                         let message = "couldn't base 64 encode " +
                             "client id and client secret"
-                        Self.logger.critical("\(message)")
+                        Self.logger.error("\(message)")
                         throw SpotifyLocalError.other(message)
                     }
                     
@@ -500,7 +500,7 @@ public extension AuthorizationCodeFlowManager {
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
-                            Self.logger.critical("\(errorMessage)")
+                            Self.logger.error("\(errorMessage)")
                             throw SpotifyLocalError.other(errorMessage)
                             
                         }

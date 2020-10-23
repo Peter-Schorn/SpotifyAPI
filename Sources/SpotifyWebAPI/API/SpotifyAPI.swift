@@ -220,8 +220,6 @@ extension SpotifyAPI {
         
         spotifyDecodeLogger.logLevel = .warning
         
-        SpotifyAPILogHandler.allLoggersAssertOnCritical = true
-        
         self.logger.trace("\(Self.self): did setup debugging")
         
     }

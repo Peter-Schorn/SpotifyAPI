@@ -59,7 +59,7 @@ extension SpotifyAPIUserProfileTests {
                     )
                     .store(in: &Self.cancellables)
             }
-            wait(
+            self.wait(
                 for: imageExpectations,
                 timeout: TimeInterval(60 * imageExpectations.count)
             )
@@ -79,7 +79,7 @@ extension SpotifyAPIUserProfileTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
 
@@ -120,7 +120,7 @@ extension SpotifyAPIUserProfileTests where
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
 

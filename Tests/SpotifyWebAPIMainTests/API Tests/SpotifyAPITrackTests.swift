@@ -115,7 +115,7 @@ extension SpotifyAPITrackTests {
                         .store(in: &Self.cancellables)
                 }
                 print("waiting for \(imageExpectations.count) image urls")
-                wait(for: imageExpectations, timeout: 120)
+                self.wait(for: imageExpectations, timeout: 120)
                 print("FINISHED waiting for image urls")
             }
             else {
@@ -160,7 +160,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         spotifyDecodeLogger.logLevel = decodeLogLevel
     }
     
@@ -208,7 +208,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
@@ -350,7 +350,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
@@ -650,7 +650,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
             
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
         
     }
@@ -725,7 +725,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation, failureExpectation], timeout: 120)
+        self.wait(for: [expectation, failureExpectation], timeout: 120)
 
     }
     
@@ -863,7 +863,7 @@ extension SpotifyAPITrackTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     

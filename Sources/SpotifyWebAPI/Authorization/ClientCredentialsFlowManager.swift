@@ -354,7 +354,7 @@ public extension ClientCredentialsFlowManager {
             // this error should never occur
             let message = "couldn't base 64 encode " +
                 "client id and client secret"
-            Self.logger.critical("\(message)")
+            Self.logger.error("\(message)")
             return SpotifyLocalError.other(message)
                 .anyFailingPublisher()
         }
@@ -382,7 +382,7 @@ public extension ClientCredentialsFlowManager {
                     (expected access token and expiration date):
                     \(authInfo)
                     """
-                Self.logger.critical("\(errorMessage)")
+                Self.logger.error("\(errorMessage)")
                 throw SpotifyLocalError.other(errorMessage)
             }
             
@@ -508,10 +508,10 @@ private extension ClientCredentialsFlowManager {
     /// This method should **ALWAYS** be called within
     /// `updateAuthInfoDispatchQueue`.
     func accessTokenIsExpiredNOTTHreadSafe(tolerance: Double = 120) -> Bool {
-        if (_accessToken == nil) != (_expirationDate == nil) {
-            let expirationDateString = _expirationDate?
+        if (self._accessToken == nil) != (self._expirationDate == nil) {
+            let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"
-            Self.logger.critical(
+            Self.logger.error(
                 """
                 accessToken or expirationDate was nil, but not both:
                 accessToken == nil: \(_accessToken == nil); \
@@ -519,8 +519,8 @@ private extension ClientCredentialsFlowManager {
                 """
             )
         }
-        if _accessToken == nil { return true }
-        guard let expirationDate = _expirationDate else { return true }
+        if self._accessToken == nil { return true }
+        guard let expirationDate = self._expirationDate else { return true }
         return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     

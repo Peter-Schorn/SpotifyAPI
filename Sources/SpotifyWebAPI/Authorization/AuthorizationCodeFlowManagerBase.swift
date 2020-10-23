@@ -317,19 +317,19 @@ extension AuthorizationCodeFlowManagerBase {
     /// `updateAuthInfoDispatchQueue`, or the thread-safety guarantees
     /// of this class will be violated.
     func accessTokenIsExpiredNOTTHreadSafe(tolerance: Double = 120) -> Bool {
-        if (_accessToken == nil) != (_expirationDate == nil) {
-            let expirationDateString = _expirationDate?
+        if (self._accessToken == nil) != (self._expirationDate == nil) {
+            let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"
-            Self.baseLogger.critical(
+            Self.baseLogger.error(
                 """
                 \(Self.self): accessToken or expirationDate was nil, but not both:
-                accessToken == nil: \(_accessToken == nil); \
+                accessToken == nil: \(self._accessToken == nil); \
                 expiration date: \(expirationDateString)
                 """
             )
         }
-        if _accessToken == nil { return true }
-        guard let expirationDate = _expirationDate else { return true }
+        if self._accessToken == nil { return true }
+        guard let expirationDate = self._expirationDate else { return true }
         return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     

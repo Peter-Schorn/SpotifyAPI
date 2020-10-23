@@ -125,7 +125,7 @@ final class SpotifyIdentifierTests: XCTestCase {
             
         }
         
-        wait(for: expectations, timeout: TimeInterval(uris.count * 20))
+        self.wait(for: expectations, timeout: TimeInterval(uris.count * 20))
 
     }
     

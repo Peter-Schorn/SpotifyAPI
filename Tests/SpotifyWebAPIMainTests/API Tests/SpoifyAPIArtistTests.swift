@@ -85,7 +85,7 @@ extension SpotifyAPIArtistTests {
                 .store(in: &Self.cancellables)
         }
         
-        wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+        self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
         
         
     }
@@ -103,7 +103,7 @@ extension SpotifyAPIArtistTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
 
     }
 
@@ -169,7 +169,7 @@ extension SpotifyAPIArtistTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
 
     }
     
@@ -282,7 +282,7 @@ extension SpotifyAPIArtistTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
 
     }
     
@@ -398,7 +398,7 @@ extension SpotifyAPIArtistTests {
         )
         .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         XCTAssertEqual(
             authChangeCount, 1,
             "authorizationManagerDidChange should emit exactly once"
@@ -434,7 +434,7 @@ extension SpotifyAPIArtistTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         
     }
     
@@ -464,7 +464,7 @@ extension SpotifyAPIArtistTests {
             )
             .store(in: &Self.cancellables)
             
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         
     }
     

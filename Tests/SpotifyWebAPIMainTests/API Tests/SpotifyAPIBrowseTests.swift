@@ -45,7 +45,7 @@ extension SpotifyAPIBrowseTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
 
     }
@@ -80,7 +80,7 @@ extension SpotifyAPIBrowseTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
@@ -115,7 +115,7 @@ extension SpotifyAPIBrowseTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
 
@@ -154,7 +154,7 @@ extension SpotifyAPIBrowseTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
@@ -183,7 +183,7 @@ extension SpotifyAPIBrowseTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -308,7 +308,7 @@ extension SpotifyAPIBrowseTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
             
         
     }

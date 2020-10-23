@@ -50,7 +50,7 @@ extension SpotifyAPIPlaylistsTests {
             )
             .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
     }
     
     func getCrumbPlaylistTracks() {
@@ -110,7 +110,7 @@ extension SpotifyAPIPlaylistsTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         XCTAssertEqual(
             authChangeCount, 1,
             "authorizationManagerDidChange should emit exactly once"
@@ -173,7 +173,7 @@ extension SpotifyAPIPlaylistsTests {
         
         
      
-        wait(for: [expectationTrack, expectationEmpty], timeout: 120)
+        self.wait(for: [expectationTrack, expectationEmpty], timeout: 120)
 
     }
     
@@ -231,7 +231,7 @@ extension SpotifyAPIPlaylistsTests {
         )
         .store(in: &Self.cancellables)
 
-        wait(for: [expectationEmpty, expectationTrack], timeout: 120)
+        self.wait(for: [expectationEmpty, expectationTrack], timeout: 120)
         
     }
      
@@ -532,7 +532,7 @@ extension SpotifyAPIPlaylistsTests {
             .store(in: &Self.cancellables)
         
         
-        wait(
+        self.wait(
             for: [
                 playlistExpectation,
                 playlistItemsExpectation,
@@ -651,7 +651,7 @@ extension SpotifyAPIPlaylistsTests where
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -866,7 +866,7 @@ extension SpotifyAPIPlaylistsTests where
             .store(in: &Self.cancellables)
             
 
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         
     }
     
@@ -998,7 +998,7 @@ extension SpotifyAPIPlaylistsTests where
             )
             .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 180)
+        self.wait(for: [expectation], timeout: 180)
         
     }
 
@@ -1164,7 +1164,7 @@ extension SpotifyAPIPlaylistsTests where
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 180)
+        self.wait(for: [expectation], timeout: 180)
         
     }
     
@@ -1319,7 +1319,7 @@ extension SpotifyAPIPlaylistsTests where
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         
     }
     
@@ -1404,7 +1404,7 @@ extension SpotifyAPIPlaylistsTests where
                 
             }
          
-            wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
         }
         
         let playlists: [URIs.Playlists] = [
@@ -1430,7 +1430,7 @@ extension SpotifyAPIPlaylistsTests where
             
         }
         
-        wait(for: expectations, timeout: 240)
+        self.wait(for: expectations, timeout: 240)
         
 
     }
@@ -1457,7 +1457,7 @@ extension SpotifyAPIPlaylistsTests where
         })
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
     

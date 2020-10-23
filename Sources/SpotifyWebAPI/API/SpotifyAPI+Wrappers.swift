@@ -63,7 +63,7 @@ extension SpotifyAPI {
             // Since we already checked to see if the access token was
             // `nil` above, it should never be `nil` at this point.
             guard let acccessToken = self.authorizationManager.accessToken else {
-                self.logger.critical(
+                self.logger.error(
                     "second check for accessToken failed"
                 )
                 throw SpotifyLocalError.unauthorized(

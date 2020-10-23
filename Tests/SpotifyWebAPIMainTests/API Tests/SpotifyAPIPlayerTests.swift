@@ -111,7 +111,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
             
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
 
     }
@@ -304,7 +304,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
             
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
@@ -364,7 +364,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 })
                 .store(in: &Self.cancellables)
             
-            wait(
+            self.wait(
                 for: [repeatExpectation, shuffleExpectation, skipExpectation],
                 timeout: 120
             )
@@ -510,7 +510,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
             
-        wait(for: [playbackExpectation], timeout: 300)
+        self.wait(for: [playbackExpectation], timeout: 300)
         XCTAssertTrue(didSkipToNext)
         XCTAssertTrue(didSkipToPrevious)
         
@@ -551,7 +551,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             })
             .store(in: &Self.cancellables)
         
-        wait(for: [repeatExpectation, shuffleExpectation], timeout: 120)
+        self.wait(for: [repeatExpectation, shuffleExpectation], timeout: 120)
         
         
         let playbackRequest = PlaybackRequest(
@@ -692,7 +692,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         
     }
     
@@ -767,7 +767,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         
     }
     
@@ -826,7 +826,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         
     }
 
@@ -866,7 +866,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectationCurrentDate, expectationDistantPast], timeout: 120)
+        self.wait(for: [expectationCurrentDate, expectationDistantPast], timeout: 120)
         
     }
     
@@ -900,7 +900,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
                 .store(in: &Self.cancellables)
                 
-            wait(for: [expectation], timeout: 60)
+            self.wait(for: [expectation], timeout: 60)
             
         }
         
@@ -941,7 +941,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
                 .store(in: &Self.cancellables)
                 
-            wait(for: [expectation], timeout: 60)
+            self.wait(for: [expectation], timeout: 60)
 
         }
         
@@ -1008,7 +1008,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
             
-            wait(for: [expectation], timeout: 120)
+            self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -1087,7 +1087,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
             
-            wait(for: [expectation], timeout: 120)
+            self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -1175,7 +1175,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         XCTAssertEqual(
             authChangeCount, 1,
             "authorizationManagerDidChange should emit exactly once"

@@ -71,7 +71,7 @@ extension SpotifyAPIEpisodeTests {
             )
             Self.cancellables.formUnion(cancellables)
             print("waiting for \(imageExpectations.count) expectations")
-            wait(
+            self.wait(
                 for: imageExpectations,
                 timeout: TimeInterval(60 * imageExpectations.count)
             )
@@ -144,7 +144,7 @@ extension SpotifyAPIEpisodeTests {
         
         Self.cancellables.formUnion(cancellables)
         
-        wait(
+        self.wait(
             for: expectations,
             timeout: TimeInterval(60 * expectations.count)
         )
@@ -164,7 +164,7 @@ extension SpotifyAPIEpisodeTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
 
@@ -275,7 +275,7 @@ extension SpotifyAPIEpisodeTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     

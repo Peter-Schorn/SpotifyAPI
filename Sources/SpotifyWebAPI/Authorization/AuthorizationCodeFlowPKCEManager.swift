@@ -442,7 +442,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                     expiration date, and scopes):
                     \(authInfo)
                     """
-                Self.logger.critical("\(errorMessage)")
+                Self.logger.error("\(errorMessage)")
                 throw SpotifyLocalError.other(errorMessage)
                 
             }
@@ -573,7 +573,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
-                            Self.logger.critical("\(errorMessage)")
+                            Self.logger.error("\(errorMessage)")
                             throw SpotifyLocalError.other(errorMessage)
                             
                         }

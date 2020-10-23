@@ -45,16 +45,6 @@ public struct SpotifyAPILogHandler: LogHandler {
     
     public var metadata = Logger.Metadata()
 
-    /// If `true`, call `assertionFailure` when a logging message with
-    /// a `critical` level is received. See also the type property
-    /// `allLoggersAssertOnCritical`.
-    public var assertOnCritical: Bool
-    
-    /// If `true`, call `assertionFailure` when a logging message with
-    /// a `critical` level is received for **all** loggers. See also the
-    /// instance property `assertOnCritical`.
-    public static var allLoggersAssertOnCritical = false
-    
     /**
      Creates the logging backend.
      
@@ -62,19 +52,15 @@ public struct SpotifyAPILogHandler: LogHandler {
        - label: A label for the logger.
        - logLevel: The log level.
        - metadata: Metadata for this logger.
-       - assertOnCritical: If `true`, call `assertionFailure` when a logging
-             message with a `critical` level is received. The default is `false`.
      */
     public init(
         label: String,
         logLevel: Logger.Level,
-        metadata: Logger.Metadata = Logger.Metadata(),
-        assertOnCritical: Bool = false
+        metadata: Logger.Metadata = Logger.Metadata()
     ) {
         self.label = label
         self.logLevel = logLevel
         self.metadata = metadata
-        self.assertOnCritical = assertOnCritical
     }
     
     public subscript(metadataKey metadataKey: String) -> Logger.Metadata.Value? {
@@ -98,11 +84,6 @@ public struct SpotifyAPILogHandler: LogHandler {
         let logMessage = """
             [\(label): \(level): \(function) line \(line)] \(message)
             """
-        
-        if (assertOnCritical || Self.allLoggersAssertOnCritical) &&
-                level == .critical {
-            assertionFailure(logMessage)
-        }
         print(logMessage)
     }
 

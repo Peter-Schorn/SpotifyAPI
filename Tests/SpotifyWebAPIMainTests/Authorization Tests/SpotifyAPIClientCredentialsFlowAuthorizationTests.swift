@@ -45,7 +45,7 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             })
             .store(in: &Self.cancellables)
      
-        wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 60)
         
         XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
         XCTAssertFalse(

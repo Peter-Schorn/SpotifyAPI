@@ -158,7 +158,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         }
         
         print("waiting for expectations; TOP LEVEL: \(topLevel)")
-        wait(for: expectations.flatMap { $0 }, timeout: 10)
+        self.wait(for: expectations.flatMap { $0 }, timeout: 10)
         print("done waiting; TOP LEVEL: \(topLevel)")
         
         XCTAssertEqual(

@@ -163,7 +163,7 @@ extension SpotifyAPIAlbumsTests {
             }
             
             print("waiting for \(imageExpectations.count) expectations")
-            wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
             print("FINISHED waiting for image expectations")
         }
         else {
@@ -185,7 +185,7 @@ extension SpotifyAPIAlbumsTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 30)
+        self.wait(for: [expectation], timeout: 30)
         
     }
    
@@ -272,7 +272,7 @@ extension SpotifyAPIAlbumsTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -438,7 +438,7 @@ extension SpotifyAPIAlbumsTests {
                 )
                 .store(in: &Self.cancellables)
             
-            wait(
+            self.wait(
                 for: [
                     albumTracksOffsetExpectation,
                     albumTracksExtendPagesExpectation

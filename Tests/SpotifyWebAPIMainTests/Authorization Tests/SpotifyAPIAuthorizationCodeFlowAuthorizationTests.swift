@@ -169,7 +169,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         })
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
             
     }
@@ -251,7 +251,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         })
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
         
     }
@@ -335,7 +335,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         })
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 300)
+        self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
 
     }

@@ -84,7 +84,7 @@ extension SpotifyAPIShowTests {
             }
             
             print("waiting for \(imageExpectations.count) image expectations")
-            wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
             print("FINISHED waiting for image expectations")
           
         }
@@ -133,7 +133,7 @@ extension SpotifyAPIShowTests {
             )
             .store(in: &Self.cancellables)
 
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
     
@@ -212,7 +212,7 @@ extension SpotifyAPIShowTests {
             )
             .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
         
     }
 
@@ -253,7 +253,7 @@ extension SpotifyAPIShowTests {
                             )
                             .store(in: &Self.cancellables)
                     }
-                    wait(
+                    self.wait(
                         for: imageExpectations,
                         timeout: TimeInterval(60 * images.count)
                     )
@@ -295,7 +295,7 @@ extension SpotifyAPIShowTests {
         )
         .store(in: &Self.cancellables)
         
-        wait(for: [expectation], timeout: 120)
+        self.wait(for: [expectation], timeout: 120)
 
     }
     
