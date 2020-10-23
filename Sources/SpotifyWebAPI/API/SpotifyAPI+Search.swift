@@ -60,10 +60,12 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - query: A query string. Do NOT percent encode it yourself.
-             It will be percent-encoded automatically.
+       - query: A query, which can also include filters, as specified
+             above. Do NOT percent encode it yourself. It will be percent-encoded
+             automatically.
        - categories: *Required*. An array of id categories.
-             Valid types: `album`, `artist`, `playlist`, `track`,
+             Only results that match the sepcified categories will be
+             returned. Valid types: `album`, `artist`, `playlist`, `track`,
              `show`, `episode`.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2]
              or the string "from_token". If a country code is specified,

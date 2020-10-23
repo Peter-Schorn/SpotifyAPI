@@ -296,7 +296,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItemContainer.swift",
-      "line": 89,
+      "line": 83,
       "symbol": "PlaylistItemContainer.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

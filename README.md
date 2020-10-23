@@ -2,7 +2,7 @@
 
 **A Swift library for the Spotify web API**
 
-Read the full [documentation][1] and check out [this example app][14]. Additional Information is available on the [wiki page][17].
+Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
 
  **⚠️ This Library is in Beta**  
 
@@ -265,7 +265,7 @@ spotify.search(query: "Pink Floyd", categories: [.track])
     .store(in: &cancellables)
 ```
 
-The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
+This authorization process is implemented in this [example command-line app][23]. The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
 
 [1]: https://peter-schorn.github.io/SpotifyAPI/
 [2]: https://developer.spotify.com/dashboard/login
@@ -288,3 +288,4 @@ The full documentation for all of the endpoints can be found [here][8]. You are 
 [21]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF
 
 [22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
+[23]: https://github.com/Peter-Schorn/SpotifyAPIExamples

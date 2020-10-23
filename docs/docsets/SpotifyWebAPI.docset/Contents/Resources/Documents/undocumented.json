@@ -8,20 +8,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyAuthenticationError.swift",
-      "line": 28,
-      "symbol": "SpotifyAuthenticationError.error",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyAuthenticationError.swift",
-      "line": 29,
-      "symbol": "SpotifyAuthenticationError.description",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Audio Analysis Objects/Section.swift",
       "line": 242,
       "symbol": "Section.CodingKeys",
@@ -310,7 +296,7 @@
     },
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItemContainer.swift",
-      "line": 89,
+      "line": 83,
       "symbol": "PlaylistItemContainer.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

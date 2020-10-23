@@ -53,6 +53,9 @@
                 <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
@@ -283,14 +286,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
               </li>
             </ul>
           </li>
@@ -3329,8 +3324,9 @@ spaces.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A query string. Do NOT percent encode it yourself.
-It will be percent-encoded automatically.</p>
+                                  <p>A query, which can also include filters, as specified
+above. Do NOT percent encode it yourself. It will be percent-encoded
+automatically.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3343,7 +3339,8 @@ It will be percent-encoded automatically.</p>
                               <td>
                                 <div>
                                   <p><em>Required</em>. An array of id categories.
-Valid types: <code>album</code>, <code>artist</code>, <code>playlist</code>, <code>track</code>,
+Only results that match the sepcified categories will be
+returned. Valid types: <code>album</code>, <code>artist</code>, <code>playlist</code>, <code>track</code>,
 <code>show</code>, <code>episode</code>.</p>
                                 </div>
                               </td>

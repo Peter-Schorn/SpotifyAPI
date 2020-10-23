@@ -44,14 +44,8 @@ public struct PlaylistItemContainer<Item>: Hashable where
      */
     public let isLocal: Bool?
 
-    /**
-     Either a `Track`, `Episode`, or `PlaylistItem` (simplified version)
-     in this `PlaylistItemContainer`.
-     
-     If this is an episode and was retrieved while using
-     the client credentials flow and you did not provide a value
-     for the market parameter, then this property will be `nil`.
-     */
+    /// Either a `Track`, `Episode`, or `PlaylistItem` (simplified version)
+    /// in this `PlaylistItemContainer`.
     public let item: Item?
     
     /**

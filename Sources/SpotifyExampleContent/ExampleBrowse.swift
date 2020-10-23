@@ -4,7 +4,7 @@ import SpotifyWebAPI
 public extension PagingObject where Item == Playlist<PlaylistsItemsReference> {
     
     /// Sample data for testing purposes.
-    static let categoryPlaylists = Bundle.module.decodeJson(
+    static let sampleCategoryPlaylists = Bundle.module.decodeJson(
         forResource: "Category Playlists - PagingObject<Playlist<PlaylistsItemsReference>>",
         type: Self.self
     )!
@@ -14,7 +14,7 @@ public extension PagingObject where Item == Playlist<PlaylistsItemsReference> {
 public extension FeaturedPlaylists {
     
     /// Sample data for testing purposes.
-    static let featuredPlaylists = Bundle.module.decodeJson(
+    static let sampleFeaturedPlaylists = Bundle.module.decodeJson(
         forResource: "Featured Playlists - FeaturedPlaylists",
         type: Self.self
     )!
@@ -24,7 +24,7 @@ public extension FeaturedPlaylists {
 public extension SpotifyCategory {
     
     /// Sample data for testing purposes.
-    static let categories = Bundle.module.decodeJson(
+    static let sampleCategories = Bundle.module.decodeJson(
         forResource: "categories - SpotifyCategory",
         type: Self.self
     )!

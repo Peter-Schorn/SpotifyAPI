@@ -4,7 +4,7 @@ import SpotifyWebAPI
 public extension CursorPagingObject where Item == PlayHistory {
     
     /// Sample data for testing purposes.
-    static let recentlyPlayed = Bundle.module.decodeJson(
+    static let sampleRecentlyPlayed = Bundle.module.decodeJson(
         forResource: "Recently Played - CursorPagingObject<PlayHistory>",
         type: Self.self
     )!
@@ -13,7 +13,7 @@ public extension CursorPagingObject where Item == PlayHistory {
 public extension CurrentlyPlayingContext {
     
     /// Sample data for testing purposes.
-    static let currentPlayback = Bundle.module.decodeJson(
+    static let sampleCurrentPlayback = Bundle.module.decodeJson(
         forResource: "Current Playback - CurrentlyPlayingContext",
         type: Self.self
     )!
