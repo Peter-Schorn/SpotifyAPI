@@ -529,9 +529,11 @@ private extension ClientCredentialsFlowManager {
 extension ClientCredentialsFlowManager {
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
+        #if DEBUG
         dispatchPrecondition(
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
         )
+        #endif
     }
 
 }

@@ -334,9 +334,11 @@ extension AuthorizationCodeFlowManagerBase {
     }
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
+        #if DEBUG
         dispatchPrecondition(
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
         )
+        #endif
     }
 
 }
