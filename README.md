@@ -40,7 +40,7 @@ The next step is authorizing your app. *All* requests to the Spotify web API—w
 
 * **[Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.  Read more at the [Spotify web API reference][3].
 
-* **[Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5]. The advantage of this method is that it does not require any user interaction.  Read more at the [Spotify web API reference][4].
+* **[Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5] or an access token that was issued on behalf of a user. The advantage of this method is that it does not require any user interaction.  Read more at the [Spotify web API reference][4].
 
 When creating an application that uses this library, you will probably want to **save the authorization information to persistent storage** so that the user does not have to login again every time the application is quit and re-launched. See the [Saving Authorization Information to Persistent Storage][16] wiki page for a guide on how to do this.
 

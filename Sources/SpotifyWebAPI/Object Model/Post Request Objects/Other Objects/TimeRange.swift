@@ -11,6 +11,6 @@ public enum TimeRange: String, Codable {
     case mediumTerm = "medium_term"
     
     /// Short term.
-    case shortTerm = "shot_term"
+    case shortTerm = "short_term"
 
 }

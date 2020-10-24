@@ -53,18 +53,20 @@ private extension SpotifyAPI where
                 return Result<Void, Error>.Publisher(.success(()))
                     .eraseToAnyPublisher()
             }
-            
-            let idsString = try SpotifyIdentifier
-                .commaSeparatedIdsString(
-                    uris, ensureCategoryMatches: [type]
-                )
 
+            let ids = try uris.map { uri in
+                try SpotifyIdentifier(
+                    uri: uri, ensureCategoryMatches: [type]
+                ).id
+            }
+            let body = ["ids": ids]
+            
             return self.apiRequest(
                 path: "/me/following",
                 queryItems: ["type": type.rawValue],
                 httpMethod: httpMethod,
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                body: ["ids": idsString],
+                body: body,
                 requiredScopes: [.userFollowModify]
             )
             .decodeSpotifyErrors()
@@ -106,7 +108,9 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uri: The URI for a playlist
-       - userURIs: An array of **up to 5 user URIs**.
+       - userURIs: An array of **up to 5 user URIs**. Passing in an empty
+             array will immediately cause an empty array of results to be
+             returned without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether each
            user is following the playlist.
@@ -171,6 +175,8 @@ public extension SpotifyAPI where
      - Parameter uris: An array of artist URIs. Maximum: 50.
            Passing in duplicates will result in a
            502 "Failed to check following status" error.
+           Passing in an empty array will immediately cause an empty array
+           of results to be returned without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user
            is following each artist.
@@ -186,6 +192,56 @@ public extension SpotifyAPI where
         )
 
     }
+
+    /**
+     Add the current user as a follower of one or more artists.
+     
+     See also `followUsersForCurrentUser(_:)` and
+     `followPlaylistForCurrentUser(_:publicly:)`.
+     
+     This endpoint requires the `userFollowModify` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uris: An array of artist URIs. Maximum: 50. Passing in
+           an empty array will prevent a network request from being made.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
+     */
+    func followArtistsForCurrentUser(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.modifyCurrentUserFollowing(
+            uris: uris, type: .artist, httpMethod: "PUT"
+        )
+
+    }
+    
+    /**
+     Unfollow one or more artists for the current user.
+
+     See also `unfollowUsersForCurrentUser(_:)` and
+     `unfollowPlaylistForCurrentUser(_:)`.
+     
+     This endpoint requires the `userFollowModify` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uris: An array of artist URIs. maximum: 50. Passing in
+           an empty array will prevent a network request from being made.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/
+     */
+    func unfollowArtistsForCurrentUser(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.modifyCurrentUserFollowing(
+            uris: uris, type: .artist, httpMethod: "DELETE"
+        )
+        
+    }
     
     /**
      Check if the current user follows the specified users.
@@ -200,6 +256,8 @@ public extension SpotifyAPI where
      - Parameter uris: An array of user URIs. Maximum: 50.
            Passing in duplicates will result in a
            502 "Failed to check following status" error.
+           Passing in an empty array will immediately cause an empty array
+           of results to be returned without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user
            is following each user.
@@ -217,30 +275,6 @@ public extension SpotifyAPI where
     }
 
     /**
-     Add the current user as a follower of one or more artists.
-     
-     See also `followUsersForCurrentUser(_:)` and
-     `followPlaylistForCurrentUser(_:publicly:)`.
-     
-     This endpoint requires the `userFollowModify` scope.
-     
-     Read more at the [Spotify web API reference][1].
-     
-     - Parameter uris: An array of artist URIs. Maximum: 50.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
-     */
-    func followArtistsForCurrentUser(
-        _ uris: [SpotifyURIConvertible]
-    ) -> AnyPublisher<Void, Error> {
-        
-        return self.modifyCurrentUserFollowing(
-            uris: uris, type: .artist, httpMethod: "PUT"
-        )
-
-    }
-    
-    /**
      Add the current user as a follower of one or more users.
      
      See also `followArtistsForCurrentUser(_:)` and
@@ -250,7 +284,8 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][1].
      
-     - Parameter uris: An array of user URIs. Maximum: 50.
+     - Parameter uris: An array of user URIs. Maximum: 50. Passing in
+           an empty array will prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
      */
@@ -265,30 +300,6 @@ public extension SpotifyAPI where
     }
     
     /**
-     Unfollow one or more artists for the current user.
-
-     See also `unfollowUsersForCurrentUser(_:)` and
-     `unfollowPlaylistForCurrentUser(_:)`.
-     
-     This endpoint requires the `userFollowModify` scope.
-     
-     Read more at the [Spotify web API reference][1].
-     
-     - Parameter uris: An array of artist URIs. maximum: 50.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/
-     */
-    func unfollowArtistsForCurrentUser(
-        _ uris: [SpotifyURIConvertible]
-    ) -> AnyPublisher<Void, Error> {
-        
-        return self.modifyCurrentUserFollowing(
-            uris: uris, type: .artist, httpMethod: "DELETE"
-        )
-        
-    }
-    
-    /**
      Unfollow one or more users for the current user.
 
      See also `unfollowArtistsForCurrentUser(_:)` and
@@ -298,7 +309,8 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][1].
      
-     - Parameter uris: An array of user URIs. maximum: 50.
+     - Parameter uris: An array of user URIs. maximum: 50. Passing in
+           an empty array will prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/
      */
@@ -428,6 +440,5 @@ public extension SpotifyAPI where
         }
 
     }
-    
     
 }

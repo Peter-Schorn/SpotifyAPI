@@ -36,6 +36,7 @@ public enum URIs {
     public enum Users: String, SpotifyURIConvertibleEnum {
         case peter = "spotify:user:petervschorn"
         case april = "spotify:user:p8gjjfbirm8ucyt82ycfi9zuu"
+        case nicholas = "spotify:user:osa09uoqscl4p2m6rqnfwjotn"
     }
     
     /// A namespace of Spotify Device Ids.
