@@ -26,7 +26,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 
 1. In Xcode, open the project that you want to add this package to.
 2. From the menu bar, select File > Swift Packages > Add Package Dependency...
-3. Paste the [url](https://github.com/Peter-Schorn/SpotifyAPI.git) for this repository into the search field.
+3. Paste the [URL](https://github.com/Peter-Schorn/SpotifyAPI.git) for this repository into the search field.
 5. Select the `SpotifyAPI` Library.
 4. Follow the prompts for adding the package.
 
@@ -101,7 +101,7 @@ The documentation for each endpoint lists the [authorization scopes][5] that are
 
 You can decide how to open the URL. If you are creating an iOS app, the simplest method is to use `UIApplication.shared.open(authorizationURL)` to open the URL in the browser.
 
-After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into [requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)][21] to request the access and refresh tokens:
+After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this URL into [requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)][21] to request the access and refresh tokens:
 ```swift
 spotify.authorizationManager.requestAccessAndRefreshTokens(
     redirectURIWithQuery: url,
