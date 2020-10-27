@@ -7,8 +7,9 @@ import XCTest
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
 open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
     
-    public static let spotify =
+    public static var spotify =
             SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
+    
     public static var cancellables: Set<AnyCancellable> = []
 
     /// If you only need to setup the authorization,
@@ -34,8 +35,9 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
 /// `SpotifyAPI<AuthorizationCodeFlowManager>`.
 open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
     
-    public static let spotify =
+    public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
+    
     public static var cancellables: Set<AnyCancellable> = []
 
     /// If you only need to setup the authorization,
@@ -60,8 +62,9 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
 /// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
 open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests {
     
-    public static let spotify =
+    public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
+    
     public static var cancellables: Set<AnyCancellable> = []
 
     /// If you only need to setup the authorization,

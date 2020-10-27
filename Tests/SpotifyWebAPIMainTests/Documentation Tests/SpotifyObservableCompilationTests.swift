@@ -15,6 +15,10 @@ private class Keychain {
             fatalError("not implemented")
         }
     }
+    
+    func remove(_ key: String) throws {
+        throw SpotifyLocalError.other("unreachable")
+    }
 
     init(service: String) {
         fatalError("not implemented")
@@ -48,6 +52,10 @@ final class Spotify: ObservableObject {
         fatalError("Could not find 'client_secret' in environment variables")
     }()
     
+    /// The key in the keychain that is used to store the authorization
+    /// information: "authorizationManager".
+    static let authorizationManagerKey = "authorizationManager"
+
     /// The URL that Spotify will redirect to after the user either
     /// authorizes or denies authorization for your application.
     static let authRedirectURL = URL(string: "psspotifyapi://login")!
@@ -64,14 +72,15 @@ final class Spotify: ObservableObject {
      using the `api` property of this class, which contains an instance
      of `SpotifyAPI`.
      
-     This property is updated in `handleChangesToAuthorizationManager()`.
-
      This property provides a convenient way for the user interface
      to be updated based on whether the user has logged in with their
-     Spotify account yet.
+     Spotify account yet. For example, you could use this property disable
+     UI elements that require the user to be logged in.
      
-     For example, you could use this property disable UI elements that require
-     the user to be logged in.
+     This property is updated by `handleChangesToAuthorizationManager()`,
+     which is called every time the authorization information changes,
+     and `removeAuthorizationManagerFromKeychain()`, which is called
+     every time `SpotifyAPI.authorizationManager.deauthorize()` is called.
      */
     @Published var isAuthorized = false
 
@@ -99,9 +108,14 @@ final class Spotify: ObservableObject {
             .sink(receiveValue: handleChangesToAuthorizationManager)
             .store(in: &cancellables)
         
+        self.api.authorizationManagerDidDeauthorize
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: removeAuthorizationManagerFromKeychain)
+            .store(in: &cancellables)
+        
         // Check to see if the authorization information is saved in
         // the keychain.
-        if let authManagerData = keychain[data: "authorizationManager"] {
+        if let authManagerData = keychain[data: Self.authorizationManagerKey] {
             do {
                 // Try to decode the data.
                 let authorizationManager = try JSONDecoder().decode(
@@ -128,6 +142,9 @@ final class Spotify: ObservableObject {
             } catch {
                 print("could not decode authorizationManager from data:\n\(error)")
             }
+        }
+        else {
+            print("did not find authorization information in keychain")
         }
         
     }
@@ -165,12 +182,12 @@ final class Spotify: ObservableObject {
     /**
      Saves changes to `api.authorizationManager` to the keychain.
      
-     This method is called every time the authorization information changes. For
-     example, when the access token gets automatically refreshed, (it expires after
-     an hour) this method will be called.
+     This method is called every time the authorization information changes.
+     For example, when the access token gets automatically refreshed, (it
+     expires after an hour) this method will be called.
      
-     It will also be called after the access and refresh tokens are retrieved using
-     `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
+     It will also be called after the access and refresh tokens are retrieved
+     using `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`.
      */
     func handleChangesToAuthorizationManager() {
         
@@ -182,7 +199,7 @@ final class Spotify: ObservableObject {
             let authManagerData = try JSONEncoder().encode(api.authorizationManager)
             
             // Save the data to the keychain.
-            keychain[data: "authorizationManager"] = authManagerData
+            keychain[data: Self.authorizationManagerKey] = authManagerData
             
         } catch {
             print(
@@ -191,6 +208,36 @@ final class Spotify: ObservableObject {
             )
         }
         
+    }
+    
+    /**
+     Removes `api.authorizationManager` from the keychain.
+     
+     This method is called every time `api.authorizationManager.deauthorize`
+     is called.
+     */
+    func removeAuthorizationManagerFromKeychain() {
+        
+        self.isAuthorized = false
+
+        do {
+            /*
+             Remove the authorization information from the keychain.
+             
+             If you don't do this, then the authorization information
+             that you just removed from memory by calling `deauthorize()`
+             will be retrieved again from persistent storage after this
+             app is quit and relaunched.
+             */
+            try keychain.remove(Self.authorizationManagerKey)
+            print("did remove authorization manager from keychain")
+            
+        } catch {
+            print(
+                "couldn't remove authorization manager " +
+                "from keychain: \(error)"
+            )
+        }
     }
     
 }

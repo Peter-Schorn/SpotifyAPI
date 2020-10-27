@@ -89,7 +89,6 @@ public struct SpotifyAPILogHandler: LogHandler {
 
 }
 
-
 public extension Logger {
     
     /**

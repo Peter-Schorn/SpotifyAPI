@@ -109,8 +109,7 @@ public class AuthorizationCodeFlowManagerBase {
     var _scopes: Set<Scope>? = nil
     
     /**
-     A Publisher that emits **after** the authorization information
-     changes.
+     A publisher that emits after the authorization information changes.
      
      **You are discouraged from subscribing to this publisher directly.**
      
@@ -129,16 +128,43 @@ public class AuthorizationCodeFlowManagerBase {
        requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
        ```
      * After the access token (and possibly the refresh token as well) is
-       refreshed. This occurs in `refreshTokens(onlyIfExpired:tolerance:)`.
-     * After `deauthorize()`—which sets `accessToken`, `refreshToken`,
-       `expirationDate`, and `scopes` to `nil`—is called.
+       refreshed using `refreshTokens(onlyIfExpired:tolerance:)`.
+     
+     See also `didDeauthorize`, which emits after `deauthorize()` is called.
+     Subscribe to that publisher in order to remove the authorization
+     information from persistent storage when it emits.
      
      # Thread Safety
      
-     No guarantees are made about which thread this subject will emit on.
+     No guarantees are made about which thread this publisher will emit on.
      Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
+    
+    /**
+     A publisher that emits after `deauthorize()` is called.
+     
+     **You are discouraged from subscribing to this publisher directly.**
+     
+     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
+     publisher. This allows you to be notified even when you create a new
+     instance of this class and assign it to the `authorizationManager`
+     instance property of `SpotifyAPI`.
+     
+     `deauthorize()` sets the access token, expiration date, refresh token,
+     and scopes to `nil`.
+     
+     Subscribe to this publisher in order to remove the authorization
+     information from persistent storage when it emits.
+     
+     See also `didChange`.
+     
+     # Thread Safety
+     
+     No guarantees are made about which thread this publisher will emit on.
+     Always receive on the main thread if you plan on updating the UI.
+     */
+    public let didDeauthorize = PassthroughSubject<Void, Never>()
     
     var cancellables: Set<AnyCancellable> = []
     
@@ -227,10 +253,11 @@ public extension AuthorizationCodeFlowManagerBase {
      
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
-     
-     Calling this method causes `self.didChange` to emit a signal, which will
-     cause `SpotifyAPI.authorizationManagerDidChange` to emit a signal.
 
+     Calling this method causes `didDeauthorize` to emit a signal, which
+     will also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to
+     emit a signal.
+     
      # Thread Safety
      
      This method is thread-safe.
@@ -243,7 +270,8 @@ public extension AuthorizationCodeFlowManagerBase {
             self._scopes = nil
             self.refreshTokensPublisher = nil
         }
-        self.didChange.send()
+        Self.baseLogger.trace("\(Self.self): didDeauthorize.send()")
+        self.didDeauthorize.send()
     }
     
     /**

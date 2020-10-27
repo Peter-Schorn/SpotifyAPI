@@ -32,9 +32,27 @@ public protocol SpotifyAuthorizationManager: Codable {
     /// The scopes that have been authorized for the access token.
     var scopes: Set<Scope>? { get }
     
-    /// A `PassthroughSubject` that emits **AFTER** the
-    /// the authorization manager has changed.
+    /**
+     A `PassthroughSubject` that emits after the
+     the authorization manager has changed.
+    
+     See also `didDeauthorize`, which emits after `deauthorize()` is
+     called.
+     */
     var didChange: PassthroughSubject<Void, Never> { get }
+    
+    /**
+     A publisher that emits after `deauthorize()` is called.
+     
+     `deauthorize()` Sets the credentials for the authorization manager
+     to `nil`.
+     
+     Subscribe to this publisher in order to remove the authorization
+     information from persistent storage when it emits.
+     
+     See also `didChange`.
+     */
+    var didDeauthorize: PassthroughSubject<Void, Never> { get }
     
     /**
      Determines whether the access token is expired
@@ -74,7 +92,6 @@ public protocol SpotifyAuthorizationManager: Codable {
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope>) -> Bool
-    
     
     /// Sets the credentials for the authorization manager to `nil`.
     func deauthorize() -> Void

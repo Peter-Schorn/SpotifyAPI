@@ -37,7 +37,7 @@ public struct Album: Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let uri: String?
     
-    /// The [Spotify ID] for the album.
+    /// The [Spotify ID][1] for the album.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String?

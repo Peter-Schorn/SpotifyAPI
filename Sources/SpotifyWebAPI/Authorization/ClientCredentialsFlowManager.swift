@@ -84,8 +84,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     private var _expirationDate: Date?
     
     /**
-     A Publisher that emits **after** this `ClientCredentialsFlowManager`
-     has changed.
+     A publisher that emits after the authorization information changes.
      
      **You are discouraged from subscribing to this publisher directly.**
      
@@ -96,17 +95,43 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      
      Emits after the following events occur:
      * After an access token is retrieved using the `authorize()` method.
-     * After a new access token is retrieved. This occurs in
+     * After a new access token is retrieved using
        `refreshTokens(onlyIfExpired:tolerance:)`.
-     * After `deauthorize()`—which sets `accessToken` and `expirationDate`
-       to `nil`—is called.
+     
+     See also `didDeauthorize`, which emits after `deauthorize()` is called.
+     Subscribe to that publisher in order to remove the authorization
+     information from persistent storage when it emits.
      
      # Thread Safety
      
-     No guarantees are made about which thread this subject will emit on.
+     No guarantees are made about which thread this publisher will emit on.
      Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
+    
+    /**
+     A publisher that emits after `deauthorize()` is called.
+     
+     **You are discouraged from subscribing to this publisher directly.**
+     
+     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
+     publisher. This allows you to be notified even when you create a new
+     instance of this class and assign it to the `authorizationManager`
+     instance property of `SpotifyAPI`.
+     
+     `deauthorize()` sets the access token and expiration date to `nil`.
+     
+     Subscribe to this publisher in order to remove the authorization
+     information from persistent storage when it emits.
+     
+     See also `didChange`.
+     
+     # Thread Safety
+     
+     No guarantees are made about which thread this publisher will emit on.
+     Always receive on the main thread if you plan on updating the UI.
+     */
+    public let didDeauthorize = PassthroughSubject<Void, Never>()
     
     /// Ensure no data races occur when updating auth info.
     private let updateAuthInfoDispatchQueue = DispatchQueue(
@@ -253,9 +278,10 @@ public extension ClientCredentialsFlowManager {
      
      If this instance is stored in persistent storage, consider
      removing it after calling this method.
-     
-     Calling this method causes `self.didChange` to emit a signal, which will
-     cause `SpotifyAPI.authorizationManagerDidChange` to emit a signal.
+
+     Calling this method causes `didDeauthorize` to emit a signal, which
+     will also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to
+     emit a signal.
      
      # Thread Safety
      
@@ -267,7 +293,9 @@ public extension ClientCredentialsFlowManager {
             self._expirationDate = nil
             self.refreshTokensPublisher = nil
         }
-        self.didChange.send()
+        Self.logger.trace("self.didDeauthorize.send()")
+        self.didDeauthorize.send()
+            
     }
     
     /**
@@ -501,8 +529,8 @@ private extension ClientCredentialsFlowManager {
             self._expirationDate = authInfo.expirationDate
             self.refreshTokensPublisher = nil
         }
-        self.didChange.send()
         Self.logger.trace("self.didChange.send()")
+        self.didChange.send()
     }
     
     /// This method should **ALWAYS** be called within

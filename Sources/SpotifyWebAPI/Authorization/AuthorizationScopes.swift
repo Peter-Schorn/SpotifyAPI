@@ -132,10 +132,10 @@ public enum Scope: String, Codable, CaseIterable, Hashable {
     /// other users that the user follows.
     case userFollowModify = "user-follow-modify"
     
-    // the synthesized implementation of `allCases`
-    // is an array, but a set is more useful
+    // The synthesized implementation of `allCases`
+    // is an array, but a set is more useful.
     /// A `Set` of all the authorization scopes.
-    public static var allCases: Set<Scope> = [
+    public static let allCases: Set<Scope> = [
         .ugcImageUpload,
         .userReadPlaybackState,
         .userModifyPlaybackState,
@@ -167,9 +167,8 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`,
-     which makes `Set<Scope>` from a string of
-     (usually space-separated) scopes.
+     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
+     from a string of (usually space-separated) scopes.
     
      - Parameter scopes: A variadic array of Spotify authorization scopes.
     
@@ -185,9 +184,8 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used
      for the scope query parameter of a spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`,
-     which makes `Set<Scope>` from a string of
-     (usually space-separated) scopes.
+     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
+     from a string of (usually space-separated) scopes.
     
      - Parameter scopes: A set of Spotify authorization scopes.
     
@@ -203,16 +201,14 @@ public extension Scope {
     }
     
     /**
-     Creates an set of scopes from a string of
-     spotify scopes (usually space-separated).
+     Creates an set of scopes from a string of spotify scopes
+     (usually space-separated).
     
-     If any of the scopes in the string do not match
-     the raw value of any of the cases,
-     then they are ignored.
+     If any of the scopes in the string do not match the raw value
+     of any of the cases, then they are ignored.
     
-     This is the opposite of `Scope.makeString(_:)`,
-     which creates a space-separated string of scopes
-     from `Set<Scope>`.
+     This is the opposite of `Scope.makeString(_:)`, which creates a
+     space-separated string of scopes from `Set<Scope>`.
     
      - Parameter string: A string containing Spotify authorization scopes.
     
@@ -234,14 +230,15 @@ public extension Scope {
         return scopes
     }
     
-    /// Returns `true` if the specified scope string matches
-    /// one of the known scopes of this enum. Else, `false`.
-    ///
-    /// - Parameter scope: A Spotify authorization scope string.
-    ///       The string must contain only a single scope.
+    /**
+     Returns `true` if the specified scope string matches
+     one of the known scopes of this enum. Else, `false`.
+    
+     - Parameter scope: A Spotify authorization scope string.
+           The string must contain only a single scope.
+     */
     static func contains(_ scope: String) -> Bool {
         return Self.allCases.map(\.rawValue).contains(scope.strip())
     }
-    
     
 }

@@ -85,7 +85,6 @@ public final class AuthorizationCodeFlowManager:
         super.init(clientId: clientId, clientSecret: clientSecret)
     }
     
-    
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
      

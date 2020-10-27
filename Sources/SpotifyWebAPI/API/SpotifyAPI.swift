@@ -44,24 +44,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      */
     public var authorizationManager: AuthorizationManager {
         didSet {
-            self.assertNotOnUpdateAuthInfoDispatchQueue()
-            
             self.authDidChangeLogger.trace(
                 "did set authorizationManager"
             )
-            
-            self.authManagerDidChangeCancellable =
-                    self.authorizationManager.didChange
-                        .handleEvents(receiveOutput: { _ in
-                            self.authDidChangeLogger.trace(
-                                """
-                                received signal from \
-                                self.authorizationManager.didChange
-                                """
-                            )
-                            self.assertNotOnUpdateAuthInfoDispatchQueue()
-                        })
-                        .subscribe(authorizationManagerDidChange)
+            self.assertNotOnUpdateAuthInfoDispatchQueue()
+
+            self.configureDidChangeSubscriptions()
             
             self.authDidChangeLogger.trace(
                 "authorizationManagerDidChange.send()"
@@ -71,7 +59,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     }
 
     /**
-     A pass-through subject that emits whenever the authorization information
+     A publisher that emits whenever the authorization information
      changes.
      
      Subscribe to this subject in order to update the persistent storage of
@@ -81,36 +69,61 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      * After the access and/or refresh tokens are retrieved.
      * After the access token (and possible the refresh token) is refreshed.
-     * After `authorizationManager.deauthorize()` is called.
-     * After you assign a new authorization manager to the
-       `authorizationManager` property of this class.
+     * After you assign a new authorization manager to the `authorizationManager`
+       property of this class.
      
      This publisher subscribes to the `didChange` publisher of
-     `authorizationManager` and emits whenever it emits.
+    `authorizationManager` and emits whenever it emits.
+     
+     See also `authorizationManagerDidDeauthorize`, a publisher that emits after
+     `authorizationManager.deauthorize()` is called.
      
      # Thread Safety
      
-     No guarantees are made about which thread this subject will emit on.
+     No guarantees are made about which thread this publisher will emit on.
      Always receive on the main thread if you plan on updating the UI.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
+    
+    /**
+     A publisher that emits after `authorizationManager.deauthorize()` is
+     called.
+     
+     `authorizationManager.deauthorize()` sets the authorization information
+     to `nil`.
+     
+     Subscribe to this publisher in order to remove the authorization
+     information from persistent storage when it emits.
+     
+     This publisher subscribes to the `didDeauthorize` publisher of
+    `authorizationManager` and emits whenever it emits.
+     
+     See also `authorizationManagerDidChange`.
+     
+     # Thread Safety
+     
+     No guarantees are made about which thread this publisher will emit on.
+     Always receive on the main thread if you plan on updating the UI.
+     */
+    public let authorizationManagerDidDeauthorize = PassthroughSubject<Void, Never>()
 
     private var authManagerDidChangeCancellable: AnyCancellable? = nil
+    private var authManagerDidDeauthorizeCancellable: AnyCancellable? = nil
     
     // MARK: - Loggers -
     
     /// Logs general messages for this class.
     public lazy var logger = Logger(label: "SpotifyAPI", level: .critical)
     
-    /// Logs a message every time `authorizationManagerDidChange` emits
-    /// a signal.
+    /// Logs a message every time `authorizationManagerDidChange`
+    /// or `authorizationManagerDidDeauthorize` emits a signal.
     public lazy var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )
     
-    /// Logs the URLs of the requests made to Spotify and,
+    /// Logs the URLs of the network requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
     public lazy var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
@@ -136,20 +149,17 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(authorizationManager: AuthorizationManager)  {
-        self.authorizationManager = authorizationManager
-        
-        self.authManagerDidChangeCancellable =
-            self.authorizationManager.didChange
-                .handleEvents(receiveOutput: { _ in
-                    self.assertNotOnUpdateAuthInfoDispatchQueue()
-                })
-                .subscribe(authorizationManagerDidChange)
         
         SpotifyAPILogHandler.bootstrap()
+
+        self.authorizationManager = authorizationManager
+        
+        self.configureDidChangeSubscriptions()
+        
     }
     
     deinit {
-        self.logger.notice("\n--- \(self): DEINIT ---\n")
+        self.logger.notice("--- DEINIT ---")
     }
     
     // MARK: - Codable -
@@ -165,12 +175,15 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      - Parameter decoder: The decoder to read data from.
      */
     public required init(from decoder: Decoder) throws {
+        SpotifyAPILogHandler.bootstrap()
+
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.authorizationManager = try container.decode(
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
-        SpotifyAPILogHandler.bootstrap()
+        self.configureDidChangeSubscriptions()
+        
     }
     
     /**
@@ -198,6 +211,43 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     }
 
 }
+
+private extension SpotifyAPI {
+    
+    private func configureDidChangeSubscriptions() {
+        
+        self.authDidChangeLogger.trace("")
+        
+        self.authManagerDidChangeCancellable =
+            self.authorizationManager.didChange
+                .handleEvents(receiveOutput: { _ in
+                    self.authDidChangeLogger.trace(
+                        """
+                        received signal from \
+                        self.authorizationManager.didChange
+                        """
+                    )
+                    self.assertNotOnUpdateAuthInfoDispatchQueue()
+                })
+                .subscribe(authorizationManagerDidChange)
+        
+        self.authManagerDidDeauthorizeCancellable =
+            self.authorizationManager.didDeauthorize
+                .handleEvents(receiveOutput: { _ in
+                    self.authDidChangeLogger.trace(
+                        """
+                        received signal from \
+                        self.authorizationManager.didDeauthorize
+                        """
+                    )
+                    self.assertNotOnUpdateAuthInfoDispatchQueue()
+                })
+                .subscribe(authorizationManagerDidDeauthorize)
+        
+    }
+
+}
+
 
 // MARK: - Testing -
 
@@ -234,4 +284,3 @@ extension SpotifyAPI {
     }
     
 }
-

@@ -23,6 +23,13 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             })
             .store(in: &Self.cancellables)
 
+        var didDeauthorizeCount = 0
+        Self.spotify.authorizationManagerDidDeauthorize
+            .sink(receiveValue: {
+                didDeauthorizeCount += 1
+            })
+            .store(in: &Self.cancellables)
+        
         XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
@@ -55,12 +62,60 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
         )
 
         XCTAssertEqual(
-            didChangeCount, 2,
-            "authorizationManagerDidChange should emit once when " +
-            "deauthorizing and once when authorizing"
+            didChangeCount, 1,
+            "authorizationManagerDidChange should only emit once"
+        )
+        XCTAssertEqual(
+            didDeauthorizeCount, 1,
+            "authorizationManagerDidDeauthorize should only emit once"
         )
         
         encodeDecode(Self.spotify.authorizationManager)
+        
+    }
+    
+    func testCodingSpotifyAPI() throws {
+        
+        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
+        
+        let decodedSpotifyAPI = try JSONDecoder().decode(
+            SpotifyAPI<ClientCredentialsFlowManager>.self,
+            from: spotifyAPIData
+        )
+        
+        Self.spotify = decodedSpotifyAPI
+        
+        self.testDeauthorizeReauthorize()
+        
+    }
+    
+    func testReassigningAuthorizationManager() {
+        
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .sink(receiveValue: {
+                didChangeCount += 1
+            })
+            .store(in: &Self.cancellables)
+        
+        var didDeauthorizeCount = 0
+        Self.spotify.authorizationManagerDidDeauthorize
+            .sink(receiveValue: {
+                didDeauthorizeCount += 1
+            })
+            .store(in: &Self.cancellables)
+        
+        let currentAuthManager = Self.spotify.authorizationManager
+        
+        Self.spotify.authorizationManager = .init(
+            clientId: "client id",
+            clientSecret: "client secret"
+        )
+
+        Self.spotify.authorizationManager = currentAuthManager
+        
+        XCTAssertEqual(didChangeCount, 2)
+        XCTAssertEqual(didDeauthorizeCount, 0)
         
     }
     

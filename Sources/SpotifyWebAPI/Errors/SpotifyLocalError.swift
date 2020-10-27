@@ -123,7 +123,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
                     SpotifyLocalError.invalidState: The value for the state \
                     parameter provided when requesting access and refresh \
                     tokens '\(supplied ?? "nil")' did not match the value \
-                    received from Spotify in the query string of the redirect URI:
+                    received from Spotify in the query string of the redirect URI: \
                     '\(received ?? "nil")'
                     """
             case .identifierParsingError(let message):
