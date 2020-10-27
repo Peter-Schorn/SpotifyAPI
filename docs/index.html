@@ -384,7 +384,7 @@
 
 <p><strong>A Swift library for the Spotify web API</strong></p>
 
-<p>Read the full <a href="https://peter-schorn.github.io/SpotifyAPI/">documentation</a> and check out <a href="https://github.com/Peter-Schorn/SpotifyAPIExampleApp">this example iOS app</a> and this <a href="https://github.com/Peter-Schorn/SpotifyAPIExamples">example command-line app</a>. Additional Information is available on the <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki">wiki page</a>.</p>
+<p>Read the full <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html">documentation</a> and check out <a href="https://github.com/Peter-Schorn/SpotifyAPIExampleApp">this example iOS app</a> and this <a href="https://github.com/Peter-Schorn/SpotifyAPIExamples">example command-line app</a>. Additional Information is available on the <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki">wiki page</a>.</p>
 
 <p><strong>⚠️ This Library is in Beta</strong>  </p>
 <h2 id='table-of-contents' class='heading'>Table of Contents</h2>
@@ -410,7 +410,7 @@
 <ol>
 <li>In Xcode, open the project that you want to add this package to.</li>
 <li>From the menu bar, select File &gt; Swift Packages &gt; Add Package Dependency&hellip;</li>
-<li>Paste the <a href="https://github.com/Peter-Schorn/SpotifyAPI.git">url</a> for this repository into the search field.</li>
+<li>Paste the <a href="https://github.com/Peter-Schorn/SpotifyAPI.git">URL</a> for this repository into the search field.</li>
 <li>Select the <code><a href="Classes/SpotifyAPI.html">SpotifyAPI</a></code> Library.</li>
 <li>Follow the prompts for adding the package.</li>
 </ol>
@@ -423,7 +423,7 @@
 <ul>
 <li><p><strong><a href="#authorizing-with-the-authorization-code-flow-with-proof-key-for-code-exchange">Authorization Code Flow with Proof Key for Code Exchange</a></strong>: This is the best option for mobile and desktop applications where it is unsafe to store your client secret. It provides an additional layer of security compared to the Authorization Code Flow. Use this method if you need to access/modify user data, which requires <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. It requires the user to login to their Spotify account in a browser/web view and approve your app. Read more at the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Spotify web API reference</a>.</p></li>
 <li><p><strong><a href="#authorizing-with-the-authorization-code-flow">Authorization Code Flow</a></strong>: Use this method if you need to access/modify user data, which requires <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. It requires the user to login to their Spotify account in a browser/web view and approve your app.  Read more at the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Spotify web API reference</a>.</p></li>
-<li><p><strong><a href="#authorizing-with-the-client-credentials-flow">Client Credentials Flow</a></strong>: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a>. The advantage of this method is that it does not require any user interaction.  Read more at the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow">Spotify web API reference</a>.</p></li>
+<li><p><strong><a href="#authorizing-with-the-client-credentials-flow">Client Credentials Flow</a></strong>: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a> or an access token that was issued on behalf of a user. The advantage of this method is that it does not require any user interaction.  Read more at the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow">Spotify web API reference</a>.</p></li>
 </ul>
 
 <p>When creating an application that uses this library, you will probably want to <strong>save the authorization information to persistent storage</strong> so that the user does not have to login again every time the application is quit and re-launched. See the <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">Saving Authorization Information to Persistent Storage</a> wiki page for a guide on how to do this.</p>
@@ -478,7 +478,7 @@
 
 <p>You can decide how to open the URL. If you are creating an iOS app, the simplest method is to use <code>UIApplication.shared.open(authorizationURL)</code> to open the URL in the browser.</p>
 
-<p>After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this url into <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a> to request the access and refresh tokens:</p>
+<p>After the user either approves or denies authorization for your app, Spotify will redirect to the redirect URI that you specified when making the authorization URL with query parameters appended to it. Pass this URL into <a href="https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a> to request the access and refresh tokens:</p>
 <pre class="highlight swift"><code><span class="n">spotify</span><span class="o">.</span><span class="n">authorizationManager</span><span class="o">.</span><span class="nf">requestAccessAndRefreshTokens</span><span class="p">(</span>
     <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
     <span class="c1">// Must match the code verifier that was used to generate the </span>
@@ -635,7 +635,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-23)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

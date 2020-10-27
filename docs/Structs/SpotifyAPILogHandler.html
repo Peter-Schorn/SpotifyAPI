@@ -513,67 +513,9 @@ safe, but has no effect.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV16assertOnCriticalSbvp"></a>
-                    <a name="//apple_ref/swift/Property/assertOnCritical" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV16assertOnCriticalSbvp">assertOnCritical</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If <code>true</code>, call <code>assertionFailure</code> when a logging message with
-a <code>critical</code> level is received. See also the type property
-<code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV26allLoggersAssertOnCriticalSbvpZ">allLoggersAssertOnCritical</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">assertOnCritical</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV26allLoggersAssertOnCriticalSbvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/allLoggersAssertOnCritical" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV26allLoggersAssertOnCriticalSbvpZ">allLoggersAssertOnCritical</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If <code>true</code>, call <code>assertionFailure</code> when a logging message with
-a <code>critical</code> level is received for <strong>all</strong> loggers. See also the
-instance property <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV16assertOnCriticalSbvp">assertOnCritical</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">allLoggersAssertOnCritical</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV5label8logLevel8metadata16assertOnCriticalACSS_7Logging6LoggerV0H0OSDySSAJ13MetadataValueOGSbtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(label:logLevel:metadata:assertOnCritical:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV5label8logLevel8metadata16assertOnCriticalACSS_7Logging6LoggerV0H0OSDySSAJ13MetadataValueOGSbtcfc">init(label:<wbr>logLevel:<wbr>metadata:<wbr>assertOnCritical:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV5label8logLevel8metadataACSS_7Logging6LoggerV0H0OSDySSAI13MetadataValueOGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(label:logLevel:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV5label8logLevel8metadataACSS_7Logging6LoggerV0H0OSDySSAI13MetadataValueOGtcfc">init(label:<wbr>logLevel:<wbr>metadata:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -591,8 +533,7 @@ instance property <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13Spoti
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">logLevel</span><span class="p">:</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Level</span><span class="p">,</span>
-    <span class="nv">metadata</span><span class="p">:</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Metadata</span> <span class="o">=</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Metadata</span><span class="p">(),</span>
-    <span class="nv">assertOnCritical</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="nv">metadata</span><span class="p">:</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Metadata</span> <span class="o">=</span> <span class="kt">Logger</span><span class="o">.</span><span class="kt">Metadata</span><span class="p">()</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -634,19 +575,6 @@ instance property <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13Spoti
                               <td>
                                 <div>
                                   <p>Metadata for this logger.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>assertOnCritical</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If <code>true</code>, call <code>assertionFailure</code> when a logging
-message with a <code>critical</code> level is received. The default is <code>false</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -721,7 +649,7 @@ message with a <code>critical</code> level is received. The default is <code>fal
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-23)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

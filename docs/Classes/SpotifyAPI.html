@@ -468,28 +468,31 @@ having to login again everytime the app is quit and relaunched. See this
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A pass-through subject that emits whenever the authorization information
-changes.</p>
+                        <p>A publisher that emits whenever the authorization information
+ changes.</p>
 
 <p>Subscribe to this subject in order to update the persistent storage of
-the authorization information. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+ the authorization information. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
 <p>Emits after any of the following events occur:</p>
 
 <ul>
 <li>After the access and/or refresh tokens are retrieved.</li>
 <li>After the access token (and possible the refresh token) is refreshed.</li>
-<li>After <code>authorizationManager.deauthorize()</code> is called.</li>
-<li>After you assign a new authorization manager to the
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> property of this class.</li>
+<li>After you assign a new authorization manager to the <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code>
+property of this class.</li>
 </ul>
 
 <p>This publisher subscribes to the <code>didChange</code> publisher of
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> and emits whenever it emits.</p>
-<h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
-<p>No guarantees are made about which thread this subject will emit on.
-Always receive on the main thread if you plan on updating the UI.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C34authorizationManagerDidDeauthorize7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidDeauthorize</a></code>, a publisher that emits after
+ <code>authorizationManager.deauthorize()</code> is called.</p>
+
+<p># Thread Safety</p>
+
+<p>No guarantees are made about which thread this publisher will emit on.
+ Always receive on the main thread if you plan on updating the UI.</p>
 
                       </div>
                       <div class="declaration">
@@ -497,6 +500,50 @@ Always receive on the main thread if you plan on updating the UI.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">authorizationManagerDidChange</span><span class="p">:</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C34authorizationManagerDidDeauthorize7Combine18PassthroughSubjectCyyts5NeverOGvp"></a>
+                    <a name="//apple_ref/swift/Property/authorizationManagerDidDeauthorize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C34authorizationManagerDidDeauthorize7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidDeauthorize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A publisher that emits after <code>authorizationManager.deauthorize()</code> is
+ called.</p>
+
+<p><code>authorizationManager.deauthorize()</code> sets the authorization information
+ to <code>nil</code>.</p>
+
+<p>Subscribe to this publisher in order to remove the authorization
+ information from persistent storage when it emits.</p>
+
+<p>This publisher subscribes to the <code>didDeauthorize</code> publisher of
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> and emits whenever it emits.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code>.</p>
+
+<p># Thread Safety</p>
+
+<p>No guarantees are made about which thread this publisher will emit on.
+ Always receive on the main thread if you plan on updating the UI.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">authorizationManagerDidDeauthorize</span><span class="p">:</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -556,8 +603,8 @@ Always receive on the main thread if you plan on updating the UI.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Logs a message every time <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code> emits
-a signal.</p>
+                        <p>Logs a message every time <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code>
+or <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C34authorizationManagerDidDeauthorize7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidDeauthorize</a></code> emits a signal.</p>
 
                       </div>
                       <div class="declaration">
@@ -584,7 +631,7 @@ a signal.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Logs the URLs of the requests made to Spotify and,
+                        <p>Logs the URLs of the network requests made to Spotify and,
 if present, the body of the requests by converting the raw
 data to a string.</p>
 
@@ -2379,7 +2426,9 @@ are following it. See also <a href="https://developer.spotify.com/documentation/
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of <strong>up to 5 user URIs</strong>.</p>
+                                  <p>An array of <strong>up to 5 user URIs</strong>. Passing in an empty
+array will immediately cause an empty array of results to be
+returned without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4476,7 +4525,9 @@ Only use it for testing purposes.</p>
                                 <div>
                                   <p>An array of artist URIs. Maximum: 50.
   Passing in duplicates will result in a
-  502 &ldquo;Failed to check following status&rdquo; error.</p>
+  502 &ldquo;Failed to check following status&rdquo; error.
+  Passing in an empty array will immediately cause an empty array
+  of results to be returned without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4488,69 +4539,6 @@ Only use it for testing purposes.</p>
                         <p>An array of <code>true</code> or <code>false</code> values,
   in the order requested, indicating whether the user
   is following each artist.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
-                    <a name="//apple_ref/swift/Method/currentUserFollowsUsers(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Check if the current user follows the specified users.</p>
-
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:)</a></code> and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:userURIs:)</a></code>.</p>
-
-<p>This endpoint requires the <code>userFollowRead</code> scope.</p>
-
-<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/">Spotify web API reference</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserFollowsUsers</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>uris</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An array of user URIs. Maximum: 50.
-  Passing in duplicates will result in a
-  502 &ldquo;Failed to check following status&rdquo; error.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An array of <code>true</code> or <code>false</code> values,
-  in the order requested, indicating whether the user
-  is following each user.</p>
                       </div>
                     </section>
                   </div>
@@ -4600,62 +4588,8 @@ Only use it for testing purposes.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of artist URIs. Maximum: 50.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
-                    <a name="//apple_ref/swift/Method/followUsersForCurrentUser(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followUsersForCurrentUser(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Add the current user as a follower of one or more users.</p>
-
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followArtistsForCurrentUser(_:)</a></code> and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF">followPlaylistForCurrentUser(_:publicly:)</a></code>.</p>
-
-<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
-
-<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/">Spotify web API reference</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">followUsersForCurrentUser</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>uris</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An array of user URIs. Maximum: 50.</p>
+                                  <p>An array of artist URIs. Maximum: 50. Passing in
+  an empty array will prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4710,7 +4644,129 @@ Only use it for testing purposes.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of artist URIs. maximum: 50.</p>
+                                  <p>An array of artist URIs. maximum: 50. Passing in
+  an empty array will prevent a network request from being made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserFollowsUsers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if the current user follows the specified users.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:userURIs:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowRead</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserFollowsUsers</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of user URIs. Maximum: 50.
+  Passing in duplicates will result in a
+  502 &ldquo;Failed to check following status&rdquo; error.
+  Passing in an empty array will immediately cause an empty array
+  of results to be returned without a network request being made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <code>true</code> or <code>false</code> values,
+  in the order requested, indicating whether the user
+  is following each user.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/followUsersForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25followUsersForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followUsersForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add the current user as a follower of one or more users.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE27followArtistsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">followArtistsForCurrentUser(_:)</a></code> and
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE28followPlaylistForCurrentUser_8publicly7Combine12AnyPublisherVyyts5Error_pGAA0A14URIConvertible_p_SbtF">followPlaylistForCurrentUser(_:publicly:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">followUsersForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of user URIs. Maximum: 50. Passing in
+  an empty array will prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4765,7 +4821,8 @@ Only use it for testing purposes.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of user URIs. maximum: 50.</p>
+                                  <p>An array of user URIs. maximum: 50. Passing in
+  an empty array will prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5777,11 +5834,13 @@ play history, but does not include actions made while in incognito
 mode. Light or infrequent users of Spotify may not have sufficient
 play history to generate a full affinity data set. As a user’s behavior
 is likely to shift over time, this preference data is available over
-three time spans. See time_range in the query parameter table for more
+three time spans. See <code>timeRange</code> in the query parameter table for more
 information. For each time range, the top 50 artists are
 available for each user. In the future, it is likely that this
 restriction will be relaxed. This data is typically updated once
 each day for each user.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/">Spotify web API reference</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -5825,7 +5884,7 @@ Default: <code>mediumTerm</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Optional. The index of the first artist to return.
+                                  <p><em>Optional</em>. The index of the first artist to return.
 Default: 0. Use with limit to get the next set of artists.</p>
                                 </div>
                               </td>
@@ -5885,6 +5944,8 @@ available for each user. In the future, it is likely that this
 restriction will be relaxed. This data is typically updated once
 each day for each user.</p>
 
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/">Spotify web API reference</a>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -5927,7 +5988,7 @@ Default: <code>mediumTerm</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Optional. The index of the first track to return.
+                                  <p><em>Optional</em>. The index of the first track to return.
 Default: 0. Use with limit to get the next set of tracks.</p>
                                 </div>
                               </td>
@@ -8060,7 +8121,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-23)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

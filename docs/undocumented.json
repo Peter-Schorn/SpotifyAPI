@@ -2,7 +2,7 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/API/SpotifyAPI.swift",
-      "line": 196,
+      "line": 209,
       "symbol": "SpotifyAPI.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
