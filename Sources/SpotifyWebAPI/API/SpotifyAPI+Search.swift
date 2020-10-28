@@ -128,13 +128,8 @@ public extension SpotifyAPI {
                 .album, .artist, .playlist, .track, .show, .episode
             ]
             guard categories.allSatisfy({ validCategories.contains($0) }) else {
-                throw SpotifyLocalError.other(
-                    """
-                    Valid categories for the search endpoint are \
-                    \(validCategories.map(\.rawValue)), \
-                    but recieved \(categories.map(\.rawValue)).
-                    """
-                )
+                throw SpotifyLocalError.invalidIdCategory(
+                    expected: validCategories, received: categories)
             }
             
             let requiredScopes: Set<Scope> = market == "from_token" ?

@@ -201,6 +201,7 @@ extension SpotifyAPIArtistTests {
                 
                 XCTAssertEqual(album.type, .album)
                 XCTAssertEqual(album.albumGroup, .album)
+                XCTAssertEqual(album.albumType, .album)
                 XCTAssertEqual(album.artists?.first?.name, "Pink Floyd")
                 XCTAssertEqual(
                     album.artists?.first?.uri,

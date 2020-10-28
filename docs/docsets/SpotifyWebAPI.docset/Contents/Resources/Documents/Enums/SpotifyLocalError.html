@@ -532,9 +532,9 @@ your app does not have the required scopes for.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AFtcACmF"></a>
+                    <a name="/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AGtcACmF"></a>
                     <a name="//apple_ref/swift/Element/invalidIdCategory(expected:received:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AFtcACmF">invalidIdCategory(expected:<wbr>received:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A10LocalErrorO17invalidIdCategoryyACSayAA10IDCategoryOG_AGtcACmF">invalidIdCategory(expected:<wbr>received:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -542,13 +542,14 @@ your app does not have the required scopes for.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The category of a URI didn&rsquo;t match one of the expected categories.</p>
+                        <p>The id category or categories didn&rsquo;t match one of the expected categories.</p>
 
 <ul>
 <li>expected: The expected categories. Some endpoints allow for
 URIS from multiple categories. For example, the endpoint for
 adding items to a playlist allows for track or episode URIs.</li>
-<li>received: the id category that was received.</li>
+<li>received: the id category that was received. In some cases, multiple
+categories will be returned.</li>
 </ul>
 
 <p>For example, if you pass a track URI to the endpoint for retrieving
@@ -562,7 +563,7 @@ an artist, you will get this error.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">invalidIdCategory</span><span class="p">(</span>
-    <span class="nv">expected</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span> <span class="nv">received</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span>
+    <span class="nv">expected</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span> <span class="nv">received</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">]</span>
 <span class="p">)</span></code></pre>
 
                         </div>

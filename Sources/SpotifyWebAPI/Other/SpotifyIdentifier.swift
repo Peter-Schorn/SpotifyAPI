@@ -34,12 +34,22 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
-        return try uris.map { uri in
-            try Self(
-                uri: uri, ensureCategoryMatches: categories
-            ).id
+        let identifiers = try uris.map { uri in
+            try Self(uri: uri)
         }
-        .joined(separator: ",")
+        let allIdCategories = identifiers.map(\.idCategory).removingDuplicates()
+        
+        if let categories = categories {
+            if !allIdCategories.allSatisfy({ category in
+                categories.contains(category)
+            }) {
+                throw SpotifyLocalError.invalidIdCategory(
+                    expected: categories, received: allIdCategories
+                )
+            }
+        }
+        
+        return identifiers.map(\.id).joined(separator: ",")
         
     }
     
@@ -171,7 +181,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             if let categories = categories,
                     !categories.contains(idCategory) {
                 throw SpotifyLocalError.invalidIdCategory(
-                    expected: categories, received: idCategory
+                    expected: categories, received: [idCategory]
                 )
             }
             

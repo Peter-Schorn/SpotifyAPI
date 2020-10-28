@@ -354,6 +354,59 @@ extension SpotifyAPITrackTests {
 
     }
     
+    func invalidIdCategories() {
+        
+        func validateError(_ error: Error) {
+            print("\n\n\(error)\n\n")
+            guard let localError = error as? SpotifyLocalError else {
+                XCTFail("should've received SpotifyLocalError: \(error)")
+                return
+            }
+            
+            if case .invalidIdCategory(let expected, let received) = localError {
+                XCTAssertEqual(expected, [.track])
+                XCTAssertEqual(received, [.album, .artist, .show, .track])
+            }
+            else {
+                XCTFail("should've received invalid id category error: \(localError)")
+            }
+        }
+        
+        let expectation = XCTestExpectation(
+            description: "testInvalidIdCategories"
+        )
+        
+        let items: [SpotifyURIConvertible] = [
+            URIs.Albums.darkSideOfTheMoon,
+            URIs.Albums.housesOfTheHoly,
+            URIs.Artists.aTribeCalledQuest,
+            URIs.Artists.crumb,
+            URIs.Shows.samHarris,
+            URIs.Tracks.because,
+            URIs.Tracks.comeTogether
+        ]
+        
+        Self.spotify.tracks(items)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                        case .finished:
+                            XCTFail("publisher should not complete normally")
+                        case .failure(let error):
+                            validateError(error)
+                    }
+                    expectation.fulfill()
+                },
+                receiveValue: { _ in
+                    XCTFail("should not receive value")
+                }
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 10)
+                  
+    }
+    
     func trackAudioAnalysis() {
         
         func receiveAudioAnalysis(_ track: AudioAnalysis) {
@@ -866,7 +919,9 @@ extension SpotifyAPITrackTests {
         self.wait(for: [expectation], timeout: 120)
 
     }
+ 
     
+
 }
 
 final class SpotifyAPIClientCredentialsFlowTrackTests:
@@ -879,12 +934,14 @@ final class SpotifyAPIClientCredentialsFlowTrackTests:
         ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
-        ("testTracksAudioFeatures", testTracksAudioFeatures)
+        ("testTracksAudioFeatures", testTracksAudioFeatures),
+        ("testInvalidIdCategories", testInvalidIdCategories)
     ]
     
     func testTrack() { track() }
     func testTrackLink() { trackLink() }
     func testTracks() { tracks() }
+    func testInvalidIdCategories() { invalidIdCategories() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }
@@ -901,12 +958,14 @@ final class SpotifyAPIAuthorizationCodeFlowTrackTests:
         ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
-        ("testTracksAudioFeatures", testTracksAudioFeatures)
+        ("testTracksAudioFeatures", testTracksAudioFeatures),
+        ("testInvalidIdCategories", testInvalidIdCategories)
     ]
     
     func testTrack() { track() }
     func testTrackLink() { trackLink() }
     func testTracks() { tracks() }
+    func testInvalidIdCategories() { invalidIdCategories() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }
@@ -923,12 +982,14 @@ final class SpotifyAPIAuthorizationCodeFlowPKCETrackTests:
         ("testTracks", testTracks),
         ("testTrackAudioAnalysis", testTrackAudioAnalysis),
         ("testTrackAudioFeatures", testTrackAudioFeatures),
-        ("testTracksAudioFeatures", testTracksAudioFeatures)
+        ("testTracksAudioFeatures", testTracksAudioFeatures),
+        ("testInvalidIdCategories", testInvalidIdCategories)
     ]
     
     func testTrack() { track() }
     func testTrackLink() { trackLink() }
     func testTracks() { tracks() }
+    func testInvalidIdCategories() { invalidIdCategories() }
     func testTrackAudioAnalysis() { trackAudioAnalysis() }
     func testTrackAudioFeatures() { trackAudioFeatures() }
     func testTracksAudioFeatures() { tracksAudioFeatures() }

@@ -49,12 +49,13 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     )
     
     /**
-     The category of a URI didn't match one of the expected categories.
+     The id category or categories didn't match one of the expected categories.
     
       - expected: The expected categories. Some endpoints allow for
         URIS from multiple categories. For example, the endpoint for
         adding items to a playlist allows for track or episode URIs.
-      - received: the id category that was received.
+      - received: the id category that was received. In some cases, multiple
+        categories will be returned.
     
      For example, if you pass a track URI to the endpoint for retrieving
      an artist, you will get this error.
@@ -62,7 +63,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
      See also `IDCategory`.
      */
     case invalidIdCategory(
-        expected: [IDCategory], received: IDCategory
+        expected: [IDCategory], received: [IDCategory]
     )
     
     /**
@@ -131,16 +132,16 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
             case .insufficientScope(let required, let authorized):
                 return """
                     SpotifyLocalError.insufficientScope: The endpoint you \
-                    tried to access requires the following scopes:
-                    \(required.map(\.rawValue))
-                    but your app is only authorized for theses scopes:
+                    tried to access requires the following scopes: \
+                    \(required.map(\.rawValue)) \
+                    but your app is only authorized for theses scopes: \
                     \(authorized.map(\.rawValue))
                     """
             case .invalidIdCategory(let expected, let received):
                 return """
-                    SpotifyLocalError.invalidIdCategory: expected URI to be \
-                    one of the following types: \(expected.map(\.rawValue)),
-                    but received \(received.rawValue)
+                    SpotifyLocalError.invalidIdCategory: expected id categories \
+                    to match the following: \(expected.map(\.rawValue)), \
+                    but received \(received.map(\.rawValue))
                     """
             case .topLevelKeyNotFound(let key, let dict):
                 return """

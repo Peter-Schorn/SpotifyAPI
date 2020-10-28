@@ -100,12 +100,8 @@ private extension SpotifyAPI {
         }
         else {
             guard additionalTypes.allSatisfy({ validTypes.contains($0) }) else {
-                throw SpotifyLocalError.other(
-                    """
-                    Valid types for 'additionalTypes' are \
-                    \(validTypes.map(\.rawValue)), \
-                    but recieved: \(additionalTypes.map(\.rawValue)).
-                    """
+                throw SpotifyLocalError.invalidIdCategory(
+                    expected: validTypes, received: additionalTypes
                 )
             }
             return additionalTypes

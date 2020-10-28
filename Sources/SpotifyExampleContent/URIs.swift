@@ -91,6 +91,8 @@ public enum URIs {
         case longestAlbum = "spotify:album:1Hnvk7i2oLf4ZQnOB8kYqt"
         case inRainbows = "spotify:album:7eyQXxuf2nGj9d2367Gi5f"
         case abbeyRoad = "spotify:album:0ETFjACtuP2ADo6LFhL6HN"
+        case illmatic = "spotify:album:3kEtdS2pH6hKcMU9Wioob1"
+        case housesOfTheHoly = "spotify:album:0GqpoHJREPp0iuXK3HzrHk"
     }
 
     /// A namespace of track URIs.

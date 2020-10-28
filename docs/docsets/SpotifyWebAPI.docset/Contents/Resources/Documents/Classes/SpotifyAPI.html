@@ -5501,7 +5501,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                               <td>
                                 <div>
                                   <p>An array of album URIs. Maximum: 50.
-  Duplicates will be ignored.</p>
+  Duplicates will be ignored. A single invalid URI causes
+  the entire request to fail.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5554,7 +5555,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                               <td>
                                 <div>
                                   <p>An array of track URIs. Maximum: 50.
-  Duplicates will be ignored.</p>
+  Duplicates will be ignored. A single invalid URI causes
+  the entire request to fail.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5607,7 +5609,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                               <td>
                                 <div>
                                   <p>An array of show URIs. Maximum: 50.
-  Duplicates will be ignored.</p>
+  Duplicates will be ignored. A single invalid URI causes
+  the entire request to fail.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5630,7 +5633,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Remove albums saved albums for the current user.</p>
+                        <p>Remove saved albums for the current user.</p>
 
 <p>This endpoint requires the <code>userLibraryModify</code> scope.</p>
 
@@ -5683,7 +5686,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Remove albums saved tracks for the current user.</p>
+                        <p>Remove saved tracks for the current user.</p>
 
 <p>This endpoint requires the <code>userLibraryModify</code> scope.</p>
 
@@ -5736,7 +5739,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Remove albums saved albums for the current user.</p>
+                        <p>Remove saved shows for the current user.</p>
 
 <p>This endpoint requires the <code>userLibraryModify</code> scope.</p>
 

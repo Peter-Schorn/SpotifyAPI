@@ -190,7 +190,7 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<PagingObject<SavedItem<Track>>, Error> {
         
         return self.getRequest(
-            path: "/me/albums",
+            path: "/me/tracks",
             queryItems: [
                 "limit": limit,
                 "offset": offset,
@@ -326,7 +326,7 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<[Bool], Error> {
         
         return self.currentUserLibraryContains(
-            uris: uris, type: .show, path: "/me/tracks/contains"
+            uris: uris, type: .show, path: "/me/shows/contains"
         )
 
     }
@@ -339,7 +339,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of album URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-albums-user/
      */
@@ -361,7 +362,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of track URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-tracks-user/
      */
@@ -383,7 +385,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of show URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-shows-user/
      */
@@ -398,7 +401,7 @@ public extension SpotifyAPI where
     }
     
     /**
-     Remove albums saved albums for the current user.
+     Remove saved albums for the current user.
      
      This endpoint requires the `userLibraryModify` scope.
      
@@ -419,7 +422,7 @@ public extension SpotifyAPI where
     }
     
     /**
-     Remove albums saved tracks for the current user.
+     Remove saved tracks for the current user.
      
      This endpoint requires the `userLibraryModify` scope.
      
@@ -440,7 +443,7 @@ public extension SpotifyAPI where
     }
     
     /**
-     Remove albums saved albums for the current user.
+     Remove saved shows for the current user.
      
      This endpoint requires the `userLibraryModify` scope.
      

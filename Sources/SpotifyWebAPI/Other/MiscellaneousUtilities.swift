@@ -135,6 +135,22 @@ public extension Sequence where
     
 }
 
+public extension Sequence where Element: Equatable {
+    
+    /// Returns an array with only the unique elements of this sequence.
+    func removingDuplicates() -> [Element] {
+        var uniqueElements: [Element] = []
+        for element in self {
+            if !uniqueElements.contains(element) {
+                uniqueElements.append(element)
+            }
+        }
+        return uniqueElements
+    }
+
+}
+
+
 // MARK: - Optional Extensions -
 
 
