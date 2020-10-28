@@ -32,7 +32,7 @@ public struct ResumePoint: Codable, Hashable {
         self.resumePositionMS = resumePositionMS
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case fullyPlayed = "fully_played"
         case resumePositionMS = "resume_position_ms"
     }

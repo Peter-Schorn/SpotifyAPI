@@ -78,7 +78,7 @@ extension URIsContainer: Codable {
         
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case snapshotId = "snapshot_id"
         case items = "tracks"
     }

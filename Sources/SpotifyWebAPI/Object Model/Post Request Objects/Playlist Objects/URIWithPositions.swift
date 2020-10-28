@@ -68,7 +68,7 @@ extension URIWithPositions: Codable {
         )
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case uri, positions
     }
     

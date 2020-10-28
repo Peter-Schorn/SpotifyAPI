@@ -87,7 +87,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     }
     
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case snapshotId = "snapshot_id"
         case urisWithPositions = "tracks"
     }

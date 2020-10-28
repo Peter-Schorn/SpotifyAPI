@@ -620,7 +620,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .catch { error -> AnyPublisher<Void, Error> in
                 if let spotifyPlayerError = error as? SpotifyPlayerError {
                     XCTAssertEqual(
-                        spotifyPlayerError.reason, "VOLUME_CONTROL_DISALLOW",
+                        spotifyPlayerError.reason, .volumeControlDisallow,
                         "\(spotifyPlayerError)"
                     )
                 }

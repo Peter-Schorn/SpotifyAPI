@@ -108,7 +108,7 @@ public struct CurrentlyPlayingContext: Hashable {
 
 extension CurrentlyPlayingContext: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case device
         case repeatState = "repeat_state"
         case shuffleIsOn = "shuffle_state"

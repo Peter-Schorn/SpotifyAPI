@@ -17,7 +17,7 @@
     <a title="SpotifyPlayerError Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (94% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -368,6 +368,9 @@
                 <a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
               <li class="nav-group-task">
@@ -412,32 +415,37 @@ property:</p>
 <p>The player <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">error reasons</a>:</p>
 
 <ul>
-<li><strong>NO_PREV_TRACK</strong>: The command requires a previous track, but there is none in
+<li><code>noPreviousTrack</code>: The command requires a previous track, but there is none in
 the context.</li>
-<li><strong>NO_NEXT_TRACK</strong>: The command requires a next track, but there is none in the
+<li><code>noNextTrack</code>: The command requires a next track, but there is none in the
 context.</li>
-<li><strong>NO_SPECIFIC_TRACK</strong>: The requested track does not exist.</li>
-<li><strong>ALREADY_PAUSED</strong>: The command requires playback to not be paused.</li>
-<li><strong>NOT_PAUSED</strong>: The command requires playback to be paused.</li>
-<li><strong>NOT_PLAYING_LOCALLY</strong>: The command requires playback on the local device.</li>
-<li><strong>NOT_PLAYING_TRACK</strong>: The command requires that a track is currently playing.</li>
-<li><strong>NOT_PLAYING_CONTEXT</strong>: The command requires that a context is currently 
+<li><code>noSpecificTrack</code>: The requested track does not exist.</li>
+<li><code>alreadyPaused</code>: The command requires playback to not be paused.</li>
+<li><code>notPaused</code>: The command requires playback to be paused.</li>
+<li><code>notPlayingLocally</code>: The command requires playback on the local device.</li>
+<li><code>notPlayingTrack</code>: The command requires that a track is currently playing.</li>
+<li><code>notPlayingContext</code>: The command requires that a context is currently
 playing.</li>
-<li><strong>ENDLESS_CONTEXT</strong>: The shuffle command cannot be applied on an endless
+<li><code>endlessContext</code>: The shuffle command cannot be applied on an endless
 context.</li>
-<li><strong>CONTEXT_DISALLOW</strong>: The command could not be performed on the context.</li>
-<li><strong>ALREADY_PLAYING</strong>: The track should not be restarted if the same track and
+<li><code>contextDisallow</code>: The command could not be performed on the context.</li>
+<li><code>alreadyPlaying</code>: The track should not be restarted if the same track and
 context is already playing, and there is a resume point.</li>
-<li><strong>RATE_LIMITED</strong>: The user is rate limited due to too frequent track play,
+<li><code>rateLimited</code>: The user is rate limited due to too frequent track play,
 also known as cat-on-the-keyboard spamming.</li>
-<li><strong>REMOTE_CONTROL_DISALLOW</strong>: The context cannot be remote-controlled.</li>
-<li><strong>DEVICE_NOT_CONTROLLABLE</strong>: Not possible to remote control the device.</li>
-<li><strong>VOLUME_CONTROL_DISALLOW</strong>: Not possible to remote control the device’s
+<li><code>remoteControlDisallow</code>: The context cannot be remote-controlled.</li>
+<li><code>deviceNotControllable</code>: Not possible to remote control the device.</li>
+<li><code>volumeControlDisallow</code>: Not possible to remote control the device’s
 volume.</li>
-<li><strong>NO_ACTIVE_DEVICE</strong>: Requires an active device and the user has none.</li>
-<li><strong>PREMIUM_REQUIRED</strong>: The request is prohibited for non-premium users.</li>
-<li><strong>UNKNOWN</strong>: Certain actions are restricted because of unknown reasons
-(a common reason for this error is passing in the id of a non-active device).</li>
+<li><code>noActiveDevice</code>: Requires an active device and the user has none.</li>
+<li><code>premiumRequired</code>: The request is prohibited for non-premium users.</li>
+<li><code>unknown</code>: Certain actions are restricted because of unknown reasons.
+A common reason for this error is passing in the id of a non-active
+device, trying to play content when content is already playing, and
+trying to pause playback when playback is already paused.
+Unfortunately, there is a bug at the moment with the Spotify API
+in which this error reason is returned for many requests instead
+of one of the more specific errors above.</li>
 </ul>
 
 <p>The <a href="https://developer.spotify.com/documentation/web-api/#response-status-codes">status Codes</a>:</p>
@@ -495,9 +503,9 @@ You can choose to resend the request again.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV6reasonSSvp"></a>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV6reasonAC0E6ReasonOvp"></a>
                     <a name="//apple_ref/swift/Property/reason" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV6reasonSSvp">reason</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV6reasonAC0E6ReasonOvp">reason</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -508,33 +516,37 @@ You can choose to resend the request again.</li>
                         <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>.</p>
 
 <ul>
-<li><strong>NO_PREV_TRACK</strong>: The command requires a previous track, but there is none in
+<li><code>noPreviousTrack</code>: The command requires a previous track, but there is none in
 the context.</li>
-<li><strong>NO_NEXT_TRACK</strong>: The command requires a next track, but there is none in the
+<li><code>noNextTrack</code>: The command requires a next track, but there is none in the
 context.</li>
-<li><strong>NO_SPECIFIC_TRACK</strong>: The requested track does not exist.</li>
-<li><strong>ALREADY_PAUSED</strong>: The command requires playback to not be paused.</li>
-<li><strong>NOT_PAUSED</strong>: The command requires playback to be paused.</li>
-<li><strong>NOT_PLAYING_LOCALLY</strong>: The command requires playback on the local device.</li>
-<li><strong>NOT_PLAYING_TRACK</strong>: The command requires that a track is currently playing.</li>
-<li><strong>NOT_PLAYING_CONTEXT</strong>: The command requires that a context is currently
+<li><code>noSpecificTrack</code>: The requested track does not exist.</li>
+<li><code>alreadyPaused</code>: The command requires playback to not be paused.</li>
+<li><code>notPaused</code>: The command requires playback to be paused.</li>
+<li><code>notPlayingLocally</code>: The command requires playback on the local device.</li>
+<li><code>notPlayingTrack</code>: The command requires that a track is currently playing.</li>
+<li><code>notPlayingContext</code>: The command requires that a context is currently
 playing.</li>
-<li><strong>ENDLESS_CONTEXT</strong>: The shuffle command cannot be applied on an endless
+<li><code>endlessContext</code>: The shuffle command cannot be applied on an endless
 context.</li>
-<li><strong>CONTEXT_DISALLOW</strong>: The command could not be performed on the context.</li>
-<li><strong>ALREADY_PLAYING</strong>: The track should not be restarted if the same track and
+<li><code>contextDisallow</code>: The command could not be performed on the context.</li>
+<li><code>alreadyPlaying</code>: The track should not be restarted if the same track and
 context is already playing, and there is a resume point.</li>
-<li>*
-ATE_LIMITED**: The user is rate limited due to too frequent track play,
+<li><code>rateLimited</code>: The user is rate limited due to too frequent track play,
 also known as cat-on-the-keyboard spamming.</li>
-<li><strong>REMOTE_CONTROL_DISALLOW</strong>: The context cannot be remote-controlled.</li>
-<li><strong>DEVICE_NOT_CONTROLLABLE</strong>: Not possible to remote control the device.</li>
-<li><strong>VOLUME_CONTROL_DISALLOW</strong>: Not possible to remote control the device’s
+<li><code>remoteControlDisallow</code>: The context cannot be remote-controlled.</li>
+<li><code>deviceNotControllable</code>: Not possible to remote control the device.</li>
+<li><code>volumeControlDisallow</code>: Not possible to remote control the device’s
 volume.</li>
-<li><strong>NO_ACTIVE_DEVICE</strong>: Requires an active device and the user has none.</li>
-<li><strong>PREMIUM_REQUIRED</strong>: The request is prohibited for non-premium users.</li>
-<li><strong>UNKNOWN</strong>: Certain actions are restricted because of unknown reasons
-(a common reason for this error is passing in the id of a non-active device).</li>
+<li><code>noActiveDevice</code>: Requires an active device and the user has none.</li>
+<li><code>premiumRequired</code>: The request is prohibited for non-premium users.</li>
+<li><code>unknown</code>: Certain actions are restricted because of unknown reasons.
+A common reason for this error is passing in the id of a non-active
+device, trying to play content when content is already playing, and
+trying to pause playback when playback is already paused.
+Unfortunately, there is a bug at the moment with the Spotify API
+in which this error reason is returned for many requests instead
+of one of the more specific errors above.</li>
 </ul>
 
                       </div>
@@ -542,7 +554,7 @@ volume.</li>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt"><a href="../Structs/SpotifyPlayerError/ErrorReason.html">ErrorReason</a></span></code></pre>
 
                         </div>
                       </div>
@@ -626,6 +638,68 @@ You can choose to resend the request again.</li>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO"></a>
+                    <a name="//apple_ref/swift/Enum/ErrorReason" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO">ErrorReason</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>.</p>
+
+<ul>
+<li><code>noPreviousTrack</code>: The command requires a previous track, but there is none in
+the context.</li>
+<li><code>noNextTrack</code>: The command requires a next track, but there is none in the
+context.</li>
+<li><code>noSpecificTrack</code>: The requested track does not exist.</li>
+<li><code>alreadyPaused</code>: The command requires playback to not be paused.</li>
+<li><code>notPaused</code>: The command requires playback to be paused.</li>
+<li><code>notPlayingLocally</code>: The command requires playback on the local device.</li>
+<li><code>notPlayingTrack</code>: The command requires that a track is currently playing.</li>
+<li><code>notPlayingContext</code>: The command requires that a context is currently
+playing.</li>
+<li><code>endlessContext</code>: The shuffle command cannot be applied on an endless
+context.</li>
+<li><code>contextDisallow</code>: The command could not be performed on the context.</li>
+<li><code>alreadyPlaying</code>: The track should not be restarted if the same track and
+context is already playing, and there is a resume point.</li>
+<li><code>rateLimited</code>: The user is rate limited due to too frequent track play,
+also known as cat-on-the-keyboard spamming.</li>
+<li><code>remoteControlDisallow</code>: The context cannot be remote-controlled.</li>
+<li><code>deviceNotControllable</code>: Not possible to remote control the device.</li>
+<li><code>volumeControlDisallow</code>: Not possible to remote control the device’s
+volume.</li>
+<li><code>noActiveDevice</code>: Requires an active device and the user has none.</li>
+<li><code>premiumRequired</code>: The request is prohibited for non-premium users.</li>
+<li><code>unknown</code>: Certain actions are restricted because of unknown reasons.
+A common reason for this error is passing in the id of a non-active
+device, trying to play content when content is already playing, and
+trying to pause playback when playback is already paused.
+Unfortunately, there is a bug at the moment with the Spotify API
+in which this error reason is returned for many requests instead
+of one of the more specific errors above.</li>
+</ul>
+
+                        <a href="../Structs/SpotifyPlayerError/ErrorReason.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ErrorReason</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
@@ -680,7 +754,7 @@ You can choose to resend the request again.</li>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-27)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-28)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

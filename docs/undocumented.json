@@ -8,6 +8,48 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyAuthenticationError.swift",
+      "line": 52,
+      "symbol": "SpotifyAuthenticationError.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyError.swift",
+      "line": 113,
+      "symbol": "SpotifyError.TopLevelCodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyError.swift",
+      "line": 117,
+      "symbol": "SpotifyError.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyPlayerError.swift",
+      "line": 302,
+      "symbol": "SpotifyPlayerError.TopLevelCodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Errors/SpotifyPlayerError.swift",
+      "line": 306,
+      "symbol": "SpotifyPlayerError.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Audio Analysis Objects/AudioFeatures.swift",
+      "line": 157,
+      "symbol": "AudioFeatures.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Audio Analysis Objects/Section.swift",
       "line": 242,
       "symbol": "Section.CodingKeys",
@@ -18,6 +60,13 @@
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Audio Analysis Objects/Segment.swift",
       "line": 189,
       "symbol": "Segment.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Music Objects/Album.swift",
+      "line": 414,
+      "symbol": "Album.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
@@ -95,6 +144,13 @@
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/TrackLink.swift",
       "line": 80,
       "symbol": "TrackLink.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/CurrentlyPlayingContext.swift",
+      "line": 111,
+      "symbol": "CurrentlyPlayingContext.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
@@ -274,6 +330,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/ResumePoint.swift",
+      "line": 35,
+      "symbol": "ResumePoint.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Player Objects/SpotifyContext.swift",
       "line": 48,
       "symbol": "SpotifyContext.CodingKeys",
@@ -291,6 +354,13 @@
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/Playlist.swift",
       "line": 222,
       "symbol": "Playlist.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItem.swift",
+      "line": 182,
+      "symbol": "PlaylistItem.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
@@ -351,9 +421,37 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/PlaylistDetails.swift",
+      "line": 97,
+      "symbol": "PlaylistDetails.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/ReorderPlaylistItems.swift",
       "line": 136,
       "symbol": "ReorderPlaylistItems.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/URIWithPositions.swift",
+      "line": 71,
+      "symbol": "URIWithPositions.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/URIsContainer.swift",
+      "line": 81,
+      "symbol": "URIsContainer.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/URIsWithPositionsContainer.swift",
+      "line": 90,
+      "symbol": "URIsWithPositionsContainer.CodingKeys",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     }

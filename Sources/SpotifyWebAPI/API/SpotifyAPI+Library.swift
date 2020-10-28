@@ -260,7 +260,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of album URIs. Maximum: 50.
            Duplicate albums in the request will result in
-           duplicate values in the response.
+           duplicate values in the response. A single invalid URI causes
+           the entire request to fail.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each album.
@@ -287,7 +288,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of track URIs. Maximum: 50.
            Duplicate tracks in the request will result in
-           duplicate values in the response.
+           duplicate values in the response. A single invalid URI causes
+           the entire request to fail.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each track.
@@ -314,7 +316,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of show URIs. Maximum: 50.
            Duplicate shows in the request will result in
-           duplicate values in the response.
+           duplicate values in the response. A single invalid URI causes
+           the entire request to fail.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each show.
@@ -408,7 +411,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of album URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-albums-user/
      */
@@ -429,7 +433,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of track URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-tracks-user/
      */
@@ -451,7 +456,8 @@ public extension SpotifyAPI where
      
      - Parameters:
        - uris: An array of album URIs. Maximum: 50.
-           Duplicates will be ignored.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
              If a country code is specified, only shows that are available
              in that market will be removed. If a valid user access token is

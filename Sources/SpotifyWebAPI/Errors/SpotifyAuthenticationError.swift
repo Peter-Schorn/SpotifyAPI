@@ -49,7 +49,7 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
 
 extension SpotifyAuthenticationError: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case error
         case description = "error_description"
     }

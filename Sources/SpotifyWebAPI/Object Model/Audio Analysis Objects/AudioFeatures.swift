@@ -154,7 +154,7 @@ public struct AudioFeatures: Codable, Hashable {
     /// The object type. Always "audio_features".
     public let type: String
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case key
         case mode
         case timeSignature = "time_signature"

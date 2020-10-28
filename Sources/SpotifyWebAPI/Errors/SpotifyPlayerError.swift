@@ -18,33 +18,38 @@ import Foundation
  * `statusCode`: The HTTP status code that is also returned in the response header.
  
  The player [error reasons][2]:
- 
- * **NO_PREV_TRACK**: The command requires a previous track, but there is none in
+  
+ * `noPreviousTrack`: The command requires a previous track, but there is none in
    the context.
- * **NO_NEXT_TRACK**: The command requires a next track, but there is none in the
+ * `noNextTrack`: The command requires a next track, but there is none in the
    context.
- * **NO_SPECIFIC_TRACK**: The requested track does not exist.
- * **ALREADY_PAUSED**: The command requires playback to not be paused.
- * **NOT_PAUSED**: The command requires playback to be paused.
- * **NOT_PLAYING_LOCALLY**: The command requires playback on the local device.
- * **NOT_PLAYING_TRACK**: The command requires that a track is currently playing.
- * **NOT_PLAYING_CONTEXT**: The command requires that a context is currently 
+ * `noSpecificTrack`: The requested track does not exist.
+ * `alreadyPaused`: The command requires playback to not be paused.
+ * `notPaused`: The command requires playback to be paused.
+ * `notPlayingLocally`: The command requires playback on the local device.
+ * `notPlayingTrack`: The command requires that a track is currently playing.
+ * `notPlayingContext`: The command requires that a context is currently
    playing.
- * **ENDLESS_CONTEXT**: The shuffle command cannot be applied on an endless
+ * `endlessContext`: The shuffle command cannot be applied on an endless
    context.
- * **CONTEXT_DISALLOW**: The command could not be performed on the context.
- * **ALREADY_PLAYING**: The track should not be restarted if the same track and
+ * `contextDisallow`: The command could not be performed on the context.
+ * `alreadyPlaying`: The track should not be restarted if the same track and
    context is already playing, and there is a resume point.
- * **RATE_LIMITED**: The user is rate limited due to too frequent track play,
+ * `rateLimited`: The user is rate limited due to too frequent track play,
    also known as cat-on-the-keyboard spamming.
- * **REMOTE_CONTROL_DISALLOW**: The context cannot be remote-controlled.
- * **DEVICE_NOT_CONTROLLABLE**: Not possible to remote control the device.
- * **VOLUME_CONTROL_DISALLOW**: Not possible to remote control the device’s
+ * `remoteControlDisallow`: The context cannot be remote-controlled.
+ * `deviceNotControllable`: Not possible to remote control the device.
+ * `volumeControlDisallow`: Not possible to remote control the device’s
    volume.
- * **NO_ACTIVE_DEVICE**: Requires an active device and the user has none.
- * **PREMIUM_REQUIRED**: The request is prohibited for non-premium users.
- * **UNKNOWN**: Certain actions are restricted because of unknown reasons
-   (a common reason for this error is passing in the id of a non-active device).
+ * `noActiveDevice`: Requires an active device and the user has none.
+ * `premiumRequired`: The request is prohibited for non-premium users.
+ * `unknown`: Certain actions are restricted because of unknown reasons.
+   A common reason for this error is passing in the id of a non-active
+   device, trying to play content when content is already playing, and
+   trying to pause playback when playback is already paused.
+   Unfortunately, there is a bug at the moment with the Spotify API
+   in which this error reason is returned for many requests instead
+   of one of the more specific errors above.
  
  The [status Codes][3]:
  
@@ -78,37 +83,41 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
     /**
      A [player error reason][1].
      
-     * **NO_PREV_TRACK**: The command requires a previous track, but there is none in
+     * `noPreviousTrack`: The command requires a previous track, but there is none in
        the context.
-     * **NO_NEXT_TRACK**: The command requires a next track, but there is none in the
+     * `noNextTrack`: The command requires a next track, but there is none in the
        context.
-     * **NO_SPECIFIC_TRACK**: The requested track does not exist.
-     * **ALREADY_PAUSED**: The command requires playback to not be paused.
-     * **NOT_PAUSED**: The command requires playback to be paused.
-     * **NOT_PLAYING_LOCALLY**: The command requires playback on the local device.
-     * **NOT_PLAYING_TRACK**: The command requires that a track is currently playing.
-     * **NOT_PLAYING_CONTEXT**: The command requires that a context is currently
+     * `noSpecificTrack`: The requested track does not exist.
+     * `alreadyPaused`: The command requires playback to not be paused.
+     * `notPaused`: The command requires playback to be paused.
+     * `notPlayingLocally`: The command requires playback on the local device.
+     * `notPlayingTrack`: The command requires that a track is currently playing.
+     * `notPlayingContext`: The command requires that a context is currently
        playing.
-     * **ENDLESS_CONTEXT**: The shuffle command cannot be applied on an endless
+     * `endlessContext`: The shuffle command cannot be applied on an endless
        context.
-     * **CONTEXT_DISALLOW**: The command could not be performed on the context.
-     * **ALREADY_PLAYING**: The track should not be restarted if the same track and
+     * `contextDisallow`: The command could not be performed on the context.
+     * `alreadyPlaying`: The track should not be restarted if the same track and
        context is already playing, and there is a resume point.
-     * *
-     ATE_LIMITED**: The user is rate limited due to too frequent track play,
+     * `rateLimited`: The user is rate limited due to too frequent track play,
        also known as cat-on-the-keyboard spamming.
-     * **REMOTE_CONTROL_DISALLOW**: The context cannot be remote-controlled.
-     * **DEVICE_NOT_CONTROLLABLE**: Not possible to remote control the device.
-     * **VOLUME_CONTROL_DISALLOW**: Not possible to remote control the device’s
+     * `remoteControlDisallow`: The context cannot be remote-controlled.
+     * `deviceNotControllable`: Not possible to remote control the device.
+     * `volumeControlDisallow`: Not possible to remote control the device’s
        volume.
-     * **NO_ACTIVE_DEVICE**: Requires an active device and the user has none.
-     * **PREMIUM_REQUIRED**: The request is prohibited for non-premium users.
-     * **UNKNOWN**: Certain actions are restricted because of unknown reasons
-       (a common reason for this error is passing in the id of a non-active device).
+     * `noActiveDevice`: Requires an active device and the user has none.
+     * `premiumRequired`: The request is prohibited for non-premium users.
+     * `unknown`: Certain actions are restricted because of unknown reasons.
+       A common reason for this error is passing in the id of a non-active
+       device, trying to play content when content is already playing, and
+       trying to pause playback when playback is already paused.
+       Unfortunately, there is a bug at the moment with the Spotify API
+       in which this error reason is returned for many requests instead
+       of one of the more specific errors above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      */
-    public let reason: String
+    public let reason: ErrorReason
     
     /**
      The HTTP status code that is also returned in the response header.
@@ -140,6 +149,116 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
         "\(message) (status code: \(statusCode))"
     }
     
+    /**
+     A [player error reason][1].
+     
+     * `noPreviousTrack`: The command requires a previous track, but there is none in
+       the context.
+     * `noNextTrack`: The command requires a next track, but there is none in the
+       context.
+     * `noSpecificTrack`: The requested track does not exist.
+     * `alreadyPaused`: The command requires playback to not be paused.
+     * `notPaused`: The command requires playback to be paused.
+     * `notPlayingLocally`: The command requires playback on the local device.
+     * `notPlayingTrack`: The command requires that a track is currently playing.
+     * `notPlayingContext`: The command requires that a context is currently
+       playing.
+     * `endlessContext`: The shuffle command cannot be applied on an endless
+       context.
+     * `contextDisallow`: The command could not be performed on the context.
+     * `alreadyPlaying`: The track should not be restarted if the same track and
+       context is already playing, and there is a resume point.
+     * `rateLimited`: The user is rate limited due to too frequent track play,
+       also known as cat-on-the-keyboard spamming.
+     * `remoteControlDisallow`: The context cannot be remote-controlled.
+     * `deviceNotControllable`: Not possible to remote control the device.
+     * `volumeControlDisallow`: Not possible to remote control the device’s
+       volume.
+     * `noActiveDevice`: Requires an active device and the user has none.
+     * `premiumRequired`: The request is prohibited for non-premium users.
+     * `unknown`: Certain actions are restricted because of unknown reasons.
+       A common reason for this error is passing in the id of a non-active
+       device, trying to play content when content is already playing, and
+       trying to pause playback when playback is already paused.
+       Unfortunately, there is a bug at the moment with the Spotify API
+       in which this error reason is returned for many requests instead
+       of one of the more specific errors above.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     */
+    public enum ErrorReason: String, Codable, Hashable {
+        
+        /// The command requires a previous track, but there is none in
+        /// the context.
+        case noPreviousTrack = "NO_PREV_TRACK"
+        
+        /// The command requires a next track, but there is none in the
+        /// context.
+        case noNextTrack = "NO_NEXT_TRACK"
+        
+        /// The requested track does not exist.
+        case noSpecificTrack = "NO_SPECIFIC_TRACK"
+        
+        /// The command requires playback to not be paused.
+        case alreadyPaused = "ALREADY_PAUSED"
+        
+        /// The command requires playback to be paused.
+        case notPaused = "NOT_PAUSED"
+        
+        /// The command requires playback on the local device.
+        case notPlayingLocally = "NOT_PLAYING_LOCALLY"
+        
+        /// The command requires that a track is currently playing.
+        case notPlayingTrack = "NOT_PLAYING_TRACK"
+        
+        /// The command requires that a context is currently playing.
+        case notPlayingContext = "NOT_PLAYING_CONTEXT"
+        
+        /// The shuffle command cannot be applied on an endless
+        /// context.
+        case endlessContext = "ENDLESS_CONTEXT"
+        
+        /// The command could not be performed on the context.
+        case contextDisallow = "CONTEXT_DISALLOW"
+        
+        /// The track should not be restarted if the same track and
+        /// context is already playing, and there is a resume point.
+        case alreadyPlaying = "ALREADY_PLAYING"
+        
+        /// The user is rate limited due to too frequent track play,
+        /// also known as cat-on-the-keyboard spamming.
+        case rateLimited = "RATE_LIMITED"
+        
+        /// The context cannot be remote-controlled.
+        case remoteControlDisallow = "REMOTE_CONTROL_DISALLOW"
+        
+        /// Not possible to remote control the device.
+        case deviceNotControllable = "DEVICE_NOT_CONTROLLABLE"
+        
+        /// Not possible to remote control the device’s volume.
+        case volumeControlDisallow = "VOLUME_CONTROL_DISALLOW"
+        
+        /// Requires an active device and the user has none.
+        case noActiveDevice = "NO_ACTIVE_DEVICE"
+        
+        /// The request is prohibited for non-premium users.
+        case premiumRequired = "PREMIUM_REQUIRED"
+        
+        /**
+         Certain actions are restricted because of unknown reasons.
+         
+         A common reason for this error is passing in the id of a non-active
+         device, trying to play content when content is already playing, and
+         trying to pause playback when playback is already paused.
+         
+         Unfortunately, there is a bug at the moment with the Spotify API
+         in which this error reason is returned for many requests instead
+         of one of the more specific errors above.
+         */
+        case unknown = "UNKNOWN"
+        
+    }
+    
 }
 
 extension SpotifyPlayerError: Codable {
@@ -154,7 +273,7 @@ extension SpotifyPlayerError: Codable {
             keyedBy: CodingKeys.self, forKey: .error
         )
         self.reason = try container.decode(
-            String.self, forKey: .reason
+            ErrorReason.self, forKey: .reason
         )
         self.message = try container.decode(
             String.self, forKey: .message
@@ -180,11 +299,11 @@ extension SpotifyPlayerError: Codable {
         
     }
     
-    enum TopLevelCodingKeys: String, CodingKey {
+    public enum TopLevelCodingKeys: String, CodingKey {
         case error
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case message
         case statusCode = "status"
         case reason

@@ -179,7 +179,7 @@ extension PlaylistItem: Codable {
         
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case type
     }
     

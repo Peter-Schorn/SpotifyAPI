@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ErrorReason Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/ErrorReason" class="dashAnchor"></a>
+    <a title="ErrorReason Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">SpotifyWebAPI Docs</a> (92% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">SpotifyWebAPI Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        ErrorReason Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../SpotifyAPI.html">SpotifyAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/SpotifyAPI.html">SpotifyAPI</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Authorization.html">Authorization</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Publisher%20Extensions.html">Publisher Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Object4data15httpURLResponse12responseTypex10Foundation4DataV_So17NSHTTPURLResponseCxmtKSeRzlF">decodeSpotifyObject(data:httpURLResponse:responseType:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Errors.html">Errors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyError.html">SpotifyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RateLimitedError.html">RateLimitedError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/Paginated.html">Paginated</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Music.html">Music</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/Album.html">Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Artist.html">Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Track.html">Track</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Playlist.html">Playlist</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/PlaylistItem.html">PlaylistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Player.html">Player</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/Device.html">Device</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Player.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyContext.html">SpotifyContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/PlaybackActions.html">PlaybackActions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/PlayHistory.html">PlayHistory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ResumePoint.html">ResumePoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/RepeatMode.html">RepeatMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Podcast.html">Podcast</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Show.html">Show</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Post%20Requests.html">Post Requests</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/PlaybackRequest.html">PlaybackRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/ContextOption.html">ContextOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/OffsetOption.html">OffsetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/TimeReference.html">TimeReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Audio%20Analysis.html">Audio Analysis</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/AudioAnalysis.html">AudioAnalysis</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/AudioFeatures.html">AudioFeatures</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Segment.html">Segment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyTimeInterval.html">SpotifyTimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Type%20Aliases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Type%20Aliases.html#/s:13SpotifyWebAPI14PlaylistTracksa">PlaylistTracks</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Type%20Aliases.html#/s:13SpotifyWebAPI13PlaylistItemsa">PlaylistItems</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Objects.html">Other Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/PagingObject.html">PagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SavedItem.html">SavedItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SearchResult.html">SearchResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyImage.html">SpotifyImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyUser.html">SpotifyUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Followers.html">Followers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/CursorPagingObject.html">CursorPagingObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyCursor.html">SpotifyCursor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/TrackLink.html">TrackLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Global%20Variables.html">Other Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/AlbumType.html">AlbumType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/IDCategory.html">IDCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/TimeRange.html">TimeRange</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Logger.html">Logger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Result/Publisher.html">– Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Substring.html">Substring</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/FeaturedPlaylists.html">FeaturedPlaylists</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/NewAlbumReleases.html">NewAlbumReleases</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RecommendationSeed.html">RecommendationSeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RecommendationsResponse.html">RecommendationsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyCategory.html">SpotifyCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/TrackAttributes.html">TrackAttributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/URIsContainer.html">URIsContainer</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ErrorReason</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ErrorReason</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                </div>
+              </div>
+            <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>.</p>
+
+<ul>
+<li><code>noPreviousTrack</code>: The command requires a previous track, but there is none in
+the context.</li>
+<li><code>noNextTrack</code>: The command requires a next track, but there is none in the
+context.</li>
+<li><code>noSpecificTrack</code>: The requested track does not exist.</li>
+<li><code>alreadyPaused</code>: The command requires playback to not be paused.</li>
+<li><code>notPaused</code>: The command requires playback to be paused.</li>
+<li><code>notPlayingLocally</code>: The command requires playback on the local device.</li>
+<li><code>notPlayingTrack</code>: The command requires that a track is currently playing.</li>
+<li><code>notPlayingContext</code>: The command requires that a context is currently
+playing.</li>
+<li><code>endlessContext</code>: The shuffle command cannot be applied on an endless
+context.</li>
+<li><code>contextDisallow</code>: The command could not be performed on the context.</li>
+<li><code>alreadyPlaying</code>: The track should not be restarted if the same track and
+context is already playing, and there is a resume point.</li>
+<li><code>rateLimited</code>: The user is rate limited due to too frequent track play,
+also known as cat-on-the-keyboard spamming.</li>
+<li><code>remoteControlDisallow</code>: The context cannot be remote-controlled.</li>
+<li><code>deviceNotControllable</code>: Not possible to remote control the device.</li>
+<li><code>volumeControlDisallow</code>: Not possible to remote control the device’s
+volume.</li>
+<li><code>noActiveDevice</code>: Requires an active device and the user has none.</li>
+<li><code>premiumRequired</code>: The request is prohibited for non-premium users.</li>
+<li><code>unknown</code>: Certain actions are restricted because of unknown reasons.
+A common reason for this error is passing in the id of a non-active
+device, trying to play content when content is already playing, and
+trying to pause playback when playback is already paused.
+Unfortunately, there is a bug at the moment with the Spotify API
+in which this error reason is returned for many requests instead
+of one of the more specific errors above.</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15noPreviousTrackyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/noPreviousTrack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15noPreviousTrackyA2EmF">noPreviousTrack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires a previous track, but there is none in
+the context.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noPreviousTrack</span> <span class="o">=</span> <span class="s">"NO_PREV_TRACK"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO11noNextTrackyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/noNextTrack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO11noNextTrackyA2EmF">noNextTrack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires a next track, but there is none in the
+context.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noNextTrack</span> <span class="o">=</span> <span class="s">"NO_NEXT_TRACK"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15noSpecificTrackyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/noSpecificTrack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15noSpecificTrackyA2EmF">noSpecificTrack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The requested track does not exist.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noSpecificTrack</span> <span class="o">=</span> <span class="s">"NO_SPECIFIC_TRACK"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO13alreadyPausedyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/alreadyPaused" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO13alreadyPausedyA2EmF">alreadyPaused</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires playback to not be paused.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">alreadyPaused</span> <span class="o">=</span> <span class="s">"ALREADY_PAUSED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO9notPausedyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/notPaused" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO9notPausedyA2EmF">notPaused</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires playback to be paused.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notPaused</span> <span class="o">=</span> <span class="s">"NOT_PAUSED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO17notPlayingLocallyyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/notPlayingLocally" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO17notPlayingLocallyyA2EmF">notPlayingLocally</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires playback on the local device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notPlayingLocally</span> <span class="o">=</span> <span class="s">"NOT_PLAYING_LOCALLY"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15notPlayingTrackyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/notPlayingTrack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15notPlayingTrackyA2EmF">notPlayingTrack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires that a track is currently playing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notPlayingTrack</span> <span class="o">=</span> <span class="s">"NOT_PLAYING_TRACK"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO17notPlayingContextyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/notPlayingContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO17notPlayingContextyA2EmF">notPlayingContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command requires that a context is currently playing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notPlayingContext</span> <span class="o">=</span> <span class="s">"NOT_PLAYING_CONTEXT"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14endlessContextyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/endlessContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14endlessContextyA2EmF">endlessContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The shuffle command cannot be applied on an endless
+context.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">endlessContext</span> <span class="o">=</span> <span class="s">"ENDLESS_CONTEXT"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15contextDisallowyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/contextDisallow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15contextDisallowyA2EmF">contextDisallow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command could not be performed on the context.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">contextDisallow</span> <span class="o">=</span> <span class="s">"CONTEXT_DISALLOW"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14alreadyPlayingyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/alreadyPlaying" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14alreadyPlayingyA2EmF">alreadyPlaying</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The track should not be restarted if the same track and
+context is already playing, and there is a resume point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">alreadyPlaying</span> <span class="o">=</span> <span class="s">"ALREADY_PLAYING"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO11rateLimitedyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/rateLimited" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO11rateLimitedyA2EmF">rateLimited</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The user is rate limited due to too frequent track play,
+also known as cat-on-the-keyboard spamming.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rateLimited</span> <span class="o">=</span> <span class="s">"RATE_LIMITED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21remoteControlDisallowyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/remoteControlDisallow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21remoteControlDisallowyA2EmF">remoteControlDisallow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The context cannot be remote-controlled.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">remoteControlDisallow</span> <span class="o">=</span> <span class="s">"REMOTE_CONTROL_DISALLOW"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21deviceNotControllableyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/deviceNotControllable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21deviceNotControllableyA2EmF">deviceNotControllable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Not possible to remote control the device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">deviceNotControllable</span> <span class="o">=</span> <span class="s">"DEVICE_NOT_CONTROLLABLE"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21volumeControlDisallowyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/volumeControlDisallow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO21volumeControlDisallowyA2EmF">volumeControlDisallow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Not possible to remote control the device’s volume.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">volumeControlDisallow</span> <span class="o">=</span> <span class="s">"VOLUME_CONTROL_DISALLOW"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14noActiveDeviceyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/noActiveDevice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO14noActiveDeviceyA2EmF">noActiveDevice</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Requires an active device and the user has none.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noActiveDevice</span> <span class="o">=</span> <span class="s">"NO_ACTIVE_DEVICE"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15premiumRequiredyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/premiumRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO15premiumRequiredyA2EmF">premiumRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request is prohibited for non-premium users.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">premiumRequired</span> <span class="o">=</span> <span class="s">"PREMIUM_REQUIRED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO7unknownyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A11PlayerErrorV0E6ReasonO7unknownyA2EmF">unknown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Certain actions are restricted because of unknown reasons.</p>
+
+<p>A common reason for this error is passing in the id of a non-active
+device, trying to play content when content is already playing, and
+trying to pause playback when playback is already paused.</p>
+
+<p>Unfortunately, there is a bug at the moment with the Spotify API
+in which this error reason is returned for many requests instead
+of one of the more specific errors above.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span> <span class="o">=</span> <span class="s">"UNKNOWN"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

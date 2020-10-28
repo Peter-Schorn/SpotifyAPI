@@ -110,11 +110,11 @@ extension SpotifyError: Codable {
         
     }
     
-    enum TopLevelCodingKeys: String, CodingKey {
+    public enum TopLevelCodingKeys: String, CodingKey {
         case error
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case message
         case statusCode = "status"
     }
