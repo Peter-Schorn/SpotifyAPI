@@ -4,8 +4,6 @@
 
 Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
 
- **⚠️ This Library is in Beta**  
-
 ## Table of Contents
 
 * **[Supported Platforms](#supported-platforms)**
