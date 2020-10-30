@@ -117,8 +117,19 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     /// Logs general messages for this class.
     public lazy var logger = Logger(label: "SpotifyAPI", level: .critical)
     
-    /// Logs a message every time `authorizationManagerDidChange`
-    /// or `authorizationManagerDidDeauthorize` emits a signal.
+    /**
+     Logs messages when the authorization information changes.
+     
+     Logs a message when the any of the following publishers emit a signal:
+     
+     * `authorizationManagerDidChange`
+     * `authorizationManagerDidDeauthorize`
+     * `authorizationManager.didChange`
+     * `authorizationManager.didDeauthorize`
+     
+     Also logs a message in the didSet observer of `authorizationManager`.
+     
+     */
     public lazy var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )
@@ -256,7 +267,7 @@ extension SpotifyAPI {
     /// This method has no stable API and may change arbitrarily.
     /// Only use it for testing purposes.
     public func setupDebugging() {
-
+        
         self.logger.logLevel = .trace
         self.apiRequestLogger.logLevel = .trace
         self.authDidChangeLogger.logLevel = .trace

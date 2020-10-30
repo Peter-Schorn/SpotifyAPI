@@ -8,7 +8,8 @@ import Logging
  */
 public struct CurrentlyPlayingContext: Hashable {
     
-    /// Logs messages for this struct.
+    /// Logs messages for this struct, especially those involving
+    /// the decoding of data into this type.
     static var logger = Logger(
         label: "CurrentlyPlayingContext", level: .critical
     )

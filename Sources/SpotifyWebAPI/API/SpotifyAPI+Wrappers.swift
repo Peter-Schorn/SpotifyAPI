@@ -16,7 +16,10 @@ extension SpotifyAPI {
      Refreshes the access token if it is expired and ensures that
      the application is authorized for the specified scopes.
      
-     - Parameter scopes: A set of Spotify authorization scopes.
+     - Parameters:
+       - scopes: A set of Spotify authorization scopes.
+       - tolerance. The tolerance in seconds to use when determining if the
+             access token is expired. The default is 120.
      - Throws: If the access token or refresh token is `nil` or a network
            error occurs.
      - Returns: The access token unwrapped from
@@ -24,7 +27,7 @@ extension SpotifyAPI {
            in the header of requests to all endpoints.
      */
     func refreshTokensAndEnsureAuthorized(
-        for scopes: Set<Scope>
+        for scopes: Set<Scope>, tolerance: Double = 120
     ) -> AnyPublisher<String, Error> {
         
         self.logger.trace("scopes: \(scopes.map(\.rawValue))")
@@ -56,7 +59,7 @@ extension SpotifyAPI {
         }
         
         return self.authorizationManager.refreshTokens(
-            onlyIfExpired: true, tolerance: 120
+            onlyIfExpired: true, tolerance: tolerance
         )
         .tryMap { () -> String in
             
@@ -92,7 +95,7 @@ extension SpotifyAPI {
             }
             else {
                 assertionFailure(
-                    "expiration date was nil after just refreshing access token"
+                    "expiration date was nil after just refreshing the access token"
                 )
             }
             

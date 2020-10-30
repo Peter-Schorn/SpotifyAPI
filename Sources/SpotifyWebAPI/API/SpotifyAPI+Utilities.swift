@@ -114,7 +114,7 @@ public extension SpotifyAPI {
                     // the maximum number of pages requested by the caller
                     // have been reached
                     self.logger.debug(
-                        "nextPageIndex > maxPages (\(max))"
+                        "nextPageIndex (\(nextPageIndex)) > maxPages (\(max))"
                     )
                     currentPageSubject.send(completion: .finished)
                     return emptyCompletionPublisher

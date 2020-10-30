@@ -44,7 +44,7 @@ import Logging
  * The expiration date for the access token
  * The scopes that have been authorized for the access token
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */

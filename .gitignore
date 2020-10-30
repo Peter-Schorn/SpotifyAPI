@@ -5,3 +5,4 @@
 .swiftpm/xcode/package.xcworkspace/xcuserdata
 /Tests/Private
 spotify_credentials.txt
+/Private

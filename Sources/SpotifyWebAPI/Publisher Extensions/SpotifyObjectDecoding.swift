@@ -8,8 +8,8 @@ import Logging
  Set the `logLevel` to `trace` to print the raw data received from
  each request to the Spotify web API to the standard outuput.
  
- Set the `logLevel` to `warning` to print various error messages to
- the standard output.
+ Set the `logLevel` to `warning` to print various warning and error
+ messages to the standard output.
  */
 public var spotifyDecodeLogger = Logger(
     label: "spotifyDecode", level: .critical
