@@ -257,7 +257,7 @@ public extension AuthorizationCodeFlowPKCEManager {
      [2]: https://tools.ietf.org/html/rfc4648#section-5
      [3]: https://tonyxu-io.github.io/pkce-generator/
      [4]: https://developer.spotify.com/dashboard/applications
-     [5]: x-source-tag://Scopes
+     [5]: https://developer.spotify.com/documentation/general/guides/scopes/
      
      - Tag: PKCEmakeAuthorizationURL
      */

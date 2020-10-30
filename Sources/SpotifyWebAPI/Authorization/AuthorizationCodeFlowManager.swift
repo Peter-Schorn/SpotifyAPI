@@ -200,7 +200,7 @@ public extension AuthorizationCodeFlowManager {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/dashboard/applications
-     [3]: x-source-tag://Scopes
+     [3]: https://developer.spotify.com/documentation/general/guides/scopes/
      
      - Tag: makeAuthorizationURL
      */
