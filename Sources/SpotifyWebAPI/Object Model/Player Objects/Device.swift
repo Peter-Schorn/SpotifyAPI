@@ -33,6 +33,7 @@ public struct Device: Hashable {
 
 extension Device: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case id
         case isActive = "is_active"

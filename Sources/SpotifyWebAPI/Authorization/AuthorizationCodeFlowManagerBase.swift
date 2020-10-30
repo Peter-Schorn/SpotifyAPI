@@ -192,6 +192,7 @@ public class AuthorizationCodeFlowManagerBase {
     
     // MARK: - Codable -
     
+    /// :nodoc:
     init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -213,6 +214,7 @@ public class AuthorizationCodeFlowManagerBase {
         
     }
     
+    /// :nodoc:
     func encode(to encoder: Encoder) throws {
         let codingWrapper = self.updateAuthInfoDispatchQueue.sync {
             return AuthInfo(

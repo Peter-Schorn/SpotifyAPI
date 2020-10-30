@@ -94,6 +94,7 @@ public struct PlaylistDetails: Hashable {
 
 extension PlaylistDetails: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case name
         case isPublic = "public"

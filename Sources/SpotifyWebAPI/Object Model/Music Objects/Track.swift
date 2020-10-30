@@ -263,6 +263,7 @@ public struct Track: Hashable {
 
 extension Track: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case name
         case album

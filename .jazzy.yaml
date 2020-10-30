@@ -28,6 +28,16 @@ custom_categories:
     - SpotifyAuthorizationManager
     - SpotifyScopeAuthorizationManager
     
+  - name: Errors
+    children:
+    - SpotifyError
+    - SpotifyPlayerError
+    - SpotifyLocalError
+    - RateLimitedError
+    - SpotifyAuthenticationError
+    - SpotifyAuthorizationError
+    - SpotifyDecodingError
+    
   - name: Publisher Extensions
     children:
     - Publisher
@@ -35,34 +45,25 @@ custom_categories:
     - decodeSpotifyErrors(data:httpURLResponse:)
     - decodeSpotifyObject(data:httpURLResponse:responseType:)
     
-  - name: Errors
-    children:
-    - SpotifyError
-    - SpotifyLocalError
-    - RateLimitedError
-    - SpotifyAuthenticationError
-    - SpotifyAuthorizationError
-    - SpotifyDecodingError
-    
   - name: Protocols
     children:
     - Paginated
     - SpotifyURIConvertible
     
-  - name: Music
+  - name: Music Objects
     children:
     - Album
     - Artist
     - Track
     
-  - name: Playlist
+  - name: Playlist Objects
     children:
     - Playlist
     - PlaylistItem
     - PlaylistItemContainer
     - PlaylistsItemsReference
       
-  - name: Player
+  - name: Player Objects
     children:
     - Device
     - DeviceType
@@ -73,12 +74,12 @@ custom_categories:
     - ResumePoint
     - RepeatMode
     
-  - name: Podcast
+  - name: Podcast Objects
     children:
     - Episode
     - Show
     
-  - name: Post Requests
+  - name: Post Request Objects
     children:
     - PlaybackRequest
     - ContextOption
@@ -89,7 +90,7 @@ custom_categories:
     - URIWithPositions
     - URIsWithPositionsContainer
     
-  - name: Audio Analysis
+  - name: Audio Analysis Objects
     children:
     - AudioAnalysis
     - AudioFeatures
@@ -115,4 +116,12 @@ custom_categories:
     - TrackLink
     - SpotifyCopyright
     - AlbumGroup
+    - AlbumType
+    - TimeRange
+    - FeaturedPlaylists
+    - NewAlbumReleases
+    - RecommendationSeed
+    - RecommendationsResponse
+    - TrackAttributes
+    - URIsContainer
     

@@ -41,6 +41,7 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
      */
     public let description: String
 
+    /// :nodoc:
     public var errorDescription: String? {
         return description
     }
@@ -49,6 +50,7 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
 
 extension SpotifyAuthenticationError: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case error
         case description = "error_description"

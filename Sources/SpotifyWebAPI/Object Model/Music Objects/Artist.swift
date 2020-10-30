@@ -51,12 +51,14 @@ public struct Artist: Hashable {
     /// Only available for the full artist object.
     public let followers: Followers?
     
-    /// A list of the genres the artist is associated with.
-    ///
-    /// For example: "Prog Rock" , "Post-Grunge".
-    /// (If not yet classified, the array is empty.)
-    ///
-    /// Only available for the full artist object.
+    /**
+     A list of the genres the artist is associated with.
+    
+     For example: "Prog Rock" , "Post-Grunge".
+     (If not yet classified, the array is empty.)
+    
+     Only available for the full artist object.
+     */
     public let genres: [String]?
 
     /**
@@ -120,6 +122,7 @@ public struct Artist: Hashable {
 
 extension Artist: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case name
         case uri

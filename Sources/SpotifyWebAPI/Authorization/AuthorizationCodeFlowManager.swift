@@ -132,10 +132,12 @@ public final class AuthorizationCodeFlowManager:
     
     // MARK: - Codable -
     
+    /// :nodoc:
     public override init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
+    /// :nodoc:
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
     }
@@ -538,6 +540,7 @@ public extension AuthorizationCodeFlowManager {
 
 extension AuthorizationCodeFlowManager: CustomStringConvertible {
     
+    /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowManager.description WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
@@ -568,6 +571,7 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
 
 extension AuthorizationCodeFlowManager: Hashable {
 
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
             hasher.combine(clientId)
@@ -579,6 +583,7 @@ extension AuthorizationCodeFlowManager: Hashable {
         }
     }
 
+    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowManager,
         rhs: AuthorizationCodeFlowManager

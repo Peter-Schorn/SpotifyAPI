@@ -163,6 +163,7 @@ public struct PlaybackRequest: Hashable {
 
 extension PlaybackRequest: Codable {
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -237,6 +238,7 @@ extension PlaybackRequest: Codable {
         
     }
  
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -273,6 +275,7 @@ extension PlaybackRequest: Codable {
         
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case contextURI = "context_uri"
         case uris

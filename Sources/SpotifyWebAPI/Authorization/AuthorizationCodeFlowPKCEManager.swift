@@ -161,10 +161,12 @@ public final class AuthorizationCodeFlowPKCEManager:
     
     // MARK: - Codable -
     
+    /// :nodoc:
     public override init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
+    /// :nodoc:
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
     }
@@ -612,6 +614,7 @@ public extension AuthorizationCodeFlowPKCEManager {
 
 extension AuthorizationCodeFlowPKCEManager: CustomStringConvertible {
     
+    /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowManager.description WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
@@ -642,6 +645,7 @@ extension AuthorizationCodeFlowPKCEManager: CustomStringConvertible {
 
 extension AuthorizationCodeFlowPKCEManager: Hashable {
 
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
             hasher.combine(clientId)
@@ -653,6 +657,7 @@ extension AuthorizationCodeFlowPKCEManager: Hashable {
         }
     }
 
+    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowPKCEManager,
         rhs: AuthorizationCodeFlowPKCEManager

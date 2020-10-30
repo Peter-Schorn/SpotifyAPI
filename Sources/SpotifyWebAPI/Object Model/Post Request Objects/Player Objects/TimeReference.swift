@@ -15,6 +15,29 @@ public enum TimeReference: Codable, Hashable {
     /// It will be converted to a millisecond-precision timestamp.
     case after(Date)
     
+    /**
+     Returns self as a query item.
+     
+     The name will be "before" or "after" and the
+     value will be the date in milliseconds since the unix
+     epoch rounded to the nearest whole number.
+     */
+    public func asQueryItem() -> [String: String] {
+        let name: String
+        let date: Date
+        switch self {
+            case .before(let beforeDate):
+                name = "before"
+                date = beforeDate
+            case .after(let afterDate):
+                name = "after"
+                date = afterDate
+        }
+        let milliseconds = String(format: "%.0f", date.millisecondsSince1970)
+        return [name: milliseconds]
+    }
+    
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -44,6 +67,7 @@ public enum TimeReference: Codable, Hashable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -61,28 +85,7 @@ public enum TimeReference: Codable, Hashable {
         
     }
     
-    /**
-     Returns self as a query item.
-     
-     The name will be "before" or "after" and the
-     value will be the date in milliseconds since the unix
-     epoch rounded to the nearest whole number.
-     */
-    public func asQueryItem() -> [String: String] {
-        let name: String
-        let date: Date
-        switch self {
-            case .before(let beforeDate):
-                name = "before"
-                date = beforeDate
-            case .after(let afterDate):
-                name = "after"
-                date = afterDate
-        }
-        let milliseconds = String(format: "%.0f", date.millisecondsSince1970)
-        return [name: milliseconds]
-    }
-    
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case before, after
     }

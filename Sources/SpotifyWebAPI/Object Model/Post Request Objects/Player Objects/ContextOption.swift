@@ -35,6 +35,7 @@ public enum ContextOption {
 
 extension ContextOption: Codable {
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -65,6 +66,7 @@ extension ContextOption: Codable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -80,6 +82,7 @@ extension ContextOption: Codable {
         }
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case contextURI = "context_uri"
         case uris
@@ -89,6 +92,7 @@ extension ContextOption: Codable {
 
 extension ContextOption: Hashable {
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         switch self {
             case .contextURI(let context):
@@ -98,6 +102,7 @@ extension ContextOption: Hashable {
         }
     }
     
+    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
             case (.contextURI(let lhsContext), .contextURI(let rhsContext)):

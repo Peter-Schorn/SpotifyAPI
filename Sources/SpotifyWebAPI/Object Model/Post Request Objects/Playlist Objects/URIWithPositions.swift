@@ -46,6 +46,7 @@ public struct URIWithPositions {
 
 extension URIWithPositions: Codable {
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -57,6 +58,7 @@ extension URIWithPositions: Codable {
         )
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -68,6 +70,7 @@ extension URIWithPositions: Codable {
         )
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case uri, positions
     }
@@ -76,11 +79,13 @@ extension URIWithPositions: Codable {
 
 extension URIWithPositions: Hashable {
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.uri.uri)
         hasher.combine(self.positions)
     }
         
+    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.uri.uri == rhs.uri.uri &&
                 lhs.positions == rhs.positions

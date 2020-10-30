@@ -71,6 +71,7 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
 
 extension SavedItem: Codable {
 
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -111,7 +112,7 @@ extension SavedItem: Codable {
         
     }
     
-    
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -146,6 +147,7 @@ extension SavedItem: Codable {
     /// The possible types for `self.item`. See also `self.type`.
     public static var itemTypes: [CodingKeys] { [.track, .album, .show] }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey, Codable {
         case addedAt = "added_at"
         case track

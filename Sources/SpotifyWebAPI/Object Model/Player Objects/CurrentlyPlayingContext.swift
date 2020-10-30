@@ -108,6 +108,7 @@ public struct CurrentlyPlayingContext: Hashable {
 
 extension CurrentlyPlayingContext: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case device
         case repeatState = "repeat_state"
@@ -126,6 +127,7 @@ extension CurrentlyPlayingContext: Codable {
     // see https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
     private typealias DisallowsObject = [String: [String: Bool?]]
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -206,6 +208,7 @@ extension CurrentlyPlayingContext: Codable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

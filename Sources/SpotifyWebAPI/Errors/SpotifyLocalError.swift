@@ -87,6 +87,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     /// Some other error.
     case other(String)
     
+    /// :nodoc:
     public var errorDescription: String? {
         switch self {
              case .unauthorized(_):
@@ -115,6 +116,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
         }
     }
     
+    /// :nodoc:
     public var description: String {
         switch self {
              case .unauthorized(let message):

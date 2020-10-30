@@ -48,6 +48,7 @@ public struct URIsContainer {
 
 extension URIsContainer: Codable {
 
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -65,6 +66,7 @@ extension URIsContainer: Codable {
 
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -78,6 +80,7 @@ extension URIsContainer: Codable {
         
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case snapshotId = "snapshot_id"
         case items = "tracks"
@@ -87,11 +90,13 @@ extension URIsContainer: Codable {
 
 extension URIsContainer: Hashable {
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(snapshotId)
         hasher.combine(items.map(\.uri))
     }
     
+    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.snapshotId == rhs.snapshotId &&
                 lhs.items.map(\.uri) == rhs.items.map(\.uri)

@@ -3,11 +3,11 @@ import Foundation
 /**
  A [cursor-based paging object][1].
  
- See [get current user's recently played tracks][2]
- and `recentlyPlayed(_:limit:)`.
+ See [get current user's recently played tracks][2] and
+ `SpotifyAPI.recentlyPlayed(_:limit:)`.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#cursor-based-paging-object
- [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
+ [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#secondary-navbar:~:text=The%20endpoint%20uses%20a%20bidirectional%20cursor,link%20will%20page%20back%20in%20time.
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Codable, Hashable

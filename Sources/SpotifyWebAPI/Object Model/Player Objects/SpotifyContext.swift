@@ -45,6 +45,7 @@ public struct SpotifyContext: Hashable {
 
 extension SpotifyContext: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case uri
         case href

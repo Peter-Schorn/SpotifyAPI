@@ -143,6 +143,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
         self.type = .user
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case displayName = "display_name"
         case uri

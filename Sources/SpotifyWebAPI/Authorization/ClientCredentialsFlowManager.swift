@@ -220,6 +220,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
 
     // MARK: - Codable -
 
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -238,6 +239,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         )
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         let codingWrapper = self.updateAuthInfoDispatchQueue.sync {
@@ -570,6 +572,7 @@ extension ClientCredentialsFlowManager {
 
 extension ClientCredentialsFlowManager: Hashable {
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
             hasher.combine(clientId)
@@ -579,6 +582,7 @@ extension ClientCredentialsFlowManager: Hashable {
         }
     }
     
+    /// :nodoc:
     public static func == (
         lhs: ClientCredentialsFlowManager,
         rhs: ClientCredentialsFlowManager
@@ -613,6 +617,7 @@ extension ClientCredentialsFlowManager: Hashable {
 
 extension ClientCredentialsFlowManager: CustomStringConvertible {
     
+    /// :nodoc:
     public var description: String {
         // print("ClientCredentialsFlowManager.description: WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {

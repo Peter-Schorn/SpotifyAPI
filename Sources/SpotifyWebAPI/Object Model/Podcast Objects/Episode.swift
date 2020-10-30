@@ -177,6 +177,7 @@ public struct Episode: Hashable {
 
 extension Episode: Codable {
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -244,6 +245,7 @@ extension Episode: Codable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -318,6 +320,7 @@ extension Episode: Codable {
         
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case name
         case show

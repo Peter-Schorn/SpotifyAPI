@@ -145,6 +145,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
      */
     public let statusCode: Int
     
+    /// :nodoc:
     public var errorDescription: String? {
         "\(message) (status code: \(statusCode))"
     }
@@ -263,6 +264,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
 
 extension SpotifyPlayerError: Codable {
 
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let topLevelContainer = try decoder.container(
@@ -285,6 +287,7 @@ extension SpotifyPlayerError: Codable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var topLevelContainer = encoder.container(
             keyedBy: TopLevelCodingKeys.self
@@ -299,10 +302,12 @@ extension SpotifyPlayerError: Codable {
         
     }
     
+    /// :nodoc:
     public enum TopLevelCodingKeys: String, CodingKey {
         case error
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case message
         case statusCode = "status"

@@ -7,7 +7,7 @@ struct TransferPlaybackRequest: Codable, Hashable {
     let deviceIds: [String]
     let play: Bool
     
-    
+    /// :nodoc:
     enum CodingKeys: String, CodingKey {
         case deviceIds = "device_ids"
         case play

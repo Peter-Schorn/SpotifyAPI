@@ -170,6 +170,7 @@ public struct Show: Hashable {
 
 extension Show: Codable {
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case name
         case description

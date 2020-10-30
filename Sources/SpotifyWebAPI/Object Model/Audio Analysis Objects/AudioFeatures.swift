@@ -154,6 +154,7 @@ public struct AudioFeatures: Codable, Hashable {
     /// The object type. Always "audio_features".
     public let type: String
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case key
         case mode

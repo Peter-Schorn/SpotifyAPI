@@ -25,6 +25,7 @@ public enum OffsetOption {
 
 extension OffsetOption: Codable {
     
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -80,6 +81,7 @@ extension OffsetOption: Codable {
         
     }
     
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -99,6 +101,7 @@ extension OffsetOption: Codable {
         
     }
     
+    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case offset
     }
@@ -107,7 +110,7 @@ extension OffsetOption: Codable {
 
 extension OffsetOption: Hashable {
     
-    
+    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
             case (.position(let lhsIndex), .position(let rhsIndex)):
@@ -119,6 +122,7 @@ extension OffsetOption: Hashable {
         }
     }
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         switch self {
             case .position(let index):
