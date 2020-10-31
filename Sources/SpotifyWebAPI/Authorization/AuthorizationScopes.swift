@@ -195,9 +195,9 @@ public extension Scope {
      */
     static func makeString(_ scopes: Set<Scope>) -> String {
         
-        return scopes.reduce(into: "") { scopes, nextScope in
+        return String(scopes.reduce(into: "") { scopes, nextScope in
             scopes += " " + nextScope.rawValue
-        }
+        }.dropFirst())
     }
     
     /**
