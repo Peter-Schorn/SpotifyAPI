@@ -36,9 +36,10 @@ public extension URLComponents {
         if let path = path {
             self.path = path
         }
-        if let queryItems = queryItems, !queryItems.isEmpty {
+        
+        if let queryItems = queryItems?.sortedByNameThenValue(),
+               !queryItems.isEmpty {
             self.queryItems = queryItems
-            
         }
         if let fragment = fragment, !fragment.isEmpty {
             self.fragment = fragment
@@ -78,6 +79,6 @@ public extension URLComponents {
             dict[query.name] = query.value
         } ?? [:]
     }
-
+    
 }
 

@@ -8,7 +8,7 @@ public protocol SpotifyAPITests: XCTestCase {
     
     associatedtype AuthorizationManager: SpotifyAuthorizationManager
     
-    static var spotify: SpotifyAPI<AuthorizationManager> { get }
+    static var spotify: SpotifyAPI<AuthorizationManager> { get set }
     static var cancellables: Set<AnyCancellable> { get set }
     
 }

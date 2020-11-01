@@ -35,7 +35,7 @@ public struct RateLimitedError: LocalizedError, Codable, Hashable {
             }
         }
         else {
-            description += "Try again later."
+            description += " Try again later."
         }
         
         return description

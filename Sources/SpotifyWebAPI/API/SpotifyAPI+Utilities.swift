@@ -30,7 +30,7 @@ public extension SpotifyAPI {
         
         do {
             
-            guard let url = URL(string: href) else {
+            guard let url = URL(string: href, sortQueryItems: true) else {
                 throw SpotifyLocalError.other(
                     #"couldn't convert href to URL: "\#(href)""#
                 )
@@ -40,7 +40,7 @@ public extension SpotifyAPI {
                 .flatMap { accessToken -> AnyPublisher<ResponseType, Error> in
                     
                     self.apiRequestLogger.trace(
-                        #"GET request to href: "\#(href)""#
+                        #"GET request to href: "\#(url)""#
                     )
                     
                     return URLSession.shared.dataTaskPublisher(

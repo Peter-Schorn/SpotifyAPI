@@ -77,12 +77,12 @@ public extension URL {
     }
 
 
-    /// The query items in the URL.
+    /// The query items in the URL. See also `queryItemsDict`.
     var queryItems: [URLQueryItem] {
         return components?.queryItems ?? []
     }
 
-    /// A dictionary of the query items in the URL.
+    /// A dictionary of the query items in the URL. See also `queryItems`.
     var queryItemsDict: [String: String] {
 
         return self.queryItems.reduce(into: [:]) { dict, query in
@@ -95,6 +95,29 @@ public extension URL {
         return URLComponents(
             url: self, resolvingAgainstBaseURL: false
         )
+    }
+
+    // MARK: Initializers
+    
+    init?(
+        string: String,
+        sortQueryItems: Bool
+    ) {
+        guard let url = URL(string: string) else {
+            return nil
+        }
+        if !sortQueryItems { self = url }
+        
+        guard var urlComponents = url.components else {
+            return nil
+        }
+        urlComponents.queryItems?.sortByNameThenValue()
+        
+        guard let sortedURL = urlComponents.url else {
+            return nil
+        }
+        self = sortedURL
+        
     }
 
     init?(
