@@ -4,7 +4,7 @@ import Combine
 // import KeychainAccess
 import SpotifyWebAPI
 
-/// A skeleton for compilation tests.
+/// A stub for compilation tests.
 private class Keychain {
 
     subscript(data key: String) -> Data? {

@@ -6074,6 +6074,8 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
 <p>You can use this endpoint to determine which devices are currently active
 by checking each device&rsquo;s <code>isActice</code> property.</p>
 
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
+
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/">Spotify web API reference</a>.</p>
 
                       </div>
@@ -6281,13 +6283,18 @@ Default: 20; Minimum: 1; Maximum: 50.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/">Spotify web API reference</a>.</p>
 
@@ -6360,13 +6367,18 @@ If you want to add to the queue for a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-next-track/">Spotify web API reference</a>.</p>
 
@@ -6426,13 +6438,18 @@ If you want to skip to the next item on a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/">Spotify web API reference</a>.</p>
 
@@ -6495,18 +6512,18 @@ call <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25Sco
 <p><strong>If playback is already paused, then you will get a</strong>
 <strong>403 &ldquo;Player command failed: Restriction violated&rdquo; error.</strong></p>
 
-<p>Due to the asynchronous nature of the issuance of the command,
-you should use the Get Information About The User’s Current Playback
-endpoint (<code>currentPlayback()</code>) to check that your issued command was
-handled correctly by the player.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -6572,15 +6589,20 @@ See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A2
 <p><strong>If content is already playing, then you will get a</strong>
 <strong>403 “Player command failed: Restriction violated” error.</strong></p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
 
-<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.ˆ</p>
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -6672,13 +6694,18 @@ length of the track/episode will cause the player to start playing the
 next item.</p></li>
 </ul>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -6707,12 +6734,10 @@ the PREMIUM_REQUIRED reason.</p>
                               <td>
                                 <div>
                                   <p>The id of the device to target. See <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">availableDevices()</a></code>.
-It is highly recommended that you leave this as <code>nil</code>
-(default) to target the active device. If you provide the id
-of a device that is not active, you may get a
-403 &ldquo;Player command failed: Restriction violated&rdquo; error.
-If you want to play content on a non-active device, call
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16transferPlayback2to4play7Combine12AnyPublisherVyyts5Error_pGSS_SbtF">transferPlayback(to:play:)</a></code> first.</p>
+<strong>Unlike other player endpoints, you can provide the id of a</strong>
+<strong>non-active device, which will cause the given content to be</strong>
+<strong>played on that device</strong>. Leave as <code>nil</code> to target the active
+device.</p>
                                 </div>
                               </td>
                             </tr>
@@ -6751,13 +6776,18 @@ If you want to play content on a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/seek-to-position-in-currently-playing-track/">Spotify web API reference</a>.</p>
 
@@ -6833,13 +6863,18 @@ If you want to seek to a position on a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/">Spotify web API reference</a>.</p>
 
@@ -6914,13 +6949,20 @@ If you want to set the repeat mode on a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p><strong>You can not set the volume for the Spotify iOS app.</strong></p>
+
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/set-volume-for-users-playback/">Spotify web API reference</a>.</p>
 
@@ -6993,13 +7035,18 @@ If you want to set the volume on a non-active device, call
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/toggle-shuffle-for-users-playback/">Spotify web API reference</a>.</p>
 
@@ -7077,13 +7124,18 @@ be considered active.</p>
 
 <p>This endpoint requires the <code>userModifyPlaybackState</code> scope.</p>
 
-<p>When performing an action that is restricted,
-404 NOT FOUND or 403 FORBIDDEN will be returned together with
-a <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error message</a>. For example, if there are no active devices
-found, the request will return 404 NOT FOUND response code and the reason
-NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-403 FORBIDDEN response code will be returned together with
-the PREMIUM_REQUIRED reason.</p>
+<p>When performing an action that is restricted, a <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>
+will be returned. It contains the following properties:</p>
+
+<ul>
+<li><code>message</code>: A short description of the cause of the error.</li>
+<li><code>reason</code>: A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons">player error reason</a>, modeled by
+<code><a href="../Structs/SpotifyPlayerError/ErrorReason.html">SpotifyPlayerError.ErrorReason</a></code>.</li>
+<li><code>statusCode</code>: The HTTP status code that is also returned in the response
+header.</li>
+</ul>
+
+<p>See also <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints">Using the Player Endpoints</a>.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/">Spotify web API reference</a>.</p>
 
@@ -8143,7 +8195,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-31)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

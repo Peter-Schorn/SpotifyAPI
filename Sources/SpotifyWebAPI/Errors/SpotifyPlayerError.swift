@@ -47,7 +47,7 @@ import Foundation
    A common reason for this error is passing in the id of a non-active
    device, trying to play content when content is already playing, and
    trying to pause playback when playback is already paused.
-   Unfortunately, there is a bug at the moment with the Spotify API
+   Unfortunately, there is a bug at the moment with the Spotify web API
    in which this error reason is returned for many requests instead
    of one of the more specific errors above.
  
@@ -111,7 +111,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        A common reason for this error is passing in the id of a non-active
        device, trying to play content when content is already playing, and
        trying to pause playback when playback is already paused.
-       Unfortunately, there is a bug at the moment with the Spotify API
+       Unfortunately, there is a bug at the moment with the Spotify web API
        in which this error reason is returned for many requests instead
        of one of the more specific errors above.
      
@@ -181,7 +181,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        A common reason for this error is passing in the id of a non-active
        device, trying to play content when content is already playing, and
        trying to pause playback when playback is already paused.
-       Unfortunately, there is a bug at the moment with the Spotify API
+       Unfortunately, there is a bug at the moment with the Spotify web API
        in which this error reason is returned for many requests instead
        of one of the more specific errors above.
      

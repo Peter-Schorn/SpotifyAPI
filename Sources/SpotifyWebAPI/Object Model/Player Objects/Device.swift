@@ -7,7 +7,7 @@ import Foundation
  */
 public struct Device: Hashable {
     
-    /// The device id.
+    /// The device id. May be `nil`.
     public let id: String?
     
     /// Whether the device is currently active
@@ -17,7 +17,7 @@ public struct Device: Hashable {
     public let isPrivateSession: Bool
     
     /// Whether controlling this device is restricted.
-    /// If `true`, then no Web API commands will be accepted by this device.
+    /// If `true`, then no web API commands will be accepted by this device.
     public let isRestricted: Bool
     
     /// The name of the device.

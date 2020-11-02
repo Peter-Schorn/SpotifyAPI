@@ -16,12 +16,15 @@ public extension SpotifyAPI where
      You can use this endpoint to determine which devices are currently active
      by checking each device's `isActice` property.
      
-     Read more at the [Spotify web API reference][1].
+     See also [Using the Player Endpoints][1].
      
-     - Returns: An array of [device objects][2].
+     Read more at the [Spotify web API reference][2].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-object
+     - Returns: An array of [device objects][3].
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-object
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
         
@@ -156,15 +159,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - uri: The URI for either a track or an episode.
@@ -177,7 +183,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
      */
     func addToQueue(
         _ uri: SpotifyURIConvertible,
@@ -206,15 +213,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - deviceId: The id of the device to target. See `availableDevices()`.
@@ -226,7 +236,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-next-track/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-next-track/
      */
     func skipToNext(
         deviceId: String? = nil
@@ -251,15 +262,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - deviceId: The id of the device to target. See `availableDevices()`.
@@ -271,7 +285,8 @@ public extension SpotifyAPI where
              call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/skip-users-playback-to-previous-track/
      */
     func skipToPrevious(
         deviceId: String? = nil
@@ -300,20 +315,18 @@ public extension SpotifyAPI where
      **If playback is already paused, then you will get a**
      **403 "Player command failed: Restriction violated" error.**
      
-     Due to the asynchronous nature of the issuance of the command,
-     you should use the Get Information About The User’s Current Playback
-     endpoint (`currentPlayback()`) to check that your issued command was
-     handled correctly by the player.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
      
-     Read more at the [Spotify web API reference][2].
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - deviceId: The id of the device to target. See `availableDevices()`.
@@ -325,7 +338,8 @@ public extension SpotifyAPI where
                `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/pause-a-users-playback/
      */
     func pausePlayback(
         deviceId: String? = nil
@@ -356,15 +370,18 @@ public extension SpotifyAPI where
      **If content is already playing, then you will get a**
      **403 “Player command failed: Restriction violated” error.**
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].ˆ
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameter deviceId: The id of the device to target.
            See `availableDevices()`. It is highly recommended that you
@@ -375,7 +392,8 @@ public extension SpotifyAPI where
            `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
      */
     func resumePlayback(
         deviceId: String? = nil
@@ -430,28 +448,30 @@ public extension SpotifyAPI where
        length of the track/episode will cause the player to start playing the
        next item.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to play content on a non-active device, call
-             `transferPlayback(to:play:)` first.
+             **Unlike other player endpoints, you can provide the id of a**
+             **non-active device, which will cause the given content to be**
+             **played on that device**. Leave as `nil` to target the active
+             device.
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/
      */
     func play(
         _ playbackRequest: PlaybackRequest,
@@ -477,15 +497,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - positionMS: The position in milliseconds to seek to. Must be a
@@ -501,7 +524,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/seek-to-position-in-currently-playing-track/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/seek-to-position-in-currently-playing-track/
      */
     func seekToPosition(
         _ positionMS: Int,
@@ -531,15 +555,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - repeatMode: Either `track`, `context` or `off`. track will repeat
@@ -554,7 +581,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
      */
     func setRepeatMode(
         to repeatMode: RepeatMode,
@@ -584,15 +612,20 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     **You can not set the volume for the Spotify iOS app.**
      
-     Read more at the [Spotify web API reference][2].
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
+     
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
@@ -605,7 +638,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/set-volume-for-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/set-volume-for-users-playback/
      */
     func setVolume(
         to percent: Int,
@@ -635,15 +669,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
@@ -656,7 +693,8 @@ public extension SpotifyAPI where
              `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/toggle-shuffle-for-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/toggle-shuffle-for-users-playback/
      */
     func setShuffle(
         to mode: Bool,
@@ -690,15 +728,18 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted,
-     404 NOT FOUND or 403 FORBIDDEN will be returned together with
-     a [player error message][1]. For example, if there are no active devices
-     found, the request will return 404 NOT FOUND response code and the reason
-     NO_ACTIVE_DEVICE, or, if the user making the request is non-premium, a
-     403 FORBIDDEN response code will be returned together with
-     the PREMIUM_REQUIRED reason.
+     When performing an action that is restricted, a `SpotifyPlayerError`
+     will be returned. It contains the following properties:
      
-     Read more at the [Spotify web API reference][2].
+     * `message`: A short description of the cause of the error.
+     * `reason`: A [player error reason][1], modeled by
+       `SpotifyPlayerError.ErrorReason`.
+     * `statusCode`: The HTTP status code that is also returned in the response
+       header.
+     
+     See also [Using the Player Endpoints][2].
+     
+     Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to.
@@ -711,7 +752,8 @@ public extension SpotifyAPI where
              transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
+     [3]: https://developer.spotify.com/documentation/web-api/reference/player/transfer-a-users-playback/
      */
     func transferPlayback(
         to deviceId: String,
