@@ -2,6 +2,13 @@
 
 **A Swift library for the Spotify web API**
 
+#### Features
+
+* Supports *all* of the [Spotify web API endpoints][24], including playing content, creating playlists, and retrieving albums.
+* Uses Apple's Combine framework, which makes chaining asynchronous requests a breeze
+* Supports three different authorization methods
+* Automatically refreshes the access token when necessary
+
 Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
 
 ## Table of Contents
@@ -37,7 +44,6 @@ The next step is authorizing your app. *All* requests to the Spotify web API—w
 * **[Authorization Code Flow with Proof Key for Code Exchange](#authorizing-with-the-authorization-code-flow-with-proof-key-for-code-exchange)**: This is the best option for mobile and desktop applications where it is unsafe to store your client secret. It provides an additional layer of security compared to the Authorization Code Flow. Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app. Read more at the [Spotify web API reference][15].
 
 * **[Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.  Read more at the [Spotify web API reference][3].
-
 * **[Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5] or an access token that was issued on behalf of a user. The advantage of this method is that it does not require any user interaction.  Read more at the [Spotify web API reference][4].
 
 When creating an application that uses this library, you will probably want to **save the authorization information to persistent storage** so that the user does not have to login again every time the application is quit and re-launched. See the [Saving Authorization Information to Persistent Storage][16] wiki page for a guide on how to do this.
@@ -288,3 +294,4 @@ This authorization process is implemented in this [example command-line app][23]
 
 [22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
 [23]: https://github.com/Peter-Schorn/SpotifyAPIExamples
+[24]: https://developer.spotify.com/documentation/web-api/reference/
