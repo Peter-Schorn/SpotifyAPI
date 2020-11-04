@@ -2,7 +2,7 @@
 
 **A Swift library for the Spotify web API**
 
-#### Features
+### Features
 
 * Supports *all* of the [Spotify web API endpoints][24], including playing content, creating playlists, and retrieving albums.
 * Uses Apple's Combine framework, which makes chaining asynchronous requests a breeze
