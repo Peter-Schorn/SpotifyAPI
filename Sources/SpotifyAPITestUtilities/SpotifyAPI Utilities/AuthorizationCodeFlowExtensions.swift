@@ -75,17 +75,19 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        let cancellable = self.testAuthorize(scopes: scopes)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                    case .finished:
-                        semaphore.signal()
-                    case .failure(let error):
-                        fatalError(
-                            "couldn't authorize application:\n\(error)"
-                        )
-                }
-            })
+        let cancellable = self.testAuthorize(
+            scopes: scopes, showDialog: showDialog
+        )
+        .sink(receiveCompletion: { completion in
+            switch completion {
+                case .finished:
+                    semaphore.signal()
+                case .failure(let error):
+                    fatalError(
+                        "couldn't authorize application:\n\(error)"
+                    )
+            }
+        })
         
         _ = cancellable  // supress warnings
         

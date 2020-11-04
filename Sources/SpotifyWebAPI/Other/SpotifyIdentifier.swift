@@ -6,11 +6,11 @@ import Logging
  Encapsulates the various formats that Spotify uses to uniquely identify
  content such as artists, tracks, and playlists. See [spotify URIs and ids][1].
 
- You can pass an instance of this struct into any method
- that accepts a `SpotifyURIConvertible` type.
+ You can pass an instance of this struct into any method that accepts a
+ `SpotifyURIConvertible` type.
 
- This struct provides a convientent way to convert between
- the different formats, which include the id, the URI, and the URL.
+ This struct provides a convenient way to convert between the different formats,
+ which include the id, the URI, and the URL.
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  */
@@ -52,7 +52,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         return identifiers.map(\.id).joined(separator: ",")
         
     }
-    
     
     /// The id for the Spotify content.
     public let id: String
@@ -200,51 +199,62 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     
     /**
      Creates an instance from a Spotify URL to the content.
-     See [spotify URIs and ids][1].
+     See [Spotify URIs and ids][1].
     
-     The first path component must be the id category. It must match
-     one of the raw values of `IDCategory`. The second path component must
-     be the id of the content. All additional path components and/or query
-     parameters, if present, are ignored.
+     The first path component must be the id category. The second path
+     component must be the id of the content. All additional path components
+     and/or query parameters, if present, are ignored.
      
      For example:
      ```
      "https://open.spotify.com/playlist/33yLOStnp2emkEA76ew1Dz"
      ```
+
+     The id category must be one of the following:
+     
+     * `artist`
+     * `album`
+     * `track`
+     * `playlist`
+     * `show`
+     * `episode`
+     * `local`
+     * `user`
+     * `genre`
      
      - Parameter url: A URL that, when opened, displays the content in the
            web player.
-     - Throws: If the id and/or id category of the content could not be parsed
-           from the URL.
+     - Throws: If the id and/or id category of the content could not be
+           parsed from the URL.
      
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(url: URL) throws {
 
-        // If the url contains at least one "/" after the host component,
-        // then The first path component in the array will be a single "/",
-        // so the id category will actually be at index 1 and the id will be
-        // at index 2.
-        let paths = url.pathComponents
+        // If the URL contains at least one "/" after the host component,
+        // then the first path component in the array will actually be a
+        // single "/", so the id category will actually be at index 1, and
+        // the id will be at index 2.
+        let pathComponents = url.pathComponents
         
         let errorMessage: String
         parseURL: do {
             
-            guard paths.count >= 3 else {
+            guard pathComponents.count >= 3 else {
                 errorMessage = "expected at least two path components " +
-                    "but received \(max(paths.count - 1, 0))"
+                    "but received \(max(pathComponents.count - 1, 0))"
                 break parseURL
             }
-            guard let idCategory = IDCategory(rawValue: paths[1]) else {
+            guard let idCategory = IDCategory(rawValue: pathComponents[1]) else {
                 errorMessage = """
                     id category must be one of the following: \
                     \(IDCategory.allCases.map(\.rawValue)), \
-                    but received '\(paths[1])'"
+                    but received '\(pathComponents[1])'"
                     """
                 break parseURL
             }
-            self.id = paths[2]
             self.idCategory = idCategory
+            self.id = pathComponents[2]
             return
             
         }

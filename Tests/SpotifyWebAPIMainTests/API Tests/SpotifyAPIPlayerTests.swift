@@ -131,7 +131,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             
             let difference = Date().timeIntervalSince1970 -
                     context.timestamp.timeIntervalSince1970
-            XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+            XCTAssert(
+                (0...20).contains(difference),
+                "timestamp is incorrect: \(context.timestamp)"
+            )
             
             if let progress = context.progressMS {
                 XCTAssert(

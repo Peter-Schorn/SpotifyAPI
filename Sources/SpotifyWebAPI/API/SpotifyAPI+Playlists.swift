@@ -837,7 +837,7 @@ public extension SpotifyAPI where
             httpMethod: "POST",
             queryItems: [:],
             body: urisDict,
-            // we can't know in advance which playlist the items
+            // We can't know in advance which playlist the items
             // will be added to.
             requiredScopes: []
         )
@@ -948,7 +948,7 @@ public extension SpotifyAPI where
             httpMethod: "PUT",
             queryItems: [:],
             body: body,
-            // we can't know in advance which playlist
+            // We can't know in advance which playlist
             // is being modified.
             requiredScopes: []
         )
@@ -972,6 +972,9 @@ public extension SpotifyAPI where
      authorization of the `playlistModifyPublic` scope; setting items in
      the current user’s private playlist (including collaborative playlists)
      requires the `playlistModifyPrivate` scope.
+     
+     **If a single URI is invalid, then the entire request will fail and the**
+     **playlist will not be modified.**
      
      Read more at the [Spotify web API reference][1].
      
@@ -1178,6 +1181,11 @@ public extension SpotifyAPI where
      of the `playlistModifyPublic` scope; removing items from a
      private playlist requires the `playlistModifyPrivate` scope.
      
+     **If a single URI is invalid, then the entire request will fail and the**
+     **playlist will not be modified.** Trying to remove an item that is not
+     contained in the playlist has no effect.
+     
+     
      Read more at the [Spotify web API reference][1].
 
      - Parameters:
@@ -1207,7 +1215,7 @@ public extension SpotifyAPI where
             httpMethod: "DELETE",
             queryItems: [:],
             body: URIsContainer(uris, snapshotId: snapshotId),
-            // we can't know in advance which playlist
+            // We can't know in advance which playlist
             // is being modified.
             requiredScopes: []
         )
@@ -1229,8 +1237,9 @@ public extension SpotifyAPI where
      of the `playlistModifyPublic` scope; removing items from a
      private playlist requires the `playlistModifyPrivate` scope.
      
-     **If a given item is not found at a given position,**
-     **the entire request will fail and no edits will take place.**
+     **If a single URI is invalid or if a given item is not found at a**
+     **given position, the entire request will fail and no edits will take**
+     **place.**
      
      Read more at the [Spotify web API reference][1].
      
@@ -1259,7 +1268,7 @@ public extension SpotifyAPI where
             httpMethod: "DELETE",
             queryItems: [:],
             body: urisWithPostions,
-            // we can't know in advance which playlist
+            // We can't know in advance which playlist
             // is being modified.
             requiredScopes: []
         )

@@ -410,7 +410,7 @@ public extension SpotifyAPI where
      - Parameters:
        - uri: The URI for a playlist.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist
      [2]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/
      */
     func unfollowPlaylistForCurrentUser(
