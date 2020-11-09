@@ -18,10 +18,10 @@ extension SpotifyAPI {
      
      - Parameters:
        - scopes: A set of Spotify authorization scopes.
-       - tolerance. The tolerance in seconds to use when determining if the
+       - tolerance: The tolerance in seconds to use when determining if the
              access token is expired. The default is 120.
-     - Throws: If the access token or refresh token is `nil` or a network
-           error occurs.
+     - Throws: If the access token or refresh token is `nil`, if the application
+           is not authorized for the specified scopes, or a network error occurs.
      - Returns: The access token unwrapped from
            `self.authorizationManager.accessToken`. This is required
            in the header of requests to all endpoints.
@@ -83,21 +83,6 @@ extension SpotifyAPI {
                     authorizedScopes: self.authorizationManager.scopes ?? []
                 )
             }
-
-            if let expirationDate =
-                    self.authorizationManager.expirationDate {
-                assert(
-                    expirationDate > Date(),
-                    "access token was expired after just refreshing it:\n" +
-                    "\(self.authorizationManager)"
-                )
-                    
-            }
-            else {
-                assertionFailure(
-                    "expiration date was nil after just refreshing the access token"
-                )
-            }
             
             return acccessToken
             
@@ -107,19 +92,17 @@ extension SpotifyAPI {
     }
     
     /**
-     Makes a request to the Spotify Web API. You should usually
-     not need to call this method youself.
-     All requests to endpoints other than those for authorizing
-     the app and retrieving/refreshing the tokens call through
-     to this method.
+     Makes a request to the Spotify Web API. You should usually not need to call
+     this method youself. All requests to endpoints other than those for
+     authorizing the app and retrieving/refreshing the tokens call through to
+     this method.
      
-     **Note: There is an overload that accepts an instance of a**
-     **type conforming to Encodable for the body parameter.**
-     Only use this method if the body cannot be encoded to `Data`
-     using a `JSONEncoder`.
+     **Note: There is an overload that accepts an instance of a type**
+     **conforming to Encodable for the body parameter.** Only use this method if
+     the body cannot be encoded to `Data` using a `JSONEncoder`.
      
-     The access token will be refreshed automatically if needed
-     before the request is made.
+     The access token will be refreshed automatically if needed before the
+     request is made.
      
      If you are making a get request, use
      `self.getRequest(path:queryItems:requiredScopes:responseType:)`
@@ -130,11 +113,10 @@ extension SpotifyAPI {
      "https://api.spotify.com/v1"
      ```
      
-     A closure that accepts the access token must be used
-     to make the headers because the access token will not
-     be accessed until a call to `self.refreshAccessToken(onlyIfExpired: true)`
-     is made. This method may return a new access token, which will then
-     be used in the headers.
+     A closure that accepts the access token must be used to make the headers
+     because the access token will not be accessed until after a call to
+     `self.refreshAccessToken(onlyIfExpired: true)` is made. This method may
+     return a new access token, which will then be used in the headers.
      
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
@@ -163,9 +145,9 @@ extension SpotifyAPI {
             path, queryItems: queryItems
         )
 
-        return refreshTokensAndEnsureAuthorized(for: requiredScopes)
+        return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                        AnyPublisher<(data: Data, response: URLResponse), Error> in
+                Publishers.MapError<URLSession.DataTaskPublisher, Error> in
             
                 if self.apiRequestLogger.logLevel <= .warning {
                 
@@ -202,7 +184,6 @@ extension SpotifyAPI {
                     body: bodyData
                 )
                 .mapError { $0 as Error }
-                .eraseToAnyPublisher()
             
             }
             .eraseToAnyPublisher()
@@ -210,14 +191,13 @@ extension SpotifyAPI {
     }
     
     /**
-     Makes a request to the Spotify Web API. You should usually
-     not need to call this method youself.
-     All requests to endpoints other than those for authorizing
-     the app and retrieving/refreshing the tokens call through
-     to this method.
+     Makes a request to the Spotify Web API. You should usually not need to call
+     this method youself. All requests to endpoints other than those for
+     authorizing the app and retrieving/refreshing the tokens call through to
+     this method.
      
-     The access token will be refreshed automatically if needed
-     before the request is made.
+     The access token will be refreshed automatically if needed before the
+     request is made.
      
      Use
      `apiRequest(path:queryItems:httpMethod:makeHeaders:bodyData:requiredScopes:)`
@@ -233,7 +213,7 @@ extension SpotifyAPI {
      ```
      
      A closure that accepts the access token must be used to make the headers
-     because the access token will not be accessed until a call to
+     because the access token will not be accessed until after a call to
      `self.refreshAccessToken(onlyIfExpired: true)` is made. This method may
      return a new access token, which will then be used in the headers.
     
@@ -281,12 +261,12 @@ extension SpotifyAPI {
         
     }
     
-    // MARK: - Get Request -
-    
     /**
-     Makes a get request to the Spotify web API.
-     You should not normally need to call this method.
-     Automatically refreshes the access token if necessary.
+     Makes a get request to the Spotify web API. You should not normally need
+     to call this method.
+     
+     The access token will be refreshed automatically if needed before the
+     request is made.
      
      The base URL that the path and query items are appended to is
      ```
@@ -306,7 +286,7 @@ extension SpotifyAPI {
         requiredScopes: Set<Scope>
     ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
         
-        return apiRequest(
+        return self.apiRequest(
             path: path,
             queryItems: queryItems,
             httpMethod: "GET",

@@ -40,9 +40,7 @@ public enum Headers {
      The bearer authorization and JSON Content-Type headers.
     
      The JSON Content-Type header tells the server that the body
-     of the request is JSON. The authorization header is required for
-     all requests to the Spotify web API other than those for
-     authorizing/authenticating your application.
+     of the request is JSON.
      
      Equivalent to `bearerAuthorization(accessToken) + contentTypeJSON`
      ```

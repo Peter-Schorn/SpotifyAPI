@@ -68,7 +68,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      Emits after any of the following events occur:
 
      * After the access and/or refresh tokens are retrieved.
-     * After the access token (and possible the refresh token) is refreshed.
+     * After the access token (and possibly the refresh token) is refreshed.
      * After you assign a new authorization manager to the `authorizationManager`
        property of this class.
      
@@ -267,6 +267,9 @@ extension SpotifyAPI {
     /// This method has no stable API and may change arbitrarily.
     /// Only use it for testing purposes.
     public func setupDebugging() {
+        
+        // REMEMBER: keep up to date with "Debugging" wiki page
+        // https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging
         
         self.logger.logLevel = .trace
         self.apiRequestLogger.logLevel = .trace

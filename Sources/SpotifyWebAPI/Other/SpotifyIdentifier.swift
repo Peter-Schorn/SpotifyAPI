@@ -98,6 +98,19 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      Creates an instance from an id and an id category.
      See [spotify URIs and ids][1].
     
+     The id category must be one of the following:
+     
+     * `artist`
+     * `album`
+     * `track`
+     * `playlist`
+     * `show`
+     * `episode`
+     * `local`
+     * `user`
+     * `genre`
+     * `unknown`
+     
      - Parameters:
        - id: A Spotify id.
        - idCategory: An id category.

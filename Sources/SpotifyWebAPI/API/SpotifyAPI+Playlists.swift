@@ -829,7 +829,7 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<String, Error> {
        
         let urisDict = URIsDictWithInsertionIndex (
-            uris: uris, postion: position
+            uris: uris, position: position
         )
         
         return self.modifyPlaylist(

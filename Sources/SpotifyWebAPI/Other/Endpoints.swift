@@ -56,9 +56,8 @@ enum Endpoints {
     static let token = "/api/token"
     
     /**
-     The URL for retreiving refresh and access tokens and for
-     refreshing an access token for the Authorization Code Flow,
-     and for requesting an access token for the Client Credentials Flow.
+     The URL for authorizing your application, retrieving refresh and
+     access tokens, and refreshing the access token.
     
      ```
      "https://accounts.spotify.com/api/token"
@@ -105,7 +104,3 @@ enum Endpoints {
     
     
 }
-
-
-
-

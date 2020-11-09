@@ -376,6 +376,9 @@
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI26URIsDictWithInsertionIndexV">URIsDictWithInsertionIndex</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -476,11 +479,15 @@ items.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a container that holds an array of URIs and their positions in a
-playlist.</p>
+                        <p>Creates a container that holds an array of URIs and their positions
+in a playlist.</p>
 
-<p>Consider using the convienence initializer
-<code>init(snapshotId:urisWithPositions:)</code>, which accepts an array of tuples.</p>
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Structs/URIsWithPositionsContainer.html#/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04urisE14SinglePositionACSSSg_SayAA0A14URIConvertible_p3uri_Si8positiontGtcfc">init(snapshotId:urisWithSinglePosition:)</a></code></li>
+<li><p><code>chunked(snapshotId:urisWithSinglePosition:)</code></p></li>
+</ul>
 
                       </div>
                       <div class="declaration">
@@ -488,7 +495,7 @@ playlist.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">urisWithPositions</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/URIWithPositions.html">URIWithPositions</a></span><span class="p">]</span>
 <span class="p">)</span></code></pre>
 
@@ -549,17 +556,55 @@ endpoint accepts a maximum of 100 items.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a container that holds an array of URIs and their positions in a
-playlist.</p>
+                        <p>This initializer is deprecated.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">urisWithPositions</span><span class="p">:</span> <span class="p">[(</span><span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="nv">positions</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])]</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04urisE14SinglePositionACSSSg_SayAA0A14URIConvertible_p3uri_Si8positiontGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(snapshotId:urisWithSinglePosition:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04urisE14SinglePositionACSSSg_SayAA0A14URIConvertible_p3uri_Si8positiontGtcfc">init(snapshotId:<wbr>urisWithSinglePosition:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a container that holds an array of URIs and their positions in a
+playlist.</p>
+
+<p>See also:</p>
+
+<ul>
+<li><code><a href="../Structs/URIsWithPositionsContainer.html#/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04uriseF0ACSSSg_SayAA07URIWithF0VGtcfc">init(snapshotId:urisWithPositions:)</a></code></li>
+<li><p><code>chunked(snapshotId:urisWithSinglePosition:)</code></p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
+    <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">urisWithSinglePosition</span><span class="p">:</span> <span class="p">[(</span><span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)]</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -588,15 +633,74 @@ has changed since the last time you retrieved it.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>urisWithPositions</em>
+                                <em>urisWithSinglePosition</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>An collection of URIs along with their positions
-in a playlist. The
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE31removeAllOccurencesFromPlaylist_2of10snapshotId7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaM_pGSSSgtF">SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)</a></code>
-endpoint accepts a maximum of 100 items.</p>
+                                  <p>An array of tuples, each of which contain a URI
+and a <em>single</em> position in a playlist. Unlike
+<code><a href="../Structs/URIsWithPositionsContainer.html#/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04uriseF0ACSSSg_SayAA07URIWithF0VGtcfc">init(snapshotId:urisWithPositions:)</a></code>, <code>urisWithSinglePosition</code> is
+expected to contain duplicate URIs, but each with a different
+position.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI26URIsWithPositionsContainerV7chunked04urisE14SinglePositionSayACGSayAA0A14URIConvertible_p3uri_Si8positiontG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/chunked(urisWithSinglePosition:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI26URIsWithPositionsContainerV7chunked04urisE14SinglePositionSayACGSayAA0A14URIConvertible_p3uri_Si8positiontG_tFZ">chunked(urisWithSinglePosition:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an array of <code>Self</code>, each element of which can be used in
+a request to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
+
+<p><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code> accepts a
+maximum of 100 unique items. Use this method when you need to remove
+more than 100 unique items from a playlist by making a separate request
+for each element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">chunked</span><span class="p">(</span>
+    <span class="nv">urisWithSinglePosition</span><span class="p">:</span> <span class="p">[(</span><span class="nv">uri</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="k">Self</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urisWithSinglePosition</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of tuples, each of which
+  contain a URI and a <em>single</em> position in a playlist. Unlike
+  <code><a href="../Structs/URIsWithPositionsContainer.html#/s:13SpotifyWebAPI26URIsWithPositionsContainerV10snapshotId04uriseF0ACSSSg_SayAA07URIWithF0VGtcfc">init(snapshotId:urisWithPositions:)</a></code>, <code>urisWithSinglePosition</code>
+  is expected to contain duplicate URIs, but each with a different
+  position.</p>
                                 </div>
                               </td>
                             </tr>
@@ -611,7 +715,7 @@ endpoint accepts a maximum of 100 items.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-04)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

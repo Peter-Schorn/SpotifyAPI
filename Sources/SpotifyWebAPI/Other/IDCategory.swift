@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The Spotify ID Category, which is the identifier that appears
+ A Spotify ID Category, which is the identifier that appears
  near the beginning of a Spotify URI.
  
  In this URI:
@@ -9,6 +9,19 @@ import Foundation
  "spotify:track:6rqhFgbbKwnb9MLmUQDhG6"
  ```
  "track" is the id category.
+ 
+ The id categories:
+ 
+ * `artist`
+ * `album`
+ * `track`
+ * `playlist`
+ * `show`
+ * `episode`
+ * `local`
+ * `user`
+ * `genre`
+ * `unknown`
  
  Read more at the [Spotify web API reference][1].
  
@@ -51,6 +64,19 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
  
     /**
      Creates a new instance with the specified raw value.
+     
+     The id categories:
+     
+     * `artist`
+     * `album`
+     * `track`
+     * `playlist`
+     * `show`
+     * `episode`
+     * `local`
+     * `user`
+     * `genre`
+     * `unknown`
      
      - Parameter rawValue: The raw value for an id category.
            **It is case-insensitive**.

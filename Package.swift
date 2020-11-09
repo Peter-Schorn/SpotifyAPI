@@ -52,7 +52,6 @@ let package = Package(
                 "SpotifyWebAPI",
                 "SpotifyExampleContent",
                 "RegularExpressions"
-                // "swift-log"
             ],
             exclude: ["README.md"]
         ),

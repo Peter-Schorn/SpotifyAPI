@@ -667,6 +667,19 @@ extension SpotifyAPIPlaylistsTests where
             URIs.Episodes.samHarris212     // 6  insertBefore
         ]
         
+        let urisDict = URIsDictWithInsertionIndex(
+            uris: itemsToAddToPlaylist,
+            position: 5
+        )
+        
+        encodeDecode(urisDict)
+        
+        XCTAssertEqual(
+            urisDict.uris.map(\.uri),
+            itemsToAddToPlaylist.map(\.uri)
+        )
+        XCTAssertEqual(urisDict.position, 5)
+        
         var reorderRequest1 = ReorderPlaylistItems(
             rangeStart: 1,
             rangeLength: 3,
@@ -710,8 +723,6 @@ extension SpotifyAPIPlaylistsTests where
         )
         
         encodeDecode(playlistDetails)
-        
-        
         
         let expectation = XCTestExpectation(
             description: "testCreatePlaylistAddRemoveReorderItems"
@@ -1019,9 +1030,9 @@ extension SpotifyAPIPlaylistsTests where
         var itemsToRemoveFromPlaylist = URIsWithPositionsContainer(
             snapshotId: nil,
             urisWithPositions: [
-                (uri: URIs.Episodes.seanCarroll112, positions: [1, 5]),
-                (uri: URIs.Tracks.breathe, positions: [2, 7]),
-                (uri: URIs.Tracks.houseOfCards, positions: [3])
+                .init(uri: URIs.Episodes.seanCarroll112, positions: [1, 5]),
+                .init(uri: URIs.Tracks.breathe, positions: [2, 7]),
+                .init(uri: URIs.Tracks.houseOfCards, positions: [3])
             ]
         )
         

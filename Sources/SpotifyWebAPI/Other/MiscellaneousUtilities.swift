@@ -28,8 +28,8 @@ public extension Dictionary {
     /**
      Merges the two dictionaries.
      
-     Duplicate keys in the left hand side will
-     replace those in the right hand side.
+     Duplicate keys in the left hand side will replace those in the right hand
+     side.
      
      - Warning: This operation is non-commutative.
      
@@ -44,11 +44,11 @@ public extension Dictionary {
     }
     
     /**
-     Merges the left hand side dictionary with
-     the right hand dictionary in-place.
+     Merges the left hand side dictionary with the right hand dictionary
+     in-place.
     
-     Duplicate keys in the left hand side will
-     replace those in the right hand side.
+     Duplicate keys in the left hand side will replace those in the right
+     hand side.
      
      - Warning: This operation is non-commutative.
      
@@ -146,6 +146,18 @@ public extension Sequence where Element: Equatable {
             }
         }
         return uniqueElements
+    }
+
+}
+
+public extension Collection where Index == Int {
+
+    /// Splits this collection into an array of arrays, each of which
+    /// will have the specified size (although the last may be smaller).
+    func chunked(size: Int) -> [[Element]] {
+        return stride(from: 0, to: self.count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, self.count)])
+        }
     }
 
 }

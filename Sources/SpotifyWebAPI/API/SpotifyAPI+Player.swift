@@ -466,7 +466,9 @@ public extension SpotifyAPI where
              **Unlike other player endpoints, you can provide the id of a**
              **non-active device, which will cause the given content to be**
              **played on that device**. Leave as `nil` to target the active
-             device.
+             device. If there are no active devices, then you must provide
+             a device id, otherwise you will get a
+             "Player command failed: No active device found" error.
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons

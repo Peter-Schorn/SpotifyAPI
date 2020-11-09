@@ -55,8 +55,7 @@ public protocol SpotifyAuthorizationManager: Codable {
     var didDeauthorize: PassthroughSubject<Void, Never> { get }
     
     /**
-     Determines whether the access token is expired
-     within the given tolerance.
+     Determines whether the access token is expired within the given tolerance.
     
      - Parameter tolerance: The tolerance in seconds.
            The reccomended default is 120.

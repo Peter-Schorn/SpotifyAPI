@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import XCTest
-@testable import SpotifyWebAPI
+import SpotifyWebAPI
 
 /// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.

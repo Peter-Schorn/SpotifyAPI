@@ -30,12 +30,14 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     public var urisWithPositions: [URIWithPositions]
     
     /**
-     Creates a container that holds an array of URIs and their positions in a
-     playlist.
+     Creates a container that holds an array of URIs and their positions
+     in a playlist.
      
-     Consider using the convienence initializer
-     `init(snapshotId:urisWithPositions:)`, which accepts an array of tuples.
-    
+     See also:
+     
+     * `init(snapshotId:urisWithSinglePosition:)`
+     * `chunked(snapshotId:urisWithSinglePosition:)`
+     
      - Parameters:
        - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
              the most recent version of the playist is targeted.
@@ -45,39 +47,23 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
              has changed since the last time you retrieved it.
        - urisWithPositions: A collection of URIs along with their positions
              in a playlist. The
-             `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`
+            `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`
              endpoint accepts a maximum of 100 items.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     public init(
-        snapshotId: String?,
+        snapshotId: String? = nil,
         urisWithPositions: [URIWithPositions]
     ) {
         self.snapshotId = snapshotId
         self.urisWithPositions = urisWithPositions
     }
-    
-    /**
-     Creates a container that holds an array of URIs and their positions in a
-     playlist.
-    
-     - Parameters:
-       - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
-             the most recent version of the playist is targeted.
-             This is an identifer for the current version of the playlist.
-             Every time the playlist changes, a new snapshot id is generated.
-             You can use this value to efficiently determine whether a playlist
-             has changed since the last time you retrieved it.
-       - urisWithPositions: An collection of URIs along with their positions
-             in a playlist. The
-             `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
-             endpoint accepts a maximum of 100 items.
-     
-     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     */
+
+    /// This initializer is deprecated.
+    @available(*, deprecated)
     public init(
-        snapshotId: String?,
+        snapshotId: String? = nil,
         urisWithPositions: [(uri: SpotifyURIConvertible, positions: [Int])]
     ) {
         self.snapshotId = snapshotId
@@ -92,3 +78,123 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
         case urisWithPositions = "tracks"
     }
 }
+
+public extension URIsWithPositionsContainer {
+
+    /**
+     Creates a container that holds an array of URIs and their positions in a
+     playlist.
+
+     See also:
+     
+     * `init(snapshotId:urisWithPositions:)`
+     * `chunked(snapshotId:urisWithSinglePosition:)`
+     
+     - Parameters:
+       - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
+             the most recent version of the playist is targeted.
+             This is an identifer for the current version of the playlist.
+             Every time the playlist changes, a new snapshot id is generated.
+             You can use this value to efficiently determine whether a playlist
+             has changed since the last time you retrieved it.
+       - urisWithSinglePosition: An array of tuples, each of which contain a URI
+             and a *single* position in a playlist. Unlike
+             `init(snapshotId:urisWithPositions:)`, `urisWithSinglePosition` is
+             expected to contain duplicate URIs, but each with a different
+             position.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
+     */
+    init(
+        snapshotId: String? = nil,
+        urisWithSinglePosition: [(uri: SpotifyURIConvertible, position: Int)]
+    ) {
+        
+        let dictionary: [String: [Int]] = urisWithSinglePosition.reduce(
+            into: [:]
+        ) { dictionary, nextItem in
+            dictionary[nextItem.uri.uri, default: []].append(nextItem.position)
+        }
+        
+        let urisWithPositions = dictionary.map { item in
+            URIWithPositions(uri: item.key, positions: item.value)
+        }
+        
+        self.init(
+            snapshotId: snapshotId,
+            urisWithPositions: urisWithPositions
+        )
+        
+    }
+    
+    /**
+     Creates an array of `Self`, each element of which can be used in
+     a request to `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`.
+     
+     `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)` accepts a
+     maximum of 100 unique items. Use this method when you need to remove
+     more than 100 unique items from a playlist by making a separate request
+     for each element.
+     
+     - Parameter urisWithSinglePosition: An array of tuples, each of which
+           contain a URI and a *single* position in a playlist. Unlike
+           `init(snapshotId:urisWithPositions:)`, `urisWithSinglePosition`
+           is expected to contain duplicate URIs, but each with a different
+           position.
+     */
+    static func chunked(
+        urisWithSinglePosition: [(uri: SpotifyURIConvertible, position: Int)]
+    ) -> [Self] {
+     
+        if urisWithSinglePosition.isEmpty { return [] }
+        
+        let sortedURIs = urisWithSinglePosition.sorted { lhs, rhs in
+            lhs.position > rhs.position
+        }
+
+        var uniqueURIs: Set<String> = []
+        var chunks: [[(uri: SpotifyURIConvertible, position: Int)]] = [[]]
+        var currentChunkIndex = 0
+        
+        for item in sortedURIs {
+            if uniqueURIs.count >= 100 {
+                // print(
+                //     """
+                //     chunk index: \(currentChunkIndex); \
+                //     count: \(chunks[currentChunkIndex].count)
+                //     """
+                // )
+                uniqueURIs = []
+                chunks.append([])
+                currentChunkIndex += 1
+                // print("\(currentTime()) chunk index: \(currentChunkIndex)")
+            }
+            chunks[currentChunkIndex].append(item)
+            uniqueURIs.insert(item.uri.uri)
+            
+        }
+        // print(
+        //     """
+        //     chunk index: \(currentChunkIndex); \
+        //     count: \(chunks[currentChunkIndex].count)
+        //     """
+        // )
+        
+        let containers = chunks.map { chunk in
+            Self(urisWithSinglePosition: chunk)
+        }
+        
+        // print("\(currentTime()) created \(containers.count) chunks")
+        
+        return containers
+        
+    }
+    
+}
+
+// func currentTime() -> String {
+//     let formatter = DateFormatter()
+//     formatter.dateFormat = "h:m:ss.SS"
+//
+//     return formatter.string(from: Date())
+// }

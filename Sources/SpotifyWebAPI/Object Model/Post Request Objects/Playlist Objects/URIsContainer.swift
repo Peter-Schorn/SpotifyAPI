@@ -39,7 +39,10 @@ public struct URIsContainer {
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
-    public init(_ items: [SpotifyURIConvertible], snapshotId: String?) {
+    public init(
+        _ items: [SpotifyURIConvertible],
+        snapshotId: String? = nil
+    ) {
         self.items = items
         self.snapshotId = snapshotId
     }
