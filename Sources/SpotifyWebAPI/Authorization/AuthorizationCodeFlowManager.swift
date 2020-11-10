@@ -554,10 +554,10 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
             
             return """
                 AuthorizationCodeFlowManager(
-                    access_token: "\(_accessToken ?? "nil")"
+                    access token: "\(_accessToken ?? "nil")"
                     scopes: \(scopeString)
-                    expirationDate: \(expirationDateString)
-                    refresh_token: "\(_refreshToken ?? "nil")"
+                    expiration date: \(expirationDateString)
+                    refresh token: "\(_refreshToken ?? "nil")"
                     client id: "\(clientId)"
                     client secret: "\(clientSecret)"
                 )

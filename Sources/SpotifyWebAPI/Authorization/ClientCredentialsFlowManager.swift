@@ -628,8 +628,8 @@ extension ClientCredentialsFlowManager: CustomStringConvertible {
         
             return """
                 ClientCredentialsFlowManager(
-                    access_token: "\(_accessToken ?? "nil")"
-                    expirationDate: \(expirationDateString)
+                    access token: "\(_accessToken ?? "nil")"
+                    expiration date: \(expirationDateString)
                     client id: "\(clientId)"
                     client secret: "\(clientSecret)"
                 )
