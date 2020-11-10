@@ -195,13 +195,6 @@
       "symbol": "Playlist.init(name:items:owner:isPublic:collaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Post Request Objects/Playlist Objects/URIsWithPositionsContainer.swift",
-      "line": 134,
-      "symbol": "URIsWithPositionsContainer.chunked(urisWithSinglePosition:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/pschorn/Swift/Libraries/SpotifyAPI"

@@ -4,19 +4,17 @@ import Foundation
  Indicates where in the context playback should start.
  See `PlaybackRequest`.
  
- Only available when `contextURI` is an album, show, or playlist (not an artist)
- or when `uris([SpotifyURIConvertible])` is used for the context.
  One of the following:
  
  * `position(Int)`: The index of the item in the context at which to
-   start playback.
+   start playback. Cannot be used if the context is an artist.
  * `uri(SpotifyURIConvertible)`: The URI of the item in the context
    to start playback at.
 */
 public enum OffsetOption {
     
     /// The index of the item in the context at which to
-    /// start playback.
+    /// start playback. Cannot be used if the context is an artist.
     case position(Int)
     
     /// The URI of the item in the context to start playback at.

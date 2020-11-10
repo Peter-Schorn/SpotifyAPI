@@ -362,8 +362,11 @@ public extension SpotifyAPI where
     /**
      Resume the current user's current playback.
      
-     Use `play(_:deviceId:)` to play specific content.
-     See also `transferPlayback(to:play:)`.
+     See also:
+     
+     * `play(_:deviceId:)` - play specific content
+     * `transferPlayback(to:play:)` - transfer playback to a different
+       device
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
@@ -416,8 +419,11 @@ public extension SpotifyAPI where
     /**
      Play content for the current user.
      
-     Use `resumePlayback(deviceId:)` to resume the user's current
-     playback. See also `transferPlayback(to:play:)`.
+     See also:
+     
+     * `resumePlayback(deviceId:)` - resume the user's current playback
+     * `transferPlayback(to:play:)` - transfer the user's playback to a
+       different device
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
@@ -434,12 +440,10 @@ public extension SpotifyAPI where
        * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
      * offset: Indicates where in the context playback should start.
-       Only available when `contextURI` is an album, playlist, or show
-       (not an artist) or when `uris([SpotifyURIConvertible])` is used for
-       the context. One of the following:
+       One of the following:
      
        * `position(Int)`: The index of the item in the context at which to
-         start playback.
+         start playback. Cannot be used if the context is an artist.
        *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
      * positionMS: Indicates from what position to start playback in

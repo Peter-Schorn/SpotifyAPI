@@ -18,12 +18,10 @@ import Foundation
    * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
  
  * offset: Indicates where in the context playback should start.
-   Only available when `contextURI` is an album, playlist, or show (not an artist)
-   or when `uris([SpotifyURIConvertible])` is used for the context.
    One of the following:
  
    * `position(Int)`: The index of the item in the context at which to
-     start playback.
+     start playback. Cannot be used if the context is an artist.
    *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
  
  * positionMS: Indicates from what position to start playback in
@@ -55,12 +53,10 @@ public struct PlaybackRequest: Hashable {
     /**
      Indicates where in the context playback should start.
      
-     Only available when `contextURI` is an album, playlist, or show (not
-     an artist) or when `uris([SpotifyURIConvertible])` is used for the context.
      One of the following:
      
      * `position(Int)`: The index of the item in the context at which to
-           start playback.
+           start playback. Cannot be used if the context is an artist.
      *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
      If `nil`, then either the first item or a random item in the context
@@ -99,12 +95,10 @@ public struct PlaybackRequest: Hashable {
          * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      
        - offset: Indicates where in the context playback should start.
-         Only available when `contextURI` is an album, playlist, or show
-         (not an artist) or when `uris([SpotifyURIConvertible])`
-         is used for the context. One of the following:
+         One of the following:
          
          * `position(Int)`: The index of the item in the context at which to
-             start playback.
+             start playback. Cannot be used if the context is an artist.
          *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
          
        - positionMS: Indicates from what position to start playback in
