@@ -147,7 +147,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
 
     }
     
-    
     /// No state provided when making the authorization URL; state provided
     /// when requesting the access and refresh tokens. Correct code challenge
     /// and code verifier.
@@ -424,7 +423,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     }
     
     /// Matching state parameters supplied, but code verifier is invalid.
-    func testInvalidState4() {
+    func testInvalidCodeVerifier() {
         
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange

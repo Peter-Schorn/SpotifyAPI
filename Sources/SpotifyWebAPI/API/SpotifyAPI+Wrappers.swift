@@ -20,8 +20,8 @@ extension SpotifyAPI {
        - scopes: A set of Spotify authorization scopes.
        - tolerance: The tolerance in seconds to use when determining if the
              access token is expired. The default is 120.
-     - Throws: If the access token or refresh token is `nil`, if the application
-           is not authorized for the specified scopes, or a network error occurs.
+     - Throws: If the access token is `nil`, if the application is not
+           authorized for the specified scopes, or a network error occurs.
      - Returns: The access token unwrapped from
            `self.authorizationManager.accessToken`. This is required
            in the header of requests to all endpoints.

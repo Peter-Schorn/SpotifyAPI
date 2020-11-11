@@ -366,9 +366,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
                 )
             }
 
-            if data.count == 0 {
-                return nil
-            }
+            if data.isEmpty { return nil }
             
             return try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,

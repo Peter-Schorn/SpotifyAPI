@@ -66,15 +66,6 @@ let package = Package(
                 "RegularExpressions",
                 "SpotifyAPITestUtilities"
             ]
-        ),
-        .testTarget(
-            name: "SpotifyWebAPILongRunningTests",
-            dependencies: [
-                "SpotifyWebAPI",
-                "SpotifyExampleContent",
-                "RegularExpressions",
-                "SpotifyAPITestUtilities"
-            ]
         )
     ]
 )

@@ -42,20 +42,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SpotifyWebAPILongRunningTests"
-               BuildableName = "SpotifyWebAPILongRunningTests"
-               BlueprintName = "SpotifyWebAPILongRunningTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "SpotifyWebAPIMainTests"
                BuildableName = "SpotifyWebAPIMainTests"
                BlueprintName = "SpotifyWebAPIMainTests"
@@ -76,16 +62,6 @@
          </TestPlanReference>
       </TestPlans>
       <Testables>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SpotifyWebAPILongRunningTests"
-               BuildableName = "SpotifyWebAPILongRunningTests"
-               BlueprintName = "SpotifyWebAPILongRunningTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
@@ -128,6 +104,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "SpotifyAPI"
+            BuildableName = "SpotifyAPI"
+            BlueprintName = "SpotifyAPI"
+            ReferencedContainer = "container:">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
