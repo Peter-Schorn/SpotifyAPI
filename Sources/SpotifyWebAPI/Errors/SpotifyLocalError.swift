@@ -84,8 +84,16 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
         key: String, dict: [AnyHashable: Any]
     )
     
-    /// Some other error.
-    case other(String)
+    /**
+     Some other error.
+     
+     The first string will be used for `description`.
+     `localizedDescription` will be used for `errorDescription`.
+     */
+    case other(
+        String,
+        localizedDescription: String = "An unexpected error occurred."
+    )
     
     /// :nodoc:
     public var errorDescription: String? {
@@ -111,8 +119,8 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
                 return "An internal error occurred"
             case .topLevelKeyNotFound(_, _):
                 return "The format of the data from Spotify was invalid."
-            case .other(_):
-                return "An unexpected error occurred."
+            case .other(_, let localizedDescription):
+                return localizedDescription
         }
     }
     
@@ -151,7 +159,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
                     level key '\(key)' was not found in the dictionary:
                     \(dict)
                     """
-            case .other(let message):
+            case .other(let message, _):
                 return "SpotifyLocalError.other: \(message)"
         }
     }
