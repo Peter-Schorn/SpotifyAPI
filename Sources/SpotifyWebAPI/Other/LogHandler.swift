@@ -2,7 +2,9 @@ import Foundation
 import Logging
 
 /**
- The logging backend for this library. See `LoggingSystem.bootstrap(_:)`.
+ The logging backend for this library. See [swift-log][1].
+ 
+ [1]: https://github.com/apple/swift-log
  */
 public struct SpotifyAPILogHandler: LogHandler {
 
@@ -19,7 +21,7 @@ public struct SpotifyAPILogHandler: LogHandler {
      This method is automatically called when an instance of `SpotifyAPI`, the
      central class in this library, is created or decoded from JSON data.
      
-     This function should only be called once. Calling it additional times is
+     This method should only be called once. Calling it additional times is
      safe, but has no effect.
      
      # Thread Safety

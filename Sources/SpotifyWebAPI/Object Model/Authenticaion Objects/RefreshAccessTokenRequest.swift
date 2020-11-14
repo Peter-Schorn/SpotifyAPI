@@ -11,7 +11,7 @@ struct RefreshAccessTokenRequest: Codable, Hashable {
     let grantType = "refresh_token"
     let refreshToken: String
     
-    public func formURLEncoded() -> Data {
+    func formURLEncoded() -> Data {
         
         guard let data = [
             "grant_type": grantType,

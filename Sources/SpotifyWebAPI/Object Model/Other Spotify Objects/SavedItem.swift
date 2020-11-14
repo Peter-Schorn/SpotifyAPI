@@ -9,7 +9,7 @@ import Foundation
  
  * `addedAt`: The date the item was added.
  * `item`: The item that was saved.
- * `itemName`: `track` if this is a saved track object,
+ * `type`: `track` if this is a saved track object,
    `album` if this is a saved album object, or
    `show` if this is a saved show object.
  
@@ -80,7 +80,6 @@ extension SavedItem: Codable {
             forKey: .addedAt
         )
         
-        
         switch Item.self {
             case is Track.Type:
                 self.item = try container.decode(
@@ -99,7 +98,7 @@ extension SavedItem: Codable {
                 self.type = .show
             default:
                 let debugDescription = """
-                    Expected generic type Item be either Track, Album, or \
+                    Expected type of Item to be either Track, Album, or \
                     Show, but got '\(Item.self)'
                     """
                 throw DecodingError.dataCorrupted(

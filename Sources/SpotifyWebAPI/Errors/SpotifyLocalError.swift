@@ -12,14 +12,18 @@ import Foundation
  to the end user. Use the string representation of this instance for a more
  detailed description suitable for debugging.
  */
-public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
+public enum SpotifyLocalError {
     
-    /// You tried to access an endpoint that requires authorization,
-    /// but you have not authorized your app yet.
+    /**
+     You have tried to access an endpoint before authorizing your app
+     or the access token needed to be refreshed but the refresh token was `nil`.
+     
+     See also `insufficientScope(requiredScopes:authorizedScopes:)`.
+     */
     case unauthorized(String)
     
     /**
-     Thrown if the value provided for the state parameter when you requested
+     The value provided for the state parameter when you requested
      access and refresh tokens didn't match the value returned from spotify
      in the query string of the redirect URI.
      
@@ -38,8 +42,8 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
     case identifierParsingError(message: String)
 
     /**
-     You tried to access an endpoint that
-     your app does not have the required scopes for.
+     You tried to access an endpoint that your app does not have the required
+     scopes for.
     
      - requiredScopes: The scopes that are required for this endpoint.
      - authorizedScopes: The scopes that your app is authroized for.
@@ -54,7 +58,7 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
       - expected: The expected categories. Some endpoints allow for
         URIS from multiple categories. For example, the endpoint for
         adding items to a playlist allows for track or episode URIs.
-      - received: the id category that was received. In some cases, multiple
+      - received: The id category that was received. In some cases, multiple
         categories will be returned.
     
      For example, if you pass a track URI to the endpoint for retrieving
@@ -95,6 +99,10 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
         localizedDescription: String = "An unexpected error occurred."
     )
     
+}
+
+extension SpotifyLocalError: LocalizedError {
+    
     /// :nodoc:
     public var errorDescription: String? {
         switch self {
@@ -123,6 +131,10 @@ public enum SpotifyLocalError: LocalizedError, CustomStringConvertible {
                 return localizedDescription
         }
     }
+    
+}
+
+extension SpotifyLocalError: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {

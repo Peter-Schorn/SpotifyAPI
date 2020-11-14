@@ -10,7 +10,7 @@ import Foundation
  * When decoding the response after refreshing the tokens
  * As a wrapper for decoding and encoding the authorization information.
  
- Because of its diverse uses, all of its properties are `nil`,
+ Because of its diverse uses, all of its properties are optional,
  which means that it will never fail to decode itself from data,
  so be careful about swallowing errors.
  
@@ -23,7 +23,7 @@ import Foundation
  * `scopes`: The scopes that have been authorized for the access token.
  
  */
-struct AuthInfo: Codable, Hashable {
+struct AuthInfo: Hashable {
     
     /// The access token used in all of the requests
     /// to the Spotify web API.
@@ -49,6 +49,10 @@ struct AuthInfo: Codable, Hashable {
         self.expirationDate = expirationDate
         self.scopes = scopes
     }
+    
+}
+
+extension AuthInfo: Codable {
     
     init(from decoder: Decoder) throws {
         

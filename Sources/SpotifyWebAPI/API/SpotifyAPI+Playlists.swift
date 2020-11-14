@@ -853,7 +853,7 @@ public extension SpotifyAPI where
        - userURI: The URI of a user. **The access token must have been
            issued on behalf of this user.**
        - playlistDetails: The details of the playlist.
-     - Returns: The playlist. It will be empty until you add tracks.
+     - Returns: The playlist. It will be empty until you add tracks/episodes.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/
      */

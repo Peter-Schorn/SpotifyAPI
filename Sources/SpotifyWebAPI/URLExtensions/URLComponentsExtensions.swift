@@ -71,7 +71,6 @@ public extension URLComponents {
         
     }
 
-
     /// A dictionary of the query items in the URL.
     var queryItemsDict: [String: String] {
 

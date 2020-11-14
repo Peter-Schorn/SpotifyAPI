@@ -64,8 +64,7 @@ public extension URL {
         
     }
     
-    /// Returns a new URL with the trailing slash in the path component
-    /// removed if it exists.
+    /// Removes the trailing slash in the path component if it exists.
     mutating func removeTrailingSlashInPath() {
         self = self.removingTrailingSlashInPath()
     }
@@ -75,7 +74,6 @@ public extension URL {
     mutating func removeQueryItems() {
         self = self.removingQueryItems()
     }
-
 
     /// The query items in the URL. See also `queryItemsDict`.
     var queryItems: [URLQueryItem] {

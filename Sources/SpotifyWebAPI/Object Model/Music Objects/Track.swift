@@ -44,10 +44,9 @@ public struct Track: Hashable {
     /**
      The popularity of the track.
      
-     The value will be between 0 and 100, with 100 being the most popular. The
-     popularity of a track is a value between 0 and 100, with 100 being the most
-     popular. The popularity is calculated by algorithm and is based, in the most
-     part, on the total number of plays the track has had and how recent those plays
+     The value will be between 0 and 100, with 100 being the most popular.
+     The popularity is calculated by algorithm and is based, in the most part,
+     on the total number of plays the track has had and how recent those plays
      are. Generally speaking, songs that are being played a lot now will have a
      higher popularity than songs that were played a lot in the past. Duplicate
      tracks (e.g. the same track from a single and an album) are rated independently.
@@ -206,6 +205,8 @@ public struct Track: Hashable {
              `{"reason" : "market"}`.
        - discNumber: The disc number (usually 1 unless the album consists of more
              than one disc).
+       - type: The object type. Usually `track`, but may be `episode` if
+             this was retrieved from a playlist. The default is `track`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -235,7 +236,8 @@ public struct Track: Hashable {
         availableMarkets: [String]? = nil,
         linkedFrom: TrackLink? = nil,
         restrictions: [String : String]? = nil,
-        discNumber: Int? = nil
+        discNumber: Int? = nil,
+        type: IDCategory = .track
     ) {
         self.name = name
         self.album = album
@@ -256,7 +258,7 @@ public struct Track: Hashable {
         self.linkedFrom = linkedFrom
         self.restrictions = restrictions
         self.discNumber = discNumber
-        self.type = .artist
+        self.type = type
     }
     
 }

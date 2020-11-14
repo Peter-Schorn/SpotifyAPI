@@ -3,7 +3,7 @@ import Logging
 
 
 /// A namespace of endpoints and endpoint components.
-enum Endpoints {
+public enum Endpoints {
     
     // MARK: - Base -
     
@@ -17,7 +17,7 @@ enum Endpoints {
      "accounts.spotify.com"
      ```
      */
-    static let accountsBase = "accounts.spotify.com"
+    public static let accountsBase = "accounts.spotify.com"
     
     /**
      The base URL for the Spotify web API.
@@ -29,13 +29,13 @@ enum Endpoints {
      "api.spotify.com"
      ```
      */
-    static let apiBase = "api.spotify.com"
+    public static let apiBase = "api.spotify.com"
     
     /// The api version 1.
     /// ```
     /// "/v1"
     /// ```
-    static let apiVersion1 = "/v1"
+    public static let apiVersion1 = "/v1"
     
     // MARK: - Authorization -
     
@@ -43,7 +43,7 @@ enum Endpoints {
     /// ```
     /// "/authorize"
     /// ```
-    static let authorize = "/authorize"
+    public static let authorize = "/authorize"
     
     /**
      The path for requesting and refreshing tokens.
@@ -53,7 +53,7 @@ enum Endpoints {
      "/api/token"
      ```
      */
-    static let token = "/api/token"
+    public static let token = "/api/token"
     
     /**
      The URL for authorizing your application, retrieving refresh and
@@ -63,7 +63,7 @@ enum Endpoints {
      "https://accounts.spotify.com/api/token"
      ```
      */
-    static let getTokens = URL(
+    public static let getTokens = URL(
         scheme: "https",
         host: Endpoints.accountsBase,
         path: Endpoints.token
@@ -88,7 +88,7 @@ enum Endpoints {
      - Returns: The URL, created from the provided path and
            query items.
      */
-    static func apiEndpoint(
+    public static func apiEndpoint(
         _ path: String,
         queryItems: [String: LosslessStringConvertible?]
     ) -> URL {
