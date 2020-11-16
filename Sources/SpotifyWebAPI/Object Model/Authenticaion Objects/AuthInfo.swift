@@ -149,10 +149,10 @@ extension AuthInfo: CustomStringConvertible {
         
         return """
             AuthInfo(
-                access_token: "\(accessToken ?? "nil")"
+                access token: "\(accessToken ?? "nil")"
                 scopes: \(scopeString)
-                expirationDate: \(expirationDateString)
-                refresh_token: "\(refreshToken ?? "nil")"
+                expiration date: \(expirationDateString)
+                refresh token: "\(refreshToken ?? "nil")"
             )
             """
     }

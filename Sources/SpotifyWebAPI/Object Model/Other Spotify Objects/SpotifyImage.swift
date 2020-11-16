@@ -118,6 +118,7 @@ public extension Sequence where Element == SpotifyImage {
      When determining the largest image, Images with
      `nil` for `height` and/or `width` are considered
      to have a `height` and/or `width` of 0.
+     
      The largest image is calculated based on `height` * `width`.
      */
     var largest: SpotifyImage? {
@@ -125,8 +126,7 @@ public extension Sequence where Element == SpotifyImage {
         // areInIncreasingOrder
         // A predicate that returns true if its first argument should
         // be ordered before its second argument; otherwise, false.
-        return self.max(by: { (lhs: SpotifyImage, rhs: SpotifyImage)
-                -> Bool in
+        return self.max(by: { (lhs: SpotifyImage, rhs: SpotifyImage) -> Bool in
             let lhsDimensions = (lhs.width ?? 0) * (lhs.height ?? 0)
             let rhsDimensions = (rhs.width ?? 0) * (rhs.height ?? 0)
             return lhsDimensions < rhsDimensions

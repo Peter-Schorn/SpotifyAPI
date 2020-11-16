@@ -11,7 +11,7 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#disallows-object
  */
-public enum PlaybackActions: String, Codable, Hashable {
+public enum PlaybackActions: String, Codable, Hashable, CaseIterable {
     
     case interruptPlayback = "interrupting_playback"
     case pause = "pausing"
@@ -24,25 +24,19 @@ public enum PlaybackActions: String, Codable, Hashable {
     case toggleShuffle = "toggling_shuffle"
     case transferPlayback = "transferring_playback"
     
-}
-
-extension PlaybackActions: CaseIterable {
-    
     // The default implementation returns an array,
     // but a set is more useful.
-    public static var allCases: Set<PlaybackActions> {
-        return [
-            .interruptPlayback,
-            .pause,
-            .resume,
-            .seek,
-            .skipToNext,
-            .skipToPrevious,
-            .toggleRepeatContext,
-            .toggleRepeatTrack,
-            .toggleShuffle,
-            .transferPlayback
-        ]
-    }
+    public static let allCases: Set<PlaybackActions> = [
+        .interruptPlayback,
+        .pause,
+        .resume,
+        .seek,
+        .skipToNext,
+        .skipToPrevious,
+        .toggleRepeatContext,
+        .toggleRepeatTrack,
+        .toggleShuffle,
+        .transferPlayback
+    ]
     
 }

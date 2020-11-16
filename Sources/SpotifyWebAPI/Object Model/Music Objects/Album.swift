@@ -7,8 +7,7 @@ public struct Album: Hashable {
     
     /// The name of the album.
     ///
-    /// In case of an album takedown,
-    /// the value may be an empty string.
+    /// In case of an album takedown, the value may be an empty string.
     public let name: String
     
     /**
