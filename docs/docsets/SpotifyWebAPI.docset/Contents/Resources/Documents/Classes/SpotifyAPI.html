@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -2259,7 +2259,13 @@ on behalf of a user (i.e., if you authorized your application using
 the authorization code flow or the authorization code flow with proof
 key for code exchange), the country associated with the user account
 will take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episode is considered unavailable for the client and</strong>
+<strong>Spotify will return a 404 error with the message</strong>
+<strong>&ldquo;non existing id&rdquo;. Therefore, if you authorized your</strong>
+<strong>application using the client credentials flow, you must provide</strong>
+<strong>a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -2340,7 +2346,13 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with the
 user account will take priority over this parameter. Users can
 view the country that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episodes are considered unavailable for the client and</strong>
+<strong>Spotify will return</strong> <code>nil</code> <strong>for all of the episodes.</strong>
+<strong>Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow, you must provide a value for this</strong>
+<strong>parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -2476,40 +2488,6 @@ returned without a network request being made.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C23filteredPlaylistRequest_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF"></a>
-                    <a name="//apple_ref/swift/Method/filteredPlaylistRequest(_:filters:additionalTypes:market:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C23filteredPlaylistRequest_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylistRequest(_:<wbr>filters:<wbr>additionalTypes:<wbr>market:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method has been renamed to
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"filteredPlaylist(_:filters:additionalTypes:market:﹚"</span><span class="p">)</span>
-<span class="kd">func</span> <span class="nf">filteredPlaylistRequest</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
-    <span class="nv">filters</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">additionalTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
-    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF"></a>
                     <a name="//apple_ref/swift/Method/filteredPlaylist(_:filters:additionalTypes:market:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:<wbr>filters:<wbr>additionalTypes:<wbr>market:<wbr>)</a>
@@ -2640,7 +2618,13 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the episodes</strong>
+<strong>are considered unavailable for the client and</strong> <code>nil</code> <strong>will will</strong>
+<strong>be returned at the corresponding positions for each episode.</strong>
+<strong>Therefore, if you authorized your application using the client</strong>
+<strong>credentials flow and you want to retrieve the episodes in a</strong>
+<strong>playlist, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -2745,7 +2729,13 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episodes are considered unavailable for the client and</strong> <code>nil</code>
+<strong>will will be returned at the corresponding positions for each</strong>
+<strong>episode. Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow and you want to retrieve the episodes in</strong>
+<strong>a playlist, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -2916,7 +2906,13 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episodes are considered unavailable for the client and</strong> <code>nil</code>
+<strong>will will be returned at the corresponding positions for each</strong>
+<strong>episode. Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow and you want to retrieve the episodes in</strong>
+<strong>a playlist, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3053,7 +3049,13 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episodes are considered unavailable for the client and</strong> <code>nil</code>
+<strong>will will be returned at the corresponding positions for each</strong>
+<strong>episode. Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow and you want to retrieve the episodes in</strong>
+<strong>a playlist, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3171,7 +3173,13 @@ behalf of a user (i.e., if you authorized your application using the
 authorization code flow or the authorization code flow with proof key
 for code exchange), the country associated with the user account will
 take priority over this parameter. Users can view the country that
-is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+is associated with their account in the <a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>episodes are considered unavailable for the client and</strong> <code>nil</code>
+<strong>will will be returned at the corresponding positions for each</strong>
+<strong>episode. Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow and you want to retrieve the episodes in</strong>
+<strong>a playlist, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3429,7 +3437,13 @@ flow or the authorization code flow with proof key for code
 exchange), only content playable in the country associated with the
 user account, is returned. Users can view the country
 that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>shows and episodes are considered unavailable for the client and</strong>
+<strong>Spotify will return</strong> <code>nil</code> <strong>for all of the shows and episodes.</strong>
+<strong>Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow, you must provide a value for this</strong>
+<strong>parameter in order to retrieve shows and episodes.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3493,43 +3507,6 @@ content is filtered out from responses.</p>
   the property itself will only be nil if the category was not requested
   in the search. The simplified versions of all these objects will be
   returned.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF"></a>
-                    <a name="//apple_ref/swift/Method/search(query:types:market:limit:offset:includeExternal:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C6search5query5types6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:<wbr>types:<wbr>market:<wbr>limit:<wbr>offset:<wbr>includeExternal:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This function has been renamed to
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6search5query10categories6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">search(query:categories:market:limit:offset:includeExternal:)</a></code>.
-The &ldquo;types&rdquo; paramater was renamed to &ldquo;categories&rdquo;.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"search(query:categories:market:limit:offset:includeExternal:﹚"</span><span class="p">)</span>
-<span class="kd">func</span> <span class="nf">search</span><span class="p">(</span>
-    <span class="nv">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">types</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
-    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">includeExternal</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SearchResult.html">SearchResult</a></span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -3620,7 +3597,12 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with the user
 account will take priority over this parameter. Users can view the
 country that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the show</strong>
+<strong>is considered unavailable for the client and Spotify will return</strong>
+<strong>a 404 error with the message &ldquo;non existing id&rdquo;. Therefore, if</strong>
+<strong>you authorized your application using the client credentials</strong>
+<strong>flow, you must provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3707,7 +3689,13 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with the
 user account will take priority over this parameter. Users can
 view the country that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the</strong>
+<strong>shows are considered unavailable for the client and</strong>
+<strong>Spotify will return</strong> <code>nil</code> <strong>for all of the shows.</strong>
+<strong>Therefore, if you authorized your application using the</strong>
+<strong>client credentials flow, you must provide a value for this</strong>
+<strong>parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -3801,7 +3789,13 @@ the authorization code flow or the authorization code flow with
 proof key for code exchange), the country associated with
 the user account will take priority over this parameter. Users
 can view the country that is associated with their account in the
-<a href="https://www.spotify.com/account/overview/">account settings</a>.</p>
+<a href="https://www.spotify.com/account/overview/">account settings</a>.
+<strong>Note: If neither market or user country are provided, the show</strong>
+<strong>and all of its episodes are considered unavailable for the</strong>
+<strong>client and Spotify will return a 404 error with the message</strong>
+<strong>&ldquo;non existing id&rdquo;. Therefore, if you authorized your</strong>
+<strong>application using the client credentials flow, you must</strong>
+<strong>provide a value for this parameter.</strong></p>
                                 </div>
                               </td>
                             </tr>
@@ -7370,66 +7364,6 @@ the owner of this playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF"></a>
-                    <a name="//apple_ref/swift/Method/getPlaylistImage(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16getPlaylistImagey7Combine12AnyPublisherVySayAA0aI0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistImage(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"playlistImage(_:﹚"</span><span class="p">)</span>
-<span class="kd">func</span> <span class="nf">getPlaylistImage</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF"></a>
-                    <a name="//apple_ref/swift/Method/getPlaylistCoverImage(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21getPlaylistCoverImagey7Combine12AnyPublisherVySayAA0aJ0VGs5Error_pGAA0A14URIConvertible_pF">getPlaylistCoverImage(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method has been renamed to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"playlistImage(_:﹚"</span><span class="p">)</span>
-<span class="kd">func</span> <span class="nf">getPlaylistCoverImage</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">playlist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13addToPlaylist_4uris8position7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaM_pGSiSgtF"></a>
                     <a name="//apple_ref/swift/Method/addToPlaylist(_:uris:position:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13addToPlaylist_4uris8position7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_SayAaM_pGSiSgtF">addToPlaylist(_:<wbr>uris:<wbr>position:<wbr>)</a>
@@ -7583,7 +7517,7 @@ issued on behalf of this user.</strong></p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The playlist. It will be empty until you add tracks.</p>
+                        <p>The playlist. It will be empty until you add tracks/episodes.</p>
                       </div>
                     </section>
                   </div>
@@ -8216,7 +8150,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

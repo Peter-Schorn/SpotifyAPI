@@ -1,28 +1,28 @@
 {
   "warnings": [
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumGroup.swift",
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumType.swift",
       "line": 16,
       "symbol": "AlbumType.album",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumGroup.swift",
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumType.swift",
       "line": 17,
       "symbol": "AlbumType.single",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumGroup.swift",
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumType.swift",
       "line": 18,
       "symbol": "AlbumType.appearsOn",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumGroup.swift",
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/AlbumType.swift",
       "line": 19,
       "symbol": "AlbumType.compilation",
       "symbol_kind": "source.lang.swift.decl.enumelement",

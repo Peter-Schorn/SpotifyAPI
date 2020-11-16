@@ -39,6 +39,7 @@ public struct PlaylistDetails: Hashable {
     public var isCollaborative: Bool?
 
     /// This property has been renamed to `isCollaborative`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "isCollaborative")
     public var collaborative: Bool? { isCollaborative }
     
@@ -76,6 +77,7 @@ public struct PlaylistDetails: Hashable {
     
     /// This method has been renamed to
     /// `init(name:isPublic:isCollaborative:description:)`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "init(name:isPublic:isCollaborative:description:)")
     public init(
         name: String? = nil,

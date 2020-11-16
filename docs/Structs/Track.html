@@ -17,7 +17,7 @@
     <a title="Track Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -588,10 +588,9 @@ to be <code>nil</code>.</p>
                       <div class="abstract">
                         <p>The popularity of the track.</p>
 
-<p>The value will be between 0 and 100, with 100 being the most popular. The
-popularity of a track is a value between 0 and 100, with 100 being the most
-popular. The popularity is calculated by algorithm and is based, in the most
-part, on the total number of plays the track has had and how recent those plays
+<p>The value will be between 0 and 100, with 100 being the most popular.
+The popularity is calculated by algorithm and is based, in the most part,
+on the total number of plays the track has had and how recent those plays
 are. Generally speaking, songs that are being played a lot now will have a
 higher popularity than songs that were played a lot in the past. Duplicate
 tracks (e.g. the same track from a single and an album) are rated independently.
@@ -1008,9 +1007,9 @@ this was retrieved from a playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP0ACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA2_SbSiSgA3_A3_S2bSgA2_A2_SDyS2SGSgA6_SaySSGSgAA0D4LinkVSgA6_A3_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(name:album:artists:uri:id:isLocal:popularity:durationMS:trackNumber:isExplicit:isPlayable:href:previewURL:externalURLs:externalIds:availableMarkets:linkedFrom:restrictions:discNumber:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP0ACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA2_SbSiSgA3_A3_S2bSgA2_A2_SDyS2SGSgA6_SaySSGSgAA0D4LinkVSgA6_A3_tcfc">init(name:<wbr>album:<wbr>artists:<wbr>uri:<wbr>id:<wbr>isLocal:<wbr>popularity:<wbr>durationMS:<wbr>trackNumber:<wbr>isExplicit:<wbr>isPlayable:<wbr>href:<wbr>previewURL:<wbr>externalURLs:<wbr>externalIds:<wbr>availableMarkets:<wbr>linkedFrom:<wbr>restrictions:<wbr>discNumber:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP04typeACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA3_SbSiSgA4_A4_S2bSgA3_A3_SDyS2SGSgA7_SaySSGSgAA0D4LinkVSgA7_A4_AA10IDCategoryOtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:album:artists:uri:id:isLocal:popularity:durationMS:trackNumber:isExplicit:isPlayable:href:previewURL:externalURLs:externalIds:availableMarkets:linkedFrom:restrictions:discNumber:type:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI5TrackV4name5album7artists3uri2id7isLocal10popularity10durationMS11trackNumber0J8Explicit0J8Playable4href10previewURL12externalURLs0V3Ids16availableMarkets10linkedFrom12restrictions04discP04typeACSS_AA5AlbumVSgSayAA6ArtistVGSgSSSgA3_SbSiSgA4_A4_S2bSgA3_A3_SDyS2SGSgA7_SaySSGSgAA0D4LinkVSgA7_A4_AA10IDCategoryOtcfc">init(name:<wbr>album:<wbr>artists:<wbr>uri:<wbr>id:<wbr>isLocal:<wbr>popularity:<wbr>durationMS:<wbr>trackNumber:<wbr>isExplicit:<wbr>isPlayable:<wbr>href:<wbr>previewURL:<wbr>externalURLs:<wbr>externalIds:<wbr>availableMarkets:<wbr>linkedFrom:<wbr>restrictions:<wbr>discNumber:<wbr>type:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1044,7 +1043,8 @@ this was retrieved from a playlist.</p>
     <span class="nv">availableMarkets</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">linkedFrom</span><span class="p">:</span> <span class="kt"><a href="../Structs/TrackLink.html">TrackLink</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">restrictions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">discNumber</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="nv">discNumber</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">track</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -1307,6 +1307,19 @@ than one disc).</p>
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object type. Usually <code>track</code>, but may be <code>episode</code> if
+this was retrieved from a playlist. The default is <code>track</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1318,7 +1331,7 @@ than one disc).</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

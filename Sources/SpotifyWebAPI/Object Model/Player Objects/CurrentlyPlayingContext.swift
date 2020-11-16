@@ -15,6 +15,7 @@ public struct CurrentlyPlayingContext: Hashable {
     )
     
     /// This property has been renamed to `device`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "device")
     public var activeDevice: Device { device }
     
@@ -78,6 +79,7 @@ public struct CurrentlyPlayingContext: Hashable {
     public let item: PlaylistItem?
     
     /// This property has been renamed to `item`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "item")
     public var currentlyPlayingItem: PlaylistItem? { item }
     
@@ -88,6 +90,7 @@ public struct CurrentlyPlayingContext: Hashable {
     public let itemType: IDCategory
     
     /// This property has been renamed to `itemType`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "itemType")
     public var currentlyPlayingType: IDCategory { itemType }
     

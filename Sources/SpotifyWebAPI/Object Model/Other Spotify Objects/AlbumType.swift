@@ -13,9 +13,16 @@ import Foundation
  */
 public enum AlbumType: String, CaseIterable, Codable, Hashable {
     
+    /// An album.
     case album
+    
+    /// A single.
     case single
+    
+    /// Appears on.
     case appearsOn = "appears_on"
+    
+    /// A compilation.
     case compilation
     
     /**
@@ -43,5 +50,6 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
 }
 
 /// This type has ben renamed to `AlbumType`.
+/// :nodoc:
 @available(*, deprecated, renamed: "AlbumType")
 public typealias AlbumGroup = AlbumType

@@ -17,7 +17,7 @@
     <a title="PlaylistDetails Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -512,34 +512,6 @@ Spotify client. Default: <code>false</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV13collaborativeSbSgvp"></a>
-                    <a name="//apple_ref/swift/Property/collaborative" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV13collaborativeSbSgvp">collaborative</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This property has been renamed to <code><a href="../Structs/PlaylistDetails.html#/s:13SpotifyWebAPI15PlaylistDetailsV15isCollaborativeSbSgvp">isCollaborative</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"isCollaborative"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI15PlaylistDetailsV11descriptionSSSgvp"></a>
                     <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV11descriptionSSSgvp">description</a>
@@ -659,46 +631,12 @@ Spotify Clients and in the Web API.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(name:isPublic:collaborative:description:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic13collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:<wbr>isPublic:<wbr>collaborative:<wbr>description:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This method has been renamed to
-<code><a href="../Structs/PlaylistDetails.html#/s:13SpotifyWebAPI15PlaylistDetailsV4name8isPublic0G13Collaborative11descriptionACSSSg_SbSgAiHtcfc">init(name:isPublic:isCollaborative:description:)</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"init(name:isPublic:isCollaborative:description:﹚"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">isPublic</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">collaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

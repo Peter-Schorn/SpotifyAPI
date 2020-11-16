@@ -31,8 +31,7 @@ public extension SpotifyAPI {
              account will take priority over this parameter. Users can view the
              country that is associated with their account in the
              [account settings][3].
-            
-            **Note: If neither market or user country are provided, the show**
+             **Note: If neither market or user country are provided, the show**
              **is considered unavailable for the client and Spotify will return**
              **a 404 error with the message "non existing id". Therefore, if**
              **you authorized your application using the client credentials**
@@ -94,8 +93,7 @@ public extension SpotifyAPI {
              user account will take priority over this parameter. Users can
              view the country that is associated with their account in the
              [account settings][3].
-
-            **Note: If neither market or user country are provided, the**
+             **Note: If neither market or user country are provided, the**
              **shows are considered unavailable for the client and**
              **Spotify will return** `nil` **for all of the shows.**
              **Therefore, if you authorized your application using the**
@@ -177,8 +175,7 @@ public extension SpotifyAPI {
              the user account will take priority over this parameter. Users
              can view the country that is associated with their account in the
              [account settings][3].
-        
-            **Note: If neither market or user country are provided, the show**
+             **Note: If neither market or user country are provided, the show**
              **and all of its episodes are considered unavailable for the**
              **client and Spotify will return a 404 error with the message**
              **"non existing id". Therefore, if you authorized your**

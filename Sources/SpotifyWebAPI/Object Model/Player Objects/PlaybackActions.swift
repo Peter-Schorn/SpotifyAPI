@@ -13,15 +13,34 @@ import Foundation
  */
 public enum PlaybackActions: String, Codable, Hashable, CaseIterable {
     
+    /// Interrupt playback.
     case interruptPlayback = "interrupting_playback"
+    
+    /// Pausing.
     case pause = "pausing"
+    
+    /// Resuming.
     case resume = "resuming"
+    
+    /// Seeking.
     case seek = "seeking"
+    
+    /// Skipping to next.
     case skipToNext = "skipping_next"
+    
+    /// Skipping to previous.
     case skipToPrevious = "skipping_prev"
+    
+    /// Toggling the repeat context.
     case toggleRepeatContext = "toggling_repeat_context"
+    
+    /// Toggling repeat track.
     case toggleRepeatTrack = "toggling_repeat_track"
+    
+    /// Toggling shuffle.
     case toggleShuffle = "toggling_shuffle"
+    
+    /// Transferring playback.
     case transferPlayback = "transferring_playback"
     
     // The default implementation returns an array,

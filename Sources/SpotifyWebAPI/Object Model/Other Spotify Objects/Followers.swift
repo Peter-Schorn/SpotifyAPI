@@ -22,7 +22,7 @@ public struct Followers: Codable, Hashable {
      Creates a Spotify [followers object][1].
      
      - Parameters:
-       - href:  A link to the Spotify web API endpoint providing full
+       - href: A link to the Spotify web API endpoint providing full
              details of the followers; `nil` if not available. **Please**
              **note that this will always be set to nil**, as the web API
              does not support it at the moment.

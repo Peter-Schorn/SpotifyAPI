@@ -61,6 +61,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     }
 
     /// This initializer is deprecated.
+    /// :nodoc:
     @available(*, deprecated)
     public init(
         snapshotId: String? = nil,

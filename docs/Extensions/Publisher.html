@@ -17,7 +17,7 @@
     <a title="Publisher Extension Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -402,158 +402,6 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila"></a>
-                    <a name="//apple_ref/swift/Alias/MapToNil" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila">MapToNil</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Wraps all upstream elements in an optional.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">MapToNil</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Map</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">Output</span><span class="o">&gt;&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila"></a>
-                    <a name="//apple_ref/swift/Alias/MapErrorToNil" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila">MapErrorToNil</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Replaces all errors in the stream with <code>nil</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">MapErrorToNil</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">ReplaceError</span><span class="o">&lt;</span><span class="kt"><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIE8MapToNila">MapToNil</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE13mapErrorToNilAA10PublishersO07ReplaceG0Vy_AG3MapVy_x6OutputQzSgGGyF"></a>
-                    <a name="//apple_ref/swift/Method/mapErrorToNil()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE13mapErrorToNilAA10PublishersO07ReplaceG0Vy_AG3MapVy_x6OutputQzSgGGyF">mapErrorToNil()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new publisher in which the output is wrapped in an optional
-and errors are replaced with nil.
-Therefore, the new publisher never fails.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">mapErrorToNil</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIE13MapErrorToNila">MapErrorToNil</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE16assignToOptional_2onAA14AnyCancellableCs24ReferenceWritableKeyPathCyqd__6OutputQzSgG_qd__tlF"></a>
-                    <a name="//apple_ref/swift/Method/assignToOptional(_:on:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE16assignToOptional_2onAA14AnyCancellableCs24ReferenceWritableKeyPathCyqd__6OutputQzSgG_qd__tlF">assignToOptional(_:<wbr>on:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Assigns each element from the upstream publisher to
-an <strong>optional</strong> property on an object. If the upsteam publisher
-fails with an error, then <code>nil</code> is assigned to the property.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">assignToOptional</span><span class="o">&lt;</span><span class="kt">Root</span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">ReferenceWritableKeyPath</span><span class="o">&lt;</span><span class="kt">Root</span><span class="p">,</span> <span class="kt">Optional</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">&gt;&gt;</span><span class="p">,</span>
-    <span class="n">on</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Root</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyCancellable</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>keyPath</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The key path of the property to assign.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>object</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The object on which to assign the value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A cancellable instance; used when you end assignment
-  of the received value. Deallocation of the result
-  will tear down the subscription stream.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1018,7 +866,7 @@ are expecting from the Spotify web API.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -79,8 +79,7 @@ public extension SpotifyAPI {
              user account, is returned. Users can view the country
              that is associated with their account in the
              [account settings][3].
-     
-            **Note: If neither market or user country are provided, the**
+             **Note: If neither market or user country are provided, the**
              **shows and episodes are considered unavailable for the client and**
              **Spotify will return** `nil` **for all of the shows and episodes.**
              **Therefore, if you authorized your application using the**
@@ -159,6 +158,7 @@ public extension SpotifyAPI {
     /// This function has been renamed to
     /// `search(query:categories:market:limit:offset:includeExternal:)`.
     /// The "types" paramater was renamed to "categories".
+    /// :nodoc:
     @available(
         *, deprecated,
         renamed: "search(query:categories:market:limit:offset:includeExternal:)"

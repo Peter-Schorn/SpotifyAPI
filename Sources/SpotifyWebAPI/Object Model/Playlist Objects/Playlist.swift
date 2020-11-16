@@ -34,6 +34,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     public let isCollaborative: Bool
     
     /// This property has been renamed to `isCollaborative`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "isCollaborative")
     public var collaborative: Bool { isCollaborative }
     
@@ -180,6 +181,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         self.images = images
     }
     
+    /// :nodoc:
     @available(
         *,
         deprecated,

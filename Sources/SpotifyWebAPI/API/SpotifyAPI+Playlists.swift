@@ -117,6 +117,7 @@ public extension SpotifyAPI {
 
     /// This method has been renamed to
     /// `filteredPlaylist(_:filters:additionalTypes:market:)`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "filteredPlaylist(_:filters:additionalTypes:market:)")
     func filteredPlaylistRequest(
         _ playlist: SpotifyURIConvertible,
@@ -196,14 +197,12 @@ public extension SpotifyAPI {
              for code exchange), the country associated with the user account will
              take priority over this parameter. Users can view the country that
              is associated with their account in the [account settings][6].
-     
-            **Note: If neither market or user**
-             **country are provided, the episodes are considered unavailable for**
-             **the client and** `nil` **will will be returned at the**
-             **corresponding positions for each episode. Therefore, if you**
-             **authorized your application using the client credentials flow and**
-             **you want to retrieve the episodes in a playlist, you must provide**
-             **a value for this parameter.**
+             **Note: If neither market or user country are provided, the episodes**
+             **are considered unavailable for the client and** `nil` **will will**
+             **be returned at the corresponding positions for each episode.**
+             **Therefore, if you authorized your application using the client**
+             **credentials flow and you want to retrieve the episodes in a**
+             **playlist, you must provide a value for this parameter.**
      - Returns: The raw data and URL response from the server. Because the response
            is entirely dependent on the filters you specify, you are responsible
            for decoding the data. Use the combine operators
@@ -293,14 +292,12 @@ public extension SpotifyAPI {
              for code exchange), the country associated with the user account will
              take priority over this parameter. Users can view the country that
              is associated with their account in the [account settings][4].
-     
-            **Note: If neither market or user**
-             **country are provided, the episodes are considered unavailable for**
-             **the client and** `nil` **will will be returned at the**
-             **corresponding positions for each episode. Therefore, if you**
-             **authorized your application using the client credentials flow and**
-             **you want to retrieve the episodes in a playlist, you must provide**
-             **a value for this parameter.**
+             **Note: If neither market or user country are provided, the**
+             **episodes are considered unavailable for the client and** `nil`
+             **will will be returned at the corresponding positions for each**
+             **episode. Therefore, if you authorized your application using the**
+             **client credentials flow and you want to retrieve the episodes in**
+             **a playlist, you must provide a value for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -402,14 +399,12 @@ public extension SpotifyAPI {
              for code exchange), the country associated with the user account will
              take priority over this parameter. Users can view the country that
              is associated with their account in the [account settings][6].
-     
-            **Note: If neither market or user**
-             **country are provided, the episodes are considered unavailable for**
-             **the client and** `nil` **will will be returned at the**
-             **corresponding positions for each episode. Therefore, if you**
-             **authorized your application using the client credentials flow and**
-             **you want to retrieve the episodes in a playlist, you must provide**
-             **a value for this parameter.**
+             **Note: If neither market or user country are provided, the**
+             **episodes are considered unavailable for the client and** `nil`
+             **will will be returned at the corresponding positions for each**
+             **episode. Therefore, if you authorized your application using the**
+             **client credentials flow and you want to retrieve the episodes in**
+             **a playlist, you must provide a value for this parameter.**
      - Returns: The raw data and URL response from the server. Because the response
            is entirely dependent on the filters you specify, you are responsible
            for decoding the data. Use the combine operators
@@ -495,14 +490,12 @@ public extension SpotifyAPI {
              for code exchange), the country associated with the user account will
              take priority over this parameter. Users can view the country that
              is associated with their account in the [account settings][4].
-             
-            **Note: If neither market or user**
-             **country are provided, the episodes are considered unavailable for**
-             **the client and** `nil` **will will be returned at the**
-             **corresponding positions for each episode. Therefore, if you**
-             **authorized your application using the client credentials flow and**
-             **you want to retrieve the episodes in a playlist, you must provide**
-             **a value for this parameter.**
+             **Note: If neither market or user country are provided, the**
+             **episodes are considered unavailable for the client and** `nil`
+             **will will be returned at the corresponding positions for each**
+             **episode. Therefore, if you authorized your application using the**
+             **client credentials flow and you want to retrieve the episodes in**
+             **a playlist, you must provide a value for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -568,14 +561,12 @@ public extension SpotifyAPI {
              for code exchange), the country associated with the user account will
              take priority over this parameter. Users can view the country that
              is associated with their account in the [account settings][4].
-     
-            **Note: If neither market or user**
-             **country are provided, the episodes are considered unavailable for**
-             **the client and** `nil` **will will be returned at the**
-             **corresponding positions for each episode. Therefore, if you**
-             **authorized your application using the client credentials flow and**
-             **you want to retrieve the episodes in a playlist, you must provide**
-             **a value for this parameter.**
+             **Note: If neither market or user country are provided, the**
+             **episodes are considered unavailable for the client and** `nil`
+             **will will be returned at the corresponding positions for each**
+             **episode. Therefore, if you authorized your application using the**
+             **client credentials flow and you want to retrieve the episodes in**
+             **a playlist, you must provide a value for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -780,6 +771,7 @@ public extension SpotifyAPI where
     }
     
     /// This method has been renamed to `playlistImage(_:)`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "playlistImage(_:)")
     func getPlaylistImage(
         _ playlist: SpotifyURIConvertible
@@ -788,6 +780,7 @@ public extension SpotifyAPI where
     }
     
     /// This method has been renamed to `playlistImage(_:)`.
+    /// :nodoc:
     @available(*, deprecated, renamed: "playlistImage(_:)")
     func getPlaylistCoverImage(
         _ playlist: SpotifyURIConvertible

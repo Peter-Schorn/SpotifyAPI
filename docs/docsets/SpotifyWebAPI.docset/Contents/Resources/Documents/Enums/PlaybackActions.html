@@ -17,7 +17,7 @@
     <a title="PlaybackActions Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -390,8 +390,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlaybackActions</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PlaybackActions</span><span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlaybackActions</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
 
                 </div>
               </div>
@@ -407,6 +406,276 @@ or seek to a position in a track/episode while an ad is playing.</p>
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO09interruptD0yA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/interruptPlayback" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO09interruptD0yA2CmF">interruptPlayback</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Interrupt playback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">interruptPlayback</span> <span class="o">=</span> <span class="s">"interrupting_playback"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO5pauseyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/pause" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO5pauseyA2CmF">pause</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pausing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">pause</span> <span class="o">=</span> <span class="s">"pausing"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO6resumeyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/resume" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO6resumeyA2CmF">resume</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resuming.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resume</span> <span class="o">=</span> <span class="s">"resuming"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO4seekyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/seek" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO4seekyA2CmF">seek</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Seeking.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">seek</span> <span class="o">=</span> <span class="s">"seeking"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO10skipToNextyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/skipToNext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO10skipToNextyA2CmF">skipToNext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Skipping to next.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">skipToNext</span> <span class="o">=</span> <span class="s">"skipping_next"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO14skipToPreviousyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/skipToPrevious" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO14skipToPreviousyA2CmF">skipToPrevious</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Skipping to previous.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">skipToPrevious</span> <span class="o">=</span> <span class="s">"skipping_prev"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO19toggleRepeatContextyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/toggleRepeatContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO19toggleRepeatContextyA2CmF">toggleRepeatContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Toggling the repeat context.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">toggleRepeatContext</span> <span class="o">=</span> <span class="s">"toggling_repeat_context"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO17toggleRepeatTrackyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/toggleRepeatTrack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO17toggleRepeatTrackyA2CmF">toggleRepeatTrack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Toggling repeat track.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">toggleRepeatTrack</span> <span class="o">=</span> <span class="s">"toggling_repeat_track"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO13toggleShuffleyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/toggleShuffle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO13toggleShuffleyA2CmF">toggleShuffle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Toggling shuffle.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">toggleShuffle</span> <span class="o">=</span> <span class="s">"toggling_shuffle"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI15PlaybackActionsO08transferD0yA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/transferPlayback" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI15PlaybackActionsO08transferD0yA2CmF">transferPlayback</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transferring playback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">transferPlayback</span> <span class="o">=</span> <span class="s">"transferring_playback"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -426,7 +695,7 @@ or seek to a position in a track/episode while an ad is playing.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">allCases</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">PlaybackActions</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">allCases</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">PlaybackActions</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -438,7 +707,7 @@ or seek to a position in a track/episode while an ad is playing.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

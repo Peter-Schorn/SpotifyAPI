@@ -17,7 +17,7 @@
     <a title="SpotifyLocalError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (96% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -164,7 +164,7 @@
                 <a href="../Structs/Device.html">Device</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Player%20Objects.html#/s:13SpotifyWebAPI10DeviceTypeO">DeviceType</a>
+                <a href="../Enums/DeviceType.html">DeviceType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/CurrentlyPlayingContext.html">CurrentlyPlayingContext</a>
@@ -291,9 +291,6 @@
                 <a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other%20Objects.html#/s:13SpotifyWebAPI10AlbumGroupa">AlbumGroup</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/AlbumType.html">AlbumType</a>
               </li>
               <li class="nav-group-task">
@@ -330,6 +327,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
               </li>
@@ -390,7 +390,9 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SpotifyLocalError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SpotifyLocalError</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyLocalError</span><span class="p">:</span> <span class="kt">LocalizedError</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyLocalError</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
@@ -421,8 +423,10 @@ detailed description suitable for debugging.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>You tried to access an endpoint that requires authorization,
-but you have not authorized your app yet.</p>
+                        <p>You have tried to access an endpoint before authorizing your app
+or the access token needed to be refreshed but the refresh token was <code>nil</code>.</p>
+
+<p>See also <code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO17insufficientScopeyACShyAA0G0OG_AGtcACmF">insufficientScope(requiredScopes:authorizedScopes:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -449,7 +453,7 @@ but you have not authorized your app yet.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Thrown if the value provided for the state parameter when you requested
+                        <p>The value provided for the state parameter when you requested
 access and refresh tokens didn&rsquo;t match the value returned from spotify
 in the query string of the redirect URI.</p>
 
@@ -513,8 +517,8 @@ could not be parsed. The message will contain more information.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>You tried to access an endpoint that
-your app does not have the required scopes for.</p>
+                        <p>You tried to access an endpoint that your app does not have the required
+scopes for.</p>
 
 <ul>
 <li>requiredScopes: The scopes that are required for this endpoint.</li>
@@ -554,7 +558,7 @@ your app does not have the required scopes for.</p>
 <li>expected: The expected categories. Some endpoints allow for
 URIS from multiple categories. For example, the endpoint for
 adding items to a playlist allows for track or episode URIs.</li>
-<li>received: the id category that was received. In some cases, multiple
+<li>received: The id category that was received. In some cases, multiple
 categories will be returned.</li>
 </ul>
 
@@ -655,7 +659,7 @@ dictionary or this error is thrown if the key can&rsquo;t be found.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-12)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
