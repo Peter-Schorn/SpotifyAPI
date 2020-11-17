@@ -59,7 +59,9 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - uris: An array of track URIs. Maximum: 50.
+       - uris: An array of track URIs. Maximum: 50. Passing in an empty array
+             will immediately cause an empty array of results to be returned
+             without a network request being made.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][2].
@@ -78,6 +80,11 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Track?], Error> {
         
         do {
+            
+            if uris.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
             
             let trackIds = try SpotifyIdentifier
                 .commaSeparatedIdsString(
@@ -210,7 +217,9 @@ public extension SpotifyAPI {
      
      Read more at the [Spotify web API reference][1].
      
-     - Parameter uris: An array of up to 100 URIs for tracks.
+     - Parameter uris: An array of up to 100 URIs for tracks. Passing in an empty
+             array will immediately cause an empty array of results to be
+             returned without a network request being made.
      - Returns: Results are returned in the order requested.
            If the audio features for a track  is not found, `nil` is returned
            in the appropriate position. Duplicate ids in the request will
@@ -224,6 +233,11 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[AudioFeatures?], Error> {
         
         do {
+            
+            if uris.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
             
             let trackIds = try SpotifyIdentifier
                 .commaSeparatedIdsString(

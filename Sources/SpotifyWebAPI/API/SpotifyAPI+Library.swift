@@ -13,6 +13,11 @@ private extension SpotifyAPI where
         
         do {
             
+            if uris.isEmpty {
+                return Result.Publisher(())
+                    .eraseToAnyPublisher()
+            }
+            
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
                     uris, ensureCategoryMatches: [type]
@@ -44,6 +49,11 @@ private extension SpotifyAPI where
     ) -> AnyPublisher<Void, Error> {
         
         do {
+            
+            if uris.isEmpty {
+                return Result.Publisher(())
+                    .eraseToAnyPublisher()
+            }
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
@@ -78,6 +88,11 @@ private extension SpotifyAPI where
     ) -> AnyPublisher<[Bool], Error> {
         
         do {
+            
+            if uris.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
@@ -261,7 +276,9 @@ public extension SpotifyAPI where
      - Parameter uris: An array of album URIs. Maximum: 50.
            Duplicate albums in the request will result in
            duplicate values in the response. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           immediately cause an empty array of results to be returned
+           without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each album.
@@ -289,7 +306,9 @@ public extension SpotifyAPI where
      - Parameter uris: An array of track URIs. Maximum: 50.
            Duplicate tracks in the request will result in
            duplicate values in the response. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           immediately cause an empty array of results to be returned
+           without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each track.
@@ -317,7 +336,9 @@ public extension SpotifyAPI where
      - Parameter uris: An array of show URIs. Maximum: 50.
            Duplicate shows in the request will result in
            duplicate values in the response. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           immediately cause an empty array of results to be returned
+           without a network request being made.
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each show.
@@ -343,7 +364,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of album URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-albums-user/
      */
@@ -366,7 +388,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of track URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-tracks-user/
      */
@@ -389,7 +412,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of show URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-shows-user/
      */
@@ -412,7 +436,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of album URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-albums-user/
      */
@@ -434,7 +459,8 @@ public extension SpotifyAPI where
      
      - Parameter uris: An array of track URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-tracks-user/
      */
@@ -456,8 +482,9 @@ public extension SpotifyAPI where
      
      - Parameters:
        - uris: An array of album URIs. Maximum: 50.
-           Duplicates will be ignored. A single invalid URI causes
-           the entire request to fail.
+             Duplicates will be ignored. A single invalid URI causes
+             the entire request to fail. Passing in an empty array will
+             prevent a network request from being made.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
              If a country code is specified, only shows that are available
              in that market will be removed. If a valid user access token is

@@ -59,8 +59,13 @@ public enum SpotifyLocalError {
         URIS from multiple categories. For example, the endpoint for
         adding items to a playlist allows for track or episode URIs.
       - received: The id category that was received. In some cases, multiple
-        categories will be returned.
-    
+        categories will be returned. It is not necessarily the case that all of
+        these categories are invalid. For example, if you provide a collection
+        of artist, track, and episode URIS to the endpoint for adding items to a
+        playlist, then `expected` will be `[track, episode]` and `received` will be
+        `[track, episode, artist]`, representing all of the provided categories,
+        not just the invalid ones.
+     
      For example, if you pass a track URI to the endpoint for retrieving
      an artist, you will get this error.
      

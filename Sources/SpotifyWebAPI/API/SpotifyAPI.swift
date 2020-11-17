@@ -19,10 +19,9 @@ import Combine
  conform to `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowManager`
  is not a conforming type because it does not support authorization scopes.
  
- All of the endpoints are documented at the the [web API reference][2].
+ All of the endpoints are documented at the the [web API reference][1].
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
- [2]: https://developer.spotify.com/documentation/web-api/reference/
+ [1]: https://developer.spotify.com/documentation/web-api/reference/
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
     
@@ -289,11 +288,13 @@ extension SpotifyAPI {
     }
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
-        if let authManager = self.authorizationManager as? AuthorizationCodeFlowManagerBase {
+        if let authManager = self.authorizationManager as?
+                AuthorizationCodeFlowManagerBase {
             authManager.assertNotOnUpdateAuthInfoDispatchQueue()
         }
-        else if let authManager = self.authorizationManager as? ClientCredentialsFlowManager {
-            authManager.assertNotOnUpdateAuthInfoDispatchQueue()
+        else if let authManager = self.authorizationManager as?
+                ClientCredentialsFlowManager {
+            authManager.assertNotOnUpdateAuthInfoDispatchQueue()  
         }
     }
     

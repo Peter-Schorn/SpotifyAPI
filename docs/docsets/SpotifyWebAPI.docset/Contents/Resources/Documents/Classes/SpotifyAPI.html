@@ -983,7 +983,9 @@ to apply <a href="https://developer.spotify.com/documentation/web-api/reference/
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of up to 20 URIs for albums.</p>
+                                  <p>An array of up to 20 URIs for albums. Passing in an empty
+array will immediately cause an empty array of results to be
+returned without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1230,7 +1232,9 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of up to 20 URIs for artists.</p>
+                                  <p>An array of up to 20 URIs for artists. Passing in an
+  empty array will immediately cause an empty array of results to be
+  returned without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2326,7 +2330,9 @@ required.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of episode URIs. Maximum: 50.</p>
+                                  <p>An array of episode URIs. Maximum: 50. Passing in an empty array
+will immediately cause an empty array of results to be returned
+without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3669,7 +3675,9 @@ required.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of show URIs. Maximum: 50.</p>
+                                  <p>An array of show URIs. Maximum: 50. Passing in an empty array
+will immediately cause an empty array of results to be returned
+without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -3967,7 +3975,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of track URIs. Maximum: 50.</p>
+                                  <p>An array of track URIs. Maximum: 50. Passing in an empty array
+will immediately cause an empty array of results to be returned
+without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -4176,7 +4186,9 @@ audio to compute the attribute with high certainty.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of up to 100 URIs for tracks.</p>
+                                  <p>An array of up to 100 URIs for tracks. Passing in an empty
+    array will immediately cause an empty array of results to be
+    returned without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5331,7 +5343,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                   <p>An array of album URIs. Maximum: 50.
   Duplicate albums in the request will result in
   duplicate values in the response. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  immediately cause an empty array of results to be returned
+  without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5393,7 +5407,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                   <p>An array of track URIs. Maximum: 50.
   Duplicate tracks in the request will result in
   duplicate values in the response. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  immediately cause an empty array of results to be returned
+  without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5455,7 +5471,9 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                   <p>An array of show URIs. Maximum: 50.
   Duplicate shows in the request will result in
   duplicate values in the response. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  immediately cause an empty array of results to be returned
+  without a network request being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5515,7 +5533,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of album URIs. Maximum: 50.
   Duplicates will be ignored. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5569,7 +5588,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of track URIs. Maximum: 50.
   Duplicates will be ignored. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5623,7 +5643,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of show URIs. Maximum: 50.
   Duplicates will be ignored. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5677,7 +5698,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of album URIs. Maximum: 50.
   Duplicates will be ignored. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5731,7 +5753,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of track URIs. Maximum: 50.
   Duplicates will be ignored. A single invalid URI causes
-  the entire request to fail.</p>
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5786,7 +5809,8 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                                 <div>
                                   <p>An array of album URIs. Maximum: 50.
 Duplicates will be ignored. A single invalid URI causes
-the entire request to fail.</p>
+the entire request to fail. Passing in an empty array will
+prevent a network request from being made.</p>
                                 </div>
                               </td>
                             </tr>
@@ -8150,7 +8174,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-16)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

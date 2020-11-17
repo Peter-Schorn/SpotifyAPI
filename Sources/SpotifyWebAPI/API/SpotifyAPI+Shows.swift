@@ -83,7 +83,9 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - uris: An array of show URIs. Maximum: 50.
+       - uris: An array of show URIs. Maximum: 50. Passing in an empty array
+             will immediately cause an empty array of results to be returned
+             without a network request being made.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
              If a country code is specified, only shows that are available in
              that market will be returned. If the access token was granted on
@@ -118,6 +120,11 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Show?], Error> {
             
         do {
+            
+            if uris.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
             
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(

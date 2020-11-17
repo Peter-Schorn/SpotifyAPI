@@ -62,7 +62,9 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - albums: An array of up to 20 URIs for albums.
+       - albums: An array of up to 20 URIs for albums. Passing in an empty
+             array will immediately cause an empty array of results to be
+             returned without a network request being made.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token". Provide this parameter if you want
              to apply [Track Relinking][3].
@@ -83,6 +85,11 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<[Album?], Error> {
         
         do {
+            
+            if albums.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
             
             let albumsIdsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(

@@ -51,7 +51,9 @@ public extension SpotifyAPI {
 
      Read more at the [Spotify web API reference][1].
      
-     - Parameter uris: An array of up to 20 URIs for artists.
+     - Parameter uris: An array of up to 20 URIs for artists. Passing in an
+           empty array will immediately cause an empty array of results to be
+           returned without a network request being made.
      - Returns: An array of the full versions of [artists][2].
            Artists are returned in the order requested. If an artist
            is not found, `nil` is returned in the corresponding position.
@@ -67,6 +69,11 @@ public extension SpotifyAPI {
         
         do {
 
+            if uris.isEmpty {
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+            }
+            
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
                     uris, ensureCategoryMatches: [.artist]
