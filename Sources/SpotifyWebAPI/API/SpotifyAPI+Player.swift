@@ -248,7 +248,7 @@ public extension SpotifyAPI where
             queryItems: ["device_id": deviceId],
             httpMethod: "POST",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -297,7 +297,7 @@ public extension SpotifyAPI where
             queryItems: ["device_id": deviceId],
             httpMethod: "POST",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -407,7 +407,7 @@ public extension SpotifyAPI where
             queryItems: ["device_id": deviceId],
             httpMethod: "PUT",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -546,7 +546,7 @@ public extension SpotifyAPI where
             ],
             httpMethod: "PUT",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -603,7 +603,7 @@ public extension SpotifyAPI where
             ],
             httpMethod: "PUT",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -660,7 +660,7 @@ public extension SpotifyAPI where
             ],
             httpMethod: "PUT",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()
@@ -715,7 +715,7 @@ public extension SpotifyAPI where
             ],
             httpMethod: "PUT",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: [.userModifyPlaybackState]
         )
         .decodeSpotifyErrors()

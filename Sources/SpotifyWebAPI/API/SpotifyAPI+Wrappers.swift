@@ -291,7 +291,7 @@ extension SpotifyAPI {
             queryItems: queryItems,
             httpMethod: "GET",
             makeHeaders: Headers.bearerAuthorization(_:),
-            bodyData: nil as Data?,
+            bodyData: nil,
             requiredScopes: requiredScopes
         )
         

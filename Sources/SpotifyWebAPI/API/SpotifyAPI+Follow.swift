@@ -428,7 +428,7 @@ public extension SpotifyAPI where
                 queryItems: [:],
                 httpMethod: "DELETE",
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                bodyData: nil as Data?,
+                bodyData: nil,
                 requiredScopes: []
             )
             .decodeSpotifyErrors()

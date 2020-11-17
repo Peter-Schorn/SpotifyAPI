@@ -23,7 +23,7 @@ private extension SpotifyAPI where
                 queryItems: ["ids": idsString],
                 httpMethod: "PUT",
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                bodyData: nil as Data?,
+                bodyData: nil,
                 requiredScopes: [.userLibraryModify]
             )
             .decodeSpotifyErrors()
@@ -58,7 +58,7 @@ private extension SpotifyAPI where
                 ],
                 httpMethod: "DELETE",
                 makeHeaders: Headers.bearerAuthorization(_:),
-                bodyData: nil as Data?,
+                bodyData: nil,
                 requiredScopes: [.userLibraryModify]
             )
             .decodeSpotifyErrors()
