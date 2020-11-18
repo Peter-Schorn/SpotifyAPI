@@ -559,7 +559,12 @@ scopes for.</p>
 URIS from multiple categories. For example, the endpoint for
 adding items to a playlist allows for track or episode URIs.</li>
 <li>received: The id category that was received. In some cases, multiple
-categories will be returned.</li>
+categories will be returned. It is not necessarily the case that all of
+these categories are invalid. For example, if you provide a collection
+of artist, track, and episode URIS to the endpoint for adding items to a
+playlist, then <code>expected</code> will be <code>[track, episode]</code> and <code>received</code> will be
+<code>[track, episode, artist]</code>, representing all of the provided categories,
+not just the invalid ones.</li>
 </ul>
 
 <p>For example, if you pass a track URI to the endpoint for retrieving

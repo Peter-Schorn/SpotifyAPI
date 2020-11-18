@@ -49,7 +49,7 @@ import Logging
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
  - Tag: Scopes
  */
-public enum Scope: String, Codable, CaseIterable, Hashable {
+public enum Scope: String, Codable, Hashable, CaseIterable {
     
     // MARK: Images
     
@@ -171,8 +171,9 @@ public extension Scope {
      from a string of (usually space-separated) scopes.
     
      - Parameter scopes: A variadic array of Spotify authorization scopes.
+           Duplicates will be ignored.
     
-     See the [Spotify API Reference][1]
+     See the [Spotify API Reference][1].
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
@@ -189,15 +190,12 @@ public extension Scope {
     
      - Parameter scopes: A set of Spotify authorization scopes.
     
-     See the [Spotify API Reference][1]
+     See the [Spotify API Reference][1].
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     static func makeString(_ scopes: Set<Scope>) -> String {
-        
-        return String(scopes.reduce(into: "") { scopes, nextScope in
-            scopes += " " + nextScope.rawValue
-        }.dropFirst())
+        return scopes.map(\.rawValue).joined(separator: " ")
     }
     
     /**
@@ -212,7 +210,7 @@ public extension Scope {
     
      - Parameter string: A string containing Spotify authorization scopes.
     
-     See the [Spotify API Reference][1]
+     See the [Spotify API Reference][1].
     
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
@@ -221,7 +219,7 @@ public extension Scope {
         let stringArray = try! string.regexSplit(
             #"[^\w-]+"#, ignoreIfEmpty: true
         )
-        var scopes = Set<Scope>()
+        var scopes: Set<Scope> = []
         for string in stringArray {
             if let scope = Self(rawValue: string) {
                 scopes.insert(scope)
