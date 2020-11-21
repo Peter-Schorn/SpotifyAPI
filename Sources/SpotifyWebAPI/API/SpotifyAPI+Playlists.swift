@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 private extension SpotifyAPI {
     

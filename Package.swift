@@ -27,6 +27,11 @@ let package = Package(
             name: "swift-log",
             url: "https://github.com/apple/swift-log.git",
             from: "1.4.0"
+        ),
+        .package(
+            name: "OpenCombine",
+            url: "https://github.com/OpenCombine/OpenCombine.git",
+            from: "0.11.0"
         )
     ],
     targets: [
@@ -34,7 +39,10 @@ let package = Package(
             name: "SpotifyWebAPI",
             dependencies: [
                 "RegularExpressions",
-                .product(name: "Logging", package: "swift-log")
+                .product(name: "Logging", package: "swift-log"),
+                .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "OpenCombineDispatch", package: "OpenCombine"),
+                .product(name: "OpenCombineFoundation", package: "OpenCombine")
             ],
             exclude: ["README.md"]
         ),
@@ -51,7 +59,10 @@ let package = Package(
             dependencies: [
                 "SpotifyWebAPI",
                 "SpotifyExampleContent",
-                "RegularExpressions"
+                "RegularExpressions",
+                .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "OpenCombineDispatch", package: "OpenCombine"),
+                .product(name: "OpenCombineFoundation", package: "OpenCombine")
             ],
             exclude: ["README.md"]
         ),

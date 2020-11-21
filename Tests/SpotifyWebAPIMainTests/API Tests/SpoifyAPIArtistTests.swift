@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -96,7 +98,7 @@ extension SpotifyAPIArtistTests {
         
         Self.spotify.artist(URIs.Artists.pinkFloyd)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receivePinkFloyd(_:)
@@ -162,7 +164,7 @@ extension SpotifyAPIArtistTests {
         
         Self.spotify.artists(artists)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveArtists(_:)
@@ -275,7 +277,7 @@ extension SpotifyAPIArtistTests {
             limit: 50,
             offset: 0
         )
-        .receive(on: DispatchQueue.main)
+        .receive(on: DispatchQueue.OCombine(.main))
         .XCTAssertNoFailure()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },

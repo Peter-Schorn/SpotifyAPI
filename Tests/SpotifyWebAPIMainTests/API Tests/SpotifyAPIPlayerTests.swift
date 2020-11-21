@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 import XCTest
 import SpotifyWebAPI
 import SpotifyAPITestUtilities
@@ -17,7 +19,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         
         let playbackRequest = PlaybackRequest(
             context: .contextURI(playlist),
-            offset: .position(21),  // Any Colour You Like
+            offset: .uri("spotify:track:1wGoqD0vrf7njGvxm8CEf5"),  // Any Colour You Like
             positionMS: 100_000  // 1 minute 40 seconds
         )
         
@@ -68,13 +70,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             }
         }
         
-        Self.spotify.play(playbackRequest)
+        let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
+            Self.spotify.play(playbackRequest)
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -84,11 +87,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.pausePlayback()
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
             .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+            
+        publisher
             .flatMap { context -> AnyPublisher<Void, Error> in
                 encodeDecode(context)
                 if let context = context {
@@ -100,7 +106,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.resumePlayback()
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -117,7 +123,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
     }
     
     func playAndCurrentPlaybackForEpisode() {
-        
+
         func checkContext(_ context: CurrentlyPlayingContext?) {
             encodeDecode(context)
             guard let context = context else {
@@ -128,14 +134,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
             XCTAssertTrue(context.isPlaying)
             XCTAssertEqual(context.itemType, .episode)
-            
+
             let difference = Date().timeIntervalSince1970 -
                     context.timestamp.timeIntervalSince1970
             XCTAssert(
                 (0...20).contains(difference),
                 "timestamp is incorrect: \(context.timestamp)"
             )
-            
+
             if let progress = context.progressMS {
                 XCTAssert(
                     (2_000_000...2_020_000).contains(progress),
@@ -164,7 +170,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     XCTFail("externalURLs should not be nil")
                 }
             }
-            
+
             if let playlistItem = context.item {
                 XCTAssertEqual(
                     playlistItem.name, "#217 — The New Religion of Anti-Racism"
@@ -172,7 +178,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 XCTAssertEqual(
                     playlistItem.uri, "spotify:episode:7nsYz7tSJryO5vVYtkKiot"
                 )
-                
+
                 if case .episode(let episode) = playlistItem {
                     XCTAssertEqual(
                         episode.name, "#217 — The New Religion of Anti-Racism"
@@ -183,7 +189,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     XCTAssertEqual(
                         episode.type, .episode
                     )
-                    
+
                     XCTAssertEqual(
                         episode.description,
                         """
@@ -202,7 +208,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         to all content on samharris.org/subscribe
                         """.strip()
                     )
-                    
+
                     if let releaseDate = episode.releaseDate {
                         XCTAssertEqual(
                             releaseDate.timeIntervalSince1970,
@@ -214,7 +220,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         XCTFail("release date should not be nil")
                     }
                     XCTAssertEqual(episode.releaseDatePrecision, "day")
-                    
+
                     if let show = episode.show {
                         XCTAssertEqual(
                             show.description,
@@ -239,7 +245,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                             from UCLA.
                             """.strip()
                         )
-                        
+
                     }
                     else {
                         XCTFail("episode should contain show")
@@ -248,15 +254,15 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 else {
                     XCTFail("PlaylistItem should be episode")
                 }
-                
+
             }
             else {
                 XCTFail("context.currentlyPlayingItem should not be nil")
             }
-            
-            
+
+
         }
-        
+
         func checkEpisode(_ episode: Episode) {
             if let resumePoint = episode.resumePoint {
                 XCTAssertFalse(resumePoint.fullyPlayed)
@@ -273,22 +279,22 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             XCTAssertEqual(episode.id, "7nsYz7tSJryO5vVYtkKiot")
             XCTAssertEqual(episode.name, "#217 — The New Religion of Anti-Racism")
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testPlayCurrentPlaybackForEpisode"
         )
-        
+
         let playbackRequest = PlaybackRequest(
             context: .contextURI(URIs.Shows.samHarris),
             offset: .uri(URIs.Episodes.samHarris217),
             positionMS: 2_000_000  // 33:20
         )
-        
+
         encodeDecode(playbackRequest)
 
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback(market: "US")
             }
@@ -306,38 +312,38 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 receiveValue: checkEpisode(_:)
             )
             .store(in: &Self.cancellables)
-            
+
         self.wait(for: [expectation], timeout: 120)
 
     }
-    
+
     /// Play an album, skip to the next track, then skip to the
     /// previous track.
     func playSkipToNextAndPrevious() {
-        
+
         let spotifyAPILogLevel = Self.spotify.logger.logLevel
         let authorizationCodeFlowManagerLogLevel =
                 AuthorizationCodeFlowManager.logger.logLevel
         let authorizationCodeFlowPKCEManagerLogLevel =
                 AuthorizationCodeFlowPKCEManager.logger.logLevel
-        
+
         Self.spotify.logger.logLevel = .warning
         AuthorizationCodeFlowPKCEManager.logger.logLevel = .warning
         AuthorizationCodeFlowManager.logger.logLevel = .warning
-        
+
         // setup repeat and shuffle
         do {
             let repeatExpectation = XCTestExpectation(
                 description: "testPlayNextPrevious: repeat"
             )
-            
+
             let shuffleExpectation = XCTestExpectation(
                 description: "testPlayNextPrevious: shuffle"
             )
             let skipExpectation = XCTestExpectation(
                 description: "testPlayNextPrevious: skip"
             )
-            
+
             // Ensure that repeat mode is set to the current context
             // and shuffle is off so that skipping to the previous and
             // next tracks has predictable behavior.
@@ -347,35 +353,35 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     repeatExpectation.fulfill()
                 })
                 .store(in: &Self.cancellables)
-            
+
             Self.spotify.setShuffle(to: false)
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 .sink(receiveCompletion: { _ in
                     shuffleExpectation.fulfill()
                 })
                 .store(in: &Self.cancellables)
-            
+
             Self.spotify.skipToNext()
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 .sink(receiveCompletion: { _ in
                     skipExpectation.fulfill()
                 })
                 .store(in: &Self.cancellables)
-            
+
             self.wait(
                 for: [repeatExpectation, shuffleExpectation, skipExpectation],
                 timeout: 120
             )
         }
-            
+
         /*
          The Dark Side of the Moon - spotify:album:4LH4d3cOWNNsVw41Gqt2kv
-         
+
          0. Speak to Me
          1. Breathe (In the Air)
          2. On the Run
@@ -387,22 +393,23 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
          8. Brain Damage
          9. Eclipse
          */
-        
+
         let playbackRequest = PlaybackRequest(
             context: .contextURI(URIs.Albums.darkSideOfTheMoon),
             offset: .position(5)  // Money
         )
-        
+
         let playbackExpectation = XCTestExpectation(
             description: "testPlayNextPrevious"
         )
 
         var didSkipToPrevious = false
         var didSkipToNext = false
-        
-        Self.spotify.play(playbackRequest)
+
+        let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
+            Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 2, scheduler: DispatchQueue.main)
+            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
             .flatMap(maxPublishers: .max(1)) {
                 Self.spotify.currentPlayback()
             }
@@ -440,16 +447,15 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.skipToNext()
             }
             .XCTAssertNoFailure()
-//            .print("\(#line)")
-            .delay(for: 2, scheduler: DispatchQueue.main)
-            // .print("\(#line)")
+            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
-            // .print("\(#line)")
-            .delay(for: 2, scheduler: DispatchQueue.main)
-//            .print("\(#line)")
+            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
             .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+
+        let publisher2: AnyPublisher<Void, Error> = publisher
             .flatMap(maxPublishers: .max(1)) { playback -> AnyPublisher<Void, Error> in
                 print("FLATMAP Received Playback: \(playback as Any)")
                 guard let playback = playback else {
@@ -478,7 +484,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.skipToPrevious()
             }
             .XCTAssertNoFailure()
-            .delay(for: 2, scheduler: DispatchQueue.main)
+            .eraseToAnyPublisher()
+
+        publisher2
+            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
@@ -508,34 +517,34 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         playback.item?.uri,
                         URIs.Tracks.money.uri
                     )
-                
+
                 }
             )
             .store(in: &Self.cancellables)
-            
+
         self.wait(for: [playbackExpectation], timeout: 300)
         XCTAssertTrue(didSkipToNext)
         XCTAssertTrue(didSkipToPrevious)
-        
+
         Self.spotify.logger.logLevel = spotifyAPILogLevel
         AuthorizationCodeFlowManager.logger.logLevel =
                 authorizationCodeFlowManagerLogLevel
         AuthorizationCodeFlowPKCEManager.logger.logLevel =
                 authorizationCodeFlowPKCEManagerLogLevel
-        
-        
+
+
     }
-    
+
     func playSeekToPositionAndSetVolume() {
-        
+
         let repeatExpectation = XCTestExpectation(
             description: "testPlayNextPrevious: repeat"
         )
-        
+
         let shuffleExpectation = XCTestExpectation(
             description: "testPlayNextPrevious: shuffle"
         )
-        
+
         // Ensure that repeat mode is set to the current context
         // and shuffle is off so that skipping to the previous and
         // next tracks has predictable behavior.
@@ -545,34 +554,34 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 repeatExpectation.fulfill()
             })
             .store(in: &Self.cancellables)
-        
+
         Self.spotify.setShuffle(to: false)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .sink(receiveCompletion: { _ in
                 shuffleExpectation.fulfill()
             })
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [repeatExpectation, shuffleExpectation], timeout: 120)
-        
-        
+
+
         let playbackRequest = PlaybackRequest(
             context: .contextURI(URIs.Albums.inRainbows),
             offset: nil
         )
-        
+
         let newVolume = Int.random(in: 0...100)
         var trackDuration: Int? = nil
         var newPosition: Int? = nil
-        
+
         let expectation = XCTestExpectation(
             description: "testPlaySeekToPositionAndSetVolume"
         )
-        
-        Self.spotify.play(playbackRequest)
+
+        let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -606,14 +615,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
                     )
                     XCTAssertEqual(track.album?.name, "In Rainbows")
-                    
+
                 }
                 else {
                     XCTFail("current playback should be track")
                 }
-                
+
                 trackDuration = playback.item?.durationMS
-             
+
                 print(
                     "setting volume for \(playback.device.name) " +
                     "to \(newVolume)"
@@ -630,10 +639,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 else {
                     XCTFail("unexpected error: \(error)")
                 }
-                return Result.Publisher(()).eraseToAnyPublisher()
+                return Result.OCombine.Publisher(()).eraseToAnyPublisher()
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+
+        publisher
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap { () -> AnyPublisher<Void, Error> in
                 guard let trackDuration = trackDuration else {
                     return SpotifyLocalError.other(
@@ -641,15 +652,15 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     )
                     .anyFailingPublisher()
                 }
-                
+
                 newPosition = Int.random(
                     in: 20_000...(trackDuration - 20_000)
                 )
-                
+
                 return Self.spotify.seekToPosition(newPosition!)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -674,12 +685,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         playback.context?.uri,
                         URIs.Albums.inRainbows.uri
                     )
-                    
+
                     guard let newPosition = newPosition else {
                         XCTFail("couldn't get new track position")
                         return
                     }
-                    
+
                     let expectedRange = newPosition...(newPosition + 20_000)
                     guard let progress = playback.progressMS else {
                         XCTFail("progress for track was nil")
@@ -696,18 +707,18 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .store(in: &Self.cancellables)
 
         self.wait(for: [expectation], timeout: 300)
-        
+
     }
     
     /// Play content using a specific device id.
     func playback() {
-        
+
         let items = URIs.Tracks.array(
             .partIII, .plants, .jinx, .illWind, .nuclearFusion
         )
-        
+
         let selectedItem = items.randomElement()!
-        
+
         let playbackRequest = PlaybackRequest(
             context: .uris(items),
             offset: .uri(selectedItem),
@@ -715,9 +726,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         )
 
         encodeDecode(playbackRequest)
-        
+
         var activeDeviceId: String? = nil
-        
+
         func checkPlaybackContext(_ context: CurrentlyPlayingContext?) {
             encodeDecode(context)
             guard let context = context else {
@@ -738,11 +749,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             else {
                 XCTFail("context.progressMS should not be nil")
             }
-            
+
         }
-        
+
         let expectation = XCTestExpectation(description: "testPlayback")
-        
+
         Self.spotify.availableDevices()
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
@@ -759,7 +770,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -769,21 +780,21 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 receiveValue: checkPlaybackContext(_:)
             )
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 60)
-        
+
     }
-    
+
     func singleTrackPlayback() {
-        
+
         let track = URIs.Tracks.allCases.randomElement()!
-        
+
         let playbackRequest = PlaybackRequest(track)
-        
+
         encodeDecode(playbackRequest)
-        
+
         var activeDeviceId: String? = nil
-        
+
         func checkPlaybackContext(_ context: CurrentlyPlayingContext?) {
             encodeDecode(context)
             guard let context = context else {
@@ -799,9 +810,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             XCTAssertEqual(context.device.id, activeDeviceId)
             XCTAssertEqual(context.item?.uri, track.uri)
         }
-        
+
         let expectation = XCTestExpectation(description: "testPlayPause")
-        
+
         Self.spotify.availableDevices()
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
@@ -818,7 +829,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -828,21 +839,21 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 receiveValue: checkPlaybackContext(_:)
             )
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 60)
-        
+
     }
 
     func playHistory() {
-        
+
         let expectationCurrentDate = XCTestExpectation(
             description: "testInvalidDatePlayHistory: current date"
         )
-        
+
         let expectationDistantPast = XCTestExpectation(
             description: "testInvalidDatePlayHistory: distant past"
         )
-        
+
         Self.spotify.recentlyPlayed(.before(Date()))
             .XCTAssertNoFailure()
             .sink(
@@ -854,9 +865,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 }
             )
             .store(in: &Self.cancellables)
-        
+
         let distantPast = Date().addingTimeInterval(-500_000_000)
-        
+
         Self.spotify.recentlyPlayed(.before(distantPast))
             .XCTAssertNoFailure()
             .sink(
@@ -868,31 +879,31 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 }
             )
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectationCurrentDate, expectationDistantPast], timeout: 120)
-        
+
     }
-    
+
     func addToQueue() {
-        
+
         let queueItems: [SpotifyURIConvertible] = [
             URIs.Tracks.because,
             URIs.Episodes.samHarris213
         ]
-        
+
         for (i, queueItem) in queueItems.enumerated() {
-            
+
             let expectation = XCTestExpectation(
                 description: "testAddToQueue \(i)"
             )
-            
+
             Self.spotify.addToQueue(queueItem)
                 .XCTAssertNoFailure()
                 // .breakpoint(receiveOutput: { _ in true })
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
@@ -902,17 +913,17 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     receiveValue: { }
                 )
                 .store(in: &Self.cancellables)
-                
+
             self.wait(for: [expectation], timeout: 60)
-            
+
         }
-        
+
         for (i, queueItem) in queueItems.enumerated() {
-            
+
             let expectation = XCTestExpectation(
                 description: "testAddToQueue \(i)"
             )
-            
+
             Self.spotify.availableDevices()
                 .XCTAssertNoFailure()
                 .flatMap { devices -> AnyPublisher<Void, Error> in
@@ -928,42 +939,43 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         .anyFailingPublisher()
                 }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
                 // .breakpoint(receiveOutput: { _ in true })
                 .sink(
                     receiveCompletion: { _ in expectation.fulfill() },
                     receiveValue: { }
                 )
                 .store(in: &Self.cancellables)
-                
+
             self.wait(for: [expectation], timeout: 60)
 
         }
-        
+
 
     }
-    
+
     func shuffle() {
-        
+
         let expectation = XCTestExpectation(
             description: "testShuffle"
         )
-        
-        Self.spotify.setShuffle(to: false)
+
+        let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
+            Self.spotify.setShuffle(to: false)
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -978,11 +990,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setShuffle(to: true)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
             .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+
+        publisher
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
                     XCTAssertTrue(context.shuffleIsOn)
@@ -993,7 +1008,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setShuffle(to: false)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1010,24 +1025,25 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 }
             )
             .store(in: &Self.cancellables)
-            
+
             self.wait(for: [expectation], timeout: 120)
-        
+
     }
-    
+
     func repeatMode() {
-        
+
         let expectation = XCTestExpectation(
             description: "testRepeat"
         )
-        
-        Self.spotify.setRepeatMode(to: .track)
+
+        let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
+            Self.spotify.setRepeatMode(to: .track)
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1042,11 +1058,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .context)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
             .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+
+        let publisher2: AnyPublisher<CurrentlyPlayingContext?, Error> = publisher
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
                     XCTAssertEqual(context.repeatState, .context)
@@ -1057,11 +1076,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .off)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
             .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+
+        publisher2
             .flatMap { context -> AnyPublisher<Void, Error> in
                 if let context = context {
                     XCTAssertEqual(context.repeatState, .off)
@@ -1072,7 +1094,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .track)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1089,13 +1111,13 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 }
             )
             .store(in: &Self.cancellables)
-            
+
             self.wait(for: [expectation], timeout: 120)
-        
+
     }
-    
+
     func transferPlayback() {
-        
+
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
         var authChangeCount = 0
         Self.spotify.authorizationManagerDidChange
@@ -1103,33 +1125,33 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 authChangeCount += 1
             })
             .store(in: &Self.cancellables)
-        
+
         let expectation = XCTestExpectation(
             description: "testTransferPlayback"
         )
-        
+
         // the device to transfer the playback to
         var transferDevice: Device? = nil
-        
+
         let playbackRequest = PlaybackRequest(
             context: .contextURI(URIs.Artists.theBeatles),
             offset: nil
         )
-        
-        Self.spotify.play(playbackRequest)
+
+        let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap(Self.spotify.availableDevices)
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
-                
+
                 guard let activeDevice = devices.first(
                     where: { $0.isActive }
                 ) else {
                     return SpotifyLocalError.other("no active device to use")
                         .anyFailingPublisher()
                 }
-                
+
                 // the device to transfer the playback to
                 transferDevice = devices.first(where: { device in
                     device.id != activeDevice.id && !device.isActive &&
@@ -1155,11 +1177,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.main)
+            .eraseToAnyPublisher()
+
+        publisher
+            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
             .flatMap {
                 Self.spotify.currentPlayback()
             }
-            .delay(for: 4, scheduler: DispatchQueue.global())
+            .delay(for: 4, scheduler: DispatchQueue.OCombine(.main))
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
@@ -1177,13 +1202,13 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 }
             )
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
         XCTAssertEqual(
             authChangeCount, 1,
             "authorizationManagerDidChange should emit exactly once"
         )
-        
+
 
     }
     
@@ -1192,7 +1217,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlayerTests
 {
-    
+
     static let allTests = [
         ("testPlayPause", testPlayPause),
         ("testPlayAndCurrentPlaybackForEpisode", testPlayAndCurrentPlaybackForEpisode),
@@ -1206,16 +1231,16 @@ final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
         ("testAddToQueue", testAddToQueue),
         ("testTransferPlayback", testTransferPlayback)
     ]
-    
+
     override class func setUp() {
         super.setUp()
         spotifyDecodeLogger.logLevel = .trace
     }
-    
+
     override class func tearDown() {
         spotifyDecodeLogger.logLevel = .warning
     }
-    
+
     func testPlayPause() { playPause() }
     func testPlayAndCurrentPlaybackForEpisode() {
         playAndCurrentPlaybackForEpisode()
@@ -1238,13 +1263,13 @@ final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
     func testShuffle() { shuffle() }
     func testRepeatMode() { repeatMode() }
     func testTransferPlayback() { transferPlayback() }
-    
+
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIPlayerTests
 {
-    
+
     static let allTests = [
         ("testPlayPause", testPlayPause),
         ("testPlayAndCurrentPlaybackForEpisode", testPlayAndCurrentPlaybackForEpisode),
@@ -1258,16 +1283,16 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
         ("testAddToQueue", testAddToQueue),
         ("testTransferPlayback", testTransferPlayback)
     ]
-    
+
     override class func setUp() {
         super.setUp()
         spotifyDecodeLogger.logLevel = .trace
     }
-    
+
     override class func tearDown() {
         spotifyDecodeLogger.logLevel = .warning
     }
-    
+
     func testPlayPause() { playPause() }
     func testPlayAndCurrentPlaybackForEpisode() {
         playAndCurrentPlaybackForEpisode()
@@ -1290,6 +1315,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     func testShuffle() { shuffle() }
     func testRepeatMode() { repeatMode() }
     func testTransferPlayback() { transferPlayback() }
-    
-    
+
+
 }

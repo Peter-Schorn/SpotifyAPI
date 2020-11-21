@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -72,7 +74,7 @@ extension SpotifyAPIUserProfileTests {
         
         Self.spotify.userProfile(URIs.Users.april)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveUser(_:)

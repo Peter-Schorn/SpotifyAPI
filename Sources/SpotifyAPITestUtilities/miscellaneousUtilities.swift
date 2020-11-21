@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 import Logging
 import XCTest
 import SpotifyWebAPI
@@ -21,7 +23,7 @@ public func assertURLExists(
     var request = URLRequest(url: url)
     request.httpMethod = "HEAD"
     
-    return URLSession.shared.dataTaskPublisher(for: request)
+    return URLSession.OCombine(.shared).dataTaskPublisher(for: request)
         .XCTAssertNoFailure(file: file, line: line)
         .map { data, response in
             let httpURLResponse = response as! HTTPURLResponse

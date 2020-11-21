@@ -1,6 +1,8 @@
-import Foundation
-import SwiftUI
-import Combine
+
+import struct SwiftUI.Image
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 #if os(macOS)
 import AppKit
@@ -84,7 +86,7 @@ public extension SpotifyImage {
             .anyFailingPublisher()
         }
         
-        return URLSession.shared.dataTaskPublisher(for: imageURL)
+        return URLSession.OCombine(.shared).dataTaskPublisher(for: imageURL)
             .tryMap { data, response -> Image in
                 
                 if let image = PlatformImage(data: data).map({

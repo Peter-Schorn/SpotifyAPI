@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent

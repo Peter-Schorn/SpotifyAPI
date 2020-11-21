@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -124,7 +126,7 @@ extension SpotifyAPIShowTests {
         
         Self.spotify.show(URIs.Shows.seanCarroll, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { show in
@@ -205,7 +207,7 @@ extension SpotifyAPIShowTests {
         
         Self.spotify.shows(shows, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveShows(_:)
@@ -288,7 +290,7 @@ extension SpotifyAPIShowTests {
             limit: 30
         )
         .XCTAssertNoFailure()
-        .receive(on: DispatchQueue.main)
+        .receive(on: DispatchQueue.OCombine(.main))
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: receiveShowEpisodes(_:)

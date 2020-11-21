@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 
 public extension URLSession {
@@ -29,14 +31,14 @@ public extension URLSession {
         httpMethod: String,
         headers: [String: String]?,
         body: Data? = nil
-    ) -> DataTaskPublisher {
+    ) -> OCombine.DataTaskPublisher {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.allHTTPHeaderFields = headers
         request.httpBody = body
         
-        return self.dataTaskPublisher(for: request)
+        return OCombine(self).dataTaskPublisher(for: request)
 
     }
     

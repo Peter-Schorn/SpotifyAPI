@@ -1,6 +1,8 @@
 import Foundation
 import Logging
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 /**
  The central class in this library. Provides methods for all of the Spotify

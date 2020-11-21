@@ -1,3 +1,5 @@
+import Foundation
+
 /**
  Either a track or an episode. Used for endpoints
  that return track and/or episode objects.

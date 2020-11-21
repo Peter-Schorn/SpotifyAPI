@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 import Logging
 
 
@@ -502,7 +504,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                             "access token not expired; returning early"
                         )
                         return Result<Void, Error>
-                            .Publisher(())
+                        .OCombine.Publisher(())
                             .eraseToAnyPublisher()
                     }
                     

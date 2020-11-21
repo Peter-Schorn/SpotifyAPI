@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 import Logging
 
 extension SpotifyAPI {
@@ -147,7 +149,7 @@ extension SpotifyAPI {
 
         return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                Publishers.MapError<URLSession.DataTaskPublisher, Error> in
+                Publishers.MapError<URLSession.OCombine.DataTaskPublisher, Error> in
             
                 if self.apiRequestLogger.logLevel <= .warning {
                 

@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 public extension SpotifyAPI {
 
@@ -114,7 +116,7 @@ public extension SpotifyAPI {
         do {
             
             if uris.isEmpty {
-                return Result.Publisher([])
+                return Result.OCombine.Publisher([])
                     .eraseToAnyPublisher()
             }
             

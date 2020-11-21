@@ -1,5 +1,7 @@
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 private extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
@@ -14,7 +16,7 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
-                return Result.Publisher(())
+                return Result.OCombine.Publisher(())
                     .eraseToAnyPublisher()
             }
             
@@ -51,7 +53,7 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
-                return Result.Publisher(())
+                return Result.OCombine.Publisher(())
                     .eraseToAnyPublisher()
             }
             
@@ -90,7 +92,7 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
-                return Result.Publisher([])
+                return Result.OCombine.Publisher([])
                     .eraseToAnyPublisher()
             }
             

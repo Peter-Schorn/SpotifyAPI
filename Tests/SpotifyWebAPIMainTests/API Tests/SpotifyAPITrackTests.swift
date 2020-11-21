@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
-import Combine
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -151,7 +153,7 @@ extension SpotifyAPITrackTests {
         
         Self.spotify.track(URIs.Tracks.because, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in
                     expectation.fulfill()
@@ -343,7 +345,7 @@ extension SpotifyAPITrackTests {
         
         Self.spotify.tracks(tracks, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.OCombine(.main))
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveTracks(_:)
