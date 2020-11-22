@@ -152,7 +152,7 @@ extension SpotifyAPI {
         
         return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                Publishers.MapError<PlatformDataTaskPublisher, Error> in
+                Publishers.MapError<CombineDataTaskPublisher, Error> in
 
                 if self.apiRequestLogger.logLevel <= .warning {
                 

@@ -1,11 +1,11 @@
 import Foundation
 #if canImport(Combine)
 import Combine
-public typealias PlatformDataTaskPublisher = URLSession.DataTaskPublisher
+public typealias CombineDataTaskPublisher = URLSession.DataTaskPublisher
 #else
 import OpenCombine
 import OpenCombineFoundation
-public typealias PlatformDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
+public typealias CombineDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
 #endif
 
 
@@ -36,7 +36,7 @@ public extension URLSession {
         httpMethod: String,
         headers: [String: String]?,
         body: Data? = nil
-    ) -> PlatformDataTaskPublisher {
+    ) -> CombineDataTaskPublisher {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
