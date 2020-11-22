@@ -10,7 +10,7 @@ import Combine
  The methods that require authorization scopes and/or an access token that was
  issued on behalf of a user are declared in conditional conformances where
  `AuthorizationManager` conforms to `SpotifyScopeAuthorizationManager`.
- This protcol requires conforming types to support authorization scopes.
+ This protocol requires conforming types to support authorization scopes.
  This strategy provides a compile-time guarantee that you cannot call methods
  that require authorization scopes if you are using an authorization manager
  that doesn't support them.
