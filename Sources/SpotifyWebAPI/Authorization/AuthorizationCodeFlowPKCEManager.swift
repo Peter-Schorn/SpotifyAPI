@@ -394,7 +394,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             .anyFailingPublisher()
         }
         
-        // This must matche the redirectURI provided when making the
+        // This must match the redirectURI provided when making the
         // authorization URL.
         let baseRedirectURI = redirectURIWithQuery
             .removingQueryItems()
