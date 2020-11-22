@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 import Combine
 
-#if os(macOS)
+#if canImport(AppKit)
 import AppKit
 /// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = NSImage
-#else
+#elseif canImport(UIKit)
 import UIKit
 /// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = UIImage
@@ -38,7 +38,7 @@ public struct SpotifyImage: Codable, Hashable {
     /**
      The source URL of the image.
      
-     Consider using `self.load()` to load the image.
+     Consider using `self.load()` to load the image from this URL.
      
      - Warning: If this image belongs to a playlist, then it is
            temporary and will expire in less than a day. Use
@@ -71,6 +71,7 @@ public struct SpotifyImage: Codable, Hashable {
 
 public extension SpotifyImage {
     
+    #if canImport(AppKit) || canImport(UIKit)
     /// Loads the image from `self.url`.
     ///
     /// Fails if `self.url` cannot be converted to `URL`, if the data
@@ -90,9 +91,9 @@ public extension SpotifyImage {
                 if let image = PlatformImage(data: data).map({
                     image -> Image in
                     
-                    #if os(macOS)
+                    #if canImport(AppKit)
                     return Image(nsImage: image)
-                    #else
+                    #elseif canImport(UIKit)
                     return Image(uiImage: image)
                     #endif
                 }) {
@@ -106,6 +107,7 @@ public extension SpotifyImage {
             .eraseToAnyPublisher()
         
     }
+    #endif
     
 }
 
