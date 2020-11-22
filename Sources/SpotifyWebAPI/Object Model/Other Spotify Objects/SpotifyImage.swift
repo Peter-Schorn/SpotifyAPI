@@ -1,14 +1,17 @@
 
 import struct SwiftUI.Image
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 
-#if os(macOS)
+#if canImport(AppKit)
 import AppKit
 /// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = NSImage
-#else
+#elseif canImport(UIKit)
 import UIKit
 /// `NSImage` on macOS; else, `UIImage`.
 typealias PlatformImage = UIImage
@@ -73,6 +76,7 @@ public struct SpotifyImage: Codable, Hashable {
 
 public extension SpotifyImage {
     
+    #if canImport(UIKit) || canImport(AppKit)
     /// Loads the image from `self.url`.
     ///
     /// Fails if `self.url` cannot be converted to `URL`, if the data
@@ -86,28 +90,34 @@ public extension SpotifyImage {
             .anyFailingPublisher()
         }
         
-        return URLSession.OCombine(.shared).dataTaskPublisher(for: imageURL)
-            .tryMap { data, response -> Image in
-                
-                if let image = PlatformImage(data: data).map({
-                    image -> Image in
-                    
-                    #if os(macOS)
-                    return Image(nsImage: image)
-                    #else
-                    return Image(uiImage: image)
-                    #endif
-                }) {
-                    return image
-                }
-                throw SpotifyLocalError.other(
-                    "couldn't convert data to image"
-                )
-                
-            }
-            .eraseToAnyPublisher()
+        #warning("Not implemented")
+        fatalError("not implemented")
+        
+//        return URLSession.shared.dataTaskPublisher(for: imageURL)
+//        return URLSession.OCombine(.shared).dataTaskPublisher(for: imageURL)
+//            .tryMap { data, response -> Image in
+//
+//                if let image = PlatformImage(data: data).map({
+//                    image -> Image in
+//
+//                    #if canImport(AppKit)
+//                    return Image(nsImage: image)
+//                    #elseif canImport(UIKit)
+//                    return Image(uiImage: image)
+//                    #endif
+//                }) {
+//                    return image
+//                }
+//                throw SpotifyLocalError.other(
+//                    "couldn't convert data to image"
+//                )
+//
+//            }
+//            .eraseToAnyPublisher()
         
     }
+    #endif
+    
     
 }
 

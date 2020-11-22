@@ -1,7 +1,10 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 import Logging
 
 /**
@@ -428,9 +431,16 @@ public extension AuthorizationCodeFlowManager {
                         Self.logger.trace(
                             "access token not expired; returning early"
                         )
+                        #if canImport(Combine)
+                        return Result<Void, Error>
+                            .Publisher(())
+                            .eraseToAnyPublisher()
+                        #else
                         return Result<Void, Error>
                             .OCombine.Publisher(())
                             .eraseToAnyPublisher()
+                        #endif
+                        
                     }
                     
                     Self.logger.notice("refreshing tokens...")

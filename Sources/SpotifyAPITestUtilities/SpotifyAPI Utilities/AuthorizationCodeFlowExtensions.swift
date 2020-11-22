@@ -6,9 +6,12 @@ import Cocoa
 import UIKit
 #endif
 
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 import SpotifyWebAPI
 
 public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {

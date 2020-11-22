@@ -1,7 +1,12 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+public typealias PlatformDataTaskPublisher = URLSession.DataTaskPublisher
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+public typealias PlatformDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
+#endif
 
 
 public extension URLSession {
@@ -31,14 +36,18 @@ public extension URLSession {
         httpMethod: String,
         headers: [String: String]?,
         body: Data? = nil
-    ) -> OCombine.DataTaskPublisher {
+    ) -> PlatformDataTaskPublisher {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.allHTTPHeaderFields = headers
         request.httpBody = body
         
+        #if canImport(Combine)
+        return self.dataTaskPublisher(for: request)
+        #else
         return OCombine(self).dataTaskPublisher(for: request)
+        #endif
 
     }
     

@@ -1,7 +1,10 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 
 public extension SpotifyAPI {
 
@@ -116,8 +119,13 @@ public extension SpotifyAPI {
         do {
             
             if uris.isEmpty {
+                #if canImport(Combine)
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+                #else
                 return Result.OCombine.Publisher([])
                     .eraseToAnyPublisher()
+                #endif
             }
             
             let idsString = try SpotifyIdentifier

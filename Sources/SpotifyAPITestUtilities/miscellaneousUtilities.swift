@@ -1,7 +1,10 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 import Logging
 import XCTest
 import SpotifyWebAPI
@@ -23,7 +26,12 @@ public func assertURLExists(
     var request = URLRequest(url: url)
     request.httpMethod = "HEAD"
     
-    return URLSession.OCombine(.shared).dataTaskPublisher(for: request)
+    #if canImport(Combine)
+    let publisher = URLSession.shared.dataTaskPublisher(for: request)
+    #else
+    let publisher = URLSession.OCombine(.shared).dataTaskPublisher(for: request)
+    #endif
+    return publisher
         .XCTAssertNoFailure(file: file, line: line)
         .map { data, response in
             let httpURLResponse = response as! HTTPURLResponse

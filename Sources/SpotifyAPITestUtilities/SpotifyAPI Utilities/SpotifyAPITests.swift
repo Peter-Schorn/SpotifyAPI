@@ -1,8 +1,11 @@
 
 import XCTest
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 @testable import SpotifyWebAPI
 
 /// The base protocol that all tests involving `SpotifyAPI` inherit from.

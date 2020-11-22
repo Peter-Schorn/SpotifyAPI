@@ -1,7 +1,10 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 import Logging
 
 extension SpotifyAPI {
@@ -146,11 +149,11 @@ extension SpotifyAPI {
         let endpoint = Endpoints.apiEndpoint(
             path, queryItems: queryItems
         )
-
+        
         return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                Publishers.MapError<URLSession.OCombine.DataTaskPublisher, Error> in
-            
+                Publishers.MapError<PlatformDataTaskPublisher, Error> in
+
                 if self.apiRequestLogger.logLevel <= .warning {
                 
                     if let bodyData = bodyData {

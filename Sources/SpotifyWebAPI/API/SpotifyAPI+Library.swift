@@ -1,7 +1,10 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
 import OpenCombine
-import OpenCombineDispatch
 import OpenCombineFoundation
+#endif
 
 private extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
@@ -16,8 +19,13 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
+                #if canImport(Combine)
+                return Result.Publisher(())
+                    .eraseToAnyPublisher()
+                #else
                 return Result.OCombine.Publisher(())
                     .eraseToAnyPublisher()
+                #endif
             }
             
             let idsString = try SpotifyIdentifier
@@ -53,8 +61,13 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
+                #if canImport(Combine)
+                return Result.Publisher(())
+                    .eraseToAnyPublisher()
+                #else
                 return Result.OCombine.Publisher(())
                     .eraseToAnyPublisher()
+                #endif
             }
             
             let idsString = try SpotifyIdentifier
@@ -92,8 +105,13 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
+                #if canImport(Combine)
+                return Result.Publisher([])
+                    .eraseToAnyPublisher()
+                #else
                 return Result.OCombine.Publisher([])
                     .eraseToAnyPublisher()
+                #endif
             }
             
             let idsString = try SpotifyIdentifier

@@ -2,7 +2,7 @@
 
 **A Swift library for the Spotify web API**
 
-⚠️ **This Branch is experimental** ⚠️
+⚠️ **This Branch is experimental. Do NOT use in a production environment.** ⚠️
 
 ### Features
 
