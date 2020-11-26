@@ -101,7 +101,7 @@ public extension SpotifyAPI {
          content is filtered out from responses.
      - Returns: A `SearchResult`. The `albums`, `artist`, `playlists`,
            `tracks`, `shows`, and `episodes` properties of this struct will
-           be non-nil for each of the categories that were requested from the
+           be non-`nil` for each of the categories that were requested from the
            `search` endpoint. If no results were found for a category, then the
            `items` property of the property's paging object will be empty;
            the property itself will only be nil if the category was not requested

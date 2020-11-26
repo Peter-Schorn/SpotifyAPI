@@ -62,7 +62,7 @@ let spotify = SpotifyAPI(
 ```
 
 
-Before each authentication request your app should generate a code verifier and a code challenge. The code verifier is a cryptographically random string between 43 and 128 characters in length. It can contain letters, digits, underscores, periods, hyphens, or tildes.
+Before each authentication request your app should generate a code verifier and a code challenge. The code verifier is a cryptographically random string between 43 and 128 characters in length. It can contain letters, digits, underscores, periods, hyphens, and tildes.
 
 In order to generate the code challenge, your app should hash the code verifier using the SHA256 algorithm. Then, [base64url][19] encode the hash that you generated. **Do not include any** `=` **padding characters** (percent-encoded or not).
 

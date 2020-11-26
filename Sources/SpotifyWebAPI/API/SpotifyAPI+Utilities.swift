@@ -10,7 +10,7 @@ public extension SpotifyAPI {
      Retrieves the data linked to by an href and decodes it
      into `responseType`.
      
-     An href is a property provided in many of the responses from
+     An href is a URL provided in many of the responses from
      the Spotify web API which links to addtional data instead of
      including it in the current response in order to limit the size.
      
