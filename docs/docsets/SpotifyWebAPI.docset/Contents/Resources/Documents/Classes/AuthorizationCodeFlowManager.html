@@ -545,9 +545,9 @@ information.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopesACSS_S2S10Foundation0N0VSSShyAA5ScopeOGtcfc"></a>
+                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopesACSS_S2S10Foundation0N0VSSSgShyAA5ScopeOGtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopesACSS_S2S10Foundation0N0VSSShyAA5ScopeOGtcfc">init(clientId:<wbr>clientSecret:<wbr>accessToken:<wbr>expirationDate:<wbr>refreshToken:<wbr>scopes:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopesACSS_S2S10Foundation0N0VSSSgShyAA5ScopeOGtcfc">init(clientId:<wbr>clientSecret:<wbr>accessToken:<wbr>expirationDate:<wbr>refreshToken:<wbr>scopes:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -582,7 +582,7 @@ directory of this package for more information.</p>
     <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">expirationDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span>
-    <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span>
 <span class="p">)</span></code></pre>
 
@@ -648,7 +648,12 @@ directory of this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The refresh token.</p>
+                                  <p>The refresh token. If <code>nil</code> (not reccomended), then it will
+not be possible to automatically refresh the access token when it
+expires; instead, you will have to go through the authorization process
+again, as described in the README in the root directory of this package.
+Use <code>accessTokenIsExpired(tolerance:)</code> to check if the access token is
+expired.</p>
                                 </div>
                               </td>
                             </tr>

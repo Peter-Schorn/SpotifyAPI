@@ -137,7 +137,7 @@ public extension SpotifyAPI where
     func recentlyPlayed(
         _ timeReference: TimeReference? = nil,
         limit: Int? = nil
-    ) ->AnyPublisher<CursorPagingObject<PlayHistory>, Error> {
+    ) -> AnyPublisher<CursorPagingObject<PlayHistory>, Error> {
         
         var query: [String: LosslessStringConvertible?] =
                 timeReference?.asQueryItem() ?? [:]

@@ -232,7 +232,7 @@ extension SpotifyAPI {
              returns a dictionary of headers. See the `Headers`
              enum, which contains convienence methods for making
              headers.
-       - body: The body of the request as a type that conforms to `Decodable`.
+       - body: The body of the request as a type that conforms to `Encodable`.
        - requiredScopes: The scopes required for this endpoint.
      - Returns: The raw data and the URL response from the server.
     */
