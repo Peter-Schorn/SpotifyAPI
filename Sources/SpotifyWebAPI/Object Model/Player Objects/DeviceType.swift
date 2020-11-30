@@ -36,7 +36,7 @@ public enum DeviceType: String, Codable, Hashable {
     case castVideo = "CastVideo"
     
     /// An audio cast.
-    case castAudio = "CaseAudio"
+    case castAudio = "CastAudio"
     
     /// An audiomobile.
     case automobile = "Automobile"
