@@ -267,7 +267,7 @@ extension SpotifyAPI {
     /// Only use it for testing purposes.
     public func setupDebugging() {
         
-        // REMEMBER: keep up to date with "Debugging" wiki page
+        // MARK: keep up to date with "Debugging" wiki page
         // https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging
         
         self.logger.logLevel = .trace

@@ -3,7 +3,7 @@ import Foundation
 /// The [types of devices][1] that Spotify content can be played on.
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-types
-public enum DeviceType: String, Codable, Hashable {
+public enum DeviceType: String, Codable, Hashable, CaseIterable {
     
     /// A computer.
     case computer = "Computer"
@@ -38,7 +38,7 @@ public enum DeviceType: String, Codable, Hashable {
     /// An audio cast.
     case castAudio = "CastAudio"
     
-    /// An audiomobile.
+    /// An automobile.
     case automobile = "Automobile"
     
     /// Unkown.

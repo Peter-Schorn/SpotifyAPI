@@ -10,7 +10,7 @@ import Foundation
  ```
  "track" is the id category.
  
- The id categories:
+ The id categories are:
  
  * `artist`
  * `album`
@@ -84,32 +84,15 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     @inlinable
     public init?(rawValue: String) {
         
-        // This is all because of one endpoint that just HAD to return the
-        // id cateogry in all-uppercase, unlike all the other endpoints.
-        switch rawValue.lowercased() {
-            case "artist":
-                self = .artist
-            case "album":
-                self = .album
-            case "track":
-                self = .track
-            case "playlist":
-                self = .playlist
-            case "show":
-                self = .show
-            case "episode":
-                self = .episode
-            case "local":
-                self = .local
-            case "user":
-                self = .user
-            case "genre":
-                self = .genre
-            case "unknown":
-                self = .unknown
-            default:
-                return nil
+        let lowercasedRawValue = rawValue.lowercased()
+        for category in Self.allCases {
+            if category.rawValue == lowercasedRawValue {
+                self = category
+                return
+            }
         }
+        return nil
+        
     }
     
 }

@@ -279,8 +279,8 @@ extension SpotifyAPITrackTests {
             
             if let reckoner = tracks[3] {
                 XCTAssertEqual(reckoner.name, "Reckoner")
-                XCTAssertEqual(reckoner.uri, "spotify:track:56Z7hbyMrndw1naxb6I5Oi")
-                XCTAssertEqual(reckoner.id, "56Z7hbyMrndw1naxb6I5Oi")
+                XCTAssertEqual(reckoner.uri, "spotify:track:02ppMPbg1OtEdHgoPqoqju")
+                XCTAssertEqual(reckoner.id, "02ppMPbg1OtEdHgoPqoqju")
                 XCTAssertEqual(reckoner.discNumber, 1)
                 XCTAssertEqual(reckoner.durationMS, 290213)
                 XCTAssertEqual(reckoner.type, .track)
@@ -295,7 +295,7 @@ extension SpotifyAPITrackTests {
                 XCTAssertEqual(reckoner.album?.name, "In Rainbows")
                 XCTAssertEqual(
                     reckoner.album?.uri,
-                    "spotify:album:7eyQXxuf2nGj9d2367Gi5f"
+                    "spotify:album:5vkqYmiPBYLaalcmjujWxK"
                 )
                 
                 if let releaseDate = reckoner.album?.releaseDate {
@@ -312,7 +312,7 @@ extension SpotifyAPITrackTests {
                 
                 XCTAssertEqual(
                     reckoner.href,
-                    "https://api.spotify.com/v1/tracks/56Z7hbyMrndw1naxb6I5Oi"
+                    "https://api.spotify.com/v1/tracks/02ppMPbg1OtEdHgoPqoqju"
                 )
                 XCTAssertNotNil(reckoner.href.map(URL.init(string:)))
                 

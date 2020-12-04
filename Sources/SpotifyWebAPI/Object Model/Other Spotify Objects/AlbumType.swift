@@ -33,18 +33,16 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
      */
     @inlinable
     public init?(rawValue: String) {
-        switch rawValue.lowercased() {
-            case "album":
-                self = .album
-            case "single":
-                self = .single
-            case "appears_on":
-                self = .appearsOn
-            case "compilation":
-                self = .compilation
-            default:
-                return nil
+        
+        let lowercasedRawValue = rawValue.lowercased()
+        for category in Self.allCases {
+            if category.rawValue == lowercasedRawValue {
+                self = category
+                return
+            }
         }
+        return nil
+       
     }
     
 }

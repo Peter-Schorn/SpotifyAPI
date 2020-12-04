@@ -103,7 +103,7 @@ public enum URIs {
         case faces = "spotify:track:1u7LOyLuApChbPeqMfXFKC"
         case partIII = "spotify:track:4HDLmWf73mge8isanCASnU"
 
-        case illWind = "spotify:track:7vuVUQV0dDnjXUyLPzJLPi"
+        case illWind = "spotify:track:12VTgfn13lUx12D7MOYfsn"
         
         case friends = "spotify:track:43NI5sAcvDLG7QQAmUc7UU"
         case theBay = "spotify:track:4x0QYD0DhErAC1sPvvPmq9"
@@ -130,7 +130,7 @@ public enum URIs {
         case blueBoy = "spotify:track:6EcWBNVhDlGn8AiSpkUg6T"
         
         case reckoner = "spotify:track:56Z7hbyMrndw1naxb6I5Oi"
-        case houseOfCards = "spotify:track:3Jc6X15OZCCyhGSHBF4hwB"
+        case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"
         
         /// Right now.
         case comeTogether = "spotify:track:2EqlS6tkEnglzr7tkKAAYD"

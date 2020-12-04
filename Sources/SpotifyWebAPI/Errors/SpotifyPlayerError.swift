@@ -187,7 +187,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
      */
-    public enum ErrorReason: String, Codable, Hashable {
+    public enum ErrorReason: String, Codable, Hashable, CaseIterable {
         
         /// The command requires a previous track, but there is none in
         /// the context.
