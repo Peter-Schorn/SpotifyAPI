@@ -29,6 +29,37 @@ public struct Device: Hashable {
     /// The current volume in percent (0 to 100).
     public let volumePercent: Int?
 
+    /**
+     A device that Spotify Content can be played on.
+     
+     - Parameters:
+       - id: The device id. May be `nil`.
+       - isActive: Whether the device is currently active.
+       - isPrivateSession: Whether the device is currently in a private session.
+       - isRestricted: Whether controlling this device is restricted. If `true`,
+             then no web API commands will be accepted by this device.
+       - name:  The name of the device.
+       - type: The type of the device.
+       - volumePercent: The current volume in percent (0 to 100).
+     */
+    public init(
+        id: String?,
+        isActive: Bool,
+        isPrivateSession: Bool,
+        isRestricted: Bool,
+        name: String,
+        type: DeviceType,
+        volumePercent: Int?
+    ) {
+        self.id = id
+        self.isActive = isActive
+        self.isPrivateSession = isPrivateSession
+        self.isRestricted = isRestricted
+        self.name = name
+        self.type = type
+        self.volumePercent = volumePercent
+    }
+
 }
 
 extension Device: Codable {

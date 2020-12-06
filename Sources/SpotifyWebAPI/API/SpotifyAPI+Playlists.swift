@@ -268,7 +268,7 @@ public extension SpotifyAPI {
      No scopes are required for this endpoint. Both Public and Private playlists
      belonging to any user can be retrieved.
      
-     # Returnss:
+     # Returns:
      ```
      Playlist<PagingObject<PlaylistItemContainer<PlaylistItem>>>
      ```

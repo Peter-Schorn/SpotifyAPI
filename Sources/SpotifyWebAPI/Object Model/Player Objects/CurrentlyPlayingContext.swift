@@ -108,6 +108,50 @@ public struct CurrentlyPlayingContext: Hashable {
      */
     public let allowedActions: Set<PlaybackActions>
     
+    /**
+     Contains information about the context of the current playback.
+     
+     - Parameters:
+       - device: The device that the content is or was playing on.
+       - repeatState: The repeat mode of the player.
+       - shuffleIsOn: `true` if shuffle mode is on; else, `false`.
+       - context: The context of the user's playback.
+       - timestamp: The date the data was fetched (converted from a Unix
+             millisecond-precision timestamp).
+       - progressMS: Progress into the currently playing track/episode in
+             milliseconds.
+       - isPlaying: `true` if content is currently playing. Else, `false`.
+       - item:  The full version of a track or episode. Represents the content
+             that is, or was most recently, playing.
+       - itemType: The object type of `item`—the content that is, or was most
+             recently, playing.
+       - allowedActions: The playback actions that are allowed within the given
+             context.
+     */
+    public init(
+        device: Device,
+        repeatState: RepeatMode,
+        shuffleIsOn: Bool,
+        context: SpotifyContext?,
+        timestamp: Date,
+        progressMS: Int?,
+        isPlaying: Bool,
+        item: PlaylistItem?,
+        itemType: IDCategory,
+        allowedActions: Set<PlaybackActions>
+    ) {
+        self.device = device
+        self.repeatState = repeatState
+        self.shuffleIsOn = shuffleIsOn
+        self.context = context
+        self.timestamp = timestamp
+        self.progressMS = progressMS
+        self.isPlaying = isPlaying
+        self.item = item
+        self.itemType = itemType
+        self.allowedActions = allowedActions
+    }
+
 }
 
 extension CurrentlyPlayingContext: Codable {

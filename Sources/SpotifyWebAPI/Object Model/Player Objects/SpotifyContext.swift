@@ -33,13 +33,35 @@ public struct SpotifyContext: Hashable {
     public let externalURLs: [String: String]?
     
     /**
-     The object type of the item's context: Valid values are
+     The object type of the item's context. Valid values are
      `album`, `artist`, and `playlist`.
     
      For example, if `type` is `playlist`, then the current track/episode
      is playing in the context of a playlist.
      */
     public let type: IDCategory
+    
+    /**
+     The context that a track/episode is being played in.
+     
+     - Parameters:
+       - uri: The URI of the context.
+       - href: A link to an endpoint providing further details about the context.
+       - externalURLs: Known [external urls][1] for the context.
+       - type: The object type of the item's context. Valid values are
+           `album`, `artist`, and `playlist`.
+     */
+    public init(
+        uri: String,
+        href: String?,
+        externalURLs: [String : String]?,
+        type: IDCategory
+    ) {
+        self.uri = uri
+        self.href = href
+        self.externalURLs = externalURLs
+        self.type = type
+    }
     
 }
 

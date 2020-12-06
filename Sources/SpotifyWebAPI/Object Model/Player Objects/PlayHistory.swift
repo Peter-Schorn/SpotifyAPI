@@ -17,8 +17,29 @@ public struct PlayHistory: Hashable {
     public let playedAt: Date
     
     /// The context the track was played from, such as
-    /// an album or artist.
+    /// an album, artist, or playlist.
     public let context: SpotifyContext?
+    
+    /**
+     A Spotify [play history object][1].
+     
+     - Parameters:
+       - track: The track that the user listened to (simplified version).
+       - playedAt: The date and time the track was played.
+       - context: The context the track was played from, such as an album, artist,
+             or playlist.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#play-history-object
+     */
+    public init(
+        track: Track,
+        playedAt: Date,
+        context: SpotifyContext?
+    ) {
+        self.track = track
+        self.playedAt = playedAt
+        self.context = context
+    }
     
 }
 
