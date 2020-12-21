@@ -3,8 +3,6 @@ import Foundation
 import Combine
 #else
 import OpenCombine
-
-
 #endif
 import SpotifyWebAPI
 
