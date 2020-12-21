@@ -2,10 +2,6 @@ import Foundation
 #if canImport(Combine)
 import Combine
 
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
-
 /// `URLSession.DataTaskPublisher` If `Combine` can be imported; else,
 /// `URLSession.OCombine.DataTaskPublisher` from `OpenCombine`.
 public typealias URLSessionDataTaskPublisher = URLSession.DataTaskPublisher
@@ -18,6 +14,9 @@ import OpenCombineFoundation
 public typealias URLSessionDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
 #endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public extension URLSession {
     
