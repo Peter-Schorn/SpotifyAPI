@@ -4,8 +4,8 @@ import XCTest
 import Combine
 #else
 import OpenCombine
-import OpenCombineDispatch
-import OpenCombineFoundation
+
+
 #endif
 import SwiftUI
 @testable import SpotifyWebAPI
@@ -1419,31 +1419,6 @@ extension SpotifyAPIPlaylistsTests where
                         }
                     )
                     .store(in: &Self.cancellables)
-
-                // if let url = URL(string: image.url) {
-                //     let urlExists = XCTestExpectation(
-                //         description: "url exists \(i)"
-                //     )
-                //     DispatchQueue.OCombine(.main).async {
-                //         expectations.append(urlExists)
-                //     }
-                //     let cancellable = assertURLExists(url)
-                //         .sink(
-                //             receiveCompletion: { _ in
-                //                 print("urlExists.fulfill() '\(image.url)'")
-                //                 urlExists.fulfill()
-                //             },
-                //             receiveValue: { _ in
-                //                 print("urlExists receiveValue '\(image.url)'")
-                //             }
-                //         )
-                //     DispatchQueue.OCombine(.main).async {
-                //         cancellables.append(cancellable)
-                //     }
-                //
-                // } else {
-                //     XCTFail("couldn't convert string to URL: '\(image.url)'")
-                // }
 
             }
 

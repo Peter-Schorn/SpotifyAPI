@@ -3,7 +3,7 @@ import Foundation
 import Combine
 #else
 import OpenCombine
-import OpenCombineFoundation
+
 #endif
 
 public extension SpotifyAPI where

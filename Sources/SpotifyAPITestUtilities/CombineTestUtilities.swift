@@ -2,7 +2,6 @@
 import Combine
 #else
 import OpenCombine
-import OpenCombineFoundation
 #endif
 import XCTest
 

@@ -1,11 +1,17 @@
 import Foundation
 #if canImport(Combine)
 import Combine
-public typealias CombineDataTaskPublisher = URLSession.DataTaskPublisher
+
+/// `URLSession.DataTaskPublisher` If `Combine` can be imported; else,
+/// `URLSession.OCombine.DataTaskPublisher` from `OpenCombine`.
+public typealias URLSessionDataTaskPublisher = URLSession.DataTaskPublisher
 #else
 import OpenCombine
 import OpenCombineFoundation
-public typealias CombineDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
+
+/// `URLSession.DataTaskPublisher` If `Combine` can be imported; else,
+/// `URLSession.OCombine.DataTaskPublisher` from `OpenCombine`.
+public typealias URLSessionDataTaskPublisher = URLSession.OCombine.DataTaskPublisher
 #endif
 
 
@@ -36,7 +42,7 @@ public extension URLSession {
         httpMethod: String,
         headers: [String: String]?,
         body: Data? = nil
-    ) -> CombineDataTaskPublisher {
+    ) -> URLSessionDataTaskPublisher {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod

@@ -4,7 +4,7 @@ import XCTest
 import Combine
 #else
 import OpenCombine
-import OpenCombineFoundation
+
 #endif
 @testable import SpotifyWebAPI
 

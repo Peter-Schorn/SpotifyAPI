@@ -4,7 +4,6 @@ import Logging
 import Combine
 #else
 import OpenCombine
-import OpenCombineFoundation
 #endif
 
 /**

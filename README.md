@@ -2,8 +2,6 @@
 
 **A Swift library for the Spotify web API**
 
-⚠️ **This Branch is experimental. Do NOT use in a production environment.** ⚠️
-
 ### Features
 
 * Supports *all* of the [Spotify web API endpoints][24], including playing content, creating playlists, and retrieving albums.
