@@ -32,6 +32,11 @@ let package = Package(
             name: "OpenCombine",
             url: "https://github.com/OpenCombine/OpenCombine.git",
             from: "0.11.0"
+        ),
+        .package(
+            name: "swift-crypto",
+            url: "https://github.com/apple/swift-crypto.git",
+            from: "1.1.3"
         )
     ],
     targets: [
@@ -40,6 +45,7 @@ let package = Package(
             dependencies: [
                 "RegularExpressions",
                 .product(name: "Logging", package: "swift-log"),
+                .product(name: "Crypto", package: "swift-crypto"),
                 .product(name: "OpenCombine", package: "OpenCombine"),
                 .product(name: "OpenCombineDispatch", package: "OpenCombine"),
                 .product(name: "OpenCombineFoundation", package: "OpenCombine")
