@@ -32,7 +32,7 @@ extension SpotifyAPILibraryTests where
         let publisher: AnyPublisher<Void, Error> = Self.spotify
             .removeSavedAlbumsForCurrentUser(fullAlbums)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedAlbums(
                     limit: 50, offset: 0
@@ -54,7 +54,7 @@ extension SpotifyAPILibraryTests where
             .eraseToAnyPublisher()
 
         publisher
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 Self.spotify.currentUserSavedAlbumsContains(fullAlbums)
             }
@@ -64,7 +64,7 @@ extension SpotifyAPILibraryTests where
                 return Self.spotify.removeSavedAlbumsForCurrentUser(fullAlbums)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedAlbums(
                     limit: 50, offset: 0
@@ -105,7 +105,7 @@ extension SpotifyAPILibraryTests where
          let publisher: AnyPublisher<Void, Error> = Self.spotify
             .removeSavedTracksForCurrentUser(fullTracks)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
                     limit: 50, offset: 0
@@ -127,7 +127,7 @@ extension SpotifyAPILibraryTests where
             .eraseToAnyPublisher()
         
         publisher
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 Self.spotify.currentUserSavedTracksContains(fullTracks)
             }
@@ -137,7 +137,7 @@ extension SpotifyAPILibraryTests where
                 return Self.spotify.removeSavedTracksForCurrentUser(fullTracks)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
                     limit: 50, offset: 0
@@ -178,7 +178,7 @@ extension SpotifyAPILibraryTests where
         let publisher: AnyPublisher<Void, Error> = Self.spotify
             .removeSavedShowsForCurrentUser(fullShows)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
                     limit: 50, offset: 0
@@ -200,7 +200,7 @@ extension SpotifyAPILibraryTests where
             .eraseToAnyPublisher()
         
         publisher
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 Self.spotify.currentUserSavedShowsContains(fullShows)
             }
@@ -210,7 +210,7 @@ extension SpotifyAPILibraryTests where
                 return Self.spotify.removeSavedShowsForCurrentUser(fullShows)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
                     limit: 50, offset: 0

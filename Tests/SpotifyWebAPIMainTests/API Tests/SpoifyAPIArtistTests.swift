@@ -103,7 +103,7 @@ extension SpotifyAPIArtistTests {
         
         Self.spotify.artist(URIs.Artists.pinkFloyd)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receivePinkFloyd(_:)
@@ -169,7 +169,7 @@ extension SpotifyAPIArtistTests {
         
         Self.spotify.artists(artists)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveArtists(_:)
@@ -282,7 +282,7 @@ extension SpotifyAPIArtistTests {
             limit: 50,
             offset: 0
         )
-        .receive(on: DispatchQueue.OCombine(.main))
+        .receiveOnMain()
         .XCTAssertNoFailure()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },

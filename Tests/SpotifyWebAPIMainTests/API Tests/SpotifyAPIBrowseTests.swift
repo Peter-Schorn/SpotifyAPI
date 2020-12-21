@@ -25,7 +25,7 @@ extension SpotifyAPIBrowseTests {
             locale: "es_MX"  // Spanish Mexico
         )
         .XCTAssertNoFailure()
-        .receive(on: DispatchQueue.OCombine(.main))
+        .receiveOnMain()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { category in

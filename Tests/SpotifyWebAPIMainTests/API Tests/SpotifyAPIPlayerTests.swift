@@ -81,7 +81,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -91,7 +91,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.pausePlayback()
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -110,7 +110,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.resumePlayback()
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -298,7 +298,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback(market: "US")
             }
@@ -360,7 +360,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
             Self.spotify.setShuffle(to: false)
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 .sink(receiveCompletion: { _ in
                     shuffleExpectation.fulfill()
                 })
@@ -368,10 +368,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
             Self.spotify.skipToNext()
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 .sink(receiveCompletion: { _ in
                     skipExpectation.fulfill()
                 })
@@ -413,7 +413,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
             Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap(maxPublishers: .max(1)) {
                 Self.spotify.currentPlayback()
             }
@@ -451,11 +451,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.skipToNext()
             }
             .XCTAssertNoFailure()
-            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
-            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .XCTAssertNoFailure()
             .eraseToAnyPublisher()
 
@@ -491,7 +491,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .eraseToAnyPublisher()
 
         publisher2
-            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
@@ -561,7 +561,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         Self.spotify.setShuffle(to: false)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .sink(receiveCompletion: { _ in
                 shuffleExpectation.fulfill()
             })
@@ -585,7 +585,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -643,12 +643,16 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 else {
                     XCTFail("unexpected error: \(error)")
                 }
+                #if canImport(Combine)
+                return Result.Publisher(()).eraseToAnyPublisher()
+                #else
                 return Result.OCombine.Publisher(()).eraseToAnyPublisher()
+                #endif
             }
             .XCTAssertNoFailure()
 
         publisher
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap { () -> AnyPublisher<Void, Error> in
                 guard let trackDuration = trackDuration else {
                     return SpotifyLocalError.other(
@@ -664,7 +668,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.seekToPosition(newPosition!)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -774,7 +778,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -833,7 +837,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -904,10 +908,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             Self.spotify.addToQueue(queueItem)
                 .XCTAssertNoFailure()
                 // .breakpoint(receiveOutput: { _ in true })
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
@@ -943,15 +947,15 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         .anyFailingPublisher()
                 }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 // .breakpoint(receiveOutput: { _ in true })
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+                .receiveOnMain(delay: 1)
                 // .breakpoint(receiveOutput: { _ in true })
                 .sink(
                     receiveCompletion: { _ in expectation.fulfill() },
@@ -979,7 +983,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -994,7 +998,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setShuffle(to: true)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1012,7 +1016,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setShuffle(to: false)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1047,7 +1051,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             // and ensure it's logged in to the same account used to
             // authroize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1062,7 +1066,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .context)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1080,7 +1084,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .off)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1098,7 +1102,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 return Self.spotify.setRepeatMode(to: .track)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1144,7 +1148,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap(Self.spotify.availableDevices)
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
@@ -1184,11 +1188,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .eraseToAnyPublisher()
 
         publisher
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
-            .delay(for: 4, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 4)
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },

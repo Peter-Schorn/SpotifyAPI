@@ -83,23 +83,23 @@ extension SpotifyAPIFollowTests where
 
         Self.spotify.unfollowArtistsForCurrentUser(fullArtists)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.followArtistsForCurrentUser(partialArtists)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserFollowsArtists(fullArtists)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { results -> AnyPublisher<Void, Error> in
                 XCTAssertEqual(results, [true, true, false, false])
                 return Self.spotify.unfollowArtistsForCurrentUser(fullArtists)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserFollowsArtists(fullArtists)
             }
@@ -183,23 +183,23 @@ extension SpotifyAPIFollowTests where
 
         Self.spotify.unfollowUsersForCurrentUser(fullUsers)
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.followUsersForCurrentUser(partialUsers)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserFollowsUsers(fullUsers)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { results -> AnyPublisher<Void, Error> in
                 XCTAssertEqual(results, [true, false])
                 return Self.spotify.unfollowUsersForCurrentUser(fullUsers)
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserFollowsUsers(fullUsers)
             }
@@ -255,7 +255,7 @@ extension SpotifyAPIFollowTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 guard let user = currentUserURI else {
                     return SpotifyLocalError.other("user URI was nil")
@@ -267,7 +267,7 @@ extension SpotifyAPIFollowTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { results -> AnyPublisher<Void, Error> in
                 XCTAssertEqual(results, [false])
                 return Self.spotify.followPlaylistForCurrentUser(
@@ -275,7 +275,7 @@ extension SpotifyAPIFollowTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 guard let user = currentUserURI else {
                     return SpotifyLocalError.other("user URI was nil")

@@ -184,7 +184,7 @@ extension SpotifyAPIAlbumsTests {
         
         Self.spotify.album(URIs.Albums.jinx)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveJinxAlbum(_:)
@@ -271,7 +271,7 @@ extension SpotifyAPIAlbumsTests {
         
         Self.spotify.albums(albums)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveAlbums(_:)

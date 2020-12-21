@@ -130,7 +130,7 @@ extension SpotifyAPIShowTests {
         
         Self.spotify.show(URIs.Shows.seanCarroll, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { show in
@@ -211,7 +211,7 @@ extension SpotifyAPIShowTests {
         
         Self.spotify.shows(shows, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveShows(_:)
@@ -294,7 +294,7 @@ extension SpotifyAPIShowTests {
             limit: 30
         )
         .XCTAssertNoFailure()
-        .receive(on: DispatchQueue.OCombine(.main))
+        .receiveOnMain()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: receiveShowEpisodes(_:)

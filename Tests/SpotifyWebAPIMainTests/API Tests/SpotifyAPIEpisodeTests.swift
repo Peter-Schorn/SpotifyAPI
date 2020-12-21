@@ -163,7 +163,7 @@ extension SpotifyAPIEpisodeTests {
         
         Self.spotify.episode(URIs.Episodes.samHarris212, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveSamHarris212(_:)
@@ -274,7 +274,7 @@ extension SpotifyAPIEpisodeTests {
         
         Self.spotify.episodes(episodes, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveEpisodes(_:)

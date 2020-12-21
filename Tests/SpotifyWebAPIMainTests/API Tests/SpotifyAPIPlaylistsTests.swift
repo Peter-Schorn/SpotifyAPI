@@ -774,7 +774,7 @@ extension SpotifyAPIPlaylistsTests where
 
             }
             .XCTAssertNoFailure()
-            .delay(for: 2, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 2)
             .eraseToAnyPublisher()
         
         let publisher2: AnyPublisher<PlaylistItems, Error> = publisher
@@ -827,7 +827,7 @@ extension SpotifyAPIPlaylistsTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { snapshotId -> AnyPublisher<PlaylistItems, Error> in
                 // MARK: Get the items in the playlist again
                 return Self.spotify.playlistItems(createdPlaylistURI)
@@ -847,7 +847,7 @@ extension SpotifyAPIPlaylistsTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { snapshotId -> AnyPublisher<PlaylistItems, Error> in
                 // MARK: Get the items in the playlist again
                 return Self.spotify.playlistItems(createdPlaylistURI)
@@ -870,7 +870,7 @@ extension SpotifyAPIPlaylistsTests where
 
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 // get all of the current user's playlists
                 // MARK: Get all of the user's playlists
@@ -1006,7 +1006,7 @@ extension SpotifyAPIPlaylistsTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { snapshotId -> AnyPublisher<PlaylistItems, Error> in
                 return Self.spotify.playlistItems(createdPlaylistURI)
             }
@@ -1171,7 +1171,7 @@ extension SpotifyAPIPlaylistsTests where
                 )
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap { snapshotId -> AnyPublisher<PlaylistItems, Error> in
                 return Self.spotify.playlistItems(
                     createdPlaylistURI,
@@ -1336,7 +1336,7 @@ extension SpotifyAPIPlaylistsTests where
 
             }
             .XCTAssertNoFailure()
-            .delay(for: 1, scheduler: DispatchQueue.OCombine(.main))
+            .receiveOnMain(delay: 1)
             .flatMap {
                 // get all of the current user's playlists
                 // MARK: Get all of the user's playlists
@@ -1458,7 +1458,7 @@ extension SpotifyAPIPlaylistsTests where
             expectations.append(playlistImageExpectation)
 
             Self.spotify.playlistImage(playlist)
-                .receive(on: DispatchQueue.OCombine(.main))
+                .receiveOnMain()
                 .XCTAssertNoFailure()
                 .sink(
                     receiveCompletion: { _ in

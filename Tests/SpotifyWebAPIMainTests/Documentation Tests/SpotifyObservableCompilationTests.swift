@@ -33,7 +33,7 @@ private class Keychain {
  Its most important role is to handle changes to the authorzation
  information and save them to persistent storage in the keychain.
  */
-final class Spotify: OpenCombine.ObservableObject {
+final class Spotify: ObservableObject {
 
     private static let clientId: String = {
         if let clientId = ProcessInfo.processInfo

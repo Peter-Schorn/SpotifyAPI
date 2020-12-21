@@ -33,7 +33,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
-            // .receive(on: DispatchQueue.OCombine(.main))
+            // .receiveOnMain()
             .print("Self.spotify.authorizationManagerDidChange print")
             .sink(receiveValue: {
                 Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()

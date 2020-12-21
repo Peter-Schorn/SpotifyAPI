@@ -78,7 +78,7 @@ extension SpotifyAPIUserProfileTests {
         
         Self.spotify.userProfile(URIs.Users.april)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveUser(_:)

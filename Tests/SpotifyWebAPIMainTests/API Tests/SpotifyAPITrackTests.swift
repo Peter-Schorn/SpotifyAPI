@@ -157,7 +157,7 @@ extension SpotifyAPITrackTests {
         
         Self.spotify.track(URIs.Tracks.because, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in
                     expectation.fulfill()
@@ -349,7 +349,7 @@ extension SpotifyAPITrackTests {
         
         Self.spotify.tracks(tracks, market: "US")
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.OCombine(.main))
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveTracks(_:)

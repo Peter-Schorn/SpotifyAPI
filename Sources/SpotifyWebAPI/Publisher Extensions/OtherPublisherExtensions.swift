@@ -1,11 +1,11 @@
-
 #if canImport(Combine)
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
-import Logging
+import Foundation
 
 public extension Publisher where Output: Paginated {
    
