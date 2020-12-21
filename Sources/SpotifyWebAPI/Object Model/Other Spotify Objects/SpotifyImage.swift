@@ -5,6 +5,7 @@ import struct SwiftUI.Image
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 

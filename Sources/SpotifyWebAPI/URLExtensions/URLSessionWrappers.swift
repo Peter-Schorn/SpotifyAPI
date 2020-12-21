@@ -7,6 +7,7 @@ import Combine
 public typealias URLSessionDataTaskPublisher = URLSession.DataTaskPublisher
 #else
 import OpenCombine
+import OpenCombineDispatch
 import OpenCombineFoundation
 
 /// `URLSession.DataTaskPublisher` If `Combine` can be imported; else,
