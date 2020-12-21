@@ -1,17 +1,17 @@
 import Foundation
+
 #if canImport(Combine)
 import Combine
 #else
 import OpenCombine
-
 #endif
-import Logging
+
 import XCTest
 import SpotifyWebAPI
 
-#if os(macOS)
+#if canImport(Cocoa)
 import Cocoa
-#else
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
@@ -152,10 +152,20 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
-    #if os(macOS)
+    #if canImport(Cocoa)
     NSWorkspace.shared.open(authorizationURL)
-    #else
+    #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)
+    #else
+    print(
+        """
+
+        ======================================================\
+        ===============================================
+        Open the following URL in your browser:
+        \(authorizationURL)
+        """
+    )
     #endif
 
     print(
