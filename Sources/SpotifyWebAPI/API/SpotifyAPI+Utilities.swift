@@ -7,6 +7,10 @@ import OpenCombineFoundation
 #endif
 import Logging
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 public extension SpotifyAPI {
 
     // MARK: Utilities

@@ -7,6 +7,10 @@ import OpenCombineFoundation
 #endif
 import Logging
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  Manages the authorization process for the [Authorization Code Flow][1].
  

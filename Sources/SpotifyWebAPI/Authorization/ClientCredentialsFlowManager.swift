@@ -7,6 +7,9 @@ import OpenCombineFoundation
 #endif
 import Logging
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /**
  Manages the authorization proccess for the [Client Credentials Flow][1].

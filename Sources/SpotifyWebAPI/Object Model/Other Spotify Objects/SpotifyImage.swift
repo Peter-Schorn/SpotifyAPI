@@ -18,6 +18,10 @@ import UIKit
 typealias PlatformImage = UIImage
 #endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 
 /**
  A Spotify [image][1] object.

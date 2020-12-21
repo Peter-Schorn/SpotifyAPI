@@ -3,7 +3,10 @@ import Foundation
 import Combine
 #else
 import OpenCombine
+#endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
 #endif
 
 private extension SpotifyAPI {

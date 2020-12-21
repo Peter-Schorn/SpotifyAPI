@@ -15,6 +15,10 @@ import Cocoa
 import UIKit
 #endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /// Assert that a url exists by making a data task request
 /// and asserting that the status code is 200.
 public func assertURLExists(

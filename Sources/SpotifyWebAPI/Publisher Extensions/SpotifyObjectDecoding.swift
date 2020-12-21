@@ -3,9 +3,12 @@ import Foundation
 import Combine
 #else
 import OpenCombine
-
 #endif
 import Logging
+
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /**
  Logs messages related to the decoding of data.
