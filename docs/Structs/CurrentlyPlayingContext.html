@@ -661,10 +661,14 @@ session enabled, then this will be <code>nil</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object type of <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a></code>—the content that is, or was most
+                        <p>The id category of <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a></code>—the content that is, or was most
 recently, playing.</p>
 
-<p>Can be <code>track</code>, <code>episode</code>, or <code>unknown</code>.</p>
+<p>For example, if a track is currently playing, then this property will
+be <code>track</code>; if an episode is currently playing then this property will
+be <code>episode</code>.</p>
+
+<p>Can also be <code>unknown</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -696,8 +700,8 @@ recently, playing.</p>
 <p>Attemping to perform actions that are not contained within this set
 will result in an error from the Spotify web API.</p>
 
-<p>For example, you cannot skip to the previous or next track/episode
-or seek to a position in a track/episode while an ad is playing.</p>
+<p>For example, you cannot skip to the previous or next track
+or seek to a position in a track while an ad is playing.</p>
 
 <p>You could use this property to disable UI elements that perform
 actions that are not contained within this set.</p>
@@ -714,12 +718,182 @@ actions that are not contained within this set.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI23CurrentlyPlayingContextV6device11repeatState11shuffleIsOn7context9timestamp10progressMS02isE04item0R4Type14allowedActionsAcA6DeviceV_AA10RepeatModeOSbAA0aF0VSg10Foundation4DateVSiSgSbAA12PlaylistItemOSgAA10IDCategoryOShyAA08PlaybackU0OGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(device:repeatState:shuffleIsOn:context:timestamp:progressMS:isPlaying:item:itemType:allowedActions:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI23CurrentlyPlayingContextV6device11repeatState11shuffleIsOn7context9timestamp10progressMS02isE04item0R4Type14allowedActionsAcA6DeviceV_AA10RepeatModeOSbAA0aF0VSg10Foundation4DateVSiSgSbAA12PlaylistItemOSgAA10IDCategoryOShyAA08PlaybackU0OGtcfc">init(device:<wbr>repeatState:<wbr>shuffleIsOn:<wbr>context:<wbr>timestamp:<wbr>progressMS:<wbr>isPlaying:<wbr>item:<wbr>itemType:<wbr>allowedActions:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains information about the context of the current playback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Structs/Device.html">Device</a></span><span class="p">,</span>
+    <span class="nv">repeatState</span><span class="p">:</span> <span class="kt"><a href="../Enums/RepeatMode.html">RepeatMode</a></span><span class="p">,</span>
+    <span class="nv">shuffleIsOn</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Structs/SpotifyContext.html">SpotifyContext</a></span><span class="p">?,</span>
+    <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span>
+    <span class="nv">progressMS</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
+    <span class="nv">isPlaying</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt"><a href="../Enums/PlaylistItem.html">PlaylistItem</a></span><span class="p">?,</span>
+    <span class="nv">itemType</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">,</span>
+    <span class="nv">allowedActions</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/PlaybackActions.html">PlaybackActions</a></span><span class="o">&gt;</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>device</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The device that the content is or was playing on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>repeatState</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The repeat mode of the player.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>shuffleIsOn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>true</code> if shuffle mode is on; else, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The context of the user&rsquo;s playback.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>timestamp</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date the data was fetched (converted from a Unix
+millisecond-precision timestamp).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressMS</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Progress into the currently playing track/episode in
+milliseconds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isPlaying</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>true</code> if content is currently playing. Else, <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The full version of a track or episode. Represents the content
+that is, or was most recently, playing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object type of <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a></code>—the content that is, or was most
+recently, playing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>allowedActions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The playback actions that are allowed within the given
+context.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-17)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

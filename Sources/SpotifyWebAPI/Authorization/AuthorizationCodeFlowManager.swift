@@ -113,7 +113,12 @@ public final class AuthorizationCodeFlowManager:
        - clientSecret: The client secret for your application.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - refreshToken: The refresh token.
+       - refreshToken: The refresh token. If `nil` (not reccomended), then it will
+             not be possible to automatically refresh the access token when it
+             expires; instead, you will have to go through the authorization process
+             again, as described in the README in the root directory of this package.
+             Use `accessTokenIsExpired(tolerance:)` to check if the access token is
+             expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
@@ -125,7 +130,7 @@ public final class AuthorizationCodeFlowManager:
         clientSecret: String,
         accessToken: String,
         expirationDate: Date,
-        refreshToken: String,
+        refreshToken: String?,
         scopes: Set<Scope>
     ) {
         self.init(clientId: clientId, clientSecret: clientSecret)

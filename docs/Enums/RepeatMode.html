@@ -431,6 +431,33 @@ Either <code>off</code>, <code>track</code>, or <code>context</code>.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/context" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current context, such as a playlist, is playing on repeat.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">context</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF"></a>
                     <a name="//apple_ref/swift/Element/track" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF">track</a>
@@ -458,9 +485,9 @@ Either <code>off</code>, <code>track</code>, or <code>context</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/context" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a>
+                    <a name="/s:13SpotifyWebAPI10RepeatModeO5cycleyyF"></a>
+                    <a name="//apple_ref/swift/Method/cycle()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10RepeatModeO5cycleyyF">cycle()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -468,20 +495,53 @@ Either <code>off</code>, <code>track</code>, or <code>context</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The current context, such as a playlist, is playing on repeat.</p>
+                        <p>Cycles self among the between modes.</p>
 
-<p>Indicates that when the user reaches the end of the context,
-the track/episode at the beginning of the context will play again,
-and so on. If repeat mode is off, then, depending on the user&rsquo;s
-settings, playback may stop after the user reaches the end of the
-context or songs similar to the context may begin to play.</p>
+<p>If the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO3offyA2CmF">off</a></code>, then it becomes <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a></code>;
+if the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a></code>, then it becomes <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF">track</a></code>;
+if the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF">track</a></code>, then it becomes <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO3offyA2CmF">off</a></code>.</p>
+
+<p>See also <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO6cycledACyF">cycled()</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">context</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">cycle</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI10RepeatModeO6cycledACyF"></a>
+                    <a name="//apple_ref/swift/Method/cycled()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI10RepeatModeO6cycledACyF">cycled()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns self cycled among the repeat modes.</p>
+
+<p>If the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO3offyA2CmF">off</a></code>, then <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a></code> is returned;
+if the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO7contextyA2CmF">context</a></code>, then <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF">track</a></code> is returned;
+if the repeat mode is <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO5trackyA2CmF">track</a></code>, then <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO3offyA2CmF">off</a></code> is returned.</p>
+
+<p>See also <code><a href="../Enums/RepeatMode.html#/s:13SpotifyWebAPI10RepeatModeO5cycleyyF">cycle()</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cycled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">RepeatMode</span></code></pre>
 
                         </div>
                       </div>
@@ -493,7 +553,7 @@ context or songs similar to the context may begin to play.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-17)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

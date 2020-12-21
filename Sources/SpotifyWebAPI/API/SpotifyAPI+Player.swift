@@ -61,7 +61,6 @@ public extension SpotifyAPI where
      
      The notable details that are returned are:
      
-     * The user's currently active device
      * The track or episode that is currently playing
      * The context, such as a playlist, that it is playing in
      * The progress into the currently playing track/episode
@@ -143,7 +142,7 @@ public extension SpotifyAPI where
     func recentlyPlayed(
         _ timeReference: TimeReference? = nil,
         limit: Int? = nil
-    ) ->AnyPublisher<CursorPagingObject<PlayHistory>, Error> {
+    ) -> AnyPublisher<CursorPagingObject<PlayHistory>, Error> {
         
         var query: [String: LosslessStringConvertible?] =
                 timeReference?.asQueryItem() ?? [:]

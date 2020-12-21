@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 2020-12-20
+
+### Added
+
+* Added `RepeatMode.cycled()`
+* Added public initializers for `CurrentlyPlayingContext`, `Device`, `PlayHistory`, and `SpotifyContext`.
+* Added CaseIterable conformance to `DeviceType`, `SpotifyPlayerError.ErrorReason`, and `TimeRange`. Also added `Hashable` conformance to `TimeRange`.
+
+### Changed
+
+*  Changed the order of the cases in the `RepeatMode` enum from `off`, `track`, `context` to `off`, `context`, `track`, which matches the order that they are cycled through in Spotify clients and in `RepeatMode.cycle()` and `RepeatMode.cycled()`.
+
+## [1.1.2] - 2020-11-29
+
+### Added
+
+* `RepeatMode.cycle()` - Cycles between the different repeat modes.
+
+### Fixed
+
+* Fixed typo in `DeviceType.castAudio.rawValue`.
+
+## [1.1.1] - 2020-11-27
+
+### Changed
+
+* The refresh token is now optional in the initializers `AuthorizationCodeFlowManager.init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:)` and `AuthorizationCodeFlowPKCEManager.init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:)`
+
 ## [1.1.0] - 2020-11-14
 
 ### Changed

@@ -15,7 +15,7 @@ import Foundation
  * `episode`
  
  The corresponding `albums`, `artist`, `playlists`, `tracks`, `shows`,
- and `episodes` properties of this struct will be non-nil
+ and `episodes` properties of this struct will be non-`nil`
  for each of the categories that were requested from the `search` endpoint.
  
  If no results were found for a category, then the `items` property of the

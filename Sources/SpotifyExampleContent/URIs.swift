@@ -41,8 +41,8 @@ public enum URIs {
     
     /// A namespace of Spotify Device Ids.
     public enum Devices {
-        public static let petersiPhone = "476da515c6109d1351359b4c2ad313161f79b173"
-        public static let petersComputer = "ced8d42d0a3830065dfbf4800352d23a96b76fd4"
+        public static let petersiPhone = "ef7a6b8a74439c294ab884f1a78e5f7cedaaab64"
+        public static let petersComputer = "5840bef23cf13a49d38ea2a1b13075a72af9ebed"
     }
     
     /// A namespace of playlist URIs.
@@ -103,7 +103,7 @@ public enum URIs {
         case faces = "spotify:track:1u7LOyLuApChbPeqMfXFKC"
         case partIII = "spotify:track:4HDLmWf73mge8isanCASnU"
 
-        case illWind = "spotify:track:7vuVUQV0dDnjXUyLPzJLPi"
+        case illWind = "spotify:track:12VTgfn13lUx12D7MOYfsn"
         
         case friends = "spotify:track:43NI5sAcvDLG7QQAmUc7UU"
         case theBay = "spotify:track:4x0QYD0DhErAC1sPvvPmq9"
@@ -130,7 +130,7 @@ public enum URIs {
         case blueBoy = "spotify:track:6EcWBNVhDlGn8AiSpkUg6T"
         
         case reckoner = "spotify:track:56Z7hbyMrndw1naxb6I5Oi"
-        case houseOfCards = "spotify:track:3Jc6X15OZCCyhGSHBF4hwB"
+        case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"
         
         /// Right now.
         case comeTogether = "spotify:track:2EqlS6tkEnglzr7tkKAAYD"

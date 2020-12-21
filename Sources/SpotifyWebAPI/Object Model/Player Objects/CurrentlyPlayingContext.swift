@@ -83,10 +83,16 @@ public struct CurrentlyPlayingContext: Hashable {
     @available(*, deprecated, renamed: "item")
     public var currentlyPlayingItem: PlaylistItem? { item }
     
-    /// The object type of `item`—the content that is, or was most
-    /// recently, playing.
-    ///
-    /// Can be `track`, `episode`, or `unknown`.
+    /**
+     The id category of `item`—the content that is, or was most
+     recently, playing.
+    
+     For example, if a track is currently playing, then this property will
+     be `track`; if an episode is currently playing then this property will
+     be `episode`.
+     
+     Can also be `unknown`.
+     */
     public let itemType: IDCategory
     
     /// This property has been renamed to `itemType`.
@@ -100,14 +106,58 @@ public struct CurrentlyPlayingContext: Hashable {
      Attemping to perform actions that are not contained within this set
      will result in an error from the Spotify web API.
      
-     For example, you cannot skip to the previous or next track/episode
-     or seek to a position in a track/episode while an ad is playing.
+     For example, you cannot skip to the previous or next track
+     or seek to a position in a track while an ad is playing.
     
      You could use this property to disable UI elements that perform
      actions that are not contained within this set.
      */
     public let allowedActions: Set<PlaybackActions>
     
+    /**
+     Contains information about the context of the current playback.
+     
+     - Parameters:
+       - device: The device that the content is or was playing on.
+       - repeatState: The repeat mode of the player.
+       - shuffleIsOn: `true` if shuffle mode is on; else, `false`.
+       - context: The context of the user's playback.
+       - timestamp: The date the data was fetched (converted from a Unix
+             millisecond-precision timestamp).
+       - progressMS: Progress into the currently playing track/episode in
+             milliseconds.
+       - isPlaying: `true` if content is currently playing. Else, `false`.
+       - item:  The full version of a track or episode. Represents the content
+             that is, or was most recently, playing.
+       - itemType: The object type of `item`—the content that is, or was most
+             recently, playing.
+       - allowedActions: The playback actions that are allowed within the given
+             context.
+     */
+    public init(
+        device: Device,
+        repeatState: RepeatMode,
+        shuffleIsOn: Bool,
+        context: SpotifyContext?,
+        timestamp: Date,
+        progressMS: Int?,
+        isPlaying: Bool,
+        item: PlaylistItem?,
+        itemType: IDCategory,
+        allowedActions: Set<PlaybackActions>
+    ) {
+        self.device = device
+        self.repeatState = repeatState
+        self.shuffleIsOn = shuffleIsOn
+        self.context = context
+        self.timestamp = timestamp
+        self.progressMS = progressMS
+        self.isPlaying = isPlaying
+        self.item = item
+        self.itemType = itemType
+        self.allowedActions = allowedActions
+    }
+
 }
 
 extension CurrentlyPlayingContext: Codable {

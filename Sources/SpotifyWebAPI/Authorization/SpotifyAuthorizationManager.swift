@@ -38,8 +38,7 @@ public protocol SpotifyAuthorizationManager: Codable {
     var scopes: Set<Scope>? { get }
     
     /**
-     A `PassthroughSubject` that emits after the
-     the authorization manager has changed.
+     A publisher that emits after the authorization information has changed.
     
      See also `didDeauthorize`, which emits after `deauthorize()` is
      called.
@@ -98,6 +97,8 @@ public protocol SpotifyAuthorizationManager: Codable {
     func isAuthorized(for scopes: Set<Scope>) -> Bool
     
     /// Sets the credentials for the authorization manager to `nil`.
+    ///
+    /// Calling this method should cause `didDeauthorize` to emit a signal.
     func deauthorize() -> Void
     
 }

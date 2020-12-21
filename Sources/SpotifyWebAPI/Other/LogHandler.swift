@@ -43,9 +43,9 @@ public struct SpotifyAPILogHandler: LogHandler {
     /// A label for the logger.
     public let label: String
 
-    public var logLevel: Logger.Level = .critical
+    public var logLevel: Logger.Level
     
-    public var metadata = Logger.Metadata()
+    public var metadata: Logger.Metadata
 
     /**
      Creates the logging backend.

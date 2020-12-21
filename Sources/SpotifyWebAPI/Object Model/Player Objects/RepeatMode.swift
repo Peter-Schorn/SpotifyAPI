@@ -7,18 +7,49 @@ public enum RepeatMode: String, Codable, Hashable, CaseIterable {
     /// Repeat mode is off.
     case off
     
+    /// The current context, such as a playlist, is playing on repeat.
+    case context
+
     /// The current track is playing on repeat.
     case track
     
+}
+
+public extension RepeatMode {
+    
     /**
-     The current context, such as a playlist, is playing on repeat.
+     Cycles self among the between modes.
      
-     Indicates that when the user reaches the end of the context,
-     the track/episode at the beginning of the context will play again,
-     and so on. If repeat mode is off, then, depending on the user's
-     settings, playback may stop after the user reaches the end of the
-     context or songs similar to the context may begin to play.
+     If the repeat mode is `off`, then it becomes `context`;
+     if the repeat mode is `context`, then it becomes `track`;
+     if the repeat mode is `track`, then it becomes `off`.
+     
+     See also `cycled()`.
      */
-    case context
+    mutating func cycle() {
+        self = self.cycled()
+    }
+    
+    /**
+     Returns self cycled among the repeat modes.
+     
+     If the repeat mode is `off`, then `context` is returned;
+     if the repeat mode is `context`, then `track` is returned;
+     if the repeat mode is `track`, then `off` is returned.
+     
+     See also `cycle()`.
+     */
+    func cycled() -> Self {
+        if self == .off {
+            return .context
+        }
+        else if self == .context {
+            return .track
+        }
+        // else if self == .track
+        else {
+            return .off
+        }
+    }
     
 }

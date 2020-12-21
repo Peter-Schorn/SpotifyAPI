@@ -23,7 +23,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         
         let playbackRequest = PlaybackRequest(
             context: .contextURI(playlist),
-            offset: .uri("spotify:track:1wGoqD0vrf7njGvxm8CEf5"),  // Any Colour You Like
+            // Any Colour You Like
+            offset: .uri("spotify:track:1wGoqD0vrf7njGvxm8CEf5"),
             positionMS: 100_000  // 1 minute 40 seconds
         )
         

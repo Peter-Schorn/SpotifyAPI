@@ -102,7 +102,7 @@ public extension SpotifyImage {
 
                 if let image = PlatformImage(data: data).map({
                     image -> Image in
-
+                  
                     #if canImport(AppKit)
                     return Image(nsImage: image)
                     #elseif canImport(UIKit)
@@ -120,7 +120,6 @@ public extension SpotifyImage {
         
     }
     #endif
-    
     
 }
 

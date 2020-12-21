@@ -22,14 +22,19 @@ extension SpotifyAPI {
      the application is authorized for the specified scopes.
      
      - Parameters:
-       - scopes: A set of Spotify authorization scopes.
+       - scopes: The [authorization scopes][1] that are required for this endpoint.
        - tolerance: The tolerance in seconds to use when determining if the
-             access token is expired. The default is 120.
+             access token is expired. The default is 120, meaning that the access
+             token will be refreshed if it is expired or will expire in the next
+             two minutes.
      - Throws: If the access token is `nil`, if the application is not
-           authorized for the specified scopes, or a network error occurs.
+           authorized for the specified scopes, or if an error was encountered
+           when trying to refresh the access token.
      - Returns: The access token unwrapped from
            `self.authorizationManager.accessToken`. This is required
            in the header of requests to all endpoints.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func refreshTokensAndEnsureAuthorized(
         for scopes: Set<Scope>, tolerance: Double = 120
@@ -232,7 +237,7 @@ extension SpotifyAPI {
              returns a dictionary of headers. See the `Headers`
              enum, which contains convienence methods for making
              headers.
-       - body: The body of the request as a type that conforms to `Decodable`.
+       - body: The body of the request as a type that conforms to `Encodable`.
        - requiredScopes: The scopes required for this endpoint.
      - Returns: The raw data and the URL response from the server.
     */

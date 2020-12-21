@@ -273,7 +273,7 @@ public extension SpotifyAPI {
      No scopes are required for this endpoint. Both Public and Private playlists
      belonging to any user can be retrieved.
      
-     # Returnss:
+     # Returns:
      ```
      Playlist<PagingObject<PlaylistItemContainer<PlaylistItem>>>
      ```
@@ -794,11 +794,11 @@ public extension SpotifyAPI where
     }
     
     /**
-     Add tracks/episodes to a playlist.
+     Add tracks/episodes to one of the current user's playlists.
      
      Adding items to the current user’s public playlists requires
      authorization of the `playlistModifyPublic` scope; adding items
-     to the current user’s private playlist (including collaborative
+     to the current user’s private playlists (including collaborative
      playlists) requires the `playlistModifyPrivate` scope.
      
      Read more at the [Spotify web API reference][1].
@@ -843,7 +843,11 @@ public extension SpotifyAPI where
     }
     
     /**
-     Create a playlist for the **current** user.
+     Create a playlist for the current user.
+     
+     Creating a public playlist for a user requires authorization of the
+     `playlistModifyPublic` scope; creating a private playlist requires the
+     `playlistModifyPrivate` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -893,7 +897,7 @@ public extension SpotifyAPI where
 
      Reordering items in the current user’s public playlists requires
      authorization of the `playlistModifyPublic` scope; reordering items
-     in the current user’s private playlist (including collaborative playlists)
+     in the current user’s private playlists (including collaborative playlists)
      requires the `playlistModifyPrivate` scope.
      
      The body of the request contains the following properties:
@@ -968,7 +972,7 @@ public extension SpotifyAPI where
      
      Setting items in the current user’s public playlists requires
      authorization of the `playlistModifyPublic` scope; setting items in
-     the current user’s private playlist (including collaborative playlists)
+     the current user’s private playlists (including collaborative playlists)
      requires the `playlistModifyPrivate` scope.
      
      **If a single URI is invalid, then the entire request will fail and the**

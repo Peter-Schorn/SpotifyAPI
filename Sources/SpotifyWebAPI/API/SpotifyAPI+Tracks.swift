@@ -265,15 +265,15 @@ public extension SpotifyAPI {
                 requiredScopes: []
             )
             .decodeSpotifyObject([String: [AudioFeatures?]].self)
-                .tryMap { dict -> [AudioFeatures?] in
-                    if let audioFeatures = dict["audio_features"] {
-                        return audioFeatures
-                    }
-                    throw SpotifyLocalError.topLevelKeyNotFound(
-                        key: "audio_features", dict: dict
-                    )
+            .tryMap { dict -> [AudioFeatures?] in
+                if let audioFeatures = dict["audio_features"] {
+                    return audioFeatures
                 }
-                .eraseToAnyPublisher()
+                throw SpotifyLocalError.topLevelKeyNotFound(
+                    key: "audio_features", dict: dict
+                )
+            }
+            .eraseToAnyPublisher()
             
             
         } catch {
