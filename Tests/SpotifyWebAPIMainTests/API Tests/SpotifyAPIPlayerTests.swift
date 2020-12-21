@@ -7,7 +7,7 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 import XCTest
-import SpotifyWebAPI
+@testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
 
@@ -644,11 +644,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                 else {
                     XCTFail("unexpected error: \(error)")
                 }
-                #if canImport(Combine)
-                return Result.Publisher(()).eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher(()).eraseToAnyPublisher()
-                #endif
+                return ResultPublisher(())
+                    .eraseToAnyPublisher()
             }
             .XCTAssertNoFailure()
 

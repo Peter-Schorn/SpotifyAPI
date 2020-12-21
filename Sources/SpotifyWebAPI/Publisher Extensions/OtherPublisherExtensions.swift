@@ -123,9 +123,11 @@ public extension Publisher where Output == Void {
 }
 
 #if canImport(Combine)
-typealias ResultPublisher<S, F: Error> = Result<S, F>.Publisher
+typealias ResultPublisher<Success, Failure: Error> =
+    Result<Success, Failure>.Publisher
 #else
-typealias ResultPublisher<S, F: Error> = Result<S, F>.OCombine.Publisher
+typealias ResultPublisher<Success, Failure: Error> =
+    Result<Success, Failure>.OCombine.Publisher
 #endif
 
 

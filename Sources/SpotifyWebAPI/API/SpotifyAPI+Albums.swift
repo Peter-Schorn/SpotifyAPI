@@ -92,13 +92,8 @@ public extension SpotifyAPI {
         do {
             
             if albums.isEmpty {
-                #if canImport(Combine)
-                return Result.Publisher([])
+                return ResultPublisher([])
                     .eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher([])
-                    .eraseToAnyPublisher()
-                #endif
             }
             
             let albumsIdsString = try SpotifyIdentifier

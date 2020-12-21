@@ -20,13 +20,8 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
-                #if canImport(Combine)
-                return Result.Publisher([])
+                return ResultPublisher([])
                     .eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher([])
-                    .eraseToAnyPublisher()
-                #endif
             }
 
             let idsString = try SpotifyIdentifier
@@ -60,13 +55,8 @@ private extension SpotifyAPI where
         do {
             
             if uris.isEmpty {
-                #if canImport(Combine)
-                return Result.Publisher(.success(()))
+                return ResultPublisher(())
                     .eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher(.success(()))
-                    .eraseToAnyPublisher()
-                #endif
             }
 
             let ids = try uris.map { uri in
@@ -141,13 +131,8 @@ public extension SpotifyAPI {
         do {
             
             if userURIs.isEmpty {
-                #if canImport(Combine)
-                return Result.Publisher([])
+                return ResultPublisher([])
                     .eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher([])
-                    .eraseToAnyPublisher()
-                #endif
             }
             
             let playlistId = try SpotifyIdentifier(

@@ -119,13 +119,8 @@ public extension SpotifyAPI {
         do {
             
             if uris.isEmpty {
-                #if canImport(Combine)
-                return Result.Publisher([])
+                return ResultPublisher([])
                     .eraseToAnyPublisher()
-                #else
-                return Result.OCombine.Publisher([])
-                    .eraseToAnyPublisher()
-                #endif
             }
             
             let idsString = try SpotifyIdentifier

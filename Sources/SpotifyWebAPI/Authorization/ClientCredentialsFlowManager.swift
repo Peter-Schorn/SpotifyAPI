@@ -477,15 +477,8 @@ public extension ClientCredentialsFlowManager {
                     tolerance: tolerance
                 ) {
                     Self.logger.trace("access token not expired; returning early")
-                    #if canImport(Combine)
-                    return Result<Void, Error>
-                        .Publisher(())
+                    return ResultPublisher(())
                         .eraseToAnyPublisher()
-                    #else
-                    return Result<Void, Error>
-                        .OCombine.Publisher(())
-                        .eraseToAnyPublisher()
-                    #endif
                 }
                 
                 Self.logger.trace("access token is expired; authorizing again")

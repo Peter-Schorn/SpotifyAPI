@@ -436,15 +436,8 @@ public extension AuthorizationCodeFlowManager {
                         Self.logger.trace(
                             "access token not expired; returning early"
                         )
-                        #if canImport(Combine)
-                        return Result<Void, Error>
-                            .Publisher(())
+                        return ResultPublisher(())
                             .eraseToAnyPublisher()
-                        #else
-                        return Result<Void, Error>
-                            .OCombine.Publisher(())
-                            .eraseToAnyPublisher()
-                        #endif
                         
                     }
                     
