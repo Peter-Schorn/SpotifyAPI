@@ -83,10 +83,16 @@ public struct CurrentlyPlayingContext: Hashable {
     @available(*, deprecated, renamed: "item")
     public var currentlyPlayingItem: PlaylistItem? { item }
     
-    /// The object type of `item`—the content that is, or was most
-    /// recently, playing.
-    ///
-    /// Can be `track`, `episode`, or `unknown`.
+    /**
+     The id category of `item`—the content that is, or was most
+     recently, playing.
+    
+     For example, if a track is currently playing, then this property will
+     be `track`; if an episode is currently playing then this property will
+     be `episode`.
+     
+     Can also be `unknown`.
+     */
     public let itemType: IDCategory
     
     /// This property has been renamed to `itemType`.
@@ -100,8 +106,8 @@ public struct CurrentlyPlayingContext: Hashable {
      Attemping to perform actions that are not contained within this set
      will result in an error from the Spotify web API.
      
-     For example, you cannot skip to the previous or next track/episode
-     or seek to a position in a track/episode while an ad is playing.
+     For example, you cannot skip to the previous or next track
+     or seek to a position in a track while an ad is playing.
     
      You could use this property to disable UI elements that perform
      actions that are not contained within this set.

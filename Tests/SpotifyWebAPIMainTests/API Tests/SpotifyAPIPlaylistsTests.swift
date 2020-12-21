@@ -38,6 +38,9 @@ extension SpotifyAPIPlaylistsTests {
                     }
                     let tracks = playlist.items.items.map(\.item)
                     for (i, track) in tracks.enumerated() {
+                        guard trackNames.count > i else {
+                            return
+                        }
                         guard case .track(let track) = track else {
                             XCTFail("playlist should only contain tracks")
                             continue

@@ -44,7 +44,7 @@ public enum Headers {
      The JSON Content-Type header tells the server that the body
      of the request is JSON.
      
-     Equivalent to `bearerAuthorization(accessToken) + contentTypeJSON`
+     Equivalent to `bearerAuthorization(accessToken) + contentTypeJSON`.
      ```
      [
          "Authorization": "Bearer \(accessToken)",

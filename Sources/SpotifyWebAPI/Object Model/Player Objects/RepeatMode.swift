@@ -18,21 +18,37 @@ public enum RepeatMode: String, Codable, Hashable, CaseIterable {
 public extension RepeatMode {
     
     /**
-     Cycles self between the repeat modes.
+     Cycles self among the between modes.
      
      If the repeat mode is `off`, then it becomes `context`;
      if the repeat mode is `context`, then it becomes `track`;
      if the repeat mode is `track`, then it becomes `off`.
+     
+     See also `cycled()`.
      */
     mutating func cycle() {
+        self = self.cycled()
+    }
+    
+    /**
+     Returns self cycled among the repeat modes.
+     
+     If the repeat mode is `off`, then `context` is returned;
+     if the repeat mode is `context`, then `track` is returned;
+     if the repeat mode is `track`, then `off` is returned.
+     
+     See also `cycle()`.
+     */
+    func cycled() -> Self {
         if self == .off {
-            self = .context
+            return .context
         }
         else if self == .context {
-            self = .track
+            return .track
         }
-        else if self == .track {
-            self = .off
+        // else if self == .track
+        else {
+            return .off
         }
     }
     

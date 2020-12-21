@@ -758,7 +758,7 @@ extension SpotifyAPITrackTests {
                                 "for invalid uri"
                             )
                         case .failure(let error):
-                            XCTAssert(error is SpotifyError)
+                            XCTAssert(error is SpotifyError, "\(error)")
                     }
                     failureExpectation.fulfill()
                 },
