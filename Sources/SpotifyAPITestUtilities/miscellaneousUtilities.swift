@@ -132,6 +132,7 @@ public func XCTAssertImagesExist(
         )
         imageExpectations.append(loadExpectation)
         
+        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
         image.load()
             .XCTAssertNoFailure()
             .sink(
@@ -141,6 +142,7 @@ public func XCTAssertImagesExist(
                 receiveValue: { _ in }
             )
             .store(in: &cancellables)
+        #endif
     }
 
     return (expectations: imageExpectations, cancellables: cancellables)
