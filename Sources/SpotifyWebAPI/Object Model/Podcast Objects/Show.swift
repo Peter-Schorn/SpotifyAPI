@@ -1,6 +1,5 @@
 import Foundation
 
-
 /**
  A Spotify [podcast show][1].
  

@@ -1,6 +1,12 @@
-import Foundation
-import SwiftUI
+#if canImport(SwiftUI)
+import struct SwiftUI.Image
+#endif
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineFoundation
+#endif
 
 #if canImport(AppKit)
 import AppKit
@@ -71,7 +77,7 @@ public struct SpotifyImage: Codable, Hashable {
 
 public extension SpotifyImage {
     
-    #if canImport(AppKit) || canImport(UIKit)
+    #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
     /// Loads the image from `self.url`.
     ///
     /// Fails if `self.url` cannot be converted to `URL`, if the data
@@ -85,12 +91,18 @@ public extension SpotifyImage {
             .anyFailingPublisher()
         }
         
-        return URLSession.shared.dataTaskPublisher(for: imageURL)
+        #if canImport(Combine)
+        let publisher = URLSession.shared.dataTaskPublisher(for: imageURL)
+        #else
+        let publisher = URLSession.OCombine(.shared).dataTaskPublisher(for: imageURL)
+        #endif
+        
+        return publisher
             .tryMap { data, response -> Image in
-                
+
                 if let image = PlatformImage(data: data).map({
                     image -> Image in
-                    
+                  
                     #if canImport(AppKit)
                     return Image(nsImage: image)
                     #elseif canImport(UIKit)
@@ -102,7 +114,7 @@ public extension SpotifyImage {
                 throw SpotifyLocalError.other(
                     "couldn't convert data to image"
                 )
-                
+
             }
             .eraseToAnyPublisher()
         

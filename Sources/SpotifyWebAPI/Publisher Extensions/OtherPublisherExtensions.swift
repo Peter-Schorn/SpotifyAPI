@@ -1,6 +1,11 @@
-import Foundation
+#if canImport(Combine)
 import Combine
-import Logging
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+import Foundation
 
 public extension Publisher where Output: Paginated {
    
@@ -117,7 +122,14 @@ public extension Publisher where Output == Void {
     
 }
 
-public extension Result.Publisher where Failure == Error {
+#if canImport(Combine)
+typealias ResultPublisher<S, F: Error> = Result<S, F>.Publisher
+#else
+typealias ResultPublisher<S, F: Error> = Result<S, F>.OCombine.Publisher
+#endif
+
+
+public extension ResultPublisher where Failure == Error {
     
     /**
      Creates a new publisher by evaluating a throwing closure,

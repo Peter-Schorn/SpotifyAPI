@@ -1,6 +1,12 @@
 import Foundation
 import XCTest
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -19,7 +25,7 @@ extension SpotifyAPIBrowseTests {
             locale: "es_MX"  // Spanish Mexico
         )
         .XCTAssertNoFailure()
-        .receive(on: DispatchQueue.main)
+        .receiveOnMain()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { category in

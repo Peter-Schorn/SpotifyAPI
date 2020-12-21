@@ -1,5 +1,9 @@
-import Foundation
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineFoundation
+#endif
 import XCTest
 
 public extension Publisher {
@@ -49,5 +53,30 @@ public extension Publisher {
         )
         
     }
+    
+    func receiveOnMain() -> AnyPublisher<Output, Failure> {
+        return self.receive(on: DispatchQueue.combineMain)
+            .eraseToAnyPublisher()
+    }
+
+    func receiveOnMain(
+        delay: Double
+    ) -> AnyPublisher<Output, Failure> {
+        return self.delay(
+            for: .seconds(delay),
+            scheduler: DispatchQueue.combineMain
+        )
+        .eraseToAnyPublisher()
+    }
+
+}
+
+public extension DispatchQueue {
+    
+    #if canImport(Combine)
+    static let combineMain = DispatchQueue.main
+    #else
+    static let combineMain = DispatchQueue.OCombine(.main)
+    #endif
 
 }

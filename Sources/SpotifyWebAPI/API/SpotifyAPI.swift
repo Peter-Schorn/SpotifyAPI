@@ -1,6 +1,11 @@
 import Foundation
 import Logging
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineFoundation
+#endif
 
 /**
  The central class in this library. Provides methods for all of the Spotify

@@ -1,5 +1,10 @@
 import Foundation
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineFoundation
+#endif
 import SpotifyWebAPI
 
 public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowManager {

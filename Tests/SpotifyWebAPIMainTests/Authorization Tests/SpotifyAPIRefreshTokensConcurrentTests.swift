@@ -1,6 +1,12 @@
 import Foundation
 import XCTest
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
 import SpotifyAPITestUtilities
 @testable import SpotifyWebAPI
  
@@ -27,7 +33,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
-            // .receive(on: DispatchQueue.main)
+            // .receiveOnMain()
             .print("Self.spotify.authorizationManagerDidChange print")
             .sink(receiveValue: {
                 Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()

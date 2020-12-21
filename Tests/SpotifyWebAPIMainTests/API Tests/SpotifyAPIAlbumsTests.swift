@@ -1,6 +1,12 @@
 import Foundation
 import XCTest
+#if canImport(Combine)
 import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -178,7 +184,7 @@ extension SpotifyAPIAlbumsTests {
         
         Self.spotify.album(URIs.Albums.jinx)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveJinxAlbum(_:)
@@ -265,7 +271,7 @@ extension SpotifyAPIAlbumsTests {
         
         Self.spotify.albums(albums)
             .XCTAssertNoFailure()
-            .receive(on: DispatchQueue.main)
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: receiveAlbums(_:)
