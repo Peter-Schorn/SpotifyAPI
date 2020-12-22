@@ -17,12 +17,14 @@ import Foundation
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
-    guard let path = ProcessInfo.processInfo
-            .environment["spotify_credentials_path"] else {
-        fatalError(
-            "Could not find 'spotify_credentials_path' in environment variables"
-        )
-    }
+//    guard let path = ProcessInfo.processInfo
+//            .environment["spotify_credentials_path"] else {
+//        fatalError(
+//            "Could not find 'spotify_credentials_path' in environment variables"
+//        )
+//    }
+    #warning("remove file path")
+    let path = "/Users/pschorn/Swift/Libraries/SpotifyAPI/Private/spotify_credentials.txt"
     let url = URL(fileURLWithPath: path)
     do {
         let data = try Data(contentsOf: url)

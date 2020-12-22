@@ -1,5 +1,5 @@
 #if canImport(SwiftUI)
-import struct SwiftUI.Image
+import SwiftUI
 #endif
 #if canImport(Combine)
 import Combine
