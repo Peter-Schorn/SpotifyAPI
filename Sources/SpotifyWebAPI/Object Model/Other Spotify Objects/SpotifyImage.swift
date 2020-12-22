@@ -1,10 +1,11 @@
 #if canImport(SwiftUI)
-import struct SwiftUI.Image
+import SwiftUI
 #endif
 #if canImport(Combine)
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 

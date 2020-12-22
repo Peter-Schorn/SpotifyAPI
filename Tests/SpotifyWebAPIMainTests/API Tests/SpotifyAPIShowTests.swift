@@ -4,6 +4,8 @@ import XCTest
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 
 #endif
@@ -251,6 +253,7 @@ extension SpotifyAPIShowTests {
                             description: "load image \(i)"
                         )
                         imageExpectations.append(expectation)
+                        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                         image.load()
                             .XCTAssertNoFailure()
                             .sink(
@@ -258,6 +261,7 @@ extension SpotifyAPIShowTests {
                                 receiveValue: { _ in }
                             )
                             .store(in: &Self.cancellables)
+                        #endif
                     }
                     self.wait(
                         for: imageExpectations,

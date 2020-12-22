@@ -3,6 +3,7 @@ import Foundation
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 import Logging

@@ -4,10 +4,11 @@ import XCTest
 import Combine
 #else
 import OpenCombine
-
+import OpenCombineDispatch
+import OpenCombineFoundation
 
 #endif
-import SwiftUI
+
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
@@ -1385,6 +1386,7 @@ extension SpotifyAPIPlaylistsTests where
                 )
                 imageExpectations.append(loadImageExpectation)
 
+                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                 image.load()
                     .XCTAssertNoFailure()
                     .sink(
@@ -1397,6 +1399,7 @@ extension SpotifyAPIPlaylistsTests where
                         }
                     )
                     .store(in: &Self.cancellables)
+                #endif
 
                 guard let url = URL(string: image.url) else {
                     XCTFail("couldn't convert to URL: '\(image.url)'")

@@ -4,13 +4,15 @@ import Foundation
 import Combine
 #else
 import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
 #endif
 
 import XCTest
 import SpotifyWebAPI
 
-#if canImport(Cocoa)
-import Cocoa
+#if canImport(AppKit)
+import AppKit
 #elseif canImport(UIKit)
 import UIKit
 #endif
@@ -130,6 +132,7 @@ public func XCTAssertImagesExist(
         )
         imageExpectations.append(loadExpectation)
         
+        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
         image.load()
             .XCTAssertNoFailure()
             .sink(
@@ -139,6 +142,7 @@ public func XCTAssertImagesExist(
                 receiveValue: { _ in }
             )
             .store(in: &cancellables)
+        #endif
     }
 
     return (expectations: imageExpectations, cancellables: cancellables)
@@ -156,7 +160,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
-    #if canImport(Cocoa)
+    #if canImport(AppKit)
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)
@@ -167,6 +171,7 @@ public func openAuthorizationURLAndWaitForRedirect(
         ======================================================\
         ===============================================
         Open the following URL in your browser:
+
         \(authorizationURL)
         """
     )
