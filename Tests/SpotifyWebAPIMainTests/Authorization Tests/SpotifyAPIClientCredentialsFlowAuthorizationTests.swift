@@ -17,7 +17,10 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
 {
     
     static var allTests = [
-        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize)
+        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
+        ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testConvenienceInitializer", testConvenienceInitializer)
     ]
     
     func testDeauthorizeReauthorize() {
@@ -157,5 +160,8 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
 
     }
     
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
     
 }

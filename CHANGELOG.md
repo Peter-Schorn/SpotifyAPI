@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2020-12-26
+
+### Fixed
+
+* Fixed a bug in which the port, username, and password components of a URL were removed by the `URL.removingQueryItems()` method, when it should've only removed the query items and fragment. This caused the methods for requesting access and refresh tokens to fail when the redirect URI had these components. The initializers for `URL` and `URLComponents` now accept a port.
+
+### Changed
+
+* Removed the `showDialog` parameter from `AuthorizationCodeFlowPKCEManager.makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)` because it is not actually supported by the Authorization Code Flow with Proof Key for Code Exchange. It is only supported by the Authorization Code Flow.
+* Removed the period and tilde characters from `String.urlSafeCharacters` because they are reserved in certain components of a URL (although not in the query string, where they will most likely be used).
+
 ## [1.1.3] - 2020-12-20
 
 ### Added

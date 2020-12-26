@@ -789,7 +789,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             )
             .store(in: &Self.cancellables)
 
-        self.wait(for: [expectation], timeout: 60)
+        self.wait(for: [expectation], timeout: 120)
 
     }
 

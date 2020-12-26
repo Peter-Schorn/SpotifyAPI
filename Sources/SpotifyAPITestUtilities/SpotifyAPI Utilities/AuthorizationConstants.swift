@@ -43,9 +43,9 @@ public let spotifyCredentials: SpotifyCredentials = {
 }()
 
 /// ```
-/// "http://localhost"
+/// "http://localhost:8080"
 /// ```
-public let localHostURL = URL(string: "http://localhost")!
+public let localHostURL = URL(string: "http://localhost:8080")!
 
 /**
  Contains the client id and client secret.

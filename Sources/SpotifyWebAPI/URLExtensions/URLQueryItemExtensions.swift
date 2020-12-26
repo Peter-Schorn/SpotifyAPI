@@ -1,12 +1,8 @@
 import Foundation
 
-extension Array where Element == URLQueryItem {
+extension Sequence where Element == URLQueryItem {
     
-    mutating func sortByNameThenValue() {
-        self = self.sortedByNameThenValue()
-    }
-    
-    func sortedByNameThenValue() -> Self {
+    func sortedByNameThenValue() -> [URLQueryItem] {
         return self.sorted { lhs, rhs in
             if lhs.name != rhs.name {
                 return lhs.name < rhs.name
@@ -15,4 +11,12 @@ extension Array where Element == URLQueryItem {
         }
     }
 
+}
+
+extension Array where Element == URLQueryItem {
+    
+    mutating func sortByNameThenValue() {
+        self = self.sortedByNameThenValue()
+    }
+    
 }

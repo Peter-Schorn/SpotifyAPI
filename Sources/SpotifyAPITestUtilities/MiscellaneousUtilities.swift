@@ -102,6 +102,7 @@ public func XCTAssertFinishedNormally<E: Error>(
  - Returns: An array of expectations that will be fullfilled when
        each image is loaded from its URL.
  */
+#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
 public func XCTAssertImagesExist(
     _ images: [SpotifyImage],
     file: StaticString = #file,
@@ -132,7 +133,6 @@ public func XCTAssertImagesExist(
         )
         imageExpectations.append(loadExpectation)
         
-        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
         image.load()
             .XCTAssertNoFailure()
             .sink(
@@ -142,15 +142,16 @@ public func XCTAssertImagesExist(
                 receiveValue: { _ in }
             )
             .store(in: &cancellables)
-        #endif
     }
 
     return (expectations: imageExpectations, cancellables: cancellables)
 }
+#endif
 
 /**
  Opens the authorization URL and waits for the user to login
- and copy and paste the redirect URL into standard input.
+ and copy and paste the redirect URL into standard input or starts
+ a server to listen for the redirect URL if the USEVAPOR flag is enabled.
  
  - Parameter authorizationURL: The authorization URL.
  - Returns: The redirect URI with the query, which is used for
@@ -159,6 +160,34 @@ public func XCTAssertImagesExist(
 public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
+    
+    #if USEVAPOR
+    
+    // MARK: start the server
+    
+    var redirectURIWithQuery: URL? = nil
+    
+    var redirectListener = RedirectListener(url: localHostURL)
+    
+    let dispatchGroup = DispatchGroup()
+    
+    dispatchGroup.enter()
+    do {
+        try redirectListener.start(receiveURL: { url in
+            redirectURIWithQuery = url
+//            for (name, value) in url.queryItemsDict {
+//                print("'\(name)': '\(value)'")
+//            }
+            dispatchGroup.leave()
+        })
+        
+    } catch {
+        fatalError("couldn't run listener: \(error)")
+    }
+    
+    #endif
+
+    // MARK: open the authorization URL
     
     #if canImport(AppKit)
     NSWorkspace.shared.open(authorizationURL)
@@ -176,7 +205,6 @@ public func openAuthorizationURLAndWaitForRedirect(
         """
     )
     #endif
-
     print(
         """
 
@@ -187,7 +215,23 @@ public func openAuthorizationURLAndWaitForRedirect(
         """
     )
     
-    guard var redirectURLString = readLine() else {
+    #if USEVAPOR
+    
+    // MARK: retrieve the redirect URI from the server
+
+    dispatchGroup.wait()
+    redirectListener.shutdown()
+    
+    if let redirectURIWithQuery = redirectURIWithQuery {
+        return redirectURIWithQuery
+    }
+    fatalError("couldn't get redirect URI from listener")
+    
+    #else
+    
+    // MARK: get the redirect URI from standard input
+    
+    guard var redirectURIWithQueryString = readLine() else {
         fatalError("couldn't read redirect URI from standard input")
     }
     
@@ -198,10 +242,12 @@ public func openAuthorizationURLAndWaitForRedirect(
         "\u{F702}"
     ]
     
-    redirectURLString.removeAll(where: { character in
+    redirectURIWithQueryString.removeAll(where: { character in
         replacementCharacters.contains(character)
     })
     
-    return URL(string: redirectURLString.strip())
+    return URL(string: redirectURIWithQueryString.strip())
+    
+    #endif
 
 }

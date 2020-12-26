@@ -36,31 +36,23 @@ public extension URL {
     /// Returns a new URL with the query items removed.
     /// If the URL has fragments, they will be removed too.
     func removingQueryItems() -> URL {
-        guard let url = URL(
-            scheme: self.scheme,
-            host: self.host,
-            path: self.path
-        )
-        else {
-            fatalError(
-                "could not construct new url after removing query items\n" +
-                "original url: '\(self)'"
-            )
-        }
-        return url
+        var components = self.components!
+        components.query = nil
+        components.fragment = nil
+        return components.url!
     }
+
+    /// Removes the query items from the URL.
+    /// If the URL has fragments, they will be removed too.
+    mutating func removeQueryItems() {
+        self = self.removingQueryItems()
+    }
+
 
     /// Returns a new URL with the trailing slash in the path component
     /// removed if it exists.
     func removingTrailingSlashInPath() -> URL {
-        var components = self.components!
-        var path = components.path
-        if path.hasSuffix("/") {
-            let lastCharacterIndex = path.index(before: path.endIndex)
-            path.replaceSubrange(lastCharacterIndex...lastCharacterIndex, with: "")
-            components.path = path
-        }
-        return components.url!
+        return self.components!.removingTrailingSlashInPath().url!
         
     }
     
@@ -68,20 +60,15 @@ public extension URL {
     mutating func removeTrailingSlashInPath() {
         self = self.removingTrailingSlashInPath()
     }
-    
-    /// Removes the query items from the URL.
-    /// If the URL has fragments, they will be removed too.
-    mutating func removeQueryItems() {
-        self = self.removingQueryItems()
-    }
-
+   
     /// The query items in the URL. See also `queryItemsDict`.
     var queryItems: [URLQueryItem] {
-        return components?.queryItems ?? []
+        return self.components?.queryItems ?? []
     }
 
     /// A dictionary of the query items in the URL. See also `queryItems`.
-    var queryItemsDict: [String: String] {
+    var queryItemsDict: [String: String]
+    {
 
         return self.queryItems.reduce(into: [:]) { dict, query in
             dict[query.name] = query.value
@@ -101,26 +88,27 @@ public extension URL {
         string: String,
         sortQueryItems: Bool
     ) {
-        guard let url = URL(string: string) else {
-            return nil
-        }
-        if !sortQueryItems { self = url }
         
-        guard var urlComponents = url.components else {
-            return nil
+        if sortQueryItems {
+            guard var urlComponents = URLComponents(string: string) else {
+                return nil
+            }
+            urlComponents.queryItems?.sortByNameThenValue()
+            guard let sortedURL = urlComponents.url else {
+                return nil
+            }
+            self = sortedURL
         }
-        urlComponents.queryItems?.sortByNameThenValue()
-        
-        guard let sortedURL = urlComponents.url else {
-            return nil
+        else {
+            self.init(string: string)
         }
-        self = sortedURL
         
     }
 
     init?(
         scheme: String?,
         host: String?,
+        port: Int? = nil,
         path: String? = nil,
         queryItems: [String: String]? = nil,
         fragment: String? = nil
@@ -129,6 +117,7 @@ public extension URL {
         if let url = URLComponents(
             scheme: scheme,
             host: host,
+            port: port,
             path: path,
             queryItems: queryItems,
             fragment: fragment
@@ -144,6 +133,7 @@ public extension URL {
     init?(
         scheme: String?,
         host: String?,
+        port: Int? = nil,
         path: String? = nil,
         queryItems: [URLQueryItem]?,
         fragment: String? = nil
@@ -152,6 +142,7 @@ public extension URL {
         if let url = URLComponents(
             scheme: scheme,
             host: host,
+            port: port,
             path: path,
             queryItems: queryItems,
             fragment: fragment
@@ -166,6 +157,7 @@ public extension URL {
     init?(
         scheme: String?,
         host: String?,
+        port: Int? = nil,
         path: String? = nil,
         queryString: String?,
         fragment: String? = nil
@@ -174,6 +166,7 @@ public extension URL {
         if let url = URLComponents(
             scheme: scheme,
             host: host,
+            port: port,
             path: path,
             queryString: queryString,
             fragment: fragment

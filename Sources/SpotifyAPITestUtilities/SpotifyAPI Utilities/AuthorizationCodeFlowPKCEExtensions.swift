@@ -21,11 +21,11 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     
     /// Authorizes the application. You should probably use
     /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
-    /// which authorizes and retrieves the refresh and access tokens.
+    /// which blocks the thread until the application is authorized.
+    ///
     /// Returns early if the application is already authorized.
     func testAuthorize(
-        scopes: Set<Scope>,
-        showDialog: Bool = false
+        scopes: Set<Scope>
     ) -> AnyPublisher<Void, Error> {
     
         if self.authorizationManager.isAuthorized(for: scopes) {
@@ -35,11 +35,11 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         let codeVerifier = String.randomURLSafe(length: 128)
         let codeChallenge = codeVerifier.makeCodeChallenge()
         let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
+//        let state = "~" + String.randomURLSafe(length: 125)
         
         
         guard let authorizationURL = self.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
-            showDialog: showDialog,
             codeChallenge: codeChallenge,
             state: state,
             scopes: scopes
@@ -71,8 +71,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     /// and the refresh and access tokens have been retrieved.
     /// Returns early if the application is already authorized.
     func authorizeAndWaitForTokens(
-        scopes: Set<Scope>,
-        showDialog: Bool = false
+        scopes: Set<Scope>
     ) {
         
         if self.authorizationManager.isAuthorized(for: scopes) {
@@ -82,7 +81,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         let semaphore = DispatchSemaphore(value: 0)
         
         let cancellable = self.testAuthorize(
-            scopes: scopes, showDialog: showDialog
+            scopes: scopes
         )
         .sink(receiveCompletion: { completion in
             switch completion {

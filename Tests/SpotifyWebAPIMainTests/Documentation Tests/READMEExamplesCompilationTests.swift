@@ -38,7 +38,6 @@ private class READMEExamplesCompilationTests {
         
         let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: URL(string: "Your Redirect URI")!,
-            showDialog: false,
             codeChallenge: codeChallenge,
             state: state,
             scopes: [

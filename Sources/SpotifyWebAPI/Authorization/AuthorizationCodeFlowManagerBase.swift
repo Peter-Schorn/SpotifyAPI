@@ -420,8 +420,13 @@ extension AuthorizationCodeFlowManagerBase {
         
     }
     
-    /// Only use for testing purposes.
-    func setExpirationDate(to date: Date) {
+    /**
+     Sets the expiration date of the access token to the specified date.
+     **Only use for testing purposes**.
+     
+     - Parameter date: The date to set the expiration date to.
+     */
+    public func setExpirationDate(to date: Date) {
         self.updateAuthInfoDispatchQueue.sync {
             Self.baseLogger.notice(
                 "\(Self.self): mock expiration date: \(date.description(with: .current))"

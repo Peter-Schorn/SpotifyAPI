@@ -91,12 +91,9 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests
     }
 
     open class func setupAuthorization(
-        scopes: Set<Scope> = Scope.allCases,
-        showDialog: Bool = true
+        scopes: Set<Scope> = Scope.allCases
     ) {
-        spotify.authorizeAndWaitForTokens(
-            scopes: scopes, showDialog: true
-        )
+        spotify.authorizeAndWaitForTokens(scopes: scopes)
     }
     
 

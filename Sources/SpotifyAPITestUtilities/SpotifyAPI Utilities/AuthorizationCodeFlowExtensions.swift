@@ -21,7 +21,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     
     /// Authorizes the application. You should probably use
     /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
-    /// blocks the thread until the application is authorized.
+    /// which blocks the thread until the application is authorized.
     /// 
     /// Returns early if the application is already authorized.
     func testAuthorize(
@@ -34,6 +34,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         }
         
         let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
+//        let state = "~" + String.randomURLSafe(length: 125)
         
         guard let authorizationURL = self.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,

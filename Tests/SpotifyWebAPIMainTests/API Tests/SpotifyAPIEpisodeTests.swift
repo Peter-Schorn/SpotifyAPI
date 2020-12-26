@@ -74,6 +74,7 @@ extension SpotifyAPIEpisodeTests {
         
         // MARK: Check Images
         if let images = episode.images {
+            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
             let (imageExpectations, cancellables) = XCTAssertImagesExist(
                 images
             )
@@ -84,6 +85,7 @@ extension SpotifyAPIEpisodeTests {
                 timeout: TimeInterval(60 * imageExpectations.count)
             )
             print("FINISHED waiting for image expectations")
+            #endif
         }
         else {
             XCTFail("images should not be nil")
@@ -148,6 +150,7 @@ extension SpotifyAPIEpisodeTests {
             XCTFail("images should not be nil")
             return
         }
+        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
         let (expectations, cancellables) = XCTAssertImagesExist(images)
         
         Self.cancellables.formUnion(cancellables)
@@ -156,6 +159,7 @@ extension SpotifyAPIEpisodeTests {
             for: expectations,
             timeout: TimeInterval(60 * expectations.count)
         )
+        #endif
         
     }
     
@@ -317,7 +321,7 @@ final class SpotifyAPIAuthorizationCodeFlowEpisodeTests:
     
 }
 
-final class SpotifyAPIAuthorizationCodeFlowPKCEpisodeTests:
+final class SpotifyAPIAuthorizationCodeFlowPKCEEpisodeTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIEpisodeTests
 {
 

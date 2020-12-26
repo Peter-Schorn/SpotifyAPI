@@ -85,7 +85,6 @@ Next, create the authorization URL that will be opened in a browser (or web view
 ```swift
 let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
     redirectURI: URL(string: "Your Redirect URI")!,
-    showDialog: false,
     codeChallenge: codeChallenge,
     state: state,
     scopes: [

@@ -39,6 +39,7 @@ extension SpotifyAPIBrowseTests {
                     "https://api.spotify.com/v1/browse/categories/party"
                 )
                 
+                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                 let (imageExpectations, cancellables) =
                             XCTAssertImagesExist(category.icons)
                 
@@ -48,6 +49,7 @@ extension SpotifyAPIBrowseTests {
                     for: imageExpectations,
                     timeout: TimeInterval(imageExpectations.count * 60)
                 )
+                #endif
                 
             }
         )

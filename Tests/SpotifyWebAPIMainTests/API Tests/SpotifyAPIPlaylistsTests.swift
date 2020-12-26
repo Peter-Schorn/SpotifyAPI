@@ -1375,8 +1375,11 @@ extension SpotifyAPIPlaylistsTests where
 
         func receiveImages(_ images: [SpotifyImage]) {
 
+
             print("line \(#line): recevied \(images.count) images")
             XCTAssertFalse(images.isEmpty)
+            
+            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
 
             var imageExpectations: [XCTestExpectation] = []
             for (i, image) in images.enumerated() {
@@ -1386,7 +1389,6 @@ extension SpotifyAPIPlaylistsTests where
                 )
                 imageExpectations.append(loadImageExpectation)
 
-                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                 image.load()
                     .XCTAssertNoFailure()
                     .sink(
@@ -1399,7 +1401,6 @@ extension SpotifyAPIPlaylistsTests where
                         }
                     )
                     .store(in: &Self.cancellables)
-                #endif
 
                 guard let url = URL(string: image.url) else {
                     XCTFail("couldn't convert to URL: '\(image.url)'")
@@ -1426,6 +1427,8 @@ extension SpotifyAPIPlaylistsTests where
             }
 
             self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
+            
+            #endif
         }
 
         let playlists: [URIs.Playlists] = [

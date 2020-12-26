@@ -44,7 +44,7 @@ public extension SpotifyAPITests where
         else if let spotify = Self.spotify as?
                 SpotifyAPI<AuthorizationCodeFlowPKCEManager> {
             spotify.authorizeAndWaitForTokens(
-                scopes: scopes, showDialog: showDialog
+                scopes: scopes
             )
         }
         else {

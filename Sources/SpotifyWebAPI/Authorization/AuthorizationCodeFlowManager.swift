@@ -340,6 +340,8 @@ public extension AuthorizationCodeFlowManager {
             .removingQueryItems()
             .removingTrailingSlashInPath()
         
+        Self.logger.trace("baseRedirectURI: \(baseRedirectURI)")
+        
         let body = TokensRequest(
             code: code,
             redirectURI: baseRedirectURI,

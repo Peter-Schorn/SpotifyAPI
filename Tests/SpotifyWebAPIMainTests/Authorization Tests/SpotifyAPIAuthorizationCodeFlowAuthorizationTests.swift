@@ -17,7 +17,13 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
 {
     
     static var allTests = [
-        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize)
+        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
+        ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testConvenienceInitializer", testConvenienceInitializer),
+        ("testInvalidState1", testInvalidState1),
+        ("testInvalidState2", testInvalidState2),
+        ("testInvalidState3", testInvalidState3)
     ]
     
     func testDeauthorizeReauthorize() {
@@ -209,6 +215,8 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         )
         .sink(receiveCompletion: { completion in
             
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -226,8 +234,6 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             }
             XCTAssertEqual(supplied, state)
             XCTAssertNil(received)
-            
-            expectation.fulfill()
             
         })
         .store(in: &Self.cancellables)
@@ -292,6 +298,9 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             redirectURIWithQuery: redirectURL
         )
         .sink(receiveCompletion: { completion in
+            
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -310,7 +319,6 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             XCTAssertNil(supplied)
             XCTAssertEqual(received, state)
             
-            expectation.fulfill()
         })
         .store(in: &Self.cancellables)
         
@@ -376,6 +384,9 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             redirectURIWithQuery: redirectURL, state: tokensState
         )
         .sink(receiveCompletion: { completion in
+            
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -394,13 +405,16 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             XCTAssertEqual(supplied, tokensState)
             XCTAssertEqual(received, authorizationState)
             
-            expectation.fulfill()
         })
         .store(in: &Self.cancellables)
         
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
 
+    }
+
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
     }
 
 }

@@ -244,16 +244,17 @@ extension SpotifyAPIShowTests {
                 "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=0&limit=30&market=US"
             )
             
+
             if let episode1 = show.items.first {
                 // MARK: Check Images for First Episode.
                 if let images = episode1.images {
+                    #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                     var imageExpectations: [XCTestExpectation] = []
                     for (i, image) in images.enumerated() {
                         let expectation = XCTestExpectation(
                             description: "load image \(i)"
                         )
                         imageExpectations.append(expectation)
-                        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
                         image.load()
                             .XCTAssertNoFailure()
                             .sink(
@@ -261,17 +262,16 @@ extension SpotifyAPIShowTests {
                                 receiveValue: { _ in }
                             )
                             .store(in: &Self.cancellables)
-                        #endif
                     }
                     self.wait(
                         for: imageExpectations,
                         timeout: TimeInterval(60 * images.count)
                     )
+                    #endif
                 }
                 else {
                     XCTFail("images should not be nil")
                 }
-                    
             }
             else {
                 XCTFail("show should have at least one episode")

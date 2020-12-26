@@ -245,11 +245,6 @@ public extension AuthorizationCodeFlowPKCEManager {
              location in your app. This URI needs to have been entered in the
              Redirect URI whitelist that you specified when you
              [registered your application][4].
-       - showDialog: Whether or not to force the user to approve the app again
-             if they’ve already done so. If `false`, a user who has already
-             approved the application may be automatically redirected to the
-             `redirectURI`. If `true`, the user will not be automatically
-             redirected and will have to approve the app again.
        - codeChallenge: The code challenge. See above.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
@@ -277,7 +272,6 @@ public extension AuthorizationCodeFlowPKCEManager {
      */
     func makeAuthorizationURL(
         redirectURI: URL,
-        showDialog: Bool,
         codeChallenge: String,
         state: String?,
         scopes: Set<Scope>
@@ -292,7 +286,6 @@ public extension AuthorizationCodeFlowPKCEManager {
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
-                "show_dialog": showDialog,
                 "state": state,
                 "code_challenge_method": "S256",
                 "code_challenge": codeChallenge
@@ -301,6 +294,41 @@ public extension AuthorizationCodeFlowPKCEManager {
         
     }
     
+    /**
+     This method is deprecated.
+
+     Use `makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`
+     instead (the `showDialog` parameter was removed because it is not
+     used by the Spotify web API for this authorization flow).
+     
+     :nodoc:
+     */
+    @available(
+        *,
+        deprecated,
+        message: """
+            Use `makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)` \
+            instead (the `showDialog` parameter was removed because it is not \
+            used by the Spotify web API for this authorization flow).
+            """
+    )
+    func makeAuthorizationURL(
+        redirectURI: URL,
+        showDialog: Bool,
+        codeChallenge: String,
+        state: String?,
+        scopes: Set<Scope>
+    ) -> URL? {
+        
+        return self.makeAuthorizationURL(
+            redirectURI: redirectURI,
+            codeChallenge: codeChallenge,
+            state: state,
+            scopes: scopes
+        )
+        
+    }
+
     /**
      The second and final step in the authorization process for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
@@ -413,6 +441,8 @@ public extension AuthorizationCodeFlowPKCEManager {
         let baseRedirectURI = redirectURIWithQuery
             .removingQueryItems()
             .removingTrailingSlashInPath()
+        
+        Self.logger.trace("baseRedirectURI: \(baseRedirectURI)")
         
         let body = PKCETokensRequest(
             code: code,

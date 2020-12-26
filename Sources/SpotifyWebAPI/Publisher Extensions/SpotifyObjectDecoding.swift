@@ -66,9 +66,8 @@ public func decodeSpotifyErrors(
     
     if httpURLResponse.statusCode == 429 {
         
-        let retryAfter = httpURLResponse.value(
-            forHTTPHeaderField: "Retry-After"
-        ).map(Int.init) as? Int
+        let retryAfter = (httpURLResponse.allHeaderFields["Retry-After"]
+                as? String).map(Int.init) as? Int
         
         if let retryAfter = retryAfter {
             spotifyDecodeLogger.notice(

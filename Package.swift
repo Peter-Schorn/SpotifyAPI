@@ -17,28 +17,7 @@ let package = Package(
             targets: ["SpotifyAPITestUtilities"]
         )
     ],
-    dependencies: [
-        .package(
-            name: "RegularExpressions",
-            url: "https://github.com/Peter-Schorn/RegularExpressions.git",
-            "2.0.7"..<"3.0.0"
-        ),
-        .package(
-            name: "swift-log",
-            url: "https://github.com/apple/swift-log.git",
-            from: "1.4.0"
-        ),
-        .package(
-            name: "OpenCombine",
-            url: "https://github.com/OpenCombine/OpenCombine.git",
-            from: "0.11.0"
-        ),
-        .package(
-            name: "swift-crypto",
-            url: "https://github.com/apple/swift-crypto.git",
-            from: "1.1.3"
-        )
-    ],
+    dependencies: packageDependencies,
     targets: [
         .target(
             name: "SpotifyWebAPI",
@@ -62,14 +41,7 @@ let package = Package(
         ),
         .target(
             name: "SpotifyAPITestUtilities",
-            dependencies: [
-                "SpotifyWebAPI",
-                "SpotifyExampleContent",
-                "RegularExpressions",
-                .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "OpenCombineDispatch", package: "OpenCombine"),
-                .product(name: "OpenCombineFoundation", package: "OpenCombine")
-            ],
+            dependencies: spotifyAPITestUtilitiesDependencies,
             exclude: ["README.md"]
         ),
         
@@ -86,3 +58,62 @@ let package = Package(
         )
     ]
 )
+
+var packageDependencies: [Package.Dependency] {
+    
+    var dependencies: [Package.Dependency] = [
+        .package(
+            name: "RegularExpressions",
+            url: "https://github.com/Peter-Schorn/RegularExpressions.git",
+            "2.0.7"..<"3.0.0"
+        ),
+        .package(
+            name: "swift-log",
+            url: "https://github.com/apple/swift-log.git",
+            from: "1.4.0"
+        ),
+        .package(
+            name: "OpenCombine",
+            url: "https://github.com/OpenCombine/OpenCombine.git",
+            from: "0.11.0"
+        ),
+        .package(
+            name: "swift-crypto",
+            url: "https://github.com/apple/swift-crypto.git",
+            from: "1.1.3"
+        )
+    ]
+    
+    #if USEVAPOR
+    dependencies.append(
+        .package(
+            name: "vapor",
+            url: "https://github.com/vapor/vapor.git",
+            from: "4.0.0"
+        )
+    )
+    #endif
+
+    return dependencies
+}
+
+var spotifyAPITestUtilitiesDependencies: [Target.Dependency] {
+    
+    var dependencies: [Target.Dependency] = [
+        "SpotifyWebAPI",
+        "SpotifyExampleContent",
+        "RegularExpressions",
+        .product(name: "OpenCombine", package: "OpenCombine"),
+        .product(name: "OpenCombineDispatch", package: "OpenCombine"),
+        .product(name: "OpenCombineFoundation", package: "OpenCombine")
+    ]
+    
+    #if USEVAPOR
+    dependencies.append(
+        .product(name: "Vapor", package: "vapor")
+    )
+    #endif
+    
+    return dependencies
+
+}

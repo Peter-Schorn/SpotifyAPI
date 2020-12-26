@@ -6,11 +6,10 @@ import Combine
 import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
-
-
 #endif
 import SpotifyAPITestUtilities
 @testable import SpotifyWebAPI
+import SpotifyExampleContent
  
  
 /**
@@ -27,7 +26,6 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
     func concurrentTokensRefresh(topLevel: Int) {
         
         var cancellables: Set<AnyCancellable> = []
-        
         
         let internalQueue = DispatchQueue(
             label: "asyncTokensRefresh internalQueue"
@@ -176,6 +174,106 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         )
         
     }
+    
+    func concurrentRequestsWithExpiredToken() {
+
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+
+        let internalQueue = DispatchQueue(
+            label: "SpotifyAPIRefreshTokensConcurrentTests.internalQueue"
+        )
+
+        let dispatchGroup = DispatchGroup()
+
+        let incrementDidChangeCountExpectation = XCTestExpectation(
+            description: "incrementDidChangeCountExpectation"
+        )
+
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .sink(receiveValue: {
+                internalQueue.async {
+                    didChangeCount += 1
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+                        incrementDidChangeCountExpectation.fulfill()
+                    }
+                }
+            })
+            .store(in: &Self.cancellables)
+
+        
+        DispatchQueue.global().async {
+            // MARK: track
+            dispatchGroup.enter()
+            let cancellable = Self.spotify.track(URIs.Tracks.breathe)
+                .XCTAssertNoFailure()
+                .sink(
+                    receiveCompletion: { completion in
+                        print("track completion: \(completion)")
+                        dispatchGroup.leave()
+                    },
+                    receiveValue: { track in
+                        print("received track: \(track.name)")
+                    }
+                )
+            dispatchGroup.enter()
+            internalQueue.async {
+                Self.cancellables.insert(cancellable)
+                dispatchGroup.leave()
+            }
+        }
+
+        DispatchQueue.global().async {
+            // MARK: album
+            dispatchGroup.enter()
+            let cancellable = Self.spotify.album(URIs.Albums.darkSideOfTheMoon)
+                .XCTAssertNoFailure()
+                .sink(
+                    receiveCompletion: { completion in
+                        print("album completion: \(completion)")
+                        dispatchGroup.leave()
+                    },
+                    receiveValue: { album in
+                        print("received album: \(album.name)")
+                    }
+                )
+            dispatchGroup.enter()
+            internalQueue.async {
+                Self.cancellables.insert(cancellable)
+                dispatchGroup.leave()
+            }
+        }
+
+        DispatchQueue.global().async {
+            // MARK: artist
+            dispatchGroup.enter()
+            let cancellable = Self.spotify.artist(URIs.Artists.crumb)
+                .XCTAssertNoFailure()
+                .sink(
+                    receiveCompletion: { completion in
+                        print("artist completion: \(completion)")
+                        dispatchGroup.leave()
+                    },
+                    receiveValue: { artist in
+                        print("received artist: \(artist.name)")
+                    }
+                )
+            dispatchGroup.enter()
+            internalQueue.async {
+                Self.cancellables.insert(cancellable)
+                dispatchGroup.leave()
+            }
+        }
+        
+        print("waiting for track, album, and artist")
+        dispatchGroup.wait()
+        print("finished waiting")
+
+        self.wait(for: [incrementDidChangeCountExpectation], timeout: 30)
+
+        XCTAssertEqual(didChangeCount, 1)
+
+    }
   
  }
 
@@ -184,7 +282,8 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
 {
     
     static let allCases = [
-        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh)
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
     ]
     
     func testConcurrentTokensRefresh() {
@@ -193,6 +292,16 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
             Self.spotify.authorizationManager.setExpirationDate(to: Date())
             self.concurrentTokensRefresh(topLevel: i)
         }
+    }
+    
+    func testConcurrentRequestsWithExpiredToken() {
+        Self.spotify.authorizationManager.deauthorize()
+        Self.spotify.waitUntilAuthorized()
+        self.concurrentRequestsWithExpiredToken()
+    }
+
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
     }
     
 }
@@ -203,7 +312,8 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
 {
     
     static let allCases = [
-        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh)
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
     ]
     
     func testConcurrentTokensRefresh() {
@@ -214,6 +324,15 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
         }
     }
     
+    func testConcurrentRequestsWithExpiredToken() {
+        Self.spotify.authorizationManager.deauthorize()
+        Self.spotify.authorizeAndWaitForTokens(scopes: [])
+        self.concurrentRequestsWithExpiredToken()
+    }
+    
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
     
 }
 
@@ -222,7 +341,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
 {
     
     static let allCases = [
-        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh)
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
     ]
     
     func testConcurrentTokensRefresh() {
@@ -233,5 +353,15 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
         }
     }
     
+    func testConcurrentRequestsWithExpiredToken() {
+        Self.spotify.authorizationManager.deauthorize()
+        Self.spotify.authorizeAndWaitForTokens(scopes: [])
+        self.concurrentRequestsWithExpiredToken()
+    }
     
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+    
+
 }

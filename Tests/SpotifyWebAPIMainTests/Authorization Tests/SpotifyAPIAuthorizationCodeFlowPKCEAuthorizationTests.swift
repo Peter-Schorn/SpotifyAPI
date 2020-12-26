@@ -17,7 +17,14 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
 {
     
     static var allTests = [
-        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize)
+        ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
+        ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testConvenienceInitializer", testConvenienceInitializer),
+        ("testInvalidState1", testInvalidState1),
+        ("testInvalidState2", testInvalidState2),
+        ("testInvalidState3", testInvalidState3),
+        ("testInvalidCodeVerifier", testInvalidCodeVerifier)
     ]
     
     func testDeauthorizeReauthorize() {
@@ -51,7 +58,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized())
         
         Self.spotify.authorizeAndWaitForTokens(
-            scopes: currentScopes, showDialog: false
+            scopes: currentScopes
         )
     
         XCTAssertTrue(
@@ -173,7 +180,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
-            showDialog: false,
             codeChallenge: codeChallenge,
             state: nil,
             scopes: requestedScopes
@@ -195,7 +201,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             XCTFail("couldn't find redirect_uri in query string")
         }
         
-        XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertNil(queryDict["state"])
         XCTAssertEqual(queryDict["code_challenge"], codeChallenge)
         
@@ -218,6 +223,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         )
         .sink(receiveCompletion: { completion in
         
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -235,8 +242,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             }
             XCTAssertEqual(supplied, state)
             XCTAssertNil(received)
-        
-            expectation.fulfill()
         
         })
         .store(in: &Self.cancellables)
@@ -265,7 +270,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
-            showDialog: false,
             codeChallenge: codeChallenge,
             state: authorizationState,
             scopes: requestedScopes
@@ -287,7 +291,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             XCTFail("couldn't find redirect_uri in query string")
         }
         
-        XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertEqual(queryDict["state"], authorizationState)
         XCTAssertEqual(queryDict["code_challenge"], codeChallenge)
         
@@ -310,6 +313,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         )
         .sink(receiveCompletion: { completion in
         
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -327,8 +332,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             }
             XCTAssertNil(supplied)
             XCTAssertEqual(received, authorizationState)
-        
-            expectation.fulfill()
         
         })
         .store(in: &Self.cancellables)
@@ -357,7 +360,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
-            showDialog: false,
             codeChallenge: codeChallenge,
             state: authorizationState,
             scopes: requestedScopes
@@ -379,7 +381,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             XCTFail("couldn't find redirect_uri in query string")
         }
         
-        XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertEqual(queryDict["state"], authorizationState)
         XCTAssertEqual(queryDict["code_challenge"], codeChallenge)
         
@@ -403,6 +404,9 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             state: tokensState
         )
         .sink(receiveCompletion: { completion in
+            
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyLocalError.invalidState"
@@ -421,7 +425,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             XCTAssertEqual(supplied, tokensState)
             XCTAssertEqual(received, authorizationState)
             
-            expectation.fulfill()
         })
         .store(in: &Self.cancellables)
         
@@ -447,7 +450,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
-            showDialog: false,
             codeChallenge: codeChallenge,
             state: state,
             scopes: requestedScopes
@@ -469,7 +471,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             XCTFail("couldn't find redirect_uri in query string")
         }
         
-        XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertEqual(queryDict["state"], state)
         XCTAssertEqual(queryDict["code_challenge"], codeChallenge)
         
@@ -492,6 +493,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         )
         .sink(receiveCompletion: { completion in
             
+            defer { expectation.fulfill() }
+
             guard case .failure(let error) = completion else {
                 XCTFail(
                     "publisher should fail with SpotifyAuthenticationError"
@@ -499,7 +502,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
                 return
             }
             guard let authenticationError = error as? SpotifyAuthenticationError else {
-                XCTFail("error should be SpotifyAuthenticationError")
+                XCTFail("error should be SpotifyAuthenticationError: \(error)")
                 return
             }
             print(authenticationError)
@@ -510,8 +513,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
                 "code_verifier was incorrect"
             )
             
-            expectation.fulfill()
-            
         })
         .store(in: &Self.cancellables)
         
@@ -519,4 +520,9 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         XCTAssertEqual(didChangeCount, 0)
 
     }
+    
+    override class func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+
 }

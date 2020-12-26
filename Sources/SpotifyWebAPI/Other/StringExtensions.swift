@@ -9,9 +9,6 @@ public extension String {
      
      Alias for `String.trimmingCharacters(in:)`.
      
-     The default argument strips all trailing and leading white space,
-     including new lines.
-     
      - Parameter characterSet: The character set to use when trimming
            the string. Default: `whitespacesAndNewlines`.
      */
@@ -56,12 +53,12 @@ public extension String {
     }
     
     /**
-     Characters that are safe for use in a URL: Letters, digits,
-     the underscore, the period, the hyphen, and the tilde character.
-     There are a total of 66 characters.
+     Characters that are safe for use in a URL: Letters, digits, the
+     underscore character, and the hypen character.
      
-     These are all the valid characters that can be used for creating
-     the code verifier when authorizing with the
+     There are a total of 64 characters.
+     
+     All of these characters are valid for creating the code verifier for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
 
      See also `String.randomURLSafe(length:)` and
@@ -69,24 +66,22 @@ public extension String {
      containing only these characters.
      
      ```
-     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-~"
+     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
      ```
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
     static let urlSafeCharacters = """
-        abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\
-        _.-~
+        abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-
         """
        
     /**
      Returns a random string with the specified length that only contains
-     letters, digits, the underscore, the period, the hyphen, and the
-     tilde character.
+     letters, digits, the underscore character, and the hyphen character.
      
-     This method can be used for creating the code verifier when authorizing
-     with the [Authorization Code Flow with Proof Key for Code Exchange][1],
-     and for creating the state parameter.
+     This method can be used for creating the code verifier for the
+     [Authorization Code Flow with Proof Key for Code Exchange][1], and for
+     creating the state parameter.
      
      See also:
      
@@ -105,23 +100,21 @@ public extension String {
         using randumNumberGenerator: inout Generator
     ) -> String {
         
-        return (0..<length).reduce(into: "") { result, _ in
-            result += String(
-                String.urlSafeCharacters.randomElement(
-                    using: &randumNumberGenerator
-                )!
-            )
+        let characters = (0..<length).map { _ in
+            String.urlSafeCharacters.randomElement(
+                using: &randumNumberGenerator
+            )!
         }
+        return String(characters)
     }
     
     /**
      Returns a random string with the specified length that only contains
-     letters, digits, the underscore, the period, the hyphen, and the
-     tilde character.
+     letters, digits, the underscore character, and the hyphen character.
      
-     This method can be used for creating the code verifier when authorizing
-     with the [Authorization Code Flow with Proof Key for Code Exchange][1],
-     and for creating the state parameter.
+     This method can be used for creating the code verifier for the
+     [Authorization Code Flow with Proof Key for Code Exchange][1], and for
+     creating the state parameter.
      
      See also:
      
