@@ -9,3 +9,5 @@ builder:
     scheme: SpotifyAPI
   - platform: tvos
     scheme: SpotifyAPI
+  - platform: linux
+    scheme: SpotifyAPI

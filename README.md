@@ -26,6 +26,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 * macOS 10.15+
 * tvOS 13+
 * watchOS 6+
+* **NEW**: Linux
 
 ## Installation
 
