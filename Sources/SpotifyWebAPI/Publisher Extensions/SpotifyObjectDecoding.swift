@@ -66,9 +66,14 @@ public func decodeSpotifyErrors(
     
     if httpURLResponse.statusCode == 429 {
         
-        let retryAfter = (httpURLResponse.allHeaderFields["Retry-After"]
-                as? String).map(Int.init) as? Int
+        let lowercasedHeaders = httpURLResponse.allHeaderFields
+            .compactMapValues { value -> String? in
+                (value as? String)?.lowercased()
+            }
         
+        let retryAfter = lowercasedHeaders["retry-after"]
+            .map(Int.init) as? Int
+            
         if let retryAfter = retryAfter {
             spotifyDecodeLogger.notice(
                 "hit rate limit; retry after \(retryAfter) seconds"
