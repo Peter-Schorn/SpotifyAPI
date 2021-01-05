@@ -142,6 +142,9 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
+    public var networkAdaptor:
+        (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+
     /// Ensure no data races occur when updating auth info.
     private let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
@@ -182,10 +185,15 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      */
     public init(
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.networkAdaptor = networkAdaptor ??
+                URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     /**
@@ -220,9 +228,16 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         clientId: String,
         clientSecret: String,
         accessToken: String,
-        expirationDate: Date
+        expirationDate: Date,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
     ) {
-        self.init(clientId: clientId, clientSecret: clientSecret)
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            networkAdaptor: networkAdaptor
+        )
         self._accessToken = accessToken
         self._expirationDate = expirationDate
     }
@@ -246,6 +261,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     /// :nodoc:
@@ -398,12 +414,12 @@ public extension ClientCredentialsFlowManager {
                 .anyFailingPublisher()
         }
         
-        return URLSession.shared.dataTaskPublisher(
-            url: Endpoints.getTokens,
-            httpMethod: "POST",
-            headers: headers,
-            body: body
-        )
+        var tokensRequest = URLRequest(url: Endpoints.getTokens)
+        tokensRequest.httpMethod = "POST"
+        tokensRequest.allHTTPHeaderFields = headers
+        tokensRequest.httpBody = body
+        
+        return self.networkAdaptor(tokensRequest)
         // Decoding into `AuthInfo` never fails because all of its
         // properties are optional, so we must try to decode errors
         // first.

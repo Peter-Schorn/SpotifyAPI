@@ -1,4 +1,4 @@
-#if USEVAPOR
+#if !USEVAPOR
 
 import Foundation
 import Vapor

@@ -161,7 +161,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
-    #if USEVAPOR
+    #if !USEVAPOR
     
     // MARK: start the server
     
@@ -215,7 +215,7 @@ public func openAuthorizationURLAndWaitForRedirect(
         """
     )
     
-    #if USEVAPOR
+    #if !USEVAPOR
     
     // MARK: retrieve the redirect URI from the server
 

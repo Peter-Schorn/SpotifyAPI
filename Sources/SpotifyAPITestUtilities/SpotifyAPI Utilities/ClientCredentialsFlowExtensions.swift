@@ -18,6 +18,14 @@ public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowM
         )
     )
     
+    static let sharedTestNetworkAdaptor = SpotifyAPI(
+        authorizationManager: ClientCredentialsFlowManager(
+            clientId: spotifyCredentials.clientId,
+            clientSecret: spotifyCredentials.clientSecret,
+            networkAdaptor: HTTTPClientManager.shared.networkAdaptor(request:)
+        )
+    )
+    
     /// Calls `authorizationManager.authorize()` and blocks
     /// until the publisher finishes.
     /// Returns early if the application is already authorized.

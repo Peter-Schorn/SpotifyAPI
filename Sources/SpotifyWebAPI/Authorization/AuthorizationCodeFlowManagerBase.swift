@@ -173,6 +173,9 @@ public class AuthorizationCodeFlowManagerBase {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
+    public var networkAdaptor:
+        (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
@@ -191,10 +194,15 @@ public class AuthorizationCodeFlowManagerBase {
     
     required init(
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.networkAdaptor = networkAdaptor ??
+                URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     // MARK: - Codable -
@@ -218,6 +226,7 @@ public class AuthorizationCodeFlowManagerBase {
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }
     

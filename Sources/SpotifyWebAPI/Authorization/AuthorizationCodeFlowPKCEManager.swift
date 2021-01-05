@@ -117,9 +117,16 @@ public final class AuthorizationCodeFlowPKCEManager:
      */
     public required init(
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
     ) {
-        super.init(clientId: clientId, clientSecret: clientSecret)
+        super.init(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            networkAdaptor: networkAdaptor
+        )
     }
     
     /**
@@ -164,9 +171,16 @@ public final class AuthorizationCodeFlowPKCEManager:
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
-        scopes: Set<Scope>
+        scopes: Set<Scope>,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
     ) {
-        self.init(clientId: clientId, clientSecret: clientSecret)
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            networkAdaptor: networkAdaptor
+        )
         self._accessToken = accessToken
         self._expirationDate = expirationDate
         self._refreshToken = refreshToken
@@ -462,12 +476,12 @@ public extension AuthorizationCodeFlowPKCEManager {
             """
         )
         
-        return URLSession.shared.dataTaskPublisher(
-            url: Endpoints.getTokens,
-            httpMethod: "POST",
-            headers: Headers.formURLEncoded,
-            body: body
-        )
+        var tokensRequest = URLRequest(url: Endpoints.getTokens)
+        tokensRequest.httpMethod = "POST"
+        tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
+        tokensRequest.httpBody = body
+
+        return self.networkAdaptor(tokensRequest)
         // Decoding into `AuthInfo` never fails because all of its
         // properties are optional, so we must try to decode errors
         // first.
@@ -584,11 +598,15 @@ public extension AuthorizationCodeFlowPKCEManager {
                         """
                     )
                     
-                    let refreshTokensPublisher = URLSession.shared.dataTaskPublisher(
-                        url: Endpoints.getTokens,
-                        httpMethod: "POST",
-                        headers: Headers.formURLEncoded,
-                        body: body
+                    var refreshTokensRequest = URLRequest(
+                        url: Endpoints.getTokens
+                    )
+                    refreshTokensRequest.httpMethod = "POST"
+                    refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
+                    refreshTokensRequest.httpBody = body
+                    
+                    let refreshTokensPublisher = self.networkAdaptor(
+                        refreshTokensRequest
                     )
                     // Decoding into `AuthInfo` never fails because all of its
                     // properties are optional, so we must try to decode errors

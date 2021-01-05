@@ -62,3 +62,18 @@ public extension URLSession {
     }
     
 }
+
+extension URLSession {
+    
+    func defaultNetworkAdaptor(
+        request: URLRequest
+    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+        
+        return self.dataTaskPublisher(for: request)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+
+    }
+
+
+}

@@ -30,7 +30,7 @@ import OpenCombineFoundation
  [1]: https://developer.spotify.com/documentation/web-api/reference/
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
-    
+
     // MARK: - Authorization -
 
     /**
@@ -63,6 +63,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         }
     }
 
+    public var networkAdaptor:
+        (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+    
     /**
      A publisher that emits whenever the authorization information
      changes.
@@ -164,11 +167,18 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      [1]: https://developer.spotify.com/dashboard/login
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public init(authorizationManager: AuthorizationManager)  {
+    public init(
+        authorizationManager: AuthorizationManager,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        )? = nil
+    )  {
         
         SpotifyAPILogHandler.bootstrap()
 
         self.authorizationManager = authorizationManager
+        self.networkAdaptor = networkAdaptor
+                ?? URLSession.shared.defaultNetworkAdaptor(request:)
         
         self.configureDidChangeSubscriptions()
         
@@ -198,6 +208,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         self.configureDidChangeSubscriptions()
         
     }

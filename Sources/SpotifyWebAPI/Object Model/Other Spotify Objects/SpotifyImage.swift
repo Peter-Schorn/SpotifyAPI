@@ -83,10 +83,16 @@ public struct SpotifyImage: Codable, Hashable {
 public extension SpotifyImage {
     
     #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
-    /// Loads the image from `self.url`.
-    ///
-    /// Fails if `self.url` cannot be converted to `URL`, if the data
-    /// cannot be converted to `Image`, or if some other network error occurs.
+    /**
+     Loads the image from `self.url`.
+     
+     This method will **always** use `URLSessionDataTask`. If you want to use
+     your own network client, then do so directly by making a GET request to
+     `self.url`.
+     
+     - Throws: if `self.url` cannot be converted to `URL`, if the data
+     cannot be converted to `Image`, or if some other network error occurs.
+     */
     func load() -> AnyPublisher<Image, Error> {
 
         guard let imageURL = URL(string: url) else {
