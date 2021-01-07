@@ -31,6 +31,13 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
     }
 
     open class func setupAuthorization() {
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
+        
         spotify.waitUntilAuthorized()
     }
     
@@ -62,6 +69,13 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
         scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = true
     ) {
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
+
         spotify.authorizeAndWaitForTokens(
             scopes: scopes, showDialog: true
         )
@@ -93,6 +107,13 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests
     open class func setupAuthorization(
         scopes: Set<Scope> = Scope.allCases
     ) {
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
+        
         spotify.authorizeAndWaitForTokens(scopes: scopes)
     }
     

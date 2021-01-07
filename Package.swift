@@ -94,7 +94,7 @@ var packageDependencies: [Package.Dependency] {
         )
     ]
     
-    #if !USEVAPOR
+    #if USEVAPOR
     dependencies.append(
         .package(
             name: "vapor",
@@ -121,7 +121,7 @@ var spotifyAPITestUtilitiesDependencies: [Target.Dependency] {
         .product(name: "AsyncHTTPClient", package: "async-http-client")
     ]
     
-    #if !USEVAPOR
+    #if USEVAPOR
     dependencies.append(
         .product(name: "Vapor", package: "vapor")
     )

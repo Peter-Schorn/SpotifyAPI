@@ -9,11 +9,15 @@ import Combine
 import OpenCombine
 #endif
 
-public final class HTTTPClientManager {
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+public final class NetworkAdaptorManager {
     
-    static let shared = HTTTPClientManager()
+    public static let shared = NetworkAdaptorManager()
     
-    public let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
+    private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
     
     private init() { }
     

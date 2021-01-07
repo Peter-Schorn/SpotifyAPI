@@ -48,6 +48,10 @@ public class AuthorizationCodeFlowManagerBase {
     /// The client secret for your application.
     public let clientSecret: String
     
+    /// The base 64 encoded authorization header with the client id
+    /// and client secret
+    let basicBase64EncodedCredentialsHeader: [String: String]
+
     /**
      The access token used in all of the requests
      to the Spotify web API.
@@ -201,6 +205,10 @@ public class AuthorizationCodeFlowManagerBase {
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
         self.networkAdaptor = networkAdaptor ??
                 URLSession.shared.defaultNetworkAdaptor(request:)
     }
@@ -226,6 +234,10 @@ public class AuthorizationCodeFlowManagerBase {
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
         self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }

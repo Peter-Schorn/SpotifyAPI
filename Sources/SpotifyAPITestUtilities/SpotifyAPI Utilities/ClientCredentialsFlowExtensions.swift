@@ -22,7 +22,7 @@ public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowM
         authorizationManager: ClientCredentialsFlowManager(
             clientId: spotifyCredentials.clientId,
             clientSecret: spotifyCredentials.clientSecret,
-            networkAdaptor: HTTTPClientManager.shared.networkAdaptor(request:)
+            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         )
     )
     

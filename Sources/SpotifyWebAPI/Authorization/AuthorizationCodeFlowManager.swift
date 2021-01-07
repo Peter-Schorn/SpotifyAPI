@@ -481,17 +481,9 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                    guard let headers = Headers.basicBase64Encoded(
-                        clientId: self.clientId, clientSecret: self.clientSecret
-                    )
-                    else {
-                        // this error should never occur
-                        let message = "couldn't base 64 encode " +
-                            "client id and client secret"
-                        Self.logger.error("\(message)")
-                        throw SpotifyLocalError.other(message)
-                    }
-                    
+                    let headers = self.basicBase64EncodedCredentialsHeader +
+                            Headers.formURLEncoded
+
                     let body = RefreshAccessTokenRequest(
                         refreshToken: refreshToken
                     )

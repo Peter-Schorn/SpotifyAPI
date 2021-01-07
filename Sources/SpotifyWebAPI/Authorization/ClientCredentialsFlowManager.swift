@@ -53,6 +53,10 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     /// The client secret for your application.
     public let clientSecret: String
     
+    /// The base 64 encoded authorization header with the client id
+    /// and client secret.
+    private let basicBase64EncodedCredentialsHeader: [String: String]
+
     /// The Spotify authorization scopes. **Always** an empty set
     /// because the client credentials flow does not support
     /// authorization scopes.
@@ -192,6 +196,10 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
         self.networkAdaptor = networkAdaptor ??
                 URLSession.shared.defaultNetworkAdaptor(request:)
     }
@@ -245,23 +253,25 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     // MARK: - Codable -
 
     /// :nodoc:
-    public init(from decoder: Decoder) throws {
+    public convenience init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
-        
-        self._accessToken = codingWrapper.accessToken
-        self._expirationDate = codingWrapper.expirationDate
         
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        self.clientId = try container.decode(
+        let clientId = try container.decode(
             String.self, forKey: .clientId
         )
-        self.clientSecret = try container.decode(
+        let clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
-        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+        self._accessToken = codingWrapper.accessToken
+        self._expirationDate = codingWrapper.expirationDate
     }
     
     /// :nodoc:
@@ -402,17 +412,8 @@ public extension ClientCredentialsFlowManager {
             """
         )
         
-        guard let headers = Headers.basicBase64Encoded(
-            clientId: self.clientId, clientSecret: self.clientSecret
-        )
-        else {
-            // this error should never occur
-            let message = "couldn't base 64 encode " +
-                "client id and client secret"
-            Self.logger.error("\(message)")
-            return SpotifyLocalError.other(message)
-                .anyFailingPublisher()
-        }
+        let headers = self.basicBase64EncodedCredentialsHeader +
+                Headers.formURLEncoded
         
         var tokensRequest = URLRequest(url: Endpoints.getTokens)
         tokensRequest.httpMethod = "POST"

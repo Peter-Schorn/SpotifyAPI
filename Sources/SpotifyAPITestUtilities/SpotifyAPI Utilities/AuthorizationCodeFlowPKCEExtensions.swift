@@ -23,7 +23,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         authorizationManager: AuthorizationCodeFlowPKCEManager(
             clientId: spotifyCredentials.clientId,
             clientSecret: spotifyCredentials.clientSecret,
-            networkAdaptor: HTTTPClientManager.shared.networkAdaptor(request:)
+            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         )
     )
     
