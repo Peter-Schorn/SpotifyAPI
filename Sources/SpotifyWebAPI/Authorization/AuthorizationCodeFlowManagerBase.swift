@@ -9,6 +9,10 @@ import OpenCombineFoundation
 #endif
 import Logging
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  The base class for functionality shared between
  `AuthorizationCodeFlowPKCEManager` and `AuthorizationCodeFlowManager`.

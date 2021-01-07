@@ -8,6 +8,10 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  The central class in this library. Provides methods for all of the Spotify
  web API endpoints and contains an authorization manager for managing the
