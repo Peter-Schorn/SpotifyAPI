@@ -2,15 +2,15 @@ import sys, os, re
 
 project_directory = os.getcwd()
 
-use_vapor = sys.argv[1].lower()
+use_test = sys.argv[1].lower()
 
-use_vapor_flag = "#if USEVAPOR"
-dont_use_vapor_flag = "#if !USEVAPOR"
+use_test_flag = "#if TEST"
+dont_use_test_flag = "#if !TEST"
 
-if use_vapor == "true":
-    flags = [use_vapor_flag, dont_use_vapor_flag]
-elif use_vapor == "false":
-    flags = [dont_use_vapor_flag, use_vapor_flag]
+if use_test == "true":
+    flags = [use_test_flag, dont_use_test_flag]
+elif use_test == "false":
+    flags = [dont_use_test_flag, use_test_flag]
 else:
     exit("first argument must be either 'true' or 'false'")
 

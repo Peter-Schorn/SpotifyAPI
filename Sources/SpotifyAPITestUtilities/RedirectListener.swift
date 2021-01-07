@@ -1,4 +1,4 @@
-#if USEVAPOR
+#if TEST
 import Foundation
 import Vapor
 

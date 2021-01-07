@@ -15,7 +15,7 @@ import SpotifyWebAPI
 open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<ClientCredentialsFlowManager>.sharedTestNetworkAdaptor
+            SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -50,7 +50,7 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
 open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTestNetworkAdaptor
+            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -89,7 +89,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
 open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTestNetworkAdaptor
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 

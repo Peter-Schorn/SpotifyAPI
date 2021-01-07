@@ -1,7 +1,10 @@
 import Foundation
+
+#if TEST
 import NIO
 import NIOHTTP1
 import AsyncHTTPClient
+#endif
 
 #if canImport(Combine)
 import Combine
@@ -17,18 +20,23 @@ public final class NetworkAdaptorManager {
     
     public static let shared = NetworkAdaptorManager()
     
+    #if TEST
     private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
+    #endif
     
     private init() { }
     
     deinit {
+        #if TEST
         try? self.httpClient.syncShutdown()
+        #endif
     }
     
     public func networkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
         
+        #if TEST
         // transform the dictionary to an array of tuples
         let headers: [(String, String)] = (request.allHTTPHeaderFields ?? [:])
             .map { key, value in return (key, value) }
@@ -85,7 +93,13 @@ public final class NetworkAdaptorManager {
         }
         .eraseToAnyPublisher()
         
+        #else
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+        
+        #endif
     }
     
 }
-

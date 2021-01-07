@@ -81,6 +81,15 @@ var packageDependencies: [Package.Dependency] {
             name: "swift-crypto",
             url: "https://github.com/apple/swift-crypto.git",
             from: "1.1.3"
+        )
+    ]
+    
+    #if TEST
+    dependencies += [
+        .package(
+            name: "vapor",
+            url: "https://github.com/vapor/vapor.git",
+            from: "4.0.0"
         ),
         .package(
             name: "swift-nio",
@@ -93,15 +102,6 @@ var packageDependencies: [Package.Dependency] {
             from: "1.2.2"
         )
     ]
-    
-    #if USEVAPOR
-    dependencies.append(
-        .package(
-            name: "vapor",
-            url: "https://github.com/vapor/vapor.git",
-            from: "4.0.0"
-        )
-    )
     #endif
 
     return dependencies
@@ -115,16 +115,16 @@ var spotifyAPITestUtilitiesDependencies: [Target.Dependency] {
         "RegularExpressions",
         .product(name: "OpenCombine", package: "OpenCombine"),
         .product(name: "OpenCombineDispatch", package: "OpenCombine"),
-        .product(name: "OpenCombineFoundation", package: "OpenCombine"),
+        .product(name: "OpenCombineFoundation", package: "OpenCombine")
+    ]
+    
+    #if TEST
+    dependencies += [
+        .product(name: "Vapor", package: "vapor"),
         .product(name: "NIOHTTP1", package: "swift-nio"),
         .product(name: "NIO", package: "swift-nio"),
         .product(name: "AsyncHTTPClient", package: "async-http-client")
     ]
-    
-    #if USEVAPOR
-    dependencies.append(
-        .product(name: "Vapor", package: "vapor")
-    )
     #endif
     
     return dependencies

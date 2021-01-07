@@ -151,7 +151,7 @@ public func XCTAssertImagesExist(
 /**
  Opens the authorization URL and waits for the user to login
  and copy and paste the redirect URL into standard input or starts
- a server to listen for the redirect URL if the USEVAPOR flag is enabled.
+ a server to listen for the redirect URL if the TEST flag is enabled.
  
  - Parameter authorizationURL: The authorization URL.
  - Returns: The redirect URI with the query, which is used for
@@ -161,7 +161,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
-    #if USEVAPOR
+    #if TEST
     // MARK: start the server
     
     var redirectURIWithQuery: URL? = nil
@@ -205,7 +205,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     )
     #endif
     
-    #if USEVAPOR
+    #if TEST
     print(
         """
 
