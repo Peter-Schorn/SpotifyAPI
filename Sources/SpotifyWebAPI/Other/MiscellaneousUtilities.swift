@@ -231,7 +231,7 @@ extension Optional: SomeOptional {
     /// A computed property that directly gets and sets `self`.
     /// **Does not unwrap self**. This must be used
     /// for swift to recognize the generic type
-    /// conforming to `AnyOptional` as an `Optional`.
+    /// conforming to `SomeOptional` as an `Optional`.
     @inlinable @inline(__always)
     public var optional: Wrapped? {
         get { return self }
