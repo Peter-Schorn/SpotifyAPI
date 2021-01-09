@@ -17,6 +17,16 @@ import Foundation
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
+    let __clientId__ = ""
+    let __clientSecret__ = ""
+    
+    if !__clientId__.isEmpty && !__clientSecret__.isEmpty {
+        return SpotifyCredentials(
+            clientId: __clientId__,
+            clientSecret: __clientSecret__
+        )
+    }
+
     guard let path = ProcessInfo.processInfo
             .environment["spotify_credentials_path"] else {
         fatalError(
@@ -29,7 +39,7 @@ public let spotifyCredentials: SpotifyCredentials = {
         let credentials = try JSONDecoder()
                 .decode(SpotifyCredentials.self, from: data)
         return credentials
-        
+
     } catch {
         fatalError(
             """
@@ -38,7 +48,6 @@ public let spotifyCredentials: SpotifyCredentials = {
             """
         )
     }
-    
     
 }()
 
