@@ -2,7 +2,7 @@
   "warnings": [
     {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Publisher Extensions/OtherPublisherExtensions.swift",
-      "line": 134,
+      "line": 138,
       "symbol": "ResultPublisher",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"

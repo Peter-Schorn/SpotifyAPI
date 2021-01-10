@@ -74,8 +74,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      Use this function if you need to use a custom networking client. The `url`
      and `httpMethod` properties of the `URLRequest` parameter are guaranteed
      to be non-`nil`. No guarentees are made about which thread this function
-     will be called on. The default is `nil`, in which case `URLSession` will
-     be used for the network requests.
+     will be called on. By default, `URLSession` will be used for the network
+     requests.
      
      - Warning: Do not mutate this property while a network request is being
            made.

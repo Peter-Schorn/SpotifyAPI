@@ -1,6 +1,6 @@
 import Foundation
 
-#if !TEST
+#if TEST
 import NIO
 import NIOHTTP1
 import AsyncHTTPClient
@@ -20,14 +20,14 @@ public final class NetworkAdaptorManager {
     
     public static let shared = NetworkAdaptorManager()
     
-    #if !TEST
+    #if TEST
     private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
     #endif
     
     private init() { }
     
     deinit {
-        #if !TEST
+        #if TEST
         try? self.httpClient.syncShutdown()
         #endif
     }
@@ -36,7 +36,7 @@ public final class NetworkAdaptorManager {
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        #if !TEST
+        #if TEST
         // transform the dictionary to an array of tuples
         let headers: [(String, String)] = (request.allHTTPHeaderFields ?? [:])
             .map { key, value in return (key, value) }

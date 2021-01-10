@@ -474,8 +474,8 @@ class—needs to make a network request.</p>
 <p>Use this function if you need to use a custom networking client. The <code>url</code>
 and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are guaranteed
 to be non-<code>nil</code>. No guarentees are made about which thread this function
-will be called on. The default is <code>nil</code>, in which case <code>URLSession</code> will
-be used for the network requests.</p>
+will be called on. By default, <code>URLSession</code> will be used for the network
+requests.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Do not mutate this property while a network request is being
