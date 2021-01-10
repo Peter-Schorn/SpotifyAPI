@@ -24,7 +24,8 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
             clientId: spotifyCredentials.clientId,
             clientSecret: spotifyCredentials.clientSecret,
             networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-        )
+        ),
+        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
     )
     
     /// Authorizes the application. You should probably use

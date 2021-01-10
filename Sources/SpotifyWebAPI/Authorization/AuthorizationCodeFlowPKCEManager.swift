@@ -110,6 +110,13 @@ public final class AuthorizationCodeFlowPKCEManager:
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
@@ -119,7 +126,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         clientId: String,
         clientSecret: String,
         networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         super.init(
@@ -160,6 +167,13 @@ public final class AuthorizationCodeFlowPKCEManager:
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
@@ -173,7 +187,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         refreshToken: String?,
         scopes: Set<Scope>,
         networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         self.init(
@@ -482,35 +496,36 @@ public extension AuthorizationCodeFlowPKCEManager {
         tokensRequest.httpBody = body
 
         return self.networkAdaptor(tokensRequest)
-        // Decoding into `AuthInfo` never fails because all of its
-        // properties are optional, so we must try to decode errors
-        // first.
-        .decodeSpotifyErrors()
-        .decodeSpotifyObject(AuthInfo.self)
-        .tryMap { authInfo in
-            
-            Self.logger.trace("received authInfo:\n\(authInfo)")
-            
-            if authInfo.accessToken == nil ||
-                    authInfo.refreshToken == nil ||
-                    authInfo.expirationDate == nil ||
-                    authInfo.scopes == nil {
+            .castToURLResponse()
+            // Decoding into `AuthInfo` never fails because all of its
+            // properties are optional, so we must try to decode errors
+            // first.
+            .decodeSpotifyErrors()
+            .decodeSpotifyObject(AuthInfo.self)
+            .tryMap { authInfo in
                 
-                let errorMessage = """
-                    missing properties after requesting access and \
-                    refresh tokens (expected access token, refresh token, \
-                    expiration date, and scopes):
-                    \(authInfo)
-                    """
-                Self.logger.error("\(errorMessage)")
-                throw SpotifyLocalError.other(errorMessage)
+                Self.logger.trace("received authInfo:\n\(authInfo)")
+                
+                if authInfo.accessToken == nil ||
+                        authInfo.refreshToken == nil ||
+                        authInfo.expirationDate == nil ||
+                        authInfo.scopes == nil {
+                    
+                    let errorMessage = """
+                        missing properties after requesting access and \
+                        refresh tokens (expected access token, refresh token, \
+                        expiration date, and scopes):
+                        \(authInfo)
+                        """
+                    Self.logger.error("\(errorMessage)")
+                    throw SpotifyLocalError.other(errorMessage)
+                    
+                }
+                
+                self.updateFromAuthInfo(authInfo)
                 
             }
-            
-            self.updateFromAuthInfo(authInfo)
-            
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
         
     }
 
@@ -608,6 +623,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
                     )
+                    .castToURLResponse()
                     // Decoding into `AuthInfo` never fails because all of its
                     // properties are optional, so we must try to decode errors
                     // first.

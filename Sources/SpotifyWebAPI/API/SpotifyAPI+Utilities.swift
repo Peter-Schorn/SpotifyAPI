@@ -58,6 +58,7 @@ public extension SpotifyAPI {
                             Headers.bearerAuthorization(accessToken)
 
                     return self.networkAdaptor(request)
+                        .castToURLResponse()
                         .decodeSpotifyObject(ResponseType.self)
 
                 }

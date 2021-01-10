@@ -34,7 +34,7 @@ public final class NetworkAdaptorManager {
     
     public func networkAdaptor(
         request: URLRequest
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         #if TEST
         // transform the dictionary to an array of tuples
@@ -54,7 +54,7 @@ public final class NetworkAdaptorManager {
             return error.anyFailingPublisher()
         }
         
-        return Future<(data: Data, response: URLResponse), Error> { promise in
+        return Future<(data: Data, response: HTTPURLResponse), Error> { promise in
             
             self.httpClient.execute(
                 request: httpRequest
@@ -97,6 +97,15 @@ public final class NetworkAdaptorManager {
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
+            .map { data, response -> (data: Data, response: HTTPURLResponse) in
+                guard let httpURLResponse = response as? HTTPURLResponse else {
+                    fatalError(
+                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                    )
+                }
+                return (data: data, response: httpURLResponse)
+                
+            }
             .eraseToAnyPublisher()
         
         #endif

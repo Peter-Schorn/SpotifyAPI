@@ -1153,9 +1153,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
 
-                guard let activeDevice = devices.first(
-                    where: { $0.isActive }
-                ) else {
+                guard let activeDevice = devices.first(where: \.isActive) else {
                     return SpotifyLocalError.other("no active device to use")
                         .anyFailingPublisher()
                 }
@@ -1165,7 +1163,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     device.id != activeDevice.id && !device.isActive &&
                             device.id != nil
                 })
-                if transferDevice == nil {
+                guard let transferDevice = transferDevice else {
                     return SpotifyLocalError.other(
                         "couldn't find another available device to " +
                             "transfer playback to"
@@ -1176,23 +1174,25 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     """
                     -----------------------------------------------------
                     transfering playback from \(activeDevice.name) \
-                    to \(transferDevice!.name)
+                    to \(transferDevice.name)
                     -----------------------------------------------------
                     """
                 )
                 return Self.spotify.transferPlayback(
-                    to: transferDevice!.id!, play: false
+                    to: transferDevice.id!, play: true
                 )
             }
+            .handleEvents(receiveCompletion: { completion in
+                print("\nTRANSFER PLAYBACK COMPLETION: \(completion)\n")
+            })
             .XCTAssertNoFailure()
             .eraseToAnyPublisher()
 
         publisher
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 4)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
-            .receiveOnMain(delay: 4)
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },

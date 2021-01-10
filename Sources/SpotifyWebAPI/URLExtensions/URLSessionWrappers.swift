@@ -67,10 +67,18 @@ extension URLSession {
     
     func defaultNetworkAdaptor(
         request: URLRequest
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         return self.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
+            .map { data, response -> (data: Data, response: HTTPURLResponse) in
+                guard let httpURLResponse = response as? HTTPURLResponse else {
+                    fatalError(
+                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                    )
+                }
+                return (data: data, response: httpURLResponse)
+            }
             .eraseToAnyPublisher()
 
     }

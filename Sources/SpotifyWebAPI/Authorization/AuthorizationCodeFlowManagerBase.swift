@@ -181,9 +181,22 @@ public class AuthorizationCodeFlowManagerBase {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
+    /**
+     A function that gets called everytime this class—and only this
+     class—needs to make a network request.
+    
+     Use this function if you need to use a custom networking client. The `url`
+     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
+     to be non-`nil`. No guarentees are made about which thread this function
+     will be called on. By default, `URLSession` will be used for the network
+     requests.
+     
+     - Warning: Do not mutate this property while a network request is being
+           made.
+     */
     public var networkAdaptor:
-        (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
-
+        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+    
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
@@ -204,7 +217,7 @@ public class AuthorizationCodeFlowManagerBase {
         clientId: String,
         clientSecret: String,
         networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         self.clientId = clientId
@@ -213,8 +226,8 @@ public class AuthorizationCodeFlowManagerBase {
             clientId: self.clientId,
             clientSecret: self.clientSecret
         )!
-        self.networkAdaptor = networkAdaptor ??
-                URLSession.shared.defaultNetworkAdaptor(request:)
+        self.networkAdaptor = networkAdaptor
+                ?? URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     // MARK: - Codable -

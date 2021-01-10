@@ -7,6 +7,10 @@ import OpenCombineFoundation
 #endif
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 public extension Publisher where Output: Paginated {
    
     /**
@@ -171,3 +175,17 @@ public extension Error {
     }
     
 }
+
+extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
+    
+    /// Casts `(data: Data, response: HTTPURLResponse)` to
+    /// `(data: Data, response: URLResponse)`.
+    func castToURLResponse() -> AnyPublisher<(data: Data, response: URLResponse), Failure> {
+        return self.map { data, response in
+            let urlResponse = response as URLResponse
+            return (data: data, response: urlResponse)
+        }
+        .eraseToAnyPublisher()
+    }
+
+} 

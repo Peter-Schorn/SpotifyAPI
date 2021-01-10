@@ -146,8 +146,21 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
+    /**
+     A function that gets called everytime this class—and only this
+     class—needs to make a network request.
+    
+     Use this function if you need to use a custom networking client. The `url`
+     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
+     to be non-`nil`. No guarentees are made about which thread this function
+     will be called on. By default, `URLSession` will be used for the network
+     requests.
+     
+     - Warning: Do not mutate this property while a network request is being
+           made.
+     */
     public var networkAdaptor:
-        (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
 
     /// Ensure no data races occur when updating auth info.
     private let updateAuthInfoDispatchQueue = DispatchQueue(
@@ -181,6 +194,13 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
@@ -191,7 +211,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         clientId: String,
         clientSecret: String,
         networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         self.clientId = clientId
@@ -227,6 +247,13 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
        - clientSecret: The client secret for your application.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
@@ -238,7 +265,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         accessToken: String,
         expirationDate: Date,
         networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), Error>
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         self.init(
@@ -421,31 +448,32 @@ public extension ClientCredentialsFlowManager {
         tokensRequest.httpBody = body
         
         return self.networkAdaptor(tokensRequest)
-        // Decoding into `AuthInfo` never fails because all of its
-        // properties are optional, so we must try to decode errors
-        // first.
-        .decodeSpotifyErrors()
-        .decodeSpotifyObject(AuthInfo.self)
-        .tryMap { authInfo in
-         
-            Self.logger.trace("received authInfo:\n\(authInfo)")
-            
-            if authInfo.accessToken == nil ||
-                    authInfo.expirationDate == nil {
+            .castToURLResponse()
+            // Decoding into `AuthInfo` never fails because all of its
+            // properties are optional, so we must try to decode errors
+            // first.
+            .decodeSpotifyErrors()
+            .decodeSpotifyObject(AuthInfo.self)
+            .tryMap { authInfo in
+             
+                Self.logger.trace("received authInfo:\n\(authInfo)")
                 
-                let errorMessage = """
-                    missing properties after requesting access token \
-                    (expected access token and expiration date):
-                    \(authInfo)
-                    """
-                Self.logger.error("\(errorMessage)")
-                throw SpotifyLocalError.other(errorMessage)
+                if authInfo.accessToken == nil ||
+                        authInfo.expirationDate == nil {
+                    
+                    let errorMessage = """
+                        missing properties after requesting access token \
+                        (expected access token and expiration date):
+                        \(authInfo)
+                        """
+                    Self.logger.error("\(errorMessage)")
+                    throw SpotifyLocalError.other(errorMessage)
+                }
+                
+                self.updateFromAuthInfo(authInfo)
+                
             }
-            
-            self.updateFromAuthInfo(authInfo)
-            
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
         
     }
     

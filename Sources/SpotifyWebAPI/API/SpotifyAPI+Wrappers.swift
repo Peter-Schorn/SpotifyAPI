@@ -198,6 +198,7 @@ extension SpotifyAPI {
                 urlRequest.httpBody = bodyData
                 
                 return self.networkAdaptor(urlRequest)
+                    .castToURLResponse()
             
             }
             .eraseToAnyPublisher()
