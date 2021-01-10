@@ -9,6 +9,10 @@ import OpenCombineFoundation
 #endif
 import Logging
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  The base class for functionality shared between
  `AuthorizationCodeFlowPKCEManager` and `AuthorizationCodeFlowManager`.
@@ -48,6 +52,10 @@ public class AuthorizationCodeFlowManagerBase {
     /// The client secret for your application.
     public let clientSecret: String
     
+    /// The base 64 encoded authorization header with the client id
+    /// and client secret
+    let basicBase64EncodedCredentialsHeader: [String: String]
+
     /**
      The access token used in all of the requests
      to the Spotify web API.
@@ -173,6 +181,22 @@ public class AuthorizationCodeFlowManagerBase {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
+    /**
+     A function that gets called everytime this class—and only this
+     class—needs to make a network request.
+    
+     Use this function if you need to use a custom networking client. The `url`
+     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
+     to be non-`nil`. No guarentees are made about which thread this function
+     will be called on. By default, `URLSession` will be used for the network
+     requests.
+     
+     - Warning: Do not mutate this property while a network request is being
+           made.
+     */
+    public var networkAdaptor:
+        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+    
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
@@ -191,10 +215,19 @@ public class AuthorizationCodeFlowManagerBase {
     
     required init(
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
     ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
+        self.networkAdaptor = networkAdaptor
+                ?? URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     // MARK: - Codable -
@@ -218,6 +251,11 @@ public class AuthorizationCodeFlowManagerBase {
         self.clientSecret = try container.decode(
             String.self, forKey: .clientSecret
         )
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }
     

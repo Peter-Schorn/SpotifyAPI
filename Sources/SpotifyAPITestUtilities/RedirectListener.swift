@@ -1,5 +1,4 @@
-#if USEVAPOR
-
+#if TEST
 import Foundation
 import Vapor
 
@@ -116,13 +115,12 @@ public struct RedirectListener {
 public extension URL {
     
     var vaporPathComponents: [PathComponent] {
-        if [0, 1].contains(self.pathComponents.count) {
+        if self.pathComponents.count < 2 {
             return []
         }
         return self.pathComponents[1...].map { "\($0)" }
     }
 
 }
-
 
 #endif

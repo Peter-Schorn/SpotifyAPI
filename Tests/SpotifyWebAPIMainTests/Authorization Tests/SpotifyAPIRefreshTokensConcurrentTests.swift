@@ -299,11 +299,15 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
         Self.spotify.waitUntilAuthorized()
         self.concurrentRequestsWithExpiredToken()
     }
-
-    override class func tearDown() {
+    
+    override func tearDown() {
         Self.spotify.authorizationManager.deauthorize()
     }
     
+    override func setUp() {
+        Self.setupAuthorization()
+    }
+
 }
 
  
@@ -325,13 +329,15 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
     }
     
     func testConcurrentRequestsWithExpiredToken() {
-        Self.spotify.authorizationManager.deauthorize()
-        Self.spotify.authorizeAndWaitForTokens(scopes: [])
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override class func tearDown() {
+    override func tearDown() {
         Self.spotify.authorizationManager.deauthorize()
+    }
+    
+    override func setUp() {
+        Self.setupAuthorization()
     }
     
 }
@@ -354,13 +360,15 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
     }
     
     func testConcurrentRequestsWithExpiredToken() {
-        Self.spotify.authorizationManager.deauthorize()
-        Self.spotify.authorizeAndWaitForTokens(scopes: [])
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override class func tearDown() {
+    override func tearDown() {
         Self.spotify.authorizationManager.deauthorize()
+    }
+    
+    override func setUp() {
+        Self.setupAuthorization()
     }
     
 

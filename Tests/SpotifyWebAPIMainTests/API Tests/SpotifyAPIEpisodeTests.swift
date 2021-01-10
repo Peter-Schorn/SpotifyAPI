@@ -272,6 +272,14 @@ extension SpotifyAPIEpisodeTests {
             
         }
         
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+        
+        var authChangeCount = 0
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &Self.cancellables)
+
         let expectation = XCTestExpectation(description: "testEpisode")
         
         let episodes = URIs.Episodes.array(
@@ -288,6 +296,10 @@ extension SpotifyAPIEpisodeTests {
             .store(in: &Self.cancellables)
         
         self.wait(for: [expectation], timeout: 120)
+        XCTAssertEqual(
+            authChangeCount, 1,
+            "authorizationManagerDidChange should emit exactly once"
+        )
 
     }
     

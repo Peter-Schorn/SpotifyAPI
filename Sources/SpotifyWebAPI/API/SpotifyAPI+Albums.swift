@@ -31,8 +31,8 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
      */
     func album(
         _ album: SpotifyURIConvertible,

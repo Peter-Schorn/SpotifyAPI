@@ -162,7 +162,7 @@ extension SpotifyAPI {
         
         return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                Publishers.MapError<URLSessionDataTaskPublisher, Error> in
+                AnyPublisher<(data: Data, response: URLResponse), Error> in
 
                 if self.apiRequestLogger.logLevel <= .warning {
                 
@@ -192,13 +192,13 @@ extension SpotifyAPI {
                 
                 }
                 
-                return URLSession.shared.dataTaskPublisher(
-                    url: endpoint,
-                    httpMethod: httpMethod,
-                    headers: makeHeaders(accessToken),
-                    body: bodyData
-                )
-                .mapError { $0 as Error }
+                var urlRequest = URLRequest(url: endpoint)
+                urlRequest.httpMethod = httpMethod
+                urlRequest.allHTTPHeaderFields = makeHeaders(accessToken)
+                urlRequest.httpBody = bodyData
+                
+                return self.networkAdaptor(urlRequest)
+                    .castToURLResponse()
             
             }
             .eraseToAnyPublisher()

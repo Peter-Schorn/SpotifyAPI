@@ -53,12 +53,14 @@ public extension SpotifyAPI {
                         #"GET request to href: "\#(url)""#
                     )
                     
-                    return URLSession.shared.dataTaskPublisher(
-                        url: url,
-                        httpMethod: "GET",
-                        headers: Headers.bearerAuthorization(accessToken)
-                    )
-                    .decodeSpotifyObject(ResponseType.self)
+                    var request = URLRequest(url: url)
+                    request.allHTTPHeaderFields =
+                            Headers.bearerAuthorization(accessToken)
+
+                    return self.networkAdaptor(request)
+                        .castToURLResponse()
+                        .decodeSpotifyObject(ResponseType.self)
+
                 }
                 .eraseToAnyPublisher()
         
@@ -140,7 +142,6 @@ public extension SpotifyAPI {
                 .eraseToAnyPublisher()
         
             }
-            .eraseToAnyPublisher()
         
         return nextPagePublisher
             // A page of results (not necessarily the first) was already

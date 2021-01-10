@@ -8,6 +8,10 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  The central class in this library. Provides methods for all of the Spotify
  web API endpoints and contains an authorization manager for managing the
@@ -30,7 +34,7 @@ import OpenCombineFoundation
  [1]: https://developer.spotify.com/documentation/web-api/reference/
  */
 public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Codable {
-    
+
     // MARK: - Authorization -
 
     /**
@@ -63,6 +67,22 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         }
     }
 
+    /**
+     A function that gets called everytime this class—and only this
+     class—needs to make a network request.
+    
+     Use this function if you need to use a custom networking client. The `url`
+     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
+     to be non-`nil`. No guarentees are made about which thread this function
+     will be called on. The default is `nil`, in which case `URLSession` will
+     be used for the network requests.
+     
+     - Warning: Do not mutate this property while a network request is being
+           made.
+     */
+    public var networkAdaptor:
+        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+    
     /**
      A publisher that emits whenever the authorization information
      changes.
@@ -154,21 +174,39 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      [Spotify Developer Dashboard][1] and create an app.
      see the README in the root directory of this package for more information.
      
-     - Parameter authorizationManager: An instance of a type that
-           conforms to `SpotifyAuthorizationManager`. It Manages the authorization
-           process for your application and contains all the authorization
-           information. It is this property that you should encode to data using a
-           `JSONEncoder` in order to save it to persistent storage. See this
-           [article][2] for more information.
+     - Parameters:
+         - authorizationManager: An instance of a type that conforms to
+               `SpotifyAuthorizationManager`. It Manages the authorization
+               process for your application and contains all the authorization
+               information. It is this property that you should encode to data
+               using a `JSONEncoder` in order to save it to persistent storage.
+               See this [article][2] for more information.
+         - networkAdaptor: A function that gets called everytime this class—and
+               only this class—needs to make a network request. The
+               `authorizationManager` will **NOT** use this function. Instead,
+               you must configure a network adaptor for it as well. Use this
+               function if you need to use a custom networking client. The `url`
+               and `httpMethod` properties of the `URLRequest` parameter are
+               guaranteed to be non-`nil`. No guarentees are made about which
+               thread this function will be called on. The default is `nil`,
+               in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/dashboard/login
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public init(authorizationManager: AuthorizationManager)  {
+    public init(
+        authorizationManager: AuthorizationManager,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
+    )  {
         
         SpotifyAPILogHandler.bootstrap()
 
         self.authorizationManager = authorizationManager
+        
+        self.networkAdaptor = networkAdaptor ??
+                URLSession.shared.defaultNetworkAdaptor(request:)
         
         self.configureDidChangeSubscriptions()
         
@@ -198,6 +236,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         self.configureDidChangeSubscriptions()
         
     }

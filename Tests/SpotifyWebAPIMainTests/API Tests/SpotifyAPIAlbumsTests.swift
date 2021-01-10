@@ -182,6 +182,14 @@ extension SpotifyAPIAlbumsTests {
     
     func albumJinx() {
         
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+        
+        var authChangeCount = 0
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &Self.cancellables)
+
         let expectation = XCTestExpectation(description: "testAlbum")
         
         Self.spotify.album(URIs.Albums.jinx)
@@ -194,6 +202,10 @@ extension SpotifyAPIAlbumsTests {
             .store(in: &Self.cancellables)
         
         self.wait(for: [expectation], timeout: 60)
+        XCTAssertEqual(
+            authChangeCount, 1,
+            "authorizationManagerDidChange should emit exactly once"
+        )
         
     }
    
