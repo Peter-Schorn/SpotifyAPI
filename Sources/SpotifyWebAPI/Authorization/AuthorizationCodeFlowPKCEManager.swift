@@ -142,7 +142,7 @@ public final class AuthorizationCodeFlowPKCEManager:
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:)`.
+     ``init(clientId:clientSecret:networkAdaptor:)``.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
