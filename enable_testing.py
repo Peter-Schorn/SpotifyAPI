@@ -1,8 +1,11 @@
 import sys, os, re
 
-project_directory = os.getcwd()
-
 use_test = sys.argv[1].lower()
+
+if len(sys.argv) >= 3:
+    project_directory = sys.argv[2]
+else:
+    project_directory = os.getcwd()
 
 use_test_flag = "#if TEST"
 dont_use_test_flag = "#if !TEST"
