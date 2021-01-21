@@ -115,7 +115,7 @@ public extension SpotifyAPI {
            in the search. The simplified versions of all these objects will be
            returned.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */

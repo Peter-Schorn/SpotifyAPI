@@ -17,7 +17,7 @@ import Logging
  objects) along with other keys like `previous`, `next` and `limit` that can be
  useful in future calls.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
  */
 public struct PagingObject<Item: Codable & Hashable>: Paginated {
     
@@ -94,7 +94,7 @@ public struct PagingObject<Item: Codable & Hashable>: Paginated {
              by default).
        - total: The maximum number of items available to return.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
      */
     public init(
         href: String,

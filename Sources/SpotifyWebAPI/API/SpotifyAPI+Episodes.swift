@@ -41,7 +41,7 @@ public extension SpotifyAPI {
              **a value for this parameter.**
      - Returns: The full version of an `Episode` object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-episode
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */
@@ -108,10 +108,10 @@ public extension SpotifyAPI {
            **objects, if one of the URIs is invalid, then the entire request**
            **will fail with a 400 "invalid id" error.**
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-episodes
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
-     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full
+     [4]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
      */
     func episodes(
         _ uris: [SpotifyURIConvertible],

@@ -4,7 +4,7 @@ import Logging
 /**
  The [context][1] of the currently playing track/episode.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-information-about-the-users-current-playback/#Currently-Playing-Context
+ [1] https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject
  */
 public struct CurrentlyPlayingContext: Hashable {
     
@@ -235,7 +235,7 @@ extension CurrentlyPlayingContext: Codable {
         /*
          "If an action is included in the disallows object and set to true,
          that action is DISALLOWED.
-         see https://developer.spotify.com/documentation/web-api/reference/object-model/#disallows-object
+         see https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
          */
         
         let disallowedActions: [PlaybackActions] = disallowsDictionary

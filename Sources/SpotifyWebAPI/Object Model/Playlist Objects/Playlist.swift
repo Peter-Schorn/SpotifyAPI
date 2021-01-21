@@ -2,7 +2,7 @@ import Foundation
 
 /// A Spotify [playlist][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
 public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashable {
     
     /// The name of the playlist.
@@ -53,7 +53,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      playlist version: see [Remove Tracks from a Playlist][2].
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
      */
     public let snapshotId: String
     
@@ -64,7 +64,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -144,11 +144,11 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
        - uri: The [URI][6] for the playlist.
        - images: The Images for the playlist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#playlist-object-full
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
      [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     [4]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
-     [5]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
+     [5]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [6]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(

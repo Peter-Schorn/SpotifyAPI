@@ -6,7 +6,7 @@ import Foundation
 
  Retrieving this object requires the `userReadPlaybackPosition` scope.
 
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#resume-point-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-resumepointobject
  */
 public struct ResumePoint: Codable, Hashable {
     
@@ -25,7 +25,7 @@ public struct ResumePoint: Codable, Hashable {
        - resumePositionMS: The user's most recent position in the episode
              in milliseconds.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#resume-point-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-resumepointobject
      */
     public init(fullyPlayed: Bool, resumePositionMS: Int) {
         self.fullyPlayed = fullyPlayed

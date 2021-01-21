@@ -3,7 +3,7 @@ import Foundation
 /**
  A Spotify [category][1] object.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-category/#categoryobject
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
  */
 public struct SpotifyCategory: Codable, Hashable {
     
@@ -37,7 +37,7 @@ public struct SpotifyCategory: Codable, Hashable {
              full category object.
        - icons: The category icon, in various sizes.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-category/#categoryobject
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(

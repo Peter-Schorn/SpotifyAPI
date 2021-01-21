@@ -222,7 +222,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/console/get-playlist/
      [2]: https://jsoneditoronline.org/
-     [3]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlist
      [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [5]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [6]: https://www.spotify.com/account/overview/
@@ -309,7 +309,7 @@ public extension SpotifyAPI {
              **client credentials flow and you want to retrieve the episodes in**
              **a playlist, you must provide a value for this parameter.**
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlist
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://www.spotify.com/account/overview/
@@ -424,7 +424,7 @@ public extension SpotifyAPI {
      
      [1]: https://developer.spotify.com/console/get-playlist-tracks/
      [2]: https://jsoneditoronline.org/
-     [3]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks
      [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [5]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [6]: https://www.spotify.com/account/overview/
@@ -507,7 +507,7 @@ public extension SpotifyAPI {
              **client credentials flow and you want to retrieve the episodes in**
              **a playlist, you must provide a value for this parameter.**
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://www.spotify.com/account/overview/
@@ -578,7 +578,7 @@ public extension SpotifyAPI {
              **client credentials flow and you want to retrieve the episodes in**
              **a playlist, you must provide a value for this parameter.**
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlists-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://www.spotify.com/account/overview/
@@ -644,7 +644,7 @@ public extension SpotifyAPI {
              set of playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-list-users-playlists/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-list-users-playlists
      */
     func userPlaylists(
         for userURI: SpotifyURIConvertible,
@@ -721,7 +721,7 @@ public extension SpotifyAPI where
              set of playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-list-of-current-users-playlists
      */
     func currentUserPlaylists(
         limit: Int? = nil,
@@ -755,7 +755,7 @@ public extension SpotifyAPI where
      - Returns: An array of image objects, which contain the URL for
            the image and its dimensions.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist-cover/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlist-cover
      */
     func playlistImage(
         _ playlist: SpotifyURIConvertible
@@ -822,7 +822,7 @@ public extension SpotifyAPI where
            the last time you retrieved it. Can be supplied in other requests
            to target a specific playlist version.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-tracks-to-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     func addToPlaylist(
@@ -862,7 +862,7 @@ public extension SpotifyAPI where
        - playlistDetails: The details of the playlist.
      - Returns: The playlist. It will be empty until you add tracks/episodes.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/create-playlist/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-create-playlist
      */
     func createPlaylist(
         for userURI: SpotifyURIConvertible,
@@ -942,7 +942,7 @@ public extension SpotifyAPI where
            the last time you retrieved it. Can be supplied in other requests
            to target a specific playlist version.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     func reorderPlaylistItems(
@@ -997,7 +997,7 @@ public extension SpotifyAPI where
            the last time you retrieved it. Can be supplied in other requests
            to target a specific playlist version.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/replace-playlists-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     func replaceAllPlaylistItems(
@@ -1045,7 +1045,7 @@ public extension SpotifyAPI where
        - playlist: The URI of a playlist.
        - newDetails: The new details to update the playlist with.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/change-playlist-details/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-change-playlist-details
      */
     func changePlaylistDetails(
         _ playlist: SpotifyURIConvertible,
@@ -1105,7 +1105,7 @@ public extension SpotifyAPI where
        - imageData: Base64-encoded JPEG image data.
              **Maximum size is 256 KB.**
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/upload-custom-playlist-cover/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-upload-custom-playlist-cover
      */
     func uploadPlaylistImage(
         _ playlist: SpotifyURIConvertible,
@@ -1116,7 +1116,7 @@ public extension SpotifyAPI where
         
         do {
 
-            if imageData.count >= 256_000 {
+            if imageData.count > 256_000 {
                 
                 let formatter = ByteCountFormatter()
                 formatter.allowedUnits = [.useKB]
@@ -1208,7 +1208,7 @@ public extension SpotifyAPI where
            the last time you retrieved it. Can be supplied in other requests
            to target a specific playlist version.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     func removeAllOccurencesFromPlaylist(
@@ -1262,7 +1262,7 @@ public extension SpotifyAPI where
            the last time you retrieved it. Can be supplied in other requests
            to target a specific playlist version.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
     func removeSpecificOccurencesFromPlaylist(

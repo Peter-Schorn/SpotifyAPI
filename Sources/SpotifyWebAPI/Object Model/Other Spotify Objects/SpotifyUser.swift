@@ -5,7 +5,7 @@ import Foundation
  
  Can represent both the public and private version.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
  */
 public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
     
@@ -78,7 +78,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
           "spotify" - The [Spotify URL][2] for the object.
     - value: An external, public URL to the object.
 
-    [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+    [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     */
     public let externalURLs: [String: String]?
@@ -113,10 +113,10 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
                    "spotify" - The [Spotify URL][2] for the object.
              - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [4]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      */
     public init(
         displayName: String? = nil,

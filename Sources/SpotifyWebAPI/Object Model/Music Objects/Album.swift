@@ -2,7 +2,7 @@ import Foundation
 
 /// A Spotify [album][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
 public struct Album: Hashable {
     
     /// The name of the album.
@@ -86,7 +86,7 @@ public struct Album: Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -206,9 +206,9 @@ public struct Album: Hashable {
              containing the reason why the track is not available:
              `{"reason" : "market"}`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-full
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      [5]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
      [6]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29

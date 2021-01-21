@@ -22,7 +22,7 @@ import Foundation
  property's paging object will be empty; the property itself will only
  be `nil` if it was not requested in the search.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
  */
 public struct SearchResult: Hashable {
     
@@ -55,7 +55,7 @@ public struct SearchResult: Hashable {
        - episodes: A `PagingObject` containing simplified `Episode` objects.
        - shows: A `PaginObject` containing simplified `Show` objects.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/search/search/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
      */
     public init(
         artists: PagingObject<Artist>? = nil,

@@ -6,8 +6,8 @@ import Foundation
  See [get current user's recently played tracks][2] and
  `SpotifyAPI.recentlyPlayed(_:limit:)`.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#cursor-based-paging-object
- [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#secondary-navbar:~:text=The%20endpoint%20uses%20a%20bidirectional%20cursor,link%20will%20page%20back%20in%20time.
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Codable, Hashable
@@ -54,8 +54,8 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
        - cursors: Used to find the next and previous items.
        - total: The maximum number of items available to return.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#cursor-based-paging-object
-     [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
      */
     public init(
         href: String,

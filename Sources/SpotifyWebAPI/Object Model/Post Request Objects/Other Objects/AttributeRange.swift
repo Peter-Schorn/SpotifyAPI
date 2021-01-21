@@ -10,7 +10,7 @@ import Foundation
  The target value should not be smaller than the minimum or larger than the
  maximum.
  
- [1]: https://developer.spotify.com/console/get-recommendations/?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA&min_energy=0.4&min_popularity=50&market=US
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
  */
 public struct AttributeRange<Value: Numeric & Codable & Hashable &
         LosslessStringConvertible>: Codable, Hashable {

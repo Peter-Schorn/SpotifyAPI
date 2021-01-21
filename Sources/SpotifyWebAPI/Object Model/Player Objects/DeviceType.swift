@@ -20,10 +20,10 @@ public enum DeviceType: String, Codable, Hashable, CaseIterable {
     /// A TV.
     case tv = "TV"
     
-    /// an AVR.
+    /// An AVR.
     case avr = "AVR"
     
-    /// an STB.
+    /// An STB.
     case stb = "STB"
     
     /// An audio dongle.

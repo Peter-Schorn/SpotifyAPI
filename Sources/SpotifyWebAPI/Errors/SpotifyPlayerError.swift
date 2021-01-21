@@ -71,8 +71,8 @@ import Foundation
    You can choose to resend the request again.
  
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-object
- [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
  [3]: https://developer.spotify.com/documentation/web-api/#response-status-codes
  */
 public struct SpotifyPlayerError: LocalizedError, Hashable {
@@ -115,7 +115,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        in which this error reason is returned for many requests instead
        of one of the more specific errors above.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */
     public let reason: ErrorReason
     
@@ -185,7 +185,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        in which this error reason is returned for many requests instead
        of one of the more specific errors above.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#player-error-reasons
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */
     public enum ErrorReason: String, Codable, Hashable, CaseIterable {
         

@@ -226,9 +226,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /// :nodoc:
     public var description: String {
         
-        let dataString = rawData.map {
+        let dataString = rawData.flatMap {
             String(data: $0, encoding: .utf8)
-        } as? String ?? "The data was nil or could not be decoded into a string"
+        } ?? "The data was nil or could not be decoded into a string"
         
         return "\(debugErrorDescription)raw data:\n\(dataString)"
         

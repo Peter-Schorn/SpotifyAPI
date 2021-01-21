@@ -3,7 +3,7 @@ import Foundation
 /**
  A device that Spotify Content can be played on.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
  */
 public struct Device: Hashable {
     

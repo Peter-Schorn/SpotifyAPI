@@ -10,7 +10,7 @@ import Foundation
  Read more at the [Spotify web API reference][2].
  
  [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
- [2]: https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
  */
 public struct URIsContainer {
     

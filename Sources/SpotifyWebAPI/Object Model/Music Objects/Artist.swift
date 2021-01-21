@@ -2,7 +2,7 @@ import Foundation
 
 /// A Spotify [artist][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
 public struct Artist: Hashable {
     
     /// The name of the artist.
@@ -41,7 +41,7 @@ public struct Artist: Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -91,9 +91,9 @@ public struct Artist: Hashable {
        - href: A link to the Spotify web API endpoint providing the full
              artist object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#artist-object-full
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      */
     public init(
         name: String,

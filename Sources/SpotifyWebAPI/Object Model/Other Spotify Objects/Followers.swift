@@ -2,7 +2,7 @@ import Foundation
 
 /// A Spotify [followers object][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#followers-object
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
 public struct Followers: Codable, Hashable {
     
     /**
@@ -28,7 +28,7 @@ public struct Followers: Codable, Hashable {
              does not support it at the moment.
        - total: The total number of followers.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#followers-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
      */
     public init(
         href: String? = nil,

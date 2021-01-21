@@ -6,7 +6,7 @@ import Foundation
  `SpotifyAPI.recommendations(_:limit:market:)`. See also
  `RecommendationsResponse`.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendation-seed-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
  */
 public struct RecommendationSeed: Codable, Hashable {
     
@@ -58,7 +58,7 @@ public struct RecommendationSeed: Codable, Hashable {
        - type: The entity type of this seed. Either `artist`, `track`
              or `genre`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendation-seed-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */
     public init(
         afterFilteringSize: Int,

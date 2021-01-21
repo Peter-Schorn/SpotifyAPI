@@ -32,7 +32,7 @@ import Foundation
  set `rangeStart` to 9, set `rangeLength` to 2, and set
  `insertBefore` to 0.
  
- https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/
+ https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
  */
 public struct ReorderPlaylistItems: Hashable {
     
@@ -114,7 +114,7 @@ public struct ReorderPlaylistItems: Hashable {
        - snapshotId: *Optional*. The version identifier for the
              current playlist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/playlists/reorder-playlists-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
      */
     public init(
         rangeStart: Int,

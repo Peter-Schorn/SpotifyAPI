@@ -152,7 +152,7 @@ public extension SpotifyAPI where
      - Returns: An array of the full versions of `Album` objects wrapped in
            a `SavedItem` object, wrapped in a `PagingObject`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-albums/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -201,7 +201,7 @@ public extension SpotifyAPI where
      - Returns: An array of the full versions of `Track` objects wrapped in
            a `SavedItem` object, wrapped in a `PagingObject`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -249,7 +249,7 @@ public extension SpotifyAPI where
      - Returns: An array of the full versions of `Show` objects wrapped in
            a `SavedItem` object, wrapped in a `PagingObject`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-shows/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-shows
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -290,7 +290,7 @@ public extension SpotifyAPI where
            in the order requested, indicating whether the user's
            library contains each album.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/check-users-saved-albums/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-users-saved-albums
      */
     func currentUserSavedAlbumsContains(
         _ uris: [SpotifyURIConvertible]
@@ -320,7 +320,7 @@ public extension SpotifyAPI where
            in the order requested, indicating whether the user's
            library contains each track.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/check-users-saved-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-users-saved-tracks
      */
     func currentUserSavedTracksContains(
         _ uris: [SpotifyURIConvertible]
@@ -350,7 +350,7 @@ public extension SpotifyAPI where
            in the order requested, indicating whether the user's
            library contains each show.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/check-users-saved-shows/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-users-saved-shows
      */
     func currentUserSavedShowsContains(
         _ uris: [SpotifyURIConvertible]
@@ -374,7 +374,7 @@ public extension SpotifyAPI where
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-albums-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-save-albums-user
      */
     func saveAlbumsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -398,7 +398,7 @@ public extension SpotifyAPI where
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-tracks-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-save-tracks-user
      */
     func saveTracksForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -422,7 +422,7 @@ public extension SpotifyAPI where
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/save-shows-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-save-shows-user
      */
     func saveShowsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -446,7 +446,7 @@ public extension SpotifyAPI where
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-albums-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-albums-user
      */
     func removeSavedAlbumsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -469,7 +469,7 @@ public extension SpotifyAPI where
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-tracks-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-user
      */
     func removeSavedTracksForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -501,7 +501,7 @@ public extension SpotifyAPI where
              is considered unavailable for the client. Users can view the country
              that is associated with their account in the [account settings][3].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/library/remove-shows-user/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-shows-user
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */

@@ -9,7 +9,7 @@ import Foundation
  
  This enum maps to Spotify's [dissallows object][1].
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#disallows-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
  */
 public enum PlaybackActions: String, Codable, Hashable, CaseIterable {
     

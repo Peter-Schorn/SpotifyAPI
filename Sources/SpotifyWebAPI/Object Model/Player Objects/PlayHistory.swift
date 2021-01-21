@@ -6,7 +6,7 @@ import Foundation
  Contains information about a recently played track,
  including the time it was played, and the context it was played in.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#play-history-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
  */
 public struct PlayHistory: Hashable {
     
@@ -29,7 +29,7 @@ public struct PlayHistory: Hashable {
        - context: The context the track was played from, such as an album, artist,
              or playlist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#play-history-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
      */
     public init(
         track: Track,

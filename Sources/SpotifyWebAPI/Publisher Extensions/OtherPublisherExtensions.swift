@@ -135,22 +135,6 @@ typealias ResultPublisher<Success, Failure: Error> =
 #endif
 
 
-public extension ResultPublisher where Failure == Error {
-    
-    /**
-     Creates a new publisher by evaluating a throwing closure,
-     capturing the returned value as a success and
-     sending it downstream, or immediately failing
-     with the error thrown from `body`.
-    
-     - Parameter body: A throwing closure to evaluate.
-     */
-    static func catching(_ body: () throws -> Success) -> Self {
-        return Self(Result(catching: body))
-    }
-
-}
-
 public extension Error {
     
     /**

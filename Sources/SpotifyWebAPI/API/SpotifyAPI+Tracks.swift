@@ -28,7 +28,7 @@ public extension SpotifyAPI {
              to apply [Track Relinking][3].
      - Returns: The full version of a track.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-track
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -77,7 +77,7 @@ public extension SpotifyAPI {
            returned in the appropriate position. Duplicate tracks URIs
            in the request will result in duplicate tracks in the response.
            
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-several-tracks
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
@@ -148,7 +148,7 @@ public extension SpotifyAPI {
      
      - Parameter uri: The URI for a track.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-audio-analysis
      */
     func trackAudioAnalysis(
         _ uri: SpotifyURIConvertible
@@ -187,7 +187,7 @@ public extension SpotifyAPI {
      
      - Parameter uri: The URI for a track.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-audio-features
      */
     func trackAudioFeatures(
         _ uri: SpotifyURIConvertible
@@ -233,7 +233,7 @@ public extension SpotifyAPI {
            result in duplicate results in the response.
      
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-several-audio-features
      */
     func tracksAudioFeatures(
         _ uris: [SpotifyURIConvertible]

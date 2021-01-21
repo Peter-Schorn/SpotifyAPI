@@ -6,7 +6,7 @@ import Foundation
  For example, if a track is being played, then the context
  may be an album, an artist, or a playlist.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#context-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingobject
  */
 public struct SpotifyContext: Hashable {
     
@@ -27,7 +27,7 @@ public struct SpotifyContext: Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?

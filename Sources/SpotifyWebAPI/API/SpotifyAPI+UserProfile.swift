@@ -30,7 +30,7 @@ public extension SpotifyAPI {
      
      - Parameter uri: The URI of a Spotify user.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/users-profile/get-users-profile/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-profile
      */
     func userProfile(
         _ uri: SpotifyURIConvertible
@@ -81,7 +81,7 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][1].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-current-users-profile
      */
     func currentUserProfile() -> AnyPublisher<SpotifyUser, Error> {
         

@@ -4,7 +4,7 @@ import Foundation
 /**
  A Spotify [podcast episode][1].
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full
+ [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
  */
 public struct Episode: Hashable {
 
@@ -73,7 +73,7 @@ public struct Episode: Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -129,9 +129,9 @@ public struct Episode: Hashable {
        - releaseDatePrecision: The precision with which `releaseDate` is
              known: "year", "month", or "day".
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full
+     [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [4]: https://en.wikipedia.org/wiki/ISO_639
      */
     public init(

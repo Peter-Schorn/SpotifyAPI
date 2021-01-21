@@ -34,7 +34,7 @@ import FoundationNetworking
         `SpotifyAPI.playlistImage(_:)` to retrieve the image
         for a playlist.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
  */
 public struct SpotifyImage: Codable, Hashable {
     
@@ -66,7 +66,7 @@ public struct SpotifyImage: Codable, Hashable {
        - width: The image width in pixels.
        - url: The source URL of the image.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
      */
     public init(
         height: Int? = nil,

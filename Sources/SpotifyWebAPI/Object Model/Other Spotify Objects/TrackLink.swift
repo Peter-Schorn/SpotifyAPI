@@ -4,7 +4,7 @@ import Foundation
 /// A Spotify [track link][1] object.
 /// See also the [Track relinking Guide][2].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
 /// [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
 public struct TrackLink: SpotifyURIConvertible, Hashable {
     
@@ -15,7 +15,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -55,9 +55,9 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
        - uri: The [Spotify URI][4] for the track.
        - id: The [Spotify ID][4] for the track.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(

@@ -17,7 +17,7 @@
     <a title="Other Objects  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -399,7 +399,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#paging-object">paging object</a>.</p>
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject">paging object</a>.</p>
 
 <p>The offset-based paging object is a container for a set of objects.
 It contains a key called items (whose value is an array of the requested
@@ -434,8 +434,8 @@ useful in future calls.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object">saved album object</a>, or
-<a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object">saved show object</a>.</p>
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>, or
+<a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
 
 <p>This is used when retrieving content from a user&rsquo;s library.
 It contains just three properties:</p>
@@ -475,7 +475,7 @@ It contains just three properties:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The response from the <a href="https://developer.spotify.com/documentation/web-api/reference/search/search/">search</a> endpoint:
+                        <p>The response from the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-search">search</a> endpoint:
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6search5query10categories6market5limit6offset15includeExternal7Combine12AnyPublisherVyAA12SearchResultVs5Error_pGSS_SayAA10IDCategoryOGSSSgSiSgAvUtF">SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)</a></code>.</p>
 
 <p>The search endpoint has a <code>categories</code> parameter, which specifies
@@ -525,7 +525,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#image-object">image</a> object.</p>
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-imageobject">image</a> object.</p>
 
 <p>Includes the URL to the image and its height and width.</p>
 <div class="aside aside-warning">
@@ -563,7 +563,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#user-object-private">Spotify user</a>.</p>
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject">Spotify user</a>.</p>
 
 <p>Can represent both the public and private version.</p>
 
@@ -593,7 +593,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#followers-object">followers object</a>.</p>
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-followersobject">followers object</a>.</p>
 
                         <a href="Structs/Followers.html" class="slightly-smaller">See more</a>
                       </div>
@@ -621,9 +621,9 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#cursor-based-paging-object">cursor-based paging object</a>.</p>
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject">cursor-based paging object</a>.</p>
 
-<p>See <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#secondary-navbar:%7E:text=The%20endpoint%20uses%20a%20bidirectional%20cursor,link%20will%20page%20back%20in%20time.">get current user&rsquo;s recently played tracks</a> and
+<p>See <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played">get current user&rsquo;s recently played tracks</a> and
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE14recentlyPlayed_5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA11PlayHistoryVGs5Error_pGAA13TimeReferenceOSg_SiSgtF">SpotifyAPI.recentlyPlayed(_:limit:)</a></code>.</p>
 
                         <a href="Structs/CursorPagingObject.html" class="slightly-smaller">See more</a>
@@ -653,11 +653,11 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#cursor-object">Spotify Cursor</a> object.</p>
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject">Spotify Cursor</a> object.</p>
 
 <p>Used to find the next or previous set of items in a <code><a href="Structs/CursorPagingObject.html">CursorPagingObject</a></code>.</p>
 
-<p>See also <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#secondary-navbar:%7E:text=The%20endpoint%20uses%20a%20bidirectional%20cursor,link%20will%20page%20back%20in%20time.">Get Current User&rsquo;s Recently Played Tracks</a>.</p>
+<p>See also <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played">Get Current User&rsquo;s Recently Played Tracks</a>.</p>
 
                         <a href="Structs/SpotifyCursor.html" class="slightly-smaller">See more</a>
                       </div>
@@ -685,7 +685,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#track-link">track link</a> object.
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject">track link</a> object.
 See also the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track relinking Guide</a>.</p>
 
                         <a href="Structs/TrackLink.html" class="slightly-smaller">See more</a>
@@ -715,7 +715,7 @@ See also the <a href="https://developer.spotify.com/documentation/general/guides
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/object-model/#copyright-object">copyright object</a>.</p>
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-copyrightobject">copyright object</a>.</p>
 
                         <a href="Structs/SpotifyCopyright.html" class="slightly-smaller">See more</a>
                       </div>
@@ -813,7 +813,7 @@ and <code>currentUserTopTracks(_:offset:limit:)</code> methods.</p>
 and a message that can be displayed to the user, such as
 &ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;.</p>
 
-<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-featured-playlists/">list of featured playlists</a>.</p>
+<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-featured-playlists">list of featured playlists</a>.</p>
 
                         <a href="Structs/FeaturedPlaylists.html" class="slightly-smaller">See more</a>
                       </div>
@@ -845,7 +845,7 @@ and a message that can be displayed to the user, such as
 and a localized message that can be displayed to the user, such as
 &ldquo;Good Morning&rdquo;, or &ldquo;Editors&rsquo;s picks&rdquo;.</p>
 
-<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-list-new-releases/">list of new album releases</a>.</p>
+<p>Returned by the endpoint for a <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-new-releases">list of new album releases</a>.</p>
 
                         <a href="Structs/NewAlbumReleases.html" class="slightly-smaller">See more</a>
                       </div>
@@ -873,7 +873,7 @@ and a localized message that can be displayed to the user, such as
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendation-seed-object">Recommendation Seed Object</a>. Part of the response returned by
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject">Recommendation Seed Object</a>. Part of the response returned by
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code>. See also
 <code><a href="Structs/RecommendationsResponse.html">RecommendationsResponse</a></code>.</p>
 
@@ -903,7 +903,7 @@ and a localized message that can be displayed to the user, such as
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#recommendations-response-object">Recommendations Response Object</a>. Returned by
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject">Recommendations Response Object</a>. Returned by
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code>. See also
 <code><a href="Structs/RecommendationSeed.html">RecommendationSeed</a></code>.</p>
 
@@ -933,9 +933,9 @@ and a localized message that can be displayed to the user, such as
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes">tunable track attributes</a> used in the
+                        <p>The <a href="https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject">tunable track attributes</a> used in the
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C15recommendations_5limit6market7Combine12AnyPublisherVyAA23RecommendationsResponseVs5Error_pGAA15TrackAttributesV_SiSgSSSgtF">SpotifyAPI.recommendations(_:limit:market:)</a></code> endpoint for
-<a href="https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/">getting recommendations based on seeds</a>.</p>
+<a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations">getting recommendations based on seeds</a>.</p>
 
 <p>For most of the attributes, a minimum, target (ideal), and maximum value can be
 provided. This is represented by <code><a href="Structs/AttributeRange.html">AttributeRange</a></code>. The target value should not
@@ -981,7 +981,7 @@ Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC
 
 <p>Compare with <code><a href="Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a></code>.</p>
 
-<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/">Spotify web API reference</a>.</p>
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist">Spotify web API reference</a>.</p>
 
                         <a href="Structs/URIsContainer.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1003,7 +1003,7 @@ Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

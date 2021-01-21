@@ -3,7 +3,7 @@ import Foundation
 /**
  The [audio features][1] of a track.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/#audio-features-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject
  */
 public struct AudioFeatures: Codable, Hashable {
 
@@ -244,7 +244,7 @@ public struct AudioFeatures: Codable, Hashable {
        - durationMS: The duration of the track in milliseconds.
        - type: The object type. Always "audio_features".
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/#audio-features-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject
      [2]: https://en.wikipedia.org/wiki/Pitch_class
      */
     public init(

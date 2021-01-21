@@ -7,8 +7,8 @@ import Foundation
  
  See also [Get Current User's Recently Played Tracks][2].
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#cursor-object
- [2]: https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/#secondary-navbar:~:text=The%20endpoint%20uses%20a%20bidirectional%20cursor,link%20will%20page%20back%20in%20time.
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
  */
 public struct SpotifyCursor: Codable, Hashable {
     
@@ -31,7 +31,7 @@ public struct SpotifyCursor: Codable, Hashable {
        - before: The key to the item before the current item.
        - after: The key to the item after the current item.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#cursor-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
      */
     public init(
         before: String? = nil,

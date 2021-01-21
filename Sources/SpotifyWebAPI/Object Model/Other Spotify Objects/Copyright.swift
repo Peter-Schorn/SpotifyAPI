@@ -2,7 +2,7 @@ import Foundation
 
 /// A Spotify [copyright object][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#copyright-object
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-copyrightobject
 public struct SpotifyCopyright: Codable, Hashable {
     
     /// The copyright text for this album.
@@ -21,7 +21,7 @@ public struct SpotifyCopyright: Codable, Hashable {
        - type: The type of copyright: C = the copyright;
              P = the sound recording (performance) copyright.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#copyright-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-copyrightobject
      */
     public init(text: String, type: String) {
         self.text = text

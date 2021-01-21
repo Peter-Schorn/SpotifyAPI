@@ -18,15 +18,15 @@ import Foundation
  
  Note that all of the properties are mutable.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes
- [2]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
  */
 public struct TrackAttributes: Hashable {
 
     /**
      An array of artists URIs.
     
-     The total number of seed artists, seed tracks, and seed genres
+     The total number of seed artists, seed tracks, and seed genres.
      must add up to 5 or less.
      */
     public var seedArtists: [String]?
@@ -34,7 +34,7 @@ public struct TrackAttributes: Hashable {
     /**
      An array of track URIs.
     
-     The total number of seed artists, seed tracks, and seed genres
+     The total number of seed artists, seed tracks, and seed genres.
      must add up to 5 or less.
      */
     public var seedTracks: [String]?
@@ -45,7 +45,7 @@ public struct TrackAttributes: Hashable {
      Use `SpotifyAPI.recommendationGenres()` to retrieve the available
      genres.
     
-     The total number of seed artists, seed tracks, and seed genres
+     The total number of seed artists, seed tracks, and seed genres.
      must add up to 5 or less.
      */
     public var seedGenres: [String]?
@@ -135,7 +135,7 @@ public struct TrackAttributes: Hashable {
      tracks with the expected popularity scores. Original, non-relinked tracks are
      available via the `linkedFrom` attribute of the [relinked track response][1].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      */
     public var popularity: AttributeRange<Int>?
     
@@ -267,10 +267,10 @@ public struct TrackAttributes: Hashable {
              (e.g. happy, cheerful, euphoric), while tracks with low valence
              sound more negative (e.g. sad, depressed, angry).
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/#tuneable-track-attributes
-     [2]: https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
      [3]: https://en.wikipedia.org/wiki/Pitch_class
-     [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      */
     public init(
         seedArtists: [SpotifyURIConvertible]? = nil,

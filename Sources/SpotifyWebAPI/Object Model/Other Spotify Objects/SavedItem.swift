@@ -13,9 +13,9 @@ import Foundation
    `album` if this is a saved album object, or
    `show` if this is a saved show object.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object
- [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object
- [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
+ [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
  */
 public struct SavedItem<Item: Codable & Hashable>: Hashable {
     
@@ -33,9 +33,9 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
      `album` if this is a [saved album object][2], or
      `show` if this is a [saved show object][3].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object
-     [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
      */
     public let type: CodingKeys
     
@@ -52,9 +52,9 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
              `album` if this is a [saved album object][2], or
              `show` if this is a [saved show object][3].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-track-object
-     [2]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-album-object
-     [3]: https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
      */
     public init(
         addedAt: Date,

@@ -2,7 +2,7 @@ import Foundation
 
 /// A [Spotify track][1].
 ///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
+/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
 public struct Track: Hashable {
 
     /// The name of the track.
@@ -103,7 +103,7 @@ public struct Track: Hashable {
            "spotify" - The [Spotify URL][2] for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#external-url-object
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: String]?
@@ -208,7 +208,7 @@ public struct Track: Hashable {
        - type: The object type. Usually `track`, but may be `episode` if
              this was retrieved from a playlist. The default is `track`.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/object-model/#track-object-full
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
      [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/

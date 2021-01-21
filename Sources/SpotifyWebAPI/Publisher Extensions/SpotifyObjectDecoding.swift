@@ -66,13 +66,16 @@ public func decodeSpotifyErrors(
     
     if httpURLResponse.statusCode == 429 {
         
-        let lowercasedHeaders = httpURLResponse.allHeaderFields
-            .compactMapValues { value -> String? in
-                (value as? String)?.lowercased()
-            }
+        let lowercasedHeaders: [String: String] = httpURLResponse.allHeaderFields
+            .reduce(into: [:], { dict, header in
+                if let key = header.key as? String,
+                        let value = header.value as? String {
+                    dict[key.lowercased()] = value
+                }
+            })
         
         let retryAfter = lowercasedHeaders["retry-after"]
-            .map(Int.init) as? Int
+            .flatMap(Int.init)
             
         if let retryAfter = retryAfter {
             spotifyDecodeLogger.notice(
@@ -89,7 +92,7 @@ public func decodeSpotifyErrors(
                 """
             )
         }
-        
+
         return RateLimitedError(retryAfter: retryAfter)
         
     }

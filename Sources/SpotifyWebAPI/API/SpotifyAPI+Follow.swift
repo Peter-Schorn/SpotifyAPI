@@ -123,7 +123,7 @@ public extension SpotifyAPI {
            user is following the playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist
-     [2]: https://developer.spotify.com/documentation/web-api/reference/follow/check-user-following-playlist/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-if-user-follows-playlist
      */
     func usersFollowPlaylist(
         _ uri: SpotifyURIConvertible,
@@ -188,7 +188,7 @@ public extension SpotifyAPI where
            in the order requested, indicating whether the user
            is following each artist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-current-user-follows
      */
     func currentUserFollowsArtists(
         _ uris: [SpotifyURIConvertible]
@@ -213,7 +213,7 @@ public extension SpotifyAPI where
      - Parameter uris: An array of artist URIs. Maximum: 50. Passing in
            an empty array will prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-follow-artists-users
      */
     func followArtistsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -238,7 +238,7 @@ public extension SpotifyAPI where
      - Parameter uris: An array of artist URIs. maximum: 50. Passing in
            an empty array will prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-unfollow-artists-users
      */
     func unfollowArtistsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -269,7 +269,7 @@ public extension SpotifyAPI where
            in the order requested, indicating whether the user
            is following each user.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/check-current-user-follows/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-current-user-follows
      */
     func currentUserFollowsUsers(
         _ uris: [SpotifyURIConvertible]
@@ -294,7 +294,7 @@ public extension SpotifyAPI where
      - Parameter uris: An array of user URIs. Maximum: 50. Passing in
            an empty array will prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-artists-users/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-follow-artists-users
      */
     func followUsersForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -319,7 +319,7 @@ public extension SpotifyAPI where
      - Parameter uris: An array of user URIs. maximum: 50. Passing in
            an empty array will prevent a network request from being made.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/follow/unfollow-artists-users/
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-unfollow-artists-users
      */
     func unfollowUsersForCurrentUser(
         _ uris: [SpotifyURIConvertible]
@@ -358,7 +358,7 @@ public extension SpotifyAPI where
              the user must have granted the `playlistModifyPrivate` scope.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-follow-playlist
      */
     func followPlaylistForCurrentUser(
         _ uri: SpotifyURIConvertible,
@@ -418,7 +418,7 @@ public extension SpotifyAPI where
        - uri: The URI for a playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist
-     [2]: https://developer.spotify.com/documentation/web-api/reference/follow/follow-playlist/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-follow-playlist
      */
     func unfollowPlaylistForCurrentUser(
         _ uri: SpotifyURIConvertible
