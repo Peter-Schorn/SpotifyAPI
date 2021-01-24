@@ -3,9 +3,19 @@ import Foundation
 /**
  The client id and client secret.
  
- These values are retrieved from the file at the path specified by the
- "spotify_credentials_path" environment variable. This file
- should contain JSON data that can be decoded into `SpotifyCredentials`.
+ These values are retrieved from one of the following locations, in the
+ order listed:
+ 
+ * They can be directly injected into the source code by running the script
+   "set_credentials.sh"; they can be removed by running "rm_credentials.sh".
+   These scripts will use the "SPOTIFY_SWIFT_TESTING_CLIENT_ID" and
+   "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables. These
+   scripts must be run with the root directory of this package as the
+   working directory.
+
+ * The file at the path specified by the "spotify_credentials_path"
+   environment variable. This file should contain JSON data that can
+   be decoded into `SpotifyCredentials`.
  
  For example:
  ```
@@ -13,7 +23,14 @@ import Foundation
      "client_id": "abc",
      "client_secret": "def"
  }
+ 
  ```
+ 
+ * The "SPOTIFY_SWIFT_TESTING_CLIENT_ID" and
+   "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables.
+ 
+ If none of these environment variables are populated, then a fatal error
+ is thrown.
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
@@ -26,28 +43,49 @@ public let spotifyCredentials: SpotifyCredentials = {
             clientSecret: __clientSecret__
         )
     }
+    
+    let environment = ProcessInfo.processInfo.environment
 
-    guard let path = ProcessInfo.processInfo
-            .environment["spotify_credentials_path"] else {
-        fatalError(
-            "Could not find 'spotify_credentials_path' in environment variables"
-        )
-    }
-    let url = URL(fileURLWithPath: path)
-    do {
-        let data = try Data(contentsOf: url)
-        let credentials = try JSONDecoder()
+    if let path = environment["spotify_credentials_path"] {
+        
+        let url = URL(fileURLWithPath: path)
+        do {
+            let data = try Data(contentsOf: url)
+            let credentials = try JSONDecoder()
                 .decode(SpotifyCredentials.self, from: data)
-        return credentials
-
-    } catch {
-        fatalError(
-            """
+            return credentials
+            
+        } catch {
+            fatalError(
+                """
             could not retrieve Spotify credentials from '\(path)':
             \(error)
             """
-        )
+            )
+        }
+        
     }
+    else if let clientId = environment["SPOTIFY_SWIFT_TESTING_CLIENT_ID"],
+            let clientSecret = environment["SPOTIFY_SWIFT_TESTING_CLIENT_SECRET"] {
+        
+        return SpotifyCredentials(
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+
+    }
+    else {
+        fatalError(
+            """
+            Could not find 'spotify_credentials_path' or \
+            'SPOTIFY_SWIFT_TESTING_CLIENT_ID' and/or \
+            'SPOTIFY_SWIFT_TESTING_CLIENT_SECRET' \
+            in the environment variables
+            """
+        )
+        
+    }
+    
     
 }()
 

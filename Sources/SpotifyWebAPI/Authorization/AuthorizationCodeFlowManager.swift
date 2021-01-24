@@ -132,7 +132,7 @@ public final class AuthorizationCodeFlowManager:
        - clientSecret: The client secret for your application.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - refreshToken: The refresh token. If `nil` (not reccomended), then it will
+       - refreshToken: The refresh token. If `nil` (not recommended), then it will
              not be possible to automatically refresh the access token when it
              expires; instead, you will have to go through the authorization process
              again, as described in the README in the root directory of this package.
