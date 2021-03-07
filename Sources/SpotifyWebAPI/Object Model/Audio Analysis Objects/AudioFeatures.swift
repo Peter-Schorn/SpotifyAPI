@@ -287,11 +287,15 @@ public struct AudioFeatures: Codable, Hashable {
         self.type = type
     }
     
+}
+
+extension AudioFeatures: ApproximatelyEquatable {
+    
     /**
      Returns `true` if all the `FloatingPoint` properties of `self` are
      approximately equal to those of `other` within an absolute tolerance of
-     0.001 and all other properties are equal by the `==` operator. Else, returns
-     `false`.
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
      
      - Parameter other: Another instance of `Self`.
      */
@@ -371,4 +375,3 @@ public struct AudioFeatures: Codable, Hashable {
     }
 
 }
-

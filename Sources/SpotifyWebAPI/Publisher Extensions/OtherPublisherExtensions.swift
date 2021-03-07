@@ -98,7 +98,7 @@ public extension Publisher {
 public extension Publisher where Output == Void {
     
     /**
-     A convience wrapper for sink that only requires a `receiveCompletion`
+     A convenience wrapper for sink that only requires a `receiveCompletion`
      closure. Available when `Output` == `Void`.
      
      You are discouraged from using trailing closure syntax with this
@@ -162,8 +162,13 @@ public extension Error {
 
 extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
     
-    /// Casts `(data: Data, response: HTTPURLResponse)` to
-    /// `(data: Data, response: URLResponse)`.
+    /**
+     Casts `(data: Data, response: HTTPURLResponse)` to
+     `(data: Data, response: URLResponse)`.
+    
+     `URLResponse` is a superclass of `HTTPURLResponse`, so this cast
+     can never fail.
+     */
     func castToURLResponse() -> AnyPublisher<(data: Data, response: URLResponse), Failure> {
         return self.map { data, response in
             let urlResponse = response as URLResponse

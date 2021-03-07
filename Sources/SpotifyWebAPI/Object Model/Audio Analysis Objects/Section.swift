@@ -173,11 +173,36 @@ public struct Section: Hashable {
         self.timeSignatureConfidence = timeSignatureConfidence
     }
     
+}
+
+extension Section: Codable {
+    
+    /// :nodoc:
+    public enum CodingKeys: String, CodingKey {
+        case start
+        case duration
+        case confidence
+        case loudness
+        case tempo
+        case tempoConfidence = "tempo_confidence"
+        case key
+        case keyConfidence = "key_confidence"
+        case mode
+        case modeConfidence = "mode_confidence"
+        case timeSignature = "time_signature"
+        case timeSignatureConfidence = "time_signature_confidence"
+        
+    }
+    
+}
+
+extension Section: ApproximatelyEquatable {
+    
     /**
      Returns `true` if all the `FloatingPoint` properties of `self` are
      approximately equal to those of `other` within an absolute tolerance of
-     0.001 and all other properties are equal by the `==` operator. Else, returns
-     `false`.
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
      
      - Parameter other: Another instance of `Self`.
      */
@@ -234,26 +259,6 @@ public struct Section: Hashable {
         return self.timeSignatureConfidence.isApproximatelyEqual(
             to: other.timeSignatureConfidence, absoluteTolerance: 0.001
         )
-    }
-}
-
-extension Section: Codable {
-    
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
-        case start
-        case duration
-        case confidence
-        case loudness
-        case tempo
-        case tempoConfidence = "tempo_confidence"
-        case key
-        case keyConfidence = "key_confidence"
-        case mode
-        case modeConfidence = "mode_confidence"
-        case timeSignature = "time_signature"
-        case timeSignatureConfidence = "time_signature_confidence"
-        
     }
     
 }

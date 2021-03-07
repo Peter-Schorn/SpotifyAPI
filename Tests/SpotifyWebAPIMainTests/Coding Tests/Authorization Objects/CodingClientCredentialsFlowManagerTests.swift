@@ -21,7 +21,7 @@ final class CodingClientCredentialsFlowManagerTests: XCTestCase {
         )
         clientCredentialsManager.mockValues()
         
-        encodeDecode(clientCredentialsManager)
+        encodeDecode(clientCredentialsManager, areEqual: ==)
         
         let copy = clientCredentialsManager.makeCopy()
         XCTAssertEqual(clientCredentialsManager, copy)

@@ -4,7 +4,7 @@ import Logging
 
 /**
  Encapsulates the various formats that Spotify uses to uniquely identify
- content such as artists, tracks, and playlists. See [spotify URIs and ids][1].
+ content such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method that accepts a
  `SpotifyURIConvertible` type.
@@ -67,7 +67,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      "spotify:\(idCategory.rawValue):\(id)"
      ```
      
-     See [spotify URIs and ids][1].
+     See [Spotify URIs and ids][1].
      
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
@@ -96,7 +96,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     
     /**
      Creates an instance from an id and an id category.
-     See [spotify URIs and ids][1].
+     See [Spotify URIs and ids][1].
     
      The id category must be one of the following:
      
@@ -123,7 +123,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     }
 
     /**
-     Creates an instance from a URI. See [spotify URIs and ids][1].
+     Creates an instance from a URI. See [Spotify URIs and ids][1].
     
      Uses the following [regular expression][2] to parse the id and id
      categories, *in that order*:
@@ -204,7 +204,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         }
        
         throw SpotifyLocalError.identifierParsingError(
-            message: "could not parse spotify id and/or " +
+            message: "could not parse Spotify id and/or " +
                      "id category from string: '\(uri)'" + errorMessage
         )
 
@@ -273,7 +273,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         }
         
         throw SpotifyLocalError.identifierParsingError(
-            message: "could not parse spotify id category and/or id " +
+            message: "could not parse Spotify id category and/or id " +
                      "from url: '\(url)': \(errorMessage)"
         )
         

@@ -52,7 +52,6 @@ public extension SpotifyAPI {
         } catch {
             return error.anyFailingPublisher()
         }
-        
 
     }
     

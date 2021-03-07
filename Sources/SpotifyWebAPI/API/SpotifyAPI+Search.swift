@@ -133,9 +133,11 @@ public extension SpotifyAPI {
             let validCategories: [IDCategory] = [
                 .album, .artist, .playlist, .track, .show, .episode
             ]
-            guard categories.allSatisfy({ validCategories.contains($0) }) else {
+            guard !categories.isEmpty &&
+                    categories.allSatisfy(validCategories.contains) else {
                 throw SpotifyLocalError.invalidIdCategory(
-                    expected: validCategories, received: categories)
+                    expected: validCategories, received: categories
+                )
             }
             
             let requiredScopes: Set<Scope> = market == "from_token" ?

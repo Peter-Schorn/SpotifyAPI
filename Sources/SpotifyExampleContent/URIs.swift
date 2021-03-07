@@ -41,7 +41,7 @@ public enum URIs {
     
     /// A namespace of Spotify Device Ids.
     public enum Devices {
-        public static let petersiPhone = "ef7a6b8a74439c294ab884f1a78e5f7cedaaab64"
+        public static let petersiPhone = "a51265881bf877d8fd90e847c8eb9459b857323e"
         public static let petersComputer = "5840bef23cf13a49d38ea2a1b13075a72af9ebed"
     }
     

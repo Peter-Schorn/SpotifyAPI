@@ -130,8 +130,9 @@ extension SpotifyAPI {
      
      A closure that accepts the access token must be used to make the headers
      because the access token will not be accessed until after a call to
-     `self.refreshAccessToken(onlyIfExpired: true)` is made. This method may
-     return a new access token, which will then be used in the headers.
+     `authorizationManager.refreshAccessToken(onlyIfExpired: true)` is made.
+     This method may return a new access token, which will then be used in
+     the headers.
      
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
@@ -149,7 +150,7 @@ extension SpotifyAPI {
      */
     func apiRequest(
         path: String,
-        queryItems: [String : LosslessStringConvertible?],
+        queryItems: [String: LosslessStringConvertible?],
         httpMethod: String,
         makeHeaders: @escaping (_ accessToken: String) -> [String: String],
         bodyData: Data?,
@@ -229,8 +230,9 @@ extension SpotifyAPI {
      
      A closure that accepts the access token must be used to make the headers
      because the access token will not be accessed until after a call to
-     `self.refreshAccessToken(onlyIfExpired: true)` is made. This method may
-     return a new access token, which will then be used in the headers.
+     `authorizationManager.refreshAccessToken(onlyIfExpired: true)` is made.
+     This method may return a new access token, which will then be used in
+     the headers.
     
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
@@ -248,7 +250,7 @@ extension SpotifyAPI {
     */
     func apiRequest<Body: Encodable>(
         path: String,
-        queryItems: [String : LosslessStringConvertible?],
+        queryItems: [String: LosslessStringConvertible?],
         httpMethod: String,
         makeHeaders: @escaping (_ accessToken: String) -> [String: String],
         body: Body?,
@@ -273,7 +275,7 @@ extension SpotifyAPI {
         } catch {
             return error.anyFailingPublisher()
         }
-        
+
     }
     
     /**
@@ -297,7 +299,7 @@ extension SpotifyAPI {
      */
     func getRequest(
         path: String,
-        queryItems: [String : LosslessStringConvertible?],
+        queryItems: [String: LosslessStringConvertible?],
         requiredScopes: Set<Scope>
     ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
         

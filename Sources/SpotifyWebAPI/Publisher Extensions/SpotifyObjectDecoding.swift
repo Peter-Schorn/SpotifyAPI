@@ -32,7 +32,7 @@ public var spotifyDecodeLogger = Logger(
  into one of the error objects that Spotify returns for
  most endpoints.
  
- It is recommended to use the combine operator `decodeSpotifyErrors()`
+ You are encouraged to use the combine operator `decodeSpotifyErrors()`
  instead of this function, whenever possible.
  
  The error objects that this method tries to decode are:
@@ -64,6 +64,7 @@ public func decodeSpotifyErrors(
         )
     }
     
+    // indicates that there was a rate-limited error
     if httpURLResponse.statusCode == 429 {
         
         let lowercasedHeaders: [String: String] = httpURLResponse.allHeaderFields
@@ -142,13 +143,13 @@ public func decodeSpotifyErrors(
  Tries to decode the raw data from a Spotify web API request.
  You normally don't need to call this method directly.
  
- It is recommended to use the combine operator `decodeSpotifyObject(_:)`
+ You are encouraged to use the combine operator `decodeSpotifyObject(_:)`
  or `decodeOptionalSpotifyObject` instead of this function, whenever
  possible.
  
  First tries to decode the data into `responseType`. If that fails,
  then the data is decoded into one of the [errors][1] returned by
- spotify:
+ Spotify:
  
  * `SpotifyAuthenticationError`
  * `SpotifyError`
@@ -185,8 +186,8 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
             let urlString = httpURLResponse.url?.absoluteString ?? "nil"
             spotifyDecodeLogger.trace(
                 """
-                will try to decode the raw data from the URL '\(urlString)' into \
-                '\(responseType)':
+                will try to decode the raw data from the URL '\(urlString)' \
+                into '\(responseType)':
                 \(dataString)
                 """
             )
@@ -209,7 +210,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         }
         
         spotifyDecodeLogger.error(
-            "couldn't decode '\(responseType)' or the spotify error objects"
+            "couldn't decode '\(responseType)' or the Spotify error objects"
         )
         
         /*
@@ -293,7 +294,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      
      First tries to decode the data into `responseType`. If that fails,
      then the data is decoded into one of the [errors][1] returned by
-     spotify:
+     Spotify:
 
      * `SpotifyAuthenticationError`
      * `SpotifyError`
@@ -349,7 +350,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      
      First tries to decode the data into `responseType`. If that fails,
      then the data is decoded into one of the [errors][1] returned by
-     spotify:
+     Spotify:
 
      * `SpotifyAuthenticationError`
      * `SpotifyError`

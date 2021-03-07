@@ -4,7 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2020-1-10
+## [1.4.0] - 2021-3-7
+
+### Fixed
+
+* Fixed a bug in `AuthorizationCodeFlowManager.==` and `AuthorizationCodeFlowPKCEManager.==`: The access tokens were being compared twice and the refresh tokens weren't being compared. 
+
+### Added
+
+* Added Method for disabling the bootstrapping of `SpotifyAPILogHandler`: `SpotifyAPILogHandler.disable`.
+* Added a new protocol, `ApproximatelyEquatable`, which is conformed to by all types in the object model that have Date or floating point properties or that contain other types with those properties. 
+
+### Changed
+
+* `SpotifyAPI.search` now throws an error if `categories` is empty.
+* When comparing the authorization managers for equality, an absolute tolerance of 1 second (instead of three seconds) is used when comparing the expiration dates.
+
+## [1.3.0] - 2021-1-10
 
 ### Added
 

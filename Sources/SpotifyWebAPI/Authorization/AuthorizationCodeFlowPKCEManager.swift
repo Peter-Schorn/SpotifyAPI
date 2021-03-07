@@ -213,6 +213,11 @@ public final class AuthorizationCodeFlowPKCEManager:
         try super.encode(to: encoder)
     }
     
+    /// :nodoc:
+    public override func hash(into hasher: inout Hasher) {
+        super.hash(into: &hasher)
+    }
+
 }
 
 public extension AuthorizationCodeFlowPKCEManager {
@@ -723,62 +728,12 @@ extension AuthorizationCodeFlowPKCEManager: CustomStringConvertible {
 extension AuthorizationCodeFlowPKCEManager: Hashable {
 
     /// :nodoc:
-    public func hash(into hasher: inout Hasher) {
-        self.updateAuthInfoDispatchQueue.sync {
-            hasher.combine(clientId)
-            hasher.combine(clientSecret)
-            hasher.combine(_accessToken)
-            hasher.combine(_refreshToken)
-            hasher.combine(_expirationDate)
-            hasher.combine(_scopes)
-        }
-    }
-
-    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowPKCEManager,
         rhs: AuthorizationCodeFlowPKCEManager
     ) -> Bool {
         
-        var areEqual = true
-        
-        let (lhsAccessToken, lhsRefreshToken, lhsScopes, lhsExpirationDate) =
-            lhs.updateAuthInfoDispatchQueue
-            .sync { () -> (String?, String?, Set<Scope>?, Date?) in
-                    return (
-                        lhs._accessToken,
-                        lhs._accessToken,
-                        lhs._scopes, lhs._expirationDate
-                    )
-                }
-        
-        let (rhsAccessToken, rhsRefreshToken, rhsScopes, rhsExpirationDate) =
-                rhs.updateAuthInfoDispatchQueue
-                    .sync { () -> (String?, String?, Set<Scope>?, Date?) in
-                        return (
-                            rhs._accessToken,
-                            rhs._accessToken,
-                            rhs._scopes,
-                            rhs._expirationDate
-                        )
-                    }
-        
-        if lhs.clientId != rhs.clientId ||
-                lhs.clientSecret != rhs.clientSecret ||
-                lhsAccessToken != rhsAccessToken ||
-                lhsRefreshToken != rhsRefreshToken ||
-                lhsScopes != rhsScopes {
-            areEqual = false
-        }
-        
-        if abs(
-            (lhsExpirationDate?.timeIntervalSince1970 ?? 0) -
-                (rhsExpirationDate?.timeIntervalSince1970 ?? 0)
-        ) > 3 {
-            areEqual = false
-        }
-
-        return areEqual
+       return lhs.isEqualTo(other: rhs)
         
     }
 

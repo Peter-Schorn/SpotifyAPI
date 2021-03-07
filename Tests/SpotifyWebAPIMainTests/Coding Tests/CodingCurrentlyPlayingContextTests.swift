@@ -15,25 +15,19 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
     /// and re-decoded without losing information.
     func testCodingCurrentlyPlayingContext() throws {
         
-        guard let dataString = decodeEncodeDecode(
+        let dataString = decodeEncodeDecode(
             Self.currentlyPlayingContextData,
             type: CurrentlyPlayingContext.self
-        ) else {
-            XCTFail("should be able to convert data to string")
-            return
-        }
-        
-        guard let data = dataString.data(using: .utf8) else {
-            XCTFail("shold be able to convert data string to data")
-            return
-        }
+        )
+        XCTAssertNotNil(dataString)
+        XCTAssertNotNil(dataString?.data(using: .utf8))
         
         let context = try JSONDecoder().decode(
             CurrentlyPlayingContext.self,
-            from: data
+            from: Self.currentlyPlayingContextData
         )
         
-        checkContext(context)
+        try checkContext(context)
         
         let reencodedData = try JSONEncoder().encode(context)
         let redecodedContext = try JSONDecoder().decode(
@@ -41,12 +35,13 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
             from: reencodedData
         )
         
-        checkContext(redecodedContext)
+        try checkContext(redecodedContext)
         
         
     }
     
-    func checkContext(_ context: CurrentlyPlayingContext) {
+    func checkContext(_ context: CurrentlyPlayingContext) throws {
+        
         XCTAssertEqual(context.device.id, "ced8d42d0a3830065dfbf4800352d23a96b76fd4")
         XCTAssertTrue(context.device.isActive)
         XCTAssertFalse(context.device.isPrivateSession)
@@ -67,8 +62,8 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
             "received: \(context.timestamp.description(with: .current))"
         )
         XCTAssertEqual(
-            context.context?.externalURLs?["spotify"],
-            "https://open.spotify.com/playlist/2EgZjzog2eSfApWQHZVn6t"
+            context.context?.externalURLs,
+            ["spotify": "https://open.spotify.com/playlist/2EgZjzog2eSfApWQHZVn6t"]
         )
         XCTAssertEqual(
             context.context?.href,
@@ -97,6 +92,7 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
         XCTAssertTrue(context.isPlaying)
         
         // MARK: Check Track
+        
         guard let playlistItem = context.item else {
             XCTFail("currentlyPlayingItem should not be nil")
             return
@@ -122,8 +118,30 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
         XCTAssertEqual(
             track.album?.uri, "spotify:album:4W4gNYa4tt3t8V6FmONWEK"
         )
+        XCTAssertEqual(
+            track.previewURL,
+            "https://p.scdn.co/mp3-preview/b87069f9d4bdf4273d9178ff86d97af05e2adbb7?cid=774b29d4f13844c495f206cafdad9c86"
+        )
         
-        if let releaseDate = track.album?.releaseDate {
+        // MARK: Check Album
+        
+        let album = try XCTUnwrap(track.album)
+        XCTAssertEqual(album.type, .album)
+        XCTAssertEqual(album.availableMarkets, ["AD", "AE", "ZA"])
+        XCTAssertEqual(
+            album.externalURLs,
+            ["spotify": "https://open.spotify.com/album/4W4gNYa4tt3t8V6FmONWEK"]
+        )
+        XCTAssertEqual(
+            album.href,
+            "https://api.spotify.com/v1/albums/4W4gNYa4tt3t8V6FmONWEK"
+        )
+        XCTAssertEqual(album.id, "4W4gNYa4tt3t8V6FmONWEK")
+        
+        XCTAssertEqual(album.releaseDatePrecision, "day")
+        XCTAssertEqual(album.uri, "spotify:album:4W4gNYa4tt3t8V6FmONWEK")
+        
+        if let releaseDate = album.releaseDate {
             XCTAssertEqual(
                 releaseDate.timeIntervalSince1970,
                 1568332800,
@@ -134,9 +152,35 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
             XCTFail("release date should not be nil")
         }
         
-        XCTAssertEqual(track.artists?.first?.name, "Men I Trust")
+        let albumImages = try XCTUnwrap(album.images)
+        XCTAssertEqual(albumImages[0].height, 640)
+        XCTAssertEqual(albumImages[0].width, 641)
         XCTAssertEqual(
-            track.artists?.first?.uri, "spotify:artist:3zmfs9cQwzJl575W1ZYXeT"
+            albumImages[0].url,
+            "https://i.scdn.co/image/ab67616d0000b273412e18ab5452ac84eafe5c9d"
+        )
+        
+        XCTAssertEqual(albumImages[1].height, 300)
+        XCTAssertEqual(albumImages[1].width, 301)
+        XCTAssertEqual(
+            albumImages[1].url,
+            "https://i.scdn.co/image/ab67616d00001e02412e18ab5452ac84eafe5c9d"
+        )
+        
+        XCTAssertEqual(albumImages[2].height, 64)
+        XCTAssertEqual(albumImages[2].width, 65)
+        XCTAssertEqual(
+            albumImages[2].url,
+            "https://i.scdn.co/image/ab67616d00004851412e18ab5452ac84eafe5c9d"
+        )
+        
+        // MARK: Check Artist
+        
+        let artist = try XCTUnwrap(track.artists?.first)
+
+        XCTAssertEqual(artist.name, "Men I Trust")
+        XCTAssertEqual(
+            artist.uri, "spotify:artist:3zmfs9cQwzJl575W1ZYXeT"
         )
         
     }
@@ -193,17 +237,17 @@ final class CodingCurrentlyPlayingContextTests: XCTestCase {
                         {
                             "height": 640,
                             "url": "https://i.scdn.co/image/ab67616d0000b273412e18ab5452ac84eafe5c9d",
-                            "width": 640
+                            "width": 641
                         },
                         {
                             "height": 300,
                             "url": "https://i.scdn.co/image/ab67616d00001e02412e18ab5452ac84eafe5c9d",
-                            "width": 300
+                            "width": 301
                         },
                         {
                             "height": 64,
                             "url": "https://i.scdn.co/image/ab67616d00004851412e18ab5452ac84eafe5c9d",
-                            "width": 64
+                            "width": 65
                         }
                     ],
                     "name": "Oncle Jazz",

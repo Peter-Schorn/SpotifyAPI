@@ -61,7 +61,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
      [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
-        externalURLs: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
         href: String,
         uri: String,
         id: String

@@ -1,7 +1,7 @@
 import Foundation
 import SpotifyWebAPI
 
-struct FilteredPlaylist: Codable, Equatable {
+struct FilteredPlaylist: Equatable {
 
     /**
      The filters that must be used to retrieve the appropriate data
@@ -18,6 +18,10 @@ struct FilteredPlaylist: Codable, Equatable {
     let uri: String
     let ownerDisplayName: String
     let tracks: [FilteredTrack]
+    
+}
+
+extension FilteredPlaylist: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

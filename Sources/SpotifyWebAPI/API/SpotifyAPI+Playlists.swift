@@ -1084,7 +1084,7 @@ public extension SpotifyAPI where
      for public playlists, and the `playlistModifyPrivate` scope
      is required for private playlists.
      
-     To convert a `UIImage` to base64-encoded jpeg data, use.
+     To convert a `UIImage` to base64-encoded jpeg data, use:
      ```
      let jpegData = uiImage.jpegData(
          compressionQuality: 0.5

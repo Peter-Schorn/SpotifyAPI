@@ -47,6 +47,10 @@ public struct SpotifyTimeInterval: Codable, Hashable {
         self.confidence = confidence
     }
 
+}
+
+extension SpotifyTimeInterval: ApproximatelyEquatable {
+    
     /**
      Returns `true` if all the properties of `self` are approximately
      equal to those of `other` within an absolute tolerance of 0.001.
@@ -72,5 +76,5 @@ public struct SpotifyTimeInterval: Codable, Hashable {
         }
         return true
     }
-    
+
 }

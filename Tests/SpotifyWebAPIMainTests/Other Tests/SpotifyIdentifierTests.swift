@@ -306,7 +306,7 @@ final class SpotifyIdentifierTests: XCTestCase {
                    case .identifierParsingError(let message) = error {
                 XCTAssertEqual(
                     message,
-                    "could not parse spotify id and/or " +
+                    "could not parse Spotify id and/or " +
                         "id category from string: '\(invalidURI3)'"
                 )
             }

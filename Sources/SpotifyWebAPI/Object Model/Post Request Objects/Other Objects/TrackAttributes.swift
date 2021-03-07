@@ -26,7 +26,7 @@ public struct TrackAttributes: Hashable {
     /**
      An array of artists URIs.
     
-     The total number of seed artists, seed tracks, and seed genres.
+     The total number of seed artists, seed tracks, and seed genres
      must add up to 5 or less.
      */
     public var seedArtists: [String]?
@@ -34,7 +34,7 @@ public struct TrackAttributes: Hashable {
     /**
      An array of track URIs.
     
-     The total number of seed artists, seed tracks, and seed genres.
+     The total number of seed artists, seed tracks, and seed genres
      must add up to 5 or less.
      */
     public var seedTracks: [String]?
@@ -45,7 +45,7 @@ public struct TrackAttributes: Hashable {
      Use `SpotifyAPI.recommendationGenres()` to retrieve the available
      genres.
     
-     The total number of seed artists, seed tracks, and seed genres.
+     The total number of seed artists, seed tracks, and seed genres
      must add up to 5 or less.
      */
     public var seedGenres: [String]?
@@ -337,20 +337,20 @@ public struct TrackAttributes: Hashable {
             let idsString = try SpotifyIdentifier.commaSeparatedIdsString(
                 seedArtists, ensureCategoryMatches: [.artist]
             )
-            dictionary += [CodingKeys.seedArtists.rawValue: idsString]
+            dictionary[CodingKeys.seedArtists.rawValue] = idsString
             seedsCount += seedArtists.count
         }
         if let seedGenres = self.seedGenres {
-            dictionary += [
-                CodingKeys.seedGenres.rawValue: seedGenres.joined(separator: ",")
-            ]
+            dictionary[
+                CodingKeys.seedGenres.rawValue
+            ] = seedGenres.joined(separator: ",")
             seedsCount += seedGenres.count
         }
         if let seedTracks = self.seedTracks {
             let idsString = try SpotifyIdentifier.commaSeparatedIdsString(
                 seedTracks, ensureCategoryMatches: [.track]
             )
-            dictionary += [CodingKeys.seedTracks.rawValue: idsString]
+            dictionary[CodingKeys.seedTracks.rawValue] = idsString
             seedsCount += seedTracks.count
         }
         
@@ -440,61 +440,6 @@ public struct TrackAttributes: Hashable {
         
     }
     
-    /**
-     Returns `true` if all the `FloatingPoint` properties of `self` are
-     approximately equal to those of `other` within an absolute tolerance of
-     0.001 and all other properties are equal by the `==` operator. Else, returns
-     `false`.
-     
-     - Parameter other: Another instance of `Self`.
-     */
-    public func isApproximatelyEqual(to other: Self) -> Bool {
-        
-        
-        if [self.seedArtists, self.seedTracks, self.seedGenres] !=
-                [other.seedArtists, other.seedTracks, other.seedGenres] {
-            return false
-        }
-            
-        // AttributeRange<Double>?
-        for (lhs, rhs) in [
-            (self.acousticness, other.acousticness),
-            (self.danceability, other.danceability),
-            (self.energy, other.energy),
-            (self.instrumentalness, other.instrumentalness),
-            (self.liveness, other.liveness),
-            (self.loudness, other.loudness),
-            (self.speechiness, other.speechiness),
-            (self.tempo, other.tempo),
-            (self.valence, other.valence)
-        ] {
-            if let lhs = lhs, let rhs = rhs {
-                if !lhs.isApproximatelyEqual(to: rhs) {
-                    return false
-                }
-            }
-            else if (lhs == nil) != (rhs == nil) {
-                return false
-            }
-            
-        }
-        
-        // AttributeRange<Int>?
-        for (lhs, rhs) in [
-            (self.durationMS, other.durationMS),
-            (self.key, other.key),
-            (self.mode, other.mode),
-            (self.popularity, other.popularity),
-            (self.timeSignature, other.timeSignature)
-        ] {
-            if lhs != rhs {
-                return false
-            }
-        }
-        
-        return true
-    }
-    
 }
 
 extension TrackAttributes: Codable {
@@ -518,6 +463,60 @@ extension TrackAttributes: Codable {
         case tempo
         case timeSignature = "time_signature"
         case valence
+    }
+
+}
+
+extension TrackAttributes: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        if self.seedArtists != other.seedArtists ||
+                self.seedTracks != other.seedTracks ||
+                self.seedGenres != other.seedGenres ||
+                self.durationMS != other.durationMS ||
+                self.key != other.key ||
+                self.mode != other.mode ||
+                self.popularity != other.popularity ||
+                self.timeSignature != other.timeSignature {
+                    
+            return false
+                    
+        }
+        
+        // AttributeRange<Double>?
+        for (lhs, rhs) in [
+            (self.acousticness, other.acousticness),
+            (self.danceability, other.danceability),
+            (self.energy, other.energy),
+            (self.instrumentalness, other.instrumentalness),
+            (self.liveness, other.liveness),
+            (self.loudness, other.loudness),
+            (self.speechiness, other.speechiness),
+            (self.tempo, other.tempo),
+            (self.valence, other.valence)
+        ] {
+            if let lhs = lhs, let rhs = rhs {
+                if !lhs.isApproximatelyEqual(to: rhs) {
+                    return false
+                }
+            }
+            else if (lhs == nil) != (rhs == nil) {
+                return false
+            }
+            
+        }
+        
+        return true
+        
     }
 
 }

@@ -56,7 +56,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      */
     public let rawData: Data?
     
-    /// The expected response type.
+    /// The type that this library was expecting to be able to decode
+    /// the data into.
     public let expectedResponseType: Any.Type
     
     /// The http status code.
@@ -91,7 +92,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      - Parameters:
        - url: The URL that was used to make the request for the data.
        - rawData: The raw data from the server.
-       - responseType: The expected response type.
+       - responseType: The type that the caller was expecting to be able
+             to decode the data into.
        - statusCode: The HTTP status code.
        - underlyingError: The underlying error encountered when trying to
              decode the data. Usually `DecodingError`.
@@ -148,12 +150,12 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     @discardableResult
     public func writeToFolder(_ folder: URL) throws -> URL {
         
-        let dataString = self.rawData.map {
+        let dataString = self.rawData.flatMap {
             String(data: $0, encoding: .utf8)
-        } as? String ?? "The data was nil or could not be decoded into a string"
+        } ?? "The data was nil or could not be decoded into a string"
         
         let dateString = DateFormatter.millisecondsTime.string(from: Date())
-        let title = "\(expectedResponseType) \(dateString)"
+        let title = "\(self.expectedResponseType) \(dateString)"
         
         let subFolder = folder.appendingPathComponent(
             title, isDirectory: true
@@ -192,7 +194,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     public var debugErrorDescription: String {
        
         var underlyingErrorString = ""
-        if let error = underlyingError {
+        if let error = self.underlyingError {
             dump(error, to: &underlyingErrorString)
         }
         else {
@@ -203,7 +205,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
 
         var codingPath = self.prettyCodingPath ?? "nil"
         
-        if let decodingError = underlyingError as? DecodingError {
+        if let decodingError = self.underlyingError as? DecodingError {
             switch decodingError {
                 case .keyNotFound(let key, _):
                     codingPath += " (keyNotFound: '\(key.stringValue)')"
@@ -214,7 +216,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         
         return """
             SpotifyDecodingError: The data from the Spotify web API \
-            could not be decoded into '\(expectedResponseType)'
+            could not be decoded into '\(self.expectedResponseType)'
             URL: \(self.url?.absoluteString ?? "nil")
             http status code: \(statusCodeString)
             pretty coding path: \(codingPath)
@@ -226,11 +228,11 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /// :nodoc:
     public var description: String {
         
-        let dataString = rawData.flatMap {
+        let dataString = self.rawData.flatMap {
             String(data: $0, encoding: .utf8)
         } ?? "The data was nil or could not be decoded into a string"
         
-        return "\(debugErrorDescription)raw data:\n\(dataString)"
+        return "\(self.debugErrorDescription)raw data:\n\(dataString)"
         
     }
     

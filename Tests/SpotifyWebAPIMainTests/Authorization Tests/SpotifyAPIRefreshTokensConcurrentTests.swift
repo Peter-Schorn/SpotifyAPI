@@ -201,6 +201,9 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
             })
             .store(in: &Self.cancellables)
 
+        var receivedTrack = false
+        var receivedAlbum = false
+        var receivedArtist = false
         
         DispatchQueue.global().async {
             // MARK: track
@@ -214,6 +217,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
                     },
                     receiveValue: { track in
                         print("received track: \(track.name)")
+                        receivedTrack = true
                     }
                 )
             dispatchGroup.enter()
@@ -235,6 +239,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
                     },
                     receiveValue: { album in
                         print("received album: \(album.name)")
+                        receivedAlbum = true
                     }
                 )
             dispatchGroup.enter()
@@ -256,6 +261,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
                     },
                     receiveValue: { artist in
                         print("received artist: \(artist.name)")
+                        receivedArtist = true
                     }
                 )
             dispatchGroup.enter()
@@ -272,10 +278,15 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         self.wait(for: [incrementDidChangeCountExpectation], timeout: 30)
 
         XCTAssertEqual(didChangeCount, 1)
+        XCTAssertTrue(receivedTrack)
+        XCTAssertTrue(receivedAlbum)
+        XCTAssertTrue(receivedArtist)
 
     }
   
  }
+
+
 
 final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIRefreshTokensConcurrentTests

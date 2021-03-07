@@ -118,7 +118,7 @@ public struct Track: Hashable {
      identified by their [ISO 3166-1 alpha-2 code][1].
     
      If a market parameter was supplied in the request that returned
-     this track, then this property will be `nil`and `isPlayable`
+     this track, then this property will be `nil` and `isPlayable`
      will be non-`nil`.
     
      See also `restrictions` and the [Track Relinking Guide][2].
@@ -231,11 +231,11 @@ public struct Track: Hashable {
         isPlayable: Bool? = nil,
         href: String? = nil,
         previewURL: String? = nil,
-        externalURLs: [String : String]? = nil,
-        externalIds: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
+        externalIds: [String: String]? = nil,
         availableMarkets: [String]? = nil,
         linkedFrom: TrackLink? = nil,
-        restrictions: [String : String]? = nil,
+        restrictions: [String: String]? = nil,
         discNumber: Int? = nil,
         type: IDCategory = .track
     ) {
@@ -290,4 +290,44 @@ extension Track: Codable {
 
     }
     
+}
+
+extension Track: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     Dates are compared using `timeIntervalSince1970`, so they are considered
+     floating point properties for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.name == other.name &&
+                self.artists == other.artists &&
+                self.uri == other.uri &&
+                self.id == other.id &&
+                self.isLocal == other.isLocal &&
+                self.popularity == other.popularity &&
+                self.durationMS == other.durationMS &&
+                self.trackNumber == other.trackNumber &&
+                self.isExplicit == other.isExplicit &&
+                self.isPlayable == other.isPlayable &&
+                self.href == other.href &&
+                self.previewURL == other.previewURL &&
+                self.externalURLs == other.externalURLs &&
+                self.externalIds == other.externalIds &&
+                self.availableMarkets == other.availableMarkets &&
+                self.linkedFrom == other.linkedFrom &&
+                self.restrictions == other.restrictions &&
+                self.discNumber == other.discNumber &&
+                self.type == other.type &&
+                self.album.isApproximatelyEqual(to: other.album)
+        
+    }
+
 }

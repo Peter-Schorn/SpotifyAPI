@@ -30,7 +30,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             positionMS: 100_000  // 1 minute 40 seconds
         )
         
-        encodeDecode(playbackRequest)
+        encodeDecode(playbackRequest, areEqual: ==)
         
         func checkPlaybackContext(_ context: CurrentlyPlayingContext?) {
             encodeDecode(context)
@@ -212,8 +212,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                         on drugs, the lure of identity politics, police violence, \
                         the enduring riddle of affirmative action, the politics of \
                         “black face,” and other topics. SUBSCRIBE to gain access \
-                        to all content on samharris.org/subscribe
-                        """.strip()
+                        to all full-length episodes at samharris.org/subscribe.
+                        """
                     )
 
                     if let releaseDate = episode.releaseDate {
@@ -297,7 +297,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             positionMS: 2_000_000  // 33:20
         )
 
-        encodeDecode(playbackRequest)
+        encodeDecode(playbackRequest, areEqual: ==)
 
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
@@ -644,7 +644,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
                     )
                 }
                 else {
-                    XCTFail("unexpected error: \(error)")
+                    XCTFail(
+                        "unexpected error when trying to set volume: \(error)"
+                    )
                 }
                 return ResultPublisher(())
                     .eraseToAnyPublisher()
@@ -733,7 +735,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             positionMS: 150_000
         )
 
-        encodeDecode(playbackRequest)
+        encodeDecode(playbackRequest, areEqual: ==)
 
         var activeDeviceId: String? = nil
 
@@ -765,7 +767,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         Self.spotify.availableDevices()
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
-                encodeDecode(devices)
+                encodeDecode(devices, areEqual: ==)
                 guard let activeDevice = devices.first(where: { device in
                     device.isActive
                 }) else {
@@ -799,7 +801,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         let playbackRequest = PlaybackRequest(track)
 
-        encodeDecode(playbackRequest)
+        encodeDecode(playbackRequest, areEqual: ==)
 
         var activeDeviceId: String? = nil
 
@@ -824,7 +826,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         Self.spotify.availableDevices()
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in
-                encodeDecode(devices)
+                encodeDecode(devices, areEqual: ==)
                 guard let activeDevice = devices.first(where: { device in
                     device.isActive
                 }) else {
@@ -854,19 +856,23 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
     func playHistory() {
 
-        let expectationCurrentDate = XCTestExpectation(
-            description: "testInvalidDatePlayHistory: current date"
+        let expectationBeforeCurrentDate = XCTestExpectation(
+            description: "testPlayHistory: .before(current date)"
         )
 
-        let expectationDistantPast = XCTestExpectation(
-            description: "testInvalidDatePlayHistory: distant past"
+        let expectationBeforeDistantPast = XCTestExpectation(
+            description: "testPlayHistory: .before(distant past)"
+        )
+        
+        let expectationAfterRecentPast = XCTestExpectation(
+            description: "testPlayHistory: .after(recent past)"
         )
 
         Self.spotify.recentlyPlayed(.before(Date()))
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in
-                    expectationCurrentDate.fulfill()
+                    expectationBeforeCurrentDate.fulfill()
                 },
                 receiveValue: { recentlyPlayed in
                     encodeDecode(recentlyPlayed)
@@ -880,15 +886,38 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in
-                    expectationDistantPast.fulfill()
+                    expectationBeforeDistantPast.fulfill()
                 },
                 receiveValue: { recentlyPlayed in
                     encodeDecode(recentlyPlayed)
                 }
             )
             .store(in: &Self.cancellables)
-
-        self.wait(for: [expectationCurrentDate, expectationDistantPast], timeout: 120)
+        
+        // yesterday
+        let recentPast = Date().addingTimeInterval(-86_400)
+        
+        Self.spotify.recentlyPlayed(.after(recentPast))
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in
+                    expectationAfterRecentPast.fulfill()
+                },
+                receiveValue: { recentlyPlayed in
+                    encodeDecode(recentlyPlayed)
+                }
+            )
+            .store(in: &Self.cancellables)
+        
+        
+        self.wait(
+            for: [
+                expectationBeforeCurrentDate,
+                expectationBeforeDistantPast,
+                expectationAfterRecentPast
+            ],
+            timeout: 120
+        )
 
     }
 
@@ -935,7 +964,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             Self.spotify.availableDevices()
                 .XCTAssertNoFailure()
                 .flatMap { devices -> AnyPublisher<Void, Error> in
-                    encodeDecode(devices)
+                    encodeDecode(devices, areEqual: ==)
                     if let activeDevice = devices.first(
                         where: { $0.isActive }
                     ) {
@@ -1298,6 +1327,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     }
 
     override class func tearDown() {
+        super.tearDown()
         spotifyDecodeLogger.logLevel = .warning
     }
 

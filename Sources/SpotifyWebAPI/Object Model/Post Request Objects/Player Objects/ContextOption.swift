@@ -56,6 +56,7 @@ extension ContextOption: Codable {
                 expected to find either a single string value for key \
                 "context_uri" or an array of strings for key "uris"
                 """
+
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
                     codingPath: container.codingPath,

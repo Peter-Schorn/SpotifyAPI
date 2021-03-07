@@ -139,7 +139,7 @@ public struct Show: Hashable {
         images: [SpotifyImage]? = nil,
         availableMarkets: [String],
         href: String,
-        externalURLs: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
         isExternallyHosted: Bool,
         languages: [String],
         copyrights: [SpotifyCopyright]? = nil,
@@ -191,4 +191,41 @@ extension Show: Codable {
         
     }
     
+}
+
+extension Show: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     Dates are compared using `timeIntervalSince1970`, so they are considered
+     floating point properties for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+     
+        return self.name == other.name &&
+                self.description == other.description &&
+                self.totalEpisodes == other.totalEpisodes &&
+                self.isExplicit == other.isExplicit &&
+                self.uri == other.uri &&
+                self.id == other.id &&
+                self.images == other.images &&
+                self.availableMarkets == other.availableMarkets &&
+                self.href == other.href &&
+                self.externalURLs == other.externalURLs &&
+                self.isExternallyHosted == other.isExternallyHosted &&
+                self.languages == other.languages &&
+                self.copyrights == other.copyrights &&
+                self.mediaType == other.mediaType &&
+                self.publisher == other.publisher &&
+                self.type == other.type &&
+                self.episodes.isApproximatelyEqual(to: other.episodes)
+
+    }
+
 }

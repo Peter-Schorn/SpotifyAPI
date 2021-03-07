@@ -339,19 +339,42 @@
             <a href="../Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/s:Sa">Array</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/RandomAccessCollection.html">RandomAccessCollection</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Set.html">Set</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/String.html">String</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
             </ul>
           </li>
@@ -397,6 +420,46 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/disable()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ">disable()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prevents this type from becoming the logging backend.</p>
+
+<p>This method allows you to provide your own global logging backend,
+as only a single one can be configured per process.</p>
+
+<p>This method <em>must</em> be called before a call to
+<code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">SpotifyAPILogHandler.bootstrap()</a></code> is made, otherwise calling this
+method has no effect. Because <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">SpotifyAPILogHandler.bootstrap()</a></code> is
+called automatically when you create an instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>,
+<strong>this method should be called before an instance of</strong> <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>
+<strong>is created.</strong></p>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>This method is thread-safe.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">disable</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ"></a>
                     <a name="//apple_ref/swift/Method/bootstrap()" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">bootstrap()</a>
@@ -409,6 +472,10 @@
                       <div class="abstract">
                         <p>Calls <code>LoggingSystem.bootstrap(_:)</code> and configures this type as the logging
 backend. The default log level is <code>info</code>.</p>
+
+<p>If <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ">SpotifyAPILogHandler.disable()</a></code> has been called, then
+<code>LoggingSystem.bootstrap(_:)</code> will <em>not</em> be called and this method will
+have no effect.</p>
 
 <p>This method is automatically called when an instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, the
 central class in this library, is created or decoded from JSON data.</p>
@@ -649,8 +716,8 @@ safe, but has no effect.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

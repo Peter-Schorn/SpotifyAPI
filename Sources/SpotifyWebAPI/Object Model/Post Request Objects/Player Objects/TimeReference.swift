@@ -90,3 +90,37 @@ public enum TimeReference: Codable, Hashable {
         case before, after
     }
 }
+
+extension TimeReference: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     The date is compared using `timeIntervalSince1970`, so it
+     is considered a floating point property for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        switch (self, other) {
+            case (.before(let date), .before(let otherDate)):
+                return date.timeIntervalSince1970.isApproximatelyEqual(
+                    to: otherDate.timeIntervalSince1970,
+                    absoluteTolerance: 0.001
+                )
+            case (.after(let date), .after(let otherDate)):
+                return date.timeIntervalSince1970.isApproximatelyEqual(
+                    to: otherDate.timeIntervalSince1970,
+                    absoluteTolerance: 0.001
+                )
+            default:
+                return false
+        }
+
+    }
+
+}

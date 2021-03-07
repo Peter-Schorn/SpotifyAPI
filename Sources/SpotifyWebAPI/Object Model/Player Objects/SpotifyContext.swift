@@ -54,7 +54,7 @@ public struct SpotifyContext: Hashable {
     public init(
         uri: String,
         href: String?,
-        externalURLs: [String : String]?,
+        externalURLs: [String: String]?,
         type: IDCategory
     ) {
         self.uri = uri

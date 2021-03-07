@@ -156,3 +156,51 @@ extension SavedItem: Codable {
     }
     
 }
+
+extension SavedItem: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     `SavedItem.addedAt` is compared using `timeIntervalSince1970`, so it is
+     considered a floating point property for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.type == other.type &&
+                self.addedAt.isApproximatelyEqual(to: other.addedAt) &&
+                self.item == other.item
+
+    }
+
+}
+
+extension SavedItem where Item: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     Dates are compared using `timeIntervalSince1970`, so they are considered
+     floating point properties for the purposes of this method.
+
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.type == other.type &&
+                self.addedAt.isApproximatelyEqual(to: other.addedAt) &&
+                self.item.isApproximatelyEqual(to: other.item)
+
+    }
+
+
+}

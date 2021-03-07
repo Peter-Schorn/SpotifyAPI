@@ -31,8 +31,8 @@ extension SpotifyAPIEpisodeTests {
             thinking with politics and social activism, cancel culture, \
             environmental and genetic contributions to individual and group \
             differences, intellectual honesty, and other topics. SUBSCRIBE \
-            to continue listening and gain access to all content on \
-            samharris.org/subscribe
+            to gain access to all full-length episodes at \
+            samharris.org/subscribe.
             """
         )
         XCTAssertEqual(episode.durationMS, 2923102)
@@ -45,7 +45,7 @@ extension SpotifyAPIEpisodeTests {
         XCTAssertFalse(episode.isExternallyHosted)
         XCTAssertTrue(episode.isPlayable)
         XCTAssert(episode.languages.contains("en"), "\(episode.languages)")
-        XCTAssertEqual(episode.name, "#212 — July 29, 2020")
+        XCTAssertEqual(episode.name, "#212 — A Conversation with Kathryn Paige Harden")
         XCTAssertEqual(episode.type, .episode)
         XCTAssertEqual(episode.uri, "spotify:episode:3OEdPEYB69pfXoBrhvQYeC")
         
@@ -208,8 +208,8 @@ extension SpotifyAPIEpisodeTests {
                     for Missing and Exploited Children, photo DNA, the roles \
                     played by specific tech companies, the ethics of \
                     encryption, “sextortion,” the culture of pedophiles, and \
-                    other topics. SUBSCRIBE to gain access to all content on \
-                    samharris.org/subscribe
+                    other topics. SUBSCRIBE to gain access to all full-length \
+                    episodes at samharris.org/subscribe.
                     """
                 )
                 XCTAssertEqual(samHarris213.name, "#213 — The Worst Epidemic")

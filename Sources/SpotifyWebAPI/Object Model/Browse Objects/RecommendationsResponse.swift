@@ -66,3 +66,25 @@ public struct RecommendationsResponse: Codable, Hashable {
     }
 
 }
+
+extension RecommendationsResponse: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     Dates are compared using `timeIntervalSince1970`, so they are considered
+     floating point properties for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+
+        return self.seeds == other.seeds &&
+                self.tracks.isApproximatelyEqual(to: other.tracks)
+
+    }
+
+}

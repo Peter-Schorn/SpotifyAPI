@@ -24,7 +24,7 @@ public enum SpotifyLocalError {
     
     /**
      The value provided for the state parameter when you requested
-     access and refresh tokens didn't match the value returned from spotify
+     access and refresh tokens didn't match the value returned from Spotify
      in the query string of the redirect URI.
      
      - supplied: The value supplied when requesting the access and refresh
@@ -35,7 +35,7 @@ public enum SpotifyLocalError {
     case invalidState(supplied: String?, received: String?)
     
     
-    /// A [Spotify identifier][1] (URI, ID, URL) of a specific type
+    /// A [Spotify identifier][1] (URI, id, URL) of a specific type
     /// could not be parsed. The message will contain more information.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

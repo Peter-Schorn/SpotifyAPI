@@ -35,7 +35,7 @@ extension SpotifyAPIPlaylistsTests {
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlist in
-                    encodeDecode(playlist)
+                    encodeDecode(playlist, areEqual: ==)
                     XCTAssertEqual(playlist.name, "Crumb")
                     XCTAssertEqual(playlist.uri, "spotify:playlist:33yLOStnp2emkEA76ew1Dz")
                     XCTAssertEqual(playlist.id, "33yLOStnp2emkEA76ew1Dz")
@@ -93,7 +93,7 @@ extension SpotifyAPIPlaylistsTests {
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { playlistTracks in
-                encodeDecode(playlistTracks)
+                encodeDecode(playlistTracks, areEqual: ==)
                 let tracks = playlistTracks.items.map(\.item)
                 XCTAssertEqual(playlistTracks.items.count, 10)
                 if playlistTracks.items.count < 10 { return }
@@ -131,7 +131,7 @@ extension SpotifyAPIPlaylistsTests {
     func filteredPlaylist() {
 
         func reveivePlaylist(_ playlist: FilteredPlaylist) {
-            encodeDecode(playlist)
+            encodeDecode(playlist, areEqual: ==)
             XCTAssertEqual(playlist.name, "Mac DeMarco")
             XCTAssertEqual(playlist.uri, "spotify:playlist:6oyVZ3dZZVCkXJm451Hj5v")
             XCTAssertEqual(playlist.ownerDisplayName, "petervschorn")
@@ -190,7 +190,7 @@ extension SpotifyAPIPlaylistsTests {
     func filteredPlaylistItems() {
 
         func receivePlaylistItems(_ playlistItems: FilteredPlaylistItems) {
-            encodeDecode(playlistItems)
+            encodeDecode(playlistItems, areEqual: ==)
             for item in playlistItems.items {
                 XCTAssertFalse(item.name.isEmpty)
                 guard let artist = item.artists.first else {
@@ -265,7 +265,7 @@ extension SpotifyAPIPlaylistsTests {
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { playlistsArray in
-                encodeDecode(playlistsArray)
+                encodeDecode(playlistsArray, areEqual: ==)
                 let playlists = playlistsArray.flatMap(\.items)
                 for playlist in playlists {
                     print("[\(playlist.name)]")
@@ -576,7 +576,7 @@ extension SpotifyAPIPlaylistsTests where
             isCollaborative: false,
             description: dateString
         )
-        encodeDecode(details)
+        encodeDecode(details, areEqual: ==)
 
         let expectation = XCTestExpectation(
             description: "createPlaylistAndAddTracks"
@@ -591,13 +591,13 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
                 // create a playlist for them
-                encodeDecode(user)
+                encodeDecode(user, areEqual: ==)
                 return Self.spotify.createPlaylist(for: user.uri, details)
             }
             .XCTAssertNoFailure()
             .flatMap { playlist -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
                 XCTAssertEqual(playlist.description, dateString)
                 XCTAssertFalse(playlist.isPublic ?? true)
@@ -626,7 +626,7 @@ extension SpotifyAPIPlaylistsTests where
         publisher
             .flatMap { playlist -> AnyPublisher<Void, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.uri, createdPlaylistURI)
                 XCTAssertEqual(playlist.snapshotId, createdPlaylistSnaphotId)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
@@ -655,7 +655,7 @@ extension SpotifyAPIPlaylistsTests where
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlists in
-                    encodeDecode(playlists)
+                    encodeDecode(playlists, areEqual: ==)
                     XCTAssertFalse(
                         // ensure the user is no longer following the playlist
                         // because we just unfollowed it
@@ -686,7 +686,7 @@ extension SpotifyAPIPlaylistsTests where
             position: 5
         )
 
-        encodeDecode(urisDict)
+        encodeDecode(urisDict, areEqual: ==)
 
         XCTAssertEqual(
             urisDict.uris.map(\.uri),
@@ -736,7 +736,7 @@ extension SpotifyAPIPlaylistsTests where
             description: dateString
         )
 
-        encodeDecode(playlistDetails)
+        encodeDecode(playlistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
             description: "testCreatePlaylistAddRemoveReorderItems"
@@ -746,7 +746,7 @@ extension SpotifyAPIPlaylistsTests where
             .currentUserProfile()
             .XCTAssertNoFailure()
             .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                encodeDecode(user)
+                encodeDecode(user, areEqual: ==)
                 // MARK: Create the playlist
                 return Self.spotify.createPlaylist(
                     for: user.uri, playlistDetails
@@ -755,7 +755,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { (playlist: Playlist<PlaylistItems>) -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 // MARK: Ensure it has the details we added
                 XCTAssertEqual(playlist.name, "createPlaylistAddRemoveReorderItems")
                 XCTAssertEqual(playlist.description, dateString)
@@ -793,7 +793,7 @@ extension SpotifyAPIPlaylistsTests where
             .collect()
             .flatMap { (playlistsArray: [PagingObject<Playlist<PlaylistsItemsReference>>]) -> AnyPublisher<PlaylistItems, Error> in
 
-                encodeDecode(playlistsArray)
+                encodeDecode(playlistsArray, areEqual: ==)
                 // MARK: Ensure the user is following the playlist we just created
                 let playlists = playlistsArray.flatMap({ $0.items })
                 let playlist = playlists.first(where: { playlist in
@@ -816,7 +816,7 @@ extension SpotifyAPIPlaylistsTests where
         let publisher3: AnyPublisher<PlaylistItems, Error> = publisher2
             .flatMap { playlistItems -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 // assert that the playlist contains all of the items that
                 // we just added, in the same order.
                 // MARK: Ensure the playlist has the items we added
@@ -839,7 +839,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlistItems -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 // MARK: Ensure the items in the playlist were reordered as requested 1
                 XCTAssertEqual(
                     playlistItems.items.compactMap(\.item?.uri),
@@ -861,7 +861,7 @@ extension SpotifyAPIPlaylistsTests where
 
         publisher3
             .flatMap { playlistItems -> AnyPublisher<Void, Error> in
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 // MARK: Ensure the items in the playlist were reordered as requested 2
                 XCTAssertEqual(
                     playlistItems.items.compactMap(\.item?.uri),
@@ -886,7 +886,7 @@ extension SpotifyAPIPlaylistsTests where
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlists in
-                    encodeDecode(playlists)
+                    encodeDecode(playlists, areEqual: ==)
                     XCTAssertFalse(
                         // ensure the user is no longer following the playlist
                         // because we just unfollowed it
@@ -928,12 +928,12 @@ extension SpotifyAPIPlaylistsTests where
         let itemsToRemoveContainer1 = URIsContainer(
             itemsToRemoveFromPlaylist, snapshotId: nil
         )
-        encodeDecode(itemsToRemoveContainer1)
+        encodeDecode(itemsToRemoveContainer1, areEqual: ==)
 
         let itemsToRemoveContainer2 = URIsContainer(
             itemsToRemoveFromPlaylist, snapshotId: "asdfsdfasdfasdfasdfasdf"
         )
-        encodeDecode(itemsToRemoveContainer2)
+        encodeDecode(itemsToRemoveContainer2, areEqual: ==)
 
         let itemsLeftInPlaylist: [SpotifyURIConvertible] = [
             URIs.Episodes.samHarris215,
@@ -948,7 +948,7 @@ extension SpotifyAPIPlaylistsTests where
             isCollaborative: true
         )
 
-        encodeDecode(playlistDetails)
+        encodeDecode(playlistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
             description: "testRemoveAllOccurencesFromPlaylist"
@@ -961,7 +961,7 @@ extension SpotifyAPIPlaylistsTests where
             .currentUserProfile()
             .XCTAssertNoFailure()
             .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                encodeDecode(user)
+                encodeDecode(user, areEqual: ==)
                 return Self.spotify.createPlaylist(
                     for: user.uri, playlistDetails
                 )
@@ -969,7 +969,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlist -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.name, "removeAllOccurencesFromPlaylist")
                 XCTAssertFalse(playlist.isPublic ?? true)
                 XCTAssertTrue(playlist.isCollaborative)
@@ -996,7 +996,7 @@ extension SpotifyAPIPlaylistsTests where
         publisher
             .flatMap { playlistItems -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 XCTAssertEqual(
                     playlistItems.items.compactMap(\.item?.uri),
                     itemsToAddToPlaylist.map(\.uri)
@@ -1017,7 +1017,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlistItems -> AnyPublisher<Void, Error> in
 
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 XCTAssertEqual(
                     playlistItems.items.compactMap(\.item?.uri),
                     itemsLeftInPlaylist.map(\.uri)
@@ -1061,12 +1061,12 @@ extension SpotifyAPIPlaylistsTests where
             ]
         )
 
-        encodeDecode(itemsToRemoveFromPlaylist)
+        encodeDecode(itemsToRemoveFromPlaylist, areEqual: ==)
 
         do {
             var copy = itemsToRemoveFromPlaylist
             copy.snapshotId = "asdifhaslkjhfalksjfhaksdjfhaksjdhfasdkljf"
-            encodeDecode(copy)
+            encodeDecode(copy, areEqual: ==)
         }
 
         let itemsLeftInPlaylist: [SpotifyURIConvertible] = [
@@ -1080,7 +1080,7 @@ extension SpotifyAPIPlaylistsTests where
             name: "removeSpecificOccurencesFromPlaylist",
             isCollaborative: nil
         )
-        encodeDecode(playlistDetails)
+        encodeDecode(playlistDetails, areEqual: ==)
 
         let newPlaylistDetails = PlaylistDetails(
             name: "renamed removeSpecificOccurencesFromPlaylist",
@@ -1088,7 +1088,7 @@ extension SpotifyAPIPlaylistsTests where
             isCollaborative: false,
             description: "programmatically"
         )
-        encodeDecode(newPlaylistDetails)
+        encodeDecode(newPlaylistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
             description: "testRemoveSpecificOccurencesFromPlaylist"
@@ -1101,7 +1101,7 @@ extension SpotifyAPIPlaylistsTests where
             Self.spotify.currentUserProfile()
             .XCTAssertNoFailure()
             .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                encodeDecode(user)
+                encodeDecode(user, areEqual: ==)
                 return Self.spotify.createPlaylist(
                     for: user.uri, playlistDetails
                 )
@@ -1109,7 +1109,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlist -> AnyPublisher<Void, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.name, "removeSpecificOccurencesFromPlaylist")
                 if let isPublic = playlist.isPublic {
                     XCTAssertTrue(isPublic)
@@ -1150,7 +1150,7 @@ extension SpotifyAPIPlaylistsTests where
         publisher
             .flatMap { playlist -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
 
                 XCTAssertEqual(playlist.name, "renamed removeSpecificOccurencesFromPlaylist")
                 if let isPublic = playlist.isPublic {
@@ -1187,7 +1187,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlistItems -> AnyPublisher<Void, Error> in
 
-                encodeDecode(playlistItems)
+                encodeDecode(playlistItems, areEqual: ==)
                 XCTAssertEqual(
                     playlistItems.items.compactMap(\.item?.uri),
                     itemsLeftInPlaylist.map(\.uri)
@@ -1237,7 +1237,7 @@ extension SpotifyAPIPlaylistsTests where
             isCollaborative: true,
             description: dateString
         )
-        encodeDecode(playlistDetails)
+        encodeDecode(playlistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
             description: "testReplaceItemsInPlaylist"
@@ -1247,7 +1247,7 @@ extension SpotifyAPIPlaylistsTests where
             .currentUserProfile()
             .XCTAssertNoFailure()
             .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                encodeDecode(user)
+                encodeDecode(user, areEqual: ==)
                 return Self.spotify.createPlaylist(
                     for: user.uri, playlistDetails
                 )
@@ -1255,7 +1255,7 @@ extension SpotifyAPIPlaylistsTests where
             .XCTAssertNoFailure()
             .flatMap { playlist -> AnyPublisher<String, Error> in
 
-                encodeDecode(playlist)
+                encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.name, "replaceItemsInPlaylist")
                 XCTAssertEqual(playlist.items.items.count, 0)
                 XCTAssertTrue(playlist.isCollaborative)
@@ -1352,7 +1352,7 @@ extension SpotifyAPIPlaylistsTests where
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlists in
-                    encodeDecode(playlists)
+                    encodeDecode(playlists, areEqual: ==)
                     XCTAssertFalse(
                         // ensure the user is no longer following the playlist
                         // because we just unfollowed it

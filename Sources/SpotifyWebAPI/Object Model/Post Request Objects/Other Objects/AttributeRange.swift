@@ -79,7 +79,7 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
     
 }
 
-public extension AttributeRange where Value: BinaryFloatingPoint {
+extension AttributeRange: ApproximatelyEquatable where Value: BinaryFloatingPoint {
     
     /**
      Returns `true` if all the properties of `self` are approximately
@@ -90,37 +90,23 @@ public extension AttributeRange where Value: BinaryFloatingPoint {
      
      - Parameter other: Another instance of `Self`.
      */
-    func isApproximatelyEqual(to other: Self) -> Bool {
+    public func isApproximatelyEqual(to other: Self) -> Bool {
     
-        if let min = self.min, let otherMin = other.min {
-            if !min.isApproximatelyEqual(
-                to: otherMin, absoluteTolerance: 0.001
-            ) {
+        for (lhs, rhs) in [
+            (self.min, other.min),
+            (self.target, other.target),
+            (self.max, other.max)
+        ] {
+            if let lhs = lhs, let rhs = rhs {
+                if !lhs.isApproximatelyEqual(
+                    to: rhs, absoluteTolerance: 0.001
+                ) {
+                    return false
+                }
+            }
+            else if (lhs == nil) != (rhs == nil) {
                 return false
             }
-        }
-        else if (self.min == nil) != (other.min == nil) {
-            return false
-        }
-        
-        if let target = self.target, let otherTarget = other.target {
-            if !target.isApproximatelyEqual(
-                to: otherTarget, absoluteTolerance: 0.001
-            ) {
-                return false
-            }
-        }
-        else if (self.target == nil) != (other.target == nil) {
-            return false
-        }
-        
-        if let max = self.max, let otherMax = other.max {
-            return max.isApproximatelyEqual(
-                to: otherMax, absoluteTolerance: 0.001
-            )
-        }
-        else if (self.target == nil) != (other.target == nil) {
-            return false
         }
         
         return true

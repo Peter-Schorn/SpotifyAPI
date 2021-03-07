@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The authorization info that spotify returns during the authorization
+ The authorization info that Spotify returns during the authorization
  process.
 
  This is used in various different contexts, including:
@@ -71,7 +71,7 @@ extension AuthInfo: Codable {
             forKey: .scopes
         )
         
-        // If the json data was retrieved directly from the spotify API,
+        // If the json data was retrieved directly from the Spotify API,
         // then the expiration date will be an integer representing
         // the number of seconds after the current date
         // that the access token expires.
@@ -174,5 +174,16 @@ extension AuthInfo {
         )
     }
     
+
+}
+
+extension AuthInfo: ApproximatelyEquatable {
+    
+    func isApproximatelyEqual(to other: AuthInfo) -> Bool {
+        return self.accessToken == other.accessToken &&
+            self.refreshToken == other.refreshToken &&
+            self.scopes == other.scopes &&
+            self.expirationDate.isApproximatelyEqual(to: other.expirationDate)
+    }
 
 }

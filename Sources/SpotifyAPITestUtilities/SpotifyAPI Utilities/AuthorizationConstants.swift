@@ -29,7 +29,7 @@ import Foundation
  * The "SPOTIFY_SWIFT_TESTING_CLIENT_ID" and
    "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables.
  
- If none of these environment variables are populated, then a fatal error
+ If none of these values are populated, then a fatal error
  is thrown.
  */
 public let spotifyCredentials: SpotifyCredentials = {

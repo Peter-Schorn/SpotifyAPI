@@ -18,11 +18,15 @@ struct FilteredPlaylistItems: Codable, Equatable {
     
 }
 
-struct FilteredItem: Codable, Equatable {
+struct FilteredItem: Equatable {
  
     let name: String
     let artists: [FilteredArtist]
+    
+}
 
+extension FilteredItem: Codable {
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -61,5 +65,5 @@ struct FilteredItem: Codable, Equatable {
         case artists
         case name
     }
-    
+
 }

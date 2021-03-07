@@ -31,7 +31,7 @@ extension SpotifyAPIBrowseTests {
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { category in
-                encodeDecode(category)
+                encodeDecode(category, areEqual: ==)
                 XCTAssertEqual(category.name, "Fiesta")
                 XCTAssertEqual(category.id, "party")
                 XCTAssertEqual(
@@ -63,7 +63,7 @@ extension SpotifyAPIBrowseTests {
     func categories() {
         
         func receiveCategories(_ categories: PagingObject<SpotifyCategory>) {
-            encodeDecode(categories)
+            encodeDecode(categories, areEqual: ==)
             XCTAssertEqual(categories.limit, 10)
             XCTAssertEqual(categories.offset, 5)
             XCTAssertLessThanOrEqual(categories.items.count, 10)
@@ -99,7 +99,7 @@ extension SpotifyAPIBrowseTests {
         func receiveCategoryPlaylists(
             _ playlists: PagingObject<Playlist<PlaylistsItemsReference>>
         ) {
-            encodeDecode(playlists)
+            encodeDecode(playlists, areEqual: ==)
             XCTAssertEqual(playlists.limit, 15)
             XCTAssertEqual(playlists.offset, 2)
             XCTAssertLessThanOrEqual(playlists.items.count, 15)
@@ -132,7 +132,7 @@ extension SpotifyAPIBrowseTests {
     func featuredPlaylists() {
         
         func receivePlaylists(_ featuredPlaylists: FeaturedPlaylists) {
-            encodeDecode(featuredPlaylists)
+            encodeDecode(featuredPlaylists, areEqual: ==)
             let playlists = featuredPlaylists.playlists
             XCTAssertEqual(playlists.limit, 10)
             XCTAssertEqual(playlists.offset, 5)

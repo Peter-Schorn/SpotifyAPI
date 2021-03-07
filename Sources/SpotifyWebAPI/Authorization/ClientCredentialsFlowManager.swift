@@ -576,6 +576,8 @@ public extension ClientCredentialsFlowManager {
     
 }
 
+// MARK: - Private -
+
 private extension ClientCredentialsFlowManager {
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
@@ -608,6 +610,8 @@ private extension ClientCredentialsFlowManager {
     }
     
 }
+
+// MARK: - Internal -
 
 extension ClientCredentialsFlowManager {
     
@@ -650,18 +654,12 @@ extension ClientCredentialsFlowManager: Hashable {
                 rhs.updateAuthInfoDispatchQueue.sync {
             return (rhs._accessToken, rhs._expirationDate)
         }
-       
-        if lhs.clientId != rhs.clientId ||
-                lhs.clientSecret != rhs.clientSecret ||
-                lhsAccessToken != rhsAccessToken {
-            return false
-        }
-        
-        return abs(
-            (lhsExpirationDate?.timeIntervalSince1970 ?? 0) -
-                (rhsExpirationDate?.timeIntervalSince1970 ?? 0)
-        ) <= 3
-        
+
+        return lhs.clientId == rhs.clientId &&
+                lhs.clientSecret == rhs.clientSecret &&
+                lhsAccessToken == rhsAccessToken &&
+                lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
+
     }
     
 }

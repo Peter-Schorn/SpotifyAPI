@@ -339,19 +339,42 @@
             <a href="Other%20Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Other%20Extensions.html#/s:Sa">Array</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Date.html">Date</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/RandomAccessCollection.html">RandomAccessCollection</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Set.html">Set</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/String.html">String</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Substring.html">Substring</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
             </ul>
           </li>
@@ -415,6 +438,7 @@ useful in future calls.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span> <span class="k">where</span> <span class="kt">Item</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -456,6 +480,7 @@ It contains just three properties:</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SavedItem</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SavedItem</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SavedItem</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -506,6 +531,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SearchResult</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SearchResult</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SearchResult</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -573,7 +599,8 @@ be <code>nil</code> if it was not requested in the search.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyUser</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyUser</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyUser</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
                       </div>
@@ -634,6 +661,7 @@ be <code>nil</code> if it was not requested in the search.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CursorPagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="p">:</span> <span class="kt">Codable</span> <span class="o">&amp;</span> <span class="kt">Hashable</span><span class="o">&gt;</span><span class="p">:</span>
     <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CursorPagingObject</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span> <span class="k">where</span> <span class="kt">Item</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -854,6 +882,7 @@ and a localized message that can be displayed to the user, such as
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NewAlbumReleases</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NewAlbumReleases</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -914,6 +943,7 @@ and a localized message that can be displayed to the user, such as
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RecommendationsResponse</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RecommendationsResponse</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -957,6 +987,7 @@ seed genres.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TrackAttributes</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TrackAttributes</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TrackAttributes</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1003,8 +1034,8 @@ Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

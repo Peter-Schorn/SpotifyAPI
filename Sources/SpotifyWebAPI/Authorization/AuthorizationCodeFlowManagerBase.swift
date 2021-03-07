@@ -284,6 +284,17 @@ public class AuthorizationCodeFlowManagerBase {
         
     }
     
+    func hash(into hasher: inout Hasher) {
+        self.updateAuthInfoDispatchQueue.sync {
+            hasher.combine(self.clientId)
+            hasher.combine(self.clientSecret)
+            hasher.combine(self._accessToken)
+            hasher.combine(self._refreshToken)
+            hasher.combine(self._expirationDate)
+            hasher.combine(self._scopes)
+        }
+    }
+
 }
 
 public extension AuthorizationCodeFlowManagerBase {
@@ -372,6 +383,8 @@ public extension AuthorizationCodeFlowManagerBase {
     
 }
 
+// MARK: - Internal -
+
 extension AuthorizationCodeFlowManagerBase {
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
@@ -414,6 +427,39 @@ extension AuthorizationCodeFlowManagerBase {
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
         )
         #endif
+    }
+    
+    func isEqualTo(other: AuthorizationCodeFlowManagerBase) -> Bool {
+        
+        let (lhsAccessToken, lhsRefreshToken, lhsScopes, lhsExpirationDate) =
+            self.updateAuthInfoDispatchQueue
+                .sync { () -> (String?, String?, Set<Scope>?, Date?) in
+                    return (
+                        self._accessToken,
+                        self._refreshToken,
+                        self._scopes,
+                        self._expirationDate
+                    )
+                }
+        
+        let (rhsAccessToken, rhsRefreshToken, rhsScopes, rhsExpirationDate) =
+                other.updateAuthInfoDispatchQueue
+                    .sync { () -> (String?, String?, Set<Scope>?, Date?) in
+                        return (
+                            other._accessToken,
+                            other._refreshToken,
+                            other._scopes,
+                            other._expirationDate
+                        )
+                    }
+        
+        return self.clientId == other.clientId &&
+                self.clientSecret == other.clientSecret &&
+                lhsAccessToken == rhsAccessToken &&
+                lhsRefreshToken == rhsRefreshToken &&
+                lhsScopes == rhsScopes &&
+                lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
+
     }
 
 }

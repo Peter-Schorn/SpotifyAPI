@@ -101,7 +101,7 @@ public struct Artist: Hashable {
         id: String? = nil,
         images: [SpotifyImage]? = nil,
         popularity: Int? = nil,
-        externalURLs: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
         followers: Followers? = nil,
         genres: [String]? = nil,
         href: String? = nil

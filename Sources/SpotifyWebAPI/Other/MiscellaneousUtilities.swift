@@ -222,7 +222,10 @@ public func urlQueryDictionary(
  */
 public protocol SomeOptional {
 
+    /// The type wrapped by the `Optional`.
     associatedtype Wrapped
+    
+    /// The type as an `Optional`.
     var optional: Wrapped? { get set }
 }
 

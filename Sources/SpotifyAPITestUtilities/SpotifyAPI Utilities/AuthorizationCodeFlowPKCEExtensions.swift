@@ -59,12 +59,10 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         
         print("authorization URL: '\(authorizationURL)'")
         
-        let redirectURLwithQuery = openAuthorizationURLAndWaitForRedirect(
+        guard let redirectURLWithQuery = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
-        )
-        
-        guard let redirectURLWithQuery = redirectURLwithQuery else {
-            fatalError("couldn't convert redirect URI to URL")
+        ) else {
+            fatalError("couldn't get redirectURLWithQuery")
         }
         
         return self.authorizationManager.requestAccessAndRefreshTokens(

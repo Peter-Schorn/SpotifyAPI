@@ -104,42 +104,28 @@ public struct AudioAnalysis: Codable, Hashable {
         self.sections = sections
         self.segments = segments
     }
+
+}
+
+extension AudioAnalysis: ApproximatelyEquatable {
     
     /**
      Returns `true` if all the `FloatingPoint` properties of `self` are
      approximately equal to those of `other` within an absolute tolerance of
-     0.001 and all other properties are equal by the `==` operator. Else, returns
-     `false`.
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
      
      - Parameter other: Another instance of `Self`.
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {
 
-        for properties in [
-            [self.bars, other.bars],
-            [self.beats, other.beats],
-            [self.tatums, other.tatums]
-        ] {
-            for (lhs, rhs) in zip(properties[0], properties[1]) {
-                if !lhs.isApproximatelyEqual(to: rhs) {
-                    return false
-                }
-            }
-        }
-        
-        for (lhs, rhs) in zip(self.sections, other.sections) {
-            if !lhs.isApproximatelyEqual(to: rhs) {
-                return false
-            }
-        }
-        
-        for (lhs, rhs) in zip(self.segments, other.segments) {
-            if !lhs.isApproximatelyEqual(to: rhs) {
-                return false
-            }
-        }
-        
-        return true
+        return self.bars.isApproximatelyEqual(to: other.bars) &&
+                self.beats.isApproximatelyEqual(to: other.beats) &&
+                self.tatums.isApproximatelyEqual(to: other.tatums) &&
+                self.sections.isApproximatelyEqual(to: other.sections) &&
+                self.segments.isApproximatelyEqual(to: other.segments)
+
     }
+
 
 }

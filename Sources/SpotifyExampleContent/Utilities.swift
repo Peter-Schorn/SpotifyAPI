@@ -9,7 +9,7 @@ extension Bundle {
         type: T.Type
     ) -> T? {
        
-        guard let url = Bundle.module.url(
+        guard let url = self.url(
             forResource: name, withExtension: `extension`
         ) else {
             print("couldn't find resource '\(name)'")
@@ -23,6 +23,15 @@ extension Bundle {
             return try JSONDecoder().decode(type.self, from: data)
         
         } catch {
+            
+            let error = SpotifyDecodingError(
+                url: nil,
+                rawData: data,
+                responseType: type.self,
+                statusCode: nil,
+                underlyingError: error
+            )
+
             print("couldn't decode '\(name)' into '\(type)':\n\(error)")
             if let dataString = String(data: data, encoding: .utf8) {
                 print("raw data:\n" + dataString)

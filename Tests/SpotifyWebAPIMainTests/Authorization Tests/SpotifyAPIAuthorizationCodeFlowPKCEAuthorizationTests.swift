@@ -29,7 +29,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     
     func testDeauthorizeReauthorize() {
     
-        encodeDecode(Self.spotify.authorizationManager)
+        encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
         
         var didChangeCount = 0
         Self.spotify.authorizationManagerDidChange
@@ -79,7 +79,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             "authorizationManagerDidDeauthorize should only emit once"
         )
         
-        encodeDecode(Self.spotify.authorizationManager)
+        encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
     
     }
     

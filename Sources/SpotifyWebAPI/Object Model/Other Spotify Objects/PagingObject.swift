@@ -1,4 +1,4 @@
-//import Foundation
+import Foundation
 #if canImport(Combine)
 import Combine
 #else
@@ -197,4 +197,20 @@ extension PagingObject: Hashable {
                 lhs.total == rhs.total
     }
     
+}
+
+extension PagingObject: ApproximatelyEquatable where Item: ApproximatelyEquatable {
+    
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.href == other.href &&
+                self.limit == other.limit &&
+                self.next == other.next &&
+                self.previous == other.previous &&
+                self.offset == other.offset &&
+                self.total == other.total &&
+                self.items.isApproximatelyEqual(to: other.items)
+
+    }
+
 }

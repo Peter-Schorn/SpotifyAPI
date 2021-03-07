@@ -148,7 +148,7 @@ public struct Episode: Hashable {
         images: [SpotifyImage]? = nil,
         href: String,
         isPlayable: Bool,
-        externalURLs: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
         isExternallyHosted: Bool,
         languages: [String],
         releaseDatePrecision: String? = nil
@@ -345,4 +345,41 @@ extension Episode: Codable {
     
 }
 
+extension Episode: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     `Episode.releaseDate` is compared using `timeIntervalSince1970`, so it
+     is considered a floating point property for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.name == other.name &&
+                self.show == other.show &&
+                self.audioPreviewURL == other.audioPreviewURL &&
+                self.description == other.description &&
+                self.resumePoint == other.resumePoint &&
+                self.durationMS == other.durationMS &&
+                self.isExplicit == other.isExplicit &&
+                self.uri == other.uri &&
+                self.id == other.id &&
+                self.images == other.images &&
+                self.href == other.href &&
+                self.isPlayable == other.isPlayable &&
+                self.externalURLs == other.externalURLs &&
+                self.isExternallyHosted == other.isExternallyHosted &&
+                self.languages == other.languages &&
+                self.releaseDatePrecision == other.releaseDatePrecision &&
+                self.type == other.type &&
+                self.releaseDate.isApproximatelyEqual(to: other.releaseDate) &&
+                self.show.isApproximatelyEqual(to: other.show)
+        
+    }
 
+}

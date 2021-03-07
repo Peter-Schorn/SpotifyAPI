@@ -5,7 +5,7 @@ import Foundation
  Used in the `SpotifyAPI.reorderPlaylistItems(_:body:)` request to
  reorder a playlist's items.
  
- Read more at the [Spotify web API reference][1]
+ Read more at the [Spotify web API reference][1].
  
  The body of the request contains the following properties:
  
@@ -32,7 +32,7 @@ import Foundation
  set `rangeStart` to 9, set `rangeLength` to 2, and set
  `insertBefore` to 0.
  
- https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
  */
 public struct ReorderPlaylistItems: Hashable {
     

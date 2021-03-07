@@ -74,3 +74,16 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     }
 
 }
+
+extension CursorPagingObject: ApproximatelyEquatable where Item: ApproximatelyEquatable {
+    
+    public func isApproximatelyEqual(to other: CursorPagingObject<Item>) -> Bool {
+        return self.href == other.href &&
+                self.limit == other.limit &&
+                self.next == other.next &&
+                self.cursors == other.cursors &&
+                self.total == other.total &&
+                self.items.isApproximatelyEqual(to: other.items)
+    }
+
+}

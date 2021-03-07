@@ -24,7 +24,7 @@ public enum PlaylistItem: Hashable {
     /// An episode in this `PlaylistItem`.
     case episode(Episode)
     
-    /// The name of the item.
+    /// The name of this `PlaylistItem`.
     @inlinable
     public var name: String {
         switch self {
@@ -84,7 +84,8 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// If `true`, the item is playable in the given market. Otherwise, `false`.
+    /// If `true`, this `PlaylistItem` is playable in the given market.
+    /// Otherwise, `false`.
     @inlinable
     public var isPlayable: Bool? {
         switch self {
@@ -96,8 +97,8 @@ public enum PlaylistItem: Hashable {
     }
     
     /**
-     A link to the Spotify web API endpoint providing the full version of the
-     item.
+     A link to the Spotify web API endpoint providing the full version of
+     this `PlaylistItem`.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the full results.
      */
@@ -112,7 +113,7 @@ public enum PlaylistItem: Hashable {
     }
     
     /**
-     Known [external urls][1] for this item.
+     Known [external urls][1] for this `PlaylistItem`.
 
      - key: The type of the URL, for example:
            "spotify" - The [Spotify URL][2] for the object.
@@ -131,7 +132,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The underlying type of the object. Either `track` or `episode`.
+    /// The underlying type of this `PlaylistItem`. Either `track` or `episode`.
     @inlinable
     public var type: IDCategory {
         switch self {
@@ -187,4 +188,31 @@ extension PlaylistItem: Codable {
         case type
     }
     
+}
+
+extension PlaylistItem: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     Dates are compared using `timeIntervalSince1970`, so they are considered
+     floating point properties for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        switch (self, other) {
+            case (.track(let track), .track(let otherTrack)):
+                return track.isApproximatelyEqual(to: otherTrack)
+            case (.episode(let episode), .episode(let otherEpisode)):
+                return episode.isApproximatelyEqual(to: otherEpisode)
+            default:
+                return false
+        }
+
+    }
 }

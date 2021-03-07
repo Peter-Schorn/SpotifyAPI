@@ -674,7 +674,6 @@ public extension SpotifyAPI where
         .eraseToAnyPublisher()
         
     }
-    
         
     /**
      Set the shuffle mode for the user's playback.

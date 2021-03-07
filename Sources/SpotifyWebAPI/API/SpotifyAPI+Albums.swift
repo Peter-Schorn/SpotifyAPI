@@ -78,7 +78,7 @@ public extension SpotifyAPI {
      - Returns: An array of the full versions of up to 20 [album][4] objects.
            Albums are returned in the order requested. If an album
            is not found, `nil` is returned in the corresponding position.
-           Duplicate albums in the request will result in duplicate artists
+           Duplicate albums in the request will result in duplicate albums
            in the response.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-albums

@@ -129,6 +129,26 @@ public struct Segment: Hashable {
         self.loudnessEnd = loudnessEnd
     }
     
+}
+
+extension Segment: Codable {
+    
+    /// :nodoc:
+    public enum CodingKeys: String, CodingKey {
+        case start
+        case duration
+        case confidence
+        case loudnessStart = "loudness_start"
+        case loudnessMax = "loudness_max"
+        case loudnessMaxTime = "loudness_max_time"
+        case pitches
+        case timbre
+        case loudnessEnd = "loudness_end"
+    }
+}
+
+extension Segment: ApproximatelyEquatable {
+    
     /**
      Returns `true` if all the properties of `self` are approximately
      equal to those of `other` within an absolute tolerance of 0.001.
@@ -182,20 +202,5 @@ public struct Segment: Hashable {
             to: other.loudnessEnd, absoluteTolerance: 0.001
         )
     }
-}
 
-extension Segment: Codable {
-    
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
-        case start
-        case duration
-        case confidence
-        case loudnessStart = "loudness_start"
-        case loudnessMax = "loudness_max"
-        case loudnessMaxTime = "loudness_max_time"
-        case pitches
-        case timbre
-        case loudnessEnd = "loudness_end"
-    }
 }

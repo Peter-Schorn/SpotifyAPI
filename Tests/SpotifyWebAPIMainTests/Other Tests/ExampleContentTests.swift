@@ -2,6 +2,7 @@ import Foundation
 import XCTest
 import SpotifyWebAPI
 import SpotifyExampleContent
+import SpotifyAPITestUtilities
 
 /// Ensure that the example content is correctly decoded from JSON
 /// without errors.
@@ -26,74 +27,75 @@ final class ExampleContentTests: XCTestCase {
     ]
     
     func testAlbums() {
-        print(Album.abbeyRoad, to: &sink)
+        encodeDecode(Album.abbeyRoad)
+        
         XCTAssertEqual(Album.abbeyRoad.name, "Abbey Road (Remastered)")
-        print(Album.darkSideOfTheMoon, to: &sink)
+        encodeDecode(Album.darkSideOfTheMoon)
         XCTAssertEqual(
             Album.darkSideOfTheMoon.name,
             "The Dark Side of the Moon"
         )
-        print(Album.inRainbows, to: &sink)
+        encodeDecode(Album.inRainbows)
         XCTAssertEqual(Album.inRainbows.name, "In Rainbows")
-        print(Album.jinx, to: &sink)
+        encodeDecode(Album.jinx)
         XCTAssertEqual(Album.jinx.name, "Jinx")
-        print(Album.meddle, to: &sink)
+        encodeDecode(Album.meddle)
         XCTAssertEqual(Album.meddle.name, "Meddle")
-        print(Album.skiptracing, to: &sink)
+        encodeDecode(Album.skiptracing)
         XCTAssertEqual(Album.skiptracing.name, "Skiptracing")
     }
 
     func testArtists() {
-        print(Artist.crumb, to: &sink)
+        encodeDecode(Artist.crumb, areEqual: ==)
         XCTAssertEqual(Artist.crumb.name, "Crumb")
-        print(Artist.levitationRoom, to: &sink)
+        encodeDecode(Artist.levitationRoom, areEqual: ==)
         XCTAssertEqual(Artist.levitationRoom.name, "levitation room")
-        print(Artist.pinkFloyd, to: &sink)
+        encodeDecode(Artist.pinkFloyd, areEqual: ==)
         XCTAssertEqual(Artist.pinkFloyd.name, "Pink Floyd")
-        print(Artist.radiohead, to: &sink)
+        encodeDecode(Artist.radiohead, areEqual: ==)
         XCTAssertEqual(Artist.radiohead.name, "Radiohead")
-        print(Artist.skinshape, to: &sink)
+        encodeDecode(Artist.skinshape, areEqual: ==)
         XCTAssertEqual(Artist.skinshape.name, "Skinshape")
-        print(Artist.theBeatles, to: &sink)
+        encodeDecode(Artist.theBeatles, areEqual: ==)
         XCTAssertEqual(Artist.theBeatles.name, "The Beatles")
     }
     
     func testAadioAnalysis() {
-        print(AudioAnalysis.anyColourYouLike, to: &sink)
+        encodeDecode(AudioAnalysis.anyColourYouLike)
     }
     
     func testAudioFeatures() {
-        print(AudioFeatures.fearless, to: &sink)
+        encodeDecode(AudioFeatures.fearless)
     }
     
     func testBrowse() {
-        print(PagingObject.sampleCategoryPlaylists, to: &sink)
-        print(FeaturedPlaylists.sampleFeaturedPlaylists, to: &sink)
-        print(SpotifyCategory.sampleCategories, to: &sink)
+        encodeDecode(PagingObject.sampleCategoryPlaylists, areEqual: ==)
+        encodeDecode(FeaturedPlaylists.sampleFeaturedPlaylists, areEqual: ==)
+        encodeDecode(SpotifyCategory.sampleCategories, areEqual: ==)
     }
     
     func testEpisodes() {
-        print(Episode.seanCarroll111, to: &sink)
+        encodeDecode(Episode.seanCarroll111)
         XCTAssertEqual(
             Episode.seanCarroll111.name,
             "111 | Nick Bostrom on Anthropic Selection and Living in a Simulation"
         )
-        print(Episode.seanCarroll112, to: &sink)
+        encodeDecode(Episode.seanCarroll112)
         XCTAssertEqual(
             Episode.seanCarroll112.name,
            "112 | Fyodor Urnov on Gene Editing, CRISPR, and Human Engineering"
         )
-        print(Episode.samHarris213, to: &sink)
+        encodeDecode(Episode.samHarris213)
         XCTAssertEqual(
             Episode.samHarris213.name,
             "#213 — The Worst Epidemic"
         )
-        print(Episode.samHarris214, to: &sink)
+        encodeDecode(Episode.samHarris214)
         XCTAssertEqual(
             Episode.samHarris214.name,
             "#214 — August 13, 2020"
         )
-        print(Episode.samHarris215, to: &sink)
+        encodeDecode(Episode.samHarris215)
         XCTAssertEqual(
             Episode.samHarris215.name,
             "#215 — August 21, 2020"
@@ -101,68 +103,68 @@ final class ExampleContentTests: XCTestCase {
     }
     
     func testLibrary() {
-        print(PagingObject.sampleCurrentUserSavedAlbums, to: &sink)
+        encodeDecode(PagingObject.sampleCurrentUserSavedAlbums)
     }
     
     func testPlayer() {
-        print(CursorPagingObject.sampleRecentlyPlayed, to: &sink)
-        print(CurrentlyPlayingContext.sampleCurrentPlayback, to: &sink)
+        encodeDecode(CursorPagingObject.sampleRecentlyPlayed)
+        encodeDecode(CurrentlyPlayingContext.sampleCurrentPlayback)
     }
     
     func testPlaylists() {
-        print(PagingObject.thisIsJimiHendrix, to: &sink)
-        print(PagingObject.thisIsPinkFloyd, to: &sink)
-        print(PagingObject.thisIsMacDeMarco, to: &sink)
-        print(PagingObject.thisIsSpoon, to: &sink)
-        print(PagingObject.bluesClassics, to: &sink)
+        encodeDecode(PagingObject.thisIsJimiHendrix, areEqual: ==)
+        encodeDecode(PagingObject.thisIsPinkFloyd, areEqual: ==)
+        encodeDecode(PagingObject.thisIsMacDeMarco, areEqual: ==)
+        encodeDecode(PagingObject.thisIsSpoon, areEqual: ==)
+        encodeDecode(PagingObject.bluesClassics, areEqual: ==)
         
-        print(PagingObject.thisIsStevieRayVaughan, to: &sink)
+        encodeDecode(PagingObject.thisIsStevieRayVaughan, areEqual: ==)
 
-        print(Playlist.episodesAndLocalTracks, to: &sink)
+        encodeDecode(Playlist.episodesAndLocalTracks, areEqual: ==)
         XCTAssertEqual(Playlist.episodesAndLocalTracks.name, "Local Songs")
-        print(Playlist.crumb, to: &sink)
+        encodeDecode(Playlist.crumb, areEqual: ==)
         XCTAssertEqual(Playlist.crumb.name, "Crumb")
-        print(Playlist.lucyInTheSkyWithDiamonds, to: &sink)
+        encodeDecode(Playlist.lucyInTheSkyWithDiamonds, areEqual: ==)
         XCTAssertEqual(
             Playlist.lucyInTheSkyWithDiamonds.name,
             "Lucy in the sky with diamonds"
         )
-        print(Playlist.thisIsMFDoom, to: &sink)
+        encodeDecode(Playlist.thisIsMFDoom, areEqual: ==)
         XCTAssertEqual(
             Playlist.thisIsMFDoom.name,
             "This Is MF DOOM"
         )
-        print(Playlist.rockClassics, to: &sink)
+        encodeDecode(Playlist.rockClassics, areEqual: ==)
         XCTAssertEqual(
             Playlist.rockClassics.name,
             "Rock Classics"
         )
-        print(Playlist.thisIsSonicYouth, to: &sink)
+        encodeDecode(Playlist.thisIsSonicYouth, areEqual: ==)
         XCTAssertEqual(
             Playlist.thisIsSonicYouth.name,
             "This Is: Sonic Youth"
         )
-        print(Playlist.thisIsRadiohead, to: &sink)
+        encodeDecode(Playlist.thisIsRadiohead, areEqual: ==)
         XCTAssertEqual(
             Playlist.thisIsRadiohead.name,
             "This Is Radiohead"
         )
-        print(Playlist.thisIsSkinshape, to: &sink)
+        encodeDecode(Playlist.thisIsSkinshape, areEqual: ==)
         XCTAssertEqual(
             Playlist.thisIsSkinshape.name,
             "This is: Skinshape"
         )
-        print(Playlist.modernPsychedelia, to: &sink)
+        encodeDecode(Playlist.modernPsychedelia, areEqual: ==)
         XCTAssertEqual(
             Playlist.modernPsychedelia.name,
             "Modern Psychedelia"
         )
-        print(Playlist.thisIsMildHighClub, to: &sink)
+        encodeDecode(Playlist.thisIsMildHighClub, areEqual: ==)
         XCTAssertEqual(
             Playlist.thisIsMildHighClub.name,
             "This Is Mild High Club"
         )
-        print(Playlist.menITrust, to: &sink)
+        encodeDecode(Playlist.menITrust, areEqual: ==)
         XCTAssertEqual(
             Playlist.menITrust.name,
             "Men I Trust"
@@ -171,37 +173,37 @@ final class ExampleContentTests: XCTestCase {
     }
     
     func testPlaylistItems() {
-        print(PlaylistItem.samHarris216, to: &sink)
+        encodeDecode(PlaylistItem.samHarris216)
          XCTAssertEqual(
             PlaylistItem.samHarris216.name,
             "#216 — September 3, 2020"
          )
-        print(PlaylistItem.samHarris217, to: &sink)
+        encodeDecode(PlaylistItem.samHarris217)
         XCTAssertEqual(
             PlaylistItem.samHarris217.name,
             "#217 — The New Religion of Anti-Racism"
         )
-        print(PlaylistItem.joeRogan1536, to: &sink)
+        encodeDecode(PlaylistItem.joeRogan1536)
         XCTAssertEqual(
             PlaylistItem.joeRogan1536.name,
             "#1536 - Edward Snowden"
         )
-        print(PlaylistItem.joeRogan1537, to: &sink)
+        encodeDecode(PlaylistItem.joeRogan1537)
         XCTAssertEqual(
             PlaylistItem.joeRogan1537.name,
             "#1537 - Lex Fridman"
         )
-        print(PlaylistItem.oceanBloom, to: &sink)
+        encodeDecode(PlaylistItem.oceanBloom)
         XCTAssertEqual(
             PlaylistItem.oceanBloom.name,
             "Hans Zimmer & Radiohead - Ocean Bloom (full song HQ)"
         )
-        print(PlaylistItem.echoesAcousticVersion, to: &sink)
+        encodeDecode(PlaylistItem.echoesAcousticVersion)
         XCTAssertEqual(
             PlaylistItem.echoesAcousticVersion.name,
             "Echoes - Acoustic Version"
         )
-        print(PlaylistItem.killshot, to: &sink)
+        encodeDecode(PlaylistItem.killshot)
         XCTAssertEqual(
             PlaylistItem.killshot.name,
             "Killshot"
@@ -209,43 +211,43 @@ final class ExampleContentTests: XCTestCase {
     }
     
     func testSearch() {
-        print(SearchResult.queryCrumb, to: &sink)
+        encodeDecode(SearchResult.queryCrumb)
     }
     
     func testShows() {
-        print(Show.seanCarroll, to: &sink)
+        encodeDecode(Show.seanCarroll)
         XCTAssertEqual(
             Show.seanCarroll.name,
             "Sean Carroll's Mindscape: Science, Society, Philosophy, Culture, Arts, and Ideas"
         )
-        print(Show.samHarris, to: &sink)
+        encodeDecode(Show.samHarris)
         XCTAssertEqual(Show.samHarris.name, "Making Sense with Sam Harris")
-        print(Show.joeRogan, to: &sink)
+        encodeDecode(Show.joeRogan)
         XCTAssertEqual(Show.joeRogan.name, "The Joe Rogan Experience")
     }
 
     func testTracks() {
-        print(Track.because, to: &sink)
+        encodeDecode(Track.because)
         XCTAssertEqual(Track.because.name, "Because - Remastered 2009")
-        print(Track.comeTogether, to: &sink)
+        encodeDecode(Track.comeTogether)
         XCTAssertEqual(Track.comeTogether.name, "Come Together - Remastered 2009")
-        print(Track.faces, to: &sink)
+        encodeDecode(Track.faces)
         XCTAssertEqual(Track.faces.name, "Faces")
-        print(Track.illWind, to: &sink)
+        encodeDecode(Track.illWind)
         XCTAssertEqual(Track.illWind.name, "Ill Wind")
-        print(Track.odeToViceroy, to: &sink)
+        encodeDecode(Track.odeToViceroy)
         XCTAssertEqual(Track.odeToViceroy.name, "Ode To Viceroy")
-        print(Track.reckoner, to: &sink)
+        encodeDecode(Track.reckoner)
         XCTAssertEqual(Track.reckoner.name, "Reckoner")
-        print(Track.theEnd, to: &sink)
+        encodeDecode(Track.theEnd)
         XCTAssertEqual(Track.theEnd.name, "The End - Remastered 2009")
-        print(Track.time, to: &sink)
+        encodeDecode(Track.time)
         XCTAssertEqual(Track.time.name, "Time")
-        print(PagingObject.jinxTracks, to: &sink)
+        encodeDecode(PagingObject.jinxTracks)
     }
  
     func testUserProfile() {
-        print(SpotifyUser.sampleCurrentUserProfile, to: &sink)
+        encodeDecode(SpotifyUser.sampleCurrentUserProfile, areEqual: ==)
     }
 
     // print(<#type#>.<#property#>, to: &sink)

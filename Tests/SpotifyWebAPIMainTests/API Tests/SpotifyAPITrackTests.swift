@@ -419,7 +419,7 @@ extension SpotifyAPITrackTests {
         
         func receiveAudioAnalysis(_ track: AudioAnalysis) {
             
-            encodeDecode(track, areEqual: { $0.isApproximatelyEqual(to: $1) })
+            encodeDecode(track)
             
             // MARK: Bars
             if track.bars.count >= 86 {
@@ -794,17 +794,7 @@ extension SpotifyAPITrackTests {
         
         func receiveTracks(_ tracks: [AudioFeatures?]) {
             
-            encodeDecode(tracks, areEqual: { lhs, rhs in
-                for (lhs, rhs) in zip(lhs, rhs) {
-                    if let lhs = lhs, let rhs = rhs {
-                        return lhs.isApproximatelyEqual(to: rhs)
-                    }
-                    else if (lhs == nil) != (rhs == nil) {
-                        return false
-                    }
-                }
-                return true
-            })
+            encodeDecode(tracks)
 
             guard tracks.count == 4 else {
                 XCTFail("should've received 4 tracks: \(tracks.count)")

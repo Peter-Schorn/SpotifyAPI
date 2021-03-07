@@ -23,8 +23,9 @@ public struct SpotifyAPILogHandler: LogHandler {
      This method *must* be called before a call to
      `SpotifyAPILogHandler.bootstrap()` is made, otherwise calling this
      method has no effect. Because `SpotifyAPILogHandler.bootstrap()` is
-     called automatically when you create an instance of `SpotifyAPI`, this
-     method should be called before an instance of `SpotifyAPI` is created.
+     called automatically when you create an instance of `SpotifyAPI`,
+     **this method should be called before an instance of** `SpotifyAPI`
+     **is created.**
      
      # Thread Safety
      

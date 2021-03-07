@@ -26,55 +26,30 @@ extension OffsetOption: Codable {
     /// :nodoc:
     public init(from decoder: Decoder) throws {
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
+        )
         
-        if let positionDictionary = try? container.decodeIfPresent(
-            [String: Int].self,
-            forKey: .offset
+        if let position = try container.decodeIfPresent(
+            Int.self, forKey: .position
         ) {
-            guard let position = positionDictionary["position"] else {
-                let debugDescription = """
-                    exptected to find key "position" in the following \
-                    dictionary:
-                    \(positionDictionary)
-                    """
-                throw DecodingError.dataCorruptedError(
-                    forKey: .offset,
-                    in: container,
-                    debugDescription: debugDescription
-                )
-            }
             self = .position(position)
         }
-        else if let uriOffsetDictionary = try? container.decodeIfPresent(
-            [String: String].self,
-            forKey: .offset
+        else if let uri = try container.decodeIfPresent(
+            String.self, forKey: .uri
         ) {
-            guard let uriOffset = uriOffsetDictionary["uri"] else {
-                let debugDescription = """
-                    expected to find key "uri" in the following \
-                    dictionary:
-                    \(uriOffsetDictionary)
-                    """
-                throw DecodingError.dataCorruptedError(
-                    forKey: .offset,
-                    in: container,
-                    debugDescription: debugDescription
-                )
-            }
-            self = .uri(uriOffset)
+            self = .uri(uri)
         }
         else {
             let debugDescription = """
-                expected to find one of the following for key "offset":
-                1) dictionary with single key "position" and int value
-                2) dictionary with single key "uri" and string value
+                expected to find Int value for key "position" or \
+                String value for key "uri" in container.
                 """
-            throw DecodingError.dataCorruptedError(
-                forKey: .offset,
-                in: container,
+            let context = DecodingError.Context(
+                codingPath: container.codingPath,
                 debugDescription: debugDescription
             )
+            throw DecodingError.dataCorrupted(context)
         }
         
     }
@@ -82,26 +57,22 @@ extension OffsetOption: Codable {
     /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.container(
+            keyedBy: CodingKeys.self
+        )
         
         switch self {
-            case .position(let index):
-                try container.encode(
-                    ["position": index],
-                    forKey: .offset
-                )
+            case .position(let position):
+                try container.encode(position, forKey: .position)
             case .uri(let uri):
-                try container.encode(
-                    ["uri": uri.uri],
-                    forKey: .offset
-                )
+                try container.encode(uri.uri, forKey: .uri)
         }
         
     }
     
     /// :nodoc:
     public enum CodingKeys: String, CodingKey {
-        case offset
+        case position, uri
     }
 
 }

@@ -228,14 +228,14 @@ public struct Album: Hashable {
         label: String? = nil,
         genres: [String]? = nil,
         href: String? = nil,
-        externalURLs: [String : String]? = nil,
-        externalIds: [String : String]? = nil,
+        externalURLs: [String: String]? = nil,
+        externalIds: [String: String]? = nil,
         albumType: AlbumType? = nil,
         albumGroup: AlbumType? = nil,
         availableMarkets: [String]? = nil,
         copyrights: [SpotifyCopyright]? = nil,
         releaseDatePrecision: String? = nil,
-        restrictions: [String : String]? = nil
+        restrictions: [String: String]? = nil
     ) {
         self.name = name
         self.tracks = tracks
@@ -436,5 +436,45 @@ extension Album: Codable {
         case type
     }
     
+
+}
+
+extension Album: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     `Album.releaseDate` is compared using `timeIntervalSince1970`, so it
+     is considered a floating point property for the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
+        
+        return self.name == other.name &&
+                self.tracks == other.tracks &&
+                self.artists == other.artists &&
+                self.uri == other.uri &&
+                self.id == other.id &&
+                self.images == other.images &&
+                self.popularity == other.popularity &&
+                self.label == other.label &&
+                self.genres == other.genres &&
+                self.href == other.href &&
+                self.externalURLs == other.externalURLs &&
+                self.externalIds == other.externalIds &&
+                self.albumType == other.albumType &&
+                self.albumGroup == other.albumGroup &&
+                self.availableMarkets == other.availableMarkets &&
+                self.copyrights == other.copyrights &&
+                self.releaseDatePrecision == other.releaseDatePrecision &&
+                self.restrictions == other.restrictions &&
+                self.type == other.type &&
+                self.releaseDate.isApproximatelyEqual(to: other.releaseDate)
+            
+    }
 
 }

@@ -7,7 +7,7 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
  */
-public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
+public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     
     /// The name displayed on the user’s profile.
     /// `nil` if not available.
@@ -128,7 +128,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
         country: String? = nil,
         email: String? = nil,
         product: String? = nil,
-        externalURLs: [String : String]? = nil
+        externalURLs: [String: String]? = nil
     ) {
         self.displayName = displayName
         self.uri = uri
@@ -142,6 +142,10 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
         self.externalURLs = externalURLs
         self.type = .user
     }
+    
+}
+
+extension SpotifyUser: Codable {
     
     /// :nodoc:
     public enum CodingKeys: String, CodingKey {
@@ -157,5 +161,5 @@ public struct SpotifyUser: SpotifyURIConvertible, Codable, Hashable {
         case externalURLs = "external_urls"
         case type
     }
-    
+
 }

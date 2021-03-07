@@ -4,13 +4,13 @@ import Logging
 /**
  The [context][1] of the currently playing track/episode.
  
- [1] https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject
  */
 public struct CurrentlyPlayingContext: Hashable {
     
     /// Logs messages for this struct, especially those involving
     /// the decoding of data into this type.
-    static var logger = Logger(
+    public static var logger = Logger(
         label: "CurrentlyPlayingContext", level: .critical
     )
     
@@ -320,6 +320,34 @@ extension CurrentlyPlayingContext: Codable {
     
 }
 
+extension CurrentlyPlayingContext: ApproximatelyEquatable {
+    
+    /**
+     Returns `true` if all the `FloatingPoint` properties of `self` are
+     approximately equal to those of `other` within an absolute tolerance of
+     0.001 and all other properties are equal by the `==` operator. Else,
+     returns `false`.
+     
+     `CurrentlyPlayingContext.timestamp` is compared using
+     `timeIntervalSince1970`, so it is considered a floating point property for
+     the purposes of this method.
+     
+     - Parameter other: Another instance of `Self`.
+     */
+    public func isApproximatelyEqual(to other: Self) -> Bool {
 
+        return self.device == other.device &&
+                self.repeatState == other.repeatState &&
+                self.shuffleIsOn == other.shuffleIsOn &&
+                self.context == other.context &&
+                self.progressMS == other.progressMS &&
+                self.isPlaying == other.isPlaying &&
+                self.itemType == other.itemType &&
+                self.allowedActions == other.allowedActions &&
+                self.timestamp.isApproximatelyEqual(to: other.timestamp) &&
+                self.item.isApproximatelyEqual(to: other.item)
+        
+    }
+}
 
 

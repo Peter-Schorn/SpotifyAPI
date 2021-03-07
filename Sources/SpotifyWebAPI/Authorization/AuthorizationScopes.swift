@@ -159,13 +159,13 @@ public enum Scope: String, Codable, Hashable, CaseIterable {
     
 }
 
-// MARK: - Convience methods -
+// MARK: - convenience methods -
 
 public extension Scope {
     
     /**
      Creates a space-separated string of scopes, which can be used
-     for the scope query parameter of a spotify endpoint.
+     for the scope query parameter of a Spotify endpoint.
     
      This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
      from a string of (usually space-separated) scopes.
@@ -183,7 +183,7 @@ public extension Scope {
     
     /**
      Creates a space-separated string of scopes, which can be used
-     for the scope query parameter of a spotify endpoint.
+     for the scope query parameter of a Spotify endpoint.
     
      This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
      from a string of (usually space-separated) scopes.
@@ -199,7 +199,7 @@ public extension Scope {
     }
     
     /**
-     Creates an set of scopes from a string of spotify scopes
+     Creates an set of scopes from a string of Spotify scopes
      (usually space-separated).
     
      If any of the scopes in the string do not match the raw value

@@ -20,7 +20,7 @@ extension SpotifyAPIArtistTests {
     
     func receivePinkFloyd(_ artist: Artist) {
         print("receivePinkFloyd")
-        encodeDecode(artist)
+        encodeDecode(artist, areEqual: ==)
         
         XCTAssertEqual(artist.name, "Pink Floyd")
         XCTAssertEqual(artist.type, .artist)
@@ -124,7 +124,7 @@ extension SpotifyAPIArtistTests {
                 if let artist = artist {
                     XCTAssertEqual(artist.type, .artist)
                 }
-                encodeDecode(artist)
+                encodeDecode(artist, areEqual: ==)
             }
             
             
@@ -459,9 +459,9 @@ extension SpotifyAPIArtistTests {
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { artists in
-                    encodeDecode(artists)
+                    encodeDecode(artists, areEqual: ==)
                     for artist in artists {
-                        encodeDecode(artist)
+                        encodeDecode(artist, areEqual: ==)
                         XCTAssertEqual(artist.type, .artist)
                         XCTAssertNotNil(artist.name)
                         XCTAssertNotNil(artist.id)

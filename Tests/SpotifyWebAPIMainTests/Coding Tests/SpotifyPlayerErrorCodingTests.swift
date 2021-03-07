@@ -22,7 +22,7 @@ class SpotifyPlayerErrorCodingTests: XCTestCase {
             }
             """.data(using: .utf8)!
         
-        decodeEncodeDecode(errorData, type: SpotifyPlayerError.self)
+        decodeEncodeDecode(errorData, type: SpotifyPlayerError.self, areEqual: ==)
         
         let error = try JSONDecoder().decode(
             SpotifyPlayerError.self, from: errorData

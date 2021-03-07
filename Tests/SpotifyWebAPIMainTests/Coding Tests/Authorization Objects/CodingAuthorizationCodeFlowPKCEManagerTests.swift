@@ -21,7 +21,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: XCTestCase {
         )
         authManager.mockValues()
         
-        encodeDecode(authManager)
+        encodeDecode(authManager, areEqual: ==)
 
         let copy = authManager.makeCopy()
         XCTAssertEqual(authManager, copy)

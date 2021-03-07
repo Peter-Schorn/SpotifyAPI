@@ -27,7 +27,7 @@ extension SpotifyAPIPersonalizationTests where
         spotifyDecodeLogger.logLevel = .trace
         
         func receiveArtists(_ topArtists: PagingObject<Artist>) {
-            encodeDecode(topArtists)
+            encodeDecode(topArtists, areEqual: ==)
             XCTAssertEqual(topArtists.limit, 10)
             XCTAssertEqual(topArtists.offset, 3)
             XCTAssertLessThanOrEqual(topArtists.items.count, 10)
@@ -61,7 +61,7 @@ extension SpotifyAPIPersonalizationTests where
     func currentUserTopArtistsMediumTerm() {
         
         func receiveArtists(_ topArtists: PagingObject<Artist>) {
-            encodeDecode(topArtists)
+            encodeDecode(topArtists, areEqual: ==)
             XCTAssertEqual(topArtists.offset, 0)
         }
         
@@ -86,7 +86,7 @@ extension SpotifyAPIPersonalizationTests where
     func currentUserTopArtistsLongTerm() {
         
         func receiveArtists(_ topArtists: PagingObject<Artist>) {
-            encodeDecode(topArtists)
+            encodeDecode(topArtists, areEqual: ==)
             XCTAssertEqual(topArtists.offset, 0)
         }
         
@@ -111,7 +111,7 @@ extension SpotifyAPIPersonalizationTests where
     func currentUserTopArtists() {
         
         func receiveArtists(_ topArtists: PagingObject<Artist>) {
-            encodeDecode(topArtists)
+            encodeDecode(topArtists, areEqual: ==)
             XCTAssertEqual(topArtists.offset, 0)
         }
         
