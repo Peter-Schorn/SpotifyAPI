@@ -293,7 +293,7 @@ This authorization process is implemented in this [example command-line app][23]
 [17]: https://github.com/Peter-Schorn/SpotifyAPI/wiki
 [18]: https://tonyxu-io.github.io/pkce-generator/
 [19]: https://tools.ietf.org/html/rfc4648#section-5
-[20]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI10showDialog13codeChallenge5state6scopes10Foundation0I0VSgAL_SbS2SSgShyAA5ScopeOGtF
+[20]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI13codeChallenge5state6scopes10Foundation0I0VSgAK_S2SSgShyAA5ScopeOGtF
 [21]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF
 
 [22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
