@@ -539,8 +539,7 @@ public extension AuthorizationCodeFlowManager {
                         Self.logger.trace("received authInfo:\n\(authInfo)")
                         
                         if authInfo.accessToken == nil ||
-                                authInfo.expirationDate == nil ||
-                                authInfo.scopes == nil {
+                                authInfo.expirationDate == nil {
 
                             let errorMessage = """
                                 missing properties after refreshing \

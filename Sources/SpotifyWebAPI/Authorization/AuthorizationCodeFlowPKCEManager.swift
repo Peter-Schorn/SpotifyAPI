@@ -647,8 +647,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                          */
                         if authInfo.accessToken == nil ||
                                 authInfo.refreshToken == nil ||
-                                authInfo.expirationDate == nil ||
-                                authInfo.scopes == nil {
+                                authInfo.expirationDate == nil {
                             
                             let errorMessage = """
                                 missing properties after refreshing access token \
