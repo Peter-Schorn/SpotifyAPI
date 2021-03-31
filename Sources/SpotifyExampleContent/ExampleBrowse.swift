@@ -1,11 +1,11 @@
 import Foundation
 import SpotifyWebAPI
 
-public extension PagingObject where Item == Playlist<PlaylistsItemsReference> {
+public extension PagingObject where Item == Playlist<PlaylistItemsReference> {
     
     /// Sample data for testing purposes.
     static let sampleCategoryPlaylists = Bundle.module.decodeJson(
-        forResource: "Category Playlists - PagingObject<Playlist<PlaylistsItemsReference>>",
+        forResource: "Category Playlists - PagingObject<Playlist<PlaylistItemsReference>>",
         type: Self.self
     )!
     

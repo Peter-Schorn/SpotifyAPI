@@ -14,16 +14,20 @@ import FoundationNetworking
 public extension Publisher where Output: Paginated {
    
     /**
-     Retrieves additional pages of results from a `Paginated`
-     type.
+     Retrieves additional pages of results from a `Paginated` type.
      
-     Each time an additional page is received, its `next` property
-     is used to retrieve the next page of results, and so on, until
-     `next` is `nil` or `maxExtraPages` is reached. This means that
-     the next page will not be requested until the previous one
-     is received. This also means that the pages will always be
-     returned in order.
+     See also `SpotifyAPI.extendPages(_:maxExtraPages:)`.
      
+     Compare with `Publisher.extendPagesConcurrently(_:maxExtraPages:)`.
+
+     Each time an additional page is received, its `next` property is used
+     to retrieve the next page of results, and so on, until `next` is `nil`
+     or `maxExtraPages` is reached. This means that the next page will not
+     be requested until the previous one is received and that the pages
+     will always be returned in order.
+     
+     See [Working with Paginated Results][1].
+
      - Parameters:
        - spotify: An instance of `SpotifyAPI`, which is required for
              accessing the access token required to make requests to
@@ -32,9 +36,11 @@ public extension Publisher where Output: Paginated {
        - maxExtraPages: The maximum number of additional pages to retrieve.
              For example, to just get the next page, use `1`. Leave as
              `nil` (default) to retrieve all pages of results.
-     - Returns: A publisher that immediately republishes the output
+     - Returns: A publisher that immediately republishes the page received
            from the upstream publisher, as well as additional pages that are
            returned by the Spotify web API.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
     func extendPages<AuthorizationManager: SpotifyAuthorizationManager>(
         _ spotify: SpotifyAPI<AuthorizationManager>,
@@ -54,6 +60,92 @@ public extension Publisher where Output: Paginated {
     
 }
 
+public extension Publisher where Output: PagingObjectProtocol {
+    
+    // Publishers.MergeMany is not implemented in OpenCombine yet :(
+    #if canImport(Combine)
+    /**
+     Retrieves additional pages of results from a paging object
+     *concurrently*.
+     
+     See also `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
+
+     Compare with `Publisher.extendPages(_:maxExtraPages:)`.
+     
+     This method immediately republishes the page of results that
+     were passed in and then requests additional pages *concurrently*.
+     This method has better performance than
+     `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must wait for
+     the previous page to be received before requesting the next page.
+     **However, the order in which the pages are received is**
+     **unpredictable.** If you need to wait all pages to be received
+     before processing them, then always use this method.
+     
+     See [Working with Paginated Results][1].
+
+     See also `Publisher.collectAndSortByOffset()`.
+     
+     - Parameters:
+       - spotify: An instance of `SpotifyAPI`, which is required for
+             accessing the access token required to make requests to
+             the Spotify web API. The access token will also be refreshed if
+             needed.
+       - maxExtraPages: The maximum number of additional pages to retrieve.
+             For example, to just get the next page, use `1`. Leave as
+             `nil` (default) to retrieve all pages of results.
+     - Returns: A publisher that immediately republishes the page received
+           from the upstream publisher, as well as additional pages that are
+           returned by the Spotify web API.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     */
+    func extendPagesConcurrently<AuthorizationManager: SpotifyAuthorizationManager>(
+        _ spotify: SpotifyAPI<AuthorizationManager>,
+        maxExtraPages: Int? = nil
+    ) -> AnyPublisher<Output, Error> {
+        
+        return self
+            .mapError { $0 as Error }
+            .flatMap { page -> AnyPublisher<Output, Error> in
+                spotify.extendPagesConcurrently(
+                    page, maxExtraPages: maxExtraPages
+                )
+            }
+            .eraseToAnyPublisher()
+        
+    }
+    #endif
+
+    /**
+     Collects the items from all the pages that are delivered by the upstream
+     publisher and then sorts the items based on the offset of each page they
+     were received in.
+     
+     This method is particularly useful in combination with
+     `Publisher.extendPagesConcurrently(_:maxExtraPages:)`, which delivers
+     pages in an unpredictable order. It waits for all pages to be delivered
+     and then sorts them and returns just the items in the pages.
+     
+     See [Working with Paginated Results][1].
+
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     */
+    func collectAndSortByOffset() -> AnyPublisher<[Output.Item], Failure> {
+        
+        return self
+            .collect()
+            .map { pages in
+                return pages
+                    .sorted(by: { $0.offset < $1.offset })
+                    .flatMap(\.items)
+            }
+            .eraseToAnyPublisher()
+
+    }
+
+}
+
+
 public extension Publisher {
     
     /**
@@ -70,6 +162,7 @@ public extension Publisher {
      - Returns: A publisher that transforms elements from an
            upstream publisher into a publisher of that element’s type.
      */
+    @available(*, deprecated)
     func tryFlatMap<NewPublisher: Publisher>(
         maxPublishers: Subscribers.Demand = .unlimited,
         _ transform: @escaping (Self.Output) throws -> NewPublisher
@@ -126,15 +219,6 @@ public extension Publisher where Output == Void {
     
 }
 
-#if canImport(Combine)
-typealias ResultPublisher<Success, Failure: Error> =
-    Result<Success, Failure>.Publisher
-#else
-typealias ResultPublisher<Success, Failure: Error> =
-    Result<Success, Failure>.OCombine.Publisher
-#endif
-
-
 public extension Error {
     
     /**
@@ -160,6 +244,8 @@ public extension Error {
     
 }
 
+
+
 extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
     
     /**
@@ -178,3 +264,11 @@ extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
     }
 
 } 
+
+#if canImport(Combine)
+typealias ResultPublisher<Success, Failure: Error> =
+    Result<Success, Failure>.Publisher
+#else
+typealias ResultPublisher<Success, Failure: Error> =
+    Result<Success, Failure>.OCombine.Publisher
+#endif

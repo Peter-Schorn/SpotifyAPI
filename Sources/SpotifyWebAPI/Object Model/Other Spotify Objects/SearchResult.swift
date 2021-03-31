@@ -36,7 +36,7 @@ public struct SearchResult: Hashable {
     public let tracks: PagingObject<Track>?
     
     /// A `PagingObject` containing simplified `Playlist` objects.
-    public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>?
+    public let playlists: PagingObject<Playlist<PlaylistItemsReference>>?
     
     /// A `PagingObject` containing simplified `Episode` objects.
     public let episodes: PagingObject<Episode?>?
@@ -61,7 +61,7 @@ public struct SearchResult: Hashable {
         artists: PagingObject<Artist>? = nil,
         albums: PagingObject<Album>? = nil,
         tracks: PagingObject<Track>? = nil,
-        playlists: PagingObject<Playlist<PlaylistsItemsReference>>? = nil,
+        playlists: PagingObject<Playlist<PlaylistItemsReference>>? = nil,
         episodes: PagingObject<Episode?>? = nil,
         shows: PagingObject<Show?>? = nil
     ) {

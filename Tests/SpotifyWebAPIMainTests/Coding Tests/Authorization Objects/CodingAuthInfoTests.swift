@@ -3,7 +3,7 @@ import XCTest
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
 
-final class CodingAuthInfoTests: XCTestCase {
+final class CodingAuthInfoTests: SpotifyAPITestCase {
     
     static var allTests = [
         ("testCodingAuthInfo", testCodingAuthInfo)

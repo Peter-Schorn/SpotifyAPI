@@ -32,11 +32,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
@@ -101,11 +101,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     func testReassigningAuthorizationManager() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
@@ -168,11 +168,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     func testInvalidState1() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
@@ -257,11 +257,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     func testInvalidState2() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
@@ -347,11 +347,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     func testInvalidState3() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
@@ -437,11 +437,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
     func testInvalidCodeVerifier() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)

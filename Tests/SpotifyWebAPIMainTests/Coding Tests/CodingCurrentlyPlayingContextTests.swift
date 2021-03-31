@@ -5,7 +5,7 @@ import SpotifyWebAPI
 import SpotifyAPITestUtilities
 
 
-final class CodingCurrentlyPlayingContextTests: XCTestCase {
+final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
     
     static var allTests = [
         ("testCodingCurrentlyPlayingContext", testCodingCurrentlyPlayingContext),

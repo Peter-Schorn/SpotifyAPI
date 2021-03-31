@@ -67,59 +67,59 @@ public extension Playlist where Items == PlaylistItems {
     
 }
 
-public extension Playlist where Items == PlaylistsItemsReference {
+public extension Playlist where Items == PlaylistItemsReference {
     
     /// Sample data for testing purposes.
     static let lucyInTheSkyWithDiamonds = Bundle.module.decodeJson(
-        forResource: "Lucy in the sky with diamonds - Playlist<PlaylistsItemsReference>",
+        forResource: "Lucy in the sky with diamonds - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let thisIsMFDoom = Bundle.module.decodeJson(
-        forResource: "This Is MF DOOM - Playlist<PlaylistsItemsReference>",
+        forResource: "This Is MF DOOM - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let rockClassics = Bundle.module.decodeJson(
-        forResource: "Rock Classics - Playlist<PlaylistsItemsReference>",
+        forResource: "Rock Classics - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let thisIsSonicYouth = Bundle.module.decodeJson(
-        forResource: "This Is Sonic Youth - Playlist<PlaylistsItemsReference>",
+        forResource: "This Is Sonic Youth - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let thisIsRadiohead = Bundle.module.decodeJson(
-        forResource: "This Is Radiohead - Playlist<PlaylistsItemsReference>",
+        forResource: "This Is Radiohead - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let thisIsSkinshape = Bundle.module.decodeJson(
-        forResource: "This is Skinshape - Playlist<PlaylistsItemsReference>",
+        forResource: "This is Skinshape - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let modernPsychedelia = Bundle.module.decodeJson(
-        forResource: "Modern Psychedelia - Playlist<PlaylistsItemsReference>",
+        forResource: "Modern Psychedelia - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let thisIsMildHighClub = Bundle.module.decodeJson(
-        forResource: "This Is Mild High Club - Playlist<PlaylistsItemsReference>",
+        forResource: "This Is Mild High Club - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
     
     /// Sample data for testing purposes.
     static let menITrust = Bundle.module.decodeJson(
-        forResource: "Men I Trust - Playlist<PlaylistsItemsReference>",
+        forResource: "Men I Trust - Playlist<PlaylistItemsReference>",
         type: Self.self
     )!
 

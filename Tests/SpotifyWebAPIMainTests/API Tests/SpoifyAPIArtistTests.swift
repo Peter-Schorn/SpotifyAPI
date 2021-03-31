@@ -99,6 +99,32 @@ extension SpotifyAPIArtistTests {
         
     }
     
+    func receiveArtistAlbums(_ albums: PagingObject<Album>) {
+
+        XCTAssertGreaterThanOrEqual(albums.items.count, 4)
+        XCTAssertEqual(albums.items.count, albums.total)
+        XCTAssertEqual(albums.limit, 35)
+        XCTAssertEqual(albums.offset, 0)
+        XCTAssertNil(albums.next)
+        XCTAssertNil(albums.previous)
+        XCTAssertEqual(
+            albums.href,
+            "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B" +
+            "/albums?offset=0&limit=35&include_groups=album,single," +
+            "compilation,appears_on&market=US"
+        )
+        
+        for album in albums.items {
+            XCTAssertEqual(album.artists?.first?.name, "Crumb")
+            XCTAssertEqual(
+                album.artists?.first?.uri,
+                "spotify:artist:4kSGbjWGxTchKpIxXPJv0B"
+            )
+            
+        }
+
+    }
+
     func artist() {
         
         let expectation = XCTestExpectation(description: "testArtist")
@@ -223,6 +249,27 @@ extension SpotifyAPIArtistTests {
             }
             do {
                 let album = reversedAlbums[0]
+                XCTAssertEqual(
+                    album.name,
+                    "The Piper At The Gates Of Dawn [2011 - Remaster] (2011 Remastered Version)"
+                )
+                XCTAssertEqual(album.uri, "spotify:album:0Fke5eiQ6lszQHlwiFygqn")
+                XCTAssertEqual(album.id, "0Fke5eiQ6lszQHlwiFygqn")
+                XCTAssertEqual(album.releaseDatePrecision, "day")
+                if let releaseDate = album.releaseDate {
+                    XCTAssertEqual(
+                        releaseDate.timeIntervalSince1970,
+                        -76032000,
+                        accuracy: 43_200   // 12 hours
+                    )
+                }
+                else {
+                    XCTFail("release date should not be nil")
+                }
+                
+            }
+            do {
+                let album = reversedAlbums[1]
                 XCTAssertEqual(album.name, "The Piper at the Gates of Dawn")
                 XCTAssertEqual(album.uri, "spotify:album:2Se4ZylF9NkFGD92yv1aZC")
                 XCTAssertEqual(album.id, "2Se4ZylF9NkFGD92yv1aZC")
@@ -240,15 +287,19 @@ extension SpotifyAPIArtistTests {
                 
             }
             do {
-                let album = reversedAlbums[1]
-                XCTAssertEqual(album.name, "A Saucerful of Secrets")
-                XCTAssertEqual(album.uri, "spotify:album:2vnJKtGjZXRUg0mYPZ3HGH")
-                XCTAssertEqual(album.id, "2vnJKtGjZXRUg0mYPZ3HGH")
+                // should be "A Saucerful Of Secrets (2011 Remastered Version)"
+                let album = reversedAlbums[2]
+                XCTAssertEqual(
+                    album.name,
+                    "A Saucerful Of Secrets (2011 Remastered Version)"
+                )
+                XCTAssertEqual(album.uri, "spotify:album:5rwuexO7oiRJKqzZrd1upQ")
+                XCTAssertEqual(album.id, "5rwuexO7oiRJKqzZrd1upQ")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -47606400,
+                        -47674800,
                         accuracy: 43_200
                     )
                 }
@@ -257,14 +308,15 @@ extension SpotifyAPIArtistTests {
                 }
             }
             do {
-                let album = reversedAlbums[2]
-                XCTAssertEqual(album.name, "More")
-                XCTAssertEqual(album.uri, "spotify:album:6AccmjV8Q5cEUZ2tvS8s6c")
+                // should be "A Saucerful of Secrets""
+                let album = reversedAlbums[3]
+                XCTAssertEqual(album.name, "A Saucerful of Secrets")
+                XCTAssertEqual(album.uri, "spotify:album:2vnJKtGjZXRUg0mYPZ3HGH")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -13651200,
+                        -47588400,
                         accuracy: 43_200
                     )
                 }
@@ -287,7 +339,9 @@ extension SpotifyAPIArtistTests {
         .receiveOnMain()
         .XCTAssertNoFailure()
         .sink(
-            receiveCompletion: { _ in expectation.fulfill() },
+            receiveCompletion: { _ in
+                expectation.fulfill()
+            },
             receiveValue: receiveArtistAlbums(_:)
         )
         .store(in: &Self.cancellables)
@@ -296,6 +350,76 @@ extension SpotifyAPIArtistTests {
 
     }
     
+    /// Ensure that `extendPages` works even though there is only a single
+    /// page of results to return.
+    func artistAlbumsExtendSinglePageSerial() {
+        
+        var receivedPages = 0
+
+        let expectation = XCTestExpectation(
+            description: "artistAlbumsExtendSinglePageSerial"
+        )
+        
+        let artist = URIs.Artists.crumb
+
+        Self.spotify.artistAlbums(artist, country: "US", limit: 35)
+            .XCTAssertNoFailure()
+            .extendPages(Self.spotify)
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: { albums in
+                    receivedPages += 1
+                    self.receiveArtistAlbums(albums)
+                }
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+        XCTAssertEqual(receivedPages, 1)
+            
+
+    }
+
+    /// Ensure that `extendPagesConcurrently` works even though there
+    /// is only a single page of results to return.
+    func artistAlbumsExtendSinglePageConcurrent() {
+        
+        #if canImport(Combine)
+
+        var receivedPages = 0
+
+        let queue = DispatchQueue(
+            label: "artistAlbumsExtendSinglePageConcurrent"
+        )
+
+        let expectation = XCTestExpectation(
+            description: "artistAlbumsExtendSinglePageConcurrent"
+        )
+        
+        let artist = URIs.Artists.crumb
+
+        Self.spotify.artistAlbums(artist, country: "US", limit: 35)
+            .XCTAssertNoFailure()
+            .extendPagesConcurrently(Self.spotify)
+            .XCTAssertNoFailure()
+            .receive(on: queue)
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: { albums in
+                    receivedPages += 1
+                    self.receiveArtistAlbums(albums)
+                }
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+        XCTAssertEqual(receivedPages, 1)
+        
+        #endif
+
+    }
+
     func artistAlbumsSingles() {
         
         func receiveArtistAlbums(_ albums: PagingObject<Album>) {
@@ -347,14 +471,14 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[1]
                 XCTAssertEqual(
-                    album.name, "Houses of the Holy (Rough Mix with Overdubs)"
+                    album.name, "Rock and Roll (Alternate Mix)"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:3ZuGyUoJcVvHCePD1DJnvE")
+                XCTAssertEqual(album.uri, "spotify:album:0G41K3cto53eBIEW9MhO2K")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        1421798400,
+                        67500000,
                         accuracy: 43_200  // 12 hours
                     )
                 }
@@ -365,14 +489,14 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[2]
                 XCTAssertEqual(
-                    album.name, "Rock and Roll (Sunset Sound Mix)"
+                    album.name, "Houses of the Holy (Rough Mix with Overdubs)"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:6kjX6lluEIbwV0vPEVa6xa")
+                XCTAssertEqual(album.uri, "spotify:album:3ZuGyUoJcVvHCePD1DJnvE")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        1524268800,
+                        1421820000,
                         accuracy: 43_200  // 12 hours
                     )
                 }
@@ -388,12 +512,13 @@ extension SpotifyAPIArtistTests {
         )
         
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
-        
+
         var authChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             authChangeCount += 1
         })
-        .store(in: &Self.cancellables)
+        .store(in: &cancellables)
         
         Self.spotify.artistAlbums(
             URIs.Artists.ledZeppelin,
@@ -413,6 +538,7 @@ extension SpotifyAPIArtistTests {
             authChangeCount, 1,
             "authorizationManagerDidChange should emit exactly once"
         )
+        
     }
     
     func artistTopTracks() {
@@ -480,6 +606,45 @@ extension SpotifyAPIArtistTests {
     
 }
 
+// MARK: Authorization and setup methods
+
+extension SpotifyAPIArtistTests where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
+
+    /// Authorize for zero scopes because none are required for the artist
+    /// endpoints. The super implementation authorizes for all scopes.
+    static func _setupAuthorization() {
+        
+        spotifyDecodeLogger.logLevel = .trace
+        Self.spotify.authorizationManager.deauthorize()
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(for: [])
+        )
+        Self.authorizeAndWaitForTokens(scopes: [])
+
+    }
+    
+    static func _tearDown() {
+        spotifyDecodeLogger.logLevel = .warning
+    }
+
+    func _setup() {
+//        XCTAssertEqual(
+//            Self.spotify.authorizationManager.scopes ?? [], []
+//        )
+//        XCTAssertTrue(
+//            Self.spotify.authorizationManager.isAuthorized(for: [])
+//        )
+//        XCTAssertFalse(
+//            Self.spotify.authorizationManager.isAuthorized(
+//                for: [Scope.allCases.randomElement()!]
+//            )
+//        )
+    }
+    
+}
+
 final class SpotifyAPIClientCredentialsFlowArtistTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIArtistTests
 {
@@ -488,6 +653,14 @@ final class SpotifyAPIClientCredentialsFlowArtistTests:
         ("testArtist", testArtist),
         ("testArtists", testArtists),
         ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
         ("testArtistTopTracks", testArtistTopTracks),
         ("testRelatedArtists", testRelatedArtists)
@@ -497,12 +670,17 @@ final class SpotifyAPIClientCredentialsFlowArtistTests:
     func testArtist() { artist() }
     func testArtists() { artists() }
     func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
     func testRelatedArtists() { relatedArtists() }
     
 }
-
 
 final class SpotifyAPIAuthorizationCodeFlowArtistTests:
         SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIArtistTests
@@ -512,15 +690,46 @@ final class SpotifyAPIAuthorizationCodeFlowArtistTests:
         ("testArtist", testArtist),
         ("testArtists", testArtists),
         ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
         ("testArtistTopTracks", testArtistTopTracks),
         ("testRelatedArtists", testRelatedArtists)
         
     ]
     
+    /// Authorize for zero scopes because none are required for the artist
+    /// endpoints. The super implementation authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases,
+        showDialog: Bool = true
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override class func tearDown() {
+        Self._tearDown()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
+    
     func testArtist() { artist() }
     func testArtists() { artists() }
     func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
     func testRelatedArtists() { relatedArtists() }
@@ -535,15 +744,45 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
         ("testArtist", testArtist),
         ("testArtists", testArtists),
         ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
         ("testArtistTopTracks", testArtistTopTracks),
         ("testRelatedArtists", testRelatedArtists)
         
     ]
     
+    /// Authorize for zero scopes because none are required for the artist
+    /// endpoints. The super implementation authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override class func tearDown() {
+        Self._tearDown()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
+    
     func testArtist() { artist() }
     func testArtists() { artists() }
     func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
     func testRelatedArtists() { relatedArtists() }

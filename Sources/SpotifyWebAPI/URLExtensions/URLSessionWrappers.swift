@@ -41,6 +41,7 @@ public extension URLSession {
        - body: The body of the request
      - Returns: A data task publisher.
      */
+    @available(*, deprecated)
     func dataTaskPublisher(
         url: URL,
         httpMethod: String,

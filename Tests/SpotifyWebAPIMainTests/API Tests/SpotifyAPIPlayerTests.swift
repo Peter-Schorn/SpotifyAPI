@@ -271,6 +271,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         }
 
         func checkEpisode(_ episode: Episode) {
+            encodeDecode(episode)
             if let resumePoint = episode.resumePoint {
                 XCTAssertFalse(resumePoint.fullyPlayed)
                 let resumePosition = resumePoint.resumePositionMS
@@ -868,7 +869,43 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
             description: "testPlayHistory: .after(recent past)"
         )
 
-        Self.spotify.recentlyPlayed(.before(Date()))
+        let currentDate = Date()
+        
+        Self.spotify.recentlyPlayed(.before(currentDate))
+            .XCTAssertNoFailure()
+            .flatMap { recentlyPlayed -> AnyPublisher<CursorPagingObject<PlayHistory>, Error> in
+                
+                encodeDecode(recentlyPlayed)
+
+                guard let beforeTimestamp = recentlyPlayed.cursors?.before else {
+                    return SpotifyLocalError.other(
+                        "before cursor was nil"
+                    )
+                    .anyFailingPublisher()
+                }
+                
+                return Self.spotify.recentlyPlayed(
+                    .before(beforeTimestamp)
+                )
+
+            }
+            .XCTAssertNoFailure()
+            .flatMap { recentlyPlayed -> AnyPublisher<CursorPagingObject<PlayHistory>, Error> in
+                
+                encodeDecode(recentlyPlayed)
+
+                guard let afterTimestamp = recentlyPlayed.cursors?.after else {
+                    return SpotifyLocalError.other(
+                        "after cursor was nil"
+                    )
+                    .anyFailingPublisher()
+                }
+                
+                return Self.spotify.recentlyPlayed(
+                    .after(afterTimestamp)
+                )
+
+            }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in
@@ -897,7 +934,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         // yesterday
         let recentPast = Date().addingTimeInterval(-86_400)
         
-        Self.spotify.recentlyPlayed(.after(recentPast))
+        Self.spotify.recentlyPlayed(.after(recentPast), limit: 50)
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in
@@ -1104,6 +1141,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         let publisher2: AnyPublisher<CurrentlyPlayingContext?, Error> = publisher
             .flatMap { context -> AnyPublisher<Void, Error> in
+                encodeDecode(context)
                 if let context = context {
                     XCTAssertEqual(context.repeatState, .context)
                 }
@@ -1157,11 +1195,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
 
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
         var authChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                authChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &cancellables)
 
         let expectation = XCTestExpectation(
             description: "testTransferPlayback"

@@ -6,7 +6,7 @@ import Foundation
  
  [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
  */
-public struct Episode: Hashable {
+public struct Episode: Hashable, SpotifyURIConvertible {
 
     /// The name of the episode.
     public let name: String

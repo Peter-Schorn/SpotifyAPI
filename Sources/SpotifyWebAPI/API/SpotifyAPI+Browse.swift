@@ -152,7 +152,7 @@ public extension SpotifyAPI {
         country: String? = nil,
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>>, Error> {
         
         return self.getRequest(
             path: "/browse/categories/\(id)/playlists",
@@ -164,7 +164,7 @@ public extension SpotifyAPI {
             requiredScopes: []
         )
         .decodeSpotifyObject(
-            [String: PagingObject<Playlist<PlaylistsItemsReference>>].self
+            [String: PagingObject<Playlist<PlaylistItemsReference>>].self
         )
         .tryMap { dict in
             if let playlists = dict["playlists"] {

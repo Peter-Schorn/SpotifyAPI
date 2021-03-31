@@ -20,6 +20,9 @@ extension SpotifyAPIUserProfileTests {
     func userProfile() {
         
         func receiveUser(_ user: SpotifyUser) {
+            encodeDecode(user, areEqual: ==)
+            XCTAssertNil(user.allowsExplicitContent)
+            XCTAssertNil(user.explicitContentSettingIsLocked)
             XCTAssertEqual(user.displayName, "April")
             XCTAssertEqual(
                 user.href,
@@ -101,8 +104,11 @@ extension SpotifyAPIUserProfileTests where
     func currentUserProfile() {
         
         func receiveCurrentUserProfile(_ user: SpotifyUser) {
+            encodeDecode(user, areEqual: ==)
             XCTAssertEqual(user.type, .user)
             XCTAssert(user.uri.starts(with: "spotify:user:"))
+            XCTAssertNotNil(user.allowsExplicitContent)
+            XCTAssertNotNil(user.explicitContentSettingIsLocked)
             do {
                 let identifier = try SpotifyIdentifier(
                     uri: user.uri, ensureCategoryMatches: [.user]

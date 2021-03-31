@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -1347,7 +1367,7 @@ Default: 0. Use with <code>limit</code> to get the next set of tracks.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Get an artist&rsquo;s albums</p>
+                        <p>Get an artist&rsquo;s albums.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C5album_6market7Combine12AnyPublisherVyAA5AlbumVs5Error_pGAA0A14URIConvertible_p_SSSgtF">album(_:market:)</a></code> (gets a single album) and
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C6albums_6market7Combine12AnyPublisherVySayAA5AlbumVSgGs5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">albums(_:market:)</a></code> (gets multiple albums).</p>
@@ -1805,9 +1825,9 @@ Default: 0. Use with limit to get the next set of categories.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0N14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF"></a>
                     <a name="//apple_ref/swift/Method/categoryPlaylists(_:country:limit:offset:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF">categoryPlaylists(_:<wbr>country:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C17categoryPlaylists_7country5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0N14ItemsReferenceVGGs5Error_pGSS_SSSgSiSgAVtF">categoryPlaylists(_:<wbr>country:<wbr>limit:<wbr>offset:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1831,7 +1851,7 @@ Default: 0. Use with limit to get the next set of categories.</p>
     <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -2560,6 +2580,44 @@ returned without a network request being made.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C16availableMarkets7Combine12AnyPublisherVySaySSGs5Error_pGyF"></a>
+                    <a name="//apple_ref/swift/Method/availableMarkets()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16availableMarkets7Combine12AnyPublisherVySaySSGs5Error_pGyF">availableMarkets()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the list of markets where Spotify is available.</p>
+
+<p>No scopes are required for this endpoint</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-available-markets">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">availableMarkets</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A list of the countries in which Spotify is available,
+  identified by their <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> with
+  additional country codes for special territories. For example:
+  <code>[&quot;AD&quot;, &quot;AE&quot;, &quot;AR&quot;, ...]</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -2607,7 +2665,7 @@ response into this <a href="https://jsoneditoronline.org/">online JSON viewer</a
 
 <p>You are also encouraged to assign a folder to
 <code>SpotifyDecodingError.dataDumpFolder</code>—or assign a value to the environment
-variable &ldquo;data_dump_folder&rdquo;, which is what <code>dataDumpFolder</code> is initialized
+variable &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo;, which is what <code>dataDumpFolder</code> is initialized
 to—so that the data will be written to a folder when the decoding fails.
 You can then upload this file to the JSON viewer. Set the <code>logLevel</code> of
 <code><a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a></code> to <code>trace</code> to print the raw data of all requests to
@@ -2867,7 +2925,7 @@ playlists belonging to any user can be retrieved.</p>
 
 <p>You are also encouraged to assign a folder to
 <code>SpotifyDecodingError.dataDumpFolder</code>—or assign a value to the environment
-variable &ldquo;data_dump_folder&rdquo;, which is what <code>dataDumpFolder</code> is initialized
+variable &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo;, which is what <code>dataDumpFolder</code> is initialized
 to—so that the data will be written to a folder when the decoding fails.
 You can then upload this file to the JSON viewer. Set the <code>logLevel</code> of
 <code><a href="../Other%20Global%20Variables.html#/s:13SpotifyWebAPI19spotifyDecodeLogger7Logging0F0Vvp">spotifyDecodeLogger</a></code> to <code>trace</code> to print the raw data of all requests to
@@ -3280,9 +3338,9 @@ is associated with their account in the <a href="https://www.spotify.com/account
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0N14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF"></a>
                     <a name="//apple_ref/swift/Method/userPlaylists(for:limit:offset:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF">userPlaylists(for:<wbr>limit:<wbr>offset:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0N14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF">userPlaylists(for:<wbr>limit:<wbr>offset:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3293,7 +3351,7 @@ is associated with their account in the <a href="https://www.spotify.com/account
                         <p>Get a list of the playlists for a user, including those that
 they are following.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0I14ItemsReferenceVGGs5Error_pGSiSg_AUtF">currentUserPlaylists(limit:offset:)</a></code>.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0Q14ItemsReferenceVGGs5Error_pGSiSg_AUtF">currentUserPlaylists(limit:offset:)</a></code>.</p>
 
 <p>No scopes are required for retrieving the public playlists of any
 user. Private playlists are only retrievable for the current user
@@ -3304,12 +3362,12 @@ are only retrievable for the current user and requires the
 <code>playlistReadCollaborative</code> scope to have been authorized by the user.
 See also <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">Working with Playlists</a>.</p>
 <h1 id='returns' class='heading'>Returns:</h1>
-<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistsItemsReference</span><span class="o">&gt;</span>
+<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistItemsReference</span><span class="o">&gt;</span>
 </code></pre>
 
 <p>The simplified versions of the playlists will be returned.</p>
 
-<p>A <code><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></code> simply contains a link to all of the
+<p>A <code><a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a></code> simply contains a link to all of the
 tracks/episodes and the total number in the playlist. To get all
 of the tracks and episodes in each playlist, you can use
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code>, passing in the URI of
@@ -3328,7 +3386,7 @@ each of the playlists. To get all of the URIs, use:</p>
     <span class="k">for</span> <span class="nv">userURI</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -4319,7 +4377,8 @@ audio to compute the attribute with high certainty.</p>
 
 <p>No scopes are required for this endpoint.</p>
 
-<p>The <code>country</code>, <code>email</code>, and <code>product</code> properties of <code><a href="../Structs/SpotifyUser.html">SpotifyUser</a></code>
+<p>The <code>country</code>, <code>email</code>, <code>product</code>, <code>allowsExplicitContent</code>, and
+<code>explicitContentSettingIsLocked</code> properties of <code><a href="../Structs/SpotifyUser.html">SpotifyUser</a></code>
 will always be <code>nil</code> even if the URI of the current user is provided
 and the application is authorized for the <code>userReadPrivate</code> and
 <code>userReadEmail</code> scopes. You must use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE18currentUserProfile7Combine12AnyPublisherVyAA0aH0Vs5Error_pGyF">currentUserProfile()</a></code> to retrieve
@@ -4462,26 +4521,27 @@ appropriate <code>ResponseType</code>.</p>
                       <div class="abstract">
                         <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code> type.</p>
 
-<p>This method is also available as a combine operator (same name)
+<p>This method is also available as a combine operator of the same name
 for all publishers where <code>Output</code>: <code><a href="../Protocols/Paginated.html">Paginated</a></code>.</p>
 
-<p>This method immediately republishes the page of results that
-were passed in and then begins requesting additional pages.
-Each time an additional page is received, its <code>next</code> property
-is used to retrieve the next page of results, and so on, until
-<code>next</code> is <code>nil</code> or <code>maxExtraPages</code> is reached. This means that
-the next page will not be requested until the previous one
-is received. This also means that the pages will always be
-returned in order.</p>
+<p>Compare with <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF">SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)</a></code>.</p>
+
+<p>Each time an additional page is received, its <code>next</code> property is used
+to retrieve the next page of results, and so on, until <code>next</code> is <code>nil</code>
+or <code>maxExtraPages</code> is reached. This means that the next page will not
+be requested until the previous one is received and that the pages
+will always be returned in order.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">extendPages</span><span class="o">&lt;</span><span class="kt">PaginatedResults</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">results</span><span class="p">:</span> <span class="kt">PaginatedResults</span><span class="p">,</span> <span class="nv">maxExtraPages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">PaginatedResults</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">extendPages</span><span class="o">&lt;</span><span class="kt">Page</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">page</span><span class="p">:</span> <span class="kt">Page</span><span class="p">,</span> <span class="nv">maxExtraPages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Page</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -4492,7 +4552,7 @@ returned in order.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>results</em>
+                                <em>page</em>
                                 </code>
                               </td>
                               <td>
@@ -4521,8 +4581,96 @@ For example, to just get the next page, use <code>1</code>. Leave as
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A publisher that immediately republishes the <code>results</code>
-  that were passed in, as well as additional pages that are
+                        <p>A publisher that immediately republishes the page
+  that was passed in, as well as additional pages that are
+  returned by the Spotify web API.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/extendPagesConcurrently(_:maxExtraPages:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF">extendPagesConcurrently(_:<wbr>maxExtraPages:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves additional pages of results from a paging object
+<em>concurrently</em>.</p>
+
+<p>This method is also available as a combine operator of the same
+name for all publishers where the output is a paging object.</p>
+
+<p>Compare with <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>.</p>
+
+<p>This method immediately republishes the page of results that
+were passed in and then requests additional pages <em>concurrently</em>.
+This method has better performance than
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>, which must wait for
+the previous page to be received before requesting the next page.
+<strong>However, the order in which the pages are received is</strong>
+<strong>unpredictable.</strong> If you need to wait all pages to be received
+before processing them, then always use this method.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
+
+<p>See also <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE22collectAndSortByOffsetAA03AnyB0VySayAF_4ItemQZG7FailureQzGyF">Publisher.collectAndSortByOffset()</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">extendPagesConcurrently</span><span class="o">&lt;</span><span class="kt">Page</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">page</span><span class="p">:</span> <span class="kt">Page</span><span class="p">,</span>
+    <span class="nv">maxExtraPages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Page</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>page</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A paging object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxExtraPages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of additional pages to retrieve.
+For example, to just get the next page, use <code>1</code>. Leave as
+<code>nil</code> (default) to retrieve all pages of results.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that immediately republishes the <code>page</code>
+  that was passed in, as well as additional pages that are
   returned by the Spotify web API.</p>
                       </div>
                     </section>
@@ -5133,7 +5281,7 @@ playlist itself is public or private.</p>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SavedItem.html">SavedItem</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Album.html">Album</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -5226,7 +5374,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SavedItem.html">SavedItem</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Track.html">Track</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -5289,6 +5437,100 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE24currentUserSavedEpisodes5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA0I4ItemVyAA7EpisodeVGGs5Error_pGSiSg_AVSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserSavedEpisodes(limit:offset:market:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE24currentUserSavedEpisodes5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA0I4ItemVyAA7EpisodeVGGs5Error_pGSiSg_AVSSSgtF">currentUserSavedEpisodes(limit:<wbr>offset:<wbr>market:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the saved episodes for the current user.</p>
+
+<p><strong>This API endpoint is in beta and could change without warning.</strong></p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE32currentUserSavedEpisodesContainsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserSavedEpisodesContains(_:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userLibraryRead</code> scope.</p>
+
+<p>To get just the episodes, use:</p>
+<pre class="highlight swift"><code><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="nf">map</span><span class="p">(\</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+</code></pre>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserSavedEpisodes</span><span class="p">(</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of episodes to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The index of the first episode to return.
+Default: 0. Use with <code>limit</code> to get the next set of episodes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>market</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or
+the string &ldquo;from_token&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of the full versions of <code><a href="../Structs/Show.html">Show</a></code> objects wrapped in
+  a <code><a href="../Structs/SavedItem.html">SavedItem</a></code> object, wrapped in a <code><a href="../Structs/PagingObject.html">PagingObject</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21currentUserSavedShows5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA0I4ItemVyAA4ShowVGGs5Error_pGSiSg_AVSSSgtF"></a>
                     <a name="//apple_ref/swift/Method/currentUserSavedShows(limit:offset:market:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE21currentUserSavedShows5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA0I4ItemVyAA4ShowVGGs5Error_pGSiSg_AVSSSgtF">currentUserSavedShows(limit:<wbr>offset:<wbr>market:<wbr>)</a>
@@ -5320,7 +5562,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/SavedItem.html">SavedItem</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Show.html">Show</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -5363,8 +5605,7 @@ Default: 0. Use with <code>limit</code> to get the next set of shows.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a> or
-the string &ldquo;from_token&rdquo;. Provide this parameter if you want
-to apply <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>.</p>
+the string &ldquo;from_token&rdquo;.</p>
                                 </div>
                               </td>
                             </tr>
@@ -5503,6 +5744,72 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                         <p>An array of <code>true</code> or <code>false</code> values,
   in the order requested, indicating whether the user&rsquo;s
   library contains each track.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE32currentUserSavedEpisodesContainsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserSavedEpisodesContains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE32currentUserSavedEpisodesContainsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserSavedEpisodesContains(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if one or more episodes is saved in the current user&rsquo;s
+&ldquo;Your Music&rdquo; library.</p>
+
+<p><strong>This API endpoint is in beta and could change without warning.</strong></p>
+
+<p>This endpoint requires the <code>userLibraryRead</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-users-saved-episodes">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserSavedEpisodesContains</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Bool</span><span class="p">],</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of episode URIs. Maximum: 50.
+  Duplicate episodes in the request will result in
+  duplicate values in the response. A single invalid URI causes
+  the entire request to fail. Passing in an empty array will
+  immediately cause an empty array of results to be returned
+  without a network request being made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <code>true</code> or <code>false</code> values,
+  in the order requested, indicating whether the user&rsquo;s
+  library contains each episode.</p>
                       </div>
                     </section>
                   </div>
@@ -5684,6 +5991,63 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE26saveEpisodesForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/saveEpisodesForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE26saveEpisodesForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">saveEpisodesForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Save episodes for the current user.</p>
+
+<p><strong>This API endpoint is in beta and could change without warning.</strong></p>
+
+<p>This endpoint requires the <code>userLibraryModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-save-shows-user">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">saveEpisodesForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of episdoe URIs. Maximum: 50.
+  Duplicates will be ignored. A single invalid URI causes
+  the entire request to fail. Passing in an empty array will
+  prevent a network request from being made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23saveShowsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
                     <a name="//apple_ref/swift/Method/saveShowsForCurrentUser(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23saveShowsForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">saveShowsForCurrentUser(_:<wbr>)</a>
@@ -5849,6 +6213,61 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE33removeSavedEpisodesForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF"></a>
+                    <a name="//apple_ref/swift/Method/removeSavedEpisodesForCurrentUser(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE33removeSavedEpisodesForCurrentUsery7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pGF">removeSavedEpisodesForCurrentUser(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove saved episodes for the current user.</p>
+
+<p>This endpoint requires the <code>userLibraryModify</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-episodes-user">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeSavedEpisodesForCurrentUser</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">uris</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>uris</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of episode URIs. Maximum: 50.
+Duplicates will be ignored. A single invalid URI causes
+the entire request to fail. Passing in an empty array will
+prevent a network request from being made.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE30removeSavedShowsForCurrentUser_6market7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pG_SSSgtF"></a>
                     <a name="//apple_ref/swift/Method/removeSavedShowsForCurrentUser(_:market:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE30removeSavedShowsForCurrentUser_6market7Combine12AnyPublisherVyyts5Error_pGSayAA0A14URIConvertible_pG_SSSgtF">removeSavedShowsForCurrentUser(_:<wbr>market:<wbr>)</a>
@@ -5889,7 +6308,7 @@ to apply <a href="https://developer.spotify.com/documentation/general/guides/tra
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of album URIs. Maximum: 50.
+                                  <p>An array of show URIs. Maximum: 50.
 Duplicates will be ignored. A single invalid URI causes
 the entire request to fail. Passing in an empty array will
 prevent a network request from being made.</p>
@@ -6335,7 +6754,7 @@ and the next link will page back in time.</p>
                               <td>
                                 <div>
                                   <p><em>Optional</em>. A reference to a period of time before or
-after a specified time. For example, <code>.before(Date())</code> refers
+after a specified date. For example, <code>.before(Date())</code> refers
 to the period of time before the current date. This is used
 to filter the response. Dates will be converted to
 millisecond-precision timestamps. Only results that are within
@@ -7319,9 +7738,9 @@ transferring playback to the new device.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0I14ItemsReferenceVGGs5Error_pGSiSg_AUtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0Q14ItemsReferenceVGGs5Error_pGSiSg_AUtF"></a>
                     <a name="//apple_ref/swift/Method/currentUserPlaylists(limit:offset:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0I14ItemsReferenceVGGs5Error_pGSiSg_AUtF">currentUserPlaylists(limit:<wbr>offset:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE20currentUserPlaylists5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0Q14ItemsReferenceVGGs5Error_pGSiSg_AUtF">currentUserPlaylists(limit:<wbr>offset:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -7332,7 +7751,7 @@ transferring playback to the new device.</p>
                         <p>Get a list of the current user&rsquo;s playlists, including those
 that they are following.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0E14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF">userPlaylists(for:limit:offset:)</a></code>.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13userPlaylists3for5limit6offset7Combine12AnyPublisherVyAA12PagingObjectVyAA8PlaylistVyAA0N14ItemsReferenceVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVtF">userPlaylists(for:limit:offset:)</a></code>.</p>
 
 <p>No scopes are required for retrieving the user&rsquo;s public playlists.
 However, the access token must have been issued on behalf of a
@@ -7341,12 +7760,12 @@ playlists. The <code>playlistReadCollaborative</code> scope is required to
 retrieve collarborative playlists, even though these are also
 always private. See also <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">Working with Playlists</a>.</p>
 <h1 id='returns' class='heading'>Returns:</h1>
-<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistsItemsReference</span><span class="o">&gt;&gt;</span>
+<pre class="highlight swift"><code><span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Playlist</span><span class="o">&lt;</span><span class="kt">PlaylistItemsReference</span><span class="o">&gt;&gt;</span>
 </code></pre>
 
 <p>The simplified versions of the playlists will be returned.</p>
 
-<p>A <code><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></code> simply contains a link to all of the
+<p>A <code><a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a></code> simply contains a link to all of the
 tracks/episodes and the total number in the playlist. To get all
 of the tracks and episodes in each playlist, you can use
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code>, passing in the URI of
@@ -7364,7 +7783,7 @@ each of the playlists. To get all of the URIs, use:</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserPlaylists</span><span class="p">(</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PagingObject.html">PagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Playlist.html">Playlist</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a></span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -8231,11 +8650,11 @@ you want to target. A maximum of 100 items can be sent at once.</p>
 
 <p>The access token must have been issued on behalf of a user.</p>
 
-<p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV7countrySSSgvp">SpotifyUser.country</a></code> requires the <code>userReadPrivate</code> scope.</p>
+<p>The <code>allowsExplicitContent</code>, <code>explicitContentSettingIsLocked</code>,
+<code>country</code>, and <code>product</code> properties of <code><a href="../Structs/SpotifyUser.html">SpotifyUser</a></code> require
+the <code>userReadPrivate</code> scope.</p>
 
 <p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV5emailSSSgvp">SpotifyUser.email</a></code> requires the <code>userReadEmail</code> scope.</p>
-
-<p><code><a href="../Structs/SpotifyUser.html#/s:13SpotifyWebAPI0A4UserV7productSSSgvp">SpotifyUser.product</a></code> requires the <code>userReadPrivate</code> scope.</p>
 
 <p>If the application is not authorized for these scopes, then these
 properties will be <code>nil</code>.</p>
@@ -8259,7 +8678,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

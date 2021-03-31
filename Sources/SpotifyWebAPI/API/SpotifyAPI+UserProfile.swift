@@ -20,7 +20,8 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
      
-     The `country`, `email`, and `product` properties of `SpotifyUser`
+     The `country`, `email`, `product`, `allowsExplicitContent`, and
+     `explicitContentSettingIsLocked` properties of `SpotifyUser`
      will always be `nil` even if the URI of the current user is provided
      and the application is authorized for the `userReadPrivate` and
      `userReadEmail` scopes. You must use `currentUserProfile()` to retrieve
@@ -68,12 +69,12 @@ public extension SpotifyAPI where
      See also `userProfile(_:)`.
      
      The access token must have been issued on behalf of a user.
-     
-     `SpotifyUser.country` requires the `userReadPrivate` scope.
+
+     The `allowsExplicitContent`, `explicitContentSettingIsLocked`,
+     `country`, and `product` properties of `SpotifyUser` require
+     the `userReadPrivate` scope.
      
      `SpotifyUser.email` requires the `userReadEmail` scope.
-     
-     `SpotifyUser.product` requires the `userReadPrivate` scope.
      
      If the application is not authorized for these scopes, then these
      properties will be `nil`.

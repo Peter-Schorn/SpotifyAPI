@@ -134,7 +134,7 @@
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "data_dump_folder"
+            key = "SPOTIFY_DATA_DUMP_FOLDER"
             value = "path/to/file (don&apos;t forget to click the checkboxes)"
             isEnabled = "NO">
          </EnvironmentVariable>

@@ -109,7 +109,7 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get an artist's albums
+     Get an artist's albums.
      
      See also `album(_:market:)` (gets a single album) and
      `albums(_:market:)` (gets multiple albums).

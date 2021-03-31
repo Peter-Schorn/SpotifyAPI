@@ -165,11 +165,11 @@ extension SpotifyAPIFollowTests where
 
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
         var authChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                authChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &cancellables)
 
         let expectation = XCTestExpectation(
             description: "testFollowUsers"

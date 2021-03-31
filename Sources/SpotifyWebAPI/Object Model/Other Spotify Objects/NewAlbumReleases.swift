@@ -13,7 +13,7 @@ import Foundation
 public struct NewAlbumReleases: Codable, Hashable {
     
     /// A localized message that can be displayed to the user, such as
-    /// "Good Morning", or "Editors's picks"
+    /// "Good Morning", or "Editors's picks".
     public let message: String?
     
     /// The new album releases.

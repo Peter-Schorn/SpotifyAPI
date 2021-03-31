@@ -12,6 +12,7 @@ import Logging
 public extension Publisher {
     
     /// Logs any errors in the stream.
+    @available(*, deprecated)
     func logError(
         _ prefix: String = "",
         to logger: Logger,
@@ -35,6 +36,7 @@ public extension Publisher {
     
     /// Logs all values in the stream, but, unlike the `print()` operator,
     /// not notifications about completion, cancellations, or subscriptions.
+    @available(*, deprecated)
     func logOutput(
         _ prefix: String = "",
         to logger: Logger,

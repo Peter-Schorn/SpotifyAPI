@@ -36,6 +36,13 @@ extension SpotifyAPIPlaylistsTests {
                 receiveCompletion: { _ in expectation.fulfill() },
                 receiveValue: { playlist in
                     encodeDecode(playlist, areEqual: ==)
+                    if let owner = playlist.owner {
+                        assertUserIsPeter(owner)
+                    }
+                    else {
+                        XCTFail("playlist owner should not be nil")
+                    }
+                    
                     XCTAssertEqual(playlist.name, "Crumb")
                     XCTAssertEqual(playlist.uri, "spotify:playlist:33yLOStnp2emkEA76ew1Dz")
                     XCTAssertEqual(playlist.id, "33yLOStnp2emkEA76ew1Dz")
@@ -77,11 +84,11 @@ extension SpotifyAPIPlaylistsTests {
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
 
         var authChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                authChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &cancellables)
 
         Self.spotify.playlistTracks(
             URIs.Playlists.crumb,
@@ -180,8 +187,6 @@ extension SpotifyAPIPlaylistsTests {
             receiveValue: reveivePlaylist(_:)
         )
         .store(in: &Self.cancellables)
-
-
 
         self.wait(for: [expectationTrack, expectationEmpty], timeout: 120)
 
@@ -782,7 +787,7 @@ extension SpotifyAPIPlaylistsTests where
             .eraseToAnyPublisher()
         
         let publisher2: AnyPublisher<PlaylistItems, Error> = publisher
-            .flatMap { (snapshotId: String) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> in
+            .flatMap { (snapshotId: String) -> AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>>, Error> in
                 // get all of the current user's playlists
                 // MARK: Get all of the user's playlists
                 Self.spotify.currentUserPlaylists()
@@ -791,7 +796,7 @@ extension SpotifyAPIPlaylistsTests where
             .extendPages(Self.spotify)
             .XCTAssertNoFailure()
             .collect()
-            .flatMap { (playlistsArray: [PagingObject<Playlist<PlaylistsItemsReference>>]) -> AnyPublisher<PlaylistItems, Error> in
+            .flatMap { (playlistsArray: [PagingObject<Playlist<PlaylistItemsReference>>]) -> AnyPublisher<PlaylistItems, Error> in
 
                 encodeDecode(playlistsArray, areEqual: ==)
                 // MARK: Ensure the user is following the playlist we just created
@@ -1487,6 +1492,48 @@ extension SpotifyAPIPlaylistsTests where
 
 }
 
+// MARK: Authorization and setup methods
+
+extension SpotifyAPIPlaylistsTests where
+    AuthorizationManager: SpotifyScopeAuthorizationManager
+{
+    
+    /// Only authorize for the playlist scopes. The super implementation
+    /// authorizes for all scopes.
+    static func _setupAuthorization() {
+        
+        Self.spotify.authorizationManager.deauthorize()
+        XCTAssertEqual(
+            Self.spotify.authorizationManager.scopes ?? [], []
+        )
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(for: [])
+        )
+        Self.authorizeAndWaitForTokens(scopes: Scope.playlistScopes)
+
+    }
+    
+    func _setup() {
+//        XCTAssertEqual(
+//            Self.spotify.authorizationManager.scopes,
+//            Scope.playlistScopes
+//        )
+//        XCTAssertTrue(
+//            Self.spotify.authorizationManager.isAuthorized(
+//                for: Scope.playlistScopes
+//            )
+//        )
+//        // the scopes that we shouldn't be authorized for
+//        let otherScopes = Scope.allCases.subtracting(Scope.playlistScopes)
+//        XCTAssertFalse(
+//            Self.spotify.authorizationManager.isAuthorized(
+//                for: otherScopes
+//            )
+//        )
+    }
+
+}
+
 final class SpotifyAPIClientCredentialsFlowPlaylistsTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIPlaylistsTests
 {
@@ -1514,7 +1561,6 @@ final class SpotifyAPIClientCredentialsFlowPlaylistsTests:
     }
 
 }
-
 
 final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIPlaylistsTests
@@ -1551,6 +1597,19 @@ final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
         ("testUploadPlaylistImage", testUploadPlaylistImage)
     ]
 
+    /// Only authorize for the playlist scopes. The super implementation
+    /// authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases,
+        showDialog: Bool = true
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
+    
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
     func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }
     func testFilteredPlaylist() { filteredPlaylist() }
@@ -1612,6 +1671,18 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
         ("testPlaylistImage", testPlaylistImage),
         ("testUploadPlaylistImage", testUploadPlaylistImage)
     ]
+
+    /// Only authorize for the playlist scopes. The super implementation
+    /// authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
 
     func testGetCrumbPlaylist() { getCrumbPlaylist() }
     func testGetCrumbPlaylistTracks() { getCrumbPlaylistTracks() }

@@ -275,10 +275,11 @@ extension SpotifyAPIEpisodeTests {
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
         
         var authChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             authChangeCount += 1
         })
-        .store(in: &Self.cancellables)
+        .store(in: &cancellables)
 
         let expectation = XCTestExpectation(description: "testEpisode")
         

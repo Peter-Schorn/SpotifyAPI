@@ -16,6 +16,8 @@ import OpenCombine
 import FoundationNetworking
 #endif
 
+import SpotifyWebAPI
+
 public final class NetworkAdaptorManager {
     
     public static let shared = NetworkAdaptorManager()
@@ -111,4 +113,37 @@ public final class NetworkAdaptorManager {
         #endif
     }
     
+}
+
+public extension SpotifyAuthorizationManager {
+    
+    var networkAdaptor: (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
+        get {
+            if let authManager = self as? AuthorizationCodeFlowManager {
+                return authManager.networkAdaptor
+            }
+            if let authManager = self as? AuthorizationCodeFlowPKCEManager {
+                return authManager.networkAdaptor
+            }
+            if let authManager = self as? ClientCredentialsFlowManager {
+                return authManager.networkAdaptor
+            }
+            fatalError("unexpected authorization manager: \(self)")
+        }
+        set {
+            if let authManager = self as? AuthorizationCodeFlowManager {
+                authManager.networkAdaptor = newValue
+            }
+            else if let authManager = self as? AuthorizationCodeFlowPKCEManager {
+                authManager.networkAdaptor = newValue
+            }
+            else if let authManager = self as? ClientCredentialsFlowManager {
+                authManager.networkAdaptor = newValue
+            }
+            else {
+                fatalError("unexpected authorization manager: \(self)")
+            }
+        }
+    }
+
 }

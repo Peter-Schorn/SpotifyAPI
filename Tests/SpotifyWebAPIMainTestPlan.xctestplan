@@ -20,7 +20,7 @@
       },
       {
         "enabled" : false,
-        "key" : "data_dump_folder",
+        "key" : "SPOTIFY_DATA_DUMP_FOLDER",
         "value" : "path\/to\/folder"
       }
     ],

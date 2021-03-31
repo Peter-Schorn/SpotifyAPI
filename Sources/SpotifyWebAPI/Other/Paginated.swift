@@ -11,8 +11,9 @@ import Foundation
  
  `PagingObject` and `CursorPagingObject` are conforming types.
  
- Conforming types can be used in `SpotifyAPI.extendPages(_:maxExtraPages:)`
- and the combine operator of the same name.
+ Conforming types can be used in `SpotifyAPI.extendPages(_:maxExtraPages:)`,
+ `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`, and the combine
+ operators of the same names.
  */
 public protocol Paginated: Codable {
 

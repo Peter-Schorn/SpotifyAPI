@@ -4,7 +4,7 @@ import SpotifyWebAPI
 import SpotifyExampleContent
 import SpotifyAPITestUtilities
 
-final class CodingTrackAttributesTests: XCTestCase {
+final class CodingTrackAttributesTests: SpotifyAPITestCase {
     
     static var allTests = [
         ("testCodingTrackAttributesFull", testCodingTrackAttributesFull),

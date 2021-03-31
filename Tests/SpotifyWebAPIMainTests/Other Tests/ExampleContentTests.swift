@@ -6,7 +6,7 @@ import SpotifyAPITestUtilities
 
 /// Ensure that the example content is correctly decoded from JSON
 /// without errors.
-final class ExampleContentTests: XCTestCase {
+final class ExampleContentTests: SpotifyAPITestCase {
     
     var sink = ""
     

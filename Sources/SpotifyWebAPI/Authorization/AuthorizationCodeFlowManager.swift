@@ -403,7 +403,7 @@ public extension AuthorizationCodeFlowManager {
             // Decoding into `AuthInfo` never fails because all of its
             // properties are optional, so we must try to decode errors
             // first.
-            .decodeSpotifyErrors()
+            .decodeSpotifyErrorsNoRetry()
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
@@ -532,7 +532,7 @@ public extension AuthorizationCodeFlowManager {
                     // Decoding into `AuthInfo` never fails because all of its
                     // properties are optional, so we must try to decode errors
                     // first.
-                    .decodeSpotifyErrors()
+                    .decodeSpotifyErrorsNoRetry()
                     .decodeSpotifyObject(AuthInfo.self)
                     .tryMap { authInfo in
                         

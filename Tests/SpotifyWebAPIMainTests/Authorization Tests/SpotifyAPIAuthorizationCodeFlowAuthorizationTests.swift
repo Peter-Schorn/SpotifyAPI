@@ -31,11 +31,11 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
@@ -100,11 +100,11 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     func testReassigningAuthorizationManager() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
@@ -166,11 +166,11 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     func testInvalidState1() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -248,11 +248,11 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     func testInvalidState2() {
      
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let state = String.randomURLSafe(length: 100)
@@ -332,11 +332,11 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
     func testInvalidState3() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let authorizationState = String.randomURLSafe(length: 100)

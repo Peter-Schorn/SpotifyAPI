@@ -50,7 +50,8 @@ extension Optional: ApproximatelyEquatable where Wrapped: ApproximatelyEquatable
 extension Sequence where Element: ApproximatelyEquatable {
     
     /**
-     Compares each element in the sequences for approximate equality.
+     Compares each element in the sequences, in order, for
+     approximate equality.
      
      Returns `false` if the sequences produce a different number of
      elements.
@@ -112,7 +113,8 @@ extension Sequence where Element: ApproximatelyEquatable {
 extension RandomAccessCollection where Element: ApproximatelyEquatable {
 
     /**
-     Compares each element in the collections for approximate equality.
+     Compares each element in the collections, in order, for
+     approximate equality.
 
      Returns `false` if the collections have a different number of
      elements.

@@ -309,6 +309,67 @@ extension SpotifyAPIShowTests {
 
     }
     
+    func showEpisodesExtendPagesConcurrent() {
+        
+        #if canImport(Combine)
+
+        func receiveShowEpisodes(_ episodes: PagingObject<Episode>) {
+            // the index of the last item in the page
+//            let lastItemIndex = episodes.offset + episodes.items.count - 1
+//            print(
+//                """
+//                index: \(episodes.estimatedIndex)
+//                offset: \(episodes.offset)...\(lastItemIndex)
+//                items.count: \(episodes.items.count)
+//                total: \(episodes.total)
+//                limit: \(episodes.limit)
+//
+//                """
+//            )
+
+            encodeDecode(episodes)
+
+            receivedPageIndices.insert(episodes.estimatedIndex)
+
+            XCTAssertGreaterThanOrEqual(episodes.total, 149)
+            XCTAssertEqual(episodes.limit, 34)
+            
+            if episodes.next != nil {
+                XCTAssertEqual(episodes.items.count, 34)
+            }
+            else {
+                XCTAssertLessThanOrEqual(episodes.items.count, 34)
+            }
+
+        }
+
+        var receivedPageIndices: Set<Int> = []
+
+        let expectation = XCTestExpectation(
+            description: "showEpisodesExtendPagesConcurrent"
+        )
+        
+        let show = URIs.Shows.seanCarroll
+        
+        Self.spotify.showEpisodes(show, market: "US", offset: 23, limit: 34)
+            .XCTAssertNoFailure()
+            // request more pages than are available
+            .extendPagesConcurrently(Self.spotify, maxExtraPages: 200)
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: receiveShowEpisodes(_:)
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 300)
+
+        let expectedIndices = Set(0...3)
+        XCTAssert(expectedIndices.isSubset(of: receivedPageIndices))
+
+        #endif
+
+    }
 
 }
 
@@ -319,12 +380,19 @@ final class SpotifyAPIClientCredentialsFlowShowTests:
     static let allTests = [
         ("testShow", testShow),
         ("testShows", testShows),
-        ("testShowEpisodes", testShowEpisodes)
+        ("testShowEpisodes", testShowEpisodes),
+        (
+            "testShowEpisodesExtendPagesConcurrent",
+            testShowEpisodesExtendPagesConcurrent
+        )
     ]
     
     func testShow() { show() }
     func testShows() { shows() }
     func testShowEpisodes() { showEpisodes() }
+    func testShowEpisodesExtendPagesConcurrent() {
+        showEpisodesExtendPagesConcurrent()
+    }
     
 }
 
@@ -335,12 +403,19 @@ final class SpotifyAPIAuthorizationCodeFlowShowTests:
     static let allTests = [
         ("testShow", testShow),
         ("testShows", testShows),
-        ("testShowEpisodes", testShowEpisodes)
+        ("testShowEpisodes", testShowEpisodes),
+        (
+            "testShowEpisodesExtendPagesConcurrent",
+            testShowEpisodesExtendPagesConcurrent
+        )
     ]
     
     func testShow() { show() }
     func testShows() { shows() }
     func testShowEpisodes() { showEpisodes() }
+    func testShowEpisodesExtendPagesConcurrent() {
+        showEpisodesExtendPagesConcurrent()
+    }
     
 }
 
@@ -351,11 +426,18 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEShowTests:
     static let allTests = [
         ("testShow", testShow),
         ("testShows", testShows),
-        ("testShowEpisodes", testShowEpisodes)
+        ("testShowEpisodes", testShowEpisodes),
+        (
+            "testShowEpisodesExtendPagesConcurrent",
+            testShowEpisodesExtendPagesConcurrent
+        )
     ]
     
     func testShow() { show() }
     func testShows() { shows() }
     func testShowEpisodes() { showEpisodes() }
+    func testShowEpisodesExtendPagesConcurrent() {
+        showEpisodesExtendPagesConcurrent()
+    }
     
 }

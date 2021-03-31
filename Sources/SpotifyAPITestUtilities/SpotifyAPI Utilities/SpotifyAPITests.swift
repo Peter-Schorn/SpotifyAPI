@@ -11,7 +11,7 @@ import OpenCombineFoundation
 @testable import SpotifyWebAPI
 
 /// The base protocol that all tests involving `SpotifyAPI` inherit from.
-public protocol SpotifyAPITests: XCTestCase {
+public protocol SpotifyAPITests: SpotifyAPITestCase {
     
     associatedtype AuthorizationManager: SpotifyAuthorizationManager
     

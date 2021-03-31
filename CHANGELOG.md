@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2021-3-30
+
+### Added
+
+* Requests will now be automatically retried up to three times depending on the error received:
+
+    Retries upon receiving a `RateLimitedError`. If a `SpotifyError` or `SpotifyPlayerError` is received, then retries if the status code is 500, 502, 503, or 504.
+
+* Added the following endpoints:
+
+    * `SpotifyAPI.currentUserSavedEpisodes(limit:offset:market:)`
+    * `SpotifyAPI.currentUserSavedEpisodesContains(_:)`
+    * `SpotifyAPI.saveEpisodesForCurrentUser(_:)`
+    * `SpotifyAPI.removeSavedEpisodesForCurrentUser(_:)`
+    * `SpotifyAPI.availableMarkets()`
+
+* Added methods for retrieving additional pages of results *concurrently*:
+
+    * `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`
+    * `Publisher.extendPagesConcurrently(_:maxExtraPages:)`
+
+* `SpotifyUser` how has the following additional properties: `allowsExplicitContent` and `explicitContentSettingIsLocked`.
+
+### Changed
+
+* The `before` and `after` cases of `TimeReference` now accept a timestamp string instead of a `Date`. `TimeReference` has the static methods `before(_:)` and `after(_:)` which accept Dates instead and return an instance of self.
+* Renamed `PlaylistsItemsReference` to `PlaylistItemsReference`.
+
 ## [1.4.2] - 2021-3-16
 
 ### Fixed

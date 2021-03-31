@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- A device that Spotify Content can be played on.
+ A [device][1] that Spotify Content can be played on.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
  */

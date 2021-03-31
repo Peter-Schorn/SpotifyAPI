@@ -88,10 +88,9 @@ public struct PlaybackRequest: Hashable {
      Read more at the [Spotify web API reference][2].
 
      - Parameters:
-       - context: The context in which to play the content.
-         One of the following:
-         * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to play
-           the content. Must be in one of the following categories:
+       - context: The context in which to play the content. One of the following:
+         * `contextURI(SpotifyURIConvertible)`: A URI for the context in which
+           to play the content. Must be in one of the following categories:
            * Album
            * Artist
            * Show
@@ -101,10 +100,9 @@ public struct PlaybackRequest: Hashable {
      
        - offset: Indicates where in the context playback should start.
          One of the following:
-         
          * `position(Int)`: The index of the item in the context at which to
-             start playback. Cannot be used if the context is an artist.
-         *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+           start playback. Cannot be used if the context is an artist.
+         * `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
          
        - positionMS: Indicates from what position to start playback in
              milliseconds. If `nil`, then the track/episode will start from

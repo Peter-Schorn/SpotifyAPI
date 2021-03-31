@@ -5,7 +5,7 @@ import SpotifyAPITestUtilities
 
 /// Test encoding and decoding the authorization managers
 /// to ensure no data is lost during the encoding and decoding.
-final class CodingAuthorizationCodeFlowPKCEManagerTests: XCTestCase {
+final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
     
     static var allTests = [
         (

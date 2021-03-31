@@ -63,12 +63,30 @@ public extension StringProtocol {
 }
 
 /// Assert the Spotify user is "petervschorn".
-public func assertUserIsPeter(_ user: SpotifyUser) {
+public func assertUserIsPeter(
+    _ user: SpotifyUser,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) {
  
-    XCTAssertEqual(user.id, "petervschorn")
-    XCTAssertEqual(user.href, "https://api.spotify.com/v1/users/petervschorn")
-    XCTAssertEqual(user.type, .user)
-    XCTAssertEqual(user.uri, "spotify:user:petervschorn")
+    XCTAssertEqual(
+        user.href,
+        "https://api.spotify.com/v1/users/petervschorn",
+        file: file, line: line
+    )
+    XCTAssertEqual(
+        user.id, "petervschorn",
+        file: file, line: line
+    )
+    XCTAssertEqual(
+        user.uri,
+        "spotify:user:petervschorn",
+        file: file, line: line
+    )
+    XCTAssertEqual(
+        user.type, .user,
+        file: file, line: line
+    )
     
 }
 
@@ -148,113 +166,90 @@ public func XCTAssertImagesExist(
 }
 #endif
 
-/**
- Opens the authorization URL and waits for the user to login
- and copy and paste the redirect URL into standard input or starts
- a server to listen for the redirect URL if the TEST flag is enabled.
- 
- - Parameter authorizationURL: The authorization URL.
- - Returns: The redirect URI with the query, which is used for
-       requesting access and refresh tokens
- */
-public func openAuthorizationURLAndWaitForRedirect(
-    _ authorizationURL: URL
-) -> URL? {
-    
-    #if TEST
-    // MARK: start the server
-    
-    var redirectURIWithQuery: URL? = nil
-    
-    var redirectListener = RedirectListener(url: localHostURL)
-    
-    let dispatchGroup = DispatchGroup()
-    
-    dispatchGroup.enter()
-    do {
-        try redirectListener.start(receiveURL: { url in
-            redirectURIWithQuery = url
-//            for (name, value) in url.queryItemsDict {
-//                print("'\(name)': '\(value)'")
-//            }
-            dispatchGroup.leave()
-        })
-        
-    } catch {
-        fatalError("couldn't run listener: \(error)")
-    }
-    
-    #endif
 
-    // MARK: open the authorization URL
-    
-    #if canImport(AppKit)
-    NSWorkspace.shared.open(authorizationURL)
-    #elseif canImport(UIKit)
-    UIApplication.shared.open(authorizationURL)
-    #else
-    print(
-        """
 
-        ======================================================\
-        ===============================================
-        Open the following URL in your browser:
-
-        \(authorizationURL)
-        """
-    )
-    #endif
+public extension Scope {
     
-    #if TEST
-    print(
-        """
-
-        ======================================================\
-        ===============================================
-        Running local server to wait for redirect
-        """
-    )
-    
-    // MARK: retrieve the redirect URI from the server
-
-    dispatchGroup.wait()
-    redirectListener.shutdown()
-    
-    if let redirectURIWithQuery = redirectURIWithQuery {
-        return redirectURIWithQuery
-    }
-    fatalError("couldn't get redirect URI from listener")
-    
-    #else
-    print(
-        """
-
-        ======================================================\
-        ===============================================
-        After You approve the application and are redirected, \
-        paste the url that you were redirected to here:
-        """
-    )
-    
-    // MARK: get the redirect URI from standard input
-    
-    guard var redirectURIWithQueryString = readLine() else {
-        fatalError("couldn't read redirect URI from standard input")
-    }
-    
-    // see the documentation for `readLine`
-    // see also https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Unicode_chart
-    let replacementCharacters: [Character] = [
-        "\u{FFF9}", "\u{FFFA}", "\u{FFFB}", "\u{FFFC}", "\u{FFFD}",
-        "\u{F702}"
+    /**
+     All the scopes that are related to playlists
+     
+     * `playlistReadCollaborative`
+     * `playlistModifyPublic`
+     * `playlistReadPrivate`
+     * `playlistModifyPrivate`
+     * `ugcImageUpload` (required for uploading an image to a playlist)
+     */
+    static let playlistScopes: Set<Scope> = [
+        .playlistReadCollaborative,
+        .playlistModifyPublic,
+        .playlistReadPrivate,
+        .playlistModifyPrivate,
+        .ugcImageUpload
     ]
+
+}
+
+public extension URLSession {
     
-    redirectURIWithQueryString.removeAll(where: { character in
-        replacementCharacters.contains(character)
-    })
+    /**
+     Sets the `cachePolicy` of the `URLRequest` to
+     `reloadIgnoringLocalAndRemoteCacheData`.
+     
+     Useful for tests that need to produce a rate limited error.
+     */
+    func noCacheNetworkAdaptor(
+        request: URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
+        
+        var request = request
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
+        return self.dataTaskPublisher(for: request)
+            .mapError { $0 as Error }
+            .map { data, response -> (data: Data, response: HTTPURLResponse) in
+                guard let httpURLResponse = response as? HTTPURLResponse else {
+                    fatalError(
+                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                    )
+                }
+                return (data: data, response: httpURLResponse)
+            }
+            .eraseToAnyPublisher()
+
+    }
+
+
+}
+
+@available(macOS 10.15.4, *)
+public extension String {
     
-    return URL(string: redirectURIWithQueryString.strip())
-    
-    #endif
+    func append(to file: URL, terminator: String = "\n") throws {
+
+        var data = self.data(using: .utf8)!
+        let terminatorData = terminator.data(using: .utf8)!
+        data.append(terminatorData)
+
+        let manager = FileManager.default
+        
+
+        if manager.fileExists(atPath: file.path) {
+            let handle = try FileHandle(forUpdating: file)
+            do {
+                try handle.seekToEnd()
+                handle.write(data)
+                try handle.close()
+
+            } catch {
+                try handle.close()
+                throw error
+            }
+            
+        }
+        else {
+            try data.write(to: file, options: [.atomic])
+        }
+        
+    }
 
 }

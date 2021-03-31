@@ -153,9 +153,11 @@ public extension Collection where Index == Int {
 
     /// Splits this collection into an array of arrays, each of which
     /// will have the specified size (although the last may be smaller).
+    ///
+    /// - Parameter size: The size of each nested array.
     func chunked(size: Int) -> [[Element]] {
         return stride(from: 0, to: self.count, by: size).map {
-            Array(self[$0 ..< Swift.min($0 + size, self.count)])
+            Array(self[$0..<Swift.min($0 + size, self.count)])
         }
     }
 
@@ -193,49 +195,22 @@ public func urlQueryDictionary(
 }
 
 
-/**
- Allows for writing code that is generisc over the
- wrapped type of `Optional`.
- 
- This protocol allows for extending other protocols
- contingent on one or more of their associated types
- being a generic optional type.
- 
- For example, this extension to Array adds an instance method
- that returns a new array in which each of the elements
- are either unwrapped or removed if nil. You must use self.optional
- for swift to recognize that the generic type as an Optional.
- ```
- extension Array where Element: SomeOptional {
-
-     func removedIfNil() -> [Self.Element.Wrapped] {
-         return self.compactMap { $0.optional }
-     }
-
- }
- ```
- Body of protocol:
- ```
- associatedtype Wrapped
- var value: Wrapped? { get set }
- ```
- */
+/// This protocol is deprecated.
+@available(*, deprecated)
 public protocol SomeOptional {
 
-    /// The type wrapped by the `Optional`.
+    /// This protocol is deprecated.
     associatedtype Wrapped
     
-    /// The type as an `Optional`.
+    /// This property is deprecated.
     var optional: Wrapped? { get set }
 }
 
+@available(*, deprecated)
 extension Optional: SomeOptional {
 
-    /// A computed property that directly gets and sets `self`.
-    /// **Does not unwrap self**. This must be used
-    /// for swift to recognize the generic type
-    /// conforming to `SomeOptional` as an `Optional`.
-    @inlinable @inline(__always)
+    /// This property is deprecated.
+    @inlinable @inline(__always) @available(*, deprecated)
     public var optional: Wrapped? {
         get { return self }
         set { self = newValue }
@@ -243,14 +218,11 @@ extension Optional: SomeOptional {
 
 }
 
+@available(*, deprecated)
 public extension Sequence where Element: SomeOptional {
 
-    /// Returns a new array in which each element in the Sequence
-    /// is either unwrapped and added to the new array,
-    /// or not added to the new array if `nil`.
-    ///
-    /// Equivalent to `self.compactMap { $0 }`.
-    @inlinable
+    /// This method is deprecated.
+    @inlinable @available(*, deprecated)
     func removedIfNil() -> [Element.Wrapped] {
         return self.compactMap { $0.optional }
     }

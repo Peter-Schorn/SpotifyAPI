@@ -1,12 +1,12 @@
 import Foundation
 
 /**
- A [saved track object][1], [saved album object][2], or
- [saved show object][3].
+ A [saved track object][1], [saved album object][2],
+ [saved episode object][3], or [saved show object][4].
  
  This is used when retrieving content from a user's library.
  It contains just three properties:
- 
+  
  * `addedAt`: The date the item was added.
  * `item`: The item that was saved.
  * `type`: `track` if this is a saved track object,
@@ -15,7 +15,8 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
  [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
- [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
+ [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject
+ [4]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
  */
 public struct SavedItem<Item: Codable & Hashable>: Hashable {
     
@@ -23,21 +24,23 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     public let addedAt: Date
     
     /// The item that was saved in this `SavedItem`.
-    /// Either a track, album, or show.
+    /// Either a track, album, episode, or show.
     ///
     /// See also `type`.
     public let item: Item
     
     /**
      `track` if this is a [saved track object][1],
-     `album` if this is a [saved album object][2], or
-     `show` if this is a [saved show object][3].
+     `album` if this is a [saved album object][2],
+     `episode` if this is a [saved episode object][3], or
+     `show` if this is a [saved show object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
      */
-    public let type: CodingKeys
+    public let type: IDCategory
     
     /**
      Creates a Saved Item object.
@@ -49,17 +52,19 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
        - addedAt: The date the item was added.
        - item: The item that was saved in this `SavedItem`.
        - type: `track` if this is a [saved track object][1],
-             `album` if this is a [saved album object][2], or
-             `show` if this is a [saved show object][3].
+             `album` if this is a [saved album object][2],
+             `episode` if this is a [saved episode object][3], or
+             `show` if this is a [saved show object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject
      */
     public init(
         addedAt: Date,
         item: Item,
-        type: SavedItem<Item>.CodingKeys
+        type: IDCategory
     ) {
         self.addedAt = addedAt
         self.item = item
@@ -91,6 +96,11 @@ extension SavedItem: Codable {
                     Item.self, forKey: .album
                 )
                 self.type = .album
+            case is Episode.Type:
+                self.item = try container.decode(
+                    Item.self, forKey: .episode
+                )
+                self.type = .episode
             case is Show.Type:
                 self.item = try container.decode(
                     Item.self, forKey: .show
@@ -98,8 +108,8 @@ extension SavedItem: Codable {
                 self.type = .show
             default:
                 let debugDescription = """
-                    Expected type of Item to be either Track, Album, or \
-                    Show, but got '\(Item.self)'
+                    Expected type of Item to be either Track, Album, \
+                    Episode, or Show, but got '\(Item.self)'
                     """
                 throw DecodingError.dataCorrupted(
                     DecodingError.Context(
@@ -120,31 +130,43 @@ extension SavedItem: Codable {
             self.addedAt, forKey: .addedAt
         )
         
-        guard Self.itemTypes.contains(self.type) else {
-            let debugDescription = """
-                expected self.type to be one of the following:
-                \(Self.itemTypes.map(\.rawValue))
-                but got '\(self.type.rawValue)'
-                """
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: container.codingPath,
-                    debugDescription: debugDescription
-                )
-            )
-        }
-        
-        try container.encode(
-            self.item, forKey: self.type
-        )
         try container.encode(
             self.type, forKey: .type
         )
         
+        switch Item.self {
+            case is Track.Type:
+                try container.encode(
+                    self.item, forKey: .track
+                )
+            case is Album.Type:
+                try container.encode(
+                    self.item, forKey: .album
+                )
+            case is Episode.Type:
+                try container.encode(
+                    self.item, forKey: .episode
+                )
+            case is Show.Type:
+                try container.encode(
+                    self.item, forKey: .show
+                )
+            default:
+                let debugDescription = """
+                    Expected type of Item to be either Track, Album, \
+                    Episode, or Show, but got '\(Item.self)'
+                    """
+                let context = EncodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: debugDescription
+                )
+                throw EncodingError.invalidValue(
+                    self.item,
+                    context
+                )
+        }
+        
     }
-    
-    /// The possible types for `self.item`. See also `self.type`.
-    public static var itemTypes: [CodingKeys] { [.track, .album, .show] }
     
     /// :nodoc:
     public enum CodingKeys: String, CodingKey, Codable {
@@ -152,6 +174,7 @@ extension SavedItem: Codable {
         case track
         case album
         case show
+        case episode
         case type
     }
     

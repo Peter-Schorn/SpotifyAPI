@@ -4,7 +4,7 @@ import SpotifyWebAPI
 import SpotifyExampleContent
 import SpotifyAPITestUtilities
 
-class SpotifyPlayerErrorCodingTests: XCTestCase {
+final class SpotifyPlayerErrorCodingTests: SpotifyAPITestCase {
     
     static let allTests = [
         ("testCodingVolumeControlDisallow", testCodingVolumeControlDisallow)

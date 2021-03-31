@@ -3,7 +3,7 @@ import XCTest
 import SpotifyWebAPI
 import SpotifyAPITestUtilities
 
-final class CodingTimeReferenceTests: XCTestCase {
+final class CodingTimeReferenceTests: SpotifyAPITestCase {
     
     static var allTests = [
         ("testCodingTimeReference", testCodingTimeReference)

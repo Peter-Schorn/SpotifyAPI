@@ -25,17 +25,17 @@ private extension SpotifyAPI where
                     .eraseToAnyPublisher()
             }
             
-            let idsString = try SpotifyIdentifier
-                .commaSeparatedIdsString(
-                    uris, ensureCategoryMatches: [type]
-                )
-            
+            let ids = try SpotifyIdentifier.idsArray(
+                uris,
+                ensureCategoryMatches: [type]
+            )
+
             return self.apiRequest(
                 path: path,
-                queryItems: ["ids": idsString],
+                queryItems: [:],
                 httpMethod: "PUT",
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                bodyData: nil,
+                body: ids,
                 requiredScopes: [.userLibraryModify]
             )
             .decodeSpotifyErrors()
@@ -52,7 +52,7 @@ private extension SpotifyAPI where
         uris: [SpotifyURIConvertible],
         type: IDCategory,
         path: String,
-        market: String? = nil
+        market: String?
     ) -> AnyPublisher<Void, Error> {
         
         do {
@@ -62,20 +62,19 @@ private extension SpotifyAPI where
                     .eraseToAnyPublisher()
             }
             
-            let idsString = try SpotifyIdentifier
-                .commaSeparatedIdsString(
-                    uris, ensureCategoryMatches: [type]
-                )
+            let ids = try SpotifyIdentifier.idsArray(
+                uris,
+                ensureCategoryMatches: [type]
+            )
             
             return self.apiRequest(
                 path: path,
                 queryItems: [
-                    "ids": idsString,
                     "market": market
                 ],
                 httpMethod: "DELETE",
-                makeHeaders: Headers.bearerAuthorization(_:),
-                bodyData: nil,
+                makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
+                body: ids,
                 requiredScopes: [.userLibraryModify]
             )
             .decodeSpotifyErrors()
@@ -160,7 +159,7 @@ public extension SpotifyAPI where
         limit: Int? = nil,
         offset: Int? = nil,
         market: String? = nil
-    ) -> AnyPublisher<PagingObject<SavedItem<Album>>, Error> {
+    ) -> AnyPublisher<PagingObject<SavedAlbum>, Error> {
         
         return self.getRequest(
             path: "/me/albums",
@@ -171,7 +170,7 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedItem<Album>>.self)
+        .decodeSpotifyObject(PagingObject<SavedAlbum>.self)
         
     }
 
@@ -209,7 +208,7 @@ public extension SpotifyAPI where
         limit: Int? = nil,
         offset: Int? = nil,
         market: String? = nil
-    ) -> AnyPublisher<PagingObject<SavedItem<Track>>, Error> {
+    ) -> AnyPublisher<PagingObject<SavedTrack>, Error> {
         
         return self.getRequest(
             path: "/me/tracks",
@@ -220,10 +219,58 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedItem<Track>>.self)
+        .decodeSpotifyObject(PagingObject<SavedTrack>.self)
         
     }
     
+    /**
+     Get the saved episodes for the current user.
+     
+     **This API endpoint is in beta and could change without warning.**
+
+     See also `currentUserSavedEpisodesContains(_:)`.
+     
+     This endpoint requires the `userLibraryRead` scope.
+     
+     To get just the episodes, use:
+     ```
+     results.items.map(\.item)
+     ```
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - limit: *Optional*. The maximum number of episodes to return.
+             Default: 20; Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first episode to return.
+             Default: 0. Use with `limit` to get the next set of episodes.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
+             the string "from_token".
+     - Returns: An array of the full versions of `Show` objects wrapped in
+           a `SavedItem` object, wrapped in a `PagingObject`.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     */
+    func currentUserSavedEpisodes(
+        limit: Int? = nil,
+        offset: Int? = nil,
+        market: String? = nil
+    ) -> AnyPublisher<PagingObject<SavedEpisode>, Error> {
+        
+        return self.getRequest(
+            path: "/me/episodes",
+            queryItems: [
+                "limit": limit,
+                "offset": offset,
+                "market": market
+            ],
+            requiredScopes: [.userLibraryRead]
+        )
+        .decodeSpotifyObject(PagingObject<SavedEpisode>.self)
+        
+    }
+
     /**
      Get the saved shows for the current user.
      
@@ -244,20 +291,18 @@ public extension SpotifyAPI where
        - offset: *Optional*. The index of the first show to return.
              Default: 0. Use with `limit` to get the next set of shows.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-             the string "from_token". Provide this parameter if you want
-             to apply [Track Relinking][3].
+             the string "from_token".
      - Returns: An array of the full versions of `Show` objects wrapped in
            a `SavedItem` object, wrapped in a `PagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-shows
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     func currentUserSavedShows(
         limit: Int? = nil,
         offset: Int? = nil,
         market: String? = nil
-    ) -> AnyPublisher<PagingObject<SavedItem<Show>>, Error> {
+    ) -> AnyPublisher<PagingObject<SavedShow>, Error> {
         
         return self.getRequest(
             path: "/me/shows",
@@ -268,7 +313,7 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedItem<Show>>.self)
+        .decodeSpotifyObject(PagingObject<SavedShow>.self)
         
     }
     
@@ -332,6 +377,38 @@ public extension SpotifyAPI where
 
     }
     
+    /**
+     Check if one or more episodes is saved in the current user's
+     "Your Music" library.
+     
+     **This API endpoint is in beta and could change without warning.**
+
+     This endpoint requires the `userLibraryRead` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uris: An array of episode URIs. Maximum: 50.
+           Duplicate episodes in the request will result in
+           duplicate values in the response. A single invalid URI causes
+           the entire request to fail. Passing in an empty array will
+           immediately cause an empty array of results to be returned
+           without a network request being made.
+     - Returns: An array of `true` or `false` values,
+           in the order requested, indicating whether the user's
+           library contains each episode.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-check-users-saved-episodes
+     */
+    func currentUserSavedEpisodesContains(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<[Bool], Error> {
+        
+        return self.currentUserLibraryContains(
+            uris: uris, type: .episode, path: "/me/episodes/contains"
+        )
+
+    }
+
     /**
      Check if one or more shows is saved in the current user's
      "Your Music" library.
@@ -411,6 +488,32 @@ public extension SpotifyAPI where
     }
     
     /**
+     Save episodes for the current user.
+     
+     **This API endpoint is in beta and could change without warning.**
+
+     This endpoint requires the `userLibraryModify` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameter uris: An array of episdoe URIs. Maximum: 50.
+           Duplicates will be ignored. A single invalid URI causes
+           the entire request to fail. Passing in an empty array will
+           prevent a network request from being made.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-save-shows-user
+     */
+    func saveEpisodesForCurrentUser(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<Void, Error> {
+
+        return self.saveItemsForCurrentUser(
+            uris: uris, type: .episode, path: "/me/episodes"
+        )
+        
+    }
+    
+    /**
      Save shows for the current user.
      
      This endpoint requires the `userLibraryModify` scope.
@@ -453,8 +556,12 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, type: .album, path: "/me/albums", market: nil
+            uris: uris,
+            type: .album,
+            path: "/me/albums",
+            market: nil
         )
+        
     }
     
     /**
@@ -476,10 +583,44 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, type: .track, path: "/me/tracks", market: nil
+            uris: uris,
+            type: .track,
+            path: "/me/tracks",
+            market: nil
         )
+        
     }
     
+    /**
+     Remove saved episodes for the current user.
+     
+     This endpoint requires the `userLibraryModify` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - uris: An array of episode URIs. Maximum: 50.
+             Duplicates will be ignored. A single invalid URI causes
+             the entire request to fail. Passing in an empty array will
+             prevent a network request from being made.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-episodes-user
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://www.spotify.com/account/overview/
+     */
+    func removeSavedEpisodesForCurrentUser(
+        _ uris: [SpotifyURIConvertible]
+    ) -> AnyPublisher<Void, Error> {
+        
+        return self.removeItemsForCurrentUser(
+            uris: uris,
+            type: .episode,
+            path: "/me/episodes",
+            market: nil
+        )
+        
+    }
+
     /**
      Remove saved shows for the current user.
      
@@ -488,7 +629,7 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - uris: An array of album URIs. Maximum: 50.
+       - uris: An array of show URIs. Maximum: 50.
              Duplicates will be ignored. A single invalid URI causes
              the entire request to fail. Passing in an empty array will
              prevent a network request from being made.
@@ -511,8 +652,12 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<Void, Error> {
         
         return self.removeItemsForCurrentUser(
-            uris: uris, type: .show, path: "/me/shows", market: market
+            uris: uris,
+            type: .show,
+            path: "/me/shows",
+            market: market
         )
+        
     }
 
 }

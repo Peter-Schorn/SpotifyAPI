@@ -61,11 +61,10 @@ private extension SpotifyAPI where
                     .eraseToAnyPublisher()
             }
 
-            let ids = try uris.map { uri in
-                try SpotifyIdentifier(
-                    uri: uri, ensureCategoryMatches: [type]
-                ).id
-            }
+            let ids = try SpotifyIdentifier.idsArray(
+                uris,
+                ensureCategoryMatches: [type]
+            )
             let body = ["ids": ids]
             
             return self.apiRequest(

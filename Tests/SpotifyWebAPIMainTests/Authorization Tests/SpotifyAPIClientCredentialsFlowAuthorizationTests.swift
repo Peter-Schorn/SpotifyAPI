@@ -28,11 +28,11 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
 
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
@@ -103,11 +103,11 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
     func testReassigningAuthorizationManager() {
         
         var didChangeCount = 0
-        Self.spotify.authorizationManagerDidChange
-            .sink(receiveValue: {
-                didChangeCount += 1
-            })
-            .store(in: &Self.cancellables)
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            didChangeCount += 1
+        })
+        .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize

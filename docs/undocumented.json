@@ -1,6 +1,19 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Other Spotify Objects/PagingObject.swift",
+      "line": 200,
+      "symbol": "PagingObject.href(forOffset:limit:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Playlist Objects/PlaylistItemsReference.swift",
+      "line": 55,
+      "symbol": "PlaylistsItemsReference",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/pschorn/Swift/Libraries/SpotifyAPI"
 }

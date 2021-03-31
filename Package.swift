@@ -89,17 +89,17 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "vapor",
             url: "https://github.com/vapor/vapor.git",
-            from: "4.0.0"
+            from: "4.41.9"
         ),
         .package(
             name: "swift-nio",
             url: "https://github.com/apple/swift-nio.git",
-            from: "2.25.1"
+            from: "2.27.0"
         ),
         .package(
             name: "async-http-client",
             url: "https://github.com/swift-server/async-http-client.git",
-            from: "1.2.2"
+            from: "1.2.5"
         )
     ]
     #endif

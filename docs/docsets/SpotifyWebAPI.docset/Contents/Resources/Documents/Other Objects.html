@@ -17,7 +17,7 @@
     <a title="Other Objects  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -425,9 +445,15 @@
                         <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject">paging object</a>.</p>
 
 <p>The offset-based paging object is a container for a set of objects.
-It contains a key called items (whose value is an array of the requested
-objects) along with other keys like <code>previous</code>, <code>next</code> and <code>limit</code> that can be
-useful in future calls.</p>
+It contains a property called <code>items</code> (whose value is an array of the requested
+objects) along with other properties like <code>previous</code>, <code>next</code> and <code>limit</code> that
+can be useful in future calls.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
+
+<p>See also <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>,
+<code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF">SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)</a></code>, and the combine
+operators of the same names.</p>
 
                         <a href="Structs/PagingObject.html" class="slightly-smaller">See more</a>
                       </div>
@@ -435,7 +461,7 @@ useful in future calls.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PagingObject</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a></span> <span class="k">where</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Item</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PagingObject</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span> <span class="k">where</span> <span class="kt">Item</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
@@ -458,8 +484,8 @@ useful in future calls.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>, or
-<a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
+                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>,
+<a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject">saved episode object</a>, or <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
 
 <p>This is used when retrieving content from a user&rsquo;s library.
 It contains just three properties:</p>
@@ -591,7 +617,9 @@ be <code>nil</code> if it was not requested in the search.</p>
                       <div class="abstract">
                         <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject">Spotify user</a>.</p>
 
-<p>Can represent both the public and private version.</p>
+<p>Can represent both the public and private version. When the public
+version is returned, properties that are only available in the private
+version will be <code>nil</code>.</p>
 
                         <a href="Structs/SpotifyUser.html" class="slightly-smaller">See more</a>
                       </div>
@@ -653,6 +681,8 @@ be <code>nil</code> if it was not requested in the search.</p>
 <p>See <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played">get current user&rsquo;s recently played tracks</a> and
 <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE14recentlyPlayed_5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA11PlayHistoryVGs5Error_pGAA13TimeReferenceOSg_SiSgtF">SpotifyAPI.recentlyPlayed(_:limit:)</a></code>.</p>
 
+<p>See also <a href="https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject">Working with Paginated Results</a>.</p>
+
                         <a href="Structs/CursorPagingObject.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
@@ -681,11 +711,12 @@ be <code>nil</code> if it was not requested in the search.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject">Spotify Cursor</a> object.</p>
+                        <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject">Cursor</a> object.</p>
 
 <p>Used to find the next or previous set of items in a <code><a href="Structs/CursorPagingObject.html">CursorPagingObject</a></code>.</p>
 
-<p>See also <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played">Get Current User&rsquo;s Recently Played Tracks</a>.</p>
+<p>See <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played">get current user&rsquo;s recently played tracks</a> and
+<code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE14recentlyPlayed_5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA11PlayHistoryVGs5Error_pGAA13TimeReferenceOSg_SiSgtF">SpotifyAPI.recentlyPlayed(_:limit:)</a></code>.</p>
 
                         <a href="Structs/SpotifyCursor.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1034,7 +1065,7 @@ Used in the body of <code><a href="Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

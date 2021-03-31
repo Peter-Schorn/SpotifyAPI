@@ -39,17 +39,17 @@ extension SpotifyAPIBrowseTests {
                     "https://api.spotify.com/v1/browse/categories/party"
                 )
                 
-                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
-                let (imageExpectations, cancellables) =
-                            XCTAssertImagesExist(category.icons)
-                
-                Self.cancellables.formUnion(cancellables)
-                
-                self.wait(
-                    for: imageExpectations,
-                    timeout: TimeInterval(imageExpectations.count * 60)
-                )
-                #endif
+//                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+//                let (imageExpectations, cancellables) =
+//                            XCTAssertImagesExist(category.icons)
+//
+//                Self.cancellables.formUnion(cancellables)
+//
+//                self.wait(
+//                    for: imageExpectations,
+//                    timeout: TimeInterval(imageExpectations.count * 60)
+//                )
+//                #endif
                 
             }
         )
@@ -97,7 +97,7 @@ extension SpotifyAPIBrowseTests {
     func categoryPlaylists() {
         
         func receiveCategoryPlaylists(
-            _ playlists: PagingObject<Playlist<PlaylistsItemsReference>>
+            _ playlists: PagingObject<Playlist<PlaylistItemsReference>>
         ) {
             encodeDecode(playlists, areEqual: ==)
             XCTAssertEqual(playlists.limit, 15)
@@ -300,10 +300,11 @@ extension SpotifyAPIBrowseTests {
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
         
         var authChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             authChangeCount += 1
         })
-        .store(in: &Self.cancellables)
+        .store(in: &cancellables)
 
         let expectation = XCTestExpectation(description: "testRecommendations")
         

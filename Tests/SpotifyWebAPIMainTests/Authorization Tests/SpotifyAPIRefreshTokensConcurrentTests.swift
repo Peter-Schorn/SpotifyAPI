@@ -190,6 +190,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
         )
 
         var didChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange
             .sink(receiveValue: {
                 internalQueue.async {
@@ -199,7 +200,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
                     }
                 }
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
 
         var receivedTrack = false
         var receivedAlbum = false

@@ -17,7 +17,7 @@
     <a title="Publisher Extension Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -398,6 +401,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -409,6 +429,7 @@
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">Void</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">)</span></code></pre>
 
@@ -443,7 +464,8 @@ into a single stream of output.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">tryFlatMap</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">)</span>
+<span class="kd">func</span> <span class="n">tryFlatMap</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span>
     <span class="nv">maxPublishers</span><span class="p">:</span> <span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Demand</span> <span class="o">=</span> <span class="o">.</span><span class="n">unlimited</span><span class="p">,</span>
     <span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">NewPublisher</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span>
@@ -517,15 +539,19 @@ and returns a publisher that produces elements of that type.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code>
-type.</p>
+                        <p>Retrieves additional pages of results from a <code><a href="../Protocols/Paginated.html">Paginated</a></code> type.</p>
 
-<p>Each time an additional page is received, its <code>next</code> property
-is used to retrieve the next page of results, and so on, until
-<code>next</code> is <code>nil</code> or <code>maxExtraPages</code> is reached. This means that
-the next page will not be requested until the previous one
-is received. This also means that the pages will always be
-returned in order.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>.</p>
+
+<p>Compare with <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPagesConcurrently(_:maxExtraPages:)</a></code>.</p>
+
+<p>Each time an additional page is received, its <code>next</code> property is used
+to retrieve the next page of results, and so on, until <code>next</code> is <code>nil</code>
+or <code>maxExtraPages</code> is reached. This means that the next page will not
+be requested until the previous one is received and that the pages
+will always be returned in order.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -577,9 +603,148 @@ For example, to just get the next page, use <code>1</code>. Leave as
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A publisher that immediately republishes the output
+                        <p>A publisher that immediately republishes the page received
   from the upstream publisher, as well as additional pages that are
   returned by the Spotify web API.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Output%60%3A%20%60PagingObjectProtocol%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output`: `PagingObjectProtocol`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%3A%20%60PagingObjectProtocol%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code>: <code><a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/extendPagesConcurrently(_:maxExtraPages:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">extendPagesConcurrently(_:<wbr>maxExtraPages:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves additional pages of results from a paging object
+<em>concurrently</em>.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF">SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)</a></code>.</p>
+
+<p>Compare with <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD9Paginated6OutputRpzrlE11extendPages_08maxExtraI0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPages(_:maxExtraPages:)</a></code>.</p>
+
+<p>This method immediately republishes the page of results that
+were passed in and then requests additional pages <em>concurrently</em>.
+This method has better performance than
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>, which must wait for
+the previous page to be received before requesting the next page.
+<strong>However, the order in which the pages are received is</strong>
+<strong>unpredictable.</strong> If you need to wait all pages to be received
+before processing them, then always use this method.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
+
+<p>See also <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE22collectAndSortByOffsetAA03AnyB0VySayAF_4ItemQZG7FailureQzGyF">Publisher.collectAndSortByOffset()</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">extendPagesConcurrently</span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">spotify</span><span class="p">:</span> <span class="kt"><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></span><span class="o">&lt;</span><span class="kt">AuthorizationManager</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">maxExtraPages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>spotify</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, which is required for
+accessing the access token required to make requests to
+the Spotify web API. The access token will also be refreshed if
+needed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxExtraPages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of additional pages to retrieve.
+For example, to just get the next page, use <code>1</code>. Leave as
+<code>nil</code> (default) to retrieve all pages of results.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that immediately republishes the page received
+  from the upstream publisher, as well as additional pages that are
+  returned by the Spotify web API.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE22collectAndSortByOffsetAA03AnyB0VySayAF_4ItemQZG7FailureQzGyF"></a>
+                    <a name="//apple_ref/swift/Method/collectAndSortByOffset()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE22collectAndSortByOffsetAA03AnyB0VySayAF_4ItemQZG7FailureQzGyF">collectAndSortByOffset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Collects the items from all the pages that are delivered by the upstream
+publisher and then sorts the items based on the offset of each page they
+were received in.</p>
+
+<p>This method is particularly useful in combination with
+<code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPagesConcurrently(_:maxExtraPages:)</a></code>, which delivers
+pages in an unpredictable order. It waits for all pages to be delivered
+and then sorts them and returns just the items in the pages.</p>
+
+<p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">collectAndSortByOffset</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Item</span><span class="p">],</span> <span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -697,10 +862,14 @@ most endpoints.</p>
 <li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
-<p>If the data can be decoded into one of these errors,
-then this error object is thrown as an error to downstream subscribers.
-Otherwise, the data is passed through unmodified to downstream
-subscribers.</p>
+<p>If the data can be decoded into one of these errors, then this error
+object is thrown as an error to downstream subscribers. Otherwise,
+the data is passed through unmodified to downstream subscribers.</p>
+
+<p>Automatically retries the request up to three times, depending on the
+error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code> or <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code> is received, then retries if the
+status code is 500, 502, 503, or 504.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     This method force-downcasts <code>URLResponse</code> to
@@ -752,8 +921,11 @@ Spotify:</p>
 <li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
-<p>If decoding into the error objects fails, <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown
-as a last resort.</p>
+<p>Automatically retries the request up to three times, depending on the
+error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code> or <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code> is received, then retries if the
+status code is 500, 502, 503, or 504. If decoding into the error objects
+fails, <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown as a last resort.</p>
 
 <p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
 when decoding the <code>responseType</code>, not the error objects.</p>
@@ -831,8 +1003,11 @@ Spotify:</p>
 <li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
-<p>If decoding into the error objects fails, <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown
-as a last resort.</p>
+<p>Automatically retries the request up to three times, depending on the
+error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code> or <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code> is received, then retries if the
+status code is 500, 502, 503, or 504. If decoding into the error objects
+fails, <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown as a last resort.</p>
 
 <p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
 when decoding the <code>responseType</code>, not the error objects.</p>
@@ -883,7 +1058,7 @@ are expecting from the Spotify web API.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

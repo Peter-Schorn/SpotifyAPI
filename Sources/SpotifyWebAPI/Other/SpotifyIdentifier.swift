@@ -34,6 +34,31 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws -> String where S.Element == SpotifyURIConvertible {
         
+        return try Self.idsArray(
+            uris,
+            ensureCategoryMatches: categories
+        )
+        .joined(separator: ",")
+        
+    }
+    
+    /**
+     Creates an array of Spotify ids from a sequence of URIs.
+    
+     - Parameters:
+       - uris: A sequence of Spotify URIs.
+       - categories: If not `nil`, ensure the id categories of all the URIs
+             match one or more categories. The default is `nil`.
+     - Throws: If `categories` is not `nil` and the id category of a URI
+           does not match one the required categories or if an id or id category
+           could not be parsed from a URI.
+     - Returns: An array of Spotify ids.
+     */
+    public static func idsArray<S: Sequence>(
+        _ uris: S,
+        ensureCategoryMatches categories: [IDCategory]? = nil
+    ) throws -> [String] where S.Element == SpotifyURIConvertible {
+        
         let identifiers = try uris.map { uri in
             try Self(uri: uri)
         }
@@ -49,8 +74,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             }
         }
         
-        return identifiers.map(\.id).joined(separator: ",")
-        
+        return identifiers.map(\.id)
+
     }
     
     /// The id for the Spotify content.

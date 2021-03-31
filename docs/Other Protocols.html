@@ -17,7 +17,7 @@
     <a title="Other Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -398,6 +401,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -409,7 +429,49 @@
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Hashable"></a>
+                <a name="//apple_ref/swift/Section/Hashable" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Hashable"></a>
+                  <h3 class="section-name"><p>Hashable</p>
+</h3>
+                </div>
+              </div>
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI20PagingObjectProtocolP"></a>
+                    <a name="//apple_ref/swift/Protocol/PagingObjectProtocol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI20PagingObjectProtocolP">PagingObjectProtocol</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An internal implementation detail required for creating publisher
+extensions where the output is a paging object.</p>
+
+<p>See <code><a href="Structs/PagingObject.html">PagingObject</a></code>, which conforms to this protocol.</p>
+
+<p>Do not conform additional types to this protocol.</p>
+
+                        <a href="Protocols/PagingObjectProtocol.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PagingObjectProtocol</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Paginated.html">Paginated</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -446,7 +508,7 @@ Decoding floating point types can lead to floating point imprecision.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

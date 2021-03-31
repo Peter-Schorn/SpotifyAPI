@@ -1,6 +1,6 @@
 import Foundation
 
-/// A [Spotify track][1].
+/// A Spotify [track][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
 public struct Track: Hashable {
@@ -17,10 +17,13 @@ public struct Track: Hashable {
      */
     public let album: Album?
 
-    /// The artists who performed the track. The simplified versions will be returned.
-    ///
-    /// Each artist object includes a link in href to more detailed information about
-    /// the artist.
+    /**
+     The artists who performed the track. The simplified versions
+     will be returned.
+    
+     Each artist object includes a link in href to more detailed
+     information about the artist.
+     */
     public let artists: [Artist]?
     
     /// The [Spotify URI][1] for the track.
@@ -138,20 +141,28 @@ public struct Track: Hashable {
     public let linkedFrom: TrackLink?
     
     /**
-     Part of the response when [Track Relinking][1] is applied, the original track is
-     not available in the given market, and Spotify did not have any tracks to relink
-     it with.
+     Part of the response when a content restriction, such as
+     [Track Relinking][1], is applied.
      
-     The track response will still contain metadata for the original track, and a
-     restrictions object containing the reason why the track is not available:
-     `{"reason" : "market"}`.
+     The key will be "reason", and the value will be one of the
+     following:
+     * "market" - The content item is not available in the given market.
+     * "product" - The content item is not available for the user’s
+       subscription type.
+     * "explicit" - The content item is explicit and the user’s account is
+       set to not play explicit content.
+     
+     Additional reasons and additional keys may be added in the future.
+     
+     See [TrackRestrictionObject][2], which this property is decoded from.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject
      */
     public let restrictions: [String: String]?
     
-    /// The disc number
-    /// (usually 1 unless the album consists of more than one disc).
+    /// The disc number (usually 1 unless the album consists of
+    /// more than one disc).
     public let discNumber: Int?
 
     /**
@@ -197,12 +208,18 @@ public struct Track: Hashable {
              and the requested track has been replaced with different track.
              The track link contains information about the originally requested
              track.
-       - restrictions: Part of the response when [Track Relinking][4] is applied,
-             the original track is not available in the given market, and Spotify
-             did not have any tracks to relink it with. The track response will
-             still contain metadata for the original track, and a restrictions
-             object containing the reason why the track is not available:
-             `{"reason" : "market"}`.
+       - restrictions: Part of the response when a content restriction, such as
+             [Track Relinking][4], is applied. Else, `nil`. The key will be
+             "reason", and the value will be one of the following:
+             * "market" - The content item is not available in the given
+               market.
+             * "product" - The content item is not available for the user’s
+             subscription type.
+             * "explicit" - The content item is explicit and the user’s account
+               is set to not play explicit content.
+             Additional reasons and additional keys may be added in the future.
+             See [TrackRestrictionObject][9], which this property is decoded
+             from.
        - discNumber: The disc number (usually 1 unless the album consists of more
              than one disc).
        - type: The object type. Usually `track`, but may be `episode` if
@@ -216,6 +233,7 @@ public struct Track: Hashable {
      [6]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
      [7]: http://en.wikipedia.org/wiki/Universal_Product_Code
      [8]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [9]: https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject
      */
     public init(
         name: String,

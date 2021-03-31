@@ -1,8 +1,9 @@
 import Foundation
 import XCTest
 import SpotifyWebAPI
+import SpotifyAPITestUtilities
 
-final class AuthorizationScopesTests: XCTestCase {
+final class AuthorizationScopesTests: SpotifyAPITestCase {
     
     func testEmptyScopes() {
         

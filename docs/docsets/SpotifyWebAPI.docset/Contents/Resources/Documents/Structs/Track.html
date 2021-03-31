@@ -17,7 +17,7 @@
     <a title="Track Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -413,7 +433,7 @@
 
                 </div>
               </div>
-            <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-trackobject">Spotify track</a>.</p>
+            <p>A Spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-trackobject">track</a>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -490,10 +510,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The artists who performed the track. The simplified versions will be returned.</p>
+                        <p>The artists who performed the track. The simplified versions
+will be returned.</p>
 
-<p>Each artist object includes a link in href to more detailed information about
-the artist.</p>
+<p>Each artist object includes a link in href to more detailed
+information about the artist.</p>
 
                       </div>
                       <div class="declaration">
@@ -944,13 +965,23 @@ The track link contains information about the originally requested track.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied, the original track is
-not available in the given market, and Spotify did not have any tracks to relink
-it with.</p>
+                        <p>Part of the response when a content restriction, such as
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>, is applied.</p>
 
-<p>The track response will still contain metadata for the original track, and a
-restrictions object containing the reason why the track is not available:
-<code>{&quot;reason&quot; : &quot;market&quot;}</code>.</p>
+<p>The key will be &ldquo;reason&rdquo;, and the value will be one of the
+following:</p>
+
+<ul>
+<li>&ldquo;market&rdquo; - The content item is not available in the given market.</li>
+<li>&ldquo;product&rdquo; - The content item is not available for the user’s
+subscription type.</li>
+<li>&ldquo;explicit&rdquo; - The content item is explicit and the user’s account is
+set to not play explicit content.</li>
+</ul>
+
+<p>Additional reasons and additional keys may be added in the future.</p>
+
+<p>See <a href="https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject">TrackRestrictionObject</a>, which this property is decoded from.</p>
 
                       </div>
                       <div class="declaration">
@@ -977,8 +1008,8 @@ restrictions object containing the reason why the track is not available:
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The disc number
-(usually 1 unless the album consists of more than one disc).</p>
+                        <p>The disc number (usually 1 unless the album consists of
+more than one disc).</p>
 
                       </div>
                       <div class="declaration">
@@ -1303,12 +1334,21 @@ track.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied,
-the original track is not available in the given market, and Spotify
-did not have any tracks to relink it with. The track response will
-still contain metadata for the original track, and a restrictions
-object containing the reason why the track is not available:
-<code>{&quot;reason&quot; : &quot;market&quot;}</code>.</p>
+                                  <p>Part of the response when a content restriction, such as
+<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>, is applied. Else, <code>nil</code>. The key will be
+&ldquo;reason&rdquo;, and the value will be one of the following:
+
+<ul>
+<li>&ldquo;market&rdquo; - The content item is not available in the given
+market.</li>
+<li>&ldquo;product&rdquo; - The content item is not available for the user’s
+subscription type.</li>
+<li>&ldquo;explicit&rdquo; - The content item is explicit and the user’s account
+is set to not play explicit content.
+Additional reasons and additional keys may be added in the future.
+See <a href="https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject">TrackRestrictionObject</a>, which this property is decoded
+from.</li>
+</ul></p>
                                 </div>
                               </td>
                             </tr>
@@ -1401,7 +1441,7 @@ floating point properties for the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

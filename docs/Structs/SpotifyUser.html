@@ -17,7 +17,7 @@
     <a title="SpotifyUser Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -414,7 +434,9 @@
               </div>
             <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject">Spotify user</a>.</p>
 
-<p>Can represent both the public and private version.</p>
+<p>Can represent both the public and private version. When the public
+version is returned, properties that are only available in the private
+version will be <code>nil</code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -562,6 +584,71 @@ response type to retrieve the results.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0A4UserV21allowsExplicitContentSbSgvp"></a>
+                    <a name="//apple_ref/swift/Property/allowsExplicitContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A4UserV21allowsExplicitContentSbSgvp">allowsExplicitContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>When <code>true</code>, indicates that explicit content <em>is</em> allowed. If <code>false</code>,
+then explicit content should <em>not</em> be played because the user has disabled
+it in their settings.</p>
+
+<p>This property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">allowsExplicitContent</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI0A4UserV30explicitContentSettingIsLockedSbSgvp"></a>
+                    <a name="//apple_ref/swift/Property/explicitContentSettingIsLocked" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A4UserV30explicitContentSettingIsLockedSbSgvp">explicitContentSettingIsLocked</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>When <code>true</code>, indicates that the explicit content setting is locked
+and can’t be changed by the user. For example, this user may be
+associated with a kids account that has content restrictions on it
+(e.g., parental controls).</p>
+
+<p>This property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">explicitContentSettingIsLocked</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0A4UserV9followersAA9FollowersVSgvp"></a>
                     <a name="//apple_ref/swift/Property/followers" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0A4UserV9followersAA9FollowersVSgvp">followers</a>
@@ -602,8 +689,8 @@ response type to retrieve the results.</p>
                         <p>The country of the user, as set in the user’s account profile.
 An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.</p>
 
-<p>This field is only available for the current user and requires
-the <code>userReadPrivate</code> scope.</p>
+<p>This property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -633,8 +720,8 @@ the <code>userReadPrivate</code> scope.</p>
                         <p>The user’s email address, as entered by the user when
 creating their account.</p>
 
-<p>This field is only available for the current user and requires
-the <code>userReadEmail</code> scope.</p>
+<p>This property is only available for the <em>current</em> user and requires the
+<code>userReadEmail</code> scope. Otherwise, it will be <code>nil</code>.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     This email address is unverified; there is no proof that
@@ -671,8 +758,8 @@ the <code>userReadEmail</code> scope.</p>
 &ldquo;premium&rdquo;, &ldquo;free&rdquo;, etc. (The subscription level &ldquo;open&rdquo; can be
 considered the same as &ldquo;free&rdquo;.)</p>
 
-<p>This field is only available for the current user and requires
-the <code>userReadPrivate</code> scope.</p>
+<p>This property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -749,9 +836,9 @@ the <code>userReadPrivate</code> scope.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A4UserV11displayName3uri2id6images4href9followers7country5email7product12externalURLsACSSSg_S2SSayAA0A5ImageVGSgSSAA9FollowersVSgA3NSDyS2SGSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(displayName:uri:id:images:href:followers:country:email:product:externalURLs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A4UserV11displayName3uri2id6images4href9followers7country5email7product12externalURLsACSSSg_S2SSayAA0A5ImageVGSgSSAA9FollowersVSgA3NSDyS2SGSgtcfc">init(displayName:<wbr>uri:<wbr>id:<wbr>images:<wbr>href:<wbr>followers:<wbr>country:<wbr>email:<wbr>product:<wbr>externalURLs:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI0A4UserV11displayName3uri2id6images4href21allowsExplicitContent08explicitM15SettingIsLocked9followers7country5email7product12externalURLsACSSSg_S2SSayAA0A5ImageVGSgSSS2bAA9FollowersVSgA3PSDyS2SGSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(displayName:uri:id:images:href:allowsExplicitContent:explicitContentSettingIsLocked:followers:country:email:product:externalURLs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A4UserV11displayName3uri2id6images4href21allowsExplicitContent08explicitM15SettingIsLocked9followers7country5email7product12externalURLsACSSSg_S2SSayAA0A5ImageVGSgSSS2bAA9FollowersVSgA3PSDyS2SGSgtcfc">init(displayName:<wbr>uri:<wbr>id:<wbr>images:<wbr>href:<wbr>allowsExplicitContent:<wbr>explicitContentSettingIsLocked:<wbr>followers:<wbr>country:<wbr>email:<wbr>product:<wbr>externalURLs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -772,6 +859,8 @@ the <code>userReadPrivate</code> scope.</p>
     <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">allowsExplicitContent</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">explicitContentSettingIsLocked</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="nv">followers</span><span class="p">:</span> <span class="kt"><a href="../Structs/Followers.html">Followers</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -848,6 +937,41 @@ the <code>userReadPrivate</code> scope.</p>
                             <tr>
                               <td>
                                 <code>
+                                <em>allowsExplicitContent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>When <code>true</code>, indicates that explicit
+content <em>is</em> allowed. If <code>false</code>, then explicit content
+should <em>not</em> be played because the user has disabled it
+in their settings. This property is only available for the
+<em>current</em> user and requires the <code>userReadPrivate</code> scope.
+Otherwise, it will be <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>explicitContentSettingIsLocked</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>When <code>true</code>, indicates that the
+explicit content setting is locked and can’t be changed by
+the user. For example, this user may be associated with a
+kids account that has content restrictions on it (e.g.,
+parental controls). This property is only available for the
+<em>current</em> user and requires the <code>userReadPrivate</code> scope.
+Otherwise, it will be <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>followers</em>
                                 </code>
                               </td>
@@ -866,9 +990,9 @@ the <code>userReadPrivate</code> scope.</p>
                               <td>
                                 <div>
                                   <p>The country of the user, as set in the user’s account
-profile. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>. This field
-is only available when the current user has granted access to
-the <code>userReadPrivate</code> scope.</p>
+profile. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>. This property
+is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -881,8 +1005,9 @@ the <code>userReadPrivate</code> scope.</p>
                               <td>
                                 <div>
                                   <p>The user’s email address, as entered by the user when
-creating their account. This field is only available when
-the current user has granted access to the <code>userReadEmail</code> scope.</p>
+creating their account. This property is only available for
+the <em>current</em> user and requires the <code>userReadEmail</code> scope.
+Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -896,9 +1021,9 @@ the current user has granted access to the <code>userReadEmail</code> scope.</p>
                                 <div>
                                   <p>The user’s Spotify subscription level:
 &ldquo;premium&rdquo;, &ldquo;free&rdquo;, etc. (The subscription level &ldquo;open&rdquo;
-can be considered the same as &ldquo;free&rdquo;.) This field is only
-available when the current user has granted access to the
-<code>userReadPrivate</code> scope.</p>
+can be considered the same as &ldquo;free&rdquo;.) This property
+is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -926,12 +1051,64 @@ available when the current user has granted access to the
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

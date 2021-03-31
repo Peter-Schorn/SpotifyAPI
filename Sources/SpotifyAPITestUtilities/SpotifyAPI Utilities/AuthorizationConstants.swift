@@ -15,9 +15,7 @@ import Foundation
 
  * The file at the path specified by the "spotify_credentials_path"
    environment variable. This file should contain JSON data that can
-   be decoded into `SpotifyCredentials`.
- 
- For example:
+   be decoded into `SpotifyCredentials`. For example:
  ```
  {
      "client_id": "abc",
@@ -34,6 +32,7 @@ import Foundation
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
+    // these properties will be populated by the "set_credentials" script.
     let __clientId__ = ""
     let __clientSecret__ = ""
     
@@ -51,16 +50,18 @@ public let spotifyCredentials: SpotifyCredentials = {
         let url = URL(fileURLWithPath: path)
         do {
             let data = try Data(contentsOf: url)
-            let credentials = try JSONDecoder()
-                .decode(SpotifyCredentials.self, from: data)
+            let credentials = try JSONDecoder().decode(
+                SpotifyCredentials.self,
+                from: data
+            )
             return credentials
             
         } catch {
             fatalError(
                 """
-            could not retrieve Spotify credentials from '\(path)':
-            \(error)
-            """
+                could not retrieve Spotify credentials from '\(path)':
+                \(error)
+                """
             )
         }
         

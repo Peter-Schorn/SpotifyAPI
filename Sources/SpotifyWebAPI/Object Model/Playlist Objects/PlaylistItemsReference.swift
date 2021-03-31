@@ -5,10 +5,10 @@ import Foundation
  tracks/episodes in a playlist.
  
  For example, the endpoint that retrieves a list of all the user's playlists
- returns this object inside of every playlist, instead of an array of tracks,
- which prevents the response from becoming too long.
+ returns this object inside of every playlist, instead of an array of
+ tracks/episodes, which prevents the response from becoming too long.
  */
-public struct PlaylistsItemsReference: Codable, Hashable {
+public struct PlaylistItemsReference: Codable, Hashable {
     
     /**
      A link to the Spotify web API endpoint providing the full list of
@@ -50,3 +50,6 @@ public struct PlaylistsItemsReference: Codable, Hashable {
     
 
 }
+
+@available(*, deprecated, renamed: "PlaylistItemsReference")
+public typealias PlaylistsItemsReference = PlaylistItemsReference

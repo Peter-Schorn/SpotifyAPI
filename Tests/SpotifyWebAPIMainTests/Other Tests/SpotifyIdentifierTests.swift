@@ -13,7 +13,7 @@ import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
 
-final class SpotifyIdentifierTests: XCTestCase {
+final class SpotifyIdentifierTests: SpotifyAPITestCase {
 
     static var cancellables: Set<AnyCancellable> = []
 

@@ -7,7 +7,7 @@ import Foundation
  Assign a folder URL to the static var `dataDumpfolder` to write the json
  response from the Spotify web API to disk when instances of this error are
  created. See `writeToFolder(_:)`. This is intended for debugging purposes.
- It it initialzed to the path specified by the "data_dump_folder" environment
+ It it initialzed to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER" environment
  variable, if it exists. You can change this if necessary.
 
  This error is almost always due to an error in this library. Report a bug
@@ -25,7 +25,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      API to when instances of this error are created. This is intended for
      debugging purposes.
      
-     It it initialzed to the path specified by the "data_dump_folder"
+     It it initialzed to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER"
      environment variable, if it exists. You can change this if
      necessary.
      
@@ -37,8 +37,12 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      [1]: https://jsoneditoronline.org
      */
     public static var dataDumpfolder: URL? = {
-        if let folder = ProcessInfo.processInfo
-            .environment["data_dump_folder"] {
+        
+        let environment = ProcessInfo.processInfo.environment
+        let folder = environment["data_dump_folder"] ??
+                environment["SPOTIFY_DATA_DUMP_FOLDER"]
+
+        if let folder = folder {
             return URL(fileURLWithPath: folder, isDirectory: true)
         }
         return nil

@@ -136,7 +136,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
     private var authManagerDidChangeCancellable: AnyCancellable? = nil
     private var authManagerDidDeauthorizeCancellable: AnyCancellable? = nil
-    
+
     // MARK: - Loggers -
     
     /// Logs general messages for this class.

@@ -4,7 +4,7 @@ import SpotifyWebAPI
 import SpotifyExampleContent
 import SpotifyAPITestUtilities
 
-class CursorPagingObjectPlayHistoryCodingTests: XCTestCase {
+final class CursorPagingObjectPlayHistoryCodingTests: SpotifyAPITestCase {
     
     
     func testCoding() throws {

@@ -17,7 +17,7 @@
     <a title="PlaylistDetails Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -415,20 +435,23 @@
             <p>Contains details about a playlist. Used in the body of
 <code>changePlaylistDetails(_:to:)</code> and <code>createPlaylist(for:_:)</code>.</p>
 
-<p>All of the properties are optional. The value of each non-<code>nil</code> property
-will be used to update the details of the playlist.</p>
+<p>If you are changing the details of an existing playlist, then the
+value of each non-<code>nil</code> property will be used to update the details
+of the playlist.</p>
 
 <p>Contains the following properties:</p>
 
 <ul>
-<li>name: The new name for the playlist.</li>
+<li>name: The new name for the playlist. Required if you are creating
+  a new playlist; optional if you are changing the details of
+  an existing playlist.</li>
 <li>isPublic: If <code>true</code> the playlist will be public;
   if <code>false</code> it will be private. Default: <code>true</code>.</li>
 <li>collaborative: If <code>true</code>, the playlist will become collaborative
   and other users will be able to modify the playlist in their
   Spotify client. Default: <code>false</code>. <strong>Note</strong>: You can only set
   collaborative to <code>true</code> on non-public playlists.</li>
-<li>description: A new playlist description as displayed in
+<li>description: A playlist description as displayed in
   Spotify Clients and in the Web API.</li>
 </ul>
 
@@ -449,7 +472,9 @@ will be used to update the details of the playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Optional*. The new name for the playlist.</p>
+                        <p>The new name for the playlist. Required if you are creating
+a new playlist; optional if you are changing the details of
+an existing playlist.</p>
 
                       </div>
                       <div class="declaration">
@@ -567,9 +592,11 @@ Spotify Clients and in the Web API.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates an instance that holds new details about a playlist.
-All of the properties are optional The value of each non-<code>nil</code>
-property will be used update the details of the playlist.</p>
+                        <p>Creates an instance that holds details about a playlist.</p>
+
+<p>If you are changing the details of an existing playlist, then the
+value of each non-<code>nil</code> property will be used to update the details
+of the playlist.</p>
 
                       </div>
                       <div class="declaration">
@@ -597,7 +624,9 @@ property will be used update the details of the playlist.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The new name for the playlist.</p>
+                                  <p>The new name for the playlist. Required if you are creating
+a new playlist; optional if you are changing the details of
+an existing playlist.</p>
                                 </div>
                               </td>
                             </tr>
@@ -617,7 +646,7 @@ if <code>false</code> it will be private. Default: <code>true</code>.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>collaborative</em>
+                                <em>isCollaborative</em>
                                 </code>
                               </td>
                               <td>
@@ -637,7 +666,7 @@ collaborative to <code>true</code> on non-public playlists.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A new playlist description as displayed in
+                                  <p>A playlist description as displayed in
 Spotify Clients and in the Web API.</p>
                                 </div>
                               </td>
@@ -653,7 +682,7 @@ Spotify Clients and in the Web API.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

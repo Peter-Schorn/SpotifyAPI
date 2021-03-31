@@ -16,7 +16,7 @@ public struct FeaturedPlaylists: Codable, Hashable {
     public let message: String?
     
     /// The featured playlists.
-    public let playlists: PagingObject<Playlist<PlaylistsItemsReference>>
+    public let playlists: PagingObject<Playlist<PlaylistItemsReference>>
     
     /**
      Creates a Featured Playlists object.
@@ -32,7 +32,7 @@ public struct FeaturedPlaylists: Codable, Hashable {
      */
     public init(
         message: String? = nil,
-        playlists: PagingObject<Playlist<PlaylistsItemsReference>>
+        playlists: PagingObject<Playlist<PlaylistItemsReference>>
     ) {
         self.message = message
         self.playlists = playlists

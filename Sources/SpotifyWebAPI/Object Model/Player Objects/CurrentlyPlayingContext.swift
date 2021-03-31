@@ -233,7 +233,7 @@ extension CurrentlyPlayingContext: Codable {
         }
         
         /*
-         "If an action is included in the disallows object and set to true,
+         If an action is included in the disallows object and set to true,
          that action is DISALLOWED.
          see https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
          */

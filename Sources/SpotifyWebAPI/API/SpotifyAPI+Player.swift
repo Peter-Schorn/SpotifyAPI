@@ -128,7 +128,7 @@ public extension SpotifyAPI where
      
      - Parameters:
        - timeReference: *Optional*. A reference to a period of time before or
-             after a specified time. For example, `.before(Date())` refers
+             after a specified date. For example, `.before(Date())` refers
              to the period of time before the current date. This is used
              to filter the response. Dates will be converted to
              millisecond-precision timestamps. Only results that are within

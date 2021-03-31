@@ -33,7 +33,9 @@ public var spotifyDecodeLogger = Logger(
  most endpoints.
  
  You are encouraged to use the combine operator `decodeSpotifyErrors()`
- instead of this function, whenever possible.
+ instead of this function, whenever possible. The combine operator
+ version will automatically retry the request up to three times
+ depending on the error received. This function does not.
  
  The error objects that this method tries to decode are:
  
@@ -145,7 +147,9 @@ public func decodeSpotifyErrors(
  
  You are encouraged to use the combine operator `decodeSpotifyObject(_:)`
  or `decodeOptionalSpotifyObject` instead of this function, whenever
- possible.
+ possible. The combine operator version will automatically retry the
+ request up to three times depending on the error received. This
+ function does not.
  
  First tries to decode the data into `responseType`. If that fails,
  then the data is decoded into one of the [errors][1] returned by
@@ -237,30 +241,12 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 
 // MARK: - Publisher Extensions -
 
-public extension Publisher where Output == (data: Data, response: URLResponse) {
-
-    /**
-     Tries to decode the raw data from a Spotify web API request
-     into one of the error objects that Spotify returns for
-     most endpoints.
-     
-     The error objects that this method tries to decode are:
-     
-     * `SpotifyAuthenticationError`
-     * `SpotifyError`
-     * `SpotifyPlayerError`
-     * `RateLimitedError`
-     
-     If the data can be decoded into one of these errors,
-     then this error object is thrown as an error to downstream subscribers.
-     Otherwise, the data is passed through unmodified to downstream
-     subscribers.
-     
-     - Warning: This method force-downcasts `URLResponse` to
-           `HTTPURLResponse`. Only use this method if you are making an
-            HTTP request.
-     */
-    func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
+extension Publisher where Output == (data: Data, response: URLResponse) {
+ 
+    /// Use if `decodeSpotifyObject` or `decodeOptionalSpotifyObject`
+    /// will also be applied in the same publishing stream in order to
+    /// avoid using the `retryOnSpotifyErrors` operator twice.
+    func decodeSpotifyErrorsNoRetry() -> AnyPublisher<Self.Output, Error> {
 
         return self.tryMap { data, response in
 
@@ -281,8 +267,44 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
         }
         .eraseToAnyPublisher()
 
+    }
+
+}
+
+public extension Publisher where Output == (data: Data, response: URLResponse) {
+
+    /**
+     Tries to decode the raw data from a Spotify web API request
+     into one of the error objects that Spotify returns for
+     most endpoints.
+     
+     The error objects that this method tries to decode are:
+     
+     * `SpotifyAuthenticationError`
+     * `SpotifyError`
+     * `SpotifyPlayerError`
+     * `RateLimitedError`
+
+     If the data can be decoded into one of these errors, then this error
+     object is thrown as an error to downstream subscribers. Otherwise,
+     the data is passed through unmodified to downstream subscribers.
+
+     Automatically retries the request up to three times, depending on the
+     error received. Retries upon receiving a `RateLimitedError`. If a
+     `SpotifyError` or `SpotifyPlayerError` is received, then retries if the
+     status code is 500, 502, 503, or 504.
+     
+     - Warning: This method force-downcasts `URLResponse` to
+           `HTTPURLResponse`. Only use this method if you are making an
+            HTTP request.
+     */
+    func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
+
+        return self.decodeSpotifyErrorsNoRetry()
+            .retryOnSpotifyErrors()
 
     }
+    
 
     /**
      Tries to decode the raw data from a Spotify web API request.
@@ -301,8 +323,11 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      * `SpotifyPlayerError`
      * `RateLimitedError`
 
-     If decoding into the error objects fails, `SpotifyDecodingError` is thrown
-     as a last resort.
+     Automatically retries the request up to three times, depending on the
+     error received. Retries upon receiving a `RateLimitedError`. If a
+     `SpotifyError` or `SpotifyPlayerError` is received, then retries if the
+     status code is 500, 502, 503, or 504. If decoding into the error objects
+     fails, `SpotifyDecodingError` is thrown as a last resort.
 
      **Note**: `SpotifyDecodingError` represents the error encountered
      when decoding the `responseType`, not the error objects.
@@ -335,7 +360,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
             )
 
         }
-        .eraseToAnyPublisher()
+        .retryOnSpotifyErrors()
 
     }
 
@@ -357,8 +382,11 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
      * `SpotifyPlayerError`
      * `RateLimitedError`
 
-     If decoding into the error objects fails, `SpotifyDecodingError` is thrown
-     as a last resort.
+     Automatically retries the request up to three times, depending on the
+     error received. Retries upon receiving a `RateLimitedError`. If a
+     `SpotifyError` or `SpotifyPlayerError` is received, then retries if the
+     status code is 500, 502, 503, or 504. If decoding into the error objects
+     fails, `SpotifyDecodingError` is thrown as a last resort.
 
      **Note**: `SpotifyDecodingError` represents the error encountered
      when decoding the `responseType`, not the error objects.
@@ -393,7 +421,7 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
             )
 
         }
-        .eraseToAnyPublisher()
+        .retryOnSpotifyErrors()
 
     }
 

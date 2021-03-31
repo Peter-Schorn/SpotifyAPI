@@ -12,7 +12,7 @@ import SpotifyWebAPI
 
 /// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
-open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
+open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
             SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
@@ -22,6 +22,7 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
     /// If you only need to setup the authorization,
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
+        super.setUp()
         print(
             "setup debugging and authorization for " +
             "SpotifyAPIClientCredentialsFlowTests"
@@ -41,13 +42,14 @@ open class SpotifyAPIClientCredentialsFlowTests: XCTestCase, SpotifyAPITests {
         spotify.waitUntilAuthorized()
     }
     
+
 }
 
 
 
 /// The base class for all tests involving
 /// `SpotifyAPI<AuthorizationCodeFlowManager>`.
-open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
+open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
@@ -57,27 +59,28 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
     /// If you only need to setup the authorization,
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
+        super.setUp()
         print(
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowTests"
         )
-        setUpDebugging()
-        setupAuthorization()
-    }
-
-    open class func setupAuthorization(
-        scopes: Set<Scope> = Scope.allCases,
-        showDialog: Bool = true
-    ) {
         if Bool.random() {
             spotify = .sharedTest
         }
         else {
             spotify = .sharedTestNetworkAdaptor
         }
+        setUpDebugging()
+        setupAuthorization()
+    }
+
+    open class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases,
+        showDialog: Bool = false
+    ) {
 
         spotify.authorizeAndWaitForTokens(
-            scopes: scopes, showDialog: true
+            scopes: scopes, showDialog: showDialog
         )
     }
     
@@ -86,7 +89,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: XCTestCase, SpotifyAPITests {
 
 /// The base class for all tests involving
 /// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
-open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests {
+open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
@@ -96,10 +99,17 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests
     /// If you only need to setup the authorization,
     /// override `setupAuthorization()` instead.
     override open class func setUp() {
+        super.setUp()
         print(
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowPKCETests"
         )
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
         setUpDebugging()
         setupAuthorization()
     }
@@ -107,13 +117,6 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: XCTestCase, SpotifyAPITests
     open class func setupAuthorization(
         scopes: Set<Scope> = Scope.allCases
     ) {
-        if Bool.random() {
-            spotify = .sharedTest
-        }
-        else {
-            spotify = .sharedTestNetworkAdaptor
-        }
-        
         spotify.authorizeAndWaitForTokens(scopes: scopes)
     }
     

@@ -73,34 +73,37 @@ public extension SpotifyAPI {
     /**
      Retrieves additional pages of results from a `Paginated` type.
      
-     This method is also available as a combine operator (same name)
+     This method is also available as a combine operator of the same name
      for all publishers where `Output`: `Paginated`.
      
-     This method immediately republishes the page of results that
-     were passed in and then begins requesting additional pages.
-     Each time an additional page is received, its `next` property
-     is used to retrieve the next page of results, and so on, until
-     `next` is `nil` or `maxExtraPages` is reached. This means that
-     the next page will not be requested until the previous one
-     is received. This also means that the pages will always be
-     returned in order.
+     Compare with `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
+
+     Each time an additional page is received, its `next` property is used
+     to retrieve the next page of results, and so on, until `next` is `nil`
+     or `maxExtraPages` is reached. This means that the next page will not
+     be requested until the previous one is received and that the pages
+     will always be returned in order.
      
+     See [Working with Paginated Results][1].
+
      - Parameters:
-       - results: A `Paginated` type; that is, a type that contains
+       - page: A `Paginated` type; that is, a type that contains
              a link for retrieving the next page of results.
        - maxExtraPages: The maximum number of additional pages to retrieve.
              For example, to just get the next page, use `1`. Leave as
              `nil` (default) to retrieve all pages of results.
-     - Returns: A publisher that immediately republishes the `results`
-           that were passed in, as well as additional pages that are
+     - Returns: A publisher that immediately republishes the page
+           that was passed in, as well as additional pages that are
            returned by the Spotify web API.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
-    func extendPages<PaginatedResults: Paginated>(
-        _ results: PaginatedResults, maxExtraPages: Int? = nil
-    ) -> AnyPublisher<PaginatedResults, Error> {
+    func extendPages<Page: Paginated>(
+        _ page: Page, maxExtraPages: Int? = nil
+    ) -> AnyPublisher<Page, Error> {
 
         // indicates that there are no more pages to return
-        let emptyCompletionPublisher = Empty<PaginatedResults, Error>(
+        let emptyCompletionPublisher = Empty<Page, Error>(
             completeImmediately: true
         )
         .eraseToAnyPublisher()
@@ -108,10 +111,10 @@ public extension SpotifyAPI {
         var nextPageIndex = 1
         
         let currentPageSubject =
-                CurrentValueSubject<PaginatedResults, Error>(results)
+                CurrentValueSubject<Page, Error>(page)
         
         let nextPagePublisher = currentPageSubject
-            .flatMap { nextPage -> AnyPublisher<PaginatedResults, Error> in
+            .flatMap { nextPage -> AnyPublisher<Page, Error> in
         
                 self.logger.trace("got page at index \(nextPageIndex)")
         
@@ -136,7 +139,7 @@ public extension SpotifyAPI {
         
                 self.logger.trace("requesting next page")
                 return self.getFromHref(
-                    next, responseType: PaginatedResults.self
+                    next, responseType: Page.self
                 )
                 .handleEvents(receiveOutput: currentPageSubject.send(_:))
                 .eraseToAnyPublisher()
@@ -147,9 +150,126 @@ public extension SpotifyAPI {
             // A page of results (not necessarily the first) was already
             // retrieved before this method was called, so pass it through
             // to downstream subscribers.
-            .prepend(results)
+            .prepend(page)
             .eraseToAnyPublisher()
         
     }
+    
+    // Publishers.MergeMany is not implemented in OpenCombine yet :(
+    #if canImport(Combine)
+    /**
+     Retrieves additional pages of results from a paging object
+     *concurrently*.
+     
+     This method is also available as a combine operator of the same
+     name for all publishers where the output is a paging object.
+     
+     Compare with `SpotifyAPI.extendPages(_:maxExtraPages:)`.
+     
+     This method immediately republishes the page of results that
+     were passed in and then requests additional pages *concurrently*.
+     This method has better performance than
+     `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must wait for
+     the previous page to be received before requesting the next page.
+     **However, the order in which the pages are received is**
+     **unpredictable.** If you need to wait all pages to be received
+     before processing them, then always use this method.
+     
+     See [Working with Paginated Results][1].
+
+     See also `Publisher.collectAndSortByOffset()`.
+
+     - Parameters:
+       - page: A paging object.
+       - maxExtraPages: The maximum number of additional pages to retrieve.
+             For example, to just get the next page, use `1`. Leave as
+             `nil` (default) to retrieve all pages of results.
+     - Returns: A publisher that immediately republishes the `page`
+           that was passed in, as well as additional pages that are
+           returned by the Spotify web API.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     */
+    func extendPagesConcurrently<Page: PagingObjectProtocol>(
+        _ page: Page,
+        maxExtraPages: Int? = nil
+    ) -> AnyPublisher<Page, Error> {
+        
+        guard var hrefComponents = URLComponents(string: page.href) else {
+            return SpotifyLocalError.other(
+                #"couldn't create URLComponents from href "\#(page.href)""#
+            )
+            .anyFailingPublisher()
+        }
+        // remove the offset and limit query items from the URL if
+        // they exist
+        hrefComponents.queryItems?.removeAll(where: { queryItem in
+            ["offset", "limit"].contains(queryItem.name)
+        })
+        if hrefComponents.queryItems == nil {
+            // ensure that append operations to the query items
+            // succeed
+            hrefComponents.queryItems = []
+        }
+        
+        hrefComponents.queryItems!.append(
+            URLQueryItem(name: "limit", value: "\(page.limit)")
+        )
+        
+        var pagePublishers: [AnyPublisher<Page, Error>] = []
+
+        // republish the current page that was passed in
+        let currentPagePublisher = Result<Page, Error>
+            .Publisher(page)
+            .eraseToAnyPublisher()
+        
+        pagePublishers.append(currentPagePublisher)
+
+        let maxOffset: Int
+
+        if let maxExtraPages = maxExtraPages {
+            let theoreticalOffset = page.offset + (page.limit * maxExtraPages)
+//            print("theoreticalOffset:", theoreticalOffset)
+            maxOffset = min(theoreticalOffset, page.total - 1)
+        }
+        else {
+            maxOffset = (page.total - 1)
+        }
+        
+//        print("maxOffset:", maxOffset, terminator: "\n\n")
+
+        // generate the offsets for each page that needs to be requested
+        for offset in stride(
+            // the offset of the page after the current one
+            from: page.offset + page.limit,
+            through: maxOffset,
+            // the number of items in each page
+            by: page.limit
+        ) {
+            
+            var pageHrefComponents = hrefComponents
+            // to create an href for a different page, all we need
+            // to do is change the offset query item
+            pageHrefComponents.queryItems!.append(
+                URLQueryItem(name: "offset", value: "\(offset)")
+            )
+            guard let pageHref = pageHrefComponents.string else {
+                self.logger.error(
+                    #"couldn't create URL for page from "\#(pageHrefComponents)""#
+                )
+                continue
+            }
+            let pagePublisher = self.getFromHref(
+                pageHref, responseType: Page.self
+            )
+            pagePublishers.append(pagePublisher)
+
+        }
+        
+        return Publishers.MergeMany(pagePublishers)
+            .eraseToAnyPublisher()
+
+    }
+    #endif
     
 }

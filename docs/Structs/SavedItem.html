@@ -17,7 +17,7 @@
     <a title="SavedItem Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,9 +151,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/PlaylistsItemsReference.html">PlaylistsItemsReference</a>
               </li>
             </ul>
           </li>
@@ -376,6 +373,9 @@
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -383,6 +383,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
@@ -395,6 +398,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI12SavedEpisodea">SavedEpisode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI9SavedShowa">SavedShow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedTracka">SavedTrack</a>
               </li>
             </ul>
           </li>
@@ -413,8 +433,8 @@
 
                 </div>
               </div>
-            <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>, or
-<a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
+            <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>, <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>,
+<a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject">saved episode object</a>, or <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
 
 <p>This is used when retrieving content from a user&rsquo;s library.
 It contains just three properties:</p>
@@ -472,9 +492,9 @@ It contains just three properties:</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The item that was saved in this <code>SavedItem</code>.
-Either a track, album, or show.</p>
+Either a track, album, episode, or show.</p>
 
-<p>See also <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a></code>.</p>
+<p>See also <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAA10IDCategoryOvp">type</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -491,9 +511,9 @@ Either a track, album, or show.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp"></a>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV4typeAA10IDCategoryOvp"></a>
                     <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV4typeAA10IDCategoryOvp">type</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -502,7 +522,8 @@ Either a track, album, or show.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p><code>track</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>,
-<code>album</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>, or
+<code>album</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>,
+<code>episode</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject">saved episode object</a>, or
 <code>show</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
 
                       </div>
@@ -510,7 +531,7 @@ Either a track, album, or show.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">CodingKeys</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span></code></pre>
 
                         </div>
                       </div>
@@ -520,9 +541,9 @@ Either a track, album, or show.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAC10CodingKeysOyx_Gtcfc"></a>
+                    <a name="/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAA10IDCategoryOtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(addedAt:item:type:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAC10CodingKeysOyx_Gtcfc">init(addedAt:<wbr>item:<wbr>type:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV7addedAt4item4typeACyxG10Foundation4DateV_xAA10IDCategoryOtcfc">init(addedAt:<wbr>item:<wbr>type:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -533,7 +554,7 @@ Either a track, album, or show.</p>
                         <p>Creates a Saved Item object.</p>
 
 <p>The type of <code>Item</code> should only be <code><a href="../Structs/Track.html">Track</a></code>, <code><a href="../Structs/Album.html">Album</a></code>, or <code><a href="../Structs/Show.html">Show</a></code>,
-and this should match <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAC10CodingKeysOyx_Gvp">type</a></code>.</p>
+and this should match <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAPI9SavedItemV4typeAA10IDCategoryOvp">type</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -543,7 +564,7 @@ and this should match <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAP
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">addedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span>
     <span class="nv">item</span><span class="p">:</span> <span class="kt">Item</span><span class="p">,</span>
-    <span class="nv">type</span><span class="p">:</span> <span class="kt">SavedItem</span><span class="o">&lt;</span><span class="kt">Item</span><span class="o">&gt;.</span><span class="kt">CodingKeys</span>
+    <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -585,40 +606,14 @@ and this should match <code><a href="../Structs/SavedItem.html#/s:13SpotifyWebAP
                               <td>
                                 <div>
                                   <p><code>track</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject">saved track object</a>,
-<code>album</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>, or
+<code>album</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject">saved album object</a>,
+<code>episode</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject">saved episode object</a>, or
 <code>show</code> if this is a <a href="https://developer.spotify.com/documentation/web-api/reference/#object-savedshowobject">saved show object</a>.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI9SavedItemV9itemTypesSayAC10CodingKeysOyx_GGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/itemTypes" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI9SavedItemV9itemTypesSayAC10CodingKeysOyx_GGvpZ">itemTypes</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The possible types for <code>self.item</code>. See also <code>self.type</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">itemTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt">CodingKeys</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -680,7 +675,7 @@ considered a floating point property for the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-07)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

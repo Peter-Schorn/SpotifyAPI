@@ -165,7 +165,7 @@ public extension SpotifyAPI {
      
      You are also encouraged to assign a folder to
      `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "data_dump_folder", which is what `dataDumpFolder` is initialized
+     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is initialized
      to—so that the data will be written to a folder when the decoding fails.
      You can then upload this file to the JSON viewer. Set the `logLevel` of
      `spotifyDecodeLogger` to `trace` to print the raw data of all requests to
@@ -252,7 +252,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyErrors()
+            .decodeSpotifyErrorsNoRetry()
         
         } catch {
             return error.anyFailingPublisher()
@@ -363,7 +363,7 @@ public extension SpotifyAPI {
      
      You are also encouraged to assign a folder to
      `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "data_dump_folder", which is what `dataDumpFolder` is initialized
+     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is initialized
      to—so that the data will be written to a folder when the decoding fails.
      You can then upload this file to the JSON viewer. Set the `logLevel` of
      `spotifyDecodeLogger` to `trace` to print the raw data of all requests to
@@ -446,7 +446,7 @@ public extension SpotifyAPI {
             market: market,
             additionalTypes: additionalTypes
         )
-        .decodeSpotifyErrors()
+        .decodeSpotifyErrorsNoRetry()
         
     }
     
@@ -619,12 +619,12 @@ public extension SpotifyAPI {
      
      # Returns:
      ```
-     PagingObject<Playlist<PlaylistsItemsReference>
+     PagingObject<Playlist<PlaylistItemsReference>
      ```
      
      The simplified versions of the playlists will be returned.
      
-     A `PlaylistsItemsReference` simply contains a link to all of the
+     A `PlaylistItemsReference` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. To get all
      of the tracks and episodes in each playlist, you can use
      `playlistItems(_:limit:offset:market:)`, passing in the URI of
@@ -650,7 +650,7 @@ public extension SpotifyAPI {
         for userURI: SpotifyURIConvertible,
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>>, Error> {
         
         do {
             
@@ -666,7 +666,7 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+            .decodeSpotifyObject(PagingObject<Playlist<PlaylistItemsReference>>.self)
     
         } catch {
             return error.anyFailingPublisher()
@@ -697,12 +697,12 @@ public extension SpotifyAPI where
 
      # Returns:
      ```
-     PagingObject<Playlist<PlaylistsItemsReference>>
+     PagingObject<Playlist<PlaylistItemsReference>>
      ```
      
      The simplified versions of the playlists will be returned.
      
-     A `PlaylistsItemsReference` simply contains a link to all of the
+     A `PlaylistItemsReference` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. To get all
      of the tracks and episodes in each playlist, you can use
      `playlistItems(_:limit:offset:market:)`, passing in the URI of
@@ -726,7 +726,7 @@ public extension SpotifyAPI where
     func currentUserPlaylists(
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<Playlist<PlaylistsItemsReference>>, Error> {
+    ) -> AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>>, Error> {
         
         return self.getRequest(
             path: "/me/playlists",
@@ -736,7 +736,7 @@ public extension SpotifyAPI where
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(PagingObject<Playlist<PlaylistsItemsReference>>.self)
+        .decodeSpotifyObject(PagingObject<Playlist<PlaylistItemsReference>>.self)
         
     }
     

@@ -6,8 +6,11 @@ import Foundation
  See [get current user's recently played tracks][2] and
  `SpotifyAPI.recentlyPlayed(_:limit:)`.
  
+ See also [Working with Paginated Results][1].
+ 
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
  [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
+ [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Codable, Hashable
@@ -28,9 +31,15 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /// (as set in the query or by default).
     public let limit: Int
     
-    /// The URL to the next page of items, or `nil` if none.
-    ///
-    /// Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+    /**
+     The URL to the next page of items, or `nil` if none.
+    
+     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     
+     See also [Working with Paginated Results][1].
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     */
     public let next: String?
     
     /// Used to find the next and previous items.

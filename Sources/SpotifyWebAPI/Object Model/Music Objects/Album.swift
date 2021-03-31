@@ -113,7 +113,7 @@ public struct Album: Hashable {
     public let albumType: AlbumType?
 
     /**
-     This field is present when getting an artist’s albums.
+     This property is present when getting an artist’s albums.
      
      See also `albumType`.
      
@@ -141,16 +141,23 @@ public struct Album: Hashable {
     public let releaseDatePrecision: String?
 
     /**
-     Part of the response when [Track Relinking][1] is applied,
-     the original track is not available in the given market,
-     and Spotify did not have any tracks to relink it with.
+     Part of the response when a content restriction, such as
+     [Track Relinking][1], is applied. Else, `nil`.
      
-     The track response will still contain metadata for
-     the original track, and a restrictions object
-     containing the reason why the track is not available:
-     `{"reason" : "market"}`.
+     The key will be "reason", and the value will be one of the
+     following:
+     * "market" - The content item is not available in the given market.
+     * "product" - The content item is not available for the user’s
+       subscription type.
+     * "explicit" - The content item is explicit and the user’s account is
+       set to not play explicit content.
+     
+     Additional reasons and additional keys may be added in the future.
+     
+     See [AlbumRestrictionObject][2], which this property is decoded from.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-albumrestrictionobject
      */
     public let restrictions: [String: String]?
     
@@ -198,13 +205,18 @@ public struct Album: Hashable {
        - copyrights: An array of copyright objects.
        - releaseDatePrecision: The precision with which `releaseDate` is known:
              "year", "month", or "day".
-       - restrictions: Part of the response when [Track Relinking][9] is applied,
-             the original track is not available in the given market,
-             and Spotify did not have any tracks to relink it with.
-             The track response will still contain metadata for
-             the original track, and a restrictions object
-             containing the reason why the track is not available:
-             `{"reason" : "market"}`.
+       - restrictions: Part of the response when a content restriction, such as
+             [Track Relinking][9], is applied. Else, `nil`. The key will be
+             "reason", and the value will be one of the following:
+             * "market" - The content item is not available in the given
+               market.
+             * "product" - The content item is not available for the user’s
+             subscription type.
+             * "explicit" - The content item is explicit and the user’s account
+               is set to not play explicit content.
+             Additional reasons and additional keys may be added in the future.
+             See [AlbumRestrictionObject][10], which this property is decoded
+             from.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -215,6 +227,7 @@ public struct Album: Hashable {
      [7]: http://en.wikipedia.org/wiki/Universal_Product_Code
      [8]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [9]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [10]: https://developer.spotify.com/documentation/web-api/reference/#object-albumrestrictionobject
      */
     public init(
         name: String,

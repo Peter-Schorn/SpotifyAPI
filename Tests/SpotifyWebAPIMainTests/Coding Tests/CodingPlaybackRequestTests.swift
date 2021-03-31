@@ -4,7 +4,7 @@ import SpotifyWebAPI
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
 
-final class CodingPlaybackRequestTests: XCTestCase {
+final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     
     static var allTests = [
         ("testCodingContextOption1", testCodingContextOption1),
