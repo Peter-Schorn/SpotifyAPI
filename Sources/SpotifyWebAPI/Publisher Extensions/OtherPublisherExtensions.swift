@@ -145,7 +145,6 @@ public extension Publisher where Output: PagingObjectProtocol {
 
 }
 
-
 public extension Publisher {
     
     /**
@@ -243,8 +242,6 @@ public extension Error {
     }
     
 }
-
-
 
 extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
     

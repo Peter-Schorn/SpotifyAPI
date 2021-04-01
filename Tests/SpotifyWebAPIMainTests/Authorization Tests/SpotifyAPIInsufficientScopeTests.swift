@@ -118,7 +118,7 @@ extension SpotifyAPIInsufficientScopeTests where
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         let previousScopes = Self.spotify.authorizationManager.scopes ?? []
         
@@ -200,7 +200,7 @@ extension SpotifyAPIInsufficientScopeTests where
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         let previousScopes = Self.spotify.authorizationManager.scopes ?? []
 

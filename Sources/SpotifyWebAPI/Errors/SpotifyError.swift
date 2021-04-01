@@ -77,7 +77,6 @@ public struct SpotifyError: LocalizedError, Hashable {
     
 }
 
-
 extension SpotifyError: Codable {
     
     /// :nodoc:

@@ -39,7 +39,7 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         XCTAssertTrue(Self.spotify.authorizationManager.isAuthorized())
         XCTAssertFalse(
@@ -114,7 +114,7 @@ final class SpotifyAPIClientCredentialsFlowAuthorizationTests:
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         let currentAuthManager = Self.spotify.authorizationManager
         

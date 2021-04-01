@@ -163,7 +163,6 @@ public extension SpotifyAPI {
         
     }
     
-    
     /// This function has been renamed to
     /// `search(query:categories:market:limit:offset:includeExternal:)`.
     /// The "types" paramater was renamed to "categories".

@@ -81,7 +81,6 @@ extension URIsDictWithInsertionIndex: Codable {
 
 }
 
-
 extension URIsDictWithInsertionIndex: Hashable {
     
     /// :nodoc:

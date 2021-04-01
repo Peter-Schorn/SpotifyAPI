@@ -163,10 +163,7 @@ public extension Collection where Index == Int {
 
 }
 
-
 // MARK: - Optional Extensions -
-
-
 
 /**
  Returns a new dictionary in which the key-value pairs
@@ -193,7 +190,6 @@ public func urlQueryDictionary(
     let unwrapped = dictionary.compactMapValues { $0 }
     return unwrapped.mapValues { "\($0)" }
 }
-
 
 /// This protocol is deprecated.
 @available(*, deprecated)

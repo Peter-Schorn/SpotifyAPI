@@ -73,7 +73,6 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
 
 }
 
-
 extension SavedItem: Codable {
 
     /// :nodoc:
@@ -224,6 +223,5 @@ extension SavedItem where Item: ApproximatelyEquatable {
                 self.item.isApproximatelyEqual(to: other.item)
 
     }
-
 
 }

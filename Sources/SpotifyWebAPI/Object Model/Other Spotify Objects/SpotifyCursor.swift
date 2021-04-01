@@ -57,5 +57,3 @@ public struct SpotifyCursor: Codable, Hashable {
     }
 
 }
-
-

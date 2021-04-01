@@ -24,6 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
     * `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`
     * `Publisher.extendPagesConcurrently(_:maxExtraPages:)`
+    
+* Added `Publisher.collectAndSortByOffset()`
 
 * `SpotifyUser` how has the following additional properties: `allowsExplicitContent` and `explicitContentSettingIsLocked`.
 

@@ -42,7 +42,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
         
@@ -111,7 +111,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         
         let currentAuthManager = Self.spotify.authorizationManager
         

@@ -24,7 +24,6 @@ public extension URLComponents {
         )
     }
 
-
     init(
         scheme: String?,
         host: String?,

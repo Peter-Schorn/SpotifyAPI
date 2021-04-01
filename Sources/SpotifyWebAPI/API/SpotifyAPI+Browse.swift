@@ -394,4 +394,3 @@ public extension SpotifyAPI {
     }
     
 }
-

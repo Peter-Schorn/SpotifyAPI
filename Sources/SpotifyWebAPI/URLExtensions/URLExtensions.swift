@@ -48,7 +48,6 @@ public extension URL {
         self = self.removingQueryItems()
     }
 
-
     /// Returns a new URL with the trailing slash in the path component
     /// removed if it exists.
     func removingTrailingSlashInPath() -> URL {

@@ -56,7 +56,7 @@ public enum Scope: String, Codable, Hashable, CaseIterable {
     /// Write access to user-provided images.
     case ugcImageUpload = "ugc-image-upload"
     
-    // MARK: Spotify Connect
+    // MARK: Playback
    
     /// Read access to a user’s player state.
     case userReadPlaybackState = "user-read-playback-state"
@@ -67,7 +67,7 @@ public enum Scope: String, Codable, Hashable, CaseIterable {
     /// Read access to a user’s currently playing content.
     case userReadCurrentlyPlaying = "user-read-currently-playing"
     
-    // MARK: Playback
+    // MARK: Spotify Connect
     
     /// Control playback of a Spotify track.
     ///

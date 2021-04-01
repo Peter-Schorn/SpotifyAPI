@@ -82,7 +82,6 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// (content delivery network). Else, `false`.
     public let isExternallyHosted: Bool
     
-    
     /// A list of the languages used in the episode,
     /// identified by their [ISO 639][1] code.
     ///

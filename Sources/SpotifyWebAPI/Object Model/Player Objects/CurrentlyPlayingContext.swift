@@ -349,5 +349,3 @@ extension CurrentlyPlayingContext: ApproximatelyEquatable {
         
     }
 }
-
-
