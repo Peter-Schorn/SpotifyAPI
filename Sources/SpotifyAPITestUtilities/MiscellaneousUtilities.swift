@@ -221,7 +221,7 @@ public extension URLSession {
 
 }
 
-@available(macOS 10.15.4, *)
+@available(macOS 10.15.4, iOS 13.4, macCatalyst 13.4, tvOS 13.4, watchOS 6.2, *)
 public extension String {
     
     func append(to file: URL, terminator: String = "\n") throws {
