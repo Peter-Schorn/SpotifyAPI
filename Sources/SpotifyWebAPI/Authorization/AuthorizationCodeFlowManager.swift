@@ -543,8 +543,8 @@ public extension AuthorizationCodeFlowManager {
 
                             let errorMessage = """
                                 missing properties after refreshing \
-                                access token (expected access token, \
-                                expiration date, and scopes):
+                                access token (expected access token \
+                                and expiration date):
                                 \(authInfo)
                                 """
                             Self.logger.error("\(errorMessage)")

@@ -652,7 +652,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                             let errorMessage = """
                                 missing properties after refreshing access token \
                                 (expected access token, refresh token, \
-                                expiration date, and scopes):
+                                and expiration date):
                                 \(authInfo)
                                 """
                             Self.logger.error("\(errorMessage)")
