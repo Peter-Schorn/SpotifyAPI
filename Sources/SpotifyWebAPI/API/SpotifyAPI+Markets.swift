@@ -9,6 +9,8 @@ import OpenCombineFoundation
 
 public extension SpotifyAPI {
     
+    // MARK: Markets
+
     /**
      Get the list of markets where Spotify is available.
      

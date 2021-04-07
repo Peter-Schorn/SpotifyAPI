@@ -87,8 +87,10 @@ open class SpotifyAPITestCase: XCTestCase {
     /// The file that issues will be logged to during tests.
     public static let logFile: URL? = {
         if let folder = SpotifyDecodingError.dataDumpfolder {
+            let dateString = DateFormatter
+                .millisecondsTime.string(from: Date())
             return folder.appendingPathComponent(
-                "test_log.txt",
+                "test log \(dateString).txt",
                 isDirectory: false
             )
         }

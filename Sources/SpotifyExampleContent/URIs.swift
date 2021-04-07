@@ -127,7 +127,7 @@ public enum URIs {
         
         case odeToViceroy = "spotify:track:7JIV9UYKpti5xWgq6lfNNJ"
         case saladDays = "spotify:track:4keAoywVf4jxRvXU7ON0hV"
-        case blueBoy = "spotify:track:6EcWBNVhDlGn8AiSpkUg6T"
+        case blueBoy = "spotify:track:1CKm95B5JmaSCnZLquInM4"
         
         case reckoner = "spotify:track:56Z7hbyMrndw1naxb6I5Oi"
         case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"

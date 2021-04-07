@@ -37,7 +37,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedAlbums(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -68,7 +68,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedAlbums(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -136,7 +136,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedAlbums(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -185,7 +185,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -215,7 +215,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -269,7 +269,7 @@ extension SpotifyAPILibraryTests where
                     XCTAssertEqual(blueBoy.item.name, "Blue Boy")
                 }
                 else {
-                    XCTFail("saved albums should contain blue boy")
+                    XCTFail("saved tracks should contain blue boy")
                 }
 
                 return Self.spotify.currentUserSavedTracksContains(fullTracks)
@@ -283,7 +283,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -331,7 +331,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedEpisodes(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -362,7 +362,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedEpisodes(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -438,7 +438,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedEpisodes(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -487,7 +487,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -518,7 +518,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
@@ -594,7 +594,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0
+                    limit: 50, offset: 0, market: "US"
                 )
             }
             .XCTAssertNoFailure()
