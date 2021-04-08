@@ -21,6 +21,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 * **[Authorizing with the Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**
 * **[Saving Authorization Information to Persistent Storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.)**
 * **[Using the Player Endpoints](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints)**
+* [**Working with Paginated Results**](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results)
 * **[Debugging](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging)**
 * **[Running the Unit Tests](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Running-the-Unit-Tests)**
 
