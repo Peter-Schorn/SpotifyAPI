@@ -101,3 +101,64 @@ private func testAlbumTracks<AuthorizationManager: SpotifyAuthorizationManager>(
 }
 
 #endif
+
+private func testNextHref<AuthorizationManager: SpotifyScopeAuthorizationManager>(
+    spotifyAPI: SpotifyAPI<AuthorizationManager>
+) {
+    
+    var cancellables: Set<AnyCancellable> = []
+
+    let dispatchGroup = DispatchGroup()
+    
+    /// The full URL to the next page of results
+    var nextHref: String? = nil
+
+    dispatchGroup.enter()
+    spotifyAPI.currentUserTopArtists()
+        .sink(
+            receiveCompletion: { completion in
+                print("completion: \(completion)")
+                dispatchGroup.leave()
+            },
+            receiveValue: { artistsPage in
+                print("received \(artistsPage.items.count) artists:")
+                for artist in artistsPage.items {
+                    print(artist.name)
+                }
+                // MARK: Retrieve the next property of the paging object
+                nextHref = artistsPage.next
+                
+            }
+        )
+        .store(in: &cancellables)
+
+    dispatchGroup.wait()
+    
+    // request the next page if `nextHref` is non-`nil`.
+    if let nextHref = nextHref {
+        
+        print("\n\nrequesting next page of artists")
+        dispatchGroup.enter()
+        spotifyAPI.getFromHref(
+            nextHref,
+            responseType: PagingObject<Artist>.self
+        )
+        .sink(
+            receiveCompletion: { completion in
+                print("completion: \(completion)")
+                dispatchGroup.leave()
+            },
+            receiveValue: { artistsPage in
+                print("received \(artistsPage.items.count) artists:")
+                for artist in artistsPage.items {
+                    print(artist.name)
+                }
+                
+            }
+        )
+        .store(in: &cancellables)
+        dispatchGroup.wait()
+        
+    }
+    
+}
