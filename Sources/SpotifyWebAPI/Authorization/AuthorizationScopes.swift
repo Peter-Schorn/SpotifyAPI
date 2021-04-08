@@ -9,12 +9,13 @@ import Logging
  Images
   - ugc-image-upload: Write access to user-provided images.
 
- Spotify Connect
+ Playback
   - user-read-playback-state: Read access to a user’s player state.
   - user-modify-playback-state: Write access to a user’s playback state.
   - user-read-currently-playing: Read access to a user’s currently
         playing content.
- Playback
+
+ Spotify Connect
   - streaming: Control playback of a Spotify track.
   - app-remote-control: Remote control playback of Spotify.
 
