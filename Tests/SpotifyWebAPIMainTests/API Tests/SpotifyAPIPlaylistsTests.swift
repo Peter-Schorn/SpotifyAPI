@@ -1466,26 +1466,63 @@ extension SpotifyAPIPlaylistsTests where
 
     func uploadPlaylistImage() {
 
-        let imageData = SpotifyExampleImages.annabelle
-        let encodedData = imageData.base64EncodedData()
-
-        print("encoded data count: ", encodedData.count)
-
-
         let expectation = XCTestExpectation(
             description: "uploadPlaylistImage"
         )
+        
+        var createdPlaylistURI: String? = nil
 
-        Self.spotify.uploadPlaylistImage(
-            URIs.Playlists.test,
-            imageData: encodedData
-        )
-        .XCTAssertNoFailure()
-        .sink(receiveCompletion: { _ in
-            expectation.fulfill()
-        })
-        .store(in: &Self.cancellables)
+        Self.spotify.currentUserProfile()
+            .XCTAssertNoFailure()
+            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
+                // MARK: Create Playlist
+                let playlistDetails = PlaylistDetails(
+                    name: "upload image test",
+                    isPublic: true,
+                    isCollaborative: nil,
+                    description: Date().description(with: .current)
+                )
+                return Self.spotify.createPlaylist(
+                    for: user.uri,
+                    playlistDetails
+                )
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 2)
+            .flatMap { playlist -> AnyPublisher<Void, Error> in
+                // MARK: Upload Image
+                createdPlaylistURI = playlist.uri
 
+                let imageData = SpotifyExampleImages.annabelle
+                let encodedData = imageData.base64EncodedData()
+
+                print("encoded data count: ", encodedData.count)
+                
+                return Self.spotify.uploadPlaylistImage(
+                    playlist,
+                    imageData: encodedData
+                )
+            }
+            .XCTAssertNoFailure()
+            .flatMap { () -> AnyPublisher<Void, Error> in
+                // MARK: Unfollow Playlist
+                guard let createdPlaylistURI = createdPlaylistURI else {
+                    return SpotifyLocalError.other(
+                        "couldn't get created playlist"
+                    )
+                    .anyFailingPublisher()
+                }
+                
+                return Self.spotify.unfollowPlaylistForCurrentUser(
+                    createdPlaylistURI
+                )
+            }
+            .XCTAssertNoFailure()
+            .sink(receiveCompletion: { _ in
+                expectation.fulfill()
+            })
+            .store(in: &Self.cancellables)
+            
         self.wait(for: [expectation], timeout: 120)
 
     }
