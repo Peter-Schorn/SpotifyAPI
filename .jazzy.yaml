@@ -61,7 +61,7 @@ custom_categories:
     - Playlist
     - PlaylistItem
     - PlaylistItemContainer
-    - PlaylistsItemsReference
+    - PlaylistItemsReference
       
   - name: Player Objects
     children:

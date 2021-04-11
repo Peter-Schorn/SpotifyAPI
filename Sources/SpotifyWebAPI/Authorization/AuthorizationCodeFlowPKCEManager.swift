@@ -44,10 +44,10 @@ import FoundationNetworking
  using this [PKCE generator tool][4]. See also `Data.base64URLEncodedString()`
  and `String.urlSafeCharacters`.
  
- The first step in the authorization proccess is to make the authorization
+ The first step in the authorization process is to make the authorization
  URL using
  `makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)`.
- Open this URL in a broswer/webview to allow the user to login
+ Open this URL in a browser/webview to allow the user to login
  to their Spotify account and authorize your application. It displays a
  permissions dialog to the user.
  
@@ -110,11 +110,11 @@ public final class AuthorizationCodeFlowPKCEManager:
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
-       - networkAdaptor: A function that gets called everytime this class—and
+       - networkAdaptor: A function that gets called every time this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
              and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
+             guaranteed to be non-`nil`. No guarantees are made about which
              thread this function will be called on. The default is `nil`,
              in which case `URLSession` will be used for the network requests.
 
@@ -167,11 +167,11 @@ public final class AuthorizationCodeFlowPKCEManager:
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called everytime this class—and
+       - networkAdaptor: A function that gets called every time this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
              and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
+             guaranteed to be non-`nil`. No guarantees are made about which
              thread this function will be called on. The default is `nil`,
              in which case `URLSession` will be used for the network requests.
      
@@ -229,7 +229,7 @@ public extension AuthorizationCodeFlowPKCEManager {
      [Authorization Code Flow with Proof Key for Code Exchange][1].
      
      Creates the URL that is used to request authorization for your app. It
-     displays a permissins dialog to the user. Open the URL in a
+     displays a permissions dialog to the user. Open the URL in a
      browser/webview so that the user can login to their Spotify account and
      authorize your app.
 
@@ -379,7 +379,7 @@ public extension AuthorizationCodeFlowPKCEManager {
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
      
-     If the request for the access and refresh tokens suceeds, `self.didChange`
+     If the request for the access and refresh tokens succeeds, `self.didChange`
      will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
      to emit a signal.
      
@@ -388,7 +388,7 @@ public extension AuthorizationCodeFlowPKCEManager {
        - codeVerifier: The code verifier that you generated when creating the
              authorization URL. **This must be between 43 and 128 characters long.**
              After this request has completed, you should generate a new
-             code verifer and code challenge in preparation for the next
+             code verifier and code challenge in preparation for the next
              authorization process.
        - state: The value of the state parameter that you provided when
              making the authorization URL. The state can be useful for
@@ -422,7 +422,7 @@ public extension AuthorizationCodeFlowPKCEManager {
         assert(
             (43...128).contains(count),
             "The code verifier must be between 43 and 128 characters " +
-            "(recevied \(count))"
+            "(received \(count))"
         )
         
         Self.logger.trace(
@@ -448,10 +448,10 @@ public extension AuthorizationCodeFlowPKCEManager {
                 .anyFailingPublisher()
             }
             
-            Self.logger.error("unkown error")
+            Self.logger.error("unknown error")
             return SpotifyLocalError.other(
                 """
-                an unknown error occured when handling the redirect URI: \
+                an unknown error occurred when handling the redirect URI: \
                 expected to find 'code' or 'error' parameter in query string: \
                 '\(redirectURIWithQuery.absoluteString)'
                 """
@@ -460,7 +460,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             
         }
         
-        // Ensure the state paramter in the query string of the redirect
+        // Ensure the state parameter in the query string of the redirect
         // URI matches the value provided to this method.
         guard state == queryDict["state"] else {
             return SpotifyLocalError.invalidState(
@@ -549,7 +549,7 @@ public extension AuthorizationCodeFlowPKCEManager {
      tokens is already in progress, additional calls will return a reference
      to the same publisher as a class instance.
      
-     **However**, no guarentees are made about the thread that the publisher
+     **However**, no guarantees are made about the thread that the publisher
      returned by this method will emit on.
      
      - Parameters:

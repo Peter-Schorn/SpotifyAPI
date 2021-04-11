@@ -327,6 +327,28 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         
     }
     
+    /**
+     Returns a copy of self.
+     
+     Copies the following properties:
+     * `clientId`
+     * `clientSecret`
+     * `accessToken`
+     * `expirationDate`
+     * `networkAdaptor`
+     */
+    public func makeCopy() -> Self {
+        let instance = Self(
+            clientId: self.clientId, clientSecret: self.clientSecret
+        )
+        return self.updateAuthInfoDispatchQueue.sync {
+            instance._accessToken = self._accessToken
+            instance._expirationDate = self._expirationDate
+            instance.networkAdaptor = self.networkAdaptor
+            return instance
+        }
+    }
+    
 }
 
 public extension ClientCredentialsFlowManager {
@@ -701,18 +723,6 @@ extension ClientCredentialsFlowManager {
         self.updateAuthInfoDispatchQueue.sync {
             self._expirationDate = Date()
             self._accessToken = UUID().uuidString
-        }
-    }
-    
-    /// Only use for testing purposes.
-    func makeCopy() -> Self {
-        let instance = Self(
-            clientId: self.clientId, clientSecret: self.clientSecret
-        )
-        return self.updateAuthInfoDispatchQueue.sync {
-            instance._accessToken = self._accessToken
-            instance._expirationDate = self._expirationDate
-            return instance
         }
     }
     

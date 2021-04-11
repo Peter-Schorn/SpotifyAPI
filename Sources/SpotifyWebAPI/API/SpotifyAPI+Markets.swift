@@ -14,7 +14,7 @@ public extension SpotifyAPI {
     /**
      Get the list of markets where Spotify is available.
      
-     No scopes are required for this endpoint
+     No scopes are required for this endpoint.
      
      Read more at the [Spotify web API reference][1].
 

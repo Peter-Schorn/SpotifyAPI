@@ -200,7 +200,7 @@ public extension AuthorizationCodeFlowManager {
      The first step in the [Authorization Code Flow][1].
      
      Creates the URL that is used to request authorization for your app. It
-     displays a permissins dialog to the user. Open the URL in a
+     displays a permissions dialog to the user. Open the URL in a
      browser/webview so that the user can login to their Spotify account and
      authorize your app.
      
