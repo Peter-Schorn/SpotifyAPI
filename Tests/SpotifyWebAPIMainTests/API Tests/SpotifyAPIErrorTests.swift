@@ -438,7 +438,7 @@ extension SpotifyAPIErrorTests where
     
 }
 
-class SpotifyAPIClientCredentialsFlowErrorTests:
+final class SpotifyAPIClientCredentialsFlowErrorTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIErrorTests
 {
 
@@ -479,7 +479,7 @@ class SpotifyAPIClientCredentialsFlowErrorTests:
     
 }
 
-class SpotifyAPIAuthorizationCodeFlowErrorTests:
+final class SpotifyAPIAuthorizationCodeFlowErrorTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIErrorTests
 {
 
@@ -518,7 +518,7 @@ class SpotifyAPIAuthorizationCodeFlowErrorTests:
     
 }
 
-class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
+final class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIErrorTests
 {
 
