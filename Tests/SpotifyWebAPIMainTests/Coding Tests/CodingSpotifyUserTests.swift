@@ -48,7 +48,8 @@ final class CodingSpotifyUserTests: SpotifyAPITestCase {
         )
         encodeDecode(user, areEqual: ==)
         
-
+        XCTAssertNil(user.allowsExplicitContent)
+        XCTAssertNil(user.explicitContentSettingIsLocked)
         XCTAssertEqual(user.displayName, "April")
         XCTAssertEqual(
             user.externalURLs,
