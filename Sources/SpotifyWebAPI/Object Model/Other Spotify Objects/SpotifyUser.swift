@@ -181,6 +181,13 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
         self.product = product
         self.externalURLs = externalURLs
         self.type = .user
+        
+            /// The user’s Spotify subscription level: a b c d e f g h i j k l m n o p a s f g j
+            /// d q w e r t y u "open" can be considered the same as "free".)
+            func nestedFunction() {
+                
+            }
+
     }
     
 }
