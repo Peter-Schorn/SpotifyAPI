@@ -69,6 +69,66 @@ extension SpotifyAPIFollowTests where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
 
+    func followedArtists() {
+        
+        let expectation = XCTestExpectation(
+            description: "followedArtists"
+        )
+        
+        // Will contain at most 50 artists. The user may actually
+        // be following more artists.
+        var allFollowedArtists: [Artist] = []
+
+        Self.spotify.currentUserFollowedArtists(
+            limit: 50
+        )
+        .XCTAssertNoFailure()
+        .flatMap { arists -> AnyPublisher<CursorPagingObject<Artist>, Error> in
+            allFollowedArtists = arists.items
+            guard allFollowedArtists.count >= 3 else {
+                return XCTSkip(
+                    "test requires the user to follow at least 3 artists"
+                )
+                .anyFailingPublisher()
+            }
+            let artistURIs = allFollowedArtists.map(\.uri)
+            let thirdFromLastArtist = artistURIs[
+                allFollowedArtists.count - 3
+            ]
+            XCTAssertNotNil(thirdFromLastArtist)
+            return Self.spotify.currentUserFollowedArtists(
+                after: thirdFromLastArtist
+            )
+        }
+        .XCTAssertNoFailure()
+        .sink(
+            receiveCompletion: { _ in expectation.fulfill() },
+            receiveValue: { artistsPagingObject in
+                let artists = artistsPagingObject.items
+                guard artists.count >= 2 else {
+                    XCTFail(
+                        "should recieve at least two artists: \(artists.count)"
+                    )
+                    return
+                }
+                let count = allFollowedArtists.count
+                XCTAssertEqual(
+                    artists[0].uri,
+                    allFollowedArtists[count - 2].uri
+                )
+                XCTAssertEqual(
+                    artists[1].uri,
+                    allFollowedArtists[count - 1].uri
+                )
+                
+            }
+        )
+        .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+
+    }
+
     func followArtists() {
 
         let expectation = XCTestExpectation(
@@ -321,12 +381,14 @@ final class SpotifyAPIAuthorizationCodeFlowFollowTests:
 
     static let allTests = [
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),
+        ("testFollowedArtists", testFollowedArtists),
         ("testFollowArtists", testFollowArtists),
         ("testFollowUsers", testFollowUsers),
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
     func testUsersFollowPlaylist() { usersFollowPlaylist() }
+    func testFollowedArtists() { followedArtists() }
     func testFollowArtists() { followArtists() }
     func testFollowUsers() { followUsers() }
     func testFollowPlaylist() { followPlaylist() }
@@ -339,12 +401,14 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
 
     static let allTests = [
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),
+        ("testFollowedArtists", testFollowedArtists),
         ("testFollowArtists", testFollowArtists),
         ("testFollowUsers", testFollowUsers),
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
     func testUsersFollowPlaylist() { usersFollowPlaylist() }
+    func testFollowedArtists() { followedArtists() }
     func testFollowArtists() { followArtists() }
     func testFollowUsers() { followUsers() }
     func testFollowPlaylist() { followPlaylist() }
