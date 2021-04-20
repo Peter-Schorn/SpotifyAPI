@@ -502,10 +502,6 @@ public extension AuthorizationCodeFlowPKCEManager {
 
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
-            // Decoding into `AuthInfo` never fails because all of its
-            // properties are optional, so we must try to decode errors
-            // first.
-            .decodeSpotifyErrorsNoRetry()
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
@@ -628,11 +624,8 @@ public extension AuthorizationCodeFlowPKCEManager {
                         refreshTokensRequest
                     )
                     .castToURLResponse()
-                    // Decoding into `AuthInfo` never fails because all of its
-                    // properties are optional, so we must try to decode errors
-                    // first.
-                    .decodeSpotifyErrorsNoRetry()
                     .decodeSpotifyObject(AuthInfo.self)
+                    .subscribe(on: self.refreshTokensQueue)
                     .tryMap { authInfo in
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")

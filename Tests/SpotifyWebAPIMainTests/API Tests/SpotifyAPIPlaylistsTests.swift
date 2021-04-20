@@ -1466,6 +1466,11 @@ extension SpotifyAPIPlaylistsTests where
 
     func uploadPlaylistImage() {
 
+        let spotifyDecodeLogLevel = spotifyDecodeLogger.logLevel
+        spotifyDecodeLogger.logLevel = .warning
+        let apiRequestLogLevel = Self.spotify.apiRequestLogger.logLevel
+        Self.spotify.apiRequestLogger.logLevel = .warning
+
         let expectation = XCTestExpectation(
             description: "uploadPlaylistImage"
         )
@@ -1524,6 +1529,9 @@ extension SpotifyAPIPlaylistsTests where
             .store(in: &Self.cancellables)
             
         self.wait(for: [expectation], timeout: 120)
+        
+        spotifyDecodeLogger.logLevel = spotifyDecodeLogLevel
+        Self.spotify.apiRequestLogger.logLevel = apiRequestLogLevel
 
     }
 

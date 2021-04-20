@@ -203,6 +203,10 @@ public class AuthorizationCodeFlowManagerBase {
     let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
     )
+    
+    let refreshTokensQueue = DispatchQueue(
+        label: "AuthorizationCodeFlowManagerBase.refrehTokens"
+    )
 
     /**
      The request to refresh the access token is stored in this

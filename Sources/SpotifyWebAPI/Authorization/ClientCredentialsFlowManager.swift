@@ -471,10 +471,6 @@ public extension ClientCredentialsFlowManager {
         
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
-            // Decoding into `AuthInfo` never fails because all of its
-            // properties are optional, so we must try to decode errors
-            // first.
-            .decodeSpotifyErrorsNoRetry()
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
              

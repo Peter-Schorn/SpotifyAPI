@@ -39,9 +39,26 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
             spotify = .sharedTestNetworkAdaptor
         }
         
+        Self.fuzzSpotify()
         spotify.waitUntilAuthorized()
     }
     
+    open class func fuzzSpotify() {
+        encodeDecode(Self.spotify, areEqual: { lhs, rhs in
+            lhs.authorizationManager == rhs.authorizationManager
+        })
+        do {
+            let encoded = try JSONEncoder().encode(Self.spotify)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<ClientCredentialsFlowManager>.self, from: encoded
+            )
+            Self.spotify = decoded
+        
+        } catch {
+            XCTFail("\(error)")
+        }
+        
+    }
 
 }
 
@@ -64,12 +81,6 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowTests"
         )
-        if Bool.random() {
-            spotify = .sharedTest
-        }
-        else {
-            spotify = .sharedTestNetworkAdaptor
-        }
         setUpDebugging()
         setupAuthorization()
     }
@@ -79,9 +90,35 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
         showDialog: Bool = false
     ) {
 
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
+        
+        Self.fuzzSpotify()
+
         spotify.authorizeAndWaitForTokens(
             scopes: scopes, showDialog: showDialog
         )
+    }
+    
+    open class func fuzzSpotify() {
+        encodeDecode(Self.spotify, areEqual: { lhs, rhs in
+            lhs.authorizationManager == rhs.authorizationManager
+        })
+        do {
+            let encoded = try JSONEncoder().encode(Self.spotify)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowManager>.self, from: encoded
+            )
+            Self.spotify = decoded
+        
+        } catch {
+            XCTFail("\(error)")
+        }
+        
     }
     
 
@@ -104,12 +141,6 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowPKCETests"
         )
-        if Bool.random() {
-            spotify = .sharedTest
-        }
-        else {
-            spotify = .sharedTestNetworkAdaptor
-        }
         setUpDebugging()
         setupAuthorization()
     }
@@ -117,8 +148,33 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
     open class func setupAuthorization(
         scopes: Set<Scope> = Scope.allCases
     ) {
+        if Bool.random() {
+            spotify = .sharedTest
+        }
+        else {
+            spotify = .sharedTestNetworkAdaptor
+        }
+        
+        Self.fuzzSpotify()
+
         spotify.authorizeAndWaitForTokens(scopes: scopes)
     }
     
+    open class func fuzzSpotify() {
+        encodeDecode(Self.spotify, areEqual: { lhs, rhs in
+            lhs.authorizationManager == rhs.authorizationManager
+        })
+        do {
+            let encoded = try JSONEncoder().encode(Self.spotify)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self, from: encoded
+            )
+            Self.spotify = decoded
+        
+        } catch {
+            XCTFail("\(error)")
+        }
+        
+    }
 
 }

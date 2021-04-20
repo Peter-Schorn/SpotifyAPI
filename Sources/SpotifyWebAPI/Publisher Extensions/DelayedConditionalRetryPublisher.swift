@@ -155,55 +155,60 @@ extension Publisher {
 //                "retryOnSpotifyError: additionalRetries: " +
 //                    "\(additionalRetries). Error: \(error)"
 //            )
-            // the status codes for which it makes sense to retry the
-            // request.
+            
+            if let rateLimitedError = error as? RateLimitedError {
+                #if DEBUG
+                DebugHooks.receiveRateLimitedError.send(rateLimitedError)
+                #endif
+    //            Swift.print("retryOnRateLimitdError: \(rateLimitedError)")
+                let secondsDelay = (rateLimitedError.retryAfter ?? 3) + 1
+                
+                switch additionalRetries {
+                    case 3:
+                        return .seconds(secondsDelay)
+                    // Adding random delays improves the success rate
+                    // of concurrent requests. If all requests were
+                    // serialized, then we would never get a rate
+                    // limited error more than once per request in the
+                    // first place.
+                    case 2:
+                        var millisecondsDelay = secondsDelay * 1_000
+                        // + 0...5 seconds; step: 0.01 seconds
+                        millisecondsDelay += Int.random(in: 0...500) * 10
+                        return .milliseconds(millisecondsDelay)
+                    default /* 1 */:
+                        var millisecondsDelay = secondsDelay * 1000
+                        // + 5...10 seconds; step: 0.01 seconds
+                        millisecondsDelay += Int.random(in: 500...1_000) * 10
+                        return .milliseconds(millisecondsDelay)
+                }
+            }
+
+            // the status codes for which it makes sense to retry the request.
             // https://developer.spotify.com/documentation/web-api/#response-status-codes
             let retryableStatusCodes = [500, 502, 503, 504]
-            switch error {
-                case let rateLimitedError as RateLimitedError:
-                    #if DEBUG
-                    DebugHooks.receiveRateLimitedError.send(rateLimitedError)
-                    #endif
-        //            Swift.print("retryOnRateLimitdError: \(rateLimitedError)")
-                    let secondsDelay = (rateLimitedError.retryAfter ?? 3) + 1
-                    
-                    switch additionalRetries {
-                        case 3:
-                            return .seconds(secondsDelay)
-                        // Adding random delays improves the success rate
-                        // of concurrent requests. If all requests were
-                        // serialized, then we would never get a rate
-                        // limited error more than once per request in the
-                        // first place.
-                        case 2:
-                            var millisecondsDelay = secondsDelay * 1_000
-                            // + 0...5 seconds; step: 0.01 seconds
-                            millisecondsDelay += Int.random(in: 0...500) * 10
-                            return .milliseconds(millisecondsDelay)
-                        default /* 1 */:
-                            var millisecondsDelay = secondsDelay * 1000
-                            // + 5...10 seconds; step: 0.01 seconds
-                            millisecondsDelay += Int.random(in: 500...1_000) * 10
-                            return .milliseconds(millisecondsDelay)
-                    }
-                case let spotifyError as SpotifyError:
-                    if retryableStatusCodes.contains(
-                        spotifyError.statusCode
-                    ) {
-                        return .seconds(1)
-                    }
-                    return nil
-                case let spotifyPlayerError as SpotifyPlayerError:
-                    if retryableStatusCodes.contains(
-                        spotifyPlayerError.statusCode
-                    ) {
-                        return .seconds(1)
-                    }
-                    return nil
-                    
-                default:
-                    return nil
+
+            let statusCode: Int
+            
+            if let spotifyError = error as? SpotifyError {
+                statusCode = spotifyError.statusCode
             }
+            else if let spotifyPlayerError = error as? SpotifyPlayerError {
+                statusCode = spotifyPlayerError.statusCode
+            }
+            else if case .httpError(let response, _) = error as? SpotifyLocalError {
+                statusCode = response.statusCode
+            }
+            else {
+                return nil
+            }
+            
+            if retryableStatusCodes.contains(statusCode) {
+                return .seconds(1)
+            }
+            
+            return nil
+
         }
         .eraseToAnyPublisher()
 

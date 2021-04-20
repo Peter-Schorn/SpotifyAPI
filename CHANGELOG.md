@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2021-4-20
+
+### Added
+
+* Added `SpotifyLocalError.httpError(HTTPURLResponse, Data)`. This error is returned when the status code of the response from the server is in the 4xx or 5xx range and the response body could not be decoded into any of the other errors types (`SpotifyAuthenticationError`, `SpotifyError`, `SpotifyPlayerError`). 
+
+### Changed
+
+* A request will be automatically retried up to three times if it returns a `SpotifyLocalError.httpError` with a status code of 500, 502, 503, or 504.
+* When decoding the data from a request into a Swift type, the data will *first* be decoded into an error object if the status code is in the 4xx or 5xx range.
+
 ## [1.5.1] - 2021-4-15
 
 ### Added

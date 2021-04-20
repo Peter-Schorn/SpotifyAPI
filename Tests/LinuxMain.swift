@@ -8,4 +8,3 @@ tests += SpotifyWebAPIMainTests.__allTests()
 _ = XCTestObserver()
 
 XCTMain(tests)
-

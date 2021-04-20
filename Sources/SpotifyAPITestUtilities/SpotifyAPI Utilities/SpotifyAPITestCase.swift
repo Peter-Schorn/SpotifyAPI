@@ -11,11 +11,9 @@ public class XCTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
-        if #available(macOS 10.15.4, iOS 13.4, macCatalyst 13.4, tvOS 13.4, watchOS 6.2, *) {
-            if let logFile = SpotifyAPITestCase.logFile {
-                let failingTestsString = self.makeFailingTestsString()
-                try? failingTestsString.append(to: logFile)
-            }
+        if let logFile = SpotifyAPITestCase.logFile {
+            let failingTestsString = self.makeFailingTestsString()
+            try? failingTestsString.append(to: logFile)
         }
 
     }
@@ -133,9 +131,7 @@ open class SpotifyAPITestCase: XCTestCase {
 //            """
 //
 //        if let logFile = Self.logFile {
-//            if #available(macOS 10.15.4, iOS 13.4, macCatalyst 13.4, tvOS 13.4, watchOS 6.2, *) {
-//                try? message.append(to: logFile)
-//            }
+//            try? message.append(to: logFile)
 //        }
 //
 //        if !Self.failingTests.contains(testName) {
@@ -171,9 +167,7 @@ open class SpotifyAPITestCase: XCTestCase {
             """
 
         if let logFile = Self.logFile {
-            if #available(macOS 10.15.4, *) {
-                try? message.append(to: logFile)
-            }
+            try? message.append(to: logFile)
         }
 
         if !Self.failingTests.contains(testName) {

@@ -13,7 +13,7 @@ import SpotifyExampleContent
  
  
 /**
- Test refreshing the tokens multiple times asyncronously to ensure
+ Test refreshing the tokens multiple times asynchronously to ensure
  that they only actually get refreshed once.
  
  These tests are also used in conjunction with the thread sanitizer
@@ -154,7 +154,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
                     sink = "\(Self.spotify.authorizationManager.expirationDate as Any)"
                     print("asyncTokensRefresh finished after pouring into sink")
                     
-                    _ = sink  // supress warnings
+                    _ = sink  // suppress warnings
                     
                 }
                 
@@ -331,6 +331,7 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
         ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
         ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
     ]
+    
     
     func testConcurrentTokensRefresh() {
         for i in 0..<20 {

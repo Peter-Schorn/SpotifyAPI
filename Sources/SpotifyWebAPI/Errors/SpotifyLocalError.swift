@@ -1,8 +1,12 @@
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /**
- An error that is not directly produced by the Spotify web API.
+ An error originating from this library that is not represented
+ by any of the other error types in this library.
  
  For example if you try to make an API request but have not
  authorized your application yet, you will get a `.unauthorized(String)`
@@ -94,6 +98,17 @@ public enum SpotifyLocalError {
     )
     
     /**
+     The http request returned a response with a status code in the 4xx (client
+     error) or 5xx (server error) range, and the response body could not be
+     decoded into any of the other errors types (`SpotifyAuthenticationError`,
+     `SpotifyError`, `SpotifyPlayerError`).
+     
+     Contains the http response metadata and data from the server.
+
+     */
+    case httpError(HTTPURLResponse, Data)
+
+    /**
      Some other error.
      
      The first string will be used for `description`.
@@ -132,6 +147,10 @@ extension SpotifyLocalError: LocalizedError {
                 return "An internal error occurred"
             case .topLevelKeyNotFound(_, _):
                 return "The format of the data from Spotify was invalid."
+            case .httpError(let response, _):
+                return HTTPURLResponse.localizedString(
+                    forStatusCode: response.statusCode
+                )
             case .other(_, let localizedDescription):
                 return localizedDescription
         }
@@ -175,6 +194,13 @@ extension SpotifyLocalError: CustomStringConvertible {
                     SpotifyLocalError.topLevelKeyNotFound: The expected top \
                     level key '\(key)' was not found in the dictionary:
                     \(dict)
+                    """
+            case .httpError(let response, let data):
+                let dataString = String(data: data, encoding: .utf8)
+                    ?? "nil"
+                return """
+                    SpotifyLocalError.httpError(\
+                    HTTPURLResponse: \(response), Data: \(dataString))
                     """
             case .other(let message, _):
                 return "SpotifyLocalError.other: \(message)"
