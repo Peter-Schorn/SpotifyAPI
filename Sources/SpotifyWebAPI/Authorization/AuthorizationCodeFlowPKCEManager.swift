@@ -6,7 +6,6 @@ import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
-import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -85,16 +84,11 @@ import FoundationNetworking
  [4]: https://tonyxu-io.github.io/pkce-generator/
  [5]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class AuthorizationCodeFlowPKCEManager:
-    AuthorizationCodeFlowManagerBase,
+public final class AuthorizationCodeFlowPKCEManager<Endpoint: AuthorizationCodeFlowPKCEEndpoint>:
+    AuthorizationCodeFlowManagerBase<Endpoint>,
     SpotifyScopeAuthorizationManager
 {
-    
-    /// The logger for this class.
-    public static var logger = Logger(
-        label: "AuthorizationCodeFlowPKCEManager", level: .critical
-    )
-    
+        
     /**
      Creates an authorization manager for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
@@ -123,15 +117,13 @@ public final class AuthorizationCodeFlowPKCEManager:
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(
-        clientId: String,
-        clientSecret: String,
+        endpoint: Endpoint,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         super.init(
-            clientId: clientId,
-            clientSecret: clientSecret,
+            endpoint: endpoint,
             networkAdaptor: networkAdaptor
         )
     }
@@ -180,8 +172,7 @@ public final class AuthorizationCodeFlowPKCEManager:
      [3]: https://developer.spotify.com/dashboard/login
      */
     public convenience init(
-        clientId: String,
-        clientSecret: String,
+		endpoint: Endpoint,
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
@@ -191,8 +182,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         )? = nil
     ) {
         self.init(
-            clientId: clientId,
-            clientSecret: clientSecret,
+			endpoint: endpoint,
             networkAdaptor: networkAdaptor
         )
         self._accessToken = accessToken
@@ -315,7 +305,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
             queryItems: urlQueryDictionary([
-                "client_id": self.clientId,
+				"client_id": endpoint.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
@@ -425,7 +415,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             "(recevied \(count))"
         )
         
-        Self.logger.trace(
+        AuthorizationFlowLogging.logger.trace(
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
@@ -438,7 +428,7 @@ public extension AuthorizationCodeFlowPKCEManager {
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
-                Self.logger.warning("redirect uri query has error")
+                AuthorizationFlowLogging.logger.warning("redirect uri query has error")
                 // This is the way that the authorization should fail.
                 // For example, if the user denied the app's authorization
                 // request, then this error will be returned.
@@ -448,7 +438,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                 .anyFailingPublisher()
             }
             
-            Self.logger.error("unkown error")
+            AuthorizationFlowLogging.logger.error("unkown error")
             return SpotifyLocalError.other(
                 """
                 an unknown error occured when handling the redirect URI: \
@@ -469,25 +459,11 @@ public extension AuthorizationCodeFlowPKCEManager {
             .anyFailingPublisher()
         }
         
-        // This must match the redirectURI provided when making the
-        // authorization URL.
-        let baseRedirectURI = redirectURIWithQuery
-            .removingQueryItems()
-            .removingTrailingSlashInPath()
+		let tokensRequest = endpoint.makePKCETokenRequest(code: code, codeVerifier: codeVerifier, redirectURIWithQuery: redirectURIWithQuery)
+		
+		let bodyString = String(data: tokensRequest.httpBody!, encoding: .utf8) ?? "nil"
         
-        Self.logger.trace("baseRedirectURI: \(baseRedirectURI)")
-        
-        let body = PKCETokensRequest(
-            code: code,
-            redirectURI: baseRedirectURI,
-            clientId: self.clientId,
-            codeVerifier: codeVerifier
-        )
-        .formURLEncoded()
-        
-        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-        
-        Self.logger.trace(
+        AuthorizationFlowLogging.logger.trace(
             """
             POST request to "\(Endpoints.getTokens)" \
             (URL for requesting access and refresh tokens); body:
@@ -495,11 +471,6 @@ public extension AuthorizationCodeFlowPKCEManager {
             """
         )
         
-        var tokensRequest = URLRequest(url: Endpoints.getTokens)
-        tokensRequest.httpMethod = "POST"
-        tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-        tokensRequest.httpBody = body
-
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
             // Decoding into `AuthInfo` never fails because all of its
@@ -509,7 +480,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
-                Self.logger.trace("received authInfo:\n\(authInfo)")
+                AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
                         authInfo.refreshToken == nil ||
@@ -521,7 +492,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                         and expiration date):
                         \(authInfo)
                         """
-                    Self.logger.error("\(errorMessage)")
+                    AuthorizationFlowLogging.logger.error("\(errorMessage)")
                     throw SpotifyLocalError.other(errorMessage)
                     
                 }
@@ -575,54 +546,43 @@ public extension AuthorizationCodeFlowPKCEManager {
                     if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
                         tolerance: tolerance
                     ) {
-                        Self.logger.trace(
+                        AuthorizationFlowLogging.logger.trace(
                             "access token not expired; returning early"
                         )
                         return ResultPublisher(())
                             .eraseToAnyPublisher()
                     }
                     
-                    Self.logger.notice("refreshing tokens...")
+                    AuthorizationFlowLogging.logger.notice("refreshing tokens...")
                 
                     // If another request to refresh the tokens is currently
                     // in progress, return the same request instead of creating
                     // a new network request.
                     if let refreshTokensPublisher = self.refreshTokensPublisher {
-                        Self.logger.notice("using previous publisher")
+                        AuthorizationFlowLogging.logger.notice("using previous publisher")
                         return refreshTokensPublisher
                     }
                     
-                    Self.logger.trace("creating new publisher")
+                    AuthorizationFlowLogging.logger.trace("creating new publisher")
                     
                     guard let refreshToken = self._refreshToken else {
                         let errorMessage =
                                 "can't refresh access token: no refresh token"
-                        Self.logger.warning("\(errorMessage)")
+                        AuthorizationFlowLogging.logger.warning("\(errorMessage)")
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                   
-                    let body = PKCERefreshAccessTokenRequest(
-                        refreshToken: refreshToken,
-                        clientId: self.clientId
-                    )
-                    .formURLEncoded()
-                    
-                    let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-                    Self.logger.trace(
+					let refreshTokensRequest = endpoint.makePKCETokenRefreshRequest(refreshToken: refreshToken)
+					
+					let bodyString = String(data: refreshTokensRequest.httpBody!, encoding: .utf8) ?? "nil"
+					
+                    AuthorizationFlowLogging.logger.trace(
                         """
                         POST request to "\(Endpoints.getTokens)" \
                         (URL for refreshing access token); body:
                         \(bodyString)
                         """
                     )
-                    
-                    var refreshTokensRequest = URLRequest(
-                        url: Endpoints.getTokens
-                    )
-                    refreshTokensRequest.httpMethod = "POST"
-                    refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-                    refreshTokensRequest.httpBody = body
                     
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
@@ -635,7 +595,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                     .decodeSpotifyObject(AuthInfo.self)
                     .tryMap { authInfo in
                         
-                        Self.logger.trace("received authInfo:\n\(authInfo)")
+                        AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
                         
                         /*
                          Unlike the Authorization Code Flow, a refresh token that
@@ -655,7 +615,7 @@ public extension AuthorizationCodeFlowPKCEManager {
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
-                            Self.logger.error("\(errorMessage)")
+                            AuthorizationFlowLogging.logger.error("\(errorMessage)")
                             throw SpotifyLocalError.other(errorMessage)
                             
                         }
@@ -712,8 +672,7 @@ extension AuthorizationCodeFlowPKCEManager: CustomStringConvertible {
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
                     refresh token: "\(_refreshToken ?? "nil")"
-                    client id: "\(clientId)"
-                    client secret: "\(clientSecret)"
+                    endpoint: "\(endpoint)"
                 )
                 """
         }

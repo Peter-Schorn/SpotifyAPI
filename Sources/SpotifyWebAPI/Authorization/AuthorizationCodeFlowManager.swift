@@ -6,7 +6,6 @@ import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
-import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -58,16 +57,10 @@ import FoundationNetworking
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class AuthorizationCodeFlowManager:
-    AuthorizationCodeFlowManagerBase,
+public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowEndpoint>:
+    AuthorizationCodeFlowManagerBase<Endpoint>,
     SpotifyScopeAuthorizationManager
 {
-    
-    /// The logger for this class.
-    public static var logger = Logger(
-        label: "AuthorizationCodeFlowManager", level: .critical
-    )
-    
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
      
@@ -81,8 +74,7 @@ public final class AuthorizationCodeFlowManager:
      information.
      
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - endpoint: The endpoint to retrieve tokens.
        - networkAdaptor: A function that gets called everytime this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
@@ -96,15 +88,13 @@ public final class AuthorizationCodeFlowManager:
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(
-        clientId: String,
-        clientSecret: String,
+		endpoint: Endpoint,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         super.init(
-            clientId: clientId,
-            clientSecret: clientSecret,
+            endpoint: endpoint,
             networkAdaptor: networkAdaptor
         )
     }
@@ -152,8 +142,7 @@ public final class AuthorizationCodeFlowManager:
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public convenience init(
-        clientId: String,
-        clientSecret: String,
+        endpoint: Endpoint,
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
@@ -163,8 +152,7 @@ public final class AuthorizationCodeFlowManager:
         )? = nil
     ) {
         self.init(
-            clientId: clientId,
-            clientSecret: clientSecret,
+            endpoint: endpoint,
             networkAdaptor: networkAdaptor
         )
         self._accessToken = accessToken
@@ -264,7 +252,7 @@ public extension AuthorizationCodeFlowManager {
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
             queryItems: urlQueryDictionary([
-                "client_id": self.clientId,
+                "client_id": endpoint.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
@@ -325,7 +313,7 @@ public extension AuthorizationCodeFlowManager {
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
 
-        Self.logger.trace(
+		AuthorizationFlowLogging.logger.trace(
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
@@ -338,7 +326,7 @@ public extension AuthorizationCodeFlowManager {
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
-                Self.logger.warning("redirect uri query has error")
+                AuthorizationFlowLogging.logger.warning("redirect uri query has error")
                 // This is the way that the authorization should fail.
                 // For example, if the user denied the app's authorization
                 // request, then this error will be returned.
@@ -348,7 +336,7 @@ public extension AuthorizationCodeFlowManager {
                 .anyFailingPublisher()
             }
             
-            Self.logger.error("unkown error")
+            AuthorizationFlowLogging.logger.error("unkown error")
             return SpotifyLocalError.other(
                 """
                 an unknown error occured when handling the redirect URI: \
@@ -369,34 +357,17 @@ public extension AuthorizationCodeFlowManager {
             .anyFailingPublisher()
         }
         
-        let baseRedirectURI = redirectURIWithQuery
-            .removingQueryItems()
-            .removingTrailingSlashInPath()
+		let tokensRequest = endpoint.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
         
-        Self.logger.trace("baseRedirectURI: \(baseRedirectURI)")
+		let bodyString = String(data: tokensRequest.httpBody!, encoding: .utf8) ?? "nil"
         
-        let body = TokensRequest(
-            code: code,
-            redirectURI: baseRedirectURI,
-            clientId: clientId,
-            clientSecret: clientSecret
-        )
-        .formURLEncoded()
-        
-        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-        
-        Self.logger.trace(
+        AuthorizationFlowLogging.logger.trace(
             """
             POST request to "\(Endpoints.getTokens)" \
             (URL for requesting access and refresh tokens); body:
             \(bodyString)
             """
         )
-        
-        var tokensRequest = URLRequest(url: Endpoints.getTokens)
-        tokensRequest.httpMethod = "POST"
-        tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-        tokensRequest.httpBody = body
         
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
@@ -407,7 +378,7 @@ public extension AuthorizationCodeFlowManager {
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
-                Self.logger.trace("received authInfo:\n\(authInfo)")
+                AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
                         authInfo.refreshToken == nil ||
@@ -419,7 +390,7 @@ public extension AuthorizationCodeFlowManager {
                         and expiration date):
                         \(authInfo)
                         """
-                    Self.logger.error("\(errorMessage)")
+                    AuthorizationFlowLogging.logger.error("\(errorMessage)")
                     throw SpotifyLocalError.other(errorMessage)
                     
                 }
@@ -473,7 +444,7 @@ public extension AuthorizationCodeFlowManager {
                     if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
                         tolerance: tolerance
                     ) {
-                        Self.logger.trace(
+                        AuthorizationFlowLogging.logger.trace(
                             "access token not expired; returning early"
                         )
                         return ResultPublisher(())
@@ -481,50 +452,37 @@ public extension AuthorizationCodeFlowManager {
                         
                     }
                     
-                    Self.logger.notice("refreshing tokens...")
+                    AuthorizationFlowLogging.logger.notice("refreshing tokens...")
                 
                     // If another request to refresh the tokens is currently
                     // in progress, return the same request instead of creating
                     // a new network request.
                     if let refreshTokensPublisher = self.refreshTokensPublisher {
-                        Self.logger.notice("using previous publisher")
+                        AuthorizationFlowLogging.logger.notice("using previous publisher")
                         return refreshTokensPublisher
                     }
                     
-                    Self.logger.trace("creating new publisher")
+                    AuthorizationFlowLogging.logger.trace("creating new publisher")
                     
                     guard let refreshToken = self._refreshToken else {
                         let errorMessage =
                                 "can't refresh access token: no refresh token"
-                        Self.logger.warning("\(errorMessage)")
+                        AuthorizationFlowLogging.logger.warning("\(errorMessage)")
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                    let headers = self.basicBase64EncodedCredentialsHeader +
-                            Headers.formURLEncoded
+					let refreshTokensRequest = endpoint.makeTokenRefreshRequest(refreshToken: refreshToken)
 
-                    let body = RefreshAccessTokenRequest(
-                        refreshToken: refreshToken
-                    )
-                    .formURLEncoded()
+					let bodyString = String(data: refreshTokensRequest.httpBody!, encoding: .utf8) ?? "nil"
                     
-                    let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-                    
-                    Self.logger.trace(
+                    AuthorizationFlowLogging.logger.trace(
                         """
                         POST request to "\(Endpoints.getTokens)" \
                         (URL for refreshing access token); body:
                         \(bodyString)
                         """
                     )
-                    
-                    var refreshTokensRequest = URLRequest(
-                        url: Endpoints.getTokens
-                    )
-                    refreshTokensRequest.httpMethod = "POST"
-                    refreshTokensRequest.allHTTPHeaderFields = headers
-                    refreshTokensRequest.httpBody = body
-                    
+                                        
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
                     )
@@ -536,7 +494,7 @@ public extension AuthorizationCodeFlowManager {
                     .decodeSpotifyObject(AuthInfo.self)
                     .tryMap { authInfo in
                         
-                        Self.logger.trace("received authInfo:\n\(authInfo)")
+                        AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
                         
                         if authInfo.accessToken == nil ||
                                 authInfo.expirationDate == nil {
@@ -547,7 +505,7 @@ public extension AuthorizationCodeFlowManager {
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
-                            Self.logger.error("\(errorMessage)")
+                            AuthorizationFlowLogging.logger.error("\(errorMessage)")
                             throw SpotifyLocalError.other(errorMessage)
                             
                         }
@@ -604,8 +562,7 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
                     refresh token: "\(_refreshToken ?? "nil")"
-                    client id: "\(clientId)"
-                    client secret: "\(clientSecret)"
+                    endpoint: "\(endpoint)"
                 )
                 """
         }

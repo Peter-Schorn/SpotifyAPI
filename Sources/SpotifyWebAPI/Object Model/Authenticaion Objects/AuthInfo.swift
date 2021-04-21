@@ -126,6 +126,7 @@ extension AuthInfo: Codable {
         case expirationDate = "expiration_date"
         case expiresInSeconds = "expires_in"
         case scopes = "scope"
+		case endpoint = "endpoint"
         case clientId = "client_id"
         case clientSecret = "client_secret"
     }
