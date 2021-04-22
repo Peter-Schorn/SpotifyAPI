@@ -33,7 +33,7 @@ final class CodingClientCredentialsFlowManagerTests: SpotifyAPITestCase {
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.self,
+                SpotifyAPI<ClientCredentialsFlowManager>.self,
                 from: data
             )
             let data2 = try JSONEncoder().encode(decoded)

@@ -2,8 +2,10 @@ import Foundation
 import XCTest
 import SpotifyWebAPI
 
-public class XCTestObserver: NSObject, XCTestObservation {
+public class SpotifyTestObserver: NSObject, XCTestObservation {
     
+    public static var isRegisteredAsObserver = false
+
     public func testBundleWillStart(_ testBundle: Bundle) {
 //        print("\n\ntestBundleWillStart: \(testBundle)\n\n")
     }
@@ -11,15 +13,22 @@ public class XCTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
+        let failingTestsString = self.makeFailingTestsString()
+
         if let logFile = SpotifyAPITestCase.logFile {
-            let failingTestsString = self.makeFailingTestsString()
             try? failingTestsString.append(to: logFile)
         }
+
+        print("\(failingTestsString)")
 
     }
     
     func makeFailingTestsString() -> String {
         
+        if SpotifyAPITestCase.failingTests.isEmpty {
+            return "\nALL TESTS PASSED\n"
+        }
+
         let tests = SpotifyAPITestCase.failingTests
             .compactMap { test -> (testCase: String, testMethod: String)? in
                 // each string in `failingTests` has the format
@@ -73,6 +82,7 @@ public class XCTestObserver: NSObject, XCTestObservation {
     public override init() {
         super.init()
         XCTestObservationCenter.shared.addTestObserver(self)
+        Self.isRegisteredAsObserver = true
     }
 }
 
@@ -95,50 +105,57 @@ open class SpotifyAPITestCase: XCTestCase {
         return nil
     }()
     
+    open override class func setUp() {
+        if !SpotifyTestObserver.isRegisteredAsObserver {
+            _ = SpotifyTestObserver()
+            SpotifyTestObserver.isRegisteredAsObserver = true
+        }
+    }
+    
     #if canImport(ObjectiveC)
     
-//    open override func record(_ issue: XCTIssue) {
-//
-//        super.record(issue)
-//
-//        let context = issue.sourceCodeContext
-//
-//        let symbolNames = context.callStack
-//            .compactMap { frame -> String? in
-//                guard let name = frame.symbolInfo?.symbolName,
-//                      !name.starts(with: "@objc") else {
-//                    return nil
-//                }
-//                return name
-//            }
-//            .joined(separator: "\n")
-//
-//        let filePath = context.location?.fileURL.path ?? ""
-//        let line = (context.location?.lineNumber)
-//            .flatMap(String.init) ?? ""
-//        let locationString = "\(filePath):\(line)"
-//
-//        let testName = self.name
-//
-//        let message = """
-//            ------------------------------------------------
-//            \(locationString)
-//            \(testName)
-//            \(issue.compactDescription)
-//            callstack:
-//            \(symbolNames)
-//            ------------------------------------------------
-//            """
-//
-//        if let logFile = Self.logFile {
-//            try? message.append(to: logFile)
-//        }
-//
-//        if !Self.failingTests.contains(testName) {
-//            Self.failingTests.append(testName)
-//        }
-//
-//    }
+    open override func record(_ issue: XCTIssue) {
+
+        super.record(issue)
+
+        let context = issue.sourceCodeContext
+
+        let symbolNames = context.callStack
+            .compactMap { frame -> String? in
+                guard let name = frame.symbolInfo?.symbolName,
+                      !name.starts(with: "@objc") else {
+                    return nil
+                }
+                return name
+            }
+            .joined(separator: "\n")
+
+        let filePath = context.location?.fileURL.path ?? ""
+        let line = (context.location?.lineNumber)
+            .flatMap(String.init) ?? ""
+        let locationString = "\(filePath):\(line)"
+
+        let testName = self.name
+
+        let message = """
+            ------------------------------------------------
+            \(locationString)
+            \(testName)
+            \(issue.compactDescription)
+            callstack:
+            \(symbolNames)
+            ------------------------------------------------
+            """
+
+        if let logFile = Self.logFile {
+            try? message.append(to: logFile)
+        }
+
+        if !Self.failingTests.contains(testName) {
+            Self.failingTests.append(testName)
+        }
+
+    }
     
     #else
     

@@ -184,6 +184,10 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      */
     private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
+    private let refreshTokensQueue = DispatchQueue(
+        label: "ClientCredentialsFlowManager.refrehTokens"
+    )
+
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
      
@@ -480,6 +484,7 @@ public extension ClientCredentialsFlowManager {
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
             .decodeSpotifyObject(AuthInfo.self)
+            .subscribe(on: self.refreshTokensQueue)
             .tryMap { authInfo in
              
                 Self.logger.trace("received authInfo:\n\(authInfo)")

@@ -63,26 +63,30 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 
 		return refreshTokensRequest
 	}
+    
+}
+
+extension AuthorizationEndpointNative {
 	
 	public init(from decoder: Decoder) throws {
 		let container = try decoder.container(
-			keyedBy: AuthInfo.CodingKeys.self
+			keyedBy: CodingKeys.self
 		)
-		self.clientId = try container.decode(
+		let clientId = try container.decode(
 			String.self, forKey: .clientId
 		)
-		self.clientSecret = try container.decode(
+		let clientSecret = try container.decode(
 			String.self, forKey: .clientSecret
 		)
-		self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-			clientId: self.clientId,
-			clientSecret: self.clientSecret
-		)!		
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
 	}
 
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.container(
-			keyedBy: AuthInfo.CodingKeys.self
+			keyedBy: CodingKeys.self
 		)
 
 		try container.encode(
@@ -92,6 +96,13 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 			self.clientSecret, forKey: .clientSecret
 		)
 	}
+    
+    private enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case clientSecret = "client_secret"
+    }
+    
+
 }
 
 public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoint {
@@ -142,4 +153,12 @@ public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoin
 		
 		return refreshTokensRequest
 	}
+}
+
+extension AuthorizationEndpointPKCENative {
+    
+    private enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+    }
+
 }

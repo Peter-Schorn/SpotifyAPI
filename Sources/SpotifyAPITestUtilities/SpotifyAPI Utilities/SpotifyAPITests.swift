@@ -61,7 +61,10 @@ public extension SpotifyAuthorizationManager {
     
     /// Only use for testing purposes.
     func setExpirationDate(to date: Date) {
-        if let authManager = self as? AuthorizationCodeFlowManagerBase<AuthorizationEndpointNative> {
+        if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationEndpointNative> {
+            authManager.setExpirationDate(to: Date())
+        }
+        else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
             authManager.setExpirationDate(to: Date())
         }
         else if let authManager = self as? ClientCredentialsFlowManager {

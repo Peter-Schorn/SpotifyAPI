@@ -5,6 +5,6 @@ import SpotifyAPITestUtilities
 var tests = [XCTestCaseEntry]()
 tests += SpotifyWebAPIMainTests.__allTests()
 
-_ = XCTestObserver()
+_ = SpotifyTestObserver()
 
 XCTMain(tests)
