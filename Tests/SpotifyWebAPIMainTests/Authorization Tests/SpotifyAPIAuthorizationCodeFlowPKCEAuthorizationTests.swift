@@ -88,7 +88,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
         
         let decodedSpotifyAPI = try JSONDecoder().decode(
-            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self,
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>>.self,
             from: spotifyAPIData
         )
         
@@ -135,7 +135,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         )
         
         let decodedAuthManager = try JSONDecoder().decode(
-            AuthorizationCodeFlowPKCEManager.self,
+            AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>.self,
             from: authManagerData
         )
         
@@ -149,15 +149,19 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             return
         }
         
+        let endpoint = AuthorizationEndpointNative(
+            clientId: decodedAuthManager.endpoint.clientId,
+            clientSecret: decodedAuthManager.endpoint.clientSecret
+        )
+
         let newAuthorizationManager = AuthorizationCodeFlowPKCEManager(
-            clientId: decodedAuthManager.clientId,
-            clientSecret: decodedAuthManager.clientSecret,
+            endpoint: endpoint,
             accessToken: accessToken,
             expirationDate: expirationDate,
             refreshToken: refreshToken,
             scopes: scopes
         )
-        
+
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
 
     }

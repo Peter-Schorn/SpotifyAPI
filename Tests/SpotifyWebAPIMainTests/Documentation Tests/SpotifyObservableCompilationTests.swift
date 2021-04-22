@@ -118,7 +118,7 @@ final class Spotify: ObservableObject {
             do {
                 // Try to decode the data.
                 let authorizationManager = try JSONDecoder().decode(
-                    AuthorizationCodeFlowManager.self,
+                    AuthorizationCodeFlowManager<AuthorizationEndpointNative>.self,
                     from: authManagerData
                 )
 

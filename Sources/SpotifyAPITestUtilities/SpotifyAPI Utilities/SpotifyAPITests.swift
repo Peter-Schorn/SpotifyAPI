@@ -36,13 +36,13 @@ public extension SpotifyAPITests where
         scopes: Set<Scope>, showDialog: Bool = false
     ) {
         if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowManager> {
+                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>> {
             spotify.authorizeAndWaitForTokens(
                 scopes: scopes, showDialog: showDialog
             )
         }
         else if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager> {
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>> {
             spotify.authorizeAndWaitForTokens(
                 scopes: scopes
             )
@@ -61,7 +61,7 @@ public extension SpotifyAuthorizationManager {
     
     /// Only use for testing purposes.
     func setExpirationDate(to date: Date) {
-        if let authManager = self as? AuthorizationCodeFlowManagerBase {
+        if let authManager = self as? AuthorizationCodeFlowManagerBase<AuthorizationEndpointNative> {
             authManager.setExpirationDate(to: Date())
         }
         else if let authManager = self as? ClientCredentialsFlowManager {

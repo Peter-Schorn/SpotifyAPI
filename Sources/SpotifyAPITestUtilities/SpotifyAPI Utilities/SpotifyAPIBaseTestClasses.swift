@@ -69,7 +69,7 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
 open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
+            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -111,7 +111,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowManager>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.self, from: encoded
             )
             Self.spotify = decoded
         
@@ -129,7 +129,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
 open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -167,7 +167,7 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>>.self, from: encoded
             )
             Self.spotify = decoded
         
