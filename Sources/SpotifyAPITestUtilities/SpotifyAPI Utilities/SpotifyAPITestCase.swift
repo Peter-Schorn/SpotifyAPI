@@ -13,9 +13,8 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
-        let failingTestsString = self.makeFailingTestsString()
-
         if let logFile = SpotifyAPITestCase.logFile {
+            let failingTestsString = self.makeFailingTestsString()
             try? failingTestsString.append(to: logFile)
         }
 
@@ -114,48 +113,48 @@ open class SpotifyAPITestCase: XCTestCase {
     
     #if canImport(ObjectiveC)
     
-    open override func record(_ issue: XCTIssue) {
-
-        super.record(issue)
-
-        let context = issue.sourceCodeContext
-
-        let symbolNames = context.callStack
-            .compactMap { frame -> String? in
-                guard let name = frame.symbolInfo?.symbolName,
-                      !name.starts(with: "@objc") else {
-                    return nil
-                }
-                return name
-            }
-            .joined(separator: "\n")
-
-        let filePath = context.location?.fileURL.path ?? ""
-        let line = (context.location?.lineNumber)
-            .flatMap(String.init) ?? ""
-        let locationString = "\(filePath):\(line)"
-
-        let testName = self.name
-
-        let message = """
-            ------------------------------------------------
-            \(locationString)
-            \(testName)
-            \(issue.compactDescription)
-            callstack:
-            \(symbolNames)
-            ------------------------------------------------
-            """
-
-        if let logFile = Self.logFile {
-            try? message.append(to: logFile)
-        }
-
-        if !Self.failingTests.contains(testName) {
-            Self.failingTests.append(testName)
-        }
-
-    }
+//    open override func record(_ issue: XCTIssue) {
+//
+//        super.record(issue)
+//
+//        let context = issue.sourceCodeContext
+//
+//        let symbolNames = context.callStack
+//            .compactMap { frame -> String? in
+//                guard let name = frame.symbolInfo?.symbolName,
+//                      !name.starts(with: "@objc") else {
+//                    return nil
+//                }
+//                return name
+//            }
+//            .joined(separator: "\n")
+//
+//        let filePath = context.location?.fileURL.path ?? ""
+//        let line = (context.location?.lineNumber)
+//            .flatMap(String.init) ?? ""
+//        let locationString = "\(filePath):\(line)"
+//
+//        let testName = self.name
+//
+//        let message = """
+//            ------------------------------------------------
+//            \(locationString)
+//            \(testName)
+//            \(issue.compactDescription)
+//            callstack:
+//            \(symbolNames)
+//            ------------------------------------------------
+//            """
+//
+//        if let logFile = Self.logFile {
+//            try? message.append(to: logFile)
+//        }
+//
+//        if !Self.failingTests.contains(testName) {
+//            Self.failingTests.append(testName)
+//        }
+//
+//    }
     
     #else
     
