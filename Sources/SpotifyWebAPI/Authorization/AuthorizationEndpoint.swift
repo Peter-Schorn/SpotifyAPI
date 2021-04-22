@@ -1,18 +1,32 @@
-//
-//  File.swift
-//  
-//
-//  Created by Lukas Tenbrink on 15.04.21.
-//
-
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import Logging
 
-public final class AuthorizationFlowLogging {
-	/// The logger for this class. By default, its level is `critical`.
-	public static var logger = Logger(
-		label: "AuthorizationFlowLogging", level: .critical
-	)
+enum AuthorizationManagerLoggers {
+    
+    // TODO: add notes about accessing these loggers via computed
+    // properties
+
+    static var authorizationCodeFlowManagerBaseLogger = Logger(
+        label: "AuthorizationCodeFlowManagerBase", level: .critical
+    )
+
+    /// The logger for this class. By default, its level is `critical`.
+    static var authorizationCodeFlowManagerLogger = Logger(
+        label: "AuthorizationCodeFlowManager", level: .critical
+    )
+    
+
+    static var authorizationCodeFlowPKCEManagerLogger = Logger(
+        label: "AuthorizationCodeFlowPKCEManager", level: .critical
+    )
+    
+    static var clientCredentialsFlowManagerLogger = Logger(
+        label: "ClientCredentialsFlowManager", level: .critical
+    )
+
 }
 
 public protocol AuthorizationCodeFlowEndpoint: Codable, Hashable {

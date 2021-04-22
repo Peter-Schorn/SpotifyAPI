@@ -11,6 +11,8 @@ import OpenCombineFoundation
 import FoundationNetworking
 #endif
 
+import Logging
+
 /**
  Manages the authorization proccess for the [Client Credentials Flow][1].
 
@@ -40,7 +42,19 @@ import FoundationNetworking
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
-        
+    
+    /// The logger for this class.
+    public static var logger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .clientCredentialsFlowManagerLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .clientCredentialsFlowManagerLogger = newValue
+        }
+    }
+    
     /// The client id for your application.
     public let clientId: String
     
@@ -351,7 +365,7 @@ public extension ClientCredentialsFlowManager {
             self._expirationDate = nil
             self.refreshTokensPublisher = nil
         }
-        AuthorizationFlowLogging.logger.trace("self.didDeauthorize.send()")
+        Self.logger.trace("self.didDeauthorize.send()")
         self.didDeauthorize.send()
             
     }
@@ -426,7 +440,7 @@ public extension ClientCredentialsFlowManager {
 
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
     
-        AuthorizationFlowLogging.logger.trace(
+        Self.logger.trace(
             """
             authorizing: POST request to "\(Endpoints.getTokens)"; body:
             \(bodyString)
@@ -450,7 +464,7 @@ public extension ClientCredentialsFlowManager {
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
              
-                AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
+                Self.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
                         authInfo.expirationDate == nil {
@@ -460,7 +474,7 @@ public extension ClientCredentialsFlowManager {
                         (expected access token and expiration date):
                         \(authInfo)
                         """
-                    AuthorizationFlowLogging.logger.error("\(errorMessage)")
+                    Self.logger.error("\(errorMessage)")
                     throw SpotifyLocalError.other(errorMessage)
                 }
                 
@@ -519,22 +533,22 @@ public extension ClientCredentialsFlowManager {
                 if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
                     tolerance: tolerance
                 ) {
-                    AuthorizationFlowLogging.logger.trace("access token not expired; returning early")
+                    Self.logger.trace("access token not expired; returning early")
                     return ResultPublisher(())
                         .eraseToAnyPublisher()
                 }
                 
-                AuthorizationFlowLogging.logger.trace("access token is expired; authorizing again")
+                Self.logger.trace("access token is expired; authorizing again")
                 
                 // If another request to refresh the tokens is currently
                 // in progress, return the same request instead of creating
                 // a new network request.
                 if let publisher = self.refreshTokensPublisher {
-                    AuthorizationFlowLogging.logger.trace("using previous publisher")
+                    Self.logger.trace("using previous publisher")
                     return publisher
                 }
                 
-                AuthorizationFlowLogging.logger.trace("creating new publisher")
+                Self.logger.trace("creating new publisher")
                 
                 // The process for refreshing the token is the same as that
                 // for authorizing the application. The client credentials flow
@@ -548,7 +562,7 @@ public extension ClientCredentialsFlowManager {
                         // that has already finished.
                         receiveCompletion: { _ in
                             self.updateAuthInfoDispatchQueue.sync {
-                                AuthorizationFlowLogging.logger.trace(
+                                Self.logger.trace(
                                     """
                                     refreshTokensPublisher received completion; \
                                     setting to nil"
@@ -580,7 +594,7 @@ private extension ClientCredentialsFlowManager {
             self._expirationDate = authInfo.expirationDate
             self.refreshTokensPublisher = nil
         }
-        AuthorizationFlowLogging.logger.trace("self.didChange.send()")
+        Self.logger.trace("self.didChange.send()")
         self.didChange.send()
     }
     
@@ -590,7 +604,7 @@ private extension ClientCredentialsFlowManager {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"
-            AuthorizationFlowLogging.logger.error(
+            Self.logger.error(
                 """
                 accessToken or expirationDate was nil, but not both:
                 accessToken == nil: \(_accessToken == nil); \
@@ -718,7 +732,7 @@ extension ClientCredentialsFlowManager {
      */
     public func setExpirationDate(to date: Date) {
         self.updateAuthInfoDispatchQueue.sync {
-            AuthorizationFlowLogging.logger.notice(
+            Self.logger.notice(
                 "mock expiration date: \(date.description(with: .current))"
             )
             self._expirationDate = date

@@ -1,11 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Lukas Tenbrink on 15.04.21.
-//
-
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 	/// The client id for your application.

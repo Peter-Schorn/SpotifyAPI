@@ -12,6 +12,8 @@ import OpenCombineFoundation
 import FoundationNetworking
 #endif
 
+import Logging
+
 /**
  The base class for functionality shared between
  `AuthorizationCodeFlowPKCEManager` and `AuthorizationCodeFlowManager`.
@@ -39,6 +41,19 @@ import FoundationNetworking
  */
 public class AuthorizationCodeFlowManagerBase<Endpoint: AuthorizationCodeFlowEndpoint> {
     
+    /// The logger for this class. Sub-classes will not use this logger;
+    /// instead, they will create their own logger.
+    public static var baseLogger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger = newValue
+        }
+    }
+
 	public let endpoint: Endpoint
 
     /**
@@ -296,7 +311,7 @@ public extension AuthorizationCodeFlowManagerBase {
             self._scopes = nil
             self.refreshTokensPublisher = nil
         }
-        AuthorizationFlowLogging.logger.trace("\(Self.self): didDeauthorize.send()")
+        Self.baseLogger.trace("\(Self.self): didDeauthorize.send()")
         self.didDeauthorize.send()
     }
     
@@ -365,7 +380,7 @@ extension AuthorizationCodeFlowManagerBase {
             self._scopes = authInfo.scopes
             self.refreshTokensPublisher = nil
         }
-        AuthorizationFlowLogging.logger.trace("\(Self.self): didChange.send()")
+        Self.baseLogger.trace("\(Self.self): didChange.send()")
         self.didChange.send()
     }
     
@@ -376,7 +391,7 @@ extension AuthorizationCodeFlowManagerBase {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"
-            AuthorizationFlowLogging.logger.error(
+            Self.baseLogger.error(
                 """
                 \(Self.self): accessToken or expirationDate was nil, but not both:
                 accessToken == nil: \(self._accessToken == nil); \
@@ -479,7 +494,7 @@ extension AuthorizationCodeFlowManagerBase {
      */
     public func setExpirationDate(to date: Date) {
         self.updateAuthInfoDispatchQueue.sync {
-            AuthorizationFlowLogging.logger.notice(
+            Self.baseLogger.notice(
                 "\(Self.self): mock expiration date: \(date.description(with: .current))"
             )
             self._expirationDate = date

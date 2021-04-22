@@ -6,6 +6,7 @@ import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
+import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -61,6 +62,19 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
     AuthorizationCodeFlowManagerBase<Endpoint>,
     SpotifyScopeAuthorizationManager
 {
+    
+    /// The logger for this class.
+    public static var logger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerLogger = newValue
+        }
+    }
+
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
      
@@ -313,7 +327,7 @@ public extension AuthorizationCodeFlowManager {
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
 
-		AuthorizationFlowLogging.logger.trace(
+		Self.logger.trace(
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
@@ -326,7 +340,7 @@ public extension AuthorizationCodeFlowManager {
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
-                AuthorizationFlowLogging.logger.warning("redirect uri query has error")
+                Self.logger.warning("redirect uri query has error")
                 // This is the way that the authorization should fail.
                 // For example, if the user denied the app's authorization
                 // request, then this error will be returned.
@@ -336,7 +350,7 @@ public extension AuthorizationCodeFlowManager {
                 .anyFailingPublisher()
             }
             
-            AuthorizationFlowLogging.logger.error("unkown error")
+            Self.logger.error("unkown error")
             return SpotifyLocalError.other(
                 """
                 an unknown error occured when handling the redirect URI: \
@@ -361,7 +375,7 @@ public extension AuthorizationCodeFlowManager {
         
 		let bodyString = String(data: tokensRequest.httpBody!, encoding: .utf8) ?? "nil"
         
-        AuthorizationFlowLogging.logger.trace(
+        Self.logger.trace(
             """
             POST request to "\(Endpoints.getTokens)" \
             (URL for requesting access and refresh tokens); body:
@@ -378,7 +392,7 @@ public extension AuthorizationCodeFlowManager {
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
-                AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
+                Self.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
                         authInfo.refreshToken == nil ||
@@ -390,7 +404,7 @@ public extension AuthorizationCodeFlowManager {
                         and expiration date):
                         \(authInfo)
                         """
-                    AuthorizationFlowLogging.logger.error("\(errorMessage)")
+                    Self.logger.error("\(errorMessage)")
                     throw SpotifyLocalError.other(errorMessage)
                     
                 }
@@ -444,7 +458,7 @@ public extension AuthorizationCodeFlowManager {
                     if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
                         tolerance: tolerance
                     ) {
-                        AuthorizationFlowLogging.logger.trace(
+                        Self.logger.trace(
                             "access token not expired; returning early"
                         )
                         return ResultPublisher(())
@@ -452,22 +466,22 @@ public extension AuthorizationCodeFlowManager {
                         
                     }
                     
-                    AuthorizationFlowLogging.logger.notice("refreshing tokens...")
+                    Self.logger.notice("refreshing tokens...")
                 
                     // If another request to refresh the tokens is currently
                     // in progress, return the same request instead of creating
                     // a new network request.
                     if let refreshTokensPublisher = self.refreshTokensPublisher {
-                        AuthorizationFlowLogging.logger.notice("using previous publisher")
+                        Self.logger.notice("using previous publisher")
                         return refreshTokensPublisher
                     }
                     
-                    AuthorizationFlowLogging.logger.trace("creating new publisher")
+                    Self.logger.trace("creating new publisher")
                     
                     guard let refreshToken = self._refreshToken else {
                         let errorMessage =
                                 "can't refresh access token: no refresh token"
-                        AuthorizationFlowLogging.logger.warning("\(errorMessage)")
+                        Self.logger.warning("\(errorMessage)")
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
@@ -475,7 +489,7 @@ public extension AuthorizationCodeFlowManager {
 
 					let bodyString = String(data: refreshTokensRequest.httpBody!, encoding: .utf8) ?? "nil"
                     
-                    AuthorizationFlowLogging.logger.trace(
+                    Self.logger.trace(
                         """
                         POST request to "\(Endpoints.getTokens)" \
                         (URL for refreshing access token); body:
@@ -494,7 +508,7 @@ public extension AuthorizationCodeFlowManager {
                     .decodeSpotifyObject(AuthInfo.self)
                     .tryMap { authInfo in
                         
-                        AuthorizationFlowLogging.logger.trace("received authInfo:\n\(authInfo)")
+                        Self.logger.trace("received authInfo:\n\(authInfo)")
                         
                         if authInfo.accessToken == nil ||
                                 authInfo.expirationDate == nil {
@@ -505,7 +519,7 @@ public extension AuthorizationCodeFlowManager {
                                 expiration date, and scopes):
                                 \(authInfo)
                                 """
-                            AuthorizationFlowLogging.logger.error("\(errorMessage)")
+                            Self.logger.error("\(errorMessage)")
                             throw SpotifyLocalError.other(errorMessage)
                             
                         }
