@@ -42,7 +42,7 @@ public extension SpotifyAPITests where
             )
         }
         else if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>> {
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>> {
             spotify.authorizeAndWaitForTokens(
                 scopes: scopes
             )

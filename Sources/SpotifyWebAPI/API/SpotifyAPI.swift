@@ -337,7 +337,9 @@ extension SpotifyAPI {
     }
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
-		authorizationManager.assertNotOnUpdateAuthInfoDispatchQueue()
+        #if DEBUG
+		self.authorizationManager._assertNotOnUpdateAuthInfoDispatchQueue()
+        #endif
     }
     
 }

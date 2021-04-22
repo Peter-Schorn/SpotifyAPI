@@ -333,10 +333,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         let authorizationCodeFlowManagerLogLevel =
                 AuthorizationCodeFlowManager<AuthorizationEndpointNative>.logger.logLevel
         let authorizationCodeFlowPKCEManagerLogLevel =
-                AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>.logger.logLevel
+                AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>.logger.logLevel
 
         Self.spotify.logger.logLevel = .warning
-        AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>.logger.logLevel = .warning
+        AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>.logger.logLevel = .warning
         AuthorizationCodeFlowManager<AuthorizationEndpointNative>.logger.logLevel = .warning
 
         // setup repeat and shuffle
@@ -537,7 +537,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthoriz
         Self.spotify.logger.logLevel = spotifyAPILogLevel
         AuthorizationCodeFlowManager<AuthorizationEndpointNative>
             .logger.logLevel = authorizationCodeFlowManagerLogLevel
-        AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative>
+        AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>
             .logger.logLevel = authorizationCodeFlowPKCEManagerLogLevel
 
     }

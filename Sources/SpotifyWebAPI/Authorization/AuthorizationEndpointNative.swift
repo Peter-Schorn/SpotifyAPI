@@ -4,7 +4,8 @@ import FoundationNetworking
 #endif
 
 public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
-	/// The client id for your application.
+	
+    /// The client id for your application.
 	public let clientId: String
 	
 	/// The client secret for your application.
@@ -93,8 +94,16 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 	}
 }
 
-extension AuthorizationEndpointNative: AuthorizationCodeFlowPKCEEndpoint {
-	public func makePKCETokenRequest(code: String, codeVerifier: String, redirectURIWithQuery: URL) -> URLRequest {
+public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoint {
+	
+    /// The client id for your application.
+    public let clientId: String
+    
+    public init(clientId: String) {
+        self.clientId = clientId
+    }
+
+    public func makePKCETokenRequest(code: String, codeVerifier: String, redirectURIWithQuery: URL) -> URLRequest {
 		// This must match the redirectURI provided when making the
 		// authorization URL.
 		let baseRedirectURI = redirectURIWithQuery

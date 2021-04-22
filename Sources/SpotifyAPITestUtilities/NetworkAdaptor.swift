@@ -122,7 +122,7 @@ public extension SpotifyAuthorizationManager {
             if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationEndpointNative> {
                 return authManager.networkAdaptor
             }
-            if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative> {
+            if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
                 return authManager.networkAdaptor
             }
             if let authManager = self as? ClientCredentialsFlowManager {
@@ -134,7 +134,7 @@ public extension SpotifyAuthorizationManager {
             if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationEndpointNative> {
                 authManager.networkAdaptor = newValue
             }
-            else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointNative> {
+            else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
                 authManager.networkAdaptor = newValue
             }
             else if let authManager = self as? ClientCredentialsFlowManager {

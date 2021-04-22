@@ -224,7 +224,7 @@ public final class AuthorizationCodeFlowPKCEManager<Endpoint: AuthorizationCodeF
 
 }
 
-public extension AuthorizationCodeFlowPKCEManager where Endpoint == AuthorizationEndpointNative {
+public extension AuthorizationCodeFlowPKCEManager where Endpoint == AuthorizationEndpointPKCENative {
     
     /**
      Creates an authorization manager for the
@@ -260,9 +260,8 @@ public extension AuthorizationCodeFlowPKCEManager where Endpoint == Authorizatio
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        let endpoint = AuthorizationEndpointNative(
-            clientId: clientId,
-            clientSecret: clientSecret
+        let endpoint = AuthorizationEndpointPKCENative(
+            clientId: clientId
         )
 
         self.init(

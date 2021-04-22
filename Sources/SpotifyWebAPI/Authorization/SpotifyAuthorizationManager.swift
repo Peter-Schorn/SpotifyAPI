@@ -103,5 +103,18 @@ public protocol SpotifyAuthorizationManager: Codable {
     /// Calling this method should cause `didDeauthorize` to emit a signal.
     func deauthorize() -> Void
     
-	func assertNotOnUpdateAuthInfoDispatchQueue()
+    /**
+     Used internally by the authorization managers in this library.
+     Do not implement it yourself. A default implementation is provided
+     which does nothing.
+     */
+	func _assertNotOnUpdateAuthInfoDispatchQueue()
+}
+
+extension SpotifyAuthorizationManager {
+    
+    func _assertNotOnUpdateAuthInfoDispatchQueue() {
+        
+    }
+
 }
