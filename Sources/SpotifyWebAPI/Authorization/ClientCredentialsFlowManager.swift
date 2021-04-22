@@ -6,11 +6,12 @@ import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
-import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+
+import Logging
 
 /**
  Manages the authorization proccess for the [Client Credentials Flow][1].
@@ -42,10 +43,17 @@ import FoundationNetworking
  */
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
-    /// The logger for this class. By default, its level is `critical`.
-    public static var logger = Logger(
-        label: "ClientCredentialsFlowManager", level: .critical
-    )
+    /// The logger for this class.
+    public static var logger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .clientCredentialsFlowManagerLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .clientCredentialsFlowManagerLogger = newValue
+        }
+    }
     
     /// The client id for your application.
     public let clientId: String
@@ -633,7 +641,7 @@ private extension ClientCredentialsFlowManager {
 
 extension ClientCredentialsFlowManager {
     
-    func assertNotOnUpdateAuthInfoDispatchQueue() {
+    public func assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)

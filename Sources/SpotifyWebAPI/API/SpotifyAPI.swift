@@ -319,10 +319,14 @@ extension SpotifyAPI {
         self.apiRequestLogger.logLevel = .trace
         self.authDidChangeLogger.logLevel = .trace
         
-        AuthorizationCodeFlowManagerBase.baseLogger.logLevel = .trace
-        AuthorizationCodeFlowManager.logger.logLevel = .trace
-        AuthorizationCodeFlowPKCEManager.logger.logLevel = .trace
-        ClientCredentialsFlowManager.logger.logLevel = .trace
+        AuthorizationManagerLoggers
+                .authorizationCodeFlowManagerBaseLogger.logLevel = .trace
+        AuthorizationManagerLoggers
+                .authorizationCodeFlowManagerLogger.logLevel = .trace
+        AuthorizationManagerLoggers
+                .authorizationCodeFlowPKCEManagerLogger.logLevel = .trace
+        AuthorizationManagerLoggers
+                .clientCredentialsFlowManagerLogger.logLevel = .trace
         
         CurrentlyPlayingContext.logger.logLevel = .trace
         
@@ -333,14 +337,7 @@ extension SpotifyAPI {
     }
     
     func assertNotOnUpdateAuthInfoDispatchQueue() {
-        if let authManager = self.authorizationManager as?
-                AuthorizationCodeFlowManagerBase {
-            authManager.assertNotOnUpdateAuthInfoDispatchQueue()
-        }
-        else if let authManager = self.authorizationManager as?
-                ClientCredentialsFlowManager {
-            authManager.assertNotOnUpdateAuthInfoDispatchQueue()  
-        }
+		authorizationManager.assertNotOnUpdateAuthInfoDispatchQueue()
     }
     
 }

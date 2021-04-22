@@ -7,11 +7,12 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 
 #endif
-import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+
+import Logging
 
 /**
  The base class for functionality shared between
@@ -38,23 +39,22 @@ import FoundationNetworking
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public class AuthorizationCodeFlowManagerBase {
+public class AuthorizationCodeFlowManagerBase<Endpoint: AuthorizationCodeFlowEndpoint> {
     
     /// The logger for this class. Sub-classes will not use this logger;
     /// instead, they will create their own logger.
-    public static var baseLogger = Logger(
-        label: "AuthorizationCodeFlowManagerBase", level: .critical
-    )
-    
-    /// The client id for your application.
-    public let clientId: String
-    
-    /// The client secret for your application.
-    public let clientSecret: String
-    
-    /// The base 64 encoded authorization header with the client id
-    /// and client secret
-    let basicBase64EncodedCredentialsHeader: [String: String]
+    public static var baseLogger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger = newValue
+        }
+    }
+
+	public let endpoint: Endpoint
 
     /**
      The access token used in all of the requests
@@ -218,18 +218,12 @@ public class AuthorizationCodeFlowManagerBase {
     var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
     required init(
-        clientId: String,
-        clientSecret: String,
+		endpoint: Endpoint,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-            clientId: self.clientId,
-            clientSecret: self.clientSecret
-        )!
+		self.endpoint = endpoint
         self.networkAdaptor = networkAdaptor
                 ?? URLSession.shared.defaultNetworkAdaptor(request:)
     }
@@ -249,16 +243,9 @@ public class AuthorizationCodeFlowManagerBase {
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        self.clientId = try container.decode(
-            String.self, forKey: .clientId
+        self.endpoint = try container.decode(
+            Endpoint.self, forKey: .endpoint
         )
-        self.clientSecret = try container.decode(
-            String.self, forKey: .clientSecret
-        )
-        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-            clientId: self.clientId,
-            clientSecret: self.clientSecret
-        )!
         self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }
@@ -278,20 +265,16 @@ public class AuthorizationCodeFlowManagerBase {
             keyedBy: AuthInfo.CodingKeys.self
         )
         
-        try container.encode(
-            self.clientId, forKey: .clientId
-        )
-        try container.encode(
-            self.clientSecret, forKey: .clientSecret
-        )
+		try container.encode(
+			self.endpoint, forKey: .endpoint
+		)
         try codingWrapper.encode(to: encoder)
         
     }
     
     func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
-            hasher.combine(self.clientId)
-            hasher.combine(self.clientSecret)
+            hasher.combine(self.endpoint)
             hasher.combine(self._accessToken)
             hasher.combine(self._refreshToken)
             hasher.combine(self._expirationDate)
@@ -450,7 +433,7 @@ extension AuthorizationCodeFlowManagerBase {
         return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
-    func assertNotOnUpdateAuthInfoDispatchQueue() {
+    public func assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
@@ -482,8 +465,7 @@ extension AuthorizationCodeFlowManagerBase {
                         )
                     }
         
-        return self.clientId == other.clientId &&
-                self.clientSecret == other.clientSecret &&
+		return self.endpoint == other.endpoint &&
                 lhsAccessToken == rhsAccessToken &&
                 lhsRefreshToken == rhsRefreshToken &&
                 lhsScopes == rhsScopes &&
@@ -508,7 +490,7 @@ extension AuthorizationCodeFlowManagerBase {
             self._scopes = Set(Scope.allCases.shuffled().prefix(5))
         }
     }
-    
+        
     /// Only use for testing purposes.
     func subscribeToDidChange() {
         
