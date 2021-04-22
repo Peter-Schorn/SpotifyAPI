@@ -109,7 +109,7 @@ public enum URIs {
         case theBay = "spotify:track:4x0QYD0DhErAC1sPvvPmq9"
         case wadingOut = "spotify:track:3e7WFkI9OBb9ANwqJroJwZ"
         case nuclearFusion = "spotify:track:1pmImsdC9t35L3TkD26ax8"
-        case honey = "spotify:track:01IuTsgAlgKlgrvPhZ2c95"
+        case honey = "spotify:track:0nObOnIxnz6PlPf04tZh1g"
         
         // MARK: Dark Side of the Moon
         case speakToMe = "spotify:track:574y1r7o2tRA009FW0LE7v"
@@ -125,11 +125,11 @@ public enum URIs {
         
         case fearless = "spotify:track:7AalBKBoLDR4UmRYRJpdbj"
         
-        case odeToViceroy = "spotify:track:7JIV9UYKpti5xWgq6lfNNJ"
+        case odeToViceroy = "spotify:track:601KiLiZtBJRTXBrTjeieP"
         case saladDays = "spotify:track:4keAoywVf4jxRvXU7ON0hV"
-        case blueBoy = "spotify:track:6EcWBNVhDlGn8AiSpkUg6T"
+        case blueBoy = "spotify:track:1CKm95B5JmaSCnZLquInM4"
         
-        case reckoner = "spotify:track:56Z7hbyMrndw1naxb6I5Oi"
+        case reckoner = "spotify:track:02ppMPbg1OtEdHgoPqoqju"
         case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"
         
         /// Right now.
@@ -141,6 +141,7 @@ public enum URIs {
         
         case lauren = "spotify:track:7vptmeNwSEVkcwDdqk7UQO"
         
+        /// Non-US market.
         case heavenAndHell = "spotify:track:6kLCHFM39wkFjOuyPGLGeQ"
     }
     

@@ -130,7 +130,9 @@ public extension SpotifyAPI where
        - timeReference: *Optional*. A reference to a period of time before or
              after a specified date. For example, `.before(Date())` refers
              to the period of time before the current date. This is used
-             to filter the response. Dates will be converted to
+             to filter the response. See `SpotifyCursor.before` and
+             `SpotifyCursor.after` (which is part of the returned
+             `CursorPagingObject`). Dates will be converted to
              millisecond-precision timestamps. Only results that are within
              the specified time period will be returned. If `nil`, the most
              recently played tracks will be returned.

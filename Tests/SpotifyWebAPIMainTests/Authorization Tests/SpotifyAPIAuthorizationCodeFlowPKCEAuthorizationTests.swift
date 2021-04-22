@@ -505,6 +505,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
                 XCTFail("error should be SpotifyAuthenticationError: \(error)")
                 return
             }
+            encodeDecode(authenticationError, areEqual: ==)
             print(authenticationError)
             
             XCTAssertEqual(authenticationError.error, "invalid_grant")

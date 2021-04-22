@@ -97,7 +97,7 @@ public extension SpotifyAPI {
      a specified playlist.
      
      See also `currentUserFollowsArtists(_:)` and
-     `currentUserFollowsUsers(_:)`
+     `currentUserFollowsUsers(_:)`.
      
      Following a playlist can be done publicly or privately.
      Checking if a user publicly follows a playlist doesn’t require
@@ -168,11 +168,70 @@ public extension SpotifyAPI where
 
     // MARK: Follow (Requires Authorization Scopes)
     
+    
+    /**
+     Get the current user’s followed artists.
+     
+     See also `SpotifyAPI.currentUserFollowsArtists(_:)`.
+     
+     This endpoint requires the `userFollowRead` scope.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     - Parameters:
+       - artist: *Optional*. the URI of the last artist from the previous
+             request. Use this paramater to retrieve the next set of
+             artists after this artist.
+       - limit: *Optional*. The maximum number of items to return.
+             Default: 20; Minimum: 1; Maximum: 50.
+     - Returns: An array of artist objects wrapped in a `CursorPagingObject`.
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-followed
+     */
+    func currentUserFollowedArtists(
+        after artist: SpotifyURIConvertible? = nil,
+        limit: Int? = nil
+    ) -> AnyPublisher<CursorPagingObject<Artist>, Error> {
+        
+        do {
+            
+            let artistId = try artist.map { artist in
+                try SpotifyIdentifier(
+                    uri: artist, ensureCategoryMatches: [.artist]
+                ).id
+            }
+            
+            return self.getRequest(
+                path: "/me/following",
+                queryItems: [
+                    "type": "artist",
+                    "after": artistId,
+                    "limit": limit
+                ],
+                requiredScopes: [.userFollowRead]
+            )
+            .decodeSpotifyObject([String: CursorPagingObject<Artist>].self)
+            .tryMap { dict -> CursorPagingObject<Artist> in
+                let key = "artists"
+                if let artists = dict[key] {
+                    return artists
+                }
+                throw SpotifyLocalError.topLevelKeyNotFound(
+                    key: key, dict: dict
+                )
+            }
+            .eraseToAnyPublisher()
+            
+        } catch {
+            return error.anyFailingPublisher()
+        }
+        
+    }
+    
     /**
      Check if the current user follows the specified artists.
      
-     See also `currentUserFollowsUsers(_:)` and
-     `usersFollowPlaylist(_:userURIs:)`.
+     See also `SpotifyAPI.currentUserFollowedArtists(after:limit:)`.
      
      This endpoint requires the `userFollowRead` scope.
      

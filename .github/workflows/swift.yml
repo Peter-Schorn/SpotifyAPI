@@ -1,0 +1,53 @@
+name: Swift
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build
+    
+    - uses: actions/checkout@v2
+    - name: Run tests
+      env: 
+        SPOTIFY_SWIFT_TESTING_CLIENT_ID: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_ID }}
+        SPOTIFY_SWIFT_TESTING_CLIENT_SECRET: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_SECRET }}
+      run: |
+        swift test --filter "\
+        AuthorizationScopesTests|\
+        CodingAuthInfoTests|\
+        CodingAuthorizationCodeFlowManagerTests|\
+        CodingAuthorizationCodeFlowPKCEManagerTests|\
+        CodingClientCredentialsFlowManagerTests|\
+        CodingCurrentlyPlayingContextTests|\
+        CodingPlaybackRequestTests|\
+        CodingSpotifyUserTests|\
+        CodingTimeReferenceTests|\
+        CodingTrackAttributesTests|\
+        CursorPagingObjectPlayHistoryCodingTests|\
+        ExampleContentTests|\
+        SpotifyAPIClientCredentialsFlowAlbumsTests|\
+        SpotifyAPIClientCredentialsFlowArtistTests|\
+        SpotifyAPIClientCredentialsFlowAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowBrowseTests|\
+        SpotifyAPIClientCredentialsFlowEpisodeTests|\
+        SpotifyAPIClientCredentialsFlowErrorTests|\
+        SpotifyAPIClientCredentialsFlowFollowTests|\
+        SpotifyAPIClientCredentialsFlowMarketTests|\
+        SpotifyAPIClientCredentialsFlowPlaylistsTests|\
+        SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
+        SpotifyAPIClientCredentialsFlowSearchTests|\
+        SpotifyAPIClientCredentialsFlowShowTests|\
+        SpotifyAPIClientCredentialsFlowTrackTests|\
+        SpotifyAPIClientCredentialsFlowUserProfileTests|\
+        SpotifyIdentifierTests|\
+        SpotifyPlayerErrorCodingTests\
+        "

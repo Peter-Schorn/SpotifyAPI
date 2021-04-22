@@ -228,6 +228,7 @@ extension SpotifyAPIAuthorizationCodeFlowErrorTests {
         ("testExceedRetryLimit", testExceedRetryLimit),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage),
     ]
 }
 
@@ -237,6 +238,7 @@ extension SpotifyAPIAuthorizationCodeFlowFollowTests {
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowFollowTests = [
         ("testFollowArtists", testFollowArtists),
+        ("testFollowedArtists", testFollowedArtists),
         ("testFollowPlaylist", testFollowPlaylist),
         ("testFollowUsers", testFollowUsers),
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),
@@ -358,6 +360,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEErrorTests {
         ("testExceedRetryLimit", testExceedRetryLimit),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage),
     ]
 }
 
@@ -367,6 +370,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEFollowTests {
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEFollowTests = [
         ("testFollowArtists", testFollowArtists),
+        ("testFollowedArtists", testFollowedArtists),
         ("testFollowPlaylist", testFollowPlaylist),
         ("testFollowUsers", testFollowUsers),
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),

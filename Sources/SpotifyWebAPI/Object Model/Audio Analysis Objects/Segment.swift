@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- A [segment][1] of a track with a roughly consistent sound
+ A [segment][1] of a track with a roughly consistent sound.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object
  */

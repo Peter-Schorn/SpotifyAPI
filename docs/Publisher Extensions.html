@@ -17,7 +17,7 @@
     <a title="Publisher Extensions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,6 +151,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
             </ul>
           </li>
@@ -385,9 +388,6 @@
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -404,6 +404,9 @@
           <li class="nav-group-name">
             <a href="Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -514,15 +517,17 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Tries to decode the raw data from a Spotify web API request
-into one of the error objects that Spotify returns for
-most endpoints.</p>
+into one of the error objects that Spotify returns.</p>
 
 <p>You are encouraged to use the combine operator <code>decodeSpotifyErrors()</code>
 instead of this function, whenever possible. The combine operator
 version will automatically retry the request up to three times
 depending on the error received. This function does not.</p>
 
-<p>The error objects that this method tries to decode are:</p>
+<p><strong>If the http response contains a successful status code, then returns</strong> <code>nil</code>.</p>
+
+<p>If the status code of the http response is in the 4xx or 5xx range,
+then tries to decode the data into one of the following objects:</p>
 
 <ul>
 <li><code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
@@ -531,8 +536,8 @@ depending on the error received. This function does not.</p>
 <li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
 </ul>
 
-<p>If the data cannot be decoded into one of these errors,
-then <code>nil</code> is returned.</p>
+<p>If the data cannot be decoded into one of these errors then
+<code><a href="Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code> is returned.</p>
 
                       </div>
                       <div class="declaration">
@@ -601,19 +606,21 @@ possible. The combine operator version will automatically retry the
 request up to three times depending on the error received. This
 function does not.</p>
 
-<p>First tries to decode the data into <code>responseType</code>. If that fails,
-then the data is decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by
-Spotify:</p>
+<p>If the status code of the http response is in the 4xx or 5xx range,
+then the data will be decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by
+Spotify via <code><a href="Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a></code>:</p>
 
 <ul>
 <li><code><a href="Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
 <li><code><a href="Structs/SpotifyError.html">SpotifyError</a></code></li>
 <li><code><a href="Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
 <li><code><a href="Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+<li><code><a href="Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code></li>
 </ul>
 
-<p>If decoding into the error objects fails, <code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown
-as a last resort.</p>
+<p>If a successful status code is returned, then tries to decode the data into
+<code>responseType</code>. If that fails, then <code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown as a last
+resort.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p><code><a href="Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
@@ -694,7 +701,7 @@ are expecting from the Spotify web API.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

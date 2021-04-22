@@ -35,6 +35,7 @@ extension SpotifyAPIErrorTests {
         var receivedErrors = 0
 
         #if DEBUG
+        var cancellables: Set<AnyCancellable> = []
         DebugHooks.receiveRateLimitedError
             .receive(on: queue)
             .sink { error in
@@ -42,7 +43,7 @@ extension SpotifyAPIErrorTests {
                 XCTAssertNotNil(error.retryAfter)
                 didReceiveRateLimitedError = true
             }
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         #else
         XCTFail("cannot test \(#function) in RELEASE MODE")
         return
@@ -115,6 +116,7 @@ extension SpotifyAPIErrorTests {
         var receivedErrors = 0
 
         #if DEBUG
+        var cancellables: Set<AnyCancellable> = []
         DebugHooks.receiveRateLimitedError
             .receive(on: queue)
             .sink { error in
@@ -122,7 +124,7 @@ extension SpotifyAPIErrorTests {
                 XCTAssertNotNil(error.retryAfter)
                 didReceiveRateLimitedError = true
             }
-            .store(in: &Self.cancellables)
+            .store(in: &cancellables)
         #else
         XCTFail("cannot test \(#function) in RELEASE MODE")
         return
@@ -368,6 +370,109 @@ extension SpotifyAPIErrorTests {
 
     }
     
+    func decodeOptionalSpotifyObject() {
+        
+        let expectationEmptySuccess = XCTestExpectation(
+            description: "decodeOptionalSpotifyObject empty success"
+        )
+
+        // MARK: Empty data; successful status code
+
+        Self.spotify.mockDecodeOptionalSpotifyObject(
+            statusCode: 200,
+            data: Data(),
+            responseType: Track.self
+        )
+        .XCTAssertNoFailure()
+        .sink(
+            receiveCompletion: { _ in expectationEmptySuccess.fulfill() },
+            receiveValue: { track in
+                XCTAssertNil(track)
+            }
+        )
+        .store(in: &Self.cancellables)
+        
+        // MARK: Empty data; error status code
+        
+        let expectationEmptyError = XCTestExpectation(
+            description: "decodeOptionalSpotifyObject empty error"
+        )
+
+        Self.spotify.mockDecodeOptionalSpotifyObject(
+            statusCode: 400,
+            data: Data(),
+            responseType: Track.self
+        )
+        .sink(
+            receiveCompletion: { completion in
+                defer { expectationEmptyError.fulfill() }
+                guard case .failure(let error) = completion else {
+                    XCTFail("should not finished normally")
+                    return
+                }
+                guard case .httpError(let response, let data) =
+                        error as? SpotifyLocalError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertEqual(response.statusCode, 400)
+                XCTAssert(data.isEmpty)
+                
+            },
+            receiveValue: { track in
+                XCTFail("should not receive value")
+            }
+        )
+        .store(in: &Self.cancellables)
+
+        // MARK: Error Data; error status code
+        
+        let sentError = SpotifyError(
+            message: "Permissions Missing",
+            statusCode: 401
+        )
+        encodeDecode(sentError, areEqual: ==)
+        let errorData = try! JSONEncoder().encode(sentError)
+        
+        let expectationErrorData = XCTestExpectation(
+            description: "decodeOptionalSpotifyObject data error"
+        )
+
+        Self.spotify.mockDecodeOptionalSpotifyObject(
+            statusCode: 400,
+            data: errorData,
+            responseType: Track.self
+        )
+        .sink(
+            receiveCompletion: { completion in
+                defer { expectationErrorData.fulfill() }
+                guard case .failure(let error) = completion else {
+                    XCTFail("should not finished normally")
+                    return
+                }
+                guard let spotifyError = error as? SpotifyError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertEqual(spotifyError, sentError)
+            },
+            receiveValue: { track in
+                XCTFail("should not receive value")
+            }
+        )
+        .store(in: &Self.cancellables)
+
+        self.wait(
+            for: [
+                expectationEmptySuccess,
+                expectationEmptyError,
+                expectationErrorData
+            ],
+            timeout: 30
+        )
+        
+    }
+    
 }
 
 extension SpotifyAPIErrorTests where
@@ -436,9 +541,121 @@ extension SpotifyAPIErrorTests where
 
     }
     
+    func uploadTooLargePlaylistImage() {
+        
+        func receiveUploadImageCompletion(
+            _ completion: Subscribers.Completion<Error>
+        ) {
+            guard case .failure(let error) = completion else {
+                XCTFail("should not complete normally")
+                return
+            }
+            guard let spotifyLocalError = error as? SpotifyLocalError else {
+                XCTFail("should've received SpotifyLocalError: \(error)")
+                return
+            }
+            let expectedDescriptions = [
+                "payload too large",
+                "request too large"
+            ]
+            let description = spotifyLocalError.localizedDescription.lowercased()
+            XCTAssert(
+                expectedDescriptions.contains(description),
+                "unexpected description: \(description)"
+            )
+            guard case .httpError(let response, _) = spotifyLocalError else {
+                XCTFail(
+                    "should've received SpotifyLocalError.httpError: " +
+                    "\(spotifyLocalError)"
+                )
+                return
+            }
+            XCTAssertEqual(response.statusCode, 413)
+
+        }
+        
+        let spotifyDecodeLogLevel = spotifyDecodeLogger.logLevel
+        spotifyDecodeLogger.logLevel = .warning
+        let apiRequestLogLevel = Self.spotify.apiRequestLogger.logLevel
+        Self.spotify.apiRequestLogger.logLevel = .warning
+
+        let expectation = XCTestExpectation(
+            description: "uploadTooLargePlaylistImage"
+        )
+        
+        var createdPlaylistURI: String? = nil
+
+        Self.spotify.currentUserProfile()
+            .XCTAssertNoFailure()
+            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
+                // MARK: Create Playlist
+                let playlistDetails = PlaylistDetails(
+                    name: "upload too large image test",
+                    isPublic: true,
+                    isCollaborative: nil,
+                    description: Date().description(with: .current)
+                )
+                return Self.spotify.createPlaylist(
+                    for: user.uri,
+                    playlistDetails
+                )
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 2)
+            .flatMap { playlist -> AnyPublisher<Void, Error> in
+                // MARK: Upload Image
+                createdPlaylistURI = playlist.uri
+
+                let imageData = SpotifyExampleImages.annabelleTooLarge
+                let encodedData = imageData.base64EncodedData()
+
+                print("encoded data count: ", encodedData.count)
+                
+                return Self.spotify.uploadPlaylistImage(
+                    playlist,
+                    imageData: encodedData
+                )
+            }
+            .sink(
+                receiveCompletion: { completion in
+                    receiveUploadImageCompletion(completion)
+                    expectation.fulfill()
+                },
+                receiveValue: {
+                    XCTFail("should not receive value")
+                }
+            )
+            .store(in: &Self.cancellables)
+            
+        self.wait(for: [expectation], timeout: 300)
+        
+        // MARK: Unfollow Playlist
+        
+        guard let playlist = createdPlaylistURI else {
+            XCTFail("couldn't get created playlist")
+            return
+        }
+        
+        let unfollowExpectation = XCTestExpectation(
+            description: "unfollow playlist"
+        )
+    
+        Self.spotify.unfollowPlaylistForCurrentUser(playlist)
+            .XCTAssertNoFailure()
+            .sink(receiveCompletion: { _ in
+                unfollowExpectation.fulfill()
+            })
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [unfollowExpectation], timeout: 60)
+        
+        spotifyDecodeLogger.logLevel = spotifyDecodeLogLevel
+        Self.spotify.apiRequestLogger.logLevel = apiRequestLogLevel
+            
+    }
 }
 
-class SpotifyAPIClientCredentialsFlowErrorTests:
+final class SpotifyAPIClientCredentialsFlowErrorTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIErrorTests
 {
 
@@ -457,7 +674,8 @@ class SpotifyAPIClientCredentialsFlowErrorTests:
         ),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
-        ("testNonRetryableErrors", testNonRetryableErrors)
+        ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject)
         
     ]
 
@@ -476,10 +694,13 @@ class SpotifyAPIClientCredentialsFlowErrorTests:
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
     func testNonRetryableErrors() { nonRetryableErrors() }
+    func testDecodeOptionalSpotifyObject() {
+        decodeOptionalSpotifyObject()
+    }
     
 }
 
-class SpotifyAPIAuthorizationCodeFlowErrorTests:
+final class SpotifyAPIAuthorizationCodeFlowErrorTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIErrorTests
 {
 
@@ -496,10 +717,12 @@ class SpotifyAPIAuthorizationCodeFlowErrorTests:
             "testDecodeSpotifyErrorFromInvalidAlbumURI",
             testDecodeSpotifyErrorFromInvalidAlbumURI
         ),
-        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
-        ("testNonRetryableErrors", testNonRetryableErrors)
+        ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
+        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
     ]
 
     func testAutoRetryOnRateLimitedErrorConcurrent() {
@@ -509,16 +732,22 @@ class SpotifyAPIAuthorizationCodeFlowErrorTests:
     func testDecodeSpotifyErrorFromInvalidAlbumURI() {
         decodeSpotifyErrorFromInvalidAlbumURI()
     }
-    func testDecodeSpotifyPlayerError() {
-        decodeSpotifyPlayerError()
-    }
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
     func testNonRetryableErrors() { nonRetryableErrors() }
+    func testDecodeOptionalSpotifyObject() {
+        decodeOptionalSpotifyObject()
+    }
+    func testDecodeSpotifyPlayerError() {
+        decodeSpotifyPlayerError()
+    }
+    func testUploadTooLargePlaylistImage() {
+        uploadTooLargePlaylistImage()
+    }
     
 }
 
-class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
+final class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIErrorTests
 {
 
@@ -535,10 +764,12 @@ class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
             "testDecodeSpotifyErrorFromInvalidAlbumURI",
             testDecodeSpotifyErrorFromInvalidAlbumURI
         ),
-        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
-        ("testNonRetryableErrors", testNonRetryableErrors)
+        ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
+        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
     ]
 
     func testAutoRetryOnRateLimitedErrorConcurrent() {
@@ -548,11 +779,17 @@ class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
     func testDecodeSpotifyErrorFromInvalidAlbumURI() {
         decodeSpotifyErrorFromInvalidAlbumURI()
     }
-    func testDecodeSpotifyPlayerError() {
-        decodeSpotifyPlayerError()
-    }
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
     func testNonRetryableErrors() { nonRetryableErrors() }
+    func testDecodeOptionalSpotifyObject() {
+        decodeOptionalSpotifyObject()
+    }
+    func testDecodeSpotifyPlayerError() {
+        decodeSpotifyPlayerError()
+    }
+    func testUploadTooLargePlaylistImage() {
+        uploadTooLargePlaylistImage()
+    }
     
 }

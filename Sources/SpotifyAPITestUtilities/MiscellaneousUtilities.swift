@@ -221,7 +221,6 @@ public extension URLSession {
 
 }
 
-@available(macOS 10.15.4, *)
 public extension String {
     
     func append(to file: URL, terminator: String = "\n") throws {
@@ -236,7 +235,12 @@ public extension String {
         if manager.fileExists(atPath: file.path) {
             let handle = try FileHandle(forUpdating: file)
             do {
-                try handle.seekToEnd()
+                if #available(macOS 10.15.4, iOS 13.4, macCatalyst 13.4, tvOS 13.4, watchOS 6.2, *) {
+                    try handle.seekToEnd()
+                }
+                else {
+                    handle.seekToEndOfFile()
+                }
                 handle.write(data)
                 try handle.close()
 

@@ -61,7 +61,35 @@ public extension SpotifyAPI {
             scheduler: DispatchQueue.global()
         )
         .decodeSpotifyObject(Album.self)
-        .eraseToAnyPublisher()
+
+    }
+    
+    func mockDecodeOptionalSpotifyObject<T: Decodable>(
+        statusCode: Int,
+        data: Data,
+        responseType: T.Type
+    ) -> AnyPublisher<T?, Error> {
+        
+        return Deferred {
+            Future<(data: Data, response: URLResponse), Error> { promise in
+                
+                let url = URL(string: "http://example.com/")!
+
+                let httpResponse = HTTPURLResponse(
+                    url: url,
+                    statusCode: statusCode,
+                    httpVersion: nil,
+                    headerFields: nil
+                )!
+                let output = (data: data, response: httpResponse)
+                promise(.success(output))
+            }
+        }
+        .delay(
+            for: .milliseconds(Int.random(in: 100...1000)),
+            scheduler: DispatchQueue.global()
+        )
+        .decodeOptionalSpotifyObject(T.self)
 
     }
 

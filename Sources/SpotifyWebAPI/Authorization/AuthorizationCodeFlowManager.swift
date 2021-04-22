@@ -202,7 +202,7 @@ public extension AuthorizationCodeFlowManager {
      The first step in the [Authorization Code Flow][1].
      
      Creates the URL that is used to request authorization for your app. It
-     displays a permissins dialog to the user. Open the URL in a
+     displays a permissions dialog to the user. Open the URL in a
      browser/webview so that the user can login to their Spotify account and
      authorize your app.
      
@@ -385,10 +385,6 @@ public extension AuthorizationCodeFlowManager {
         
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
-            // Decoding into `AuthInfo` never fails because all of its
-            // properties are optional, so we must try to decode errors
-            // first.
-            .decodeSpotifyErrorsNoRetry()
             .decodeSpotifyObject(AuthInfo.self)
             .tryMap { authInfo in
                 
@@ -504,8 +500,8 @@ public extension AuthorizationCodeFlowManager {
                     // Decoding into `AuthInfo` never fails because all of its
                     // properties are optional, so we must try to decode errors
                     // first.
-                    .decodeSpotifyErrorsNoRetry()
                     .decodeSpotifyObject(AuthInfo.self)
+                    .subscribe(on: self.refreshTokensQueue)
                     .tryMap { authInfo in
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -515,8 +511,8 @@ public extension AuthorizationCodeFlowManager {
 
                             let errorMessage = """
                                 missing properties after refreshing \
-                                access token (expected access token, \
-                                expiration date, and scopes):
+                                access token (expected access token \
+                                and expiration date):
                                 \(authInfo)
                                 """
                             Self.logger.error("\(errorMessage)")

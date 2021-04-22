@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -151,6 +151,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemContainer.html">PlaylistItemContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
               </li>
             </ul>
           </li>
@@ -385,9 +388,6 @@
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -404,6 +404,9 @@
           <li class="nav-group-name">
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -2511,7 +2514,7 @@ view the country that is associated with their account in the
 a specified playlist.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:)</a></code> and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:)</a></code></p>
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:)</a></code>.</p>
 
 <p>Following a playlist can be done publicly or privately.
 Checking if a user publicly follows a playlist doesn’t require
@@ -2580,6 +2583,19 @@ returned without a network request being made.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Markets"></a>
+                <a name="//apple_ref/swift/Section/Markets" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Markets"></a>
+                  <h3 class="section-name"><p>Markets</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -2595,7 +2611,7 @@ returned without a network request being made.</p>
                       <div class="abstract">
                         <p>Get the list of markets where Spotify is available.</p>
 
-<p>No scopes are required for this endpoint</p>
+<p>No scopes are required for this endpoint.</p>
 
 <p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-available-markets">Spotify web API reference</a>.</p>
 
@@ -4733,6 +4749,80 @@ Only use it for testing purposes.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE26currentUserFollowedArtists5after5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA6ArtistVGs5Error_pGAA0A14URIConvertible_pSg_SiSgtF"></a>
+                    <a name="//apple_ref/swift/Method/currentUserFollowedArtists(after:limit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE26currentUserFollowedArtists5after5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA6ArtistVGs5Error_pGAA0A14URIConvertible_pSg_SiSgtF">currentUserFollowedArtists(after:<wbr>limit:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current user’s followed artists.</p>
+
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">SpotifyAPI.currentUserFollowsArtists(_:)</a></code>.</p>
+
+<p>This endpoint requires the <code>userFollowRead</code> scope.</p>
+
+<p>Read more at the <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-followed">Spotify web API reference</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">currentUserFollowedArtists</span><span class="p">(</span>
+    <span class="n">after</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SpotifyURIConvertible.html">SpotifyURIConvertible</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CursorPagingObject.html">CursorPagingObject</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Artist.html">Artist</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>artist</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. the URI of the last artist from the previous
+request. Use this paramater to retrieve the next set of
+artists after this artist.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Optional</em>. The maximum number of items to return.
+Default: 20; Minimum: 1; Maximum: 50.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of artist objects wrapped in a <code><a href="../Structs/CursorPagingObject.html">CursorPagingObject</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF"></a>
                     <a name="//apple_ref/swift/Method/currentUserFollowsArtists(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE25currentUserFollowsArtistsy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsArtists(_:<wbr>)</a>
@@ -4745,8 +4835,7 @@ Only use it for testing purposes.</p>
                       <div class="abstract">
                         <p>Check if the current user follows the specified artists.</p>
 
-<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE23currentUserFollowsUsersy7Combine12AnyPublisherVySaySbGs5Error_pGSayAA0A14URIConvertible_pGF">currentUserFollowsUsers(_:)</a></code> and
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C19usersFollowPlaylist_8userURIs7Combine12AnyPublisherVySaySbGs5Error_pGAA0A14URIConvertible_p_SayAaL_pGtF">usersFollowPlaylist(_:userURIs:)</a></code>.</p>
+<p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE26currentUserFollowedArtists5after5limit7Combine12AnyPublisherVyAA18CursorPagingObjectVyAA6ArtistVGs5Error_pGAA0A14URIConvertible_pSg_SiSgtF">SpotifyAPI.currentUserFollowedArtists(after:limit:)</a></code>.</p>
 
 <p>This endpoint requires the <code>userFollowRead</code> scope.</p>
 
@@ -6756,7 +6845,9 @@ and the next link will page back in time.</p>
                                   <p><em>Optional</em>. A reference to a period of time before or
 after a specified date. For example, <code>.before(Date())</code> refers
 to the period of time before the current date. This is used
-to filter the response. Dates will be converted to
+to filter the response. See <code><a href="../Structs/SpotifyCursor.html#/s:13SpotifyWebAPI0A6CursorV6beforeSSSgvp">SpotifyCursor.before</a></code> and
+<code><a href="../Structs/SpotifyCursor.html#/s:13SpotifyWebAPI0A6CursorV5afterSSSgvp">SpotifyCursor.after</a></code> (which is part of the returned
+<code><a href="../Structs/CursorPagingObject.html">CursorPagingObject</a></code>). Dates will be converted to
 millisecond-precision timestamps. Only results that are within
 the specified time period will be returned. If <code>nil</code>, the most
 recently played tracks will be returned.</p>
@@ -8678,7 +8769,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-30)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

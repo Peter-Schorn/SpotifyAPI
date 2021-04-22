@@ -11,11 +11,9 @@ public class XCTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
-        if #available(macOS 10.15.4, *) {
-            if let logFile = SpotifyAPITestCase.logFile {
-                let failingTestsString = self.makeFailingTestsString()
-                try? failingTestsString.append(to: logFile)
-            }
+        if let logFile = SpotifyAPITestCase.logFile {
+            let failingTestsString = self.makeFailingTestsString()
+            try? failingTestsString.append(to: logFile)
         }
 
     }
@@ -87,8 +85,10 @@ open class SpotifyAPITestCase: XCTestCase {
     /// The file that issues will be logged to during tests.
     public static let logFile: URL? = {
         if let folder = SpotifyDecodingError.dataDumpfolder {
+            let dateString = DateFormatter
+                .millisecondsTime.string(from: Date())
             return folder.appendingPathComponent(
-                "test_log.txt",
+                "test log \(dateString).txt",
                 isDirectory: false
             )
         }
@@ -131,9 +131,7 @@ open class SpotifyAPITestCase: XCTestCase {
 //            """
 //
 //        if let logFile = Self.logFile {
-//            if #available(macOS 10.15.4, *) {
-//                try? message.append(to: logFile)
-//            }
+//            try? message.append(to: logFile)
 //        }
 //
 //        if !Self.failingTests.contains(testName) {
@@ -169,9 +167,7 @@ open class SpotifyAPITestCase: XCTestCase {
             """
 
         if let logFile = Self.logFile {
-            if #available(macOS 10.15.4, *) {
-                try? message.append(to: logFile)
-            }
+            try? message.append(to: logFile)
         }
 
         if !Self.failingTests.contains(testName) {

@@ -1,5 +1,8 @@
 # SpotifyAPI
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPeter-Schorn%2FSpotifyAPI%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Peter-Schorn/SpotifyAPI)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPeter-Schorn%2FSpotifyAPI%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Peter-Schorn/SpotifyAPI)
+
 **A Swift library for the Spotify web API**
 
 ### Features
@@ -21,6 +24,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 * **[Authorizing with the Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**
 * **[Saving Authorization Information to Persistent Storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.)**
 * **[Using the Player Endpoints](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints)**
+* [**Working with Paginated Results**](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results)
 * **[Debugging](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging)**
 * **[Running the Unit Tests](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Running-the-Unit-Tests)**
 

@@ -51,5 +51,6 @@ public struct PlaylistItemsReference: Codable, Hashable {
 
 }
 
+/// This type has been renamed to `PlaylistItemsReference`.
 @available(*, deprecated, renamed: "PlaylistItemsReference")
 public typealias PlaylistsItemsReference = PlaylistItemsReference
