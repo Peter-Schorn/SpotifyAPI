@@ -296,7 +296,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: AuthorizationCodeFlowEnd
      */
     public func makeCopy() -> Self {
         let instance = Self(
-            clientId: self.clientId, clientSecret: self.clientSecret
+            endpoint: self.endpoint
         )
         return self.updateAuthInfoDispatchQueue.sync {
             instance._accessToken = self._accessToken
