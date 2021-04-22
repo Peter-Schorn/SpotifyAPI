@@ -12,9 +12,10 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
-        
+
+		let failingTestsString = self.makeFailingTestsString()
+
         if let logFile = SpotifyAPITestCase.logFile {
-            let failingTestsString = self.makeFailingTestsString()
             try? failingTestsString.append(to: logFile)
         }
 
