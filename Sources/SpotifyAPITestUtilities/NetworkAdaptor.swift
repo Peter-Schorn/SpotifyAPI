@@ -119,10 +119,10 @@ public extension SpotifyAuthorizationManager {
     
     var networkAdaptor: (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         get {
-            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationEndpointNative> {
+            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
                 return authManager.networkAdaptor
             }
-            if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
+            if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
                 return authManager.networkAdaptor
             }
             if let authManager = self as? ClientCredentialsFlowManager {
@@ -131,10 +131,10 @@ public extension SpotifyAuthorizationManager {
             fatalError("unexpected authorization manager: \(self)")
         }
         set {
-            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationEndpointNative> {
+            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
                 authManager.networkAdaptor = newValue
             }
-            else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
+            else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
                 authManager.networkAdaptor = newValue
             }
             else if let authManager = self as? ClientCredentialsFlowManager {

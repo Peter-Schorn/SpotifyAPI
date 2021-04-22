@@ -9,7 +9,7 @@ import OpenCombineFoundation
 #endif
 import SpotifyWebAPI
 
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative> {
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(

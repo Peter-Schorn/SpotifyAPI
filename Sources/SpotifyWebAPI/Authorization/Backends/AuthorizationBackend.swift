@@ -29,19 +29,39 @@ enum AuthorizationManagerLoggers {
 
 }
 
-public protocol AuthorizationCodeFlowEndpoint: Codable, Hashable {
+public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	
     var clientId: String { get }
 	
-	func makeTokenRequest(code: String, redirectURIWithQuery: URL) -> URLRequest
-	func makeTokenRefreshRequest(refreshToken: String) -> URLRequest
+	func makeTokenRequest(
+        code: String,
+        redirectURIWithQuery: URL
+    ) -> URLRequest
+	
+    func makeRefreshTokenRequest(refreshToken: String) -> URLRequest
     
 }
 
-public protocol AuthorizationCodeFlowPKCEEndpoint: Codable, Hashable {
+public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     
     var clientId: String { get }
 
-	func makePKCETokenRequest(code: String, codeVerifier: String, redirectURIWithQuery: URL) -> URLRequest
-	func makePKCETokenRefreshRequest(refreshToken: String) -> URLRequest
+	func makePKCETokenRequest(
+        code: String,
+        codeVerifier: String,
+        redirectURIWithQuery: URL
+    ) -> URLRequest
+    
+	func makePKCERefreshTokenRequest(refreshToken: String) -> URLRequest
+    
+}
+
+
+// MARK: TODO
+public protocol ClientCredentialsFlowBackend: Codable, Hashable {
+    
+    var clientId: String { get }
+    
+    func makeTokensRequest()
+
 }

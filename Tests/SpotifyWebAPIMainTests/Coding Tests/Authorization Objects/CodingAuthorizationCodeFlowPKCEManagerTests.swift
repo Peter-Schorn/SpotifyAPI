@@ -31,7 +31,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>>.self,
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self,
                 from: data
             )
             let data2 = try JSONEncoder().encode(decoded)

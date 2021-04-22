@@ -69,7 +69,7 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
 open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.sharedTest
+            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -111,7 +111,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.self, from: encoded
             )
             Self.spotify = decoded
         
@@ -129,7 +129,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
 open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, SpotifyAPITests {
     
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>>.sharedTest
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -167,7 +167,7 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationEndpointPKCENative>>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self, from: encoded
             )
             Self.spotify = decoded
         

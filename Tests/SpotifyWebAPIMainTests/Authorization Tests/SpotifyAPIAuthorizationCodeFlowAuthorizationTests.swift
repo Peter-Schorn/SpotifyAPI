@@ -87,7 +87,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
         
         let decodedSpotifyAPI = try JSONDecoder().decode(
-            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>.self,
+            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.self,
             from: spotifyAPIData
         )
         
@@ -134,7 +134,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         )
         
         let decodedAuthManager = try JSONDecoder().decode(
-            AuthorizationCodeFlowManager<AuthorizationEndpointNative>.self,
+            AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>.self,
             from: authManagerData
         )
         
@@ -148,13 +148,13 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
             return
         }
         
-        let endpoint = AuthorizationEndpointNative(
-            clientId: decodedAuthManager.endpoint.clientId,
-            clientSecret: decodedAuthManager.endpoint.clientSecret
+        let backend = AuthorizationCodeFlowClientBackend(
+            clientId: decodedAuthManager.backend.clientId,
+            clientSecret: decodedAuthManager.backend.clientSecret
         )
 
         let newAuthorizationManager = AuthorizationCodeFlowManager(
-            endpoint: endpoint,
+            backend: backend,
             accessToken: accessToken,
             expirationDate: expirationDate,
             refreshToken: refreshToken,

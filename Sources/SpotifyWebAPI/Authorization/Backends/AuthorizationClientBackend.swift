@@ -2,9 +2,15 @@ import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+import Logging
 
-public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
-	
+public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
+
+    /// The logger for this struct.
+    public static var logger = Logger(
+        label: "AuthorizationCodeFlowClientBackend", level: .critical
+    )
+
     /// The client id for your application.
 	public let clientId: String
 	
@@ -13,7 +19,7 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 	
 	/// The base 64 encoded authorization header with the client id
 	/// and client secret
-	let basicBase64EncodedCredentialsHeader: [String: String]
+	private let basicBase64EncodedCredentialsHeader: [String: String]
 
 	public init(clientId: String, clientSecret: String) {
 		self.clientId = clientId
@@ -24,7 +30,11 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 		)!
 	}
 
-	public func makeTokenRequest(code: String, redirectURIWithQuery: URL) -> URLRequest {
+	public func makeTokenRequest(
+        code: String,
+        redirectURIWithQuery: URL
+    ) -> URLRequest {
+        
 		let baseRedirectURI = redirectURIWithQuery
 			.removingQueryItems()
 			.removingTrailingSlashInPath()
@@ -36,6 +46,16 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 			clientSecret: clientSecret
 		)
 		.formURLEncoded()
+        
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        
+        Self.logger.trace(
+            """
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for requesting access and refresh tokens); body:
+            \(bodyString)
+            """
+        )
 	
 		var tokensRequest = URLRequest(url: Endpoints.getTokens)
 		tokensRequest.httpMethod = "POST"
@@ -45,7 +65,7 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 		return tokensRequest
 	}
 
-	public func makeTokenRefreshRequest(refreshToken: String) -> URLRequest {
+	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
 		let headers = basicBase64EncodedCredentialsHeader +
 				Headers.formURLEncoded
 
@@ -53,6 +73,16 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
 			refreshToken: refreshToken
 		)
 		.formURLEncoded()
+        
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        
+        Self.logger.trace(
+            """
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for refreshing access token); body:
+            \(bodyString)
+            """
+        )
 		
 		var refreshTokensRequest = URLRequest(
 			url: Endpoints.getTokens
@@ -66,7 +96,7 @@ public struct AuthorizationEndpointNative: AuthorizationCodeFlowEndpoint {
     
 }
 
-extension AuthorizationEndpointNative {
+extension AuthorizationCodeFlowClientBackend {
 	
 	public init(from decoder: Decoder) throws {
 		let container = try decoder.container(
@@ -105,8 +135,15 @@ extension AuthorizationEndpointNative {
 
 }
 
-public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoint {
+// MARK: - PKCE -
+
+public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
 	
+    /// The logger for this struct.
+    public static var logger = Logger(
+        label: "AuthorizationCodeFlowClientBackend", level: .critical
+    )
+
     /// The client id for your application.
     public let clientId: String
     
@@ -114,7 +151,12 @@ public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoin
         self.clientId = clientId
     }
 
-    public func makePKCETokenRequest(code: String, codeVerifier: String, redirectURIWithQuery: URL) -> URLRequest {
+    public func makePKCETokenRequest(
+        code: String,
+        codeVerifier: String,
+        redirectURIWithQuery: URL
+    ) -> URLRequest {
+        
 		// This must match the redirectURI provided when making the
 		// authorization URL.
 		let baseRedirectURI = redirectURIWithQuery
@@ -128,6 +170,16 @@ public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoin
 			codeVerifier: codeVerifier
 		)
 		.formURLEncoded()
+        
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        
+        Self.logger.trace(
+            """
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for requesting access and refresh tokens); body:
+            \(bodyString)
+            """
+        )
 		
 		var tokensRequest = URLRequest(url: Endpoints.getTokens)
 		tokensRequest.httpMethod = "POST"
@@ -136,13 +188,24 @@ public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoin
 		
 		return tokensRequest
 	}
-	
-	public func makePKCETokenRefreshRequest(refreshToken: String) -> URLRequest {
-		let body = PKCERefreshAccessTokenRequest(
+
+    public func makePKCERefreshTokenRequest(refreshToken: String) -> URLRequest {
+		
+        let body = PKCERefreshAccessTokenRequest(
 			refreshToken: refreshToken,
 			clientId: self.clientId
 		)
 		.formURLEncoded()
+        
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        
+        Self.logger.trace(
+            """
+            POST request to "\(Endpoints.getTokens)" \
+            (URL for refreshing access token); body:
+            \(bodyString)
+            """
+        )
 				
 		var refreshTokensRequest = URLRequest(
 			url: Endpoints.getTokens
@@ -155,7 +218,7 @@ public struct  AuthorizationEndpointPKCENative: AuthorizationCodeFlowPKCEEndpoin
 	}
 }
 
-extension AuthorizationEndpointPKCENative {
+extension AuthorizationCodeFlowPKCEClientBackend {
     
     private enum CodingKeys: String, CodingKey {
         case clientId = "client_id"

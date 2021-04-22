@@ -58,8 +58,8 @@ import FoundationNetworking
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowEndpoint>:
-    AuthorizationCodeFlowManagerBase<Endpoint>,
+public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBackend>:
+    AuthorizationCodeFlowManagerBase<Backend>,
     SpotifyScopeAuthorizationManager
 {
     
@@ -90,7 +90,7 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
      information.
      
      - Parameters:
-       - endpoint: The endpoint to retrieve tokens.
+       - backend: The backend used to retrieve and refresh tokens.
        - networkAdaptor: A function that gets called everytime this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
@@ -104,13 +104,13 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(
-		endpoint: Endpoint,
+		backend: Backend,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
         super.init(
-            endpoint: endpoint,
+            backend: backend,
             networkAdaptor: networkAdaptor
         )
     }
@@ -134,8 +134,7 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
      directory of this package for more information.
      
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - backend: The backend used to retrieve and refresh tokens.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
        - refreshToken: The refresh token. If `nil` (not recommended), then it will
@@ -158,7 +157,7 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public convenience init(
-        endpoint: Endpoint,
+        backend: Backend,
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
@@ -168,7 +167,7 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
         )? = nil
     ) {
         self.init(
-            endpoint: endpoint,
+            backend: backend,
             networkAdaptor: networkAdaptor
         )
         self._accessToken = accessToken
@@ -196,7 +195,7 @@ public final class AuthorizationCodeFlowManager<Endpoint: AuthorizationCodeFlowE
     
 }
 
-public extension AuthorizationCodeFlowManager where Endpoint == AuthorizationEndpointNative {
+public extension AuthorizationCodeFlowManager where Backend == AuthorizationCodeFlowClientBackend {
     
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
@@ -233,13 +232,13 @@ public extension AuthorizationCodeFlowManager where Endpoint == AuthorizationEnd
         )? = nil
     ) {
         
-        let endpoint = AuthorizationEndpointNative(
+        let backend = AuthorizationCodeFlowClientBackend(
             clientId: clientId,
             clientSecret: clientSecret
         )
 
         self.init(
-            endpoint: endpoint,
+            backend: backend,
             networkAdaptor: networkAdaptor
         )
 
@@ -319,7 +318,7 @@ public extension AuthorizationCodeFlowManager {
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
             queryItems: urlQueryDictionary([
-                "client_id": endpoint.clientId,
+                "client_id": backend.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
@@ -424,17 +423,7 @@ public extension AuthorizationCodeFlowManager {
             .anyFailingPublisher()
         }
         
-		let tokensRequest = endpoint.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
-        
-		let bodyString = String(data: tokensRequest.httpBody!, encoding: .utf8) ?? "nil"
-        
-        Self.logger.trace(
-            """
-            POST request to "\(Endpoints.getTokens)" \
-            (URL for requesting access and refresh tokens); body:
-            \(bodyString)
-            """
-        )
+		let tokensRequest = backend.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
         
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
@@ -534,18 +523,8 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-					let refreshTokensRequest = endpoint.makeTokenRefreshRequest(refreshToken: refreshToken)
+					let refreshTokensRequest = backend.makeRefreshTokenRequest(refreshToken: refreshToken)
 
-					let bodyString = String(data: refreshTokensRequest.httpBody!, encoding: .utf8) ?? "nil"
-                    
-                    Self.logger.trace(
-                        """
-                        POST request to "\(Endpoints.getTokens)" \
-                        (URL for refreshing access token); body:
-                        \(bodyString)
-                        """
-                    )
-                                        
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
                     )
@@ -625,7 +604,7 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
                     refresh token: "\(_refreshToken ?? "nil")"
-                    endpoint: "\(endpoint)"
+                    backend: "\(backend)"
                 )
                 """
         }

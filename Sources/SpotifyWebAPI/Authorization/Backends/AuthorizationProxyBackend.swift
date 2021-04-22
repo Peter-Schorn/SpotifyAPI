@@ -3,7 +3,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-public struct AuthorizationEndpointProxy: AuthorizationCodeFlowEndpoint {
+public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 	/// The client id for your application.
 	public let clientId: String
 
@@ -28,7 +28,7 @@ public struct AuthorizationEndpointProxy: AuthorizationCodeFlowEndpoint {
 		return tokensRequest
 	}
 
-	public func makeTokenRefreshRequest(refreshToken: String) -> URLRequest {
+	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
 		let body = RefreshAccessTokenRequest(
 			refreshToken: refreshToken
 		)

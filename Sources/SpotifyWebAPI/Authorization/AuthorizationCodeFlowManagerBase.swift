@@ -39,7 +39,7 @@ import Logging
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
+public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     /// The logger for this class. Sub-classes will not use this logger;
     /// instead, they will create their own logger.
@@ -54,7 +54,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
         }
     }
 
-    public let endpoint: Endpoint
+    public let backend: Backend
 
     /**
      The access token used in all of the requests
@@ -218,12 +218,12 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
     var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
     required init(
-        endpoint: Endpoint,
+        backend: Backend,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        self.endpoint = endpoint
+        self.backend = backend
         self.networkAdaptor = networkAdaptor
                 ?? URLSession.shared.defaultNetworkAdaptor(request:)
     }
@@ -243,8 +243,8 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        self.endpoint = try container.decode(
-            Endpoint.self, forKey: .endpoint
+        self.backend = try container.decode(
+            Backend.self, forKey: .endpoint
         )
         self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
@@ -266,7 +266,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
         )
         
 		try container.encode(
-			self.endpoint, forKey: .endpoint
+			self.backend, forKey: .endpoint
 		)
         try codingWrapper.encode(to: encoder)
         
@@ -274,7 +274,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
     
     func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
-            hasher.combine(self.endpoint)
+            hasher.combine(self.backend)
             hasher.combine(self._accessToken)
             hasher.combine(self._refreshToken)
             hasher.combine(self._expirationDate)
@@ -286,7 +286,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
      Returns a copy of self.
      
      Copies the following properties:
-     * `endpoint`
+     * `backend`
      * `accessToken`
      * `refreshToken`
      * `expirationDate`
@@ -295,7 +295,7 @@ public class AuthorizationCodeFlowManagerBase<Endpoint: Codable & Hashable> {
      */
     public func makeCopy() -> Self {
         let instance = Self(
-            endpoint: self.endpoint
+            backend: self.backend
         )
         return self.updateAuthInfoDispatchQueue.sync {
             instance._accessToken = self._accessToken
@@ -464,7 +464,7 @@ extension AuthorizationCodeFlowManagerBase {
                         )
                     }
         
-		return self.endpoint == other.endpoint &&
+		return self.backend == other.backend &&
                 lhsAccessToken == rhsAccessToken &&
                 lhsRefreshToken == rhsRefreshToken &&
                 lhsScopes == rhsScopes &&

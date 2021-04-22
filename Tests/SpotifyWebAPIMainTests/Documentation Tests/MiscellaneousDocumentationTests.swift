@@ -27,7 +27,7 @@ private func testCodeVerifierCodeChallenge() {
 import UIKit
 
 private func uploadPlaylistImageDocsTest(
-    uiImage: UIImage, spotify: SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationEndpointNative>>
+    uiImage: UIImage, spotify: SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>
 ) {
     
     let jpegData = uiImage.jpegData(
