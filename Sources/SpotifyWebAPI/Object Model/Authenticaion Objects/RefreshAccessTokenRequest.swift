@@ -18,8 +18,8 @@ public struct RefreshAccessTokenRequest: Hashable {
     public func formURLEncoded() -> Data {
         
         guard let data = [
-            CodingKeys.grantType.rawValue: grantType,
-            CodingKeys.refreshToken.rawValue: refreshToken
+            CodingKeys.grantType.rawValue: self.grantType,
+            CodingKeys.refreshToken.rawValue: self.refreshToken
         ].formURLEncoded()
         else {
             fatalError(

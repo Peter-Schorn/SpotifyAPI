@@ -30,11 +30,11 @@ public struct TokensRequest: Hashable {
     public func formURLEncoded() -> Data {
         
         guard let data = [
-            "grant_type": grantType,
-            "code": code,
-            "redirect_uri": redirectURI,
-            "client_id": clientId,
-            "client_secret": clientSecret
+            CodingKeys.grantType.rawValue: self.grantType,
+            CodingKeys.code.rawValue: self.code,
+            CodingKeys.redirectURI.rawValue: self.redirectURI,
+            CodingKeys.clientId.rawValue: self.clientId,
+            CodingKeys.clientSecret.rawValue: self.clientSecret
         ].formURLEncoded()
         else {
             fatalError("could not form-url-encode tokens request")
@@ -49,6 +49,7 @@ public struct TokensRequest: Hashable {
 extension TokensRequest: Codable {
     
     public enum CodingKeys: String, CodingKey {
+        case grantType = "grant_type"
         case code
         case redirectURI = "redirect_uri"
         case clientId = "client_id"

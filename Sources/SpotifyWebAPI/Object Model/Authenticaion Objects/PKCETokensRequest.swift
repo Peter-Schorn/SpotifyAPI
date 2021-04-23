@@ -7,15 +7,15 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-struct PKCETokensRequest: Hashable {
+public struct PKCETokensRequest: Hashable {
     
-    let grantType = "authorization_code"
-    let code: String
-    let redirectURI: String
-    let clientId: String
-    let codeVerifier: String
+    public let grantType = "authorization_code"
+    public let code: String
+    public let redirectURI: String
+    public let clientId: String
+    public let codeVerifier: String
 
-    init(
+    public init(
         code: String,
         redirectURI: URL,
         clientId: String,
@@ -27,14 +27,14 @@ struct PKCETokensRequest: Hashable {
         self.codeVerifier = codeVerifier
     }
     
-    func formURLEncoded() -> Data {
+    public func formURLEncoded() -> Data {
         
         guard let data = [
-            "grant_type": grantType,
-            "code": code,
-            "redirect_uri": redirectURI,
-            "client_id": clientId,
-            "code_verifier": codeVerifier
+            CodingKeys.grantType.rawValue: self.grantType,
+            CodingKeys.code.rawValue: self.code,
+            CodingKeys.redirectURI.rawValue: self.redirectURI,
+            CodingKeys.clientId.rawValue: self.clientId,
+            CodingKeys.codeVerifier.rawValue: self.codeVerifier
         ].formURLEncoded()
         else {
             fatalError("could not form-url-encode PKCETokensRequest")
@@ -49,6 +49,7 @@ struct PKCETokensRequest: Hashable {
 extension PKCETokensRequest: Codable {
     
     public enum CodingKeys: String, CodingKey {
+        case grantType = "grant_type"
         case code
         case redirectURI = "redirect_uri"
         case clientId = "client_id"

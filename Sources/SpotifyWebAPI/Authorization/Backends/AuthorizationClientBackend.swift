@@ -66,7 +66,8 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 	}
 
 	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
-		let headers = self.basicBase64EncodedCredentialsHeader +
+		
+        let headers = self.basicBase64EncodedCredentialsHeader +
 				Headers.formURLEncoded
 
 		let body = RefreshAccessTokenRequest(
@@ -189,7 +190,9 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
 		return tokensRequest
 	}
 
-    public func makePKCERefreshTokenRequest(refreshToken: String) -> URLRequest {
+    public func makePKCERefreshTokenRequest(
+        refreshToken: String
+    ) -> URLRequest {
 		
         let body = PKCERefreshAccessTokenRequest(
 			refreshToken: refreshToken,

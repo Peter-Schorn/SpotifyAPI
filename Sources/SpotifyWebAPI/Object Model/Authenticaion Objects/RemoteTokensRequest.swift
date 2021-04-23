@@ -16,7 +16,9 @@ public struct RemoteTokensRequest: Hashable {
     }
     
     public func formURLEncoded() -> Data {
-        guard let data = ["code": code].formURLEncoded() else {
+        guard let data = [
+            CodingKeys.code.rawValue: self.code
+        ].formURLEncoded() else {
             fatalError("could not form-url-encode tokens request")
         }
         return data

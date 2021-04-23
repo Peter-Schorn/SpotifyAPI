@@ -11,23 +11,24 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-public struct PKCERefreshAccessTokenRequest: Hashable {
+public struct RemotePKCERefreshAccessTokenRequest: Hashable {
+    
+    /// Disambiguates this type from `RefreshAccessTokenRequest`,
+    /// which otherwise would have the same fields.
+    public let method = "PKCE"
     
     public let grantType = "refresh_token"
     public let refreshToken: String
-    public let clientId: String
-    
-    public init(refreshToken: String, clientId: String) {
+
+    public init(refreshToken: String) {
         self.refreshToken = refreshToken
-        self.clientId = clientId
     }
     
     public func formURLEncoded() -> Data {
         
         guard let data = [
             CodingKeys.grantType.rawValue: self.grantType,
-            CodingKeys.refreshToken.rawValue: self.refreshToken,
-            CodingKeys.clientId.rawValue: self.clientId
+            CodingKeys.refreshToken.rawValue: self.refreshToken
         ].formURLEncoded()
         else {
             fatalError(
@@ -39,12 +40,12 @@ public struct PKCERefreshAccessTokenRequest: Hashable {
     
 }
 
-extension PKCERefreshAccessTokenRequest: Codable {
+extension RemotePKCERefreshAccessTokenRequest: Codable {
 
     public enum CodingKeys: String, CodingKey {
+        case method
         case grantType = "grant_type"
         case refreshToken = "refresh_token"
-        case clientId = "client_id"
     }
     
 }
