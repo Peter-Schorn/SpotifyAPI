@@ -25,8 +25,7 @@ public extension String {
      
      Equivalent to
      ```
-     self.data(using: .utf8)?
-     .base64EncodedString(options: options)
+     self.data(using: .utf8)?.base64EncodedString(options: options)
      ```
      
      - Parameter options: Options to use when encoding the data.

@@ -1,0 +1,15 @@
+python3 enable_testing.py true
+
+docker run --rm \
+    --volume "$(pwd):/src" \
+    --workdir "/src" \
+    -e SPOTIFY_SWIFT_TESTING_CLIENT_ID=$SPOTIFY_SWIFT_TESTING_CLIENT_ID \
+    -e SPOTIFY_SWIFT_TESTING_CLIENT_SECRET=$SPOTIFY_SWIFT_TESTING_CLIENT_SECRET \
+    swift:latest \
+    /bin/bash -c \
+    "swift test --filter 'AuthorizationScopesTests|CodingAuthInfoTests|CodingAuthorizationCodeFlowManagerTests|CodingAuthorizationCodeFlowPKCEManagerTests|CodingClientCredentialsFlowManagerTests|CodingCurrentlyPlayingContextTests|CodingPlaybackRequestTests|CodingSpotifyUserTests|CodingTimeReferenceTests|CodingTrackAttributesTests|CursorPagingObjectPlayHistoryCodingTests|ExampleContentTests|SpotifyAPIClientCredentialsFlowAlbumsTests|SpotifyAPIClientCredentialsFlowArtistTests|SpotifyAPIClientCredentialsFlowAuthorizationTests|SpotifyAPIClientCredentialsFlowBrowseTests|SpotifyAPIClientCredentialsFlowEpisodeTests|SpotifyAPIClientCredentialsFlowErrorTests|SpotifyAPIClientCredentialsFlowFollowTests|SpotifyAPIClientCredentialsFlowMarketTests|SpotifyAPIClientCredentialsFlowPlaylistsTests|SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|SpotifyAPIClientCredentialsFlowSearchTests|SpotifyAPIClientCredentialsFlowShowTests|SpotifyAPIClientCredentialsFlowTrackTests|SpotifyAPIClientCredentialsFlowUserProfileTests|SpotifyIdentifierTests|SpotifyPlayerErrorCodingTests'"
+
+python3 enable_testing.py 
+echo "finished compiling"
+
+

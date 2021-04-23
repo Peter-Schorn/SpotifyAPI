@@ -27,6 +27,11 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         ),
         networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
     )
+
+}
+
+public extension AuthorizationCodeFlowPKCEManager {
+    
     
     /// Authorizes the application. You should probably use
     /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
@@ -37,7 +42,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         scopes: Set<Scope>
     ) -> AnyPublisher<Void, Error> {
     
-        if self.authorizationManager.isAuthorized(for: scopes) {
+        if self.isAuthorized(for: scopes) {
             return Empty().eraseToAnyPublisher()
         }
         
@@ -46,8 +51,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
 //        let state = "~" + String.randomURLSafe(length: 125)
         
-        
-        guard let authorizationURL = self.authorizationManager.makeAuthorizationURL(
+        guard let authorizationURL = self.makeAuthorizationURL(
             redirectURI: localHostURL,
             codeChallenge: codeChallenge,
             state: state,
@@ -65,7 +69,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
             fatalError("couldn't get redirectURLWithQuery")
         }
         
-        return self.authorizationManager.requestAccessAndRefreshTokens(
+        return self.requestAccessAndRefreshTokens(
             redirectURIWithQuery: redirectURLWithQuery,
             codeVerifier: codeVerifier,
             state: state
@@ -81,7 +85,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         scopes: Set<Scope>
     ) {
         
-        if self.authorizationManager.isAuthorized(for: scopes) {
+        if self.isAuthorized(for: scopes) {
             return
         }
         

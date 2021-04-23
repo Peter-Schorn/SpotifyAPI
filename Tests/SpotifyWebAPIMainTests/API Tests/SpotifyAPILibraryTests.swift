@@ -16,7 +16,7 @@ import SpotifyExampleContent
 protocol SpotifyAPILibraryTests: SpotifyAPITests { }
 
 extension SpotifyAPILibraryTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
     
     func saveAlbums() {

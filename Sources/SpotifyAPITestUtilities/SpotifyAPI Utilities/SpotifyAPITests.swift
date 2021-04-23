@@ -8,71 +8,71 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 
 #endif
+
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 @testable import SpotifyWebAPI
 
 /// The base protocol that all tests involving `SpotifyAPI` inherit from.
 public protocol SpotifyAPITests: SpotifyAPITestCase {
     
-    associatedtype AuthorizationManager: SpotifyAuthorizationManager
+    associatedtype AuthorizationManager: _InternalSpotifyAuthorizationManager
     
     static var spotify: SpotifyAPI<AuthorizationManager> { get set }
     static var cancellables: Set<AnyCancellable> { get set }
     
 }
 
-public extension SpotifyAPITests {
-    
-    static func setUpDebugging() {
-        spotify.setupDebugging()
-    }
+/// Provides generic access to members that are only expected to be
+/// available in the authorization managers in this library, as opposed
+/// to those that may be created by other clients.
+public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager {
 
+    /**
+     Sets the expiration date of the access token to the specified date.
+     **Only use for testing purposes**.
+     
+     - Parameter date: The date to set the expiration date to.
+     */
+    func setExpirationDate(to date: Date) -> Void
+    
+    var networkAdaptor: (
+        URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
+        get set
+    }
+    
 }
 
-public extension SpotifyAPITests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+/// Provides generic access to members that are only expected to be
+/// available in the **scope** authorization managers in this library, as opposed
+/// to those that may be created by other clients.
+public protocol _InternalSpotifyScopeAuthorizationManager:
+    SpotifyScopeAuthorizationManager,
+    _InternalSpotifyAuthorizationManager
+
 {
-
-    static func authorizeAndWaitForTokens(
-        scopes: Set<Scope>, showDialog: Bool = false
-    ) {
-        if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>> {
-            spotify.authorizeAndWaitForTokens(
-                scopes: scopes, showDialog: showDialog
-            )
-        }
-        else if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>> {
-            spotify.authorizeAndWaitForTokens(
-                scopes: scopes
-            )
-        }
-        else {
-            fatalError(
-                "unsupported authorization manager: " +
-                "\(type(of: Self.spotify.authorizationManager))"
-            )
-        }
-    }
+    
+    /// Blocks the thread until the application has been authorized
+    /// and the refresh and access tokens have been retrieved.
+    /// Returns early if the application is already authorized.
+    func authorizeAndWaitForTokens(
+        scopes: Set<Scope>, showDialog: Bool
+    ) -> Void
     
 }
 
-public extension SpotifyAuthorizationManager {
+extension AuthorizationCodeFlowManager: _InternalSpotifyScopeAuthorizationManager { }
+
+extension AuthorizationCodeFlowPKCEManager: _InternalSpotifyScopeAuthorizationManager {
     
-    /// Only use for testing purposes.
-    func setExpirationDate(to date: Date) {
-        if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
-            authManager.setExpirationDate(to: Date())
-        }
-        else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
-            authManager.setExpirationDate(to: Date())
-        }
-        else if let authManager = self as? ClientCredentialsFlowManager {
-            authManager.setExpirationDate(to: Date())
-        }
-        else {
-            fatalError("not implemented")
-        }
+    public func authorizeAndWaitForTokens(scopes: Set<Scope>, showDialog: Bool) {
+        self.authorizeAndWaitForTokens(scopes: scopes)
     }
-    
+
 }
+
+extension ClientCredentialsFlowManager: _InternalSpotifyAuthorizationManager { }

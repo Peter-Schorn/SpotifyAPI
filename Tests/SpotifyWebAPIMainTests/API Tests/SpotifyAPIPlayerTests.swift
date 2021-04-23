@@ -15,7 +15,7 @@ import SpotifyExampleContent
 
 protocol SpotifyAPIPlayerTests: SpotifyAPITests { }
 
-extension SpotifyAPIPlayerTests where AuthorizationManager: SpotifyScopeAuthorizationManager {
+extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScopeAuthorizationManager {
 
     func playPause() {
         

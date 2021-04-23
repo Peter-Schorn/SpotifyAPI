@@ -11,7 +11,7 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-struct PKCERefreshAccessTokenRequest: Codable, Hashable {
+struct PKCERefreshAccessTokenRequest: Hashable {
     
     let grantType = "refresh_token"
     let refreshToken: String
@@ -32,7 +32,11 @@ struct PKCERefreshAccessTokenRequest: Codable, Hashable {
         return data
     }
     
-    enum CodingKeys: String, CodingKey {
+}
+
+extension PKCERefreshAccessTokenRequest: Codable {
+
+    public enum CodingKeys: String, CodingKey {
         case refreshToken = "refresh_token"
         case grantType = "grant_type"
         case clientId = "client_id"

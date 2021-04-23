@@ -48,7 +48,7 @@ struct PKCETokensRequest: Hashable {
 
 extension PKCETokensRequest: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case code
         case redirectURI = "redirect_uri"
         case clientId = "client_id"

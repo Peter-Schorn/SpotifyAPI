@@ -56,7 +56,7 @@ final class SpotifyAPIAuthorizationCodeFlowAuthorizationTests:
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized())
         
-        Self.spotify.authorizeAndWaitForTokens(
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: currentScopes, showDialog: false
         )
         

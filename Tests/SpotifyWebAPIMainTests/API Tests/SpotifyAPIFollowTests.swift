@@ -66,7 +66,7 @@ extension SpotifyAPIFollowTests {
 }
 
 extension SpotifyAPIFollowTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
 
     func followedArtists() {

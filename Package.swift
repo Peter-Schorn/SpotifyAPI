@@ -84,7 +84,7 @@ var packageDependencies: [Package.Dependency] {
         )
     ]
     
-    #if TEST
+    #if !TEST
     dependencies += [
         .package(
             name: "vapor",
@@ -118,7 +118,7 @@ var spotifyAPITestUtilitiesDependencies: [Target.Dependency] {
         .product(name: "OpenCombineFoundation", package: "OpenCombine")
     ]
     
-    #if TEST
+    #if !TEST
     dependencies += [
         .product(name: "Vapor", package: "vapor"),
         .product(name: "NIOHTTP1", package: "swift-nio"),

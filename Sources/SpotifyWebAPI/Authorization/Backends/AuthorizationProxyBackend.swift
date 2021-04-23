@@ -3,8 +3,16 @@ import Foundation
 import FoundationNetworking
 #endif
 
+import Logging
+
 public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
-	/// The client id for your application.
+
+    /// The logger for this struct.
+    public static var logger = Logger(
+        label: "AuthorizationCodeFlowProxyBackend", level: .critical
+    )
+    
+    /// The client id for your application.
 	public let clientId: String
 
 	let tokenURL: URL
@@ -16,11 +24,24 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 		self.tokenRefreshURL = tokenRefreshURL
 	}
 
-	public func makeTokenRequest(code: String, redirectURIWithQuery: URL) -> URLRequest {
-		let body = RemoteTokensRequest(code: code)
-			.formURLEncoded()
-				
-		var tokensRequest = URLRequest(url: tokenURL)
+	public func makeTokenRequest(
+        code: String,
+        redirectURIWithQuery: URL
+    ) throws -> URLRequest {
+		
+        let body = RemoteTokensRequest(code: code)
+            .formURLEncoded()
+
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        Self.logger.trace(
+            """
+            POST request to "\(self.tokenURL)" \
+            (URL for requesting access and refresh tokens); body:
+            \(bodyString)
+            """
+        )
+
+		var tokensRequest = URLRequest(url: self.tokenURL)
 		tokensRequest.httpMethod = "POST"
 		tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
 		tokensRequest.httpBody = body
@@ -29,13 +50,25 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 	}
 
 	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
-		let body = RefreshAccessTokenRequest(
+		
+        let body = RefreshAccessTokenRequest(
 			refreshToken: refreshToken
 		)
 		.formURLEncoded()
 				
-		var refreshTokensRequest = URLRequest(url: tokenRefreshURL)
+        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
+        
+        Self.logger.trace(
+            """
+            POST request to "\(self.tokenRefreshURL)" \
+            (URL for refreshing access token); body:
+            \(bodyString)
+            """
+        )
+
+		var refreshTokensRequest = URLRequest(url: self.tokenRefreshURL)
 		refreshTokensRequest.httpMethod = "POST"
+        refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
 		refreshTokensRequest.httpBody = body
 
 		return refreshTokensRequest

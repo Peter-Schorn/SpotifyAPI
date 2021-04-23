@@ -23,22 +23,22 @@ import Foundation
  * `scopes`: The scopes that have been authorized for the access token.
  
  */
-struct AuthInfo: Hashable {
+public struct AuthInfo: Hashable {
     
     /// The access token used in all of the requests
     /// to the Spotify web API.
-    let accessToken: String?
+    public let accessToken: String?
     
     /// Used to refresh the access token.
-    let refreshToken: String?
+    public let refreshToken: String?
     
     /// The expiration date of the access token.
-    let expirationDate: Date?
+    public let expirationDate: Date?
     
     /// The scopes that have been authorized for the access token.
-    let scopes: Set<Scope>?
+    public let scopes: Set<Scope>?
 
-    init(
+    public init(
         accessToken: String?,
         refreshToken: String?,
         expirationDate: Date?,
@@ -54,7 +54,7 @@ struct AuthInfo: Hashable {
 
 extension AuthInfo: Codable {
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
             keyedBy: CodingKeys.self
@@ -99,7 +99,7 @@ extension AuthInfo: Codable {
         
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(
             keyedBy: CodingKeys.self
@@ -137,7 +137,7 @@ extension AuthInfo: Codable {
 
 extension AuthInfo: CustomStringConvertible {
     
-    var description: String {
+    public var description: String {
         
         let expirationDateString = expirationDate?
                 .description(with: .autoupdatingCurrent)
@@ -180,7 +180,7 @@ extension AuthInfo {
 
 extension AuthInfo: ApproximatelyEquatable {
     
-    func isApproximatelyEqual(to other: AuthInfo) -> Bool {
+    public func isApproximatelyEqual(to other: AuthInfo) -> Bool {
         return self.accessToken == other.accessToken &&
             self.refreshToken == other.refreshToken &&
             self.scopes == other.scopes &&

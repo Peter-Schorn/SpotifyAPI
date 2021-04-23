@@ -7,15 +7,15 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-struct TokensRequest: Hashable {
+public struct TokensRequest: Hashable {
     
-    let grantType = "authorization_code"
-    let code: String
-    let redirectURI: String
-    let clientId: String
-    let clientSecret: String
+    public let grantType = "authorization_code"
+    public let code: String
+    public let redirectURI: String
+    public let clientId: String
+    public let clientSecret: String
 
-    init(
+    public init(
         code: String,
         redirectURI: URL,
         clientId: String,
@@ -27,7 +27,7 @@ struct TokensRequest: Hashable {
         self.clientSecret = clientSecret
     }
     
-    func formURLEncoded() -> Data {
+    public func formURLEncoded() -> Data {
         
         guard let data = [
             "grant_type": grantType,
@@ -48,7 +48,7 @@ struct TokensRequest: Hashable {
 
 extension TokensRequest: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case code
         case redirectURI = "redirect_uri"
         case clientId = "client_id"

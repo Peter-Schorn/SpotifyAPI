@@ -27,20 +27,20 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
             "setup debugging and authorization for " +
             "SpotifyAPIClientCredentialsFlowTests"
         )
-        setUpDebugging()
-        setupAuthorization()
-    }
-
-    open class func setupAuthorization() {
+        Self.spotify.setupDebugging()
         if Bool.random() {
-            spotify = .sharedTest
+            Self.spotify = .sharedTest
         }
         else {
-            spotify = .sharedTestNetworkAdaptor
+            Self.spotify = .sharedTestNetworkAdaptor
         }
         
         Self.fuzzSpotify()
-        spotify.waitUntilAuthorized()
+        Self.setupAuthorization()
+    }
+
+    open class func setupAuthorization() {
+        Self.spotify.waitUntilAuthorized()
     }
     
     open class func fuzzSpotify() {
@@ -50,7 +50,8 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<ClientCredentialsFlowManager>.self, from: encoded
+                SpotifyAPI<ClientCredentialsFlowManager>.self,
+                from: encoded
             )
             Self.spotify = decoded
         
@@ -81,8 +82,16 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowTests"
         )
-        setUpDebugging()
-        setupAuthorization()
+        Self.spotify.setupDebugging()
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+        
+        Self.fuzzSpotify()
+        Self.setupAuthorization()
     }
 
     open class func setupAuthorization(
@@ -90,16 +99,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
         showDialog: Bool = false
     ) {
 
-        if Bool.random() {
-            spotify = .sharedTest
-        }
-        else {
-            spotify = .sharedTestNetworkAdaptor
-        }
-        
-        Self.fuzzSpotify()
-
-        spotify.authorizeAndWaitForTokens(
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: scopes, showDialog: showDialog
         )
     }
@@ -111,7 +111,8 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.self,
+                from: encoded
             )
             Self.spotify = decoded
         
@@ -141,23 +142,24 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
             "setup debugging and authorization for " +
             "SpotifyAPIAuthorizationCodeFlowPKCETests"
         )
-        setUpDebugging()
-        setupAuthorization()
+        Self.spotify.setupDebugging()
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+        
+        Self.fuzzSpotify()
+        Self.setupAuthorization()
     }
 
     open class func setupAuthorization(
         scopes: Set<Scope> = Scope.allCases
     ) {
-        if Bool.random() {
-            spotify = .sharedTest
-        }
-        else {
-            spotify = .sharedTestNetworkAdaptor
-        }
-        
-        Self.fuzzSpotify()
-
-        spotify.authorizeAndWaitForTokens(scopes: scopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: scopes
+        )
     }
     
     open class func fuzzSpotify() {
@@ -167,7 +169,8 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self, from: encoded
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self,
+                from: encoded
             )
             Self.spotify = decoded
         

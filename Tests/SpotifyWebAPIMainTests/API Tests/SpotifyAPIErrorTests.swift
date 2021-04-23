@@ -476,7 +476,7 @@ extension SpotifyAPIErrorTests {
 }
 
 extension SpotifyAPIErrorTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
     
     func decodeSpotifyPlayerError() {

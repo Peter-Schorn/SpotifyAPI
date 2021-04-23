@@ -2,32 +2,6 @@ import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
-import Logging
-
-enum AuthorizationManagerLoggers {
-    
-    // TODO: add notes about accessing these loggers via computed
-    // properties
-
-    static var authorizationCodeFlowManagerBaseLogger = Logger(
-        label: "AuthorizationCodeFlowManagerBase", level: .critical
-    )
-
-    /// The logger for this class. By default, its level is `critical`.
-    static var authorizationCodeFlowManagerLogger = Logger(
-        label: "AuthorizationCodeFlowManager", level: .critical
-    )
-    
-
-    static var authorizationCodeFlowPKCEManagerLogger = Logger(
-        label: "AuthorizationCodeFlowPKCEManager", level: .critical
-    )
-    
-    static var clientCredentialsFlowManagerLogger = Logger(
-        label: "ClientCredentialsFlowManager", level: .critical
-    )
-
-}
 
 public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	
@@ -36,9 +10,9 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	func makeTokenRequest(
         code: String,
         redirectURIWithQuery: URL
-    ) -> URLRequest
+    ) throws -> URLRequest
 	
-    func makeRefreshTokenRequest(refreshToken: String) -> URLRequest
+    func makeRefreshTokenRequest(refreshToken: String) throws -> URLRequest
     
 }
 
@@ -50,9 +24,9 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
-    ) -> URLRequest
+    ) throws -> URLRequest
     
-	func makePKCERefreshTokenRequest(refreshToken: String) -> URLRequest
+	func makePKCERefreshTokenRequest(refreshToken: String) throws -> URLRequest
     
 }
 
@@ -62,6 +36,6 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     
     var clientId: String { get }
     
-    func makeTokensRequest()
+    func makeTokensRequest() throws -> URLRequest
 
 }

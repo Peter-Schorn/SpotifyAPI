@@ -1,6 +1,6 @@
 import Foundation
 
-#if TEST
+#if !TEST
 import NIO
 import NIOHTTP1
 import AsyncHTTPClient
@@ -22,14 +22,14 @@ public final class NetworkAdaptorManager {
     
     public static let shared = NetworkAdaptorManager()
     
-    #if TEST
+    #if !TEST
     private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
     #endif
     
     private init() { }
     
     deinit {
-        #if TEST
+        #if !TEST
         try? self.httpClient.syncShutdown()
         #endif
     }
@@ -38,7 +38,7 @@ public final class NetworkAdaptorManager {
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        #if TEST
+        #if !TEST
         // transform the dictionary to an array of tuples
         let headers: [(String, String)] = (request.allHTTPHeaderFields ?? [:])
             .map { key, value in return (key, value) }
@@ -113,37 +113,4 @@ public final class NetworkAdaptorManager {
         #endif
     }
     
-}
-
-public extension SpotifyAuthorizationManager {
-    
-    var networkAdaptor: (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
-        get {
-            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
-                return authManager.networkAdaptor
-            }
-            if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
-                return authManager.networkAdaptor
-            }
-            if let authManager = self as? ClientCredentialsFlowManager {
-                return authManager.networkAdaptor
-            }
-            fatalError("unexpected authorization manager: \(self)")
-        }
-        set {
-            if let authManager = self as? AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
-                authManager.networkAdaptor = newValue
-            }
-            else if let authManager = self as? AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
-                authManager.networkAdaptor = newValue
-            }
-            else if let authManager = self as? ClientCredentialsFlowManager {
-                authManager.networkAdaptor = newValue
-            }
-            else {
-                fatalError("unexpected authorization manager: \(self)")
-            }
-        }
-    }
-
 }

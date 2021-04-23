@@ -563,7 +563,7 @@ extension SpotifyAPIPlaylistsTests {
 }
 
 extension SpotifyAPIPlaylistsTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
 
     func createPlaylistAndAddTracksThenUnfollowIt() {
@@ -1540,7 +1540,7 @@ extension SpotifyAPIPlaylistsTests where
 // MARK: Authorization and setup methods
 
 extension SpotifyAPIPlaylistsTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
     
     /// Only authorize for the playlist scopes. The super implementation
@@ -1554,7 +1554,9 @@ extension SpotifyAPIPlaylistsTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
-        Self.authorizeAndWaitForTokens(scopes: Scope.playlistScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: Scope.playlistScopes, showDialog: false
+        )
 
     }
     

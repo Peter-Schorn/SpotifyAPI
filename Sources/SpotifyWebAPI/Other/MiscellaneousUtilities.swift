@@ -17,7 +17,7 @@ public extension Dictionary where Key == String, Value == String {
         urlComponents.queryItems = self.map { item in
             URLQueryItem(name: item.key, value: item.value)
         }
-        return urlComponents.query?.data(using: .utf8)
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
     }
     
 }

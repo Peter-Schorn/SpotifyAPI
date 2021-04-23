@@ -6,16 +6,20 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-struct RefreshAccessTokenRequest: Codable, Hashable {
+public struct RefreshAccessTokenRequest: Hashable {
     
-    let grantType = "refresh_token"
-    let refreshToken: String
+    public let grantType = "refresh_token"
+    public let refreshToken: String
     
-    func formURLEncoded() -> Data {
+    public init(refreshToken: String) {
+        self.refreshToken = refreshToken
+    }
+
+    public func formURLEncoded() -> Data {
         
         guard let data = [
-            "grant_type": grantType,
-            "refresh_token": refreshToken
+            CodingKeys.grantType.rawValue: grantType,
+            CodingKeys.refreshToken.rawValue: refreshToken
         ].formURLEncoded()
         else {
             fatalError(
@@ -25,9 +29,13 @@ struct RefreshAccessTokenRequest: Codable, Hashable {
         return data
     }
     
-    enum CodingKeys: String, CodingKey {
-        case refreshToken = "refresh_token"
+}
+
+extension RefreshAccessTokenRequest: Codable {
+    
+    public enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
+        case refreshToken = "refresh_token"
     }
     
 }

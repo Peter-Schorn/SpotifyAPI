@@ -223,6 +223,7 @@ extension SpotifyAPIAuthorizationCodeFlowErrorTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowErrorTests = [
         ("testAutoRetryOnRateLimitedErrorConcurrent", testAutoRetryOnRateLimitedErrorConcurrent),
         ("testAutoRetryOnRateLimitedErrorSerial", testAutoRetryOnRateLimitedErrorSerial),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testExceedRetryLimit", testExceedRetryLimit),
@@ -355,6 +356,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEErrorTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEErrorTests = [
         ("testAutoRetryOnRateLimitedErrorConcurrent", testAutoRetryOnRateLimitedErrorConcurrent),
         ("testAutoRetryOnRateLimitedErrorSerial", testAutoRetryOnRateLimitedErrorSerial),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testExceedRetryLimit", testExceedRetryLimit),
@@ -717,6 +719,7 @@ extension SpotifyAPIClientCredentialsFlowErrorTests {
     static let __allTests__SpotifyAPIClientCredentialsFlowErrorTests = [
         ("testAutoRetryOnRateLimitedErrorConcurrent", testAutoRetryOnRateLimitedErrorConcurrent),
         ("testAutoRetryOnRateLimitedErrorSerial", testAutoRetryOnRateLimitedErrorSerial),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testExceedRetryLimit", testExceedRetryLimit),
         ("testNonRetryableErrors", testNonRetryableErrors),

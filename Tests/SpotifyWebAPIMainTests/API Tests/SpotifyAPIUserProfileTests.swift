@@ -98,7 +98,7 @@ extension SpotifyAPIUserProfileTests {
 
 
 extension SpotifyAPIUserProfileTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
     
     func currentUserProfile() {

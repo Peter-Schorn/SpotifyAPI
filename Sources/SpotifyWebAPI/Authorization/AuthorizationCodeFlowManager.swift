@@ -318,7 +318,7 @@ public extension AuthorizationCodeFlowManager {
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
             queryItems: urlQueryDictionary([
-                "client_id": backend.clientId,
+                "client_id": self.backend.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
@@ -423,34 +423,43 @@ public extension AuthorizationCodeFlowManager {
             .anyFailingPublisher()
         }
         
-		let tokensRequest = backend.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
-        
-        return self.networkAdaptor(tokensRequest)
-            .castToURLResponse()
-            .decodeSpotifyObject(AuthInfo.self)
-            .tryMap { authInfo in
-                
-                Self.logger.trace("received authInfo:\n\(authInfo)")
-                
-                if authInfo.accessToken == nil ||
+        do {
+            Self.logger.trace("backend.makeTokenRequest")
+            let tokensRequest = try self.backend.makeTokenRequest(
+                code: code,
+                redirectURIWithQuery: redirectURIWithQuery
+            )
+            
+            return self.networkAdaptor(tokensRequest)
+                .castToURLResponse()
+                .decodeSpotifyObject(AuthInfo.self)
+                .tryMap { authInfo in
+                    
+                    Self.logger.trace("received authInfo:\n\(authInfo)")
+                    
+                    if authInfo.accessToken == nil ||
                         authInfo.refreshToken == nil ||
                         authInfo.expirationDate == nil {
-                    
-                    let errorMessage = """
+                        
+                        let errorMessage = """
                         missing properties after requesting access and \
                         refresh tokens (expected access token, refresh token, \
                         and expiration date):
                         \(authInfo)
                         """
-                    Self.logger.error("\(errorMessage)")
-                    throw SpotifyLocalError.other(errorMessage)
+                        Self.logger.error("\(errorMessage)")
+                        throw SpotifyLocalError.other(errorMessage)
+                        
+                    }
+                    
+                    self.updateFromAuthInfo(authInfo)
                     
                 }
-                
-                self.updateFromAuthInfo(authInfo)
-                
-            }
-            .eraseToAnyPublisher()
+                .eraseToAnyPublisher()
+            
+        } catch {
+            return error.anyFailingPublisher()
+        }
         
     }
 
@@ -523,7 +532,10 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-					let refreshTokensRequest = backend.makeRefreshTokenRequest(refreshToken: refreshToken)
+                    Self.logger.trace("backend.makeRefreshTokenRequest")
+					let refreshTokensRequest = try self.backend.makeRefreshTokenRequest(
+                        refreshToken: refreshToken
+                    )
 
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
@@ -591,20 +603,20 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
         // print("AuthorizationCodeFlowManager.description WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
             // print("AuthorizationCodeFlowManager.description INSIDE queue")
-            let expirationDateString = _expirationDate?
+            let expirationDateString = self._expirationDate?
                     .description(with: .autoupdatingCurrent)
                     ?? "nil"
             
-            let scopeString = _scopes.map({ "\($0.map(\.rawValue))" })
+            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
                     ?? "nil"
             
             return """
                 AuthorizationCodeFlowManager(
-                    access token: "\(_accessToken ?? "nil")"
+                    access token: "\(self._accessToken ?? "nil")"
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
-                    refresh token: "\(_refreshToken ?? "nil")"
-                    backend: "\(backend)"
+                    refresh token: "\(self._refreshToken ?? "nil")"
+                    backend: "\(self.backend)"
                 )
                 """
         }

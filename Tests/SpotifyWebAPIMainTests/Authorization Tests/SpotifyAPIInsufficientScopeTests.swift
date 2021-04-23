@@ -17,7 +17,7 @@ import SpotifyExampleContent
 protocol SpotifyAPIInsufficientScopeTests: SpotifyAPITests { }
 
 extension SpotifyAPIInsufficientScopeTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
     
     func makeRequestWithoutAuthorization() {
@@ -73,7 +73,10 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
         
-        Self.authorizeAndWaitForTokens(scopes: previousScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: previousScopes,
+            showDialog: false
+        )
 
     }
 
@@ -138,7 +141,9 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertEqual(didDeauthorizeCount, 1)
         XCTAssertEqual(didChangeCount, 0)
 
-        Self.authorizeAndWaitForTokens(scopes: insufficientScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: insufficientScopes, showDialog: false
+        )
         
         XCTAssertEqual(didChangeCount, 1)
         
@@ -160,7 +165,9 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
         
-        Self.authorizeAndWaitForTokens(scopes: previousScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: previousScopes, showDialog: false
+        )
         
         XCTAssertEqual(didDeauthorizeCount, 1)
         XCTAssertEqual(didChangeCount, 2)
@@ -220,7 +227,9 @@ extension SpotifyAPIInsufficientScopeTests where
             [.playlistModifyPrivate]
         )
 
-        Self.authorizeAndWaitForTokens(scopes: insufficientScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: insufficientScopes, showDialog: false
+        )
         
         XCTAssertEqual(didChangeCount, 1)
         
@@ -261,7 +270,9 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
 
-        Self.authorizeAndWaitForTokens(scopes: previousScopes)
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: previousScopes, showDialog: false
+        )
         
         XCTAssertEqual(didDeauthorizeCount, 1)
         XCTAssertEqual(didChangeCount, 2)

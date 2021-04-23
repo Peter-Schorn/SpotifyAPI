@@ -42,8 +42,8 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		let body = TokensRequest(
 			code: code,
 			redirectURI: baseRedirectURI,
-			clientId: clientId,
-			clientSecret: clientSecret
+			clientId: self.clientId,
+			clientSecret: self.clientSecret
 		)
 		.formURLEncoded()
         
@@ -66,7 +66,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 	}
 
 	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
-		let headers = basicBase64EncodedCredentialsHeader +
+		let headers = self.basicBase64EncodedCredentialsHeader +
 				Headers.formURLEncoded
 
 		let body = RefreshAccessTokenRequest(
@@ -96,7 +96,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
     
 }
 
-extension AuthorizationCodeFlowClientBackend {
+extension AuthorizationCodeFlowClientBackend: Codable {
 	
 	public init(from decoder: Decoder) throws {
 		let container = try decoder.container(
@@ -218,7 +218,7 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
 	}
 }
 
-extension AuthorizationCodeFlowPKCEClientBackend {
+extension AuthorizationCodeFlowPKCEClientBackend: Codable {
     
     private enum CodingKeys: String, CodingKey {
         case clientId = "client_id"

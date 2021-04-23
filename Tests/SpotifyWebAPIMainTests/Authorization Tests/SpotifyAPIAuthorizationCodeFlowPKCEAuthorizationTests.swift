@@ -57,7 +57,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized())
         
-        Self.spotify.authorizeAndWaitForTokens(
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: currentScopes
         )
     
@@ -514,7 +514,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests:
             
             XCTAssertEqual(authenticationError.error, "invalid_grant")
             XCTAssertEqual(
-                authenticationError.description,
+                authenticationError.errorDescription,
                 "code_verifier was incorrect"
             )
             

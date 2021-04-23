@@ -609,7 +609,7 @@ extension SpotifyAPIArtistTests {
 // MARK: Authorization and setup methods
 
 extension SpotifyAPIArtistTests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
 
     /// Authorize for zero scopes because none are required for the artist
@@ -621,7 +621,9 @@ extension SpotifyAPIArtistTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
-        Self.authorizeAndWaitForTokens(scopes: [])
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: [], showDialog: false
+        )
 
     }
     

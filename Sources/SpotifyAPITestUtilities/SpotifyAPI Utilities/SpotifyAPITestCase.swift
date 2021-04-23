@@ -74,6 +74,8 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
             \(testsListString)
             
             \(reTestCommand)
+
+
             """
         
         return finalMessage
