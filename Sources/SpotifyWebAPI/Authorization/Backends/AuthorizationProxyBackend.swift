@@ -129,7 +129,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         refreshToken: String
     ) -> URLRequest {
         
-        let body = RefreshAccessTokenRequest(
+        let body = RemotePKCERefreshAccessTokenRequest(
             refreshToken: refreshToken
         )
         .formURLEncoded()

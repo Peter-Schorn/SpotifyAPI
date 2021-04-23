@@ -27,6 +27,7 @@ public struct RemotePKCERefreshAccessTokenRequest: Hashable {
     public func formURLEncoded() -> Data {
         
         guard let data = [
+            CodingKeys.method.rawValue: self.method,
             CodingKeys.grantType.rawValue: self.grantType,
             CodingKeys.refreshToken.rawValue: self.refreshToken
         ].formURLEncoded()
