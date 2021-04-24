@@ -13,8 +13,8 @@ import Foundation
  */
 public struct RemotePKCERefreshAccessTokenRequest: Hashable {
     
-    /// Disambiguates this type from `RefreshAccessTokenRequest`,
-    /// which otherwise would have the same fields.
+    /// Disambiguates this type from `RefreshAccessTokenRequest` when represented
+    /// as data, which would otherwise have all of the same fields.
     public let method = "PKCE"
     
     public let grantType = "refresh_token"
