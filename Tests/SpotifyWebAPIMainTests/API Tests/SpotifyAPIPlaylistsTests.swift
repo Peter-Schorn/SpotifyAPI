@@ -1554,6 +1554,12 @@ extension SpotifyAPIPlaylistsTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                for: [randomScope]
+            )
+        )
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: Scope.playlistScopes, showDialog: false
         )

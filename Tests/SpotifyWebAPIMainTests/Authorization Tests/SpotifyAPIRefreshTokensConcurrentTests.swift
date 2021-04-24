@@ -23,7 +23,15 @@ protocol SpotifyAPIRefreshTokensConcurrentTests: SpotifyAPITests { }
 
 extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equatable {
     
-    func concurrentTokensRefresh(topLevel: Int) {
+    func concurrentTokensRefresh() {
+        for i in 0..<20 {
+            print("\n--- TOP LEVEL \(i) ---\n")
+            Self.spotify.authorizationManager.setExpirationDate(to: Date())
+            self.concurrentTokensRefreshCore(topLevel: i)
+        }
+    }
+    
+    private func concurrentTokensRefreshCore(topLevel: Int) {
         
         var cancellables: Set<AnyCancellable> = []
         
@@ -287,7 +295,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equ
   
  }
 
-
+// MARK: - Client -
 
 final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIRefreshTokensConcurrentTests
@@ -299,11 +307,7 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     ]
     
     func testConcurrentTokensRefresh() {
-        for i in 0..<20 {
-            print("\n--- TOP LEVEL \(i) ---\n")
-            Self.spotify.authorizationManager.setExpirationDate(to: Date())
-            self.concurrentTokensRefresh(topLevel: i)
-        }
+        self.concurrentTokensRefresh()
     }
     
     func testConcurrentRequestsWithExpiredToken() {
@@ -332,13 +336,8 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
         ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
     ]
     
-    
     func testConcurrentTokensRefresh() {
-        for i in 0..<20 {
-            print("\n--- TOP LEVEL \(i) ---\n")
-            Self.spotify.authorizationManager.setExpirationDate(to: Date())
-            self.concurrentTokensRefresh(topLevel: i)
-        }
+        self.concurrentTokensRefresh()
     }
     
     func testConcurrentRequestsWithExpiredToken() {
@@ -365,11 +364,36 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
     ]
     
     func testConcurrentTokensRefresh() {
-        for i in 0..<20 {
-            print("\n--- TOP LEVEL \(i) ---\n")
-            Self.spotify.authorizationManager.setExpirationDate(to: Date())
-            self.concurrentTokensRefresh(topLevel: i)
-        }
+        self.concurrentTokensRefresh()
+    }
+    
+    func testConcurrentRequestsWithExpiredToken() {
+        self.concurrentRequestsWithExpiredToken()
+    }
+    
+    override func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+    
+    override func setUp() {
+        Self.setupAuthorization()
+    }
+
+}
+
+// MARK: - Proxy -
+
+final class SpotifyAPIAuthorizationCodeFlowProxyRefreshTokensConcurrentTests:
+    SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIRefreshTokensConcurrentTests
+{
+    
+    static let allCases = [
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
+    ]
+    
+    func testConcurrentTokensRefresh() {
+        self.concurrentTokensRefresh()
     }
     
     func testConcurrentRequestsWithExpiredToken() {
@@ -384,5 +408,31 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
         Self.setupAuthorization()
     }
     
+}
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyRefreshTokensConcurrentTests:
+    SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIRefreshTokensConcurrentTests
+{
+    
+    static let allCases = [
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
+    ]
+    
+    func testConcurrentTokensRefresh() {
+        self.concurrentTokensRefresh()
+    }
+    
+    func testConcurrentRequestsWithExpiredToken() {
+        self.concurrentRequestsWithExpiredToken()
+    }
+    
+    override func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+    
+    override func setUp() {
+        Self.setupAuthorization()
+    }
 
 }

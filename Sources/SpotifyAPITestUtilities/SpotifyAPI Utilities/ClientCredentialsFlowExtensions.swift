@@ -18,6 +18,8 @@ public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowM
         )
     )
     
+    /// A shared instance used for testing purposes with a custom network
+    /// adaptor for `self` and `AuthorizationCodeFlowManager`.
     static let sharedTestNetworkAdaptor = SpotifyAPI(
         authorizationManager: ClientCredentialsFlowManager(
             clientId: spotifyCredentials.clientId,

@@ -26,6 +26,57 @@ public protocol SpotifyAPITests: SpotifyAPITestCase {
     
 }
 
+// MARK: - Generic Backend -
+
+/// Generic over the backend.
+public protocol AuthorizationCodeFlowTestsProtocol: SpotifyAPITests {
+
+    associatedtype Backend: AuthorizationCodeFlowBackend
+
+    static var spotify: SpotifyAPI<AuthorizationCodeFlowManager<Backend>> { get set }
+
+//    static func setupAuthorization(
+//        scopes: Set<Scope>,
+//        showDialog: Bool
+//    ) -> Void
+
+//    static func fuzzSpotify() -> Void
+
+}
+
+//extension AuthorizationCodeFlowTestsProtocol {
+//
+//    static func setupAuthorization(
+//        scopes: Set<Scope>,
+//        showDialog: Bool
+//    ) {
+//
+//        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+//            scopes: scopes, showDialog: showDialog
+//        )
+//
+//    }
+//
+//}
+
+/// Generic over the backend.
+public protocol AuthorizationCodeFlowPKCETestsProtocol: SpotifyAPITests {
+
+    associatedtype Backend: AuthorizationCodeFlowPKCEBackend
+
+    static var spotify: SpotifyAPI<AuthorizationCodeFlowPKCEManager<Backend>> { get set }
+
+//    static func setupAuthorization(
+//        scopes: Set<Scope>,
+//        showDialog: Bool
+//    ) -> Void
+
+//    static func fuzzSpotify() -> Void
+
+}
+
+// MARK: - Internal Authorization Managers -
+
 /// Provides generic access to members that are only expected to be
 /// available in the authorization managers in this library, as opposed
 /// to those that may be created by other clients.

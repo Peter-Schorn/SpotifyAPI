@@ -78,10 +78,16 @@ public extension URLComponents {
 
     /// A dictionary of the query items in the URL.
     var queryItemsDict: [String: String] {
-
-        return self.queryItems?.reduce(into: [:]) { dict, query in
-            dict[query.name] = query.value
-        } ?? [:]
+        get {
+            return self.queryItems?.reduce(into: [:]) { dict, query in
+                dict[query.name] = query.value
+            } ?? [:]
+        }
+        set {
+            self.queryItems = newValue.map { key, value in
+                URLQueryItem(name: key, value: value)
+            }
+        }
     }
     
 

@@ -66,6 +66,12 @@ public extension URLSession {
 
 extension URLSession {
     
+    /**
+     The network adaptor that this library uses by default for all
+     network requests.
+    
+     - Parameter request: The request to send.
+     */
     func defaultNetworkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {

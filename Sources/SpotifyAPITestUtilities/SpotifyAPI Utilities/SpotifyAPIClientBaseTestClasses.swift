@@ -10,6 +10,13 @@ import OpenCombineFoundation
 import XCTest
 import SpotifyWebAPI
 
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+// MARK: - Client -
+
 /// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
 open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPITests {
@@ -28,13 +35,6 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
             "SpotifyAPIClientCredentialsFlowTests"
         )
         Self.spotify.setupDebugging()
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-        
         Self.fuzzSpotify()
         Self.setupAuthorization()
     }
@@ -44,6 +44,14 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
     }
     
     open class func fuzzSpotify() {
+        
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -64,10 +72,9 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
 }
 
 
-
 /// The base class for all tests involving
 /// `SpotifyAPI<AuthorizationCodeFlowManager>`.
-open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPITests {
+open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol {
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.sharedTest
@@ -83,13 +90,6 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
             "SpotifyAPIAuthorizationCodeFlowTests"
         )
         Self.spotify.setupDebugging()
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-        
         Self.fuzzSpotify()
         Self.setupAuthorization()
     }
@@ -105,6 +105,14 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
     }
     
     open class func fuzzSpotify() {
+        
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -127,7 +135,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, SpotifyAPIT
 
 /// The base class for all tests involving
 /// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
-open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, SpotifyAPITests {
+open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, AuthorizationCodeFlowPKCETestsProtocol {
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.sharedTest
@@ -143,13 +151,6 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
             "SpotifyAPIAuthorizationCodeFlowPKCETests"
         )
         Self.spotify.setupDebugging()
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-        
         Self.fuzzSpotify()
         Self.setupAuthorization()
     }
@@ -163,6 +164,14 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
     }
     
     open class func fuzzSpotify() {
+        
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -178,6 +187,127 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Spotify
             XCTFail("\(error)")
         }
         
+    }
+
+}
+
+// MARK: - Proxy -
+
+/// The base class for all tests involving
+/// `SpotifyAPI<AuthorizationCodeFlowManager>`.
+open class SpotifyAPIAuthorizationCodeFlowProxyTests: SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol {
+
+    public static var spotify =
+            SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>>.sharedTest
+
+    public static var cancellables: Set<AnyCancellable> = []
+
+    /// If you only need to setup the authorization,
+    /// override `setupAuthorization()` instead.
+    override open class func setUp() {
+        super.setUp()
+        print(
+            "setup debugging and authorization for " +
+            "SpotifyAPIAuthorizationCodeFlowTests"
+        )
+        Self.spotify.setupDebugging()
+        Self.fuzzSpotify()
+        Self.setupAuthorization()
+    }
+
+    open class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases,
+        showDialog: Bool = false
+    ) {
+
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: scopes, showDialog: showDialog
+        )
+    }
+
+    open class func fuzzSpotify() {
+
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+
+        encodeDecode(Self.spotify, areEqual: { lhs, rhs in
+            lhs.authorizationManager == rhs.authorizationManager
+        })
+        do {
+            let encoded = try JSONEncoder().encode(Self.spotify)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>>.self,
+                from: encoded
+            )
+            Self.spotify = decoded
+
+        } catch {
+            XCTFail("\(error)")
+        }
+
+    }
+
+
+}
+
+/// The base class for all tests involving
+/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
+open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests: SpotifyAPITestCase, AuthorizationCodeFlowPKCETestsProtocol {
+
+    public static var spotify =
+            SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>.sharedTest
+
+    public static var cancellables: Set<AnyCancellable> = []
+
+    /// If you only need to setup the authorization,
+    /// override `setupAuthorization()` instead.
+    override open class func setUp() {
+        super.setUp()
+        print(
+            "setup debugging and authorization for " +
+            "SpotifyAPIAuthorizationCodeFlowPKCETests"
+        )
+        Self.spotify.setupDebugging()
+        Self.fuzzSpotify()
+        Self.setupAuthorization()
+    }
+
+    open class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases
+    ) {
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: scopes
+        )
+    }
+
+    open class func fuzzSpotify() {
+
+        if Bool.random() {
+            Self.spotify = .sharedTest
+        }
+        else {
+            Self.spotify = .sharedTestNetworkAdaptor
+        }
+
+        encodeDecode(Self.spotify, areEqual: { lhs, rhs in
+            lhs.authorizationManager == rhs.authorizationManager
+        })
+        do {
+            let encoded = try JSONEncoder().encode(Self.spotify)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
+                from: encoded
+            )
+            Self.spotify = decoded
+
+        } catch {
+            XCTFail("\(error)")
+        }
+
     }
 
 }

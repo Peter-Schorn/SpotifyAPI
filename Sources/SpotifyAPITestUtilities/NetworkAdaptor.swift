@@ -16,7 +16,7 @@ import OpenCombine
 import FoundationNetworking
 #endif
 
-import SpotifyWebAPI
+@testable import SpotifyWebAPI
 
 public final class NetworkAdaptorManager {
     
@@ -39,6 +39,21 @@ public final class NetworkAdaptorManager {
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         #if TEST
+        
+        return self.nioNetworkAdaptor(request: request)
+        
+        #else
+        
+        return URLSession.shared.defaultNetworkAdaptor(request: request)
+        
+        #endif
+    }
+    
+    #if TEST
+    private func nioNetworkAdaptor(
+        request: URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
+        
         // transform the dictionary to an array of tuples
         let headers: [(String, String)] = (request.allHTTPHeaderFields ?? [:])
             .map { key, value in return (key, value) }
@@ -95,22 +110,8 @@ public final class NetworkAdaptorManager {
         }
         .eraseToAnyPublisher()
         
-        #else
-        
-        return URLSession.shared.dataTaskPublisher(for: request)
-            .mapError { $0 as Error }
-            .map { data, response -> (data: Data, response: HTTPURLResponse) in
-                guard let httpURLResponse = response as? HTTPURLResponse else {
-                    fatalError(
-                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
-                    )
-                }
-                return (data: data, response: httpURLResponse)
-                
-            }
-            .eraseToAnyPublisher()
-        
-        #endif
     }
+    #endif
+    
     
 }

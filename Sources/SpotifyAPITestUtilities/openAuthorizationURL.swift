@@ -56,7 +56,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)
-    #else
+    #endif
     print(
         """
 
@@ -67,7 +67,6 @@ public func openAuthorizationURLAndWaitForRedirect(
         \(authorizationURL)
         """
     )
-    #endif
     
     #if TEST
     print(

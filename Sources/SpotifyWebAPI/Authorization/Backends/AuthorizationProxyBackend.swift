@@ -15,8 +15,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     /// The client id for your application.
 	public let clientId: String
 
-	let tokenURL: URL
-	let tokenRefreshURL: URL
+	public let tokenURL: URL
+	public let tokenRefreshURL: URL
 
 	public init(clientId: String, tokenURL: URL, tokenRefreshURL: URL) {
 		self.clientId = clientId
@@ -87,8 +87,8 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
     /// The client id for your application.
     public let clientId: String
 
-    let tokenURL: URL
-    let tokenRefreshURL: URL
+    public let tokenURL: URL
+    public let tokenRefreshURL: URL
 
     public init(clientId: String, tokenURL: URL, tokenRefreshURL: URL) {
         self.clientId = clientId

@@ -63,6 +63,7 @@ public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBa
     SpotifyScopeAuthorizationManager
 {
     
+    // MARK: TODO: document
     /// The logger for this class.
     public static var logger: Logger {
         get {

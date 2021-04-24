@@ -40,6 +40,13 @@
         "identifier" : "SpotifyWebAPIMainTests",
         "name" : "SpotifyWebAPIMainTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SpotifyAPIBackendTests",
+        "name" : "SpotifyAPIBackendTests"
+      }
     }
   ],
   "version" : 1

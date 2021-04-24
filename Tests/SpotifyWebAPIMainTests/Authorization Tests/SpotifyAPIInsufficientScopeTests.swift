@@ -53,6 +53,12 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                for: [randomScope]
+            )
+        )
         
         let expectation = XCTestExpectation(
             description: "requestWithoutAuthorization"
@@ -137,6 +143,12 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                for: [randomScope]
+            )
+        )
 
         XCTAssertEqual(didDeauthorizeCount, 1)
         XCTAssertEqual(didChangeCount, 0)
@@ -218,6 +230,12 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])
         )
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                for: [randomScope]
+            )
+        )
 
         XCTAssertEqual(didDeauthorizeCount, 1)
         XCTAssertEqual(didChangeCount, 0)
@@ -281,6 +299,8 @@ extension SpotifyAPIInsufficientScopeTests where
     
 }
 
+// MARK: - Client -
+
 final class SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIInsufficientScopeTests
 {
@@ -299,6 +319,40 @@ final class SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests:
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIInsufficientScopeTests
+{
+
+    static let allTests = [
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
+        ("testInsufficientScopeLocal", testInsufficientScopeLocal),
+        ("testInsufficientScope2", testInsufficientScope2)
+    ]
+
+    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
+    func testInsufficientScopeLocal() { insufficientScopeLocal() }
+    func testInsufficientScope2() { insufficientScope2() }
+    
+}
+
+// MARK: - Proxy -
+
+final class SpotifyAPIAuthorizationCodeFlowProxyInsufficientScopeTests:
+    SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIInsufficientScopeTests
+{
+
+    static let allTests = [
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
+        ("testInsufficientScopeLocal", testInsufficientScopeLocal),
+        ("testInsufficientScope2", testInsufficientScope2)
+    ]
+
+    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
+    func testInsufficientScopeLocal() { insufficientScopeLocal() }
+    func testInsufficientScope2() { insufficientScope2() }
+    
+}
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyInsufficientScopeTests:
+    SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIInsufficientScopeTests
 {
 
     static let allTests = [

@@ -95,6 +95,47 @@ public let spotifyCredentials: SpotifyCredentials = {
 /// ```
 public let localHostURL = URL(string: "http://localhost:8080")!
 
+/// The `URL` for the backend that retrieves the access token.
+/// Retrieved from the "SPOTIFY_BACKEND_SERVER_URL" environment variable.
+public let spotifyBackendTokenURL: URL = {
+    
+    guard let urlString = ProcessInfo.processInfo
+            .environment["SPOTIFY_BACKEND_TOKEN_URL"] else {
+        fatalError(
+            "could not find 'SPOTIFY_BACKEND_TOKEN_URL' " +
+            "in environment variables"
+        )
+    }
+    
+    guard let url = URL(string: urlString) else {
+        fatalError("could not convert to URL: '\(urlString)'")
+    }
+    
+    return url
+
+}()
+
+/// The `URL` for the backend that retrieves the access token.
+/// Retrieved from the "SPOTIFY_BACKEND_SERVER_URL" environment variable.
+public let spotifyBackendTokenRefreshURL: URL = {
+    
+    guard let urlString = ProcessInfo.processInfo
+            .environment["SPOTIFY_BACKEND_TOKEN_REFRESH_URL"] else {
+        fatalError(
+            "could not find 'SPOTIFY_BACKEND_TOKEN_REFRESH_URL' " +
+            "in environment variables"
+        )
+    }
+    
+    guard let url = URL(string: urlString) else {
+        fatalError("could not convert to URL: '\(urlString)'")
+    }
+    
+    return url
+
+}()
+
+
 /**
  Contains the client id and client secret.
  

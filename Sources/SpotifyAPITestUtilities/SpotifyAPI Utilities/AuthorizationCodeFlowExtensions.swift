@@ -19,10 +19,44 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
         )
     )
     
+    /// A shared instance used for testing purposes with a custom network
+    /// adaptor for `self` and `AuthorizationCodeFlowManager`.
     static let sharedTestNetworkAdaptor = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowManager(
             clientId: spotifyCredentials.clientId,
             clientSecret: spotifyCredentials.clientSecret,
+            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
+        ),
+        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
+    )
+    
+}
+
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend> {
+    
+    /// We probably don't want to use the same instance of
+    /// `AuthorizationCodeFlowProxyBackend` more than once, so we make a
+    /// new one each time.
+    private static func makeBackend() -> AuthorizationCodeFlowProxyBackend {
+        return AuthorizationCodeFlowProxyBackend(
+            clientId: spotifyCredentials.clientId,
+            tokenURL: spotifyBackendTokenURL,
+            tokenRefreshURL: spotifyBackendTokenRefreshURL
+        )
+    }
+
+    /// A shared instance used for testing purposes.
+    static let sharedTest = SpotifyAPI(
+        authorizationManager: AuthorizationCodeFlowManager(
+            backend: makeBackend()
+        )
+    )
+    
+    /// A shared instance used for testing purposes with a custom network
+    /// adaptor for `self` and `AuthorizationCodeFlowManager`.
+    static let sharedTestNetworkAdaptor = SpotifyAPI(
+        authorizationManager: AuthorizationCodeFlowManager(
+            backend: makeBackend(),
             networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         ),
         networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
@@ -39,7 +73,7 @@ public extension AuthorizationCodeFlowManager {
     ///
     /// Returns early if the application is already authorized.
     func testAuthorize(
-        scopes: Set<Scope>,
+        scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = false
     ) -> AnyPublisher<Void, Error> {
     
@@ -78,7 +112,7 @@ public extension AuthorizationCodeFlowManager {
     /// and the refresh and access tokens have been retrieved.
     /// Returns early if the application is already authorized.
     func authorizeAndWaitForTokens(
-        scopes: Set<Scope>,
+        scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = false
     ) {
         
