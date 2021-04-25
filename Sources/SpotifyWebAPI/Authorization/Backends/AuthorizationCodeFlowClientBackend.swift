@@ -133,5 +133,4 @@ extension AuthorizationCodeFlowClientBackend: Codable {
         case clientSecret = "client_secret"
     }
     
-
 }
