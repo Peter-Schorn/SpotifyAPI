@@ -27,7 +27,8 @@ extension CodingAuthorizationCodeFlowManagerTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__CodingAuthorizationCodeFlowManagerTests = [
-        ("testCodingAuthorizationCodeFlowManager", testCodingAuthorizationCodeFlowManager),
+        ("testCodingAuthorizationCodeFlowManagerClient", testCodingAuthorizationCodeFlowManagerClient),
+        ("testCodingAuthorizationCodeFlowManagerProxy", testCodingAuthorizationCodeFlowManagerProxy),
     ]
 }
 
@@ -36,7 +37,8 @@ extension CodingAuthorizationCodeFlowPKCEManagerTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__CodingAuthorizationCodeFlowPKCEManagerTests = [
-        ("testCodingAuthorizationCodeFlowManager", testCodingAuthorizationCodeFlowManager),
+        ("testCodingAuthorizationCodeFlowManagerClient", testCodingAuthorizationCodeFlowManagerClient),
+        ("testCodingAuthorizationCodeFlowManagerProxy", testCodingAuthorizationCodeFlowManagerProxy),
     ]
 }
 
@@ -701,7 +703,6 @@ extension SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests {
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testInvalidCode", testInvalidCode),
-        ("testInvalidCredentials", testInvalidCredentials),
         ("testInvalidState1", testInvalidState1),
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
