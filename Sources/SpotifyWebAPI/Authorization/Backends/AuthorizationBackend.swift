@@ -30,8 +30,6 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     
 }
 
-
-// MARK: TODO
 public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     
     var clientId: String { get }

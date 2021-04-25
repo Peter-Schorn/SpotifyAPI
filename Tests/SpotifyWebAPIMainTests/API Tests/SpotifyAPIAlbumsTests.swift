@@ -1024,7 +1024,6 @@ final class SpotifyAPIAuthorizationCodeFlowAlbumsTests:
 
 }
 
-
 final class SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests:
         SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIAlbumsTests
 {
@@ -1059,4 +1058,3 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests:
     }
 
 }
-

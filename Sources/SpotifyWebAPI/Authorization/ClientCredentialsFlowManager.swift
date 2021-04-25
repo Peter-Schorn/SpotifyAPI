@@ -604,7 +604,6 @@ public extension ClientCredentialsFlowManager {
             }
     }
     
-    
 }
 
 // MARK: - Private -
