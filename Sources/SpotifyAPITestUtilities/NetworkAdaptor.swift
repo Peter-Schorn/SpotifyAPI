@@ -39,6 +39,7 @@ public final class NetworkAdaptorManager {
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         #if TEST
+        
         return self.nioNetworkAdaptor(request: request)
         
         #else

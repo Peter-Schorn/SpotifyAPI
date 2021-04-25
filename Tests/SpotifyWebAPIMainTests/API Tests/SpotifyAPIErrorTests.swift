@@ -15,9 +15,6 @@ import SpotifyExampleContent
 import FoundationNetworking
 #endif
 
-// Ensure that `SpotifyError` and `SpotifyPlayerError` are correctly
-// decoded from Spotify web API requests. Produce a `RateLimited` error.
-
 protocol SpotifyAPIErrorTests: SpotifyAPITests { }
 
 extension SpotifyAPIErrorTests {
@@ -216,7 +213,7 @@ extension SpotifyAPIErrorTests {
         // MARK: SpotifyError
 
         let spotifyErrorExpectation = XCTestExpectation(
-            description: "otherErrors: SpotifyError"
+            description: "SpotifyError"
         )
 
         let spotifyError = SpotifyError(
@@ -225,7 +222,7 @@ extension SpotifyAPIErrorTests {
         )
         encodeDecode(spotifyError, areEqual: ==)
         
-        var receivedValue = false
+        var receivedValue1 = false
 
         Self.spotify.mockThrowError(spotifyError, times: 3)
             .XCTAssertNoFailure()
@@ -235,7 +232,7 @@ extension SpotifyAPIErrorTests {
                     spotifyErrorExpectation.fulfill()
                 },
                 receiveValue: { _ in
-                    receivedValue = true
+                    receivedValue1 = true
                 }
             )
             .store(in: &Self.cancellables)
@@ -244,7 +241,7 @@ extension SpotifyAPIErrorTests {
         // MARK: SpotifyPlayerError
 
         let spotifyPlayerErrorExpectation = XCTestExpectation(
-            description: "otherErrors: SpotifyPlayerError"
+            description: "SpotifyPlayerError"
         )
 
         let playerError = SpotifyPlayerError(
@@ -269,12 +266,50 @@ extension SpotifyAPIErrorTests {
             )
             .store(in: &Self.cancellables)
         
+        // MARK: SpotifyLocalError.httpError
+
+        let spotifyLocalErrorExpectation = XCTestExpectation(
+            description: "SpotifyLocalError"
+        )
+        
+        let data = """
+            upstream connect error or disconnect/reset before headers. \
+            reset reason: connection termination
+            """.data(using: .utf8)!
+        let response = HTTPURLResponse(
+            url: URL(string: "https://accounts.spotify.com/api/token")!,
+            statusCode: 503,
+            httpVersion: nil,
+            headerFields: nil
+        )!
+        let httpError = SpotifyLocalError.httpError(response, data)
+        
+        var receivedValue3 = false
+
+        Self.spotify.mockThrowError(httpError, times: 2)
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { completion in
+                    print("completion: \(completion)")
+                    spotifyLocalErrorExpectation.fulfill()
+                },
+                receiveValue: { _ in
+                    receivedValue3 = true
+                }
+            )
+            .store(in: &Self.cancellables)
+        
         self.wait(
-            for: [spotifyErrorExpectation, spotifyPlayerErrorExpectation],
+            for: [
+                spotifyErrorExpectation,
+                spotifyPlayerErrorExpectation,
+                spotifyLocalErrorExpectation
+            ],
             timeout: 30
         )
-        XCTAssertTrue(receivedValue)
+        XCTAssertTrue(receivedValue1)
         XCTAssertTrue(receivedValue2)
+        XCTAssertTrue(receivedValue3)
 
     }
 

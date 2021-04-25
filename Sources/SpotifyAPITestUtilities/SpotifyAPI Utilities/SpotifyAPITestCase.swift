@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 import SpotifyWebAPI
+import RegularExpressions
 
 public class SpotifyTestObserver: NSObject, XCTestObservation {
     
@@ -13,22 +14,42 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
-        let failingTestsString = self.makeFailingTestsString()
-
-        if let logFile = SpotifyAPITestCase.logFile {
-            try? failingTestsString.append(to: logFile)
+        if let failingTestsString = self.makeFailingTestsString() {
+            if let logFile = SpotifyAPITestCase.logFile {
+                try? failingTestsString.append(to: logFile)
+            }
+            
+            print("\(failingTestsString)")
         }
-
-        print("\(failingTestsString)")
 
     }
     
-    func makeFailingTestsString() -> String {
+    func makeFailingTestsString() -> String? {
         
         if SpotifyAPITestCase.failingTests.isEmpty {
-            return "\nALL TESTS PASSED\n"
+            return nil
         }
 
+        #if canImport(ObjectiveC)
+        
+        let tests = SpotifyAPITestCase.failingTests
+            .compactMap { test -> (testCase: String, testMethod: String)? in
+                // each string in `failingTests` has the format
+                // "-[<test-case> <test-method>]"
+                guard
+                    let match = try! test.regexMatch(#"-\[(\w+) (\w+)\]"#),
+                    match.groups.count >= 2,
+                    let testCase = match.groups[0]?.match,
+                    let testMethod = match.groups[1]?.match
+                else {
+                    return nil
+                }
+
+                return (testCase: testCase, testMethod: testMethod)
+            }
+
+        #else
+        
         let tests = SpotifyAPITestCase.failingTests
             .compactMap { test -> (testCase: String, testMethod: String)? in
                 // each string in `failingTests` has the format
@@ -38,12 +59,14 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
                 if tests.count != 2 { return nil }
                 return (testCase: tests[0], testMethod: tests[1])
             }
-            .sorted { lhs, rhs in
-                lhs.testCase < rhs.testCase
-            }
         
+        #endif
+        
+        let sortedTests = tests.sorted { lhs, rhs in
+            lhs.testCase < rhs.testCase
+        }
     
-        let failingTestsFilter = tests
+        let failingTestsFilter = sortedTests
             .map { test in
                 "\(test.testCase)/\(test.testMethod)"
             }
@@ -58,7 +81,7 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
         var testsListString = ""
 
         var currentTestCase: String? = nil
-        for test in tests {
+        for test in sortedTests {
             if test.testCase != currentTestCase {
                 print("\n\(test.testCase)", to: &testsListString)
                 currentTestCase = test.testCase
