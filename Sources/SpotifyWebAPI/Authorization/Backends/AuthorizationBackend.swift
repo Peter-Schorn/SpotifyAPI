@@ -32,8 +32,6 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
 
 public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     
-    var clientId: String { get }
-    
     func makeTokensRequest() throws -> URLRequest
 
 }

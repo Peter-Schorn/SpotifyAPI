@@ -103,6 +103,8 @@ public final class AuthorizationCodeFlowPKCEManager<Backend: AuthorizationCodeFl
         }
     }
         
+    // MARK: - Initializers -
+
     /**
      Creates an authorization manager for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
@@ -253,12 +255,11 @@ public extension AuthorizationCodeFlowPKCEManager where Backend == Authorization
      */
     convenience init(
         clientId: String,
-        clientSecret: String,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        let backend = AuthorizationCodeFlowPKCEClientBackend(
+        let backend = Backend(
             clientId: clientId
         )
 

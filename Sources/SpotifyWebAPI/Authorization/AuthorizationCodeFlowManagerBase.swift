@@ -244,7 +244,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
             keyedBy: AuthInfo.CodingKeys.self
         )
         self.backend = try container.decode(
-            Backend.self, forKey: .endpoint
+            Backend.self, forKey: .backend
         )
         self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
@@ -266,7 +266,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         )
         
 		try container.encode(
-			self.backend, forKey: .endpoint
+			self.backend, forKey: .backend
 		)
         try codingWrapper.encode(to: encoder)
         

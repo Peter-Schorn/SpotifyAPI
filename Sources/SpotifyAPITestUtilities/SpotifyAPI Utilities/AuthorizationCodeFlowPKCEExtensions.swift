@@ -14,8 +14,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowPKCEManager(
-            clientId: spotifyCredentials.clientId,
-            clientSecret: spotifyCredentials.clientSecret
+            clientId: spotifyCredentials.clientId
         )
     )
     
@@ -24,7 +23,6 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     static let sharedTestNetworkAdaptor = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowPKCEManager(
             clientId: spotifyCredentials.clientId,
-            clientSecret: spotifyCredentials.clientSecret,
             networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         ),
         networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)

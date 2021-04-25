@@ -21,7 +21,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
     func testCodingAuthorizationCodeFlowManagerClient() throws {
         
         let authManager = AuthorizationCodeFlowPKCEManager(
-            clientId: "the client id", clientSecret: "the client secret"
+            clientId: "the client id"
         )
         authManager.mockValues()
         

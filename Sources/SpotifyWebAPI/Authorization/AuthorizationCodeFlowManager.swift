@@ -233,7 +233,7 @@ public extension AuthorizationCodeFlowManager where Backend == AuthorizationCode
         )? = nil
     ) {
         
-        let backend = AuthorizationCodeFlowClientBackend(
+        let backend = Backend(
             clientId: clientId,
             clientSecret: clientSecret
         )

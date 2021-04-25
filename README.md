@@ -65,7 +65,7 @@ import SpotifyWebAPI
 
 let spotify = SpotifyAPI(
     authorizationManager: AuthorizationCodeFlowPKCEManager(
-        clientId: "Your Client Id", clientSecret: "Your Client Secret"
+        clientId: "Your Client Id"
     )
 )
 ```

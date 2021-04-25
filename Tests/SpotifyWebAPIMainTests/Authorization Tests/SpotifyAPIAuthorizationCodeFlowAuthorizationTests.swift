@@ -16,7 +16,6 @@ public protocol SpotifyAPIAuthorizationCodeFlowAuthorizationTests: Authorization
     
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<Backend>
 
-    
 }
 
 extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationManager: Equatable {

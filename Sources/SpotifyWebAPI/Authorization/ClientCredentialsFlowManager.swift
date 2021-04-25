@@ -13,35 +13,8 @@ import FoundationNetworking
 
 import Logging
 
-/**
- Manages the authorization proccess for the [Client Credentials Flow][1].
-
- The Client Credentials flow is used in server-to-server authentication. Only
- endpoints that do not access user information can be accessed. This means that
- endpoints that require [authorization scopes][2] cannot be accessed.
- 
- The only method you must call to authorize your application is `authorize()`.
- After that, you may begin making requests to the Soptify web API.
-
- The advantage of this authorization proccess is that no user interaction is
- required.
- 
- Note that this type conforms to `Codable`. It is this type that you should
- encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][3] for more information.
- 
- Contains the following properties:
- 
- * The client id
- * The client secret
- * The access token
- * The expiration date of the access token
- 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
- [2]: https://developer.spotify.com/documentation/general/guides/scopes/
- [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
- */
-public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
+// MARK: TODO: Document
+public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>: SpotifyAuthorizationManager {
     
     /// The logger for this class.
     public static var logger: Logger {
@@ -55,15 +28,17 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         }
     }
     
-    /// The client id for your application.
-    public let clientId: String
-    
-    /// The client secret for your application.
-    public let clientSecret: String
-    
-    /// The base 64 encoded authorization header with the client id
-    /// and client secret.
-    private let basicBase64EncodedCredentialsHeader: [String: String]
+//    /// The client id for your application.
+//    public let clientId: String
+//
+//    /// The client secret for your application.
+//    public let clientSecret: String
+//
+//    /// The base 64 encoded authorization header with the client id
+//    /// and client secret.
+//    private let basicBase64EncodedCredentialsHeader: [String: String]
+
+    public let backend: Backend
 
     /// The Spotify authorization scopes. **Always** an empty set
     /// because the client credentials flow does not support
@@ -84,7 +59,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
             self._accessToken
         }
     }
-    private var _accessToken: String?
+    var _accessToken: String?
     
     /**
      The expiration date of the access token.
@@ -102,7 +77,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
             self._expirationDate
         }
     }
-    private var _expirationDate: Date?
+    var _expirationDate: Date?
     
     /**
      A publisher that emits after the authorization information changes.
@@ -188,6 +163,8 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         label: "ClientCredentialsFlowManager.refrehTokens"
     )
 
+    // MARK: - Initializers -
+
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
      
@@ -220,18 +197,12 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(
-        clientId: String,
-        clientSecret: String,
+        backend: Backend,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-            clientId: self.clientId,
-            clientSecret: self.clientSecret
-        )!
+        self.backend = backend
         self.networkAdaptor = networkAdaptor ??
                 URLSession.shared.defaultNetworkAdaptor(request:)
     }
@@ -272,8 +243,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      [3]: https://developer.spotify.com/dashboard/login
      */
     public convenience init(
-        clientId: String,
-        clientSecret: String,
+        backend: Backend,
         accessToken: String,
         expirationDate: Date,
         networkAdaptor: (
@@ -281,8 +251,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         )? = nil
     ) {
         self.init(
-            clientId: clientId,
-            clientSecret: clientSecret,
+            backend: backend,
             networkAdaptor: networkAdaptor
         )
         self._accessToken = accessToken
@@ -292,23 +261,17 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     // MARK: - Codable -
 
     /// :nodoc:
-    public convenience init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
         
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        let clientId = try container.decode(
-            String.self, forKey: .clientId
+        self.backend = try container.decode(
+            Backend.self, forKey: .backend
         )
-        let clientSecret = try container.decode(
-            String.self, forKey: .clientSecret
-        )
-        self.init(
-            clientId: clientId,
-            clientSecret: clientSecret
-        )
+        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         self._accessToken = codingWrapper.accessToken
         self._expirationDate = codingWrapper.expirationDate
     }
@@ -328,13 +291,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
         var container = encoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        
-        try container.encode(
-            self.clientId, forKey: .clientId
-        )
-        try container.encode(
-            self.clientSecret, forKey: .clientSecret
-        )
+        try container.encode(self.backend, forKey: .backend)
         try codingWrapper.encode(to: encoder)
         
     }
@@ -349,9 +306,9 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
      * `expirationDate`
      * `networkAdaptor`
      */
-    public func makeCopy() -> Self {
-        let instance = Self(
-            clientId: self.clientId, clientSecret: self.clientSecret
+    public final func makeCopy() -> ClientCredentialsFlowBackendManager<Backend> {
+        let instance = ClientCredentialsFlowBackendManager(
+            backend: backend
         )
         return self.updateAuthInfoDispatchQueue.sync {
             instance._accessToken = self._accessToken
@@ -363,7 +320,7 @@ public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
 }
 
-public extension ClientCredentialsFlowManager {
+public extension ClientCredentialsFlowBackendManager {
     
     // MARK: - Authorization -
     
@@ -460,51 +417,39 @@ public extension ClientCredentialsFlowManager {
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
-        let body = [
-            "grant_type": "client_credentials"
-        ].formURLEncoded()!
+        do {
+            
+            let tokensRequest = try self.backend.makeTokensRequest()
 
-        let bodyString = String(data: body, encoding: .utf8) ?? "nil"
-    
-        Self.logger.trace(
-            """
-            authorizing: POST request to "\(Endpoints.getTokens)"; body:
-            \(bodyString)
-            """
-        )
-        
-        let headers = self.basicBase64EncodedCredentialsHeader +
-                Headers.formURLEncoded
-        
-        var tokensRequest = URLRequest(url: Endpoints.getTokens)
-        tokensRequest.httpMethod = "POST"
-        tokensRequest.allHTTPHeaderFields = headers
-        tokensRequest.httpBody = body
-        
-        return self.networkAdaptor(tokensRequest)
-            .castToURLResponse()
-            .decodeSpotifyObject(AuthInfo.self)
-            .subscribe(on: self.refreshTokensQueue)
-            .tryMap { authInfo in
-             
-                Self.logger.trace("received authInfo:\n\(authInfo)")
-                
-                if authInfo.accessToken == nil ||
-                        authInfo.expirationDate == nil {
+            return self.networkAdaptor(tokensRequest)
+                .castToURLResponse()
+                .decodeSpotifyObject(AuthInfo.self)
+                .subscribe(on: self.refreshTokensQueue)
+                .tryMap { authInfo in
                     
-                    let errorMessage = """
+                    Self.logger.trace("received authInfo:\n\(authInfo)")
+                    
+                    if authInfo.accessToken == nil ||
+                        authInfo.expirationDate == nil {
+                        
+                        let errorMessage = """
                         missing properties after requesting access token \
                         (expected access token and expiration date):
                         \(authInfo)
                         """
-                    Self.logger.error("\(errorMessage)")
-                    throw SpotifyLocalError.other(errorMessage)
+                        Self.logger.error("\(errorMessage)")
+                        throw SpotifyLocalError.other(errorMessage)
+                    }
+                    
+                    self.updateFromAuthInfo(authInfo)
+                    
                 }
-                
-                self.updateFromAuthInfo(authInfo)
-                
-            }
-            .eraseToAnyPublisher()
+                .eraseToAnyPublisher()
+            
+        } catch {
+            return error.anyFailingPublisher()
+        }
+
         
     }
     
@@ -608,7 +553,7 @@ public extension ClientCredentialsFlowManager {
 
 // MARK: - Private -
 
-private extension ClientCredentialsFlowManager {
+private extension ClientCredentialsFlowBackendManager {
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
         self.updateAuthInfoDispatchQueue.sync {
@@ -643,7 +588,7 @@ private extension ClientCredentialsFlowManager {
 
 // MARK: - Internal -
 
-extension ClientCredentialsFlowManager {
+extension ClientCredentialsFlowBackendManager {
     
     public func _assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
@@ -657,22 +602,23 @@ extension ClientCredentialsFlowManager {
 
 // MARK: - Hashable and Equatable -
 
-extension ClientCredentialsFlowManager: Hashable {
+extension ClientCredentialsFlowBackendManager: Hashable {
     
     /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoDispatchQueue.sync {
-            hasher.combine(clientId)
-            hasher.combine(clientSecret)
-            hasher.combine(_accessToken)
-            hasher.combine(_expirationDate)
+//            hasher.combine(clientId)
+//            hasher.combine(clientSecret)
+            hasher.combine(self.backend)
+            hasher.combine(self._accessToken)
+            hasher.combine(self._expirationDate)
         }
     }
     
     /// :nodoc:
     public static func == (
-        lhs: ClientCredentialsFlowManager,
-        rhs: ClientCredentialsFlowManager
+        lhs: ClientCredentialsFlowBackendManager,
+        rhs: ClientCredentialsFlowBackendManager
     ) -> Bool {
         
         let (lhsAccessToken, lhsExpirationDate) =
@@ -685,8 +631,7 @@ extension ClientCredentialsFlowManager: Hashable {
             return (rhs._accessToken, rhs._expirationDate)
         }
 
-        return lhs.clientId == rhs.clientId &&
-                lhs.clientSecret == rhs.clientSecret &&
+        return lhs.backend == rhs.backend &&
                 lhsAccessToken == rhsAccessToken &&
                 lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
 
@@ -696,23 +641,22 @@ extension ClientCredentialsFlowManager: Hashable {
 
 // MARK: - Custom String Convertible
 
-extension ClientCredentialsFlowManager: CustomStringConvertible {
+extension ClientCredentialsFlowBackendManager: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
         // print("ClientCredentialsFlowManager.description: WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
             // print("ClientCredentialsFlowManager.description: INSIDE queue")
-            let expirationDateString = _expirationDate?
+            let expirationDateString = self._expirationDate?
                 .description(with: .autoupdatingCurrent)
                 ?? "nil"
         
             return """
                 ClientCredentialsFlowManager(
-                    access token: "\(_accessToken ?? "nil")"
+                    access token: "\(self._accessToken ?? "nil")"
                     expiration date: \(expirationDateString)
-                    client id: "\(clientId)"
-                    client secret: "\(clientSecret)"
+                    backend: \(self.backend)
                 )
                 """
         
@@ -723,7 +667,7 @@ extension ClientCredentialsFlowManager: CustomStringConvertible {
 
 // MARK: - Testing -
 
-extension ClientCredentialsFlowManager {
+extension ClientCredentialsFlowBackendManager {
     
     /// This method sets random values for various properties
     /// for testing purposes. Do not call it outside of test cases.
@@ -749,4 +693,152 @@ extension ClientCredentialsFlowManager {
         }
     }
     
+}
+
+
+// MARK: - Subclass -
+
+/**
+ Manages the authorization proccess for the [Client Credentials Flow][1].
+
+ The Client Credentials flow is used in server-to-server authentication. Only
+ endpoints that do not access user information can be accessed. This means that
+ endpoints that require [authorization scopes][2] cannot be accessed.
+ 
+ The only method you must call to authorize your application is `authorize()`.
+ After that, you may begin making requests to the Soptify web API.
+
+ The advantage of this authorization proccess is that no user interaction is
+ required.
+ 
+ Note that this type conforms to `Codable`. It is this type that you should
+ encode to data using a `JSONEncoder` in order to save it to persistent storage.
+ See this [article][3] for more information.
+ 
+ Contains the following properties:
+ 
+ * The client id
+ * The client secret
+ * The access token
+ * The expiration date of the access token
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+ */
+public final class ClientCredentialsFlowManager: ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend> {
+    
+    /// The client id for your application.
+    public var clientId: String {
+        return self.backend.clientId
+    }
+    
+    /// The client secret for your application.
+    public var clientSecret: String {
+        return self.backend.clientSecret
+    }
+    
+    /**
+     Creates an authorization manager for the [Client Credentials Flow][1].
+     
+     Remember, with this authorization flow, only endpoints that do not
+     access user information can be accessed. This means that endpoints
+     that require [authorization scopes][2] cannot be accessed.
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][3] and create an app.
+     see the README in the root directory of this package for more information.
+
+     Note that this type conforms to `Codable`. It is this type that you should
+     encode to data using a `JSONEncoder` in order to save it to persistent storage.
+     See this [article][4] for more information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
+
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [3]: https://developer.spotify.com/dashboard/login
+     [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
+    ) {
+        let backend = ClientCredentialsFlowClientBackend(
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+        self.init(backend: backend, networkAdaptor: networkAdaptor)
+    }
+    
+    /**
+     Creates an authorization manager for the [Client Credentials Flow][1].
+     
+     **In general, only use this initializer if you have retrieved the**
+     **authorization information from an external source.** Otherwise, use
+     `init(clientId:clientSecret:networkAdaptor:)`.
+    
+     You are discouraged from individually saving the properties of this instance
+     to persistent storage and then retrieving them later and passing them into
+     this initializer. Instead, encode this entire instance to data using a
+     `JSONEncoder` and then decode the data from storage later. See
+     [Saving authorization information to persistent storage][2] for more
+     information.
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][3] and create an app. see the README in the root
+     directory of this package for more information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - accessToken: The access token.
+       - expirationDate: The expiration date of the access token.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [3]: https://developer.spotify.com/dashboard/login
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        expirationDate: Date,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
+    ) {
+
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            networkAdaptor: networkAdaptor
+        )
+        self._accessToken = accessToken
+        self._expirationDate = expirationDate
+        
+
+    }
+
+    // MARK: TODO: Codable, Hashable, CustomStringConvertible
+
 }
