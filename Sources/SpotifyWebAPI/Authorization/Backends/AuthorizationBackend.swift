@@ -12,7 +12,9 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
         redirectURIWithQuery: URL
     ) throws -> URLRequest
 	
-    func makeRefreshTokenRequest(refreshToken: String) throws -> URLRequest
+    func makeRefreshTokenRequest(
+        refreshToken: String
+    ) throws -> URLRequest
     
 }
 
@@ -26,7 +28,9 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
         redirectURIWithQuery: URL
     ) throws -> URLRequest
     
-	func makePKCERefreshTokenRequest(refreshToken: String) throws -> URLRequest
+	func makePKCERefreshTokenRequest(
+        refreshToken: String
+    ) throws -> URLRequest
     
 }
 

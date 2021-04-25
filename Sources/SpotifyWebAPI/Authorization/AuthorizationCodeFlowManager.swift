@@ -58,7 +58,7 @@ import FoundationNetworking
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBackend>:
+public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
     SpotifyScopeAuthorizationManager
 {
@@ -180,7 +180,7 @@ public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBa
     // MARK: - Codable -
     
     /// :nodoc:
-    public override init(from decoder: Decoder) throws {
+    public required override init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
@@ -196,58 +196,7 @@ public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBa
     
 }
 
-public extension AuthorizationCodeFlowManager where Backend == AuthorizationCodeFlowClientBackend {
-    
-    /**
-     Creates an authorization manager for the [Authorization Code Flow][1].
-     
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][2] and create an app. see the README in the
-     root directory of this package for more information.
-     
-     Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See [Saving authorization information to persistent storage][3] for more
-     information.
-     
-     - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
-
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: https://developer.spotify.com/dashboard/login
-     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
-     */
-    convenience init(
-        clientId: String,
-        clientSecret: String,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
-        
-        let backend = Backend(
-            clientId: clientId,
-            clientSecret: clientSecret
-        )
-
-        self.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
-
-    }
-
-}
-
-public extension AuthorizationCodeFlowManager {
+public extension AuthorizationCodeFlowBackendManager {
     
     // MARK: - Authorization -
     
@@ -597,7 +546,7 @@ public extension AuthorizationCodeFlowManager {
 
 // MARK: - Custom String Convertible
 
-extension AuthorizationCodeFlowManager: CustomStringConvertible {
+extension AuthorizationCodeFlowBackendManager: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
@@ -627,16 +576,141 @@ extension AuthorizationCodeFlowManager: CustomStringConvertible {
 
 // MARK: - Hashable and Equatable -
 
-extension AuthorizationCodeFlowManager: Hashable {
+extension AuthorizationCodeFlowBackendManager: Hashable {
 
     /// :nodoc:
     public static func == (
-        lhs: AuthorizationCodeFlowManager,
-        rhs: AuthorizationCodeFlowManager
+        lhs: AuthorizationCodeFlowBackendManager,
+        rhs: AuthorizationCodeFlowBackendManager
     ) -> Bool {
         
         return lhs.isEqualTo(other: rhs)
         
+    }
+
+}
+
+public final class AuthorizationCodeFlowManager:
+    AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>
+{
+
+    public var clientId: String {
+        return self.backend.clientId
+    }
+    
+    public var clientSecret: String {
+        return self.backend.clientSecret
+    }
+
+    /**
+     Creates an authorization manager for the [Authorization Code Flow][1].
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][2] and create an app. see the README in the
+     root directory of this package for more information.
+     
+     Note that this type conforms to `Codable`. It is this type that you should
+     encode to data using a `JSONEncoder` in order to save it to persistent storage.
+     See [Saving authorization information to persistent storage][3] for more
+     information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
+
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [2]: https://developer.spotify.com/dashboard/login
+     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
+    ) {
+        
+        let backend = AuthorizationCodeFlowClientBackend(
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+
+        self.init(
+            backend: backend,
+            networkAdaptor: networkAdaptor
+        )
+        
+    }
+    
+    /**
+     Creates an authorization manager for the [Authorization Code Flow][1].
+     
+     **In general, only use this initializer if you have retrieved the**
+     **authorization information from an external source.** Otherwise, use
+     `init(clientId:clientSecret:networkAdaptor:)`.
+    
+     You are discouraged from individually saving the properties of this instance
+     to persistent storage and then retrieving them later and passing them into
+     this initializer. Instead, encode this entire instance to data using a
+     `JSONEncoder` and then decode the data from storage later. See
+     [Saving authorization information to persistent storage][3] for more
+     information.
+     
+     To get a client id and client secret, go to the
+     [Spotify Developer Dashboard][2] and create an app. see the README in the root
+     directory of this package for more information.
+     
+     - Parameters:
+       - clientId: The client id for your application.
+       - clientSecret: The client secret for your application.
+       - accessToken: The access token.
+       - expirationDate: The expiration date of the access token.
+       - refreshToken: The refresh token. If `nil` (not recommended), then it will
+             not be possible to automatically refresh the access token when it
+             expires; instead, you will have to go through the authorization process
+             again, as described in the README in the root directory of this package.
+             Use `accessTokenIsExpired(tolerance:)` to check if the access token is
+             expired.
+       - scopes: The scopes that have been authorized for the access token.
+       - networkAdaptor: A function that gets called everytime this class—and
+             only this class—needs to make a network request. Use this
+             function if you need to use a custom networking client. The `url`
+             and `httpMethod` properties of the `URLRequest` parameter are
+             guaranteed to be non-`nil`. No guarentees are made about which
+             thread this function will be called on. The default is `nil`,
+             in which case `URLSession` will be used for the network requests.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [2]: https://developer.spotify.com/dashboard/login
+     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     */
+    public convenience init(
+        clientId: String,
+        clientSecret: String,
+        accessToken: String,
+        expirationDate: Date,
+        refreshToken: String?,
+        scopes: Set<Scope>,
+        networkAdaptor: (
+            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+        )? = nil
+    ) {
+        self.init(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            networkAdaptor: networkAdaptor
+        )
+        self._accessToken = accessToken
+        self._expirationDate = expirationDate
+        self._refreshToken = refreshToken
+        self._scopes = scopes
     }
 
 }

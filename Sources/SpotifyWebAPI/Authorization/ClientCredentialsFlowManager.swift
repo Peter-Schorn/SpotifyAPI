@@ -726,7 +726,9 @@ extension ClientCredentialsFlowBackendManager {
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
-public final class ClientCredentialsFlowManager: ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend> {
+public final class ClientCredentialsFlowManager:
+    ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>
+{
     
     /// The client id for your application.
     public var clientId: String {
