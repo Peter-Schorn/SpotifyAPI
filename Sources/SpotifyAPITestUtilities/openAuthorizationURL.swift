@@ -52,7 +52,7 @@ public func openAuthorizationURLAndWaitForRedirect(
 
     // MARK: open the authorization URL
     
-    #if canImport(AppKit)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)

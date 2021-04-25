@@ -74,7 +74,7 @@ extension SpotifyAPIEpisodeTests {
         
         // MARK: Check Images
         if let images = episode.images {
-            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
             let (imageExpectations, cancellables) = XCTAssertImagesExist(
                 images
             )
@@ -150,7 +150,7 @@ extension SpotifyAPIEpisodeTests {
             XCTFail("images should not be nil")
             return
         }
-        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
         let (expectations, cancellables) = XCTAssertImagesExist(images)
         
         Self.cancellables.formUnion(cancellables)

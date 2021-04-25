@@ -9,12 +9,16 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
     
     static var allTests = [
         (
-            "testCodingAuthorizationCodeFlowManager",
-            testCodingAuthorizationCodeFlowManager
+            "testCodingAuthorizationCodeFlowManagerClient",
+            testCodingAuthorizationCodeFlowManagerClient
+        ),
+        (
+            "testCodingAuthorizationCodeFlowManagerProxy",
+            testCodingAuthorizationCodeFlowManagerProxy
         )
     ]
     
-    func testCodingAuthorizationCodeFlowManager() throws {
+    func testCodingAuthorizationCodeFlowManagerClient() throws {
         
         let authManager = AuthorizationCodeFlowPKCEManager(
             clientId: "the client id", clientSecret: "the client secret"
@@ -32,6 +36,40 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
             let data = try JSONEncoder().encode(spotifyAPI)
             let decoded = try JSONDecoder().decode(
                 SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self,
+                from: data
+            )
+            let data2 = try JSONEncoder().encode(decoded)
+            _ = data2
+        
+        } catch {
+            XCTFail("\(error)")
+        }
+        
+        
+    }
+    
+    func testCodingAuthorizationCodeFlowManagerProxy() throws {
+        
+        let authManager = AuthorizationCodeFlowPKCEManager(
+            backend: AuthorizationCodeFlowPKCEProxyBackend(
+                clientId: "the client id",
+                tokenURL: localHostURL,
+                tokenRefreshURL: localHostURL
+            )
+        )
+        authManager.mockValues()
+        
+        encodeDecode(authManager, areEqual: ==)
+
+        let copy = authManager.makeCopy()
+        XCTAssertEqual(authManager, copy)
+        
+        let spotifyAPI = SpotifyAPI(authorizationManager: authManager)
+
+        do {
+            let data = try JSONEncoder().encode(spotifyAPI)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
                 from: data
             )
             let data2 = try JSONEncoder().encode(decoded)

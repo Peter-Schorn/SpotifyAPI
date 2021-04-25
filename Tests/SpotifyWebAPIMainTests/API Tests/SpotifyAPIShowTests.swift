@@ -248,7 +248,7 @@ extension SpotifyAPIShowTests {
             if let episode1 = show.items.first {
                 // MARK: Check Images for First Episode.
                 if let images = episode1.images {
-                    #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+                    #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
                     var imageExpectations: [XCTestExpectation] = []
                     for (i, image) in images.enumerated() {
                         let expectation = XCTestExpectation(

@@ -120,7 +120,7 @@ public func XCTAssertFinishedNormally<E: Error>(
  - Returns: An array of expectations that will be fullfilled when
        each image is loaded from its URL.
  */
-#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
 public func XCTAssertImagesExist(
     _ images: [SpotifyImage],
     file: StaticString = #file,
