@@ -16,6 +16,7 @@ public protocol SpotifyAPIAuthorizationCodeFlowAuthorizationTests: Authorization
     
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<Backend>
 
+    
 }
 
 extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationManager: Equatable {
@@ -40,11 +41,6 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
         
-        XCTAssertTrue(
-            Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
-            "\(currentScopes)"
-        )
-        
         Self.spotify.authorizationManager.deauthorize()
             
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
@@ -58,7 +54,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
             "\(Self.spotify.authorizationManager.scopes ?? [])"
         )
-        XCTAssertEqual(Self.spotify.authorizationManager.scopes, currentScopes)
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes ?? [], currentScopes)
         XCTAssertFalse(
             Self.spotify.authorizationManager.accessTokenIsExpired(tolerance: 0)
         )
@@ -120,6 +116,54 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         
     }
     
+    func invalidCredentials() {
+        
+        let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
+            redirectURI: localHostURL,
+            showDialog: false,
+            scopes: []
+        )!
+        
+        guard let redirectURI = openAuthorizationURLAndWaitForRedirect(
+            authorizationURL
+        ) else {
+            XCTFail("couldn't get redirectURI")
+            return
+        }
+        
+        let authorizationManager = self.makeNewFakeAuthManager()
+        
+        let expectation = XCTestExpectation(
+            description: "invalidCredentials"
+        )
+
+        authorizationManager.requestAccessAndRefreshTokens(
+            redirectURIWithQuery: redirectURI
+        )
+        .sink(
+            receiveCompletion: { completion in
+                defer { expectation.fulfill() }
+                guard case .failure(let error) = completion else {
+                    XCTFail("should not complete normally")
+                    return
+                }
+                guard let authError = error as? SpotifyAuthenticationError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertEqual(authError.error, "invalid_client")
+            },
+            receiveValue: {
+                XCTFail("should not receive value")
+            }
+
+        )
+        .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+
+    }
+
     func refreshWithInvalidRefreshToken() {
         
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(scopes: [])
@@ -553,6 +597,7 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testInvalidCredentials", testInvalidCredentials),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testRefreshWithInvalidRefreshToken", testRefreshWithInvalidRefreshToken),
         ("testInvalidState1", testInvalidState1),
@@ -572,8 +617,8 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
         return AuthorizationCodeFlowManager(
             backend: AuthorizationCodeFlowClientBackend(
-                clientId: "fake client id",
-                clientSecret: "fake client secret"
+                clientId: "",
+                clientSecret: ""
             )
         )
     }
@@ -584,10 +629,14 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
      
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
     
+    func testInvalidCredentials() { invalidCredentials() }
+    
     func testRefreshWithInvalidRefreshToken() { refreshWithInvalidRefreshToken() }
 
     func testConvenienceInitializer() throws {
         
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens()
+
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )
@@ -674,9 +723,9 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend> {
         return AuthorizationCodeFlowManager(
             backend: AuthorizationCodeFlowProxyBackend(
-                clientId: "fake client id",
-                tokenURL: localHostURL,
-                tokenRefreshURL: localHostURL
+                clientId: "",
+                tokenURL: spotifyBackendTokenURL,
+                tokenRefreshURL: spotifyBackendTokenRefreshURL
             )
         )
     }
@@ -691,6 +740,8 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
 
     func testConvenienceInitializer() throws {
         
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens()
+
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )

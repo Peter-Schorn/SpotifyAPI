@@ -793,3 +793,99 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
     }
     
 }
+
+// MARK: - Proxy -
+
+final class SpotifyAPIAuthorizationCodeFlowProxyErrorTests:
+    SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIErrorTests
+{
+
+    static let allTests = [
+        (
+            "testAutoRetryOnRateLimitedErrorConcurrent",
+            testAutoRetryOnRateLimitedErrorConcurrent
+        ),
+        (
+            "testAutoRetryOnRateLimitedErrorSerial",
+            testAutoRetryOnRateLimitedErrorSerial
+        ),
+        (
+            "testDecodeSpotifyErrorFromInvalidAlbumURI",
+            testDecodeSpotifyErrorFromInvalidAlbumURI
+        ),
+        ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
+        ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
+        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
+    ]
+
+    func testAutoRetryOnRateLimitedErrorConcurrent() {
+        autoRetryOnRateLimitedErrorConcurrent()
+    }
+    func testAutoRetryOnRateLimitedErrorSerial() { autoRetryOnRateLimitedErrorSerial() }
+    func testDecodeSpotifyErrorFromInvalidAlbumURI() {
+        decodeSpotifyErrorFromInvalidAlbumURI()
+    }
+    func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
+    func testExceedRetryLimit() { exceedRetryLimit() }
+    func testNonRetryableErrors() { nonRetryableErrors() }
+    func testDecodeOptionalSpotifyObject() {
+        decodeOptionalSpotifyObject()
+    }
+    func testDecodeSpotifyPlayerError() {
+        decodeSpotifyPlayerError()
+    }
+    func testUploadTooLargePlaylistImage() {
+        uploadTooLargePlaylistImage()
+    }
+    
+}
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests:
+    SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIErrorTests
+{
+
+    static let allTests = [
+        (
+            "testAutoRetryOnRateLimitedErrorConcurrent",
+            testAutoRetryOnRateLimitedErrorConcurrent
+        ),
+        (
+            "testAutoRetryOnRateLimitedErrorSerial",
+            testAutoRetryOnRateLimitedErrorSerial
+        ),
+        (
+            "testDecodeSpotifyErrorFromInvalidAlbumURI",
+            testDecodeSpotifyErrorFromInvalidAlbumURI
+        ),
+        ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
+        ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
+        ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
+        ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
+    ]
+
+    func testAutoRetryOnRateLimitedErrorConcurrent() {
+        autoRetryOnRateLimitedErrorConcurrent()
+    }
+    func testAutoRetryOnRateLimitedErrorSerial() { autoRetryOnRateLimitedErrorSerial() }
+    func testDecodeSpotifyErrorFromInvalidAlbumURI() {
+        decodeSpotifyErrorFromInvalidAlbumURI()
+    }
+    func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
+    func testExceedRetryLimit() { exceedRetryLimit() }
+    func testNonRetryableErrors() { nonRetryableErrors() }
+    func testDecodeOptionalSpotifyObject() {
+        decodeOptionalSpotifyObject()
+    }
+    func testDecodeSpotifyPlayerError() {
+        decodeSpotifyPlayerError()
+    }
+    func testUploadTooLargePlaylistImage() {
+        uploadTooLargePlaylistImage()
+    }
+    
+}

@@ -19,7 +19,9 @@ import FoundationNetworking
 
 /// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
-open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPITests {
+open class SpotifyAPIClientCredentialsFlowTests:
+    SpotifyAPITestCase, SpotifyAPITests
+{
     
     public static var spotify =
             SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
@@ -73,8 +75,10 @@ open class SpotifyAPIClientCredentialsFlowTests: SpotifyAPITestCase, SpotifyAPIT
 
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowManager>`.
-open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol {
+/// `SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>`.
+open class SpotifyAPIAuthorizationCodeFlowTests:
+    SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol
+{
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>.sharedTest
@@ -134,8 +138,10 @@ open class SpotifyAPIAuthorizationCodeFlowTests: SpotifyAPITestCase, Authorizati
 }
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
-open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, AuthorizationCodeFlowPKCETestsProtocol {
+/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>`.
+open class SpotifyAPIAuthorizationCodeFlowPKCETests:
+    SpotifyAPITestCase, AuthorizationCodeFlowPKCETestsProtocol
+{
     
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.sharedTest
@@ -194,8 +200,10 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests: SpotifyAPITestCase, Authori
 // MARK: - Proxy -
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowManager>`.
-open class SpotifyAPIAuthorizationCodeFlowProxyTests: SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol {
+/// `SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>>`.
+open class SpotifyAPIAuthorizationCodeFlowProxyTests:
+    SpotifyAPITestCase, AuthorizationCodeFlowTestsProtocol
+{
 
     public static var spotify =
             SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>>.sharedTest
@@ -255,7 +263,7 @@ open class SpotifyAPIAuthorizationCodeFlowProxyTests: SpotifyAPITestCase, Author
 }
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager>`.
+/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>`.
 open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests: SpotifyAPITestCase, AuthorizationCodeFlowPKCETestsProtocol {
 
     public static var spotify =

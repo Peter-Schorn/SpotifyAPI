@@ -40,11 +40,6 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
     
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
     
-        XCTAssertTrue(
-            Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
-            "\(currentScopes)"
-        )
-        
         Self.spotify.authorizationManager.deauthorize()
         
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
@@ -58,7 +53,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
             "\(Self.spotify.authorizationManager.scopes ?? [])"
         )
-        XCTAssertEqual(Self.spotify.authorizationManager.scopes, currentScopes)
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes ?? [], currentScopes)
         XCTAssertFalse(
             Self.spotify.authorizationManager.accessTokenIsExpired(tolerance: 0)
         )
@@ -695,7 +690,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
         return AuthorizationCodeFlowPKCEManager(
             backend: AuthorizationCodeFlowPKCEClientBackend(
-                clientId: "fake client id"
+                clientId: ""
             )
         )
     }
@@ -710,6 +705,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
 
     func testConvenienceInitializer() throws {
         
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens()
+
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )
@@ -800,9 +797,9 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
     func makeNewFakeAuthManager() -> AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend> {
         return AuthorizationCodeFlowPKCEManager(
             backend: AuthorizationCodeFlowPKCEProxyBackend(
-                clientId: "fake client id",
-                tokenURL: localHostURL,
-                tokenRefreshURL: localHostURL
+                clientId: "",
+                tokenURL: spotifyBackendTokenURL,
+                tokenRefreshURL: spotifyBackendTokenRefreshURL
             )
         )
     }
@@ -817,6 +814,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
 
     func testConvenienceInitializer() throws {
         
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens()
+
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )

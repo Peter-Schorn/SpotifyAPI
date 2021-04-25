@@ -35,29 +35,7 @@ public protocol AuthorizationCodeFlowTestsProtocol: SpotifyAPITests {
 
     static var spotify: SpotifyAPI<AuthorizationCodeFlowManager<Backend>> { get set }
 
-//    static func setupAuthorization(
-//        scopes: Set<Scope>,
-//        showDialog: Bool
-//    ) -> Void
-
-//    static func fuzzSpotify() -> Void
-
 }
-
-//extension AuthorizationCodeFlowTestsProtocol {
-//
-//    static func setupAuthorization(
-//        scopes: Set<Scope>,
-//        showDialog: Bool
-//    ) {
-//
-//        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
-//            scopes: scopes, showDialog: showDialog
-//        )
-//
-//    }
-//
-//}
 
 /// Generic over the backend.
 public protocol AuthorizationCodeFlowPKCETestsProtocol: SpotifyAPITests {
@@ -65,13 +43,6 @@ public protocol AuthorizationCodeFlowPKCETestsProtocol: SpotifyAPITests {
     associatedtype Backend: AuthorizationCodeFlowPKCEBackend
 
     static var spotify: SpotifyAPI<AuthorizationCodeFlowPKCEManager<Backend>> { get set }
-
-//    static func setupAuthorization(
-//        scopes: Set<Scope>,
-//        showDialog: Bool
-//    ) -> Void
-
-//    static func fuzzSpotify() -> Void
 
 }
 

@@ -363,6 +363,8 @@ extension SpotifyAPIFollowTests where
 
 }
 
+// MARK: - Client -
+
 final class SpotifyAPIClientCredentialsFlowFollowTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIFollowTests
 {
@@ -397,6 +399,48 @@ final class SpotifyAPIAuthorizationCodeFlowFollowTests:
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIFollowTests
+{
+
+    static let allTests = [
+        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
+        ("testFollowedArtists", testFollowedArtists),
+        ("testFollowArtists", testFollowArtists),
+        ("testFollowUsers", testFollowUsers),
+        ("testFollowPlaylist", testFollowPlaylist)
+    ]
+
+    func testUsersFollowPlaylist() { usersFollowPlaylist() }
+    func testFollowedArtists() { followedArtists() }
+    func testFollowArtists() { followArtists() }
+    func testFollowUsers() { followUsers() }
+    func testFollowPlaylist() { followPlaylist() }
+
+}
+
+// MARK: - Proxy -
+
+final class SpotifyAPIAuthorizationCodeFlowProxyFollowTests:
+    SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIFollowTests
+{
+
+    static let allTests = [
+        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
+        ("testFollowedArtists", testFollowedArtists),
+        ("testFollowArtists", testFollowArtists),
+        ("testFollowUsers", testFollowUsers),
+        ("testFollowPlaylist", testFollowPlaylist)
+    ]
+
+    func testUsersFollowPlaylist() { usersFollowPlaylist() }
+    func testFollowedArtists() { followedArtists() }
+    func testFollowArtists() { followArtists() }
+    func testFollowUsers() { followUsers() }
+    func testFollowPlaylist() { followPlaylist() }
+
+}
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyFollowTests:
+    SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIFollowTests
 {
 
     static let allTests = [

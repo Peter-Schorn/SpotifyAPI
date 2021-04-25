@@ -653,6 +653,8 @@ extension SpotifyAPIArtistTests where
     
 }
 
+// MARK: - Client -
+
 final class SpotifyAPIClientCredentialsFlowArtistTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIArtistTests
 {
@@ -746,6 +748,115 @@ final class SpotifyAPIAuthorizationCodeFlowArtistTests:
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
         SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIArtistTests
+{
+
+    static let allTests = [
+        ("testArtist", testArtist),
+        ("testArtists", testArtists),
+        ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
+        ("testArtistAlbumsSingles", testArtistAlbumsSingles),
+        ("testArtistTopTracks", testArtistTopTracks),
+        ("testRelatedArtists", testRelatedArtists)
+        
+    ]
+    
+    /// Authorize for zero scopes because none are required for the artist
+    /// endpoints. The super implementation authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override class func tearDown() {
+        Self._tearDown()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
+    
+    func testArtist() { artist() }
+    func testArtists() { artists() }
+    func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
+    func testArtistAlbumsSingles() { artistAlbumsSingles() }
+    func testArtistTopTracks() { artistTopTracks() }
+    func testRelatedArtists() { relatedArtists() }
+    
+}
+
+// MARK: - Proxy -
+
+final class SpotifyAPIAuthorizationCodeFlowProxyArtistTests:
+        SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIArtistTests
+{
+
+    static let allTests = [
+        ("testArtist", testArtist),
+        ("testArtists", testArtists),
+        ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
+        ("testArtistAlbumsSingles", testArtistAlbumsSingles),
+        ("testArtistTopTracks", testArtistTopTracks),
+        ("testRelatedArtists", testRelatedArtists)
+        
+    ]
+    
+    /// Authorize for zero scopes because none are required for the artist
+    /// endpoints. The super implementation authorizes for all scopes.
+    override class func setupAuthorization(
+        scopes: Set<Scope> = Scope.allCases,
+        showDialog: Bool = true
+    ) {
+        Self._setupAuthorization()
+    }
+
+    override class func tearDown() {
+        Self._tearDown()
+    }
+
+    override func setUp() {
+        self._setup()
+    }
+    
+    func testArtist() { artist() }
+    func testArtists() { artists() }
+    func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
+    func testArtistAlbumsSingles() { artistAlbumsSingles() }
+    func testArtistTopTracks() { artistTopTracks() }
+    func testRelatedArtists() { relatedArtists() }
+    
+}
+
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyArtistTests:
+        SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIArtistTests
 {
 
     static let allTests = [
