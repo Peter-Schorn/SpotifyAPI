@@ -12,43 +12,45 @@ import OpenCombineFoundation
 import SpotifyAPITestUtilities
 @testable import SpotifyWebAPI
 
-public protocol SpotifyAPIAuthorizationCodeFlowAuthorizationTests: AuthorizationCodeFlowTestsProtocol {
-    
-    func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<Backend>
+public protocol SpotifyAPIAuthorizationCodeFlowAuthorizationTests: SpotifyAPITests
+    where AuthorizationManager: _AuthorizationCodeFlowManagerProtool
+{
+
+    func makeFakeAuthManager() -> AuthorizationManager
 
 }
 
-extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationManager: Equatable {
-    
+extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
+
     func deauthorizeReauthorize() {
-        
+
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
             .store(in: &cancellables)
-        
+
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
-        
+
         Self.spotify.authorizationManager.deauthorize()
-            
+
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized(for: []))
-        
+
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: currentScopes, showDialog: false
         )
-        
+
         XCTAssertTrue(
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
             "\(Self.spotify.authorizationManager.scopes ?? [])"
@@ -57,7 +59,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         XCTAssertFalse(
             Self.spotify.authorizationManager.accessTokenIsExpired(tolerance: 0)
         )
-        
+
         XCTAssertEqual(
             didChangeCount, 1,
             "authorizationManagerDidChange should only emit once"
@@ -66,78 +68,81 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             didDeauthorizeCount, 1,
             "authorizationManagerDidDeauthorize should only emit once"
         )
-        
+
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
-        
+
     }
-    
+
     func codingSpotifyAPI() throws {
-        
+
         let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
-        
+
         let decodedSpotifyAPI = try JSONDecoder().decode(
-            SpotifyAPI<AuthorizationCodeFlowManager<Backend>>.self,
+            SpotifyAPI<AuthorizationManager>.self,
             from: spotifyAPIData
         )
-        
+
         Self.spotify = decodedSpotifyAPI
-        
+
         self.deauthorizeReauthorize()
-        
+
     }
-     
+
     func reassigningAuthorizationManager() {
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
             })
             .store(in: &cancellables)
-        
+
         let currentAuthManager = Self.spotify.authorizationManager
-        
-        Self.spotify.authorizationManager = self.makeNewFakeAuthManager()
+
+        Self.spotify.authorizationManager = self.makeFakeAuthManager()
 
         Self.spotify.authorizationManager = currentAuthManager
-        
+
         XCTAssertEqual(didChangeCount, 2)
         XCTAssertEqual(didDeauthorizeCount, 0)
-        
+
         self.deauthorizeReauthorize()
-        
+
     }
-    
+
+    /// Test authorizing with an invalid client id and client secret
     func invalidCredentials() {
-        
+
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: false,
+            state: nil,
             scopes: []
         )!
-        
+
         guard let redirectURI = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("couldn't get redirectURI")
             return
         }
-        
-        let authorizationManager = self.makeNewFakeAuthManager()
-        
+
+        let authorizationManager = self.makeFakeAuthManager()
+
         let expectation = XCTestExpectation(
             description: "invalidCredentials"
         )
 
         authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: redirectURI
+            redirectURIWithQuery: redirectURI,
+            state: nil
         )
         .sink(
             receiveCompletion: { completion in
@@ -158,23 +163,25 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
 
         )
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
 
     }
 
     func refreshWithInvalidRefreshToken() {
-        
-        Self.spotify.authorizationManager.authorizeAndWaitForTokens(scopes: [])
-        
+
+        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
+            scopes: [], showDialog: false
+        )
+
         Self.spotify.authorizationManager._refreshToken = "invalid token"
-        
+
         let expectation = XCTestExpectation(
             description: "refreshWithInvalidRefreshToken"
         )
 
         Self.spotify.authorizationManager.refreshTokens(
-            onlyIfExpired: false
+            onlyIfExpired: false, tolerance: 120
         )
         .sink(
             receiveCompletion: { completion in
@@ -196,7 +203,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
 
         )
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
 
     }
@@ -204,21 +211,22 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
     /// No state provided when making the authorization URL; state provided
     /// when requesting the access and refresh tokens.
     func invalidState1() {
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: false,
+            state: nil,
             scopes: requestedScopes
         )!
-        
+
         let queryDict = authorizationURL.queryItemsDict
         guard let scopesString = queryDict["scope"] else {
             XCTFail("Couldn't find 'scope' in query string: '\(authorizationURL)'")
@@ -226,7 +234,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         }
         let scopesFromQuery = Scope.makeSet(scopesString)
         XCTAssertEqual(requestedScopes, scopesFromQuery)
-        
+
         if let redirectURI = queryDict["redirect_uri"],
                let url = URL(string: redirectURI) {
             XCTAssertEqual(localHostURL, url)
@@ -234,27 +242,27 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         else {
             XCTFail("couldn't find redirect_uri in query string")
         }
-        
+
         XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertNil(queryDict["state"])
-        
+
         guard let redirectURL = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("redirect URL should not be nil")
             return
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testInvalidState: no state when making authorization URL"
         )
-        
+
         let state = String.randomURLSafe(length: 100)
         Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
             redirectURIWithQuery: redirectURL, state: state
         )
         .sink(receiveCompletion: { completion in
-            
+
             defer { expectation.fulfill() }
 
             guard case .failure(let error) = completion else {
@@ -274,26 +282,26 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             }
             XCTAssertEqual(supplied, state)
             XCTAssertNil(received)
-            
+
         })
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
-            
+
     }
-    
+
     /// State provided when making the authorization URL, but no state provided
     /// when requesting the access and refresh tokens.
     func invalidState2() {
-     
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let state = String.randomURLSafe(length: 100)
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -302,7 +310,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             state: state,
             scopes: requestedScopes
         )!
-        
+
         let queryDict = authorizationURL.queryItemsDict
         guard let scopesString = queryDict["scope"] else {
             XCTFail("Couldn't find 'scope' in query string: '\(authorizationURL)'")
@@ -310,7 +318,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         }
         let scopesFromQuery = Scope.makeSet(scopesString)
         XCTAssertEqual(requestedScopes, scopesFromQuery)
-        
+
         if let redirectURI = queryDict["redirect_uri"],
                let url = URL(string: redirectURI) {
             XCTAssertEqual(localHostURL, url)
@@ -318,27 +326,28 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         else {
             XCTFail("couldn't find redirect_uri in query string")
         }
-        
+
         XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertEqual(queryDict["state"], state)
-        
+
         guard let redirectURL = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("redirect URL should not be nil")
             return
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testInvalidState: no state when requesting access " +
                          "and refresh tokens"
         )
-        
+
         Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: redirectURL
+            redirectURIWithQuery: redirectURL,
+            state: nil
         )
         .sink(receiveCompletion: { completion in
-            
+
             defer { expectation.fulfill() }
 
             guard case .failure(let error) = completion else {
@@ -358,26 +367,26 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             }
             XCTAssertNil(supplied)
             XCTAssertEqual(received, state)
-            
+
         })
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
-        
+
     }
-    
+
     /// State provided when making the authorization URL did not match the state
     /// provided when requesting the access and refresh tokens.
     func invalidState3() {
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let authorizationState = String.randomURLSafe(length: 100)
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -386,7 +395,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             state: authorizationState,
             scopes: requestedScopes
         )!
-        
+
         let queryDict = authorizationURL.queryItemsDict
         guard let scopesString = queryDict["scope"] else {
             XCTFail("Couldn't find 'scope' in query string: '\(authorizationURL)'")
@@ -394,7 +403,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         }
         let scopesFromQuery = Scope.makeSet(scopesString)
         XCTAssertEqual(requestedScopes, scopesFromQuery)
-        
+
         if let redirectURI = queryDict["redirect_uri"],
                let url = URL(string: redirectURI) {
             XCTAssertEqual(localHostURL, url)
@@ -402,29 +411,29 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         else {
             XCTFail("couldn't find redirect_uri in query string")
         }
-        
+
         XCTAssertEqual(queryDict["show_dialog"], "false")
         XCTAssertEqual(queryDict["state"], authorizationState)
-        
+
         guard let redirectURL = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("redirect URL should not be nil")
             return
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testInvalidState: different state"
         )
-        
+
         let tokensState = String.randomURLSafe(length: 100)
         precondition(tokensState != authorizationState)
-        
+
         Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
             redirectURIWithQuery: redirectURL, state: tokensState
         )
         .sink(receiveCompletion: { completion in
-            
+
             defer { expectation.fulfill() }
 
             guard case .failure(let error) = completion else {
@@ -444,41 +453,42 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             }
             XCTAssertEqual(supplied, tokensState)
             XCTAssertEqual(received, authorizationState)
-            
+
         })
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
 
     }
 
     func invalidCode() {
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: false,
+            state: nil,
             scopes: []
         )!
-        
+
         guard let redirectURL = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("redirect URL should not be nil")
             return
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testInvalidCode"
         )
-        
+
         var invalidRedirectURIComponents = redirectURL.components!
         invalidRedirectURIComponents.queryItemsDict["code"] = "invalidcode"
 
@@ -488,10 +498,11 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         }
 
         Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: invalidRedirectURI
+            redirectURIWithQuery: invalidRedirectURI,
+            state: nil
         )
         .sink(receiveCompletion: { completion in
-            
+
             defer { expectation.fulfill() }
 
             guard case .failure(let error) = completion else {
@@ -508,42 +519,43 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             XCTAssertEqual(authError.error, "invalid_grant")
             XCTAssertEqual(authError.errorDescription, "Invalid authorization code")
             print(authError)
-            
-            
+
+
         })
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
 
     }
 
     func invalidRedirectURI() {
-        
+
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
             didChangeCount += 1
         })
         .store(in: &cancellables)
-        
+
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
             showDialog: false,
+            state: nil,
             scopes: []
         )!
-        
+
         guard let redirectURL = openAuthorizationURLAndWaitForRedirect(
             authorizationURL
         ) else {
             XCTFail("redirect URL should not be nil")
             return
         }
-        
+
         let expectation = XCTestExpectation(
             description: "testInvalidRedirectURI"
         )
-        
+
         guard let invalidRedirectURI = URL(
             scheme: "https",
             host: "www.google.com",
@@ -554,10 +566,11 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
         }
 
         Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
-            redirectURIWithQuery: invalidRedirectURI
+            redirectURIWithQuery: invalidRedirectURI,
+            state: nil
         )
         .sink(receiveCompletion: { completion in
-            
+
             defer { expectation.fulfill() }
 
             guard case .failure(let error) = completion else {
@@ -574,11 +587,11 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
             XCTAssertEqual(authError.error, "invalid_grant")
             XCTAssertEqual(authError.errorDescription, "Invalid redirect URI")
             print(authError)
-            
-            
+
+
         })
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 300)
         XCTAssertEqual(didChangeCount, 0)
 
@@ -591,8 +604,8 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests where AuthorizationM
 final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIAuthorizationCodeFlowAuthorizationTests
 {
-
-    static var allTests = [
+    
+    static let allTests = [
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
@@ -605,46 +618,44 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
         ("testInvalidRedirectURI", testInvalidRedirectURI),
         ("testInvalidCode", testInvalidCode)
     ]
-    
+
     override class func setupAuthorization(
         scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = false
     ) {
-        
+
     }
 
-    func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
+    func makeFakeAuthManager() -> AuthorizationCodeFlowManager {
         return AuthorizationCodeFlowManager(
-            backend: AuthorizationCodeFlowClientBackend(
-                clientId: "",
-                clientSecret: ""
-            )
+            clientId: "",
+            clientSecret: ""
         )
     }
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
-    
+
     func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
-     
+
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
-    
+
     func testInvalidCredentials() { invalidCredentials() }
-    
+
     func testRefreshWithInvalidRefreshToken() { refreshWithInvalidRefreshToken() }
 
     func testConvenienceInitializer() throws {
-        
+
         Self.spotify.authorizationManager.authorizeAndWaitForTokens()
 
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )
-        
+
         let decodedAuthManager = try JSONDecoder().decode(
-            AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>.self,
+            AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>.self,
             from: authManagerData
         )
-        
+
         guard
             let accessToken = decodedAuthManager.accessToken,
             let expirationDate = decodedAuthManager.expirationDate,
@@ -654,7 +665,7 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
             XCTFail("none of the properties should be nil: \(decodedAuthManager)")
             return
         }
-        
+
         let backend = AuthorizationCodeFlowClientBackend(
             clientId: decodedAuthManager.backend.clientId,
             clientSecret: decodedAuthManager.backend.clientSecret
@@ -667,25 +678,27 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
             refreshToken: refreshToken,
             scopes: scopes
         )
-        
+
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
 
+        self.deauthorizeReauthorize()
+        
     }
-    
+
     /// No state provided when making the authorization URL; state provided
     /// when requesting the access and refresh tokens.
     func testInvalidState1() { invalidState1() }
-    
+
     /// State provided when making the authorization URL, but no state provided
     /// when requesting the access and refresh tokens.
     func testInvalidState2() {invalidState2() }
-    
+
     /// State provided when making the authorization URL did not match the state
     /// provided when requesting the access and refresh tokens.
     func testInvalidState3() { invalidState3() }
-    
+
     func testInvalidRedirectURI() { invalidRedirectURI() }
-    
+
     func testInvalidCode() { invalidCode() }
 
     override class func tearDown() {
@@ -700,7 +713,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIAuthorizationCodeFlowAuthorizationTests
 {
 
-    static var allTests = [
+    static let allTests = [
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
@@ -716,11 +729,11 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
         scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = false
     ) {
-        
+
     }
 
-    func makeNewFakeAuthManager() -> AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend> {
-        return AuthorizationCodeFlowManager(
+    func makeFakeAuthManager() -> AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend> {
+        return AuthorizationCodeFlowBackendManager(
             backend: AuthorizationCodeFlowProxyBackend(
                 clientId: "",
                 tokenURL: spotifyBackendTokenURL,
@@ -730,26 +743,26 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
     }
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
-    
+
     func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
-     
+
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
     
     func testRefreshWithInvalidRefreshToken() { refreshWithInvalidRefreshToken() }
 
     func testConvenienceInitializer() throws {
-        
+
         Self.spotify.authorizationManager.authorizeAndWaitForTokens()
 
         let authManagerData = try JSONEncoder().encode(
             Self.spotify.authorizationManager
         )
-        
+
         let decodedAuthManager = try JSONDecoder().decode(
-            AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>.self,
+            AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>.self,
             from: authManagerData
         )
-        
+
         guard
             let accessToken = decodedAuthManager.accessToken,
             let expirationDate = decodedAuthManager.expirationDate,
@@ -759,14 +772,14 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
             XCTFail("none of the properties should be nil: \(decodedAuthManager)")
             return
         }
-        
+
         let backend = AuthorizationCodeFlowProxyBackend(
             clientId: decodedAuthManager.backend.clientId,
             tokenURL: decodedAuthManager.backend.tokenURL,
             tokenRefreshURL: decodedAuthManager.backend.tokenRefreshURL
         )
 //
-        let newAuthorizationManager = AuthorizationCodeFlowManager(
+        let newAuthorizationManager = AuthorizationCodeFlowBackendManager(
             backend: backend,
             accessToken: accessToken,
             expirationDate: expirationDate,
@@ -776,20 +789,22 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
 
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
 
+        self.deauthorizeReauthorize()
+
     }
-    
+
     /// No state provided when making the authorization URL; state provided
     /// when requesting the access and refresh tokens.
     func testInvalidState1() { invalidState1() }
-    
+
     /// State provided when making the authorization URL, but no state provided
     /// when requesting the access and refresh tokens.
     func testInvalidState2() {invalidState2() }
-    
+
     /// State provided when making the authorization URL did not match the state
     /// provided when requesting the access and refresh tokens.
     func testInvalidState3() { invalidState3() }
-    
+
     func testInvalidCode() { invalidCode() }
 
     override class func tearDown() {

@@ -9,7 +9,8 @@ import OpenCombineFoundation
 #endif
 import SpotifyWebAPI
 
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend> {
+// MARK: Client
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
@@ -32,7 +33,10 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     
 }
 
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend> {
+// MARK: Proxy
+public extension SpotifyAPI where
+    AuthorizationManager == AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>
+{
     
     /// We probably don't want to use the same instance of
     /// `AuthorizationCodeFlowProxyBackend` more than once, so we make a
@@ -47,7 +51,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
 
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowManager(
+        authorizationManager: AuthorizationCodeFlowBackendManager(
             backend: makeBackend()
         )
     )
@@ -55,7 +59,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     /// A shared instance used for testing purposes with a custom network
     /// adaptor for `self` and `AuthorizationCodeFlowManager`.
     static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowManager(
+        authorizationManager: AuthorizationCodeFlowBackendManager(
             backend: makeBackend(),
             networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         ),
@@ -64,7 +68,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowM
     
 }
 
-public extension AuthorizationCodeFlowManager {
+public extension AuthorizationCodeFlowBackendManager {
     
     
     /// Authorizes the application. You should probably use

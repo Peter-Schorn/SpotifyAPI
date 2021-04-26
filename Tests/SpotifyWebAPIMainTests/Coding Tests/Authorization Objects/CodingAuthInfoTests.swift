@@ -5,7 +5,7 @@ import SpotifyAPITestUtilities
 
 final class CodingAuthInfoTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testCodingAuthInfo", testCodingAuthInfo)
     ]
     

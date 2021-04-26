@@ -9,7 +9,8 @@ import OpenCombineFoundation
 #endif
 import SpotifyWebAPI
 
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend> {
+// MARK: Client
+public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager {
     
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
@@ -30,7 +31,10 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
 
 }
 
-public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend> {
+// MARK: Proxy
+public extension SpotifyAPI where
+    AuthorizationManager == AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>
+{
     
     /// We probably don't want to use the same instance of
     /// `AuthorizationCodeFlowPKCEProxyBackend` more than once, so we make a
@@ -45,7 +49,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
 
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowPKCEManager(
+        authorizationManager: AuthorizationCodeFlowPKCEBackendManager(
             backend: makeBackend()
         )
     )
@@ -53,7 +57,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
     /// A shared instance used for testing purposes with a custom network
     /// adaptor for `self` and `AuthorizationCodeFlowPKCEManager`.
     static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowPKCEManager(
+        authorizationManager: AuthorizationCodeFlowPKCEBackendManager(
             backend: makeBackend(),
             networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
         ),
@@ -63,7 +67,7 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
 }
 
 
-public extension AuthorizationCodeFlowPKCEManager {
+public extension AuthorizationCodeFlowPKCEBackendManager {
     
     
     /// Authorizes the application. You should probably use
@@ -115,7 +119,7 @@ public extension AuthorizationCodeFlowPKCEManager {
     /// and the refresh and access tokens have been retrieved.
     /// Returns early if the application is already authorized.
     func authorizeAndWaitForTokens(
-        scopes: Set<Scope> = Scope.allCases
+        scopes: Set<Scope> = Scope.allCases, showDialog: Bool = false
     ) {
         
         if self.isAuthorized(for: scopes) {

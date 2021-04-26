@@ -6,7 +6,7 @@ import SpotifyExampleContent
 
 final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testCodingContextOption1", testCodingContextOption1),
         ("testCodingContextOption2", testCodingContextOption2),
         ("testCodingOffsetOption1", testCodingOffsetOption1),

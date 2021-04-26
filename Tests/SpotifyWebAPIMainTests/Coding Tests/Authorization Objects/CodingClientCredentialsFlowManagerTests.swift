@@ -7,7 +7,7 @@ import SpotifyAPITestUtilities
 /// to ensure no data is lost during the encoding and decoding.
 final class CodingClientCredentialsFlowManagerTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         (
             "testCodingClientCredentialsFlowManager",
             testCodingClientCredentialsFlowManager

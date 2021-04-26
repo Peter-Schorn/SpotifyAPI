@@ -6,7 +6,7 @@ import SpotifyAPITestUtilities
 
 final class CodingTrackAttributesTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testCodingTrackAttributesFull", testCodingTrackAttributesFull),
         ("testCodingTrackAttributesSmall", testCodingTrackAttributesSmall)
     ]

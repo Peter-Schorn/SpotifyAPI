@@ -419,6 +419,19 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
 
 // MARK: - Proxy -
 
+final class SpotifyAPIClientCredentialsFlowProxyFollowTests:
+    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIFollowTests
+{
+
+    static let allTests = [
+        ("testUsersFollowPlaylist", testUsersFollowPlaylist)
+    ]
+
+    func testUsersFollowPlaylist() { usersFollowPlaylist() }
+
+}
+
+
 final class SpotifyAPIAuthorizationCodeFlowProxyFollowTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIFollowTests
 {

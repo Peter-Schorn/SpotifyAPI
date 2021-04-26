@@ -512,7 +512,6 @@ extension SpotifyAPIArtistTests {
         )
         
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
-
         var authChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
         Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
@@ -547,6 +546,14 @@ extension SpotifyAPIArtistTests {
             description: "testArtistTopTracks"
         )
         
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+        var authChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
+            authChangeCount += 1
+        })
+        .store(in: &cancellables)
+
         Self.spotify.artistTopTracks(
             URIs.Artists.theBeatles, country: "US"
         )
@@ -571,6 +578,10 @@ extension SpotifyAPIArtistTests {
         .store(in: &Self.cancellables)
         
         self.wait(for: [expectation], timeout: 60)
+        XCTAssertEqual(
+            authChangeCount, 1,
+            "authorizationManagerDidChange should emit exactly once"
+        )
         
     }
     
@@ -800,6 +811,43 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
 }
 
 // MARK: - Proxy -
+
+final class SpotifyAPIClientCredentialsFlowProxyArtistTests:
+    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIArtistTests
+{
+
+    static let allTests = [
+        ("testArtist", testArtist),
+        ("testArtists", testArtists),
+        ("testArtistAlbums", testArtistAlbums),
+        (
+            "testArtistAlbumsExtendSinglePageSerial",
+            testArtistAlbumsExtendSinglePageSerial
+        ),
+        (
+            "testArtistAlbumsExtendSinglePageConcurrent",
+            testArtistAlbumsExtendSinglePageConcurrent
+        ),
+        ("testArtistAlbumsSingles", testArtistAlbumsSingles),
+        ("testArtistTopTracks", testArtistTopTracks),
+        ("testRelatedArtists", testRelatedArtists)
+        
+    ]
+    
+    func testArtist() { artist() }
+    func testArtists() { artists() }
+    func testArtistAlbums() { artistAlbums() }
+    func testArtistAlbumsExtendSinglePageSerial() {
+        artistAlbumsExtendSinglePageSerial()
+    }
+    func testArtistAlbumsExtendSinglePageConcurrent() {
+        artistAlbumsExtendSinglePageConcurrent()
+    }
+    func testArtistAlbumsSingles() { artistAlbumsSingles() }
+    func testArtistTopTracks() { artistTopTracks() }
+    func testRelatedArtists() { relatedArtists() }
+    
+}
 
 final class SpotifyAPIAuthorizationCodeFlowProxyArtistTests:
         SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIArtistTests

@@ -7,7 +7,7 @@ import SpotifyAPITestUtilities
 /// to ensure no data is lost during the encoding and decoding.
 final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         (
             "testCodingAuthorizationCodeFlowManagerClient",
             testCodingAuthorizationCodeFlowManagerClient
@@ -35,7 +35,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>.self,
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self,
                 from: data
             )
             let data2 = try JSONEncoder().encode(decoded)
@@ -50,7 +50,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
     
     func testCodingAuthorizationCodeFlowManagerProxy() throws {
         
-        let authManager = AuthorizationCodeFlowPKCEManager(
+        let authManager = AuthorizationCodeFlowPKCEBackendManager(
             backend: AuthorizationCodeFlowPKCEProxyBackend(
                 clientId: "the client id",
                 tokenURL: localHostURL,
@@ -69,7 +69,7 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
+                SpotifyAPI<AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
                 from: data
             )
             let data2 = try JSONEncoder().encode(decoded)

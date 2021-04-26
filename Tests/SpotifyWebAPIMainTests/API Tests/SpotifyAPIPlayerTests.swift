@@ -331,13 +331,13 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         let spotifyAPILogLevel = Self.spotify.logger.logLevel
         let authorizationCodeFlowManagerLogLevel =
-                AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>.logger.logLevel
+            AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>.logger.logLevel
         let authorizationCodeFlowPKCEManagerLogLevel =
-                AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>.logger.logLevel
+                AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>.logger.logLevel
 
         Self.spotify.logger.logLevel = .warning
-        AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>.logger.logLevel = .warning
-        AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>.logger.logLevel = .warning
+        AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>.logger.logLevel = .warning
+        AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>.logger.logLevel = .warning
 
         // setup repeat and shuffle
         do {
@@ -535,9 +535,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         XCTAssertTrue(didSkipToPrevious)
 
         Self.spotify.logger.logLevel = spotifyAPILogLevel
-        AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>
+        AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>
             .logger.logLevel = authorizationCodeFlowManagerLogLevel
-        AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>
+        AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>
             .logger.logLevel = authorizationCodeFlowPKCEManagerLogLevel
 
     }

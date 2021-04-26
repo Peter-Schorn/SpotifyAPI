@@ -116,7 +116,7 @@ public let spotifyBackendTokenURL: URL = {
 }()
 
 /// The `URL` for the backend that retrieves the access token.
-/// Retrieved from the "SPOTIFY_BACKEND_SERVER_URL" environment variable.
+/// Retrieved from the "SPOTIFY_BACKEND_TOKEN_REFRESH_URL" environment variable.
 public let spotifyBackendTokenRefreshURL: URL = {
     
     guard let urlString = ProcessInfo.processInfo

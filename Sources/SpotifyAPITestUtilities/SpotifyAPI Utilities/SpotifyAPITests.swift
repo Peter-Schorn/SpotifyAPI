@@ -26,32 +26,12 @@ public protocol SpotifyAPITests: SpotifyAPITestCase {
     
 }
 
-// MARK: - Generic Backend -
-
-/// Generic over the backend.
-public protocol AuthorizationCodeFlowTestsProtocol: SpotifyAPITests {
-
-    associatedtype Backend: AuthorizationCodeFlowBackend
-
-    static var spotify: SpotifyAPI<AuthorizationCodeFlowManager<Backend>> { get set }
-
-}
-
-/// Generic over the backend.
-public protocol AuthorizationCodeFlowPKCETestsProtocol: SpotifyAPITests {
-
-    associatedtype Backend: AuthorizationCodeFlowPKCEBackend
-
-    static var spotify: SpotifyAPI<AuthorizationCodeFlowPKCEManager<Backend>> { get set }
-
-}
-
 // MARK: - Internal Authorization Managers -
 
 /// Provides generic access to members that are only expected to be
 /// available in the authorization managers in this library, as opposed
 /// to those that may be created by other clients.
-public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager {
+public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager, Equatable {
 
     /**
      Sets the expiration date of the access token to the specified date.
@@ -87,14 +67,61 @@ public protocol _InternalSpotifyScopeAuthorizationManager:
     
 }
 
-extension AuthorizationCodeFlowManager: _InternalSpotifyScopeAuthorizationManager { }
+// MARK: - Generic Over Backend -
 
-extension AuthorizationCodeFlowPKCEManager: _InternalSpotifyScopeAuthorizationManager {
+public protocol _AuthorizationCodeFlowManagerProtool: _InternalSpotifyScopeAuthorizationManager {
     
-    public func authorizeAndWaitForTokens(scopes: Set<Scope>, showDialog: Bool) {
-        self.authorizeAndWaitForTokens(scopes: scopes)
-    }
+    var _refreshToken: String? { get set }
+
+    func makeAuthorizationURL(
+        redirectURI: URL,
+        showDialog: Bool,
+        state: String?,
+        scopes: Set<Scope>
+    ) -> URL?
+    
+    func requestAccessAndRefreshTokens(
+        redirectURIWithQuery: URL,
+        state: String?
+    ) -> AnyPublisher<Void, Error>
+    
+}
+
+public protocol _AuthorizationCodeFlowPKCEManagerProtool: _InternalSpotifyScopeAuthorizationManager {
+    
+    var _refreshToken: String? { get set }
+
+    func makeAuthorizationURL(
+        redirectURI: URL,
+        codeChallenge: String,
+        state: String?,
+        scopes: Set<Scope>
+    ) -> URL?
+    
+    func requestAccessAndRefreshTokens(
+        redirectURIWithQuery: URL,
+        codeVerifier: String,
+        state: String?
+    ) -> AnyPublisher<Void, Error> 
+    
+}
+
+public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthorizationManager {
+    
+    var _accessToken: String? { get set }
+
+    func authorize() -> AnyPublisher<Void, Error>
+
+    func waitUntilAuthorized() -> Void
 
 }
 
-extension ClientCredentialsFlowManager: _InternalSpotifyAuthorizationManager { }
+// MARK: - Conformances -
+
+extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool { }
+
+extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtool { }
+
+extension ClientCredentialsFlowBackendManager: _ClientCredentialsFlowManagerProtocol { }
+
+

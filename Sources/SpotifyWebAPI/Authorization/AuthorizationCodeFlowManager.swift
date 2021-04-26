@@ -561,7 +561,7 @@ extension AuthorizationCodeFlowBackendManager: CustomStringConvertible {
                     ?? "nil"
             
             return """
-                AuthorizationCodeFlowManager(
+                AuthorizationCodeFlowBackendManager(
                     access token: "\(self._accessToken ?? "nil")"
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
@@ -712,5 +712,7 @@ public final class AuthorizationCodeFlowManager:
         self._refreshToken = refreshToken
         self._scopes = scopes
     }
+
+    // MARK: TODO: CustomStringConvertible
 
 }

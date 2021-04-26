@@ -39,14 +39,11 @@ public final class NetworkAdaptorManager {
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         #if TEST
-        
         return self.nioNetworkAdaptor(request: request)
-        
         #else
-        
         return URLSession.shared.defaultNetworkAdaptor(request: request)
-        
         #endif
+        
     }
     
     #if TEST

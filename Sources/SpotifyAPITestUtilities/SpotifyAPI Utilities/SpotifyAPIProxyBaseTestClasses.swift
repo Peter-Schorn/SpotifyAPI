@@ -15,16 +15,16 @@ import Foundation
 import FoundationNetworking
 #endif
 
-// MARK: - Client -
+// MARK: - Proxy -
 
 /// The base class for all tests involving
 /// `SpotifyAPI<ClientCredentialsFlowManager>`.
-open class SpotifyAPIClientCredentialsFlowTests:
+open class SpotifyAPIClientCredentialsFlowProxyTests:
     SpotifyAPITestCase, SpotifyAPITests
 {
     
     public static var spotify =
-            SpotifyAPI<ClientCredentialsFlowManager>.sharedTest
+            SpotifyAPI<ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>>.sharedTest
     
     public static var cancellables: Set<AnyCancellable> = []
 
@@ -60,11 +60,11 @@ open class SpotifyAPIClientCredentialsFlowTests:
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<ClientCredentialsFlowManager>.self,
+                SpotifyAPI<ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>>.self,
                 from: encoded
             )
             Self.spotify = decoded
-        
+
         } catch {
             XCTFail("\(error)")
         }
@@ -73,16 +73,15 @@ open class SpotifyAPIClientCredentialsFlowTests:
 
 }
 
-
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowClientBackend>>`.
-open class SpotifyAPIAuthorizationCodeFlowTests:
+/// `SpotifyAPI<AuthorizationCodeFlowManager<AuthorizationCodeFlowProxyBackend>>`.
+open class SpotifyAPIAuthorizationCodeFlowProxyTests:
     SpotifyAPITestCase, SpotifyAPITests
 {
 
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowManager>.sharedTest
-    
+            SpotifyAPI<AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>>.sharedTest
+
     public static var cancellables: Set<AnyCancellable> = []
 
     /// If you only need to setup the authorization,
@@ -107,9 +106,9 @@ open class SpotifyAPIAuthorizationCodeFlowTests:
             scopes: scopes, showDialog: showDialog
         )
     }
-    
+
     open class func fuzzSpotify() {
-        
+
         if Bool.random() {
             Self.spotify = .sharedTest
         }
@@ -123,29 +122,28 @@ open class SpotifyAPIAuthorizationCodeFlowTests:
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowManager>.self,
+                SpotifyAPI<AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>>.self,
                 from: encoded
             )
             Self.spotify = decoded
-        
+
         } catch {
             XCTFail("\(error)")
         }
-        
+
     }
-    
+
 
 }
 
 /// The base class for all tests involving
-/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEClientBackend>>`.
-open class SpotifyAPIAuthorizationCodeFlowPKCETests:
+/// `SpotifyAPI<AuthorizationCodeFlowPKCEManager<AuthorizationCodeFlowPKCEProxyBackend>>`.
+open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests:
     SpotifyAPITestCase, SpotifyAPITests
 {
-
     public static var spotify =
-            SpotifyAPI<AuthorizationCodeFlowPKCEManager>.sharedTest
-    
+            SpotifyAPI<AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>>.sharedTest
+
     public static var cancellables: Set<AnyCancellable> = []
 
     /// If you only need to setup the authorization,
@@ -168,9 +166,9 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests:
             scopes: scopes
         )
     }
-    
+
     open class func fuzzSpotify() {
-        
+
         if Bool.random() {
             Self.spotify = .sharedTest
         }
@@ -184,15 +182,15 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests:
         do {
             let encoded = try JSONEncoder().encode(Self.spotify)
             let decoded = try JSONDecoder().decode(
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self,
+                SpotifyAPI<AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
                 from: encoded
             )
             Self.spotify = decoded
-        
+
         } catch {
             XCTFail("\(error)")
         }
-        
+
     }
 
 }

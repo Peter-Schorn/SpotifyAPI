@@ -36,18 +36,24 @@ jobs:
         ExampleContentTests|\
         SpotifyAPIClientCredentialsFlowAlbumsTests|\
         SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowAuthorizationTests|\
         SpotifyAPIClientCredentialsFlowBrowseTests|\
+        SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
         SpotifyAPIClientCredentialsFlowEpisodeTests|\
         SpotifyAPIClientCredentialsFlowErrorTests|\
         SpotifyAPIClientCredentialsFlowFollowTests|\
+        SpotifyAPIClientCredentialsFlowProxyFollowTests|\
+        SpotifyAPIClientCredentialsFlowInsufficientScopeTests|\
         SpotifyAPIClientCredentialsFlowMarketTests|\
         SpotifyAPIClientCredentialsFlowPlaylistsTests|\
+        SpotifyAPIClientCredentialsFlowProxyArtistTests|\
+        SpotifyAPIClientCredentialsFlowProxyAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests|\
+        SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests|\
         SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
         SpotifyAPIClientCredentialsFlowSearchTests|\
         SpotifyAPIClientCredentialsFlowShowTests|\
         SpotifyAPIClientCredentialsFlowTrackTests|\
         SpotifyAPIClientCredentialsFlowUserProfileTests|\
         SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests\
+        SpotifyPlayerErrorCodingTests|\
         "

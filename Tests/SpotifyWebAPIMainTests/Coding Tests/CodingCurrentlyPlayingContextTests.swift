@@ -7,7 +7,7 @@ import SpotifyAPITestUtilities
 
 final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testCodingCurrentlyPlayingContext", testCodingCurrentlyPlayingContext),
     ]
     

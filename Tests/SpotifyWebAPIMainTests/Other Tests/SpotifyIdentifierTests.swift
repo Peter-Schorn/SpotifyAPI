@@ -17,7 +17,7 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
 
     static var cancellables: Set<AnyCancellable> = []
 
-    static var allTests = [
+    static let allTests = [
         ("testTrackURIs", testTrackURIs),
         ("testArtistURIs", testArtistURIs),
         ("testAlbumURIs", testAlbumURIs),

@@ -10,7 +10,7 @@ final class ExampleContentTests: SpotifyAPITestCase {
     
     var sink = ""
     
-    static var allTests = [
+    static let allTests = [
         ("testAlbums", testAlbums),
         ("testArtists", testArtists),
         ("testAadioAnalysis", testAadioAnalysis),

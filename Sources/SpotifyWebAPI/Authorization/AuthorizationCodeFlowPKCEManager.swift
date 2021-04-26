@@ -668,7 +668,7 @@ extension AuthorizationCodeFlowPKCEBackendManager: CustomStringConvertible {
                     ?? "nil"
             
             return """
-                AuthorizationCodeFlowPKCEManager(
+                AuthorizationCodeFlowPKCEBackendManager(
                     access token: "\(self._accessToken ?? "nil")"
                     scopes: \(scopeString)
                     expiration date: \(expirationDateString)
@@ -812,5 +812,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         self._refreshToken = refreshToken
         self._scopes = scopes
     }
+
+    // MARK: TODO: CustomStringConvertible
 
 }

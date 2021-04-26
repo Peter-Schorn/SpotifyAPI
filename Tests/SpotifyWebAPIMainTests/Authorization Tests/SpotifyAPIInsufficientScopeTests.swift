@@ -16,9 +16,7 @@ import SpotifyExampleContent
 
 protocol SpotifyAPIInsufficientScopeTests: SpotifyAPITests { }
 
-extension SpotifyAPIInsufficientScopeTests where
-    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
-{
+extension SpotifyAPIInsufficientScopeTests {
     
     func makeRequestWithoutAuthorization() {
 
@@ -44,8 +42,6 @@ extension SpotifyAPIInsufficientScopeTests where
             }
         }
 
-        let previousScopes = Self.spotify.authorizationManager.scopes ?? []
-        
         Self.spotify.authorizationManager.deauthorize()
         XCTAssertEqual(
             Self.spotify.authorizationManager.scopes ?? [], []
@@ -79,13 +75,14 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
         
-        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
-            scopes: previousScopes,
-            showDialog: false
-        )
-
     }
 
+}
+
+extension SpotifyAPIInsufficientScopeTests where
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
+{
+    
     /// Make a request to a method that will fail before
     /// any network request is made because the required
     /// scopes are known in advance.
@@ -128,8 +125,6 @@ extension SpotifyAPIInsufficientScopeTests where
                 didDeauthorizeCount += 1
             })
             .store(in: &cancellables)
-        
-        let previousScopes = Self.spotify.authorizationManager.scopes ?? []
         
         let insufficientScopes: Set<Scope> = [
             .userFollowModify, .userLibraryModify, .userFollowRead,
@@ -177,12 +172,8 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
         
-        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
-            scopes: previousScopes, showDialog: false
-        )
-        
         XCTAssertEqual(didDeauthorizeCount, 1)
-        XCTAssertEqual(didChangeCount, 2)
+        XCTAssertEqual(didChangeCount, 1)
         
     }
     
@@ -221,8 +212,6 @@ extension SpotifyAPIInsufficientScopeTests where
             })
             .store(in: &cancellables)
         
-        let previousScopes = Self.spotify.authorizationManager.scopes ?? []
-
         Self.spotify.authorizationManager.deauthorize()
         XCTAssertEqual(
             Self.spotify.authorizationManager.scopes ?? [], []
@@ -288,18 +277,27 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
 
-        Self.spotify.authorizationManager.authorizeAndWaitForTokens(
-            scopes: previousScopes, showDialog: false
-        )
-        
         XCTAssertEqual(didDeauthorizeCount, 1)
-        XCTAssertEqual(didChangeCount, 2)
 
     }
     
 }
 
 // MARK: - Client -
+
+final class SpotifyAPIClientCredentialsFlowInsufficientScopeTests:
+    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIInsufficientScopeTests
+{
+
+    static let allTests = [
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization)
+    ]
+    
+    func testMakeRequestWithoutAuthorization() {
+        makeRequestWithoutAuthorization()
+    }
+    
+}
 
 final class SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIInsufficientScopeTests
@@ -334,6 +332,20 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests:
 }
 
 // MARK: - Proxy -
+
+final class SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests:
+    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIInsufficientScopeTests
+{
+
+    static let allTests = [
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization)
+    ]
+    
+    func testMakeRequestWithoutAuthorization() {
+        makeRequestWithoutAuthorization()
+    }
+    
+}
 
 final class SpotifyAPIAuthorizationCodeFlowProxyInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIInsufficientScopeTests

@@ -5,7 +5,7 @@ import SpotifyAPITestUtilities
 
 final class CodingTimeReferenceTests: SpotifyAPITestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testCodingTimeReference", testCodingTimeReference)
     ]
     

@@ -21,7 +21,7 @@ import SpotifyExampleContent
  */
 protocol SpotifyAPIRefreshTokensConcurrentTests: SpotifyAPITests { }
 
-extension SpotifyAPIRefreshTokensConcurrentTests where AuthorizationManager: Equatable {
+extension SpotifyAPIRefreshTokensConcurrentTests {
     
     func concurrentTokensRefresh() {
         for i in 0..<20 {
@@ -312,7 +312,7 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     
     func testConcurrentRequestsWithExpiredToken() {
         Self.spotify.authorizationManager.deauthorize()
-        Self.spotify.waitUntilAuthorized()
+        Self.spotify.authorizationManager.waitUntilAuthorized()
         self.concurrentRequestsWithExpiredToken()
     }
     
@@ -382,6 +382,36 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
 }
 
 // MARK: - Proxy -
+
+final class SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests:
+    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIRefreshTokensConcurrentTests
+{
+    
+    static let allCases = [
+        ("testConcurrentTokensRefresh", testConcurrentTokensRefresh),
+        ("testConcurrentRequestsWithExpiredToken", testConcurrentRequestsWithExpiredToken)
+    ]
+    
+    func testConcurrentTokensRefresh() {
+        self.concurrentTokensRefresh()
+    }
+    
+    func testConcurrentRequestsWithExpiredToken() {
+        Self.spotify.authorizationManager.deauthorize()
+        Self.spotify.authorizationManager.waitUntilAuthorized()
+        self.concurrentRequestsWithExpiredToken()
+    }
+    
+    override func tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+    
+    override func setUp() {
+        Self.setupAuthorization()
+    }
+
+}
+
 
 final class SpotifyAPIAuthorizationCodeFlowProxyRefreshTokensConcurrentTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIRefreshTokensConcurrentTests
