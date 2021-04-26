@@ -4,6 +4,8 @@ public struct ClientCredentialsTokenRequest: Hashable {
     
     public let grantType = "client_credentials"
 
+    public init() { }
+
     public func formURLEncoded() -> Data {
         
         guard let data = [
