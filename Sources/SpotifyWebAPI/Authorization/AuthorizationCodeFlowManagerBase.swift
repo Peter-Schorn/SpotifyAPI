@@ -465,8 +465,8 @@ extension AuthorizationCodeFlowManagerBase {
             self._scopes = Set(Scope.allCases.shuffled().prefix(5))
         }
     }
-        
-    /// Only use for testing purposes.
+    
+	/// Only use for testing purposes.
     func subscribeToDidChange() {
         
         self.didChange
