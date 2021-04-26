@@ -13,6 +13,8 @@ import OpenCombineFoundation
 import SpotifyExampleContent
 
 
+private let serialMockQueue = DispatchQueue(label: "serialMockQueue")
+
 public extension SpotifyAPI {
     
     /**
@@ -58,7 +60,7 @@ public extension SpotifyAPI {
         }
         .delay(
             for: .milliseconds(Int.random(in: 100...1000)),
-            scheduler: DispatchQueue.global()
+            scheduler: serialMockQueue
         )
         .decodeSpotifyObject(Album.self)
 
@@ -87,7 +89,7 @@ public extension SpotifyAPI {
         }
         .delay(
             for: .milliseconds(Int.random(in: 100...1000)),
-            scheduler: DispatchQueue.global()
+            scheduler: serialMockQueue
         )
         .decodeOptionalSpotifyObject(T.self)
 
