@@ -20,6 +20,8 @@ jobs:
       env: 
         SPOTIFY_SWIFT_TESTING_CLIENT_ID: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_ID }}
         SPOTIFY_SWIFT_TESTING_CLIENT_SECRET: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_SECRET }}
+        SPOTIFY_BACKEND_TOKEN_URL: ${{ secrets.SPOTIFY_BACKEND_TOKEN_URL }}
+        SPOTIFY_BACKEND_TOKEN_REFRESH_URL: ${{ secrets.SPOTIFY_BACKEND_TOKEN_REFRESH_URL }}
       run: |
         swift test --filter "\
         AuthorizationScopesTests|\
