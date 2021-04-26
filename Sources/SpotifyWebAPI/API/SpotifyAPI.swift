@@ -206,7 +206,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         self.authorizationManager = authorizationManager
         
         self.networkAdaptor = networkAdaptor ??
-                URLSession.shared.defaultNetworkAdaptor(request:)
+                URLSession.defaultNetworkAdaptor(request:)
         
         self.configureDidChangeSubscriptions()
         
@@ -236,7 +236,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
-        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
+        self.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
         self.configureDidChangeSubscriptions()
         
     }

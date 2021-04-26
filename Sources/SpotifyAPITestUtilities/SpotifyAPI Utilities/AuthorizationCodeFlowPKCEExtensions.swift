@@ -19,49 +19,22 @@ public extension SpotifyAPI where AuthorizationManager == AuthorizationCodeFlowP
         )
     )
     
-    /// A shared instance used for testing purposes with a custom network
-    /// adaptor for `self` and `AuthorizationCodeFlowPKCEManager`.
-    static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowPKCEManager(
-            clientId: spotifyCredentials.clientId,
-            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-        ),
-        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-    )
-
 }
 
 // MARK: Proxy
 public extension SpotifyAPI where
     AuthorizationManager == AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>
 {
-    
-    /// We probably don't want to use the same instance of
-    /// `AuthorizationCodeFlowPKCEProxyBackend` more than once, so we make a
-    /// new one each time.
-    private static func makeBackend() -> AuthorizationCodeFlowPKCEProxyBackend {
-        return AuthorizationCodeFlowPKCEProxyBackend(
-            clientId: spotifyCredentials.clientId,
-            tokenURL: spotifyBackendTokenURL,
-            tokenRefreshURL: spotifyBackendTokenRefreshURL
-        )
-    }
 
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
         authorizationManager: AuthorizationCodeFlowPKCEBackendManager(
-            backend: makeBackend()
+            backend: AuthorizationCodeFlowPKCEProxyBackend(
+                clientId: spotifyCredentials.clientId,
+                tokenURL: spotifyBackendTokenURL,
+                tokenRefreshURL: spotifyBackendTokenRefreshURL
+            )
         )
-    )
-    
-    /// A shared instance used for testing purposes with a custom network
-    /// adaptor for `self` and `AuthorizationCodeFlowPKCEManager`.
-    static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: AuthorizationCodeFlowPKCEBackendManager(
-            backend: makeBackend(),
-            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-        ),
-        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
     )
     
 }

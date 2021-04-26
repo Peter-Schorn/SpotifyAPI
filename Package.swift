@@ -76,7 +76,7 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "OpenCombine",
             url: "https://github.com/OpenCombine/OpenCombine.git",
-            from: "0.11.0"
+            from: "0.12.0"
         ),
         .package(
             name: "swift-crypto",

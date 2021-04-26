@@ -181,22 +181,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
-    /**
-     A function that gets called everytime this class—and only this
-     class—needs to make a network request.
-    
-     Use this function if you need to use a custom networking client. The `url`
-     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
-     to be non-`nil`. No guarentees are made about which thread this function
-     will be called on. By default, `URLSession` will be used for the network
-     requests.
-     
-     - Warning: Do not mutate this property while a network request is being
-           made.
-     */
-    public var networkAdaptor:
-        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-    
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
@@ -217,15 +201,9 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      */
     var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
-    required init(
-        backend: Backend,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
+    required init(backend: Backend) {
         self.backend = backend
-        self.networkAdaptor = networkAdaptor
-                ?? URLSession.shared.defaultNetworkAdaptor(request:)
+        
     }
     
     // MARK: - Codable -
@@ -246,7 +224,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         self.backend = try container.decode(
             Backend.self, forKey: .backend
         )
-        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }
     
@@ -302,7 +279,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
             instance._refreshToken = self._refreshToken
             instance._expirationDate = self._expirationDate
             instance._scopes = self._scopes
-            instance.networkAdaptor = self.networkAdaptor
             return instance
         }
     }

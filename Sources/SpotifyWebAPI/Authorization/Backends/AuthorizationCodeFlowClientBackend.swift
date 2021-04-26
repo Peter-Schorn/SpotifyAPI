@@ -4,6 +4,14 @@ import FoundationNetworking
 #endif
 import Logging
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 
     /// The logger for this struct.
@@ -30,10 +38,10 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		)!
 	}
 
-	public func makeTokenRequest(
+	public func makeTokensRequest(
         code: String,
         redirectURIWithQuery: URL
-    ) -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
 		let baseRedirectURI = redirectURIWithQuery
 			.removingQueryItems()
@@ -62,10 +70,15 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
 		tokensRequest.httpBody = body
 
-		return tokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: tokensRequest
+        )
+        
 	}
 
-	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
+	public func makeRefreshTokenRequest(
+        refreshToken: String
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
         let headers = self.basicBase64EncodedCredentialsHeader +
 				Headers.formURLEncoded
@@ -92,7 +105,10 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		refreshTokensRequest.allHTTPHeaderFields = headers
 		refreshTokensRequest.httpBody = body
 
-		return refreshTokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: refreshTokensRequest
+        )
+        
 	}
     
 }

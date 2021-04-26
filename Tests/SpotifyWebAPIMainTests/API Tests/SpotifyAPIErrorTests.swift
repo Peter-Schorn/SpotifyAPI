@@ -91,8 +91,7 @@ extension SpotifyAPIErrorTests {
             XCTAssertEqual(receivedErrors, 0)
         }
         
-        Self.spotify.networkAdaptor = URLSession.shared
-            .defaultNetworkAdaptor(request:)
+        Self.spotify.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
         
     }
     
@@ -162,8 +161,7 @@ extension SpotifyAPIErrorTests {
         XCTAssertEqual(successfulCompletions, 500)
         XCTAssertEqual(receivedErrors, 0)
         
-        Self.spotify.networkAdaptor = URLSession.shared
-            .defaultNetworkAdaptor(request:)
+        Self.spotify.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
         
         spotifyDecodeLogger.logLevel = spotifyDecodeLogLevel
 

@@ -9,7 +9,7 @@ import OpenCombineFoundation
 #endif
 
 import XCTest
-import SpotifyWebAPI
+@testable import SpotifyWebAPI
 
 #if canImport(AppKit)
 import AppKit
@@ -217,7 +217,10 @@ public extension URLSession {
             .eraseToAnyPublisher()
 
     }
+    
 
+    /// Initialized to `URLSession._defaultNetworkAdaptor`.
+    static let __defaultNetworkAdaptor = URLSession._defaultNetworkAdaptor
 
 }
 
@@ -254,69 +257,6 @@ public extension String {
             try data.write(to: file, options: [.atomic])
         }
         
-    }
-
-}
-
-/**
- Send a "ping" message to the lambda server to ensure that it is running.
- The server should respond with "pong" and a 200 status code. Blocks the
- thread until the server responds. Times out after 30 seconds.
- */
-public func pingLambdaServer(
-    url: URL,
-    file: StaticString = #filePath,
-    line: UInt = #line
-) throws {
-    
-    let dispatchGroup = DispatchGroup()
-    var cancellables: Set<AnyCancellable> = []
-
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.httpBody = "ping".data(using: .utf8)!
-    
-    var error: Error? = nil
-
-    dispatchGroup.enter()
-    URLSession.shared.dataTaskPublisher(for: request)
-        .tryMap { data, response -> Void in
-            
-            let httpURLResponse = response as! HTTPURLResponse
-            let statusCode = httpURLResponse.statusCode
-            
-            if statusCode != 200 {
-                throw SpotifyLocalError.other(
-                    "unexpected status code: \(statusCode)"
-                )
-            }
-            
-            guard let string = String(data: data, encoding: .utf8) else {
-                throw SpotifyLocalError.other(
-                    "couldn't convert data to string"
-                )
-            }
-            if string != "pong" {
-                throw SpotifyLocalError.other(
-                    "unexpected response from server: \(string)"
-                )
-            }
-            
-        }
-        .sink(receiveCompletion: { completion in
-            if case .failure(let failure) = completion {
-                error = failure
-            }
-            dispatchGroup.leave()
-        })
-        .store(in: &cancellables)
-    
-    if dispatchGroup.wait(timeout: .now() + 30) == .timedOut {
-        throw SpotifyLocalError.other("ping timed out")
-    }
-    
-    if let error = error {
-        throw error
     }
 
 }

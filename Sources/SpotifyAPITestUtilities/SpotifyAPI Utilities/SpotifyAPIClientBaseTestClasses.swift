@@ -46,13 +46,6 @@ open class SpotifyAPIClientCredentialsFlowTests:
     }
     
     open class func fuzzSpotify() {
-        
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
 
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
@@ -110,13 +103,6 @@ open class SpotifyAPIAuthorizationCodeFlowTests:
     
     open class func fuzzSpotify() {
         
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -171,13 +157,6 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests:
     
     open class func fuzzSpotify() {
         
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })

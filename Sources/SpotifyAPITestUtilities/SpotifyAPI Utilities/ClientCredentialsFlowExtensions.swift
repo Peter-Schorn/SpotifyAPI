@@ -19,17 +19,6 @@ public extension SpotifyAPI where AuthorizationManager == ClientCredentialsFlowM
         )
     )
     
-    /// A shared instance used for testing purposes with a custom network
-    /// adaptor for `self` and `AuthorizationCodeFlowManager`.
-    static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: ClientCredentialsFlowManager(
-            clientId: spotifyCredentials.clientId,
-            clientSecret: spotifyCredentials.clientSecret,
-            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-        ),
-        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-    )
-    
 }
 
 // MARK: Proxy
@@ -37,30 +26,13 @@ public extension SpotifyAPI where
     AuthorizationManager == ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>
  {
  
-    /// We probably don't want to use the same instance of
-    /// `ClientCredentialsFlowProxyBackend` more than once, so we make a
-    /// new one each time.
-    private static func makeBackend() -> ClientCredentialsFlowProxyBackend {
-        return ClientCredentialsFlowProxyBackend(
-            tokenURL: spotifyBackendTokenURL
-        )
-    }
-
     /// A shared instance used for testing purposes.
     static let sharedTest = SpotifyAPI(
         authorizationManager: ClientCredentialsFlowBackendManager(
-            backend: makeBackend()
+            backend: ClientCredentialsFlowProxyBackend(
+                tokenURL: spotifyBackendTokenURL
+            )
         )
-    )
-    
-    /// A shared instance used for testing purposes with a custom network
-    /// adaptor for `self` and `AuthorizationCodeFlowManager`.
-    static let sharedTestNetworkAdaptor = SpotifyAPI(
-        authorizationManager: ClientCredentialsFlowBackendManager(
-            backend: makeBackend(),
-            networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
-        ),
-        networkAdaptor: NetworkAdaptorManager.shared.networkAdaptor(request:)
     )
     
 }

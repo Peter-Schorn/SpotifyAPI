@@ -323,6 +323,7 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
             accessToken: accessToken,
             expirationDate: expirationDate
         )
+        
 
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
 

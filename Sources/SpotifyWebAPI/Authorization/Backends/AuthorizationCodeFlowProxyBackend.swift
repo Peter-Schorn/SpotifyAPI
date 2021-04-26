@@ -5,6 +5,14 @@ import FoundationNetworking
 
 import Logging
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 
     /// The logger for this struct.
@@ -24,10 +32,10 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 		self.tokenRefreshURL = tokenRefreshURL
 	}
 
-	public func makeTokenRequest(
+	public func makeTokensRequest(
         code: String,
         redirectURIWithQuery: URL
-    ) throws -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
         let body = RemoteTokensRequest(code: code)
             .formURLEncoded()
@@ -46,10 +54,15 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 		tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
 		tokensRequest.httpBody = body
 
-		return tokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: tokensRequest
+        )
+        
 	}
 
-	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
+	public func makeRefreshTokenRequest(
+        refreshToken: String
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
         let body = RefreshAccessTokenRequest(
 			refreshToken: refreshToken
@@ -71,6 +84,9 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
         refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
 		refreshTokensRequest.httpBody = body
 
-		return refreshTokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: refreshTokensRequest
+        )
+        
 	}
 }

@@ -68,15 +68,26 @@ extension URLSession {
     
     /**
      The network adaptor that this library uses by default for all
-     network requests.
+     network requests. Uses `URLSession`.
     
      - Parameter request: The request to send.
      */
-    func defaultNetworkAdaptor(
+    static func defaultNetworkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        return self.dataTaskPublisher(for: request)
+        return Self._defaultNetworkAdaptor(request)
+
+    }
+
+    /// This property exists so that it can be replaced with a different
+    /// networking client during testing. Other than in the test targets,
+    /// it will not be modified.
+    static var _defaultNetworkAdaptor: (
+        URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -89,5 +100,5 @@ extension URLSession {
             .eraseToAnyPublisher()
 
     }
-
+    
 }

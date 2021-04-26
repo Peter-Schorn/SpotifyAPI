@@ -40,13 +40,9 @@ public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManage
      - Parameter date: The date to set the expiration date to.
      */
     func setExpirationDate(to date: Date) -> Void
-    
-    var networkAdaptor: (
-        URLRequest
-    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
-        get set
-    }
-    
+   
+    func waitUntilAuthorized() -> Void
+
 }
 
 /// Provides generic access to members that are only expected to be
@@ -118,9 +114,21 @@ public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthoriza
 
 // MARK: - Conformances -
 
-extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool { }
+extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool {
+    
+    public func waitUntilAuthorized() {
+        self.authorizeAndWaitForTokens(scopes: Scope.allCases, showDialog: false)
+    }
 
-extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtool { }
+}
+
+extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtool {
+    
+    public func waitUntilAuthorized() {
+        self.authorizeAndWaitForTokens(scopes: Scope.allCases)
+    }
+
+}
 
 extension ClientCredentialsFlowBackendManager: _ClientCredentialsFlowManagerProtocol { }
 

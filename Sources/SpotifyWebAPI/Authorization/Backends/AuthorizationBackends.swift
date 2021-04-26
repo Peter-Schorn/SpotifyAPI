@@ -3,18 +3,26 @@ import Foundation
 import FoundationNetworking
 #endif
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	
     var clientId: String { get }
 	
-	func makeTokenRequest(
+	func makeTokensRequest(
         code: String,
         redirectURIWithQuery: URL
-    ) throws -> URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
 	
     func makeRefreshTokenRequest(
         refreshToken: String
-    ) throws -> URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
 }
 
@@ -22,20 +30,21 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     
     var clientId: String { get }
 
-	func makePKCETokenRequest(
+	func makePKCETokensRequest(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
-    ) throws -> URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
 	func makePKCERefreshTokenRequest(
         refreshToken: String
-    ) throws -> URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
 }
 
 public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     
-    func makeTokensRequest() throws -> URLRequest
+    func makeClientCredentialsTokensRequest(
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
 
 }

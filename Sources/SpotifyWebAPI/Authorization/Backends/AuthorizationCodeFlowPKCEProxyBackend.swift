@@ -5,6 +5,14 @@ import FoundationNetworking
 
 import Logging
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBackend {
 
     /// The logger for this struct.
@@ -24,11 +32,11 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         self.tokenRefreshURL = tokenRefreshURL
     }
 
-    public func makePKCETokenRequest(
+    public func makePKCETokensRequest(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
-    ) throws -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         let body = RemotePKCETokensRequest(
             code: code,
@@ -50,12 +58,15 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         tokensRequest.httpBody = body
 
-        return tokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: tokensRequest
+        )
+        
     }
 
     public func makePKCERefreshTokenRequest(
         refreshToken: String
-    ) -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         let body = RemotePKCERefreshAccessTokenRequest(
             refreshToken: refreshToken
@@ -77,6 +88,9 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         refreshTokensRequest.httpBody = body
 
-        return refreshTokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: refreshTokensRequest
+        )
+        
     }
 }

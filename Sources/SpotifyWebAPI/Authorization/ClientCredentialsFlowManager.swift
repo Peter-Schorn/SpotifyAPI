@@ -27,16 +27,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
                     .clientCredentialsFlowManagerLogger = newValue
         }
     }
-    
-//    /// The client id for your application.
-//    public let clientId: String
-//
-//    /// The client secret for your application.
-//    public let clientSecret: String
-//
-//    /// The base 64 encoded authorization header with the client id
-//    /// and client secret.
-//    private let basicBase64EncodedCredentialsHeader: [String: String]
 
     public let backend: Backend
 
@@ -129,22 +119,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
-    /**
-     A function that gets called everytime this class—and only this
-     class—needs to make a network request.
-    
-     Use this function if you need to use a custom networking client. The `url`
-     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
-     to be non-`nil`. No guarentees are made about which thread this function
-     will be called on. By default, `URLSession` will be used for the network
-     requests.
-     
-     - Warning: Do not mutate this property while a network request is being
-           made.
-     */
-    public var networkAdaptor:
-        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-
     /// Ensure no data races occur when updating auth info.
     private let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
@@ -196,15 +170,8 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public init(
-        backend: Backend,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
+    public init(backend: Backend) {
         self.backend = backend
-        self.networkAdaptor = networkAdaptor ??
-                URLSession.shared.defaultNetworkAdaptor(request:)
     }
     
     /**
@@ -245,15 +212,9 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     public convenience init(
         backend: Backend,
         accessToken: String,
-        expirationDate: Date,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        expirationDate: Date
     ) {
-        self.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(backend: backend)
         self._accessToken = accessToken
         self._expirationDate = expirationDate
     }
@@ -271,7 +232,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         self.backend = try container.decode(
             Backend.self, forKey: .backend
         )
-        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         self._accessToken = codingWrapper.accessToken
         self._expirationDate = codingWrapper.expirationDate
     }
@@ -313,7 +273,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         return self.updateAuthInfoDispatchQueue.sync {
             instance._accessToken = self._accessToken
             instance._expirationDate = self._expirationDate
-            instance.networkAdaptor = self.networkAdaptor
             return instance
         }
     }
@@ -417,40 +376,33 @@ public extension ClientCredentialsFlowBackendManager {
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
-        do {
-            
-            let tokensRequest = try self.backend.makeTokensRequest()
+        Self.logger.trace("backend.makeTokensRequest")
 
-            return self.networkAdaptor(tokensRequest)
-                .castToURLResponse()
-                .decodeSpotifyObject(AuthInfo.self)
-                .subscribe(on: self.refreshTokensQueue)
-                .tryMap { authInfo in
+        return self.backend.makeClientCredentialsTokensRequest()
+            .castToURLResponse()
+            .decodeSpotifyObject(AuthInfo.self)
+            .subscribe(on: self.refreshTokensQueue)
+            .tryMap { authInfo in
+                
+                Self.logger.trace("received authInfo:\n\(authInfo)")
+                
+                if authInfo.accessToken == nil ||
+                    authInfo.expirationDate == nil {
                     
-                    Self.logger.trace("received authInfo:\n\(authInfo)")
-                    
-                    if authInfo.accessToken == nil ||
-                        authInfo.expirationDate == nil {
-                        
-                        let errorMessage = """
-                        missing properties after requesting access token \
-                        (expected access token and expiration date):
-                        \(authInfo)
-                        """
-                        Self.logger.error("\(errorMessage)")
-                        throw SpotifyLocalError.other(errorMessage)
-                    }
-                    
-                    self.updateFromAuthInfo(authInfo)
-                    
+                    let errorMessage = """
+                    missing properties after requesting access token \
+                    (expected access token and expiration date):
+                    \(authInfo)
+                    """
+                    Self.logger.error("\(errorMessage)")
+                    throw SpotifyLocalError.other(errorMessage)
                 }
-                .eraseToAnyPublisher()
-            
-        } catch {
-            return error.anyFailingPublisher()
-        }
+                
+                self.updateFromAuthInfo(authInfo)
+                
+            }
+            .eraseToAnyPublisher()
 
-        
     }
     
     /**
@@ -645,15 +597,15 @@ extension ClientCredentialsFlowBackendManager: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
-        // print("ClientCredentialsFlowManager.description: WAITING for queue")
+        // print("ClientCredentialsFlowBackendManager.description: WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
-            // print("ClientCredentialsFlowManager.description: INSIDE queue")
+            // print("ClientCredentialsFlowBackendManager.description: INSIDE queue")
             let expirationDateString = self._expirationDate?
                 .description(with: .autoupdatingCurrent)
                 ?? "nil"
         
             return """
-                ClientCredentialsFlowManager(
+                ClientCredentialsFlowBackendManager(
                     access token: "\(self._accessToken ?? "nil")"
                     expiration date: \(expirationDateString)
                     backend: \(self.backend)
@@ -696,7 +648,7 @@ extension ClientCredentialsFlowBackendManager {
 }
 
 
-// MARK: - Subclass -
+// MARK: - ClientCredentialsFlowManager -
 
 /**
  Manages the authorization proccess for the [Client Credentials Flow][1].
@@ -773,16 +725,13 @@ public final class ClientCredentialsFlowManager:
      */
     public convenience init(
         clientId: String,
-        clientSecret: String,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        clientSecret: String
     ) {
         let backend = ClientCredentialsFlowClientBackend(
             clientId: clientId,
             clientSecret: clientSecret
         )
-        self.init(backend: backend, networkAdaptor: networkAdaptor)
+        self.init(backend: backend)
     }
     
     /**
@@ -824,16 +773,12 @@ public final class ClientCredentialsFlowManager:
         clientId: String,
         clientSecret: String,
         accessToken: String,
-        expirationDate: Date,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        expirationDate: Date
     ) {
 
         self.init(
             clientId: clientId,
-            clientSecret: clientSecret,
-            networkAdaptor: networkAdaptor
+            clientSecret: clientSecret
         )
         self._accessToken = accessToken
         self._expirationDate = expirationDate

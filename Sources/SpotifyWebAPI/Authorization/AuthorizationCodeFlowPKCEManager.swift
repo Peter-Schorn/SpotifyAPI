@@ -131,16 +131,8 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      [2]: https://developer.spotify.com/dashboard/login
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public required init(
-        backend: Backend,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
-        super.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+    public required init(backend: Backend) {
+        super.init(backend: backend)
     }
     
     /**
@@ -190,15 +182,9 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
-        scopes: Set<Scope>,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        scopes: Set<Scope>
     ) {
-        self.init(
-			backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(backend: backend)
         self._accessToken = accessToken
         self._expirationDate = expirationDate
         self._refreshToken = refreshToken
@@ -473,46 +459,39 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             .anyFailingPublisher()
         }
         
-        do {
-            
-            Self.logger.trace("backend.makePKCETokenRequest")
-            let tokensRequest = try self.backend.makePKCETokenRequest(
-                code: code,
-                codeVerifier: codeVerifier,
-                redirectURIWithQuery: redirectURIWithQuery
-            )
-            
-            return self.networkAdaptor(tokensRequest)
-                .castToURLResponse()
-                .decodeSpotifyObject(AuthInfo.self)
-                .tryMap { authInfo in
-                    
-                    Self.logger.trace("received authInfo:\n\(authInfo)")
-                    
-                    if authInfo.accessToken == nil ||
-                        authInfo.refreshToken == nil ||
-                        authInfo.expirationDate == nil {
-                        
-                        let errorMessage = """
-                        missing properties after requesting access and \
-                        refresh tokens (expected access token, refresh token, \
-                        and expiration date):
-                        \(authInfo)
-                        """
-                        Self.logger.error("\(errorMessage)")
-                        throw SpotifyLocalError.other(errorMessage)
-                        
-                    }
-                    
-                    self.updateFromAuthInfo(authInfo)
-                    
-                }
-                .eraseToAnyPublisher()
-            
-        } catch {
-            return error.anyFailingPublisher()
-        }
+        Self.logger.trace("backend.makePKCETokenRequest")
         
+        return self.backend.makePKCETokensRequest(
+            code: code,
+            codeVerifier: codeVerifier,
+            redirectURIWithQuery: redirectURIWithQuery
+        )
+        .castToURLResponse()
+        .decodeSpotifyObject(AuthInfo.self)
+        .tryMap { authInfo in
+            
+            Self.logger.trace("received authInfo:\n\(authInfo)")
+            
+            if authInfo.accessToken == nil ||
+                authInfo.refreshToken == nil ||
+                authInfo.expirationDate == nil {
+                
+                let errorMessage = """
+                missing properties after requesting access and \
+                refresh tokens (expected access token, refresh token, \
+                and expiration date):
+                \(authInfo)
+                """
+                Self.logger.error("\(errorMessage)")
+                throw SpotifyLocalError.other(errorMessage)
+                
+            }
+            
+            self.updateFromAuthInfo(authInfo)
+            
+        }
+        .eraseToAnyPublisher()
+    
     }
 
     /**
@@ -584,12 +563,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                     }
                     
                     Self.logger.trace("backend.makePKCERefreshTokenRequest")
-					let refreshTokensRequest = try self.backend.makePKCERefreshTokenRequest(
+                    
+                    let refreshTokensPublisher = self.backend.makePKCERefreshTokenRequest(
                         refreshToken: refreshToken
-                    )
-					
-                    let refreshTokensPublisher = self.networkAdaptor(
-                        refreshTokensRequest
                     )
                     .castToURLResponse()
                     .decodeSpotifyObject(AuthInfo.self)
@@ -657,9 +633,9 @@ extension AuthorizationCodeFlowPKCEBackendManager: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
-        // print("AuthorizationCodeFlowManager.description WAITING for queue")
+        // print("AuthorizationCodeFlowPKCEBackendManager.description WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
-            // print("AuthorizationCodeFlowManager.description INSIDE queue")
+            // print("AuthorizationCodeFlowPKCEBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
                     .description(with: .autoupdatingCurrent)
                     ?? "nil"
@@ -732,21 +708,12 @@ public final class AuthorizationCodeFlowPKCEManager:
      [2]: https://developer.spotify.com/dashboard/login
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public convenience init(
-        clientId: String,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
+    public convenience init(clientId: String) {
 
         let backend = AuthorizationCodeFlowPKCEClientBackend(
             clientId: clientId
         )
-
-        self.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(backend: backend)
 
     }
 
@@ -798,15 +765,9 @@ public final class AuthorizationCodeFlowPKCEManager:
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
-        scopes: Set<Scope>,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        scopes: Set<Scope>
     ) {
-        self.init(
-            clientId: clientId,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(clientId: clientId)
         self._accessToken = accessToken
         self._expirationDate = expirationDate
         self._refreshToken = refreshToken

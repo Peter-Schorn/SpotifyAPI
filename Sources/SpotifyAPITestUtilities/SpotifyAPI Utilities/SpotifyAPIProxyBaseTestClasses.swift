@@ -8,12 +8,13 @@ import OpenCombineFoundation
 
 #endif
 import XCTest
-import SpotifyWebAPI
 
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+
+@testable import SpotifyWebAPI
 
 // MARK: - Proxy -
 
@@ -47,13 +48,6 @@ open class SpotifyAPIClientCredentialsFlowProxyTests:
     
     open class func fuzzSpotify() {
         
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -109,13 +103,6 @@ open class SpotifyAPIAuthorizationCodeFlowProxyTests:
 
     open class func fuzzSpotify() {
 
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
-
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager
         })
@@ -168,13 +155,6 @@ open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests:
     }
 
     open class func fuzzSpotify() {
-
-        if Bool.random() {
-            Self.spotify = .sharedTest
-        }
-        else {
-            Self.spotify = .sharedTestNetworkAdaptor
-        }
 
         encodeDecode(Self.spotify, areEqual: { lhs, rhs in
             lhs.authorizationManager == rhs.authorizationManager

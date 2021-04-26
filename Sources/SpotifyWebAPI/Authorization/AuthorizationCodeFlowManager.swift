@@ -104,16 +104,8 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      [2]: https://developer.spotify.com/dashboard/login
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
-    public required init(
-		backend: Backend,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
-        super.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+    public required init(backend: Backend) {
+        super.init(backend: backend)
     }
     
     /**
@@ -162,15 +154,9 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
-        scopes: Set<Scope>,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        scopes: Set<Scope>
     ) {
-        self.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(backend: backend)
         self._accessToken = accessToken
         self._expirationDate = expirationDate
         self._refreshToken = refreshToken
@@ -373,44 +359,38 @@ public extension AuthorizationCodeFlowBackendManager {
             .anyFailingPublisher()
         }
         
-        do {
-            Self.logger.trace("backend.makeTokenRequest")
-            let tokensRequest = try self.backend.makeTokenRequest(
-                code: code,
-                redirectURIWithQuery: redirectURIWithQuery
-            )
-            
-            return self.networkAdaptor(tokensRequest)
-                .castToURLResponse()
-                .decodeSpotifyObject(AuthInfo.self)
-                .tryMap { authInfo in
-                    
-                    Self.logger.trace("received authInfo:\n\(authInfo)")
-                    
-                    if authInfo.accessToken == nil ||
-                        authInfo.refreshToken == nil ||
-                        authInfo.expirationDate == nil {
-                        
-                        let errorMessage = """
-                        missing properties after requesting access and \
-                        refresh tokens (expected access token, refresh token, \
-                        and expiration date):
-                        \(authInfo)
-                        """
-                        Self.logger.error("\(errorMessage)")
-                        throw SpotifyLocalError.other(errorMessage)
-                        
-                    }
-                    
-                    self.updateFromAuthInfo(authInfo)
-                    
-                }
-                .eraseToAnyPublisher()
-            
-        } catch {
-            return error.anyFailingPublisher()
-        }
+        Self.logger.trace("backend.makeTokenRequest")
         
+        return self.backend.makeTokensRequest(
+            code: code,
+            redirectURIWithQuery: redirectURIWithQuery
+        )
+        .castToURLResponse()
+        .decodeSpotifyObject(AuthInfo.self)
+        .tryMap { authInfo in
+            
+            Self.logger.trace("received authInfo:\n\(authInfo)")
+            
+            if authInfo.accessToken == nil ||
+                authInfo.refreshToken == nil ||
+                authInfo.expirationDate == nil {
+                
+                let errorMessage = """
+                missing properties after requesting access and \
+                refresh tokens (expected access token, refresh token, \
+                and expiration date):
+                \(authInfo)
+                """
+                Self.logger.error("\(errorMessage)")
+                throw SpotifyLocalError.other(errorMessage)
+                
+            }
+            
+            self.updateFromAuthInfo(authInfo)
+            
+        }
+        .eraseToAnyPublisher()
+            
     }
 
     /**
@@ -483,12 +463,8 @@ public extension AuthorizationCodeFlowBackendManager {
                     }
                     
                     Self.logger.trace("backend.makeRefreshTokenRequest")
-					let refreshTokensRequest = try self.backend.makeRefreshTokenRequest(
+                    let refreshTokensPublisher = self.backend.makeRefreshTokenRequest(
                         refreshToken: refreshToken
-                    )
-
-                    let refreshTokensPublisher = self.networkAdaptor(
-                        refreshTokensRequest
                     )
                     .castToURLResponse()
                     // Decoding into `AuthInfo` never fails because all of its
@@ -550,9 +526,9 @@ extension AuthorizationCodeFlowBackendManager: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
-        // print("AuthorizationCodeFlowManager.description WAITING for queue")
+        // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoDispatchQueue.sync {
-            // print("AuthorizationCodeFlowManager.description INSIDE queue")
+            // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
                     .description(with: .autoupdatingCurrent)
                     ?? "nil"
@@ -631,21 +607,14 @@ public final class AuthorizationCodeFlowManager:
      */
     public convenience init(
         clientId: String,
-        clientSecret: String,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        clientSecret: String
     ) {
         
         let backend = AuthorizationCodeFlowClientBackend(
             clientId: clientId,
             clientSecret: clientSecret
         )
-
-        self.init(
-            backend: backend,
-            networkAdaptor: networkAdaptor
-        )
+        self.init(backend: backend)
         
     }
     
@@ -697,15 +666,11 @@ public final class AuthorizationCodeFlowManager:
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
-        scopes: Set<Scope>,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
+        scopes: Set<Scope>
     ) {
         self.init(
             clientId: clientId,
-            clientSecret: clientSecret,
-            networkAdaptor: networkAdaptor
+            clientSecret: clientSecret
         )
         self._accessToken = accessToken
         self._expirationDate = expirationDate

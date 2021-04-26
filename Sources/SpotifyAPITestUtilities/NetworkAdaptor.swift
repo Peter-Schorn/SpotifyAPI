@@ -41,7 +41,7 @@ public final class NetworkAdaptorManager {
         #if TEST
         return self.nioNetworkAdaptor(request: request)
         #else
-        return URLSession.shared.defaultNetworkAdaptor(request: request)
+        return URLSession.defaultNetworkAdaptor(request: request)
         #endif
         
     }
@@ -109,6 +109,5 @@ public final class NetworkAdaptorManager {
         
     }
     #endif
-    
     
 }

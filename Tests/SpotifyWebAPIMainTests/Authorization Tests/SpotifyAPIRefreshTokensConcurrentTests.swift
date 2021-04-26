@@ -185,6 +185,8 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
     
     func concurrentRequestsWithExpiredToken() {
 
+        Self.spotify.authorizationManager.deauthorize()
+        Self.spotify.authorizationManager.waitUntilAuthorized()
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
 
         let internalQueue = DispatchQueue(
@@ -311,8 +313,6 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     }
     
     func testConcurrentRequestsWithExpiredToken() {
-        Self.spotify.authorizationManager.deauthorize()
-        Self.spotify.authorizationManager.waitUntilAuthorized()
         self.concurrentRequestsWithExpiredToken()
     }
     
@@ -397,8 +397,6 @@ final class SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests:
     }
     
     func testConcurrentRequestsWithExpiredToken() {
-        Self.spotify.authorizationManager.deauthorize()
-        Self.spotify.authorizationManager.waitUntilAuthorized()
         self.concurrentRequestsWithExpiredToken()
     }
     

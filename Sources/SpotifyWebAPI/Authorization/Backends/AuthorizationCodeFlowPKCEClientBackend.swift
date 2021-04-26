@@ -4,6 +4,14 @@ import FoundationNetworking
 #endif
 import Logging
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
     
     /// The logger for this struct.
@@ -18,11 +26,11 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         self.clientId = clientId
     }
 
-    public func makePKCETokenRequest(
+    public func makePKCETokensRequest(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
-    ) -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         // This must match the redirectURI provided when making the
         // authorization URL.
@@ -53,12 +61,15 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         tokensRequest.httpBody = body
         
-        return tokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: tokensRequest
+        )
+        
     }
 
     public func makePKCERefreshTokenRequest(
         refreshToken: String
-    ) -> URLRequest {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         let body = PKCERefreshAccessTokenRequest(
             refreshToken: refreshToken,
@@ -83,7 +94,10 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         refreshTokensRequest.httpBody = body
         
-        return refreshTokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: refreshTokensRequest
+        )
+        
     }
 }
 

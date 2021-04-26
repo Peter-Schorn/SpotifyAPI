@@ -4,6 +4,14 @@ import FoundationNetworking
 #endif
 import Logging
 
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
 public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
 
     /// The logger for this struct.
@@ -17,7 +25,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
         self.tokenURL = tokenURL
     }
 
-    public func makeTokensRequest() throws -> URLRequest {
+    public func makeClientCredentialsTokensRequest(
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 
         let body = ClientCredentialsTokenRequest()
             .formURLEncoded()
@@ -35,7 +44,9 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
         tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         tokensRequest.httpBody = body
 
-        return tokensRequest
+        return URLSession.defaultNetworkAdaptor(
+            request: tokensRequest
+        )
 
     }
 
