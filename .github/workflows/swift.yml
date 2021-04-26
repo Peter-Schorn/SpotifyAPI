@@ -55,5 +55,5 @@ jobs:
         SpotifyAPIClientCredentialsFlowTrackTests|\
         SpotifyAPIClientCredentialsFlowUserProfileTests|\
         SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests|\
+        SpotifyPlayerErrorCodingTests\
         "
