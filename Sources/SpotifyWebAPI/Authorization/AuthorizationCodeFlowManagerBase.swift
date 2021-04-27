@@ -450,7 +450,7 @@ extension AuthorizationCodeFlowManagerBase {
         return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
-    func assertNotOnUpdateAuthInfoDispatchQueue() {
+    public func _assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
             condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
