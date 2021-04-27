@@ -382,6 +382,7 @@ public extension ClientCredentialsFlowBackendManager {
             .castToURLResponse()
             .decodeSpotifyObject(AuthInfo.self)
             .subscribe(on: self.refreshTokensQueue)
+            .receive(on: self.refreshTokensQueue)
             .tryMap { authInfo in
                 
                 Self.logger.trace("received authInfo:\n\(authInfo)")
