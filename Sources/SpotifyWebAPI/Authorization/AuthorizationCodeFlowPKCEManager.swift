@@ -184,7 +184,7 @@ public final class AuthorizationCodeFlowPKCEManager<Backend: AuthorizationCodeFl
      [3]: https://developer.spotify.com/dashboard/login
      */
     public convenience init(
-		backend: Backend,
+        backend: Backend,
         accessToken: String,
         expirationDate: Date,
         refreshToken: String?,
@@ -194,7 +194,7 @@ public final class AuthorizationCodeFlowPKCEManager<Backend: AuthorizationCodeFl
         )? = nil
     ) {
         self.init(
-			backend: backend,
+            backend: backend,
             networkAdaptor: networkAdaptor
         )
         self._accessToken = accessToken
@@ -258,12 +258,8 @@ public extension AuthorizationCodeFlowPKCEManager where Backend == Authorization
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        let backend = AuthorizationCodeFlowPKCEClientBackend(
-            clientId: clientId
-        )
-
         self.init(
-            backend: backend,
+            backend: .init(clientId: clientId),
             networkAdaptor: networkAdaptor
         )
     }
@@ -365,7 +361,7 @@ public extension AuthorizationCodeFlowPKCEManager {
             host: Endpoints.accountsBase,
             path: Endpoints.authorize,
             queryItems: urlQueryDictionary([
-				"client_id": backend.clientId,
+                "client_id": backend.clientId,
                 "response_type": "code",
                 "redirect_uri": redirectURI.absoluteString,
                 "scope": Scope.makeString(scopes),
@@ -519,8 +515,8 @@ public extension AuthorizationCodeFlowPKCEManager {
             .anyFailingPublisher()
         }
         
-		let tokensRequest = backend.makePKCETokenRequest(code: code, codeVerifier: codeVerifier, redirectURIWithQuery: redirectURIWithQuery)
-		
+        let tokensRequest = backend.makePKCETokenRequest(code: code, codeVerifier: codeVerifier, redirectURIWithQuery: redirectURIWithQuery)
+        
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
             .decodeSpotifyObject(AuthInfo.self)
@@ -618,8 +614,8 @@ public extension AuthorizationCodeFlowPKCEManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-					let refreshTokensRequest = backend.makePKCERefreshTokenRequest(refreshToken: refreshToken)
-					
+                    let refreshTokensRequest = backend.makePKCERefreshTokenRequest(refreshToken: refreshToken)
+                    
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
                     )

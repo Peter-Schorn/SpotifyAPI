@@ -12,40 +12,40 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
     )
 
     /// The client id for your application.
-	public let clientId: String
-	
-	/// The client secret for your application.
-	public let clientSecret: String
-	
-	/// The base 64 encoded authorization header with the client id
-	/// and client secret
-	private let basicBase64EncodedCredentialsHeader: [String: String]
+    public let clientId: String
+    
+    /// The client secret for your application.
+    public let clientSecret: String
+    
+    /// The base 64 encoded authorization header with the client id
+    /// and client secret
+    private let basicBase64EncodedCredentialsHeader: [String: String]
 
-	public init(clientId: String, clientSecret: String) {
-		self.clientId = clientId
-		self.clientSecret = clientSecret
-		self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-			clientId: self.clientId,
-			clientSecret: self.clientSecret
-		)!
-	}
+    public init(clientId: String, clientSecret: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
+            clientId: self.clientId,
+            clientSecret: self.clientSecret
+        )!
+    }
 
-	public func makeTokenRequest(
+    public func makeTokenRequest(
         code: String,
         redirectURIWithQuery: URL
     ) -> URLRequest {
         
-		let baseRedirectURI = redirectURIWithQuery
-			.removingQueryItems()
-			.removingTrailingSlashInPath()
-		
-		let body = TokensRequest(
-			code: code,
-			redirectURI: baseRedirectURI,
-			clientId: clientId,
-			clientSecret: clientSecret
-		)
-		.formURLEncoded()
+        let baseRedirectURI = redirectURIWithQuery
+            .removingQueryItems()
+            .removingTrailingSlashInPath()
+        
+        let body = TokensRequest(
+            code: code,
+            redirectURI: baseRedirectURI,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+        .formURLEncoded()
         
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         
@@ -56,23 +56,23 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
             \(bodyString)
             """
         )
-	
-		var tokensRequest = URLRequest(url: Endpoints.getTokens)
-		tokensRequest.httpMethod = "POST"
-		tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-		tokensRequest.httpBody = body
+    
+        var tokensRequest = URLRequest(url: Endpoints.getTokens)
+        tokensRequest.httpMethod = "POST"
+        tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
+        tokensRequest.httpBody = body
 
-		return tokensRequest
-	}
+        return tokensRequest
+    }
 
-	public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
-		let headers = basicBase64EncodedCredentialsHeader +
-				Headers.formURLEncoded
+    public func makeRefreshTokenRequest(refreshToken: String) -> URLRequest {
+        let headers = basicBase64EncodedCredentialsHeader +
+                Headers.formURLEncoded
 
-		let body = RefreshAccessTokenRequest(
-			refreshToken: refreshToken
-		)
-		.formURLEncoded()
+        let body = RefreshAccessTokenRequest(
+            refreshToken: refreshToken
+        )
+        .formURLEncoded()
         
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         
@@ -83,49 +83,49 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
             \(bodyString)
             """
         )
-		
-		var refreshTokensRequest = URLRequest(
-			url: Endpoints.getTokens
-		)
-		refreshTokensRequest.httpMethod = "POST"
-		refreshTokensRequest.allHTTPHeaderFields = headers
-		refreshTokensRequest.httpBody = body
+        
+        var refreshTokensRequest = URLRequest(
+            url: Endpoints.getTokens
+        )
+        refreshTokensRequest.httpMethod = "POST"
+        refreshTokensRequest.allHTTPHeaderFields = headers
+        refreshTokensRequest.httpBody = body
 
-		return refreshTokensRequest
-	}
+        return refreshTokensRequest
+    }
     
 }
 
 extension AuthorizationCodeFlowClientBackend {
-	
-	public init(from decoder: Decoder) throws {
-		let container = try decoder.container(
-			keyedBy: CodingKeys.self
-		)
-		let clientId = try container.decode(
-			String.self, forKey: .clientId
-		)
-		let clientSecret = try container.decode(
-			String.self, forKey: .clientSecret
-		)
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
+        )
+        let clientId = try container.decode(
+            String.self, forKey: .clientId
+        )
+        let clientSecret = try container.decode(
+            String.self, forKey: .clientSecret
+        )
         self.init(
             clientId: clientId,
             clientSecret: clientSecret
         )
-	}
+    }
 
-	public func encode(to encoder: Encoder) throws {
-		var container = encoder.container(
-			keyedBy: CodingKeys.self
-		)
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(
+            keyedBy: CodingKeys.self
+        )
 
-		try container.encode(
-			self.clientId, forKey: .clientId
-		)
-		try container.encode(
-			self.clientSecret, forKey: .clientSecret
-		)
-	}
+        try container.encode(
+            self.clientId, forKey: .clientId
+        )
+        try container.encode(
+            self.clientSecret, forKey: .clientSecret
+        )
+    }
     
     private enum CodingKeys: String, CodingKey {
         case clientId = "client_id"
@@ -138,7 +138,7 @@ extension AuthorizationCodeFlowClientBackend {
 // MARK: - PKCE -
 
 public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
-	
+    
     /// The logger for this struct.
     public static var logger = Logger(
         label: "AuthorizationCodeFlowClientBackend", level: .critical
@@ -157,19 +157,19 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         redirectURIWithQuery: URL
     ) -> URLRequest {
         
-		// This must match the redirectURI provided when making the
-		// authorization URL.
-		let baseRedirectURI = redirectURIWithQuery
-			.removingQueryItems()
-			.removingTrailingSlashInPath()
-				
-		let body = PKCETokensRequest(
-			code: code,
-			redirectURI: baseRedirectURI,
-			clientId: self.clientId,
-			codeVerifier: codeVerifier
-		)
-		.formURLEncoded()
+        // This must match the redirectURI provided when making the
+        // authorization URL.
+        let baseRedirectURI = redirectURIWithQuery
+            .removingQueryItems()
+            .removingTrailingSlashInPath()
+                
+        let body = PKCETokensRequest(
+            code: code,
+            redirectURI: baseRedirectURI,
+            clientId: self.clientId,
+            codeVerifier: codeVerifier
+        )
+        .formURLEncoded()
         
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         
@@ -180,22 +180,22 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
             \(bodyString)
             """
         )
-		
-		var tokensRequest = URLRequest(url: Endpoints.getTokens)
-		tokensRequest.httpMethod = "POST"
-		tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-		tokensRequest.httpBody = body
-		
-		return tokensRequest
-	}
+        
+        var tokensRequest = URLRequest(url: Endpoints.getTokens)
+        tokensRequest.httpMethod = "POST"
+        tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
+        tokensRequest.httpBody = body
+        
+        return tokensRequest
+    }
 
     public func makePKCERefreshTokenRequest(refreshToken: String) -> URLRequest {
-		
+        
         let body = PKCERefreshAccessTokenRequest(
-			refreshToken: refreshToken,
-			clientId: self.clientId
-		)
-		.formURLEncoded()
+            refreshToken: refreshToken,
+            clientId: self.clientId
+        )
+        .formURLEncoded()
         
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         
@@ -206,16 +206,16 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
             \(bodyString)
             """
         )
-				
-		var refreshTokensRequest = URLRequest(
-			url: Endpoints.getTokens
-		)
-		refreshTokensRequest.httpMethod = "POST"
-		refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
-		refreshTokensRequest.httpBody = body
-		
-		return refreshTokensRequest
-	}
+                
+        var refreshTokensRequest = URLRequest(
+            url: Endpoints.getTokens
+        )
+        refreshTokensRequest.httpMethod = "POST"
+        refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
+        refreshTokensRequest.httpBody = body
+        
+        return refreshTokensRequest
+    }
 }
 
 extension AuthorizationCodeFlowPKCEClientBackend {

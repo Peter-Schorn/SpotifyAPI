@@ -108,7 +108,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      Do not implement it yourself. A default implementation is provided
      which does nothing.
      */
-	func _assertNotOnUpdateAuthInfoDispatchQueue()
+    func _assertNotOnUpdateAuthInfoDispatchQueue()
 }
 
 extension SpotifyAuthorizationManager {

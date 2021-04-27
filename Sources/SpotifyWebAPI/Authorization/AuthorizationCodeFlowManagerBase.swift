@@ -265,9 +265,9 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
             keyedBy: AuthInfo.CodingKeys.self
         )
         
-		try container.encode(
-			self.backend, forKey: .endpoint
-		)
+        try container.encode(
+            self.backend, forKey: .endpoint
+        )
         try codingWrapper.encode(to: encoder)
         
     }
@@ -464,7 +464,7 @@ extension AuthorizationCodeFlowManagerBase {
                         )
                     }
         
-		return self.backend == other.backend &&
+        return self.backend == other.backend &&
                 lhsAccessToken == rhsAccessToken &&
                 lhsRefreshToken == rhsRefreshToken &&
                 lhsScopes == rhsScopes &&
@@ -490,7 +490,7 @@ extension AuthorizationCodeFlowManagerBase {
         }
     }
     
-	/// Only use for testing purposes.
+    /// Only use for testing purposes.
     func subscribeToDidChange() {
         
         self.didChange

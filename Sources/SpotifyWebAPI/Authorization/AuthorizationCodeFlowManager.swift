@@ -104,7 +104,7 @@ public final class AuthorizationCodeFlowManager<Backend: AuthorizationCodeFlowBa
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(
-		backend: Backend,
+        backend: Backend,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
@@ -231,19 +231,11 @@ public extension AuthorizationCodeFlowManager where Backend == AuthorizationCode
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     ) {
-        
-        let backend = AuthorizationCodeFlowClientBackend(
-            clientId: clientId,
-            clientSecret: clientSecret
-        )
-
         self.init(
-            backend: backend,
+            backend: .init(clientId: clientId, clientSecret: clientSecret),
             networkAdaptor: networkAdaptor
         )
-
     }
-
 }
 
 public extension AuthorizationCodeFlowManager {
@@ -379,7 +371,7 @@ public extension AuthorizationCodeFlowManager {
         state: String? = nil
     ) -> AnyPublisher<Void, Error> {
 
-		Self.logger.trace(
+        Self.logger.trace(
             "redirectURIWithQuery: '\(redirectURIWithQuery)'"
         )
         
@@ -423,7 +415,7 @@ public extension AuthorizationCodeFlowManager {
             .anyFailingPublisher()
         }
         
-		let tokensRequest = backend.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
+        let tokensRequest = backend.makeTokenRequest(code: code, redirectURIWithQuery: redirectURIWithQuery)
         
         return self.networkAdaptor(tokensRequest)
             .castToURLResponse()
@@ -523,7 +515,7 @@ public extension AuthorizationCodeFlowManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-					let refreshTokensRequest = backend.makeRefreshTokenRequest(refreshToken: refreshToken)
+                    let refreshTokensRequest = backend.makeRefreshTokenRequest(refreshToken: refreshToken)
 
                     let refreshTokensPublisher = self.networkAdaptor(
                         refreshTokensRequest
