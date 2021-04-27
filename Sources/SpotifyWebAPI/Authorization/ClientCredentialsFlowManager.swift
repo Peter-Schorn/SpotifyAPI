@@ -120,7 +120,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
     /// Ensure no data races occur when updating auth info.
-    private let updateAuthInfoDispatchQueue = DispatchQueue(
+    let updateAuthInfoDispatchQueue = DispatchQueue(
         label: "updateAuthInfoDispatchQueue"
     )
 
@@ -276,7 +276,27 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
             return instance
         }
     }
-    
+ 
+    /// :nodoc:
+    public var description: String {
+        // print("ClientCredentialsFlowBackendManager.description: WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("ClientCredentialsFlowBackendManager.description: INSIDE queue")
+            let expirationDateString = self._expirationDate?
+                .description(with: .current)
+                ?? "nil"
+        
+            return """
+                ClientCredentialsFlowBackendManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    expiration date: \(expirationDateString)
+                    backend: \(self.backend)
+                )
+                """
+        
+        }
+    }
+
 }
 
 public extension ClientCredentialsFlowBackendManager {
@@ -454,18 +474,18 @@ public extension ClientCredentialsFlowBackendManager {
                 if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
                     tolerance: tolerance
                 ) {
-                    Self.logger.trace("access token not expired; returning early")
+//                    Self.logger.trace("access token not expired; returning early")
                     return ResultPublisher(())
                         .eraseToAnyPublisher()
                 }
                 
-                Self.logger.trace("access token is expired; authorizing again")
+//                Self.logger.trace("access token is expired; authorizing again")
                 
                 // If another request to refresh the tokens is currently
                 // in progress, return the same request instead of creating
                 // a new network request.
                 if let publisher = self.refreshTokensPublisher {
-                    Self.logger.trace("using previous publisher")
+//                    Self.logger.trace("using previous publisher")
                     return publisher
                 }
                 
@@ -590,32 +610,6 @@ extension ClientCredentialsFlowBackendManager: Hashable {
 
     }
     
-}
-
-// MARK: - Custom String Convertible
-
-extension ClientCredentialsFlowBackendManager: CustomStringConvertible {
-    
-    /// :nodoc:
-    public var description: String {
-        // print("ClientCredentialsFlowBackendManager.description: WAITING for queue")
-        return self.updateAuthInfoDispatchQueue.sync {
-            // print("ClientCredentialsFlowBackendManager.description: INSIDE queue")
-            let expirationDateString = self._expirationDate?
-                .description(with: .autoupdatingCurrent)
-                ?? "nil"
-        
-            return """
-                ClientCredentialsFlowBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    expiration date: \(expirationDateString)
-                    backend: \(self.backend)
-                )
-                """
-        
-        }
-    }
-
 }
 
 // MARK: - Testing -
@@ -788,5 +782,24 @@ public final class ClientCredentialsFlowManager:
     }
 
     // MARK: TODO: Codable, Hashable, CustomStringConvertible
+
+    /// :nodoc:
+    public override var description: String {
+        return self.updateAuthInfoDispatchQueue.sync {
+            let expirationDateString = self._expirationDate?
+                .description(with: .current)
+                ?? "nil"
+        
+            return """
+                ClientCredentialsFlowManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    expiration date: \(expirationDateString)
+                    clientId: "\(self.clientId)"
+                    clientSecret: "\(self.clientSecret)"
+                )
+                """
+        
+        }
+    }
 
 }

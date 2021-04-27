@@ -90,3 +90,17 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
         
 	}
 }
+
+extension AuthorizationCodeFlowProxyBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            AuthorizationCodeFlowProxyBackend(
+                clientId: "\(self.clientId)"
+                tokenURL: "\(self.tokenURL)"
+                tokenRefreshURL: "\(self.tokenRefreshURL)"
+            )
+            """
+    }
+
+}

@@ -208,6 +208,29 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         super.hash(into: &hasher)
     }
 
+    /// :nodoc:
+    public var description: String {
+        // print("AuthorizationCodeFlowPKCEBackendManager.description WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("AuthorizationCodeFlowPKCEBackendManager.description INSIDE queue")
+            let expirationDateString = self._expirationDate?
+                    .description(with: .current)
+                    ?? "nil"
+            
+            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
+                    ?? "nil"
+            
+            return """
+                AuthorizationCodeFlowPKCEBackendManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    scopes: \(scopeString)
+                    expiration date: \(expirationDateString)
+                    refresh token: "\(self._refreshToken ?? "nil")"
+                    backend: "\(self.backend)"
+                )
+                """
+        }
+    }
 }
 
 public extension AuthorizationCodeFlowPKCEBackendManager {
@@ -628,36 +651,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
     
 }
 
-// MARK: - Custom String Convertible
-
-extension AuthorizationCodeFlowPKCEBackendManager: CustomStringConvertible {
-    
-    /// :nodoc:
-    public var description: String {
-        // print("AuthorizationCodeFlowPKCEBackendManager.description WAITING for queue")
-        return self.updateAuthInfoDispatchQueue.sync {
-            // print("AuthorizationCodeFlowPKCEBackendManager.description INSIDE queue")
-            let expirationDateString = self._expirationDate?
-                    .description(with: .autoupdatingCurrent)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
-            
-            return """
-                AuthorizationCodeFlowPKCEBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
-                    expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
-                    backend: "\(self.backend)"
-                )
-                """
-        }
-    }
-
-}
-
 // MARK: - Hashable and Equatable -
 
 extension AuthorizationCodeFlowPKCEBackendManager: Hashable {
@@ -775,6 +768,29 @@ public final class AuthorizationCodeFlowPKCEManager:
         self._scopes = scopes
     }
 
-    // MARK: TODO: CustomStringConvertible
-
+    /// :nodoc:
+    public override var description: String {
+        // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
+            let expirationDateString = self._expirationDate?
+                    .description(with: .current)
+                    ?? "nil"
+            
+            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
+                    ?? "nil"
+            
+            return """
+                AuthorizationCodeFlowPKCEManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    scopes: \(scopeString)
+                    expiration date: \(expirationDateString)
+                    refresh token: "\(self._refreshToken ?? "nil")"
+                    clientId: "\(self.clientId)"
+                
+                )
+                """
+        }
+    }
+    
 }

@@ -150,3 +150,16 @@ extension AuthorizationCodeFlowClientBackend: Codable {
     }
     
 }
+
+extension AuthorizationCodeFlowClientBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            AuthorizationCodeFlowClientBackend(
+                clientId: "\(self.clientId)"
+                clientSecret: "\(self.clientSecret)"
+            )
+            """
+    }
+
+}

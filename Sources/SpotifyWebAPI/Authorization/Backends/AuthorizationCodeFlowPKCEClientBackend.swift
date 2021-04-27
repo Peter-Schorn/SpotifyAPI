@@ -108,3 +108,15 @@ extension AuthorizationCodeFlowPKCEClientBackend: Codable {
     }
 
 }
+
+extension AuthorizationCodeFlowPKCEClientBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            AuthorizationCodeFlowPKCEClientBackend(
+                clientId: "\(self.clientId)"
+            )
+            """
+    }
+
+}

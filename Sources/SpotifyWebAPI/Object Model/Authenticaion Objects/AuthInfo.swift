@@ -140,7 +140,7 @@ extension AuthInfo: CustomStringConvertible {
     public var description: String {
         
         let expirationDateString = expirationDate?
-                .description(with: .autoupdatingCurrent)
+                .description(with: .current)
                 ?? "nil"
         
         var scopeString = "nil"

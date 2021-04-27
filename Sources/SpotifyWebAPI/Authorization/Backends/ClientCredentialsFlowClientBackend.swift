@@ -68,3 +68,16 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
     }
 
 }
+
+extension ClientCredentialsFlowClientBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            ClientCredentialsFlowClientBackend(
+                clientId: "\(self.clientId)"
+                clientSecret: "\(self.clientSecret)"
+            )
+            """
+    }
+
+}

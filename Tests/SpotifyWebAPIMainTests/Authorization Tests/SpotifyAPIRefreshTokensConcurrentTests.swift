@@ -124,7 +124,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
                                     tolerance: 120
                                 )
                             )
-                            internalQueue.async {
+                            internalQueue.sync {
                                 Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()
                                 if let updatedAuthInfo = updatedAuthInfo {
                                     XCTAssertEqual(
@@ -151,8 +151,8 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 //                    print("after i: \(i); j: \(j)")
                     
                     // avoid datarace
-                    internalQueue.async {
-                        cancellables.insert(cancellable)
+                    internalQueue.sync {
+                        _ = cancellables.insert(cancellable)
                     }
                     
                     // check for data races when accessing these properties.

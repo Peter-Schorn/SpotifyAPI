@@ -94,3 +94,17 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         
     }
 }
+
+extension AuthorizationCodeFlowPKCEProxyBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            AuthorizationCodeFlowPKCEProxyBackend(
+                clientId: "\(self.clientId)"
+                tokenURL: "\(self.tokenURL)"
+                tokenRefreshURL: "\(self.tokenRefreshURL)"
+            )
+            """
+    }
+
+}

@@ -180,6 +180,30 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         super.hash(into: &hasher)
     }
     
+    /// :nodoc:
+    public var description: String {
+        // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
+            let expirationDateString = self._expirationDate?
+                    .description(with: .current)
+                    ?? "nil"
+            
+            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
+                    ?? "nil"
+            
+            return """
+                AuthorizationCodeFlowBackendManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    scopes: \(scopeString)
+                    expiration date: \(expirationDateString)
+                    refresh token: "\(self._refreshToken ?? "nil")"
+                    backend: "\(self.backend)"
+                )
+                """
+        }
+    }
+
 }
 
 public extension AuthorizationCodeFlowBackendManager {
@@ -521,36 +545,6 @@ public extension AuthorizationCodeFlowBackendManager {
     
 }
 
-// MARK: - Custom String Convertible
-
-extension AuthorizationCodeFlowBackendManager: CustomStringConvertible {
-    
-    /// :nodoc:
-    public var description: String {
-        // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
-        return self.updateAuthInfoDispatchQueue.sync {
-            // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
-            let expirationDateString = self._expirationDate?
-                    .description(with: .autoupdatingCurrent)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
-            
-            return """
-                AuthorizationCodeFlowBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
-                    expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
-                    backend: "\(self.backend)"
-                )
-                """
-        }
-    }
-
-}
-
 // MARK: - Hashable and Equatable -
 
 extension AuthorizationCodeFlowBackendManager: Hashable {
@@ -679,6 +673,31 @@ public final class AuthorizationCodeFlowManager:
         self._scopes = scopes
     }
 
-    // MARK: TODO: CustomStringConvertible
+    
+    /// :nodoc:
+    public override var description: String {
+        // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
+        return self.updateAuthInfoDispatchQueue.sync {
+            // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
+            let expirationDateString = self._expirationDate?
+                    .description(with: .current)
+                    ?? "nil"
+            
+            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
+                    ?? "nil"
+            
+            return """
+                AuthorizationCodeFlowManager(
+                    access token: "\(self._accessToken ?? "nil")"
+                    scopes: \(scopeString)
+                    expiration date: \(expirationDateString)
+                    refresh token: "\(self._refreshToken ?? "nil")"
+                    clientId: "\(self.clientId)"
+                    clientSecret: "\(self.clientSecret)"
+                
+                )
+                """
+        }
+    }
 
 }
