@@ -50,7 +50,7 @@ import Logging
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
  - Tag: Scopes
  */
-public enum Scope: String, Codable, Hashable, CaseIterable {
+public enum Scope: String, Codable, Hashable {
     
     // MARK: Images
     
@@ -305,6 +305,12 @@ public enum Scope: String, Codable, Hashable, CaseIterable {
      */
     case userFollowModify = "user-follow-modify"
     
+}
+
+extension Scope: CaseIterable {
+    
+    public typealias AllCases = Set<Scope>
+
     // The synthesized implementation of `allCases`
     // is an array, but a set is more useful.
     /// A `Set` of all the authorization scopes.

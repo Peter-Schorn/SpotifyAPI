@@ -11,7 +11,7 @@ import Foundation
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
  */
-public enum PlaybackActions: String, Codable, Hashable, CaseIterable {
+public enum PlaybackActions: String, Codable, Hashable {
     
     /// Interrupt playback.
     case interruptPlayback = "interrupting_playback"
@@ -43,6 +43,12 @@ public enum PlaybackActions: String, Codable, Hashable, CaseIterable {
     /// Transferring playback.
     case transferPlayback = "transferring_playback"
     
+}
+
+extension PlaybackActions: CaseIterable {
+    
+    public typealias AllCases = Set<PlaybackActions>
+
     // The default implementation returns an array,
     // but a set is more useful.
     public static let allCases: Set<PlaybackActions> = [
