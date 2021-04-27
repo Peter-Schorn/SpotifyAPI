@@ -43,10 +43,11 @@ import FoundationNetworking
 public final class ClientCredentialsFlowManager: SpotifyAuthorizationManager {
     
     /// The logger for this class. By default, its level is `critical`.
-    public static var logger = Logger(
-        label: "ClientCredentialsFlowManager", level: .critical
-    )
-    
+	public static var logger: Logger {
+		get { AuthorizationManagerLoggers.clientCredentialsFlowLogger }
+		set { AuthorizationManagerLoggers.clientCredentialsFlowLogger = newValue }
+	}
+
     /// The client id for your application.
     public let clientId: String
     

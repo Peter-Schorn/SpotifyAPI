@@ -64,9 +64,10 @@ public final class AuthorizationCodeFlowManager:
 {
     
     /// The logger for this class.
-    public static var logger = Logger(
-        label: "AuthorizationCodeFlowManager", level: .critical
-    )
+    public static var logger: Logger {
+        get { AuthorizationManagerLoggers.codeFlowLogger }
+        set { AuthorizationManagerLoggers.codeFlowLogger = newValue }
+    }
     
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].

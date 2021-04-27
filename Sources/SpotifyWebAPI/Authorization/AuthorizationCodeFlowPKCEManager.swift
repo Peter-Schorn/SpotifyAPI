@@ -91,10 +91,11 @@ public final class AuthorizationCodeFlowPKCEManager:
 {
     
     /// The logger for this class.
-    public static var logger = Logger(
-        label: "AuthorizationCodeFlowPKCEManager", level: .critical
-    )
-    
+    public static var logger: Logger {
+        get { AuthorizationManagerLoggers.codeFlowPKCELogger }
+        set { AuthorizationManagerLoggers.codeFlowPKCELogger = newValue }
+    }
+
     /**
      Creates an authorization manager for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].

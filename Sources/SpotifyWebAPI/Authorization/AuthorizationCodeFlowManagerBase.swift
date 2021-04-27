@@ -42,10 +42,11 @@ public class AuthorizationCodeFlowManagerBase {
     
     /// The logger for this class. Sub-classes will not use this logger;
     /// instead, they will create their own logger.
-    public static var baseLogger = Logger(
-        label: "AuthorizationCodeFlowManagerBase", level: .critical
-    )
-    
+    public static var baseLogger: Logger {
+        get { AuthorizationManagerLoggers.codeFlowBaseLogger }
+        set { AuthorizationManagerLoggers.codeFlowBaseLogger = newValue }
+    }
+
     /// The client id for your application.
     public let clientId: String
     
