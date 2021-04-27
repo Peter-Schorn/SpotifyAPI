@@ -41,7 +41,8 @@ public final class NetworkAdaptorManager {
         #if TEST
         return self.nioNetworkAdaptor(request: request)
         #else
-        return URLSession.defaultNetworkAdaptor(request: request)
+        print("NetworkAdaptorManager:networkAdaptor:URLSession.defaultNetworkAdaptor(request: request)")
+        return URLSession.__defaultNetworkAdaptor(request)
         #endif
         
     }

@@ -219,8 +219,23 @@ public extension URLSession {
     }
     
 
-    /// Initialized to `URLSession._defaultNetworkAdaptor`.
-    static let __defaultNetworkAdaptor = URLSession._defaultNetworkAdaptor
+    static let __defaultNetworkAdaptor: (
+        URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .mapError { $0 as Error }
+            .map { data, response -> (data: Data, response: HTTPURLResponse) in
+                guard let httpURLResponse = response as? HTTPURLResponse else {
+                    fatalError(
+                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                    )
+                }
+                return (data: data, response: httpURLResponse)
+            }
+            .eraseToAnyPublisher()
+
+    }
 
 }
 
@@ -228,12 +243,15 @@ public extension String {
     
     func append(to file: URL, terminator: String = "\n") throws {
 
-        var data = self.data(using: .utf8)!
-        let terminatorData = terminator.data(using: .utf8)!
+        guard var data = self.data(using: .utf8) else {
+            return
+        }
+        guard let terminatorData = terminator.data(using: .utf8) else {
+            return
+        }
         data.append(terminatorData)
 
         let manager = FileManager.default
-        
 
         if manager.fileExists(atPath: file.path) {
             let handle = try FileHandle(forUpdating: file)
@@ -254,6 +272,14 @@ public extension String {
             
         }
         else {
+            let directory = file.deletingLastPathComponent()
+            if !manager.fileExists(atPath: directory.path) {
+                try manager.createDirectory(
+                    at: directory,
+                    withIntermediateDirectories: true
+                )
+            }
+            
             try data.write(to: file, options: [.atomic])
         }
         
