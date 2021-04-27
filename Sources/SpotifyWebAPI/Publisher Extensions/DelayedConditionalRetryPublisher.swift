@@ -219,9 +219,3 @@ extension Publisher {
     }
     
 }
-
-private func asdf() {
-    
-    let scheduler = ImmediateScheduler
-
-}
