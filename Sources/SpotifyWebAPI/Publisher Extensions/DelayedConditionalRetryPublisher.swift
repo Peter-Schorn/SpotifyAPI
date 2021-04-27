@@ -116,6 +116,10 @@ extension Publishers {
         }
     }
     
+    static let retryQueue = DispatchQueue.combine(
+        label: "DelayedConditionalRetry"
+    )
+
 }
 
 extension Publisher {
@@ -149,7 +153,7 @@ extension Publisher {
         
         return self.retry(
             times: 3,
-            scheduler: DispatchQueue.global()
+            scheduler: Publishers.retryQueue
         ) { additionalRetries, error in
 //            Swift.print(
 //                "retryOnSpotifyError: additionalRetries: " +
@@ -214,4 +218,10 @@ extension Publisher {
 
     }
     
+}
+
+private func asdf() {
+    
+    let scheduler = ImmediateScheduler
+
 }

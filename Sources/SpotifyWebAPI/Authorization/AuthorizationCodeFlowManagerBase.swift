@@ -66,7 +66,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      thread-safe.
      */
     public var accessToken: String? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._accessToken
         }
     }
@@ -81,7 +81,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      thread-safe.
      */
     public var refreshToken: String? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._refreshToken
         }
     }
@@ -99,7 +99,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      thread-safe.
      */
     public var expirationDate: Date? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._expirationDate
         }
     }
@@ -117,7 +117,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      thread-safe.
      */
     public var scopes: Set<Scope>? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._scopes
         }
     }
@@ -184,11 +184,11 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
-    let updateAuthInfoDispatchQueue = DispatchQueue(
-        label: "updateAuthInfoDispatchQueue"
+    let updateAuthInfoQueue = DispatchQueue.combine(
+        label: "updateAuthInfoQueue"
     )
     
-    let refreshTokensQueue = DispatchQueue(
+    let refreshTokensQueue = DispatchQueue.combine(
         label: "AuthorizationCodeFlowManagerBase.refrehTokens"
     )
 
@@ -229,7 +229,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     /// :nodoc:
     func encode(to encoder: Encoder) throws {
-        let codingWrapper = self.updateAuthInfoDispatchQueue.sync {
+        let codingWrapper = self.updateAuthInfoQueue.sync {
             return AuthInfo(
                 accessToken: self._accessToken,
                 refreshToken: self._refreshToken,
@@ -250,7 +250,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     }
     
     func hash(into hasher: inout Hasher) {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             hasher.combine(self.backend)
             hasher.combine(self._accessToken)
             hasher.combine(self._refreshToken)
@@ -274,7 +274,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         let instance = Self(
             backend: self.backend
         )
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             instance._accessToken = self._accessToken
             instance._refreshToken = self._refreshToken
             instance._expirationDate = self._expirationDate
@@ -308,7 +308,7 @@ public extension AuthorizationCodeFlowManagerBase {
      This method is thread-safe.
      */
     func deauthorize() {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             self._accessToken = nil
             self._refreshToken = nil
             self._expirationDate = nil
@@ -340,7 +340,7 @@ public extension AuthorizationCodeFlowManagerBase {
      This method is thread-safe.
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             return accessTokenIsExpiredNOTTHreadSafe(tolerance: tolerance)
         }
     }
@@ -362,7 +362,7 @@ public extension AuthorizationCodeFlowManagerBase {
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             if self._accessToken == nil { return false }
             return scopes.isSubset(of: self._scopes ?? [])
         }
@@ -375,17 +375,17 @@ public extension AuthorizationCodeFlowManagerBase {
 extension AuthorizationCodeFlowManagerBase {
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
-        self.updateAuthInfoDispatchQueue.sync {
-            self._accessToken = authInfo.accessToken
-            if let refreshToken = authInfo.refreshToken {
-                self._refreshToken = refreshToken
-            }
-            self._expirationDate = authInfo.expirationDate
-            self._scopes = authInfo.scopes
-            self.refreshTokensPublisher = nil
+        self._accessToken = authInfo.accessToken
+        if let refreshToken = authInfo.refreshToken {
+            self._refreshToken = refreshToken
         }
-        Self.baseLogger.trace("\(Self.self): didChange.send()")
-        self.didChange.send()
+        self._expirationDate = authInfo.expirationDate
+        self._scopes = authInfo.scopes
+        self.refreshTokensPublisher = nil
+        self.refreshTokensQueue.async {
+            Self.baseLogger.trace("\(Self.self): didChange.send()")
+            self.didChange.send()
+        }
     }
     
     /// This method should **ALWAYS** be called within
@@ -411,7 +411,7 @@ extension AuthorizationCodeFlowManagerBase {
     public func _assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
-            condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
+            condition: .notOnQueue(self.updateAuthInfoQueue.queue)
         )
         #endif
     }
@@ -419,7 +419,7 @@ extension AuthorizationCodeFlowManagerBase {
     func isEqualTo(other: AuthorizationCodeFlowManagerBase) -> Bool {
         
         let (lhsAccessToken, lhsRefreshToken, lhsScopes, lhsExpirationDate) =
-            self.updateAuthInfoDispatchQueue
+            self.updateAuthInfoQueue
                 .sync { () -> (String?, String?, Set<Scope>?, Date?) in
                     return (
                         self._accessToken,
@@ -430,7 +430,7 @@ extension AuthorizationCodeFlowManagerBase {
                 }
         
         let (rhsAccessToken, rhsRefreshToken, rhsScopes, rhsExpirationDate) =
-                other.updateAuthInfoDispatchQueue
+                other.updateAuthInfoQueue
                     .sync { () -> (String?, String?, Set<Scope>?, Date?) in
                         return (
                             other._accessToken,
@@ -458,7 +458,7 @@ extension AuthorizationCodeFlowManagerBase {
     /// for testing purposes. Do not call it outside the context
     /// of tests.
     func mockValues() {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             self._accessToken = UUID().uuidString
             self._refreshToken = UUID().uuidString
             self._expirationDate = Date()
@@ -483,7 +483,7 @@ extension AuthorizationCodeFlowManagerBase {
      - Parameter date: The date to set the expiration date to.
      */
     public func setExpirationDate(to date: Date) {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             Self.baseLogger.notice(
                 "\(Self.self): mock expiration date: \(date.description(with: .current))"
             )

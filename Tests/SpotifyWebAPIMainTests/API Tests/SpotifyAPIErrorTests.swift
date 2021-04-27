@@ -24,7 +24,9 @@ extension SpotifyAPIErrorTests {
         Self.spotify.networkAdaptor = URLSession.shared
             .noCacheNetworkAdaptor(request:)
         
-        let queue = DispatchQueue(label: "autoRetryOnRateLimitedErrorConcurrent")
+        let queue = DispatchQueue.combine(
+            label: "autoRetryOnRateLimitedErrorConcurrent"
+        )
 
         var didReceiveRateLimitedError = false
         var receivedValues = 0
@@ -104,7 +106,9 @@ extension SpotifyAPIErrorTests {
         Self.spotify.networkAdaptor = URLSession.shared
             .noCacheNetworkAdaptor(request:)
         
-        let queue = DispatchQueue(label: "autoRetryOnRateLimitedErrorSerial")
+        let queue = DispatchQueue.combine(
+            label: "autoRetryOnRateLimitedErrorSerial"
+        )
         
         var didReceiveRateLimitedError = false
         var receivedValues = 0

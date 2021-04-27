@@ -13,7 +13,7 @@ import OpenCombineFoundation
 import SpotifyExampleContent
 
 
-private let serialMockQueue = DispatchQueue(label: "serialMockQueue")
+private let serialMockQueue = DispatchQueue.combine(label: "serialMockQueue")
 
 public extension SpotifyAPI {
     

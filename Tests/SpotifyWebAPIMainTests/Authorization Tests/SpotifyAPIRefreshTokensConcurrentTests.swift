@@ -26,8 +26,8 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
     func concurrentTokensRefresh() {
         for i in 0..<20 {
             Self.spotify.authorizationManager.setExpirationDate(to: Date())
-            self.concurrentTokensRefreshCore(topLevel: i)
             print("\n--- TOP LEVEL \(i) ---\n")
+            self.concurrentTokensRefreshCore(topLevel: i)
         }
     }
     
@@ -175,13 +175,13 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
         self.wait(for: expectations.flatMap { $0 }, timeout: 10)
 //        print("done waiting; TOP LEVEL: \(topLevel)")
         
-        XCTAssertEqual(
-            didChangeCount, 1,
-            "authorizationManagerDidChange should emit exactly once; " +
-            "top level: \(topLevel)"
-        )
-        
-        sleep(1)
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should emit exactly once; " +
+                    "top level: \(topLevel)"
+            )
+        }
 
     }
     
@@ -288,10 +288,12 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 
         self.wait(for: [incrementDidChangeCountExpectation], timeout: 30)
 
-        XCTAssertEqual(didChangeCount, 1)
-        XCTAssertTrue(receivedTrack)
-        XCTAssertTrue(receivedAlbum)
-        XCTAssertTrue(receivedArtist)
+        internalQueue.sync {
+            XCTAssertEqual(didChangeCount, 1)
+            XCTAssertTrue(receivedTrack)
+            XCTAssertTrue(receivedAlbum)
+            XCTAssertTrue(receivedArtist)
+        }
 
     }
   

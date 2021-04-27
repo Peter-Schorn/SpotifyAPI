@@ -66,6 +66,12 @@ public extension URLSession {
 
 extension URLSession {
     
+    #if canImport(Combine)
+    static let combineShared = URLSession.shared
+    #else
+    static let combineShared = URLSession.OCombine(.shared)
+    #endif
+
     /**
      The network adaptor that this library uses by default for all
      network requests. Uses `URLSession`.
@@ -87,7 +93,7 @@ extension URLSession {
         URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
         
-        return URLSession.shared.dataTaskPublisher(for: request)
+        return URLSession.combineShared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -102,3 +108,49 @@ extension URLSession {
     }
     
 }
+
+extension DispatchQueue {
+    
+    #if canImport(Combine)
+    static func combineGlobal(
+        qos: DispatchQoS.QoSClass = .default
+    ) -> DispatchQueue {
+        return DispatchQueue.global(qos: qos)
+    }
+    #else
+    static func combineGlobal(
+        qos: DispatchQoS.QoSClass = .default
+    ) -> DispatchQueue.OCombine {
+        return DispatchQueue.OCombine(.global(qos: qos))
+    }
+    #endif
+    
+    #if canImport(Combine)
+    static func combine(label: String) -> DispatchQueue {
+        return DispatchQueue(label: label)
+    }
+    #else
+    static func combine(label: String) -> DispatchQueue.OCombine {
+        return DispatchQueue.OCombine(.init(label: label))
+    }
+    #endif
+    
+    #if canImport(Combine)
+    var queue: DispatchQueue { self }
+    #endif
+
+}
+
+#if !canImport(Combine)
+extension DispatchQueue.OCombine {
+    
+    func sync<T>(execute block: () throws -> T) rethrows -> T {
+        return try self.queue.sync(execute: block)
+    }
+    
+    func async(execute block: @escaping () -> Void) {
+        self.queue.async(execute: block)
+    }
+
+}
+#endif

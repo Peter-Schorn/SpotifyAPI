@@ -204,7 +204,7 @@ public extension URLSession {
         var request = request
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        return self.dataTaskPublisher(for: request)
+        return  URLSession.combineShared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -223,7 +223,7 @@ public extension URLSession {
         URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
         
-        return URLSession.shared.dataTaskPublisher(for: request)
+        return URLSession.combineShared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {

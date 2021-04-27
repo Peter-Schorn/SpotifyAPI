@@ -183,7 +183,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
     /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
                     .description(with: .current)
@@ -453,7 +453,7 @@ public extension AuthorizationCodeFlowBackendManager {
         
         do {
             
-            return try self.updateAuthInfoDispatchQueue
+            return try self.updateAuthInfoQueue
                 .sync { () -> AnyPublisher<Void, Error> in
                     
                     if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
@@ -495,8 +495,7 @@ public extension AuthorizationCodeFlowBackendManager {
                     // properties are optional, so we must try to decode errors
                     // first.
                     .decodeSpotifyObject(AuthInfo.self)
-                    .subscribe(on: self.refreshTokensQueue)
-                    .receive(on: self.refreshTokensQueue)
+                    .receive(on: self.updateAuthInfoQueue)
                     .tryMap { authInfo in
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -524,12 +523,11 @@ public extension AuthorizationCodeFlowBackendManager {
                         // so that the caller does not receive a publisher
                         // that has already finished.
                         receiveCompletion: { _ in
-                            self.updateAuthInfoDispatchQueue.sync {
-                                self.refreshTokensPublisher = nil
-                            }
+                            self.refreshTokensPublisher = nil
                         }
                     )
                     .share()
+                    .receive(on: self.refreshTokensQueue)
                     .eraseToAnyPublisher()
                     
                     self.refreshTokensPublisher = refreshTokensPublisher
@@ -677,7 +675,7 @@ public final class AuthorizationCodeFlowManager:
     /// :nodoc:
     public override var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
                     .description(with: .current)
