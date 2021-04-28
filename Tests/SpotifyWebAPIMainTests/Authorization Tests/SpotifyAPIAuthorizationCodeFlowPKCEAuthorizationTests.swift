@@ -910,8 +910,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
         return AuthorizationCodeFlowPKCEBackendManager(
             backend: AuthorizationCodeFlowPKCEProxyBackend(
                 clientId: "",
-                tokenURL: spotifyBackendTokenURL,
-                tokenRefreshURL: spotifyBackendTokenRefreshURL
+                tokenURL: authorizationCodeFlowPKCETokensURL,
+                tokenRefreshURL: authorizationCodeFlowPKCERefreshTokensURL
             )
         )
     }

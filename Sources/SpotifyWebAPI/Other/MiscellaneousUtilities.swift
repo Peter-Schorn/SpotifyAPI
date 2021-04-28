@@ -209,10 +209,12 @@ extension DispatchQueue {
 #if !canImport(Combine)
 extension DispatchQueue.OCombine {
     
+    @inlinable @inline(__always)
     func sync<T>(execute block: () throws -> T) rethrows -> T {
         return try self.queue.sync(execute: block)
     }
     
+    @inlinable @inline(__always)
     func async(execute block: @escaping () -> Void) {
         self.queue.async(execute: block)
     }

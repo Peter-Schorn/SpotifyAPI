@@ -30,7 +30,7 @@ public extension SpotifyAPI where
     static let sharedTest = SpotifyAPI(
         authorizationManager: ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
-                tokenURL: spotifyBackendTokenURL
+                tokenURL: clientCredentialsFlowTokensURL
             )
         )
     )

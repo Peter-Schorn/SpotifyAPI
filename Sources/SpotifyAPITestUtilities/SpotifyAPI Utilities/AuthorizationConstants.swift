@@ -95,16 +95,17 @@ public let spotifyCredentials: SpotifyCredentials = {
 /// ```
 public let localHostURL = URL(string: "http://localhost:8080")!
 
-/// The `URL` for the backend that retrieves the access token.
-/// Retrieved from the "SPOTIFY_BACKEND_SERVER_URL" environment variable.
-public let spotifyBackendTokenURL: URL = {
+
+private func retrieveURLFromEnvironment(
+    for name: String
+) -> URL {
     
-    guard let urlString = ProcessInfo.processInfo
-            .environment["SPOTIFY_BACKEND_TOKEN_URL"] else {
-        fatalError(
-            "could not find 'SPOTIFY_BACKEND_TOKEN_URL' " +
-            "in environment variables"
-        )
+    guard let urlString = ProcessInfo.processInfo.environment[name] else {
+        print("\n\n")
+        for (key, value) in ProcessInfo.processInfo.environment {
+            print("'\(key)': '\(value)'")
+        }
+        fatalError("\ncould not find '\(name)' in environment variables")
     }
     
     guard let url = URL(string: urlString) else {
@@ -113,28 +114,43 @@ public let spotifyBackendTokenURL: URL = {
     
     return url
 
-}()
+}
 
-/// The `URL` for the backend that retrieves the access token.
-/// Retrieved from the "SPOTIFY_BACKEND_TOKEN_REFRESH_URL" environment variable.
-public let spotifyBackendTokenRefreshURL: URL = {
-    
-    guard let urlString = ProcessInfo.processInfo
-            .environment["SPOTIFY_BACKEND_TOKEN_REFRESH_URL"] else {
-        fatalError(
-            "could not find 'SPOTIFY_BACKEND_TOKEN_REFRESH_URL' " +
-            "in environment variables"
-        )
-    }
-    
-    guard let url = URL(string: urlString) else {
-        fatalError("could not convert to URL: '\(urlString)'")
-    }
-    
-    return url
+/// The URL for retrieving tokens using the authorization code flow.
+/// Retrieved from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
+)
 
-}()
+/// The URL for refreshing the access token using the authorization code flow.
+/// Retrieved from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowRefreshTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL"
+)
 
+/// The URL for retrieving tokens using the authorization code flow with proof
+/// key for code exchange. Retrieved from the
+/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL" environment variable.
+public let authorizationCodeFlowPKCETokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL"
+)
+
+/// The URL for refreshing the access token using the authorization code flow
+/// with proof key for code exchange. Retrieved from the
+/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowPKCERefreshTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
+)
+
+/// The URL for retrieving tokens using the client credentials flow.
+/// Retrieved from the "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
+/// environment variable.
+public let clientCredentialsFlowTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
+)
 
 /**
  Contains the client id and client secret.

@@ -31,8 +31,8 @@ public extension SpotifyAPI where
         authorizationManager: AuthorizationCodeFlowPKCEBackendManager(
             backend: AuthorizationCodeFlowPKCEProxyBackend(
                 clientId: spotifyCredentials.clientId,
-                tokenURL: spotifyBackendTokenURL,
-                tokenRefreshURL: spotifyBackendTokenRefreshURL
+                tokenURL: authorizationCodeFlowPKCETokensURL,
+                tokenRefreshURL: authorizationCodeFlowPKCERefreshTokensURL
             )
         )
     )

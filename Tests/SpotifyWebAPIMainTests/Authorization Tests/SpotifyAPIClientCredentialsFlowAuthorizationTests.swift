@@ -284,7 +284,7 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
     func makeFakeAuthManager() -> ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend> {
         return ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
-                tokenURL: spotifyBackendTokenURL
+                tokenURL: clientCredentialsFlowTokensURL
             )
         )
     }
@@ -318,7 +318,7 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
 
         let newAuthorizationManager = ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
-                tokenURL: spotifyBackendTokenURL
+                tokenURL: clientCredentialsFlowTokensURL
             ),
             accessToken: accessToken,
             expirationDate: expirationDate
