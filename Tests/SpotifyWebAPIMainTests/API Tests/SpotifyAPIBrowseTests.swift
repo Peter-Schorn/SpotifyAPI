@@ -297,19 +297,29 @@ extension SpotifyAPIBrowseTests {
             
         }
         
-        Self.spotify.authorizationManager.setExpirationDate(to: Date())
-        
-        var authChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        let internalQueue = DispatchQueue.combine(label: "internal")
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            authChangeCount += 1
-        })
-        .store(in: &cancellables)
 
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
+        
         let expectation = XCTestExpectation(description: "testRecommendations")
         
         var receivedGenres: [String]? = nil
         
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+
         Self.spotify.recommendationGenres()
             .XCTAssertNoFailure()
             .map(createTrackAttributesFromGenres(_:))
@@ -327,11 +337,19 @@ extension SpotifyAPIBrowseTests {
             )
             .store(in: &Self.cancellables)
         
-        self.wait(for: [expectation], timeout: 120)
-        XCTAssertEqual(
-            authChangeCount, 1,
-            "authorizationManagerDidChange should emit exactly once"
+        self.wait(
+            for: [
+                expectation,
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 120
         )
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should emit exactly once"
+            )
+        }
             
         
     }

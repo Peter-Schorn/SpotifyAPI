@@ -83,12 +83,22 @@ extension SpotifyAPIPlaylistsTests {
 
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
 
-        var authChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        let internalQueue = DispatchQueue.combine(label: "internal")
+
+        var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            authChangeCount += 1
-        })
-        .store(in: &cancellables)
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
 
         Self.spotify.playlistTracks(
             URIs.Playlists.crumb,
@@ -127,11 +137,19 @@ extension SpotifyAPIPlaylistsTests {
         )
         .store(in: &Self.cancellables)
 
-        self.wait(for: [expectation], timeout: 60)
-        XCTAssertEqual(
-            authChangeCount, 1,
-            "authorizationManagerDidChange should emit exactly once"
+        self.wait(
+            for: [
+                expectation,
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 60
         )
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should emit exactly once"
+            )
+        }
 
     }
 

@@ -182,17 +182,27 @@ extension SpotifyAPIAlbumsTests {
     
     func albumJinx() {
         
-        Self.spotify.authorizationManager.setExpirationDate(to: Date())
-        
-        var authChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        let internalQueue = DispatchQueue.combine(label: "internal")
+
+        var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            authChangeCount += 1
-        })
-        .store(in: &cancellables)
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
 
         let expectation = XCTestExpectation(description: "testAlbum")
         
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+
         Self.spotify.album(URIs.Albums.jinx)
             .XCTAssertNoFailure()
             .receiveOnMain()
@@ -202,11 +212,19 @@ extension SpotifyAPIAlbumsTests {
             )
             .store(in: &Self.cancellables)
         
-        self.wait(for: [expectation], timeout: 60)
-        XCTAssertEqual(
-            authChangeCount, 1,
-            "authorizationManagerDidChange should emit exactly once"
+        self.wait(
+            for: [
+                expectation,
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 60
         )
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should emit exactly once"
+            )
+        }
         
     }
    

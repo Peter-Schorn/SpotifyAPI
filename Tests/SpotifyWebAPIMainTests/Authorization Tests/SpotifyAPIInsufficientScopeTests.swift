@@ -112,17 +112,36 @@ extension SpotifyAPIInsufficientScopeTests where
             }
         }
 
-        var didChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        
+        let authorizationManagerDidDeauthorizeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidDeauthorize"
+        )
+
+        let internalQueue = DispatchQueue.combine(label: "internal")
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            didChangeCount += 1
-        })
-        .store(in: &cancellables)
+        
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
+            .receive(on: internalQueue)
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidDeauthorizeExpectation.fulfill()
+                }
             })
             .store(in: &cancellables)
         
@@ -145,14 +164,31 @@ extension SpotifyAPIInsufficientScopeTests where
             )
         )
 
-        XCTAssertEqual(didDeauthorizeCount, 1)
-        XCTAssertEqual(didChangeCount, 0)
+        self.wait(
+            for: [
+                authorizationManagerDidDeauthorizeExpectation
+            ],
+            timeout: 10
+        )
+
+        internalQueue.sync {
+            XCTAssertEqual(didDeauthorizeCount, 1)
+            XCTAssertEqual(didChangeCount, 0)
+        }
 
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: insufficientScopes, showDialog: false
         )
         
-        XCTAssertEqual(didChangeCount, 1)
+        self.wait(
+            for: [
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 10
+        )
+        internalQueue.sync {
+            XCTAssertEqual(didChangeCount, 1)
+        }
         
         let expectation = XCTestExpectation(
             description: "testInsufficientScope play track"
@@ -172,8 +208,11 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
         
-        XCTAssertEqual(didDeauthorizeCount, 1)
-        XCTAssertEqual(didChangeCount, 1)
+        
+        internalQueue.sync {
+            XCTAssertEqual(didDeauthorizeCount, 1)
+            XCTAssertEqual(didChangeCount, 1)
+        }
         
     }
     
@@ -198,19 +237,39 @@ extension SpotifyAPIInsufficientScopeTests where
             XCTAssertEqual(spotifyError.statusCode, 403)
         }
         
-        var didChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        
+        let authorizationManagerDidDeauthorizeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidDeauthorize"
+        )
+
+        let internalQueue = DispatchQueue.combine(label: "internal")
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            didChangeCount += 1
-        })
-        .store(in: &cancellables)
+        
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
         
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
+            .receive(on: internalQueue)
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidDeauthorizeExpectation.fulfill()
+                }
             })
             .store(in: &cancellables)
+
         
         Self.spotify.authorizationManager.deauthorize()
         XCTAssertEqual(
@@ -226,8 +285,17 @@ extension SpotifyAPIInsufficientScopeTests where
             )
         )
 
-        XCTAssertEqual(didDeauthorizeCount, 1)
-        XCTAssertEqual(didChangeCount, 0)
+        self.wait(
+            for: [
+                authorizationManagerDidDeauthorizeExpectation
+            ],
+            timeout: 10
+        )
+
+        internalQueue.sync {
+            XCTAssertEqual(didDeauthorizeCount, 1)
+            XCTAssertEqual(didChangeCount, 0)
+        }
 
         /// Every scope except the one we need: `playlistModifyPrivate`.
         let insufficientScopes = Scope.allCases.subtracting(
@@ -238,7 +306,15 @@ extension SpotifyAPIInsufficientScopeTests where
             scopes: insufficientScopes, showDialog: false
         )
         
-        XCTAssertEqual(didChangeCount, 1)
+        self.wait(
+            for: [
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 10
+        )
+        internalQueue.sync {
+            XCTAssertEqual(didChangeCount, 1)
+        }
         
         /*
          Creating a public playlist for a user requires authorization
@@ -277,7 +353,10 @@ extension SpotifyAPIInsufficientScopeTests where
         
         self.wait(for: [expectation], timeout: 120)
 
-        XCTAssertEqual(didDeauthorizeCount, 1)
+        internalQueue.sync {
+            XCTAssertEqual(didDeauthorizeCount, 1)
+            XCTAssertEqual(didChangeCount, 1)
+        }
 
     }
     

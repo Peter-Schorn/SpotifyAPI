@@ -223,14 +223,25 @@ extension SpotifyAPIFollowTests where
 
     func followUsers() {
 
-        Self.spotify.authorizationManager.setExpirationDate(to: Date())
-        var authChangeCount = 0
-        var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            authChangeCount += 1
-        })
-        .store(in: &cancellables)
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        let internalQueue = DispatchQueue.combine(label: "internal")
 
+        var didChangeCount = 0
+        var cancellables: Set<AnyCancellable> = []
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
+
+        Self.spotify.authorizationManager.setExpirationDate(to: Date())
+        
         let expectation = XCTestExpectation(
             description: "testFollowUsers"
         )
@@ -290,11 +301,19 @@ extension SpotifyAPIFollowTests where
             )
             .store(in: &Self.cancellables)
 
-        self.wait(for: [expectation, emptyExpectation], timeout: 300)
-        XCTAssertEqual(
-            authChangeCount, 1,
-            "authorizationManagerDidChange should emit exactly once"
+        self.wait(
+            for: [
+                expectation,
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 300
         )
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should emit exactly once"
+            )
+        }
         XCTAssertTrue(receivedValueFromEmpty)
 
     }

@@ -1,4 +1,15 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 // MARK: Dictionary Extensions
 
@@ -162,6 +173,64 @@ public extension Collection where Index == Int {
     }
 
 }
+
+extension DispatchQueue {
+    
+    #if canImport(Combine)
+    static func combineGlobal(
+        qos: DispatchQoS.QoSClass = .default
+    ) -> DispatchQueue {
+        return DispatchQueue.global(qos: qos)
+    }
+    #else
+    static func combineGlobal(
+        qos: DispatchQoS.QoSClass = .default
+    ) -> DispatchQueue.OCombine {
+        return DispatchQueue.OCombine(.global(qos: qos))
+    }
+    #endif
+    
+    #if canImport(Combine)
+    static func combine(label: String) -> DispatchQueue {
+        return DispatchQueue(label: label)
+    }
+    #else
+    static func combine(label: String) -> DispatchQueue.OCombine {
+        return DispatchQueue.OCombine(.init(label: label))
+    }
+    #endif
+    
+    #if canImport(Combine)
+    var queue: DispatchQueue { self }
+    #endif
+
+}
+
+#if !canImport(Combine)
+extension DispatchQueue.OCombine {
+    
+    func sync<T>(execute block: () throws -> T) rethrows -> T {
+        return try self.queue.sync(execute: block)
+    }
+    
+    func async(execute block: @escaping () -> Void) {
+        self.queue.async(execute: block)
+    }
+    
+}
+
+extension DispatchPredicate {
+
+    static func notOnQueue(_ queue: DispatchQueue.OCombine) -> Self {
+        return Self.notOnQueue(queue.queue)
+    }
+    
+    static func onQueue(_ queue: DispatchQueue.OCombine) -> Self {
+        return Self.onQueue(queue.queue)
+    }
+
+}
+#endif
 
 // MARK: - Optional Extensions -
 

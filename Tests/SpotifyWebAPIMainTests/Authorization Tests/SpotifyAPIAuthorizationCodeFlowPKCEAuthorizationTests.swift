@@ -26,23 +26,61 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
 
-        var didChangeCount = 0
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidChange"
+        )
+        
+        let authorizationManagerDidDeauthorizeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidDeauthorize"
+        )
+
+        let internalQueue = DispatchQueue.combine(label: "internal")
         var cancellables: Set<AnyCancellable> = []
-        Self.spotify.authorizationManagerDidChange.sink(receiveValue: {
-            didChangeCount += 1
-        })
-        .store(in: &cancellables)
+        
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidChangeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
 
         var didDeauthorizeCount = 0
         Self.spotify.authorizationManagerDidDeauthorize
+            .receive(on: internalQueue)
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
+                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidDeauthorizeExpectation.fulfill()
+                }
             })
             .store(in: &cancellables)
 
         let currentScopes = Self.spotify.authorizationManager.scopes ?? []
 
         Self.spotify.authorizationManager.deauthorize()
+
+        self.wait(
+            for: [
+                authorizationManagerDidDeauthorizeExpectation
+            ],
+            timeout: 10
+        )
+
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 0,
+                "authorizationManagerDidChange should not emit"
+            )
+            XCTAssertEqual(
+                didDeauthorizeCount, 1,
+                "authorizationManagerDidDeauthorize should only emit once"
+                
+            )
+        }
 
         XCTAssertNil(Self.spotify.authorizationManager.scopes)
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized(for: []))
@@ -61,14 +99,24 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
             Self.spotify.authorizationManager.accessTokenIsExpired(tolerance: 0)
         )
 
-        XCTAssertEqual(
-            didChangeCount, 1,
-            "authorizationManagerDidChange should only emit once"
+        self.wait(
+            for: [
+                authorizationManagerDidChangeExpectation
+            ],
+            timeout: 10
         )
-        XCTAssertEqual(
-            didDeauthorizeCount, 1,
-            "authorizationManagerDidDeauthorize should only emit once"
-        )
+
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 1,
+                "authorizationManagerDidChange should only emit once"
+            )
+            XCTAssertEqual(
+                didDeauthorizeCount, 1,
+                "authorizationManagerDidDeauthorize should only emit once"
+                
+            )
+        }
 
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
 

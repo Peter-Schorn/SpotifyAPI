@@ -564,7 +564,7 @@ extension ClientCredentialsFlowBackendManager {
     public func _assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
-            condition: .notOnQueue(self.updateAuthInfoQueue.queue)
+            condition: .notOnQueue(self.updateAuthInfoQueue)
         )
         #endif
     }
