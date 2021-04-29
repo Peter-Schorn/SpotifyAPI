@@ -24,6 +24,7 @@ protocol SpotifyAPIRefreshTokensConcurrentTests: SpotifyAPITests { }
 extension SpotifyAPIRefreshTokensConcurrentTests {
     
     func concurrentTokensRefresh() {
+        self.continueAfterFailure = false
         for i in 0..<20 {
             Self.spotify.authorizationManager.setExpirationDate(to: Date())
             print("\n--- TOP LEVEL \(i) ---\n")
@@ -63,8 +64,8 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 
         var updatedAuthInfo: AuthorizationManager? = nil
         
-        let iMax = 10
-        let jMax = 10
+        let iMax = 3
+        let jMax = 3
         
         let expectations: [[XCTestExpectation]] = (0..<iMax).map { i in
             (0..<jMax).map { j in
@@ -81,10 +82,6 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             DispatchQueue.concurrentPerform(iterations: iMax) { i in
                 Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()
               
-                if i > 5 && Bool.random() {
-                    usleep(UInt32.random(in: 1_000...10_000))
-                }
-
 //                print("begin i: \(i)")
                 
 
@@ -106,7 +103,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
                     )
                     .handleEvents(receiveCancel: {
                         XCTFail(
-//                            "refreshTokens received cancel for i: \(i); j: \(j)"
+                            "refreshTokens received cancel for i: \(i); j: \(j)"
                         )
                     })
                     .XCTAssertNoFailure()
@@ -114,7 +111,9 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
                         receiveCompletion: { _ in
                             Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()
 //                            print("fulfilled expectation i: \(i); j: \(j)")
-                            expectations[i][j].fulfill()
+                            internalQueue.asyncAfter(deadline: .now() + 0.5) {
+                                expectations[i][j].fulfill()
+                            }
                         },
                         receiveValue: {
                             Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()
