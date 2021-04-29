@@ -103,7 +103,7 @@
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Private/PrivateSpotifyAPIProxyServer.xctestplan">
+            reference = "container:Tests/SpotifyAPIProxyServer.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
