@@ -1,0 +1,135 @@
+{
+  "configurations" : [
+    {
+      "id" : "779B6687-BA90-45F6-A1ED-9E8F67BDA37E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "enabled" : false,
+        "key" : "spotify_credentials_path",
+        "value" : "path\/to\/file"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_DATA_DUMP_FOLDER",
+        "value" : "path\/to\/folder"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL",
+        "value" : "url"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL",
+        "value" : "url"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL",
+        "value" : "url"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL",
+        "value" : "url"
+      },
+      {
+        "enabled" : false,
+        "key" : "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL",
+        "value" : "url"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:",
+      "identifier" : "SpotifyAPI",
+      "name" : "SpotifyAPI"
+    },
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true,
+    "undefinedBehaviorSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "AuthorizationScopesTests",
+        "CodingAuthInfoTests",
+        "CodingAuthorizationCodeFlowManagerTests",
+        "CodingAuthorizationCodeFlowPKCEManagerTests",
+        "CodingClientCredentialsFlowManagerTests",
+        "CodingCurrentlyPlayingContextTests",
+        "CodingPlaybackRequestTests",
+        "CodingSpotifyUserTests",
+        "CodingTimeReferenceTests",
+        "CodingTrackAttributesTests",
+        "CursorPagingObjectPlayHistoryCodingTests",
+        "ExampleContentTests",
+        "SpotifyAPIAuthorizationCodeFlowAlbumsTests",
+        "SpotifyAPIAuthorizationCodeFlowArtistTests",
+        "SpotifyAPIAuthorizationCodeFlowBrowseTests",
+        "SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests",
+        "SpotifyAPIAuthorizationCodeFlowEpisodeTests",
+        "SpotifyAPIAuthorizationCodeFlowErrorTests",
+        "SpotifyAPIAuthorizationCodeFlowFollowTests",
+        "SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests",
+        "SpotifyAPIAuthorizationCodeFlowLibraryTests",
+        "SpotifyAPIAuthorizationCodeFlowMarketTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEAlbumsTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEArtistTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEBrowseTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEEpisodeTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEErrorTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEFollowTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCELibraryTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEMarketTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEPersonalizationTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCESearchTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEShowTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCETrackTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEUserProfileTests",
+        "SpotifyAPIAuthorizationCodeFlowPersonalizationTests",
+        "SpotifyAPIAuthorizationCodeFlowPlayerTests",
+        "SpotifyAPIAuthorizationCodeFlowPlaylistsTests",
+        "SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests",
+        "SpotifyAPIAuthorizationCodeFlowSearchTests",
+        "SpotifyAPIAuthorizationCodeFlowShowTests",
+        "SpotifyAPIAuthorizationCodeFlowTrackTests",
+        "SpotifyAPIAuthorizationCodeFlowUserProfileTests",
+        "SpotifyAPIClientCredentialsFlowAlbumsTests",
+        "SpotifyAPIClientCredentialsFlowArtistTests",
+        "SpotifyAPIClientCredentialsFlowBrowseTests",
+        "SpotifyAPIClientCredentialsFlowClientAuthorizationTests",
+        "SpotifyAPIClientCredentialsFlowEpisodeTests",
+        "SpotifyAPIClientCredentialsFlowErrorTests",
+        "SpotifyAPIClientCredentialsFlowFollowTests",
+        "SpotifyAPIClientCredentialsFlowInsufficientScopeTests",
+        "SpotifyAPIClientCredentialsFlowMarketTests",
+        "SpotifyAPIClientCredentialsFlowPlaylistsTests",
+        "SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests",
+        "SpotifyAPIClientCredentialsFlowSearchTests",
+        "SpotifyAPIClientCredentialsFlowShowTests",
+        "SpotifyAPIClientCredentialsFlowTrackTests",
+        "SpotifyAPIClientCredentialsFlowUserProfileTests",
+        "SpotifyIdentifierTests",
+        "SpotifyPlayerErrorCodingTests"
+      ],
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SpotifyAPIMainTests",
+        "name" : "SpotifyAPIMainTests"
+      }
+    }
+  ],
+  "version" : 1
+}

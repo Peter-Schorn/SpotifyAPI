@@ -99,8 +99,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/SpotifyWebAPIMainTestPlan.xctestplan"
+            reference = "container:Tests/SpotifyAPIMainTestPlan.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/SpotifyAPIProxyServer.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>
