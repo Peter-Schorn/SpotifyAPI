@@ -8,8 +8,57 @@ env:
   SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL: ${{ secrets.SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL }}
 
 jobs:
+  
+  test_macOS:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build macOS
+      run: swift build
+    
+    - uses: actions/checkout@v2
+    - name: Run tests macOS
+      run: |
+        swift test --filter "\
+        AuthorizationScopesTests|\
+        CodingAuthInfoTests|\
+        CodingAuthorizationCodeFlowManagerTests|\
+        CodingAuthorizationCodeFlowPKCEManagerTests|\
+        CodingClientCredentialsFlowManagerTests|\
+        CodingCurrentlyPlayingContextTests|\
+        CodingPlaybackRequestTests|\
+        CodingSpotifyUserTests|\
+        CodingTimeReferenceTests|\
+        CodingTrackAttributesTests|\
+        CursorPagingObjectPlayHistoryCodingTests|\
+        ExampleContentTests|\
+        SpotifyAPIClientCredentialsFlowAlbumsTests|\
+        SpotifyAPIClientCredentialsFlowArtistTests|\
+        SpotifyAPIClientCredentialsFlowBrowseTests|\
+        SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowEpisodeTests|\
+        SpotifyAPIClientCredentialsFlowErrorTests|\
+        SpotifyAPIClientCredentialsFlowFollowTests|\
+        SpotifyAPIClientCredentialsFlowProxyFollowTests|\
+        SpotifyAPIClientCredentialsFlowInsufficientScopeTests|\
+        SpotifyAPIClientCredentialsFlowMarketTests|\
+        SpotifyAPIClientCredentialsFlowPlaylistsTests|\
+        SpotifyAPIClientCredentialsFlowProxyArtistTests|\
+        SpotifyAPIClientCredentialsFlowProxyAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests|\
+        SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests|\
+        SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
+        SpotifyAPIClientCredentialsFlowSearchTests|\
+        SpotifyAPIClientCredentialsFlowShowTests|\
+        SpotifyAPIClientCredentialsFlowTrackTests|\
+        SpotifyAPIClientCredentialsFlowUserProfileTests|\
+        SpotifyIdentifierTests|\
+        SpotifyPlayerErrorCodingTests\
+        "
+
   test_linux:
     strategy:
+      fail-fast: false
       matrix:
           image: ["swift:5.3", "swift:5.4"]
 
@@ -59,49 +108,53 @@ jobs:
         SpotifyIdentifierTests|\
         SpotifyPlayerErrorCodingTests\
         "
-  test_macOS:
+  
+  test_other_platforms:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ["platform=iOS Simulator,name=iPhone 12,OS=14.5"]
+      
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build macOS
-      run: swift build
-    
-    - uses: actions/checkout@v2
-    - name: Run tests macOS
+    - name: test ${{ matrix.platform }}
       run: |
-        swift test --filter "\
-        AuthorizationScopesTests|\
-        CodingAuthInfoTests|\
-        CodingAuthorizationCodeFlowManagerTests|\
-        CodingAuthorizationCodeFlowPKCEManagerTests|\
-        CodingClientCredentialsFlowManagerTests|\
-        CodingCurrentlyPlayingContextTests|\
-        CodingPlaybackRequestTests|\
-        CodingSpotifyUserTests|\
-        CodingTimeReferenceTests|\
-        CodingTrackAttributesTests|\
-        CursorPagingObjectPlayHistoryCodingTests|\
-        ExampleContentTests|\
-        SpotifyAPIClientCredentialsFlowAlbumsTests|\
-        SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowBrowseTests|\
-        SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
-        SpotifyAPIClientCredentialsFlowEpisodeTests|\
-        SpotifyAPIClientCredentialsFlowErrorTests|\
-        SpotifyAPIClientCredentialsFlowFollowTests|\
-        SpotifyAPIClientCredentialsFlowProxyFollowTests|\
-        SpotifyAPIClientCredentialsFlowInsufficientScopeTests|\
-        SpotifyAPIClientCredentialsFlowMarketTests|\
-        SpotifyAPIClientCredentialsFlowPlaylistsTests|\
-        SpotifyAPIClientCredentialsFlowProxyArtistTests|\
-        SpotifyAPIClientCredentialsFlowProxyAuthorizationTests|\
-        SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests|\
-        SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests|\
-        SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
-        SpotifyAPIClientCredentialsFlowSearchTests|\
-        SpotifyAPIClientCredentialsFlowShowTests|\
-        SpotifyAPIClientCredentialsFlowTrackTests|\
-        SpotifyAPIClientCredentialsFlowUserProfileTests|\
-        SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests\
-        "
+        env DEVELOPER_DIR="/Applications/Xcode.app" xcrun xcodebuild \
+        -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
+        -derivedDataPath "$PWD/.derivedData" test \
+        -scheme "SpotifyAPI-Package" \
+        -destination "${{ matrix.platform }}" \
+        -only-testing "SpotifyAPIMainTests/AuthorizationScopesTests" \
+        -only-testing "SpotifyAPIMainTests/CodingAuthInfoTests" \
+        -only-testing "SpotifyAPIMainTests/CodingAuthorizationCodeFlowManagerTests" \
+        -only-testing "SpotifyAPIMainTests/CodingAuthorizationCodeFlowPKCEManagerTests" \
+        -only-testing "SpotifyAPIMainTests/CodingClientCredentialsFlowManagerTests" \
+        -only-testing "SpotifyAPIMainTests/CodingCurrentlyPlayingContextTests" \
+        -only-testing "SpotifyAPIMainTests/CodingPlaybackRequestTests" \
+        -only-testing "SpotifyAPIMainTests/CodingSpotifyUserTests" \
+        -only-testing "SpotifyAPIMainTests/CodingTimeReferenceTests" \
+        -only-testing "SpotifyAPIMainTests/CodingTrackAttributesTests" \
+        -only-testing "SpotifyAPIMainTests/CursorPagingObjectPlayHistoryCodingTests" \
+        -only-testing "SpotifyAPIMainTests/ExampleContentTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowAlbumsTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowArtistTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowBrowseTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowClientAuthorizationTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowEpisodeTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowErrorTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowFollowTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowInsufficientScopeTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowMarketTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowPlaylistsTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowProxyArtistTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowProxyAuthorizationTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowSearchTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowShowTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowTrackTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowUserProfileTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
+        -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests"
