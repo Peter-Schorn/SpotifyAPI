@@ -101,10 +101,6 @@ private func retrieveURLFromEnvironment(
 ) -> URL {
     
     guard let urlString = ProcessInfo.processInfo.environment[name] else {
-        print("\n\n")
-        for (key, value) in ProcessInfo.processInfo.environment {
-            print("'\(key)': '\(value)'")
-        }
         fatalError("\ncould not find '\(name)' in environment variables")
     }
     
@@ -148,9 +144,24 @@ public let authorizationCodeFlowPKCERefreshTokensURL = retrieveURLFromEnvironmen
 /// The URL for retrieving tokens using the client credentials flow.
 /// Retrieved from the "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
 /// environment variable.
-public let clientCredentialsFlowTokensURL = retrieveURLFromEnvironment(
-    for: "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
-)
+public let clientCredentialsFlowTokensURL: URL = {
+    
+    let __clientCredentialsFlowTokensURL__ = ""
+
+    if ! __clientCredentialsFlowTokensURL__.isEmpty {
+        guard let url = URL(
+                string: __clientCredentialsFlowTokensURL__
+        ) else {
+            fatalError("could not convert to URL: '\(urlString)'")
+        }
+        return url
+    }
+    
+    return retrieveURLFromEnvironment(
+        for: "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
+    )
+
+}
 
 /**
  Contains the client id and client secret.

@@ -8,14 +8,10 @@ env:
   SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL: ${{ secrets.SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL }}
 
 jobs:
-  
+
   test_macOS:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build macOS
-      run: swift build
-    
     - uses: actions/checkout@v2
     - name: Run tests macOS
       run: |
@@ -58,6 +54,7 @@ jobs:
 
   test_linux:
     strategy:
+      max-parallel: 1
       fail-fast: false
       matrix:
           image: ["swift:5.3", "swift:5.4"]
@@ -65,10 +62,6 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Build ${{ matrix.image }}
-      run: swift build
-    
     - uses: actions/checkout@v2
     - name: Run tests ${{ matrix.image }}
       run: |
@@ -118,6 +111,9 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+    - name: configure environment variables
+      run: ./set_credentials.sh
+    
     - name: test ${{ matrix.platform }}
       run: |
         env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
@@ -125,9 +121,6 @@ jobs:
         -derivedDataPath "$PWD/.derivedData" test \
         -scheme "SpotifyAPI-Package" \
         -destination "${{ matrix.platform }}" \
-        -SPOTIFY_SWIFT_TESTING_CLIENT_ID=$SPOTIFY_SWIFT_TESTING_CLIENT_ID \
-        -SPOTIFY_SWIFT_TESTING_CLIENT_SECRET=$SPOTIFY_SWIFT_TESTING_CLIENT_SECRET \
-        -SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL=$SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL \
         -only-testing "SpotifyAPIMainTests/AuthorizationScopesTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthInfoTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthorizationCodeFlowManagerTests" \
