@@ -26,9 +26,11 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
     func concurrentTokensRefresh() {
         self.continueAfterFailure = false
         for i in 0..<20 {
+            SpotifyAPITestCase.selectNetworkAdpaptor()
             Self.spotify.authorizationManager.setExpirationDate(to: Date())
             print("\n--- TOP LEVEL \(i) ---\n")
             self.concurrentTokensRefreshCore(topLevel: i)
+            sleep(1)
         }
     }
     
@@ -63,9 +65,9 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             .store(in: &cancellables)
 
         var updatedAuthInfo: AuthorizationManager? = nil
-        
-        let iMax = 3
-        let jMax = 3
+         
+        let iMax = 20
+        let jMax = 20
         
         let expectations: [[XCTestExpectation]] = (0..<iMax).map { i in
             (0..<jMax).map { j in
@@ -84,6 +86,10 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
               
 //                print("begin i: \(i)")
                 
+                if i > 5 && Bool.random() {
+                    // 0.001...0.01 seconds
+                    usleep(UInt32.random(in: 1_000...10_000))
+                }
 
                 for j in 0..<jMax {
 
@@ -171,7 +177,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
         }
         
 //        print("waiting for expectations; TOP LEVEL: \(topLevel)")
-        self.wait(for: expectations.flatMap { $0 }, timeout: 10)
+        self.wait(for: expectations.flatMap { $0 }, timeout: 60)
 //        print("done waiting; TOP LEVEL: \(topLevel)")
         
         internalQueue.sync {

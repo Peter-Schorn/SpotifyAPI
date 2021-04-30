@@ -496,7 +496,6 @@ public extension AuthorizationCodeFlowBackendManager {
                     // first.
                     .decodeSpotifyObject(AuthInfo.self)
                     .receive(on: self.updateAuthInfoQueue)
-                    .subscribe(on: self.refreshTokensQueue)
                     .tryMap { authInfo in
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")

@@ -593,7 +593,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                     .castToURLResponse()
                     .decodeSpotifyObject(AuthInfo.self)
                     .receive(on: self.updateAuthInfoQueue)
-                    .subscribe(on: self.updateAuthInfoQueue)
                     .tryMap { authInfo in
                         
                         Self.logger.trace("received authInfo:\n\(authInfo)")

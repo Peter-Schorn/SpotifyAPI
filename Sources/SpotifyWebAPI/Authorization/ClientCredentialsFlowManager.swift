@@ -402,7 +402,6 @@ public extension ClientCredentialsFlowBackendManager {
             .castToURLResponse()
             .decodeSpotifyObject(AuthInfo.self)
             .receive(on: self.updateAuthInfoQueue)
-            .subscribe(on: self.updateAuthInfoQueue)
             .tryMap { authInfo in
                 
                 Self.logger.trace("received authInfo:\n\(authInfo)")
@@ -484,7 +483,7 @@ public extension ClientCredentialsFlowBackendManager {
         tolerance: Double = 120
     ) -> AnyPublisher<Void, Error> {
         
-        return updateAuthInfoQueue
+        return self.updateAuthInfoQueue
             .sync { () -> AnyPublisher<Void, Error> in
                 
                 if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(

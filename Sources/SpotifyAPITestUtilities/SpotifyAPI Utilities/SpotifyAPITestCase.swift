@@ -135,11 +135,7 @@ open class SpotifyAPITestCase: XCTestCase {
         return nil
     }()
     
-    open override class func setUp() {
-        if !SpotifyTestObserver.isRegisteredAsObserver {
-            _ = SpotifyTestObserver()
-        }
-        
+    public static func selectNetworkAdpaptor() {
         if Bool.random() {
             print(
                 "URLSession._defaultNetworkAdaptor = " +
@@ -155,6 +151,14 @@ open class SpotifyAPITestCase: XCTestCase {
             URLSession._defaultNetworkAdaptor = NetworkAdaptorManager
                     .shared.networkAdaptor(request:)
         }
+    }
+
+    open override class func setUp() {
+        if !SpotifyTestObserver.isRegisteredAsObserver {
+            _ = SpotifyTestObserver()
+        }
+        
+        Self.selectNetworkAdpaptor()
 
     }
     
