@@ -66,8 +66,8 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 
         var updatedAuthInfo: AuthorizationManager? = nil
          
-        let iMax = 20
-        let jMax = 20
+        let iMax = 3
+        let jMax = 3
         
         let expectations: [[XCTestExpectation]] = (0..<iMax).map { i in
             (0..<jMax).map { j in
