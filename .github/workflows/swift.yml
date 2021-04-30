@@ -3,7 +3,7 @@ name: Swift
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  test_linux ${{ image }}:
+  test_linux ${{ matrix.image }}:
     strategy:
       matrix:
           image: ["swift:5.3", "swift:5.4"]
