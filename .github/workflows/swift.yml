@@ -159,7 +159,7 @@ jobs:
   build_watch_os_mac_catalyst:
     strategy:
       matrix:
-        platforms: ["platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2", "platform=macOS,variant=Mac Catalyst"]
+        platform: ["platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2", "platform=macOS,variant=Mac Catalyst"]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
