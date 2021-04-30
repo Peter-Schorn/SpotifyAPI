@@ -3,12 +3,12 @@ name: Swift
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  test_linux:
+  test_linux ${{ image }}:
     strategy:
       matrix:
           image: ["swift:5.3", "swift:5.4"]
 
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     container: image
 
     env: 
