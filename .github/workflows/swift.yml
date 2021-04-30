@@ -3,7 +3,7 @@ name: Swift
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  test_linux ${{ matrix.image }}:
+  test_linux:
     strategy:
       matrix:
           image: ["swift:5.3", "swift:5.4"]
@@ -18,11 +18,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
+    - name: Build ${{ matrix.image }}
       run: swift build
     
     - uses: actions/checkout@v2
-    - name: Run tests
+    - name: Run tests ${{ matrix.image }}
       run: |
         swift test --filter "\
         AuthorizationScopesTests|\
