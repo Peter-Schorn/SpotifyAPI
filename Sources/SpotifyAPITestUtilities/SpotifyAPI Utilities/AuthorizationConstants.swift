@@ -148,11 +148,14 @@ public let clientCredentialsFlowTokensURL: URL = {
     
     let __clientCredentialsFlowTokensURL__ = ""
 
-    if ! __clientCredentialsFlowTokensURL__.isEmpty {
+    if !__clientCredentialsFlowTokensURL__.isEmpty {
         guard let url = URL(
                 string: __clientCredentialsFlowTokensURL__
         ) else {
-            fatalError("could not convert to URL: '\(urlString)'")
+            fatalError(
+                "could not convert to URL: " +
+                "'\(__clientCredentialsFlowTokensURL__)'"
+            )
         }
         return url
     }
@@ -161,7 +164,7 @@ public let clientCredentialsFlowTokensURL: URL = {
         for: "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
     )
 
-}
+}()
 
 /**
  Contains the client id and client secret.
