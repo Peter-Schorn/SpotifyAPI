@@ -156,7 +156,10 @@ jobs:
         -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests"
         
-  build_watch_os:
+  build_watch_os_mac_catalyst:
+    strategy:
+      matrix:
+        platforms: ["platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2", "platform=macOS,variant=Mac Catalyst"]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -166,4 +169,4 @@ jobs:
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" build \
         -scheme "SpotifyAPI" \
-        -destination "platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2"
+        -destination "${{ matrix.platform }}"
