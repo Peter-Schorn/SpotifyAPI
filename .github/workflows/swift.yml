@@ -104,6 +104,7 @@ jobs:
   
   test_other_platforms:
     strategy:
+      max-parallel: 1
       fail-fast: false
       matrix:
         platform: ["platform=iOS Simulator,name=iPhone 12,OS=14.4", "platform=tvOS Simulator,name=Apple TV,OS=14.3"]
