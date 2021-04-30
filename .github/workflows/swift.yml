@@ -113,7 +113,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: ["platform=iOS Simulator,name=iPhone 12,OS=14.4", "platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2", "platform=tvOS Simulator,name=Apple TV,OS=14.3"]
+        platform: ["platform=iOS Simulator,name=iPhone 12,OS=14.4", "platform=tvOS Simulator,name=Apple TV,OS=14.3"]
       
     runs-on: macos-latest
     steps:
@@ -125,6 +125,9 @@ jobs:
         -derivedDataPath "$PWD/.derivedData" test \
         -scheme "SpotifyAPI-Package" \
         -destination "${{ matrix.platform }}" \
+        -SPOTIFY_SWIFT_TESTING_CLIENT_ID=$SPOTIFY_SWIFT_TESTING_CLIENT_ID \
+        -SPOTIFY_SWIFT_TESTING_CLIENT_SECRET=$SPOTIFY_SWIFT_TESTING_CLIENT_SECRET \
+        -SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL=$SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL \
         -only-testing "SpotifyAPIMainTests/AuthorizationScopesTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthInfoTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthorizationCodeFlowManagerTests" \
@@ -158,3 +161,15 @@ jobs:
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowUserProfileTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests"
+        
+  build_watch_os:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: build watch os
+      run: |
+        env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
+        -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
+        -derivedDataPath "$PWD/.derivedData" build \
+        -scheme "SpotifyAPI" \
+        -destination "platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2"
