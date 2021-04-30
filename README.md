@@ -30,6 +30,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 
 ## Supported Platforms
 
+* Swift 5.3+
 * iOS 13+
 * macOS 10.15+
 * tvOS 13+
