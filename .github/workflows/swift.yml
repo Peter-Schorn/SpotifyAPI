@@ -120,7 +120,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: test ${{ matrix.platform }}
       run: |
-        env DEVELOPER_DIR="/Applications/Xcode.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" test \
         -scheme "SpotifyAPI-Package" \
