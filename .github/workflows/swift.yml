@@ -6,10 +6,10 @@ jobs:
   test_linux:
     strategy:
       matrix:
-          image: [swift:5.3, swift:5.4]
+          image: ["swift:5.3", "swift:5.4"]
 
     runs-on: unbuntu-latest
-    container: swift:5.3
+    container: image
 
     env: 
       SPOTIFY_SWIFT_TESTING_CLIENT_ID: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_ID }}
