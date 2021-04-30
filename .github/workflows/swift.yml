@@ -9,7 +9,7 @@ jobs:
           image: ["swift:5.3", "swift:5.4"]
 
     runs-on: ubuntu-latest
-    container: image
+    container: ${{ matrix.image }}
 
     env: 
       SPOTIFY_SWIFT_TESTING_CLIENT_ID: ${{ secrets.SPOTIFY_SWIFT_TESTING_CLIENT_ID }}
