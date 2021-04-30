@@ -163,7 +163,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: build watch os
+    - name: build ${{ matrix.platform }}
       run: |
         env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
