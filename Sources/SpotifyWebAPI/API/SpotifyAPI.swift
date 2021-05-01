@@ -106,7 +106,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
@@ -130,7 +129,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let authorizationManagerDidDeauthorize = PassthroughSubject<Void, Never>()
 

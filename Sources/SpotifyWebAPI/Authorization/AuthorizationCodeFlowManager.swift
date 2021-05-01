@@ -60,7 +60,8 @@ import FoundationNetworking
  */
 public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
-    SpotifyScopeAuthorizationManager
+    SpotifyScopeAuthorizationManager,
+    CustomStringConvertible
 {
     
     // MARK: TODO: document

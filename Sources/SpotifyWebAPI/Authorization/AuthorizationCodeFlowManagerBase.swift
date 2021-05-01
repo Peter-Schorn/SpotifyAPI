@@ -135,13 +135,9 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      
      Emits after the following events occur:
      * After the access and refresh tokens are retrieved using
-       ```
-       requestAccessAndRefreshTokens(redirectURIWithQuery:state:)
-       ```
+       `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`
        or
-       ```
-       requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
-       ```
+       `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
      * After the access token (and possibly the refresh token as well) is
        refreshed using `refreshTokens(onlyIfExpired:tolerance:)`.
      
@@ -152,7 +148,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
     
@@ -177,7 +172,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
@@ -206,7 +200,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         
     }
     
-    // MARK: - Codable -
+    // MARK: - Codable, Hashable-
     
     /// :nodoc:
     init(from decoder: Decoder) throws {
@@ -268,7 +262,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      * `refreshToken`
      * `expirationDate`
      * `scopes`
-     * `networkAdaptor`
      */
     public func makeCopy() -> Self {
         let instance = Self(

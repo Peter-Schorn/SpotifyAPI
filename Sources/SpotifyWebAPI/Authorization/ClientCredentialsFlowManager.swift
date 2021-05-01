@@ -14,7 +14,10 @@ import FoundationNetworking
 import Logging
 
 // MARK: TODO: Document
-public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>: SpotifyAuthorizationManager {
+public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
+    SpotifyAuthorizationManager,
+    CustomStringConvertible
+{
     
     /// The logger for this class.
     public static var logger: Logger {
@@ -91,7 +94,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
     
@@ -115,7 +117,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     

@@ -22,48 +22,27 @@ import Logging
  additional layer of security compared to the authorization code flow. For further
  information about this flow, see [IETF RFC-7636][2].
  
- Before each authentication request your app should generate a code verifier and
- a code challenge. The code verifier is a cryptographically random string between
- 43 and 128 characters in length. It can contain letters, digits, underscores,
- periods, hyphens, or tildes.
+ # Authorization
  
- In order to generate the code challenge, your app should hash the code verifier
- using the SHA256 algorithm. Then, [base64url][3] encode the hash that you generated.
- **Do not include any** `=` **padding characters** (percent-encoded or not).
-
- You can use `String.randomURLSafe(length:using:)` or
- `String.randomURLSafe(length:)` to generate the code verifier. You can Use the
- `String.makeCodeChallenge()` instance method to create the code challenge
- from the code verifier. For example:
+ The first step in the authorization process is to create the authorization URL
+ using `makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`. It
+ displays a permissions dialog to the user. Open the URL in a browser/webview so
+ that the user can login to their Spotify account and authorize your app.
  
- ```
- let codeVerifier = String.randomURLSafe(length: 128)
- let codeChallenge = codeVerifier.makeCodeChallenge()
- ```
- 
- If you use your own method to create these values, you can validate them
- using this [PKCE generator tool][4]. See also `Data.base64URLEncodedString()`
- and `String.urlSafeCharacters`.
- 
- The first step in the authorization process is to make the authorization
- URL using
- `makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)`.
- Open this URL in a browser/webview to allow the user to login
- to their Spotify account and authorize your application. It displays a
- permissions dialog to the user.
- 
- After the user either authorizes or denies authorization for your application,
- Spotify will redirect to the redirect URI specified in the authorization
- URL with query parameters appended to it. Pass this URL into
+ After the user either authorizes or denies authorization for your
+ application, Spotify will redirect to `redirectURI` with query parameters
+ appended to it. Pass that URL into
  `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
- to request the refresh and access tokens. After that, you can begin making
- requests to the Spotify API. The access token will be refreshed for you
- automatically when needed.
+ to complete the authorization process.
+ 
+ # Persistant Storage
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save it to persistent storage.
  See this [article][5] for more information.
  
+ # Members
+
  Use `isAuthorized(for:)` to check if your application is authorized
  for the specified scopes.
  
@@ -88,7 +67,8 @@ import Logging
  */
 public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeFlowPKCEBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
-    SpotifyScopeAuthorizationManager
+    SpotifyScopeAuthorizationManager,
+    CustomStringConvertible
 {
     
     /// The logger for this class.
@@ -191,7 +171,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         self._scopes = scopes
     }
     
-    // MARK: - Codable -
+    // MARK: - Codable, Hashable, CustomStringConvertable -
     
     /// :nodoc:
     public override required init(from decoder: Decoder) throws {
