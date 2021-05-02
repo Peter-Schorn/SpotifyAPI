@@ -1,4 +1,4 @@
-#if !TEST
+#if TEST
 import Foundation
 import Vapor
 
