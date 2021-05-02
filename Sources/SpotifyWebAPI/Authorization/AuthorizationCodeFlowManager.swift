@@ -23,7 +23,7 @@ import FoundationNetworking
  The first step in the authorization code flow is to make the
  authorization URL using
  `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
- Open this URL in a broswer/webview to allow the user to login
+ Open this URL in a browser/webview to allow the user to login
  to their Spotify account and authorize your application.
  
  After they either authorize or deny authorization for your application,
@@ -262,7 +262,7 @@ public extension AuthorizationCodeFlowBackendManager {
            `nil` if the URL could not be created.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: https://developer.spotify.com/dashboard/applications
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      [3]: https://developer.spotify.com/documentation/general/guides/scopes/
      
      - Tag: makeAuthorizationURL
@@ -306,7 +306,7 @@ public extension AuthorizationCodeFlowBackendManager {
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
      
-     If the request for the access and refresh tokens suceeds, `self.didChange`
+     If the request for the access and refresh tokens succeeds, `self.didChange`
      will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
      to emit a signal.
      
@@ -434,7 +434,7 @@ public extension AuthorizationCodeFlowBackendManager {
      tokens is already in progress, additional calls will return a reference
      to the same publisher as a class instance.
      
-     **However**, no guarentees are made about the thread that the publisher
+     **However**, no guarantees are made about the thread that the publisher
      returned by this method will emit on.
      
      - Parameters:
@@ -587,11 +587,11 @@ public final class AuthorizationCodeFlowManager:
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
-       - networkAdaptor: A function that gets called everytime this class—and
+       - networkAdaptor: A function that gets called every time this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
              and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
+             guaranteed to be non-`nil`. No guarantees are made about which
              thread this function will be called on. The default is `nil`,
              in which case `URLSession` will be used for the network requests.
 
@@ -642,11 +642,11 @@ public final class AuthorizationCodeFlowManager:
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called everytime this class—and
+       - networkAdaptor: A function that gets called every time this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
              and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
+             guaranteed to be non-`nil`. No guarantees are made about which
              thread this function will be called on. The default is `nil`,
              in which case `URLSession` will be used for the network requests.
      

@@ -408,13 +408,13 @@ public extension ClientCredentialsFlowBackendManager {
                 Self.logger.trace("received authInfo:\n\(authInfo)")
                 
                 if authInfo.accessToken == nil ||
-                    authInfo.expirationDate == nil {
+                        authInfo.expirationDate == nil {
                     
                     let errorMessage = """
-                    missing properties after requesting access token \
-                    (expected access token and expiration date):
-                    \(authInfo)
-                    """
+                        missing properties after requesting access token \
+                        (expected access token and expiration date):
+                        \(authInfo)
+                        """
                     Self.logger.error("\(errorMessage)")
                     throw SpotifyLocalError.other(errorMessage)
                 }

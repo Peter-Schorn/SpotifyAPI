@@ -37,7 +37,6 @@ import Logging
  * The expiration date for the access token
  * The scopes that have been authorized for the access token
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
 public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     

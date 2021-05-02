@@ -291,7 +291,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://tools.ietf.org/html/rfc4648#section-5
      [3]: https://tonyxu-io.github.io/pkce-generator/
-     [4]: https://developer.spotify.com/dashboard/applications
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      [5]: https://developer.spotify.com/documentation/general/guides/scopes/
      
      - Tag: PKCEmakeAuthorizationURL
@@ -476,15 +476,15 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             Self.logger.trace("received authInfo:\n\(authInfo)")
             
             if authInfo.accessToken == nil ||
-                authInfo.refreshToken == nil ||
-                authInfo.expirationDate == nil {
+                    authInfo.refreshToken == nil ||
+                    authInfo.expirationDate == nil {
                 
                 let errorMessage = """
-                missing properties after requesting access and \
-                refresh tokens (expected access token, refresh token, \
-                and expiration date):
-                \(authInfo)
-                """
+                    missing properties after requesting access and \
+                    refresh tokens (expected access token, refresh token, \
+                    and expiration date):
+                    \(authInfo)
+                    """
                 Self.logger.error("\(errorMessage)")
                 throw SpotifyLocalError.other(errorMessage)
                 

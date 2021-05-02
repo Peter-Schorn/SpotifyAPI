@@ -17,7 +17,7 @@
     <a title="Other Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (93% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -46,12 +46,6 @@
           <li class="nav-group-name">
             <a href="Authorization.html">Authorization</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
-              </li>
               <li class="nav-group-task">
                 <a href="Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
               </li>
@@ -317,6 +311,17 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -377,6 +382,15 @@
                 <a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -388,6 +402,27 @@
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -395,6 +430,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -431,6 +469,129 @@
 
           </section>
           <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI28AuthorizationCodeFlowBackendP"></a>
+                    <a name="//apple_ref/swift/Protocol/AuthorizationCodeFlowBackend" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI28AuthorizationCodeFlowBackendP">AuthorizationCodeFlowBackend</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type that handles the process of requesting the authorization information and
+refreshing the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
+
+<p>Conforming types may communicate directly with the Spotify web API (see
+<code>AuthorizationCodeFlowClientBackend</code>), or they may communicate with a custom
+backend server that you setup (see <code>AuthorizationCodeFlowProxyBackend</code>) which
+itself communicates with the Spotify web API. This server can safely store your
+client secret, which prevents it from being exposed in your frontend app. This
+is the key reason for using a backend server. Furthermore, after your backend
+server retrieves the authorization information from Spotify, it could encrypt
+it before sending it back to your app. Your app could then decrypt this
+information when it recieves it, providing an additional layer of security.</p>
+
+                        <a href="Protocols/AuthorizationCodeFlowBackend.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">AuthorizationCodeFlowBackend</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEBackendP"></a>
+                    <a name="//apple_ref/swift/Protocol/AuthorizationCodeFlowPKCEBackend" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEBackendP">AuthorizationCodeFlowPKCEBackend</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type that handles the process of requesting the authorization information and
+refreshing the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key
+for Code Exchange</a>.</p>
+
+<p>Conforming types may communicate directly with the Spotify web API (see
+<code>AuthorizationCodeFlowPKCEClientBackend</code>), or they may communicate with a custom
+backend server that you setup (see <code>AuthorizationCodeFlowPKCEProxyBackend</code>) which
+itself communicates with the Spotify web API. This server can safely store your
+client secret, which prevents it from being exposed in your frontend app. This
+is the key reason for using a backend server. Furthermore, after your backend
+server retrieves the authorization information from Spotify, it could encrypt
+it before sending it back to your app. Your app could then decrypt this
+information when it recieves it, providing an additional layer of security.</p>
+
+                        <a href="Protocols/AuthorizationCodeFlowPKCEBackend.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">AuthorizationCodeFlowPKCEBackend</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI28ClientCredentialsFlowBackendP"></a>
+                    <a name="//apple_ref/swift/Protocol/ClientCredentialsFlowBackend" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI28ClientCredentialsFlowBackendP">ClientCredentialsFlowBackend</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type that handles the process of requesting the authorization information
+using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow">Client Credentials Flow</a>.</p>
+
+<p>Conforming types may communicate directly with the Spotify web API (see
+<code>ClientCredentialsFlowClientBackend</code>), or they may communicate with a custom
+backend server that you setup (see <code>ClientCredentialsFlowProxyBackend</code>) which
+itself communicates with the Spotify web API. This server can safely store your
+client id and client secret, which prevents them from being exposed in your
+frontend app. This is the key reason for using a backend server. Furthermore,
+after your backend server retrieves the authorization information from Spotify,
+it could encrypt it before sending it back to your app. Your app could then
+decrypt this information when it recieves it, providing an additional layer of
+security.</p>
+
+                        <a href="Protocols/ClientCredentialsFlowBackend.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ClientCredentialsFlowBackend</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Hashable"></a>
@@ -511,7 +672,7 @@ Decoding floating point types can lead to floating point imprecision.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

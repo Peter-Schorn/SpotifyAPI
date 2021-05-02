@@ -25,7 +25,7 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
-    #if TEST
+    #if !TEST
     // MARK: start the server
     
     var redirectURIWithQuery: URL? = nil
@@ -68,7 +68,7 @@ public func openAuthorizationURLAndWaitForRedirect(
         """
     )
     
-    #if TEST
+    #if !TEST
     print(
         """
 

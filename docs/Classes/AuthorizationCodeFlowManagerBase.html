@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowManagerBase Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (93% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -46,12 +46,6 @@
           <li class="nav-group-name">
             <a href="../Authorization.html">Authorization</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
               </li>
@@ -317,6 +311,17 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -377,6 +382,15 @@
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -388,6 +402,27 @@
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -395,6 +430,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -430,12 +468,12 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManagerBase</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManagerBase</span><span class="o">&lt;</span><span class="kt">Backend</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
             <p>The base class for functionality shared between
-<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a></code> and <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>.</p>
+<code>AuthorizationCodeFlowPKCEManager</code> and <code>AuthorizationCodeFlowManager</code>.</p>
 
 <p>You cannot—and should not—create an instance of this class.
 Instead, you create an instance of one of the sub-classes above.</p>
@@ -483,61 +521,7 @@ instead, they will create their own logger.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">baseLogger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8clientIdSSvp"></a>
-                    <a name="//apple_ref/swift/Property/clientId" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8clientIdSSvp">clientId</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The client id for your application.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12clientSecretSSvp"></a>
-                    <a name="//apple_ref/swift/Property/clientSecret" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12clientSecretSSvp">clientSecret</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The client secret for your application.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">baseLogger</span><span class="p">:</span> <span class="kt">Logger</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -701,13 +685,9 @@ when you create a new instance of this class and assign it to the
 
 <ul>
 <li>After the access and refresh tokens are retrieved using
-<code>
-requestAccessAndRefreshTokens(redirectURIWithQuery:state:)
-</code>
+<code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>
 or
-<code>
-requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
-</code></li>
+<code><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html#/s:13SpotifyWebAPI39AuthorizationCodeFlowPKCEBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a></code></li>
 <li>After the access token (and possibly the refresh token as well) is
 refreshed using <code>refreshTokens(onlyIfExpired:tolerance:)</code>.</li>
 </ul>
@@ -717,8 +697,7 @@ Subscribe to that publisher in order to remove the authorization
 information from persistent storage when it emits.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
-<p>No guarantees are made about which thread this publisher will emit on.
-Always receive on the main thread if you plan on updating the UI.</p>
+<p>No guarantees are made about which thread this publisher will emit on.</p>
 
                       </div>
                       <div class="declaration">
@@ -763,8 +742,7 @@ information from persistent storage when it emits.</p>
 <p>See also <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC9didChange7Combine18PassthroughSubjectCyyts5NeverOGvp">didChange</a></code>.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
-<p>No guarantees are made about which thread this publisher will emit on.
-Always receive on the main thread if you plan on updating the UI.</p>
+<p>No guarantees are made about which thread this publisher will emit on.</p>
 
                       </div>
                       <div class="declaration">
@@ -778,55 +756,15 @@ Always receive on the main thread if you plan on updating the UI.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC14networkAdaptory7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAH10URLRequestVcvp"></a>
-                    <a name="//apple_ref/swift/Property/networkAdaptor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC14networkAdaptory7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAH10URLRequestVcvp">networkAdaptor</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A function that gets called everytime this class—and only this
-class—needs to make a network request.</p>
-
-<p>Use this function if you need to use a custom networking client. The <code>url</code>
-and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are guaranteed
-to be non-<code>nil</code>. No guarentees are made about which thread this function
-will be called on. By default, <code>URLSession</code> will be used for the network
-requests.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    Do not mutate this property while a network request is being
-  made.
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">networkAdaptor</span><span class="p">:</span> <span class="p">(</span><span class="kt">URLRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Codable"></a>
-                <a name="//apple_ref/swift/Section/Codable" class="dashAnchor"></a>
+                <a name="/Codable%2C%20Hashable-"></a>
+                <a name="//apple_ref/swift/Section/Codable, Hashable-" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Codable"></a>
-                  <h3 class="section-name"><p>Codable</p>
+                  <a class="section-name-link" href="#/Codable%2C%20Hashable-"></a>
+                  <h3 class="section-name"><p>Codable, Hashable-</p>
 </h3>
                 </div>
               </div>
@@ -834,9 +772,9 @@ requests.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8makeCopyACXDyF"></a>
+                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8makeCopyACyxGXDyF"></a>
                     <a name="//apple_ref/swift/Method/makeCopy()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8makeCopyACXDyF">makeCopy()</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8makeCopyACyxGXDyF">makeCopy()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -849,13 +787,11 @@ requests.</p>
 <p>Copies the following properties:</p>
 
 <ul>
-<li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8clientIdSSvp">clientId</a></code></li>
-<li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12clientSecretSSvp">clientSecret</a></code></li>
+<li><code>backend</code></li>
 <li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC11accessTokenSSSgvp">accessToken</a></code></li>
 <li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12refreshTokenSSSgvp">refreshToken</a></code></li>
 <li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC14expirationDate10Foundation0J0VSgvp">expirationDate</a></code></li>
 <li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC6scopesShyAA5ScopeOGSgvp">scopes</a></code></li>
-<li><code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC14networkAdaptory7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAH10URLRequestVcvp">networkAdaptor</a></code></li>
 </ul>
 
                       </div>
@@ -897,7 +833,7 @@ requests.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Sets <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC11accessTokenSSSgvp">accessToken</a></code>, <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12refreshTokenSSSgvp">refreshToken</a></code>, <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC14expirationDate10Foundation0J0VSgvp">expirationDate</a></code>, and
-<code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC6scopesShyAA5ScopeOGSgvp">scopes</a></code> to <code>nil</code>. Does not change <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC8clientIdSSvp">clientId</a></code> or <code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC12clientSecretSSvp">clientSecret</a></code>,
+<code><a href="../Classes/AuthorizationCodeFlowManagerBase.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowManagerBaseC6scopesShyAA5ScopeOGSgvp">scopes</a></code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
 which are immutable.</p>
 
 <p>After calling this method, you must authorize your application
@@ -1107,7 +1043,7 @@ scopes.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
