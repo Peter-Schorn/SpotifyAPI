@@ -53,7 +53,7 @@ final class CodingAuthorizationCodeFlowManagerTests: SpotifyAPITestCase {
         let authManager = AuthorizationCodeFlowBackendManager(
             backend: AuthorizationCodeFlowProxyBackend(
                 clientId: "the client id",
-                tokenURL: localHostURL,
+                tokensURL: localHostURL,
                 tokenRefreshURL: localHostURL
             )
         )

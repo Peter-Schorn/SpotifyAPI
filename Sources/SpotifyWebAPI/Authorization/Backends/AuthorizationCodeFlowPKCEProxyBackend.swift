@@ -23,12 +23,12 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
     /// The client id for your application.
     public let clientId: String
 
-    public let tokenURL: URL
+    public let tokensURL: URL
     public let tokenRefreshURL: URL
 
-    public init(clientId: String, tokenURL: URL, tokenRefreshURL: URL) {
+    public init(clientId: String, tokensURL: URL, tokenRefreshURL: URL) {
         self.clientId = clientId
-        self.tokenURL = tokenURL
+        self.tokensURL = tokensURL
         self.tokenRefreshURL = tokenRefreshURL
     }
 
@@ -47,13 +47,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         Self.logger.trace(
             """
-            POST request to "\(self.tokenURL)" \
+            POST request to "\(self.tokensURL)" \
             (URL for requesting access and refresh tokens); body:
             \(bodyString)
             """
         )
 
-        var tokensRequest = URLRequest(url: self.tokenURL)
+        var tokensRequest = URLRequest(url: self.tokensURL)
         tokensRequest.httpMethod = "POST"
         tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         tokensRequest.httpBody = body
@@ -101,7 +101,7 @@ extension AuthorizationCodeFlowPKCEProxyBackend: CustomStringConvertible {
         return """
             AuthorizationCodeFlowPKCEProxyBackend(
                 clientId: "\(self.clientId)"
-                tokenURL: "\(self.tokenURL)"
+                tokenURL: "\(self.tokensURL)"
                 tokenRefreshURL: "\(self.tokenRefreshURL)"
             )
             """

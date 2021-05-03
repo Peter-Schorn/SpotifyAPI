@@ -784,7 +784,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
         return AuthorizationCodeFlowBackendManager(
             backend: AuthorizationCodeFlowProxyBackend(
                 clientId: "",
-                tokenURL: authorizationCodeFlowTokensURL,
+                tokensURL: authorizationCodeFlowTokensURL,
                 tokenRefreshURL: authorizationCodeFlowRefreshTokensURL
             )
         )
@@ -823,7 +823,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
 
         let backend = AuthorizationCodeFlowProxyBackend(
             clientId: decodedAuthManager.backend.clientId,
-            tokenURL: decodedAuthManager.backend.tokenURL,
+            tokensURL: decodedAuthManager.backend.tokensURL,
             tokenRefreshURL: decodedAuthManager.backend.tokenRefreshURL
         )
 //

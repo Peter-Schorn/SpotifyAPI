@@ -17,7 +17,7 @@
     <a title="Other Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (93% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (94% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -405,6 +405,12 @@
                 <a href="Structs/AuthInfo.html">AuthInfo</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
               </li>
               <li class="nav-group-task">
@@ -471,6 +477,81 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV"></a>
+                    <a name="//apple_ref/swift/Struct/AuthorizationCodeFlowClientBackend" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV">AuthorizationCodeFlowClientBackend</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Communicates <em>directly</em> with the Spotify web API in order to retrieve the
+authoriation information and refresh the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization
+Code Flow</a>.</p>
+
+<p>Compare with <code><a href="Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a></code>.</p>
+
+<p>Usually you should not need to create instances of this type directly.
+<code>AuthorizationCodeFlowManager</code> uses this type internally by inheriting from
+<code><a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</a></code>.</p>
+
+                        <a href="Structs/AuthorizationCodeFlowClientBackend.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowClientBackend</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowClientBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowClientBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV"></a>
+                    <a name="//apple_ref/swift/Struct/AuthorizationCodeFlowProxyBackend" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV">AuthorizationCodeFlowProxyBackend</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Communicates with a backend server that you setup in order to retrieve the
+authoriation information and refresh the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">AuthorizationO
+Code Flow</a>.</p>
+
+<p>Compare with <code><a href="Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>.</p>
+
+<p>This type requires a custom backend server that can store your client secret
+and redirect URI. It conforms to the <a href="https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/">&ldquo;Token Swap and Refresh&rdquo;</a> standard
+used in the Spotify iOS SDK.</p>
+
+                        <a href="Structs/AuthorizationCodeFlowProxyBackend.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -919,7 +1000,7 @@ which include the id, the URI, and the URL.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-02)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-03)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

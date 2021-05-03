@@ -629,8 +629,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
     
 }
 
-// MARK: - Hashable and Equatable -
-
 extension AuthorizationCodeFlowPKCEBackendManager: Hashable {
 
     /// :nodoc:
@@ -644,6 +642,8 @@ extension AuthorizationCodeFlowPKCEBackendManager: Hashable {
     }
 
 }
+
+// MARK: - Authorization Code Flow PKCE Manager -
 
 public final class AuthorizationCodeFlowPKCEManager:
     AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>

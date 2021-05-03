@@ -544,8 +544,6 @@ public extension AuthorizationCodeFlowBackendManager {
     
 }
 
-// MARK: - Hashable and Equatable -
-
 extension AuthorizationCodeFlowBackendManager: Hashable {
 
     /// :nodoc:
@@ -559,6 +557,8 @@ extension AuthorizationCodeFlowBackendManager: Hashable {
     }
 
 }
+
+// MARK: - Authorization Code Flow Manager -
 
 public final class AuthorizationCodeFlowManager:
     AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>

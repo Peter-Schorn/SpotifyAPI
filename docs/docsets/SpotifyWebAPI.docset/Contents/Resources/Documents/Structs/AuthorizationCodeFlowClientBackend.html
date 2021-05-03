@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SpotifyContext Structure Reference</title>
+    <title>AuthorizationCodeFlowClientBackend Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/SpotifyContext" class="dashAnchor"></a>
-    <a title="SpotifyContext Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/AuthorizationCodeFlowClientBackend" class="dashAnchor"></a>
+    <a title="AuthorizationCodeFlowClientBackend Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SpotifyWebAPI Docs</a> (94% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SpotifyWebAPI Reference</a>
         <img id="carat" src="../img/carat.png" />
-        SpotifyContext Structure Reference
+        AuthorizationCodeFlowClientBackend Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -470,19 +470,25 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SpotifyContext</h1>
+            <h1>AuthorizationCodeFlowClientBackend</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SpotifyContext</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SpotifyContext</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowClientBackend</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowClientBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowClientBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>The context that a track/episode is being played in.</p>
+            <p>Communicates <em>directly</em> with the Spotify web API in order to retrieve the
+authoriation information and refresh the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization
+Code Flow</a>.</p>
 
-<p>For example, if a track is being played, then the context
-may be an album, an artist, or a playlist.</p>
+<p>Compare with <code><a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a></code>.</p>
+
+<p>Usually you should not need to create instances of this type directly.
+<code>AuthorizationCodeFlowManager</code> uses this type internally by inheriting from
+<code><a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -491,9 +497,9 @@ may be an album, an artist, or a playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A7ContextV3uriSSvp"></a>
-                    <a name="//apple_ref/swift/Property/uri" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV3uriSSvp">uri</a>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV6logger7Logging6LoggerVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/logger" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV6logger7Logging6LoggerVvpZ">logger</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -501,14 +507,14 @@ may be an album, an artist, or a playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The URI of the context.</p>
+                        <p>The logger for this struct.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
 
                         </div>
                       </div>
@@ -518,9 +524,9 @@ may be an album, an artist, or a playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A7ContextV4hrefSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/href" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV4hrefSSSgvp">href</a>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV8clientIdSSvp"></a>
+                    <a name="//apple_ref/swift/Property/clientId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV8clientIdSSvp">clientId</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -528,16 +534,14 @@ may be an album, an artist, or a playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A link to an endpoint providing further details about the context.</p>
-
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results.</p>
+                        <p>The client id that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your application</a>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -547,9 +551,9 @@ may be an album, an artist, or a playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A7ContextV12externalURLsSDyS2SGSgvp"></a>
-                    <a name="//apple_ref/swift/Property/externalURLs" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV12externalURLsSDyS2SGSgvp">externalURLs</a>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV12clientSecretSSvp"></a>
+                    <a name="//apple_ref/swift/Property/clientSecret" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV12clientSecretSSvp">clientSecret</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -557,20 +561,15 @@ may be an album, an artist, or a playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for the context.</p>
-
-<ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
-<li>value: An external, public URL to the object.</li>
-</ul>
+                        <p>The client secret that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your
+application</a>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -580,9 +579,9 @@ may be an album, an artist, or a playlist.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A7ContextV4typeAA10IDCategoryOvp"></a>
-                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV4typeAA10IDCategoryOvp">type</a>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV8clientId0I6SecretACSS_SStcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clientId:clientSecret:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV8clientId0I6SecretACSS_SStcfc">init(clientId:<wbr>clientSecret:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -590,50 +589,16 @@ may be an album, an artist, or a playlist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object type of the item&rsquo;s context. Valid values are
-<code>album</code>, <code>artist</code>, and <code>playlist</code>.</p>
-
-<p>For example, if <code>type</code> is <code>playlist</code>, then the current track/episode
-is playing in the context of a playlist.</p>
+                        <p>Creates an instance that manages the authorization process for the
+<a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">Authorization Code Flow</a> by communicating <em>directly</em> with the Spotify
+web API.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI0A7ContextV3uri4href12externalURLs4typeACSS_SSSgSDyS2SGSgAA10IDCategoryOtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(uri:href:externalURLs:type:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A7ContextV3uri4href12externalURLs4typeACSS_SSSgSDyS2SGSgAA10IDCategoryOtcfc">init(uri:<wbr>href:<wbr>externalURLs:<wbr>type:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The context that a track/episode is being played in.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?,</span>
-    <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span>
-<span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -644,54 +609,259 @@ is playing in the context of a playlist.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>uri</em>
+                                <em>clientId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The URI of the context.</p>
+                                  <p>The client id that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your
+application</a>.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>href</em>
+                                <em>clientSecret</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A link to an endpoint providing further details about the context.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>externalURLs</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Known [external urls][1] for the context.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>type</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The object type of the item&rsquo;s context. Valid values are
-<code>album</code>, <code>artist</code>, and <code>playlist</code>.</p>
+                                  <p>The client secret that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered
+your application</a>.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV17makeTokensRequest4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF"></a>
+                    <a name="//apple_ref/swift/Method/makeTokensRequest(code:redirectURIWithQuery:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV17makeTokensRequest4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF">makeTokensRequest(code:<wbr>redirectURIWithQuery:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Exchanges an authorization code for the access and refresh tokens.</p>
+
+<p>After validing the <code>redirectURIWithQuery</code>,
+<code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>,
+calls this method in order to retrieve the authorization information.</p>
+
+<p>If the <code>redirectURIWithQuery</code> contains an error parameter or the value for
+the state parameter doesn&rsquo;t match the value passed in as an argument to the
+above method, then an error will be thrown <em>before</em> this method is called.</p>
+
+<p>This method returns the authorization information as JSON data that can
+be decoded into <code><a href="../Structs/AuthInfo.html">AuthInfo</a></code>. The <code>accessToken</code>, <code>refreshToken</code>, and
+<code>expirationDate</code> (which can be decoded from the &ldquo;expires_in&rdquo; JSON key)
+properties should be non-<code>nil</code>. For example:</p>
+<pre class="highlight swift"><code><span class="p">{</span>
+    <span class="s">"access_token"</span><span class="p">:</span> <span class="s">"NgCXRK...MzYjw"</span><span class="p">,</span>
+    <span class="s">"token_type"</span><span class="p">:</span> <span class="s">"Bearer"</span><span class="p">,</span>
+    <span class="s">"scope"</span><span class="p">:</span> <span class="s">"user-read-private user-read-email"</span><span class="p">,</span>
+    <span class="s">"expires_in"</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span>
+    <span class="s">"refresh_token"</span><span class="p">:</span> <span class="s">"NgAagA...Um_SHo"</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeTokensRequest</span><span class="p">(</span>
+    <span class="nv">code</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="kt">URL</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>code</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The authorization code, which will also be present in
+<code>redirectURIWithQuery</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>redirectURIWithQuery</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL that spotify redirected to after the user
+logged in to their Spotify account, with query parameters appended
+to it.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV23makeRefreshTokenRequest07refreshK07Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/makeRefreshTokenRequest(refreshToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI34AuthorizationCodeFlowClientBackendV23makeRefreshTokenRequest07refreshK07Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF">makeRefreshTokenRequest(refreshToken:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Refreshes an access token using the refresh token.</p>
+
+<p>Access tokens expire after an hour, after which they must be refreshed
+using this method. This method will be called by
+<code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC13refreshTokens13onlyIfExpired9tolerance7Combine12AnyPublisherVyyts5Error_pGSb_SdtF">AuthorizationCodeFlowBackendManager.refreshTokens(onlyIfExpired:tolerance:)</a></code>.</p>
+
+<p>This method returns the authorization information as JSON data that can
+be decoded into <code><a href="../Structs/AuthInfo.html">AuthInfo</a></code>. The <code>accessToken</code>, and <code>expirationDate</code> (which
+can be decoded from the &ldquo;expires_in&rdquo; JSON key) properties should be
+non-<code>nil</code>. For example:</p>
+<pre class="highlight swift"><code><span class="p">{</span>
+   <span class="s">"access_token"</span><span class="p">:</span> <span class="s">"NgCXRK...MzYjw"</span><span class="p">,</span>
+   <span class="s">"token_type"</span><span class="p">:</span> <span class="s">"Bearer"</span><span class="p">,</span>
+   <span class="s">"scope"</span><span class="p">:</span> <span class="s">"user-read-private user-read-email"</span><span class="p">,</span>
+   <span class="s">"expires_in"</span><span class="p">:</span> <span class="mi">3600</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeRefreshTokenRequest</span><span class="p">(</span>
+       <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span>
+   <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refreshToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The refresh token, which can be exchanged for
+  a new access token.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

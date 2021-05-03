@@ -160,7 +160,10 @@ extension SpotifyAPIErrorTests {
             
         }
         
-        XCTAssertTrue(didReceiveRateLimitedError)
+        XCTAssertTrue(
+            didReceiveRateLimitedError,
+            "didn't receive rate limited error"
+        )
         XCTAssertEqual(receivedValues, 500)
         XCTAssertEqual(successfulCompletions, 500)
         XCTAssertEqual(receivedErrors, 0)
