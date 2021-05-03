@@ -29,41 +29,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEClientBackend.swift",
-      "line": 15,
-      "symbol": "AuthorizationCodeFlowPKCEClientBackend",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEClientBackend.swift",
-      "line": 104,
-      "symbol": "AuthorizationCodeFlowPKCEClientBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEClientBackend.swift",
-      "line": 112,
-      "symbol": "AuthorizationCodeFlowPKCEClientBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEProxyBackend.swift",
-      "line": 16,
-      "symbol": "AuthorizationCodeFlowPKCEProxyBackend",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEProxyBackend.swift",
-      "line": 98,
-      "symbol": "AuthorizationCodeFlowPKCEProxyBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/ClientCredentialsFlowClientBackend.swift",
       "line": 15,
       "symbol": "ClientCredentialsFlowClientBackend",

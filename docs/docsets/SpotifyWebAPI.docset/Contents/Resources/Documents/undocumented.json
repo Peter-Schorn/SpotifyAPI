@@ -29,27 +29,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowClientBackend.swift",
-      "line": 15,
-      "symbol": "AuthorizationCodeFlowClientBackend",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowClientBackend.swift",
-      "line": 116,
-      "symbol": "AuthorizationCodeFlowClientBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowClientBackend.swift",
-      "line": 154,
-      "symbol": "AuthorizationCodeFlowClientBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEClientBackend.swift",
       "line": 15,
       "symbol": "AuthorizationCodeFlowPKCEClientBackend",
@@ -81,20 +60,6 @@
       "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowPKCEProxyBackend.swift",
       "line": 98,
       "symbol": "AuthorizationCodeFlowPKCEProxyBackend",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowProxyBackend.swift",
-      "line": 16,
-      "symbol": "AuthorizationCodeFlowProxyBackend",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationCodeFlowProxyBackend.swift",
-      "line": 94,
-      "symbol": "AuthorizationCodeFlowProxyBackend",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },

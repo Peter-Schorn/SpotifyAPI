@@ -60,9 +60,13 @@ public enum Headers {
         return bearerAuthorization(accessToken) + contentTypeJSON
     }
     
-    /// ```
-    /// ["Content-Type": "application/x-www-form-urlencoded"]
-    /// ```
+    /**
+     The form-urlencoded header.
+
+     ```
+     ["Content-Type": "application/x-www-form-urlencoded"]
+     ```
+     */
     public static let formURLEncoded = [
         "Content-Type": "application/x-www-form-urlencoded"
     ]

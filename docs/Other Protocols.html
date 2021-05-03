@@ -408,6 +408,12 @@
                 <a href="Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
               </li>
               <li class="nav-group-task">
@@ -534,9 +540,9 @@ refreshing the access token using the <a href="https://developer.spotify.com/doc
 for Code Exchange</a>.</p>
 
 <p>Conforming types may communicate directly with the Spotify web API (see
-<code>AuthorizationCodeFlowPKCEClientBackend</code>), or they may communicate with a
+<code><a href="Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a></code>), or they may communicate with a
 custom backend server that you setup (see
-<code>AuthorizationCodeFlowPKCEProxyBackend</code>) which itself communicates with the
+<code><a href="Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a></code>) which itself communicates with the
 Spotify web API. This server can safely store your client secret, which
 prevents it from being exposed in your frontend app. This is the key reason for
 using a backend server. Furthermore, after your backend server retrieves the

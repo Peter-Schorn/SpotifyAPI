@@ -15,7 +15,7 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
- authoriation information and refresh the access token using the [AuthorizationO
+ authoriation information and refresh the access token using the [Authorization
  Code Flow][1].
 
  Compare with `AuthorizationCodeFlowClientBackend`.
@@ -155,6 +155,10 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     /**
      Refreshes an access token using the refresh token.
      
+     Access tokens expire after an hour, after which they must be refreshed
+     using this method. This method will be called by
+     `AuthorizationCodeFlowBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
+
      This method makes a post request to `self.tokenRefreshURL`. The headers
      will contain the "Content-Type: application/x-www-form-urlencoded" header
      and the body will contain a key called "refresh_token" with the value set

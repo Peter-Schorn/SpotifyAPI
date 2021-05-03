@@ -666,8 +666,8 @@ public final class AuthorizationCodeFlowPKCEManager:
      See this [article][3] for more information.
 
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - clientId: The client id that you received when you [registered your
+             application][4].
        - networkAdaptor: A function that gets called every time this class—and
              only this class—needs to make a network request. Use this
              function if you need to use a custom networking client. The `url`
@@ -679,6 +679,7 @@ public final class AuthorizationCodeFlowPKCEManager:
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
      [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(clientId: String) {
 
@@ -709,8 +710,8 @@ public final class AuthorizationCodeFlowPKCEManager:
      directory of this package for more information.
 
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - clientId: The client id that you received when you [registered your
+             application][4].
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
        - refreshToken: The refresh token. If `nil` (not recommended), then it will
@@ -731,6 +732,7 @@ public final class AuthorizationCodeFlowPKCEManager:
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [3]: https://developer.spotify.com/dashboard/login
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(
         clientId: String,

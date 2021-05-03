@@ -201,7 +201,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      - Parameters:
        - code: The authorization code, which will also be present in
              `redirectURIWithQuery`.
-       - codeVerifier: The code verifier that you generated when creating the
+       - codeVerifier: The code verifier that you generated before creating the
              authorization URL.
        - redirectURIWithQuery: The URL that spotify redirected to after the user
              logged in to their Spotify account, with query parameters appended

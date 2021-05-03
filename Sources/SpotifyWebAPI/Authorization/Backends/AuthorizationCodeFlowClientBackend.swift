@@ -58,11 +58,12 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
      
      - Parameters:
        - clientId: The client id that you received when you [registered your
-             application][1].
+             application][2].
        - clientSecret: The client secret that you received when you [registered
-             your application][1].
+             your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
 	public init(clientId: String, clientSecret: String) {
 		self.clientId = clientId
@@ -98,6 +99,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
          "refresh_token": "NgAagA...Um_SHo"
      }
      ```
+     
      - Parameters:
        - code: The authorization code, which will also be present in
              `redirectURIWithQuery`.
