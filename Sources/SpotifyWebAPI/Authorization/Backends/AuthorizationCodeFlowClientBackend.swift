@@ -62,7 +62,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
        - clientSecret: The client secret that you received when you [registered
              your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
 	public init(clientId: String, clientSecret: String) {
@@ -85,8 +85,8 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
      the state parameter doesn't match the value passed in as an argument to the
      above method, then an error will be thrown *before* this method is called.
      
-     This method returns the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
+     This method returns the authorization information as JSON data that can be
+     decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
      `expirationDate` (which can be decoded from the "expires_in" JSON key)
      properties should be non-`nil`. For example:
      

@@ -56,17 +56,17 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
 
     /**
      Exchanges an authorization code for the access and refresh tokens.
-     
+
      After validing the `redirectURIWithQuery`,
      `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
      calls this method in order to retrieve the authorization information.
-     
+
      If the `redirectURIWithQuery` contains an error parameter or the value for
      the state parameter doesn't match the value passed in as an argument to the
      above method, then an error will be thrown *before* this method is called.
-     
-     This method returns the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
+
+     This method returns the authorization information as JSON data that can be
+     decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
      `expirationDate` (which can be decoded from the "expires_in" JSON key)
      properties should be non-`nil`. For example:
      

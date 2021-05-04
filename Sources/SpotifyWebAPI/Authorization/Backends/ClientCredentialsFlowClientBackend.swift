@@ -12,6 +12,18 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
 
+/**
+ Communicates *directly* with the Spotify web API in order to retrieve the
+ authoriation information using the [Client Credentials Flow][1].
+ 
+ Compare with `ClientCredentialsFlowProxyBackend`.
+ 
+ Usually you should not need to create instances of this type directly.
+ `ClientCredentialsFlowManager` uses this type internally by inheriting from
+ `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ */
 public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
 
     /// The logger for this struct.
@@ -19,16 +31,38 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
         label: "ClientCredentialsFlowClientBackend", level: .critical
     )
 
-    /// The client id for your application.
+    /**
+     The client id that you received when you [registered your application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public let clientId: String
     
-    /// The client secret for your application.
+    /**
+     The client secret that you received when you [registered your
+     application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public let clientSecret: String
     
     /// The base 64 encoded authorization header with the client id
     /// and client secret
     private let basicBase64EncodedCredentialsHeader: [String: String]
 
+    /**
+     Creates an instance that manages the authorization process for the [Client
+     Credentials Flow][1] by communicating *directly* with the Spotify web API.
+     
+     - Parameters:
+       - clientId: The client id that you received when you [registered your
+             application][2].
+       - clientSecret: The client secret that you received when you [registered
+             your application][2].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public init(clientId: String, clientSecret: String) {
         self.clientId = clientId
         self.clientSecret = clientSecret
@@ -38,6 +72,28 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
         )!
     }
 
+    /**
+     Makes a request for the authorization information.
+
+     This method is called by either the `authorize()` or
+     `refreshTokens(onlyIfExpired:tolerance:)` methods of
+     `ClientCredentialsFlowBackendManager`. The client credentials flow does not
+     provide a refresh token, so in both cases, the same network request is
+     made.
+
+     This method returns the authorization information as JSON data that can be
+     decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which can
+     be decoded from the "expires_in" JSON key) properties should be non-`nil`.
+     For example:
+     
+     ```
+     {
+         "access_token": "NgCXRKc...MzYjw",
+         "token_type": "bearer",
+         "expires_in": 3600,
+     }
+     ```
+     */
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 

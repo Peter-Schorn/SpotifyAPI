@@ -43,17 +43,20 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 
     /**
      The URL to your custom backend server that accepts a post request with the
-     authorization code in the body in "x-www-form-urlencoded" format and which
-     must return the authorization information. See
-     `self.makeTokensRequest(code:redirectURIWithQuery:)` for more information.
+     authorization code in the body in x-www-form-urlencoded format and which
+     must return the authorization information.
+     
+     See `self.makeTokensRequest(code:redirectURIWithQuery:)` for more
+     information.
      */
 	public let tokensURL: URL
 
     /**
      The URL to your custom backend server that accepts a post request with the
-     refresh token in the body in "x-www-form-urlencoded" format and which must
-     return the authorization information. See
-     `self.makeRefreshTokenRequest(refreshToken:)` for more information.
+     refresh token in the body in x-www-form-urlencoded format and which must
+     return the authorization information.
+     
+     See `self.makeRefreshTokenRequest(refreshToken:)` for more information.
      */
     public let tokenRefreshURL: URL
 

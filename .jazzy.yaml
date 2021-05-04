@@ -27,6 +27,15 @@ custom_categories:
     - Scope
     - SpotifyAuthorizationManager
     - SpotifyScopeAuthorizationManager
+
+  - name: Authorization Backends
+    children:
+    - AuthorizationCodeFlowClientBackend
+    - AuthorizationCodeFlowProxyBackend
+    - AuthorizationCodeFlowPKCEClientBackend
+    - AuthorizationCodeFlowPKCEProxyBackend
+    - ClientCredentialsFlowClientBackend
+    - ClientCredentialsFlowProxyBackend
     
   - name: Errors
     children:
