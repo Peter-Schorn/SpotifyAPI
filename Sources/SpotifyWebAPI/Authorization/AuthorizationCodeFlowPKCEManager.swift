@@ -99,13 +99,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      
      - Parameters:
        - backend: The backend used to retrieve and refresh tokens.
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
@@ -121,7 +114,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     ``init(clientId:clientSecret:networkAdaptor:)``.
+     ``init(backend:)``.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -145,13 +138,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
@@ -649,6 +635,11 @@ public final class AuthorizationCodeFlowPKCEManager:
     AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>
 {
 
+    /**
+     The client id that you received when you [registered your application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public var clientId: String {
         return self.backend.clientId
     }
@@ -668,13 +659,6 @@ public final class AuthorizationCodeFlowPKCEManager:
      - Parameters:
        - clientId: The client id that you received when you [registered your
              application][4].
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
@@ -696,7 +680,7 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     ``init(clientId:clientSecret:networkAdaptor:)``.
+     `init(clientId:)`.
 
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -721,13 +705,6 @@ public final class AuthorizationCodeFlowPKCEManager:
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.

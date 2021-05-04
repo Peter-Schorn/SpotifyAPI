@@ -28,15 +28,6 @@ import Logging
  and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
  which are immutable.
  
- Contains the following properties:
- 
- * The client id
- * The client secret
- * The access token
- * The refresh token
- * The expiration date for the access token
- * The scopes that have been authorized for the access token
- 
  */
 public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     

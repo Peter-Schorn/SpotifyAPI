@@ -93,13 +93,6 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      
      - Parameters:
        - backend: The backend used to retrieve and refresh tokens.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/dashboard/login
@@ -114,7 +107,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:networkAdaptor:)`.
+     `init(backend:)`.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -138,13 +131,6 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/dashboard/login
@@ -589,13 +575,6 @@ public final class AuthorizationCodeFlowManager:
              application][4].
        - clientSecret: The client secret that you received when you [registered
              your application][4].
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/dashboard/login
@@ -620,7 +599,7 @@ public final class AuthorizationCodeFlowManager:
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:networkAdaptor:)`.
+     `init(clientId:clientSecret:)`.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -647,13 +626,6 @@ public final class AuthorizationCodeFlowManager:
              Use `accessTokenIsExpired(tolerance:)` to check if the access token is
              expired.
        - scopes: The scopes that have been authorized for the access token.
-       - networkAdaptor: A function that gets called every time this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarantees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/dashboard/login

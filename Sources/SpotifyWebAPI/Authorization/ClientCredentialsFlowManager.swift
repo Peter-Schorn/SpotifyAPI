@@ -158,13 +158,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
@@ -180,7 +173,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:networkAdaptor:)`.
+     `init(backend:)`.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -198,13 +191,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
        - clientSecret: The client secret for your application.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
@@ -265,7 +251,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      * `clientSecret`
      * `accessToken`
      * `expirationDate`
-     * `networkAdaptor`
      */
     public final func makeCopy() -> ClientCredentialsFlowBackendManager<Backend> {
         let instance = ClientCredentialsFlowBackendManager(
@@ -704,13 +689,6 @@ public final class ClientCredentialsFlowManager:
      - Parameters:
        - clientId: The client id for your application.
        - clientSecret: The client secret for your application.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
@@ -733,7 +711,7 @@ public final class ClientCredentialsFlowManager:
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:networkAdaptor:)`.
+     `init(clientId:clientSecret:)`.
     
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
@@ -751,13 +729,6 @@ public final class ClientCredentialsFlowManager:
        - clientSecret: The client secret for your application.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - networkAdaptor: A function that gets called everytime this class—and
-             only this class—needs to make a network request. Use this
-             function if you need to use a custom networking client. The `url`
-             and `httpMethod` properties of the `URLRequest` parameter are
-             guaranteed to be non-`nil`. No guarentees are made about which
-             thread this function will be called on. The default is `nil`,
-             in which case `URLSession` will be used for the network requests.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
