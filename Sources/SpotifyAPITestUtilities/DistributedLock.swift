@@ -1,5 +1,26 @@
 import Foundation
 
+#if !os(macOS)
+
+/// A stub for compilation.
+@usableFromInline
+class NSDistributedLock {
+    
+    init?(path: String) { return nil }
+    
+    @usableFromInline
+    func `try`() -> Bool { return false }
+
+    @usableFromInline
+    func unlock() { }
+    
+    @usableFromInline
+    var lockDate: Date { Date() }
+
+}
+
+#endif
+
 public struct DistributedLock {
     
     /// Releases all distributed locks by deleting the files that they are
