@@ -90,7 +90,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         }
     }
         
-    // MARK: - Initializers -
+    // MARK: - Initializers
 
     /**
      Creates an authorization manager for the
@@ -165,7 +165,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         self._scopes = scopes
     }
     
-    // MARK: - Codable, Hashable, CustomStringConvertable -
+    // MARK: - Codable, Hashable, CustomStringConvertable
     
     /// :nodoc:
     public override required init(from decoder: Decoder) throws {
@@ -209,7 +209,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
 
 public extension AuthorizationCodeFlowPKCEBackendManager {
     
-    // MARK: - Authorization -
+    // MARK: - Authorization
     
     /**
      The first step in the authorization process for the

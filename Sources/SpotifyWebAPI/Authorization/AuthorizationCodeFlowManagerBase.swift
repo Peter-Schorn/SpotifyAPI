@@ -254,15 +254,15 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      * `scopes`
      */
     public func makeCopy() -> Self {
-        let instance = Self(
+        let copy = Self(
             backend: self.backend
         )
         return self.updateAuthInfoQueue.sync {
-            instance._accessToken = self._accessToken
-            instance._refreshToken = self._refreshToken
-            instance._expirationDate = self._expirationDate
-            instance._scopes = self._scopes
-            return instance
+            copy._accessToken = self._accessToken
+            copy._refreshToken = self._refreshToken
+            copy._expirationDate = self._expirationDate
+            copy._scopes = self._scopes
+            return copy
         }
     }
 }
