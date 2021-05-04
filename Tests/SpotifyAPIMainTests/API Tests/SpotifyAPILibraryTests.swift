@@ -625,6 +625,14 @@ extension SpotifyAPILibraryTests where
             
     }
     
+    func _setUp() {
+        DistributedLock.library.lock()
+    }
+    
+    func _tearDown() {
+        DistributedLock.library.unlock()
+    }
+    
 }
 
 final class SpotifyAPIAuthorizationCodeFlowLibraryTests:
@@ -642,6 +650,14 @@ final class SpotifyAPIAuthorizationCodeFlowLibraryTests:
     func testSaveTracks() { saveTracks() }
     func testSaveEpisodes() { saveEpisodes() }
     func testSaveShows() { saveShows() }
+    
+    override func setUp() {
+        self._setUp()
+    }
+    
+    override func tearDown() {
+        self._tearDown()
+    }
 
 }
 
@@ -660,6 +676,14 @@ final class SpotifyAPIAuthorizationCodeFlowPKCELibraryTests:
     func testSaveTracks() { saveTracks() }
     func testSaveEpisodes() { saveEpisodes() }
     func testSaveShows() { saveShows() }
+
+    override func setUp() {
+        self._setUp()
+    }
+    
+    override func tearDown() {
+        self._tearDown()
+    }
 
 }
 

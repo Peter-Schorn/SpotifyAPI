@@ -185,7 +185,7 @@ extension SpotifyAPIAlbumsTests {
         let authorizationManagerDidChangeExpectation = XCTestExpectation(
             description: "authorizationManagerDidChange"
         )
-        let internalQueue = DispatchQueue.combine(label: "internal")
+        let internalQueue = DispatchQueue(label: "internal")
 
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
@@ -193,7 +193,7 @@ extension SpotifyAPIAlbumsTests {
             .receive(on: internalQueue)
             .sink(receiveValue: {
                 didChangeCount += 1
-                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                internalQueue.asyncAfter(deadline: .now() + 2) {
                     authorizationManagerDidChangeExpectation.fulfill()
                 }
             })

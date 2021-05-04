@@ -186,7 +186,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     public let didDeauthorize = PassthroughSubject<Void, Never>()
     
     /// Ensure no data races occur when updating auth info.
-    let updateAuthInfoQueue = DispatchQueue.combine(
+    let updateAuthInfoQueue = DispatchQueue(
         label: "updateAuthInfoQueue"
     )
 
@@ -199,7 +199,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      */
     private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
-    private let refreshTokensQueue = DispatchQueue.combine(
+    private let refreshTokensQueue = DispatchQueue(
         label: "ClientCredentialsFlowManager.refrehTokens"
     )
 

@@ -168,11 +168,11 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
-    let updateAuthInfoQueue = DispatchQueue.combine(
+    let updateAuthInfoQueue = DispatchQueue(
         label: "updateAuthInfoQueue"
     )
     
-    let refreshTokensQueue = DispatchQueue.combine(
+    let refreshTokensQueue = DispatchQueue(
         label: "AuthorizationCodeFlowManagerBase.refrehTokens"
     )
 

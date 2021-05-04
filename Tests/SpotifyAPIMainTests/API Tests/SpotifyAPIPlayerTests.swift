@@ -1195,7 +1195,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         let authorizationManagerDidChangeExpectation = XCTestExpectation(
             description: "authorizationManagerDidChange"
         )
-        let internalQueue = DispatchQueue.combine(label: "internal")
+        let internalQueue = DispatchQueue(label: "internal")
 
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
@@ -1203,7 +1203,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .receive(on: internalQueue)
             .sink(receiveValue: {
                 didChangeCount += 1
-                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                internalQueue.asyncAfter(deadline: .now() + 2) {
                     authorizationManagerDidChangeExpectation.fulfill()
                 }
             })
@@ -1305,6 +1305,16 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
     }
     
+    static func _setUp() {
+        spotifyDecodeLogger.logLevel = .trace
+        DistributedLock.player.lock()
+    }
+    
+    static func _tearDown() {
+        spotifyDecodeLogger.logLevel = .warning
+        DistributedLock.player.unlock()
+    }
+    
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
@@ -1327,11 +1337,11 @@ final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
 
     override class func setUp() {
         super.setUp()
-        spotifyDecodeLogger.logLevel = .trace
+        Self._setUp()
     }
 
     override class func tearDown() {
-        spotifyDecodeLogger.logLevel = .warning
+        Self._tearDown()
     }
 
     func testPlayPause() { playPause() }
@@ -1356,7 +1366,7 @@ final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
     func testShuffle() { shuffle() }
     func testRepeatMode() { repeatMode() }
     func testTransferPlayback() { transferPlayback() }
-
+    
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
@@ -1379,12 +1389,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
 
     override class func setUp() {
         super.setUp()
-        spotifyDecodeLogger.logLevel = .trace
+        Self._setUp()
     }
 
     override class func tearDown() {
-        super.tearDown()
-        spotifyDecodeLogger.logLevel = .warning
+        Self._tearDown()
     }
 
     func testPlayPause() { playPause() }
@@ -1409,6 +1418,5 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     func testShuffle() { shuffle() }
     func testRepeatMode() { repeatMode() }
     func testTransferPlayback() { transferPlayback() }
-
 
 }

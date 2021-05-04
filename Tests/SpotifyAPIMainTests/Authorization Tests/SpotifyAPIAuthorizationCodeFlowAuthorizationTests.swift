@@ -34,7 +34,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             description: "authorizationManagerDidDeauthorize"
         )
 
-        let internalQueue = DispatchQueue.combine(label: "internal")
+        let internalQueue = DispatchQueue(label: "internal")
         var cancellables: Set<AnyCancellable> = []
         
         var didChangeCount = 0
@@ -42,7 +42,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             .receive(on: internalQueue)
             .sink(receiveValue: {
                 didChangeCount += 1
-                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                internalQueue.asyncAfter(deadline: .now() + 2) {
                     authorizationManagerDidChangeExpectation.fulfill()
                 }
             })
@@ -53,7 +53,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             .receive(on: internalQueue)
             .sink(receiveValue: {
                 didDeauthorizeCount += 1
-                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                internalQueue.asyncAfter(deadline: .now() + 2) {
                     authorizationManagerDidDeauthorizeExpectation.fulfill()
                 }
             })

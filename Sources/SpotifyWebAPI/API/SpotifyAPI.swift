@@ -138,7 +138,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     // MARK: - Loggers -
     
     /// Logs general messages for this class.
-    public lazy var logger = Logger(label: "SpotifyAPI", level: .critical)
+    public var logger = Logger(label: "SpotifyAPI", level: .critical)
     
     /**
      Logs messages when the authorization information changes.
@@ -153,14 +153,14 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      Also logs a message in the didSet observer of `authorizationManager`.
      
      */
-    public lazy var authDidChangeLogger = Logger(
+    public var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
     )
     
     /// Logs the URLs of the network requests made to Spotify and,
     /// if present, the body of the requests by converting the raw
     /// data to a string.
-    public lazy var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
+    public var apiRequestLogger = Logger(label: "APIRequest", level: .critical)
     
     // MARK: - Initializers -
 
@@ -199,8 +199,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         )? = nil
     )  {
         
-        SpotifyAPILogHandler.bootstrap()
-
         self.authorizationManager = authorizationManager
         
         self.networkAdaptor = networkAdaptor ??
@@ -227,7 +225,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      - Parameter decoder: The decoder to read data from.
      */
     public required init(from decoder: Decoder) throws {
-        SpotifyAPILogHandler.bootstrap()
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.authorizationManager = try container.decode(

@@ -21,10 +21,15 @@ extension SpotifyAPIErrorTests {
     
     func autoRetryOnRateLimitedErrorConcurrent() {
         
+        DistributedLock.rateLimitedError.lock()
+        defer {
+            DistributedLock.rateLimitedError.unlock()
+        }
+
         Self.spotify.networkAdaptor = URLSession.shared
             .noCacheNetworkAdaptor(request:)
         
-        let queue = DispatchQueue.combine(
+        let queue = DispatchQueue(
             label: "autoRetryOnRateLimitedErrorConcurrent"
         )
 
@@ -100,13 +105,18 @@ extension SpotifyAPIErrorTests {
     /// Makes serial requests until a rate limited error is received.
     func autoRetryOnRateLimitedErrorSerial() {
         
+        DistributedLock.rateLimitedError.lock()
+        defer {
+            DistributedLock.rateLimitedError.unlock()
+        }
+
         let spotifyDecodeLogLevel = spotifyDecodeLogger.logLevel
         spotifyDecodeLogger.logLevel = .error
 
         Self.spotify.networkAdaptor = URLSession.shared
             .noCacheNetworkAdaptor(request:)
         
-        let queue = DispatchQueue.combine(
+        let queue = DispatchQueue(
             label: "autoRetryOnRateLimitedErrorSerial"
         )
         
@@ -789,8 +799,8 @@ final class SpotifyAPIAuthorizationCodeFlowErrorTests:
     
 }
 
-final class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
-    SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIErrorTests
+final class SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests:
+    SpotifyAPIAuthorizationCodeFlowPKCEProxyTests, SpotifyAPIErrorTests
 {
 
     static let allTests = [
@@ -834,4 +844,4 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEErrorTests:
         uploadTooLargePlaylistImage()
     }
     
-}
+ }

@@ -108,8 +108,6 @@ public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthoriza
 
     func authorize() -> AnyPublisher<Void, Error>
 
-    func waitUntilAuthorized() -> Void
-
 }
 
 // MARK: - Conformances -
@@ -117,7 +115,10 @@ public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthoriza
 extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool {
     
     public func waitUntilAuthorized() {
-        self.authorizeAndWaitForTokens(scopes: Scope.allCases, showDialog: false)
+        self.authorizeAndWaitForTokens(
+            scopes: Scope.allCases,
+            showDialog: false
+        )
     }
 
 }

@@ -25,6 +25,11 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
+    DistributedLock.redirectListener.lock()
+    defer {
+        DistributedLock.redirectListener.unlock()
+    }
+
     #if TEST
     // MARK: start the server
     

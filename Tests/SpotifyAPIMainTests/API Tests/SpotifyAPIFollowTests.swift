@@ -71,6 +71,11 @@ extension SpotifyAPIFollowTests where
 
     func followedArtists() {
         
+        DistributedLock.follow.lock()
+        defer {
+            DistributedLock.follow.unlock()
+        }
+        
         let expectation = XCTestExpectation(
             description: "followedArtists"
         )
@@ -130,6 +135,11 @@ extension SpotifyAPIFollowTests where
     }
 
     func followArtists() {
+
+        DistributedLock.follow.lock()
+        defer {
+            DistributedLock.follow.unlock()
+        }
 
         let expectation = XCTestExpectation(
             description: "testFollowArtists"
@@ -223,10 +233,15 @@ extension SpotifyAPIFollowTests where
 
     func followUsers() {
 
+        DistributedLock.follow.lock()
+        defer {
+            DistributedLock.follow.unlock()
+        }
+
         let authorizationManagerDidChangeExpectation = XCTestExpectation(
             description: "authorizationManagerDidChange"
         )
-        let internalQueue = DispatchQueue.combine(label: "internal")
+        let internalQueue = DispatchQueue(label: "internal")
 
         var didChangeCount = 0
         var cancellables: Set<AnyCancellable> = []
@@ -234,7 +249,7 @@ extension SpotifyAPIFollowTests where
             .receive(on: internalQueue)
             .sink(receiveValue: {
                 didChangeCount += 1
-                internalQueue.queue.asyncAfter(deadline: .now() + 2) {
+                internalQueue.asyncAfter(deadline: .now() + 2) {
                     authorizationManagerDidChangeExpectation.fulfill()
                 }
             })
@@ -319,6 +334,11 @@ extension SpotifyAPIFollowTests where
     }
 
     func followPlaylist() {
+
+        DistributedLock.follow.lock()
+        defer {
+            DistributedLock.follow.unlock()
+        }
 
         let expectation = XCTestExpectation(
             description: "testFollowPlaylist"

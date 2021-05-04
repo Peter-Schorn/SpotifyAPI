@@ -18,6 +18,8 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
+        DistributedLock.releaseAllLocks()
+
         if let failingTestsString = self.makeFailingTestsString() {
             if let logFile = SpotifyAPITestCase.logFile {
                 try? failingTestsString.append(to: logFile)
@@ -108,10 +110,16 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
         return finalMessage
     }
     
-    public override init() {
-        super.init()
+    /// Only executes once per process.
+    func globalSetup() {
         XCTestObservationCenter.shared.addTestObserver(self)
         Self.isRegisteredAsObserver = true
+        SpotifyAPILogHandler.bootstrap()
+    }
+
+    public override init() {
+        super.init()
+        self.globalSetup()
     }
 }
 

@@ -116,7 +116,7 @@ extension Publishers {
         }
     }
     
-    static let retryQueue = DispatchQueue.combine(
+    static let retryQueue = DispatchQueue(
         label: "DelayedConditionalRetry"
     )
 

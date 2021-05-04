@@ -221,7 +221,17 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
         var receivedAlbum = false
         var receivedArtist = false
         
-        DispatchQueue.global().async {
+        let concurrentQueue1 = DispatchQueue(
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue1"
+        )
+        let concurrentQueue2 = DispatchQueue(
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue2"
+        )
+        let concurrentQueue3 = DispatchQueue(
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue3"
+        )
+
+        concurrentQueue1.async {
             // MARK: track
             dispatchGroup.enter()
             let cancellable = Self.spotify.track(URIs.Tracks.breathe)
@@ -243,7 +253,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             }
         }
 
-        DispatchQueue.global().async {
+        concurrentQueue2.async {
             // MARK: album
             dispatchGroup.enter()
             let cancellable = Self.spotify.album(URIs.Albums.darkSideOfTheMoon)
@@ -265,7 +275,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             }
         }
 
-        DispatchQueue.global().async {
+        concurrentQueue3.async {
             // MARK: artist
             dispatchGroup.enter()
             let cancellable = Self.spotify.artist(URIs.Artists.crumb)
@@ -295,13 +305,21 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 
         internalQueue.sync {
             XCTAssertEqual(didChangeCount, 1)
-            XCTAssertTrue(receivedTrack)
-            XCTAssertTrue(receivedAlbum)
-            XCTAssertTrue(receivedArtist)
+            XCTAssertTrue(receivedTrack, "did not receive track")
+            XCTAssertTrue(receivedAlbum, "did not receive album")
+            XCTAssertTrue(receivedArtist, "did not recieved artist")
         }
 
     }
   
+    func _setUp() {
+        Self.spotify.authorizationManager.waitUntilAuthorized()
+    }
+
+    func _tearDown() {
+        Self.spotify.authorizationManager.deauthorize()
+    }
+
  }
 
 // MARK: - Client -
@@ -322,15 +340,15 @@ final class SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests:
     func testConcurrentRequestsWithExpiredToken() {
         self.concurrentRequestsWithExpiredToken()
     }
-    
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
-    }
-    
+
     override func setUp() {
-        Self.setupAuthorization()
+        self._setUp()
     }
 
+    override func tearDown() {
+        self._tearDown()
+    }
+    
 }
 
  
@@ -351,14 +369,14 @@ final class SpotifyAPIAuthorizationCodeFlowRefreshTokensConcurrentTests:
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
-    }
-    
     override func setUp() {
-        Self.setupAuthorization()
+        self._setUp()
     }
     
+    override func tearDown() {
+        self._tearDown()
+    }
+
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
@@ -378,14 +396,15 @@ final class SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests:
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
+    override func setUp() {
+        self._setUp()
     }
     
-    override func setUp() {
-        Self.setupAuthorization()
+    override func tearDown() {
+        self._tearDown()
     }
 
+    
 }
 
 // MARK: - Proxy -
@@ -407,12 +426,12 @@ final class SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests:
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
+    override func setUp() {
+        self._setUp()
     }
     
-    override func setUp() {
-        Self.setupAuthorization()
+    override func tearDown() {
+        self._tearDown()
     }
 
 }
@@ -435,12 +454,12 @@ final class SpotifyAPIAuthorizationCodeFlowProxyRefreshTokensConcurrentTests:
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
+    override func setUp() {
+        self._setUp()
     }
     
-    override func setUp() {
-        Self.setupAuthorization()
+    override func tearDown() {
+        self._tearDown()
     }
     
 }
@@ -462,12 +481,12 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyRefreshTokensConcurrentTests
         self.concurrentRequestsWithExpiredToken()
     }
     
-    override func tearDown() {
-        Self.spotify.authorizationManager.deauthorize()
+    override func setUp() {
+        self._setUp()
     }
     
-    override func setUp() {
-        Self.setupAuthorization()
+    override func tearDown() {
+        self._tearDown()
     }
 
 }
