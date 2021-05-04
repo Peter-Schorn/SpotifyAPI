@@ -16,6 +16,9 @@ import Logging
  It provides an access token, the scopes that have been authorized for the
  access token, and a method for refreshing the access token.
  
+ Types that support authorization scopes should conform to
+ `SpotifyScopeAuthorizationManager`, which inherits from this protocol.
+
  Note that this protocol inherits from `Codable`.
  It is this type that you should encode to data using a `JSONEncoder`
  in order to save it to persistent storage. See this [article][2] for more
@@ -113,8 +116,6 @@ public protocol SpotifyAuthorizationManager: Codable {
 
 extension SpotifyAuthorizationManager {
     
-    func _assertNotOnUpdateAuthInfoDispatchQueue() {
-        
-    }
+    func _assertNotOnUpdateAuthInfoDispatchQueue() { }
 
 }

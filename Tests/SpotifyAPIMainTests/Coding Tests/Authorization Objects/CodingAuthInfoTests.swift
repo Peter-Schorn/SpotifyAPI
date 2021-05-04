@@ -14,6 +14,9 @@ final class CodingAuthInfoTests: SpotifyAPITestCase {
         for _ in 1...100 {
             let authInfo = AuthInfo.withRandomValues()
             encodeDecode(authInfo)
+            
+            let authInfo2 = AuthInfo.withRandomValues()
+            XCTAssertNotEqual(authInfo, authInfo2)
         }
         
     }

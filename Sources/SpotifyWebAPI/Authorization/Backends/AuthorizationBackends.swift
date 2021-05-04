@@ -263,15 +263,16 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
  using the [Client Credentials Flow][1].
 
  Conforming types may communicate directly with the Spotify web API (see
- `ClientCredentialsFlowClientBackend`), or they may communicate with a custom
- backend server that you setup (see `ClientCredentialsFlowProxyBackend`) which
- itself communicates with the Spotify web API. This server can safely store your
- client id and client secret, which prevents them from being exposed in your
- frontend app. This is the key reason for using a backend server. Furthermore,
- after your backend server retrieves the authorization information from Spotify,
- it could encrypt it before sending it back to your app. Your app could then
- decrypt this information when it recieves it, providing an additional layer of
- security.
+ `ClientCredentialsFlowClientBackend`), or it they may commuicate with a custom
+ backend server that you configure (see `ClientCredentialsFlowProxyBackend`).
+ This backend server can safely store your client id and client secret and
+ retrieve the authorization information from Spotify on your behalf, thereby
+ preventing these sensitive credentials from being exposed in your frontend app.
+ 
+ Furthermore, after your backend server retrieves the authorization information
+ from Spotify, it could encrypt it before sending it back to your app. Your app
+ could then decrypt this information when it recieves it, providing an
+ additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  */

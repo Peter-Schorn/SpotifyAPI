@@ -35,8 +35,8 @@ import FoundationNetworking
  automatically when needed.
  
  Note that this type conforms to `Codable`. It is this type that you should
- encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][3] for more information.
+ encode to data using a `JSONEncoder` in order to save the authorization
+ information to persistent storage. See this [article][3] for more information.
  
  Use `isAuthorized(for:)` to check if your application is authorized
  for the specified scopes.
@@ -64,8 +64,14 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
     CustomStringConvertible
 {
     
-    // MARK: TODO: document
-    /// The logger for this class.
+    /**
+     The logger for this class.
+     
+     # Note
+     
+     This is a computed property which will provide access to the same
+     underlying logger for all concrete specializations of this type.
+     */
     public static var logger: Logger {
         get {
             return AuthorizationManagerLoggers
@@ -87,8 +93,8 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      root directory of this package for more information.
      
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See [Saving authorization information to persistent storage][3] for more
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][3] for more
      information.
      
      - Parameters:
@@ -550,10 +556,21 @@ public final class AuthorizationCodeFlowManager:
     AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>
 {
 
+    /**
+     The client id that you received when you [registered your application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public var clientId: String {
         return self.backend.clientId
     }
     
+    /**
+     The client secret that you received when you [registered your
+     application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public var clientSecret: String {
         return self.backend.clientSecret
     }
@@ -566,8 +583,8 @@ public final class AuthorizationCodeFlowManager:
      root directory of this package for more information.
      
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See [Saving authorization information to persistent storage][3] for more
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][3] for more
      information.
      
      - Parameters:

@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The authorization info that Spotify returns during the authorization
+ The authorization information that Spotify returns during the authorization
  process.
 
  This is used in various different contexts, including:
@@ -10,14 +10,14 @@ import Foundation
  * When decoding the response after refreshing the tokens
  * As a wrapper for decoding and encoding the authorization information.
  
- Because of its diverse uses, all of its properties are optional,
- which means that it will never fail to decode itself from data,
- so be careful about swallowing errors.
+ Because of its diverse uses, all of its properties are optional, which means
+ that it will never fail to decode itself from data, so be careful about
+ swallowing errors.
  
  Includes the following properties:
  
- * `accessToken`: used in all of the requests to the Spotify web API
-   for authorization.
+ * `accessToken`: used in all of the requests to the Spotify web API for
+   authorization.
  * `refreshToken`: Used to refresh the access token.
  * `expirationDate`: The expiration date of the access token.
  * `scopes`: The scopes that have been authorized for the access token.

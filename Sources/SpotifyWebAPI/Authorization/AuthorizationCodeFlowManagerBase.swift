@@ -190,7 +190,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         
     }
     
-    // MARK: - Codable, Hashable-
+    // MARK: - Codable, Hashable -
     
     /// :nodoc:
     init(from decoder: Decoder) throws {

@@ -11,24 +11,34 @@ final class CodingClientCredentialsFlowManagerTests: SpotifyAPITestCase {
         (
             "testCodingClientCredentialsFlowManager",
             testCodingClientCredentialsFlowManager
+        ),
+        (
+            "testCodingClientCredentialsFlowManagerProxy",
+            testCodingClientCredentialsFlowManagerProxy
         )
     ]
     
     func testCodingClientCredentialsFlowManager() throws {
         
-        let clientCredentialsManager = ClientCredentialsFlowManager(
+        let authManager = ClientCredentialsFlowManager(
             clientId: "the client id", clientSecret: "the client secret"
         )
-        clientCredentialsManager.mockValues()
+        authManager.mockValues()
         
-        encodeDecode(clientCredentialsManager, areEqual: ==)
-        
-        let copy = clientCredentialsManager.makeCopy()
-        XCTAssertEqual(clientCredentialsManager, copy)
-        
-        let spotifyAPI = SpotifyAPI(
-            authorizationManager: clientCredentialsManager
+        let authManager2 = ClientCredentialsFlowManager(
+            clientId: "", clientSecret: ""
         )
+        authManager2.mockValues()
+        
+        encodeDecode(authManager, areEqual: ==)
+        encodeDecode(authManager2, areEqual: ==)
+        
+        let copy = authManager.makeCopy()
+        XCTAssertEqual(authManager, copy)
+        XCTAssertNotEqual(authManager, authManager2)
+        
+        let spotifyAPI = SpotifyAPI(authorizationManager: authManager)
+        let spotifyAPI2 = SpotifyAPI(authorizationManager: authManager2)
         
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
@@ -36,9 +46,78 @@ final class CodingClientCredentialsFlowManagerTests: SpotifyAPITestCase {
                 SpotifyAPI<ClientCredentialsFlowManager>.self,
                 from: data
             )
-            let data2 = try JSONEncoder().encode(decoded)
-            _ = data2
+            let reEncodedData = try JSONEncoder().encode(decoded)
+            
+            let data2 = try JSONEncoder().encode(spotifyAPI2)
+            let decoded2 = try JSONDecoder().decode(
+                SpotifyAPI<ClientCredentialsFlowManager>.self,
+                from: data2
+            )
+            
+            let reEncodedData2 = try JSONEncoder().encode(decoded2)
+            
+            _ = (reEncodedData, reEncodedData2)
+            
+            XCTAssertNotEqual(
+                decoded.authorizationManager,
+                decoded2.authorizationManager
+            )
         
+        } catch {
+            XCTFail("\(error)")
+        }
+        
+    }
+    
+    func testCodingClientCredentialsFlowManagerProxy() throws {
+        
+        let authManager = ClientCredentialsFlowBackendManager(
+            backend: ClientCredentialsFlowProxyBackend(
+                tokensURL: localHostURL
+            )
+        )
+        authManager.mockValues()
+        
+        let authManager2 = ClientCredentialsFlowBackendManager(
+            backend: ClientCredentialsFlowProxyBackend(
+                tokensURL: localHostURL
+            )
+        )
+        authManager2.mockValues()
+
+        encodeDecode(authManager, areEqual: ==)
+        encodeDecode(authManager2, areEqual: ==)
+
+        let copy = authManager.makeCopy()
+        XCTAssertEqual(authManager, copy)
+        XCTAssertNotEqual(authManager, authManager2)
+
+        let spotifyAPI = SpotifyAPI(authorizationManager: authManager)
+        let spotifyAPI2 = SpotifyAPI(authorizationManager: authManager2)
+
+        do {
+            let data = try JSONEncoder().encode(spotifyAPI)
+            let decoded = try JSONDecoder().decode(
+                SpotifyAPI<ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>>.self,
+                from: data
+            )
+            let reEncodedData = try JSONEncoder().encode(decoded)
+
+            let data2 = try JSONEncoder().encode(spotifyAPI2)
+            let decoded2 = try JSONDecoder().decode(
+                SpotifyAPI<ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>>.self,
+                from: data2
+            )
+
+            let reEncodedData2 = try JSONEncoder().encode(decoded2)
+
+            _ = (reEncodedData, reEncodedData2)
+
+            XCTAssertNotEqual(
+                decoded.authorizationManager,
+                decoded2.authorizationManager
+            )
+
         } catch {
             XCTFail("\(error)")
         }

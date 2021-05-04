@@ -316,7 +316,8 @@ extension SpotifyAPI {
         self.logger.logLevel = .trace
         self.apiRequestLogger.logLevel = .trace
         self.authDidChangeLogger.logLevel = .trace
-        
+
+        // auth managers
         AuthorizationManagerLoggers
                 .authorizationCodeFlowManagerBaseLogger.logLevel = .trace
         AuthorizationManagerLoggers
@@ -326,10 +327,15 @@ extension SpotifyAPI {
         AuthorizationManagerLoggers
                 .clientCredentialsFlowManagerLogger.logLevel = .trace
         
+        // backends
         AuthorizationCodeFlowClientBackend.logger.logLevel = .trace
-        AuthorizationCodeFlowPKCEClientBackend.logger.logLevel = .trace
-        
         AuthorizationCodeFlowProxyBackend.logger.logLevel = .trace
+        
+        AuthorizationCodeFlowPKCEClientBackend.logger.logLevel = .trace
+        AuthorizationCodeFlowPKCEProxyBackend.logger.logLevel = .trace
+        
+        ClientCredentialsFlowClientBackend.logger.logLevel = .trace
+        ClientCredentialsFlowProxyBackend.logger.logLevel = .trace
 
         CurrentlyPlayingContext.logger.logLevel = .trace
         

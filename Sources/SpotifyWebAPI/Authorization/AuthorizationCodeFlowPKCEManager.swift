@@ -38,8 +38,8 @@ import Logging
  # Persistant Storage
  
  Note that this type conforms to `Codable`. It is this type that you should
- encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][5] for more information.
+ encode to data using a `JSONEncoder` in order to save the authorization
+ information to persistent storage. See this [article][3] for more information.
  
  # Members
 
@@ -71,7 +71,14 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     CustomStringConvertible
 {
     
-    /// The logger for this class.
+    /**
+     The logger for this class.
+     
+     # Note
+     
+     This is a computed property which will provide access to the same
+     underlying logger for all concrete specializations of this type.
+     */
     public static var logger: Logger {
         get {
             return AuthorizationManagerLoggers
@@ -94,8 +101,9 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      see the README in the root directory of this package for more information.
      
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See this [article][3] for more information.
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][3] for more
+     information.
      
      - Parameters:
        - backend: The backend used to retrieve and refresh tokens.
@@ -653,8 +661,9 @@ public final class AuthorizationCodeFlowPKCEManager:
      see the README in the root directory of this package for more information.
 
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See this [article][3] for more information.
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][3] for more
+     information.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your

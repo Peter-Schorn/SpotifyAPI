@@ -25,12 +25,20 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
         )
         authManager.mockValues()
         
+        let authManager2 = AuthorizationCodeFlowPKCEManager(
+            clientId: ""
+        )
+        authManager2.mockValues()
+        
         encodeDecode(authManager, areEqual: ==)
+        encodeDecode(authManager2, areEqual: ==)
 
         let copy = authManager.makeCopy()
         XCTAssertEqual(authManager, copy)
+        XCTAssertNotEqual(authManager, authManager2)
         
         let spotifyAPI = SpotifyAPI(authorizationManager: authManager)
+        let spotifyAPI2 = SpotifyAPI(authorizationManager: authManager2)
 
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
@@ -38,8 +46,22 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
                 SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self,
                 from: data
             )
-            let data2 = try JSONEncoder().encode(decoded)
-            _ = data2
+            let reEncodedData = try JSONEncoder().encode(decoded)
+            
+            let data2 = try JSONEncoder().encode(spotifyAPI2)
+            let decoded2 = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowPKCEManager>.self,
+                from: data2
+            )
+            
+            let reEncodedData2 = try JSONEncoder().encode(decoded2)
+            
+            _ = (reEncodedData, reEncodedData2)
+            
+            XCTAssertNotEqual(
+                decoded.authorizationManager,
+                decoded2.authorizationManager
+            )
         
         } catch {
             XCTFail("\(error)")
@@ -59,12 +81,24 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
         )
         authManager.mockValues()
         
+        let authManager2 = AuthorizationCodeFlowPKCEBackendManager(
+            backend: AuthorizationCodeFlowPKCEProxyBackend(
+                clientId: "",
+                tokensURL: localHostURL,
+                tokenRefreshURL: localHostURL
+            )
+        )
+        authManager2.mockValues()
+        
         encodeDecode(authManager, areEqual: ==)
-
+        encodeDecode(authManager2, areEqual: ==)
+        
         let copy = authManager.makeCopy()
         XCTAssertEqual(authManager, copy)
+        XCTAssertNotEqual(authManager, authManager2)
         
         let spotifyAPI = SpotifyAPI(authorizationManager: authManager)
+        let spotifyAPI2 = SpotifyAPI(authorizationManager: authManager2)
 
         do {
             let data = try JSONEncoder().encode(spotifyAPI)
@@ -72,8 +106,22 @@ final class CodingAuthorizationCodeFlowPKCEManagerTests: SpotifyAPITestCase {
                 SpotifyAPI<AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
                 from: data
             )
-            let data2 = try JSONEncoder().encode(decoded)
-            _ = data2
+            let reEncodedData = try JSONEncoder().encode(decoded)
+            
+            let data2 = try JSONEncoder().encode(spotifyAPI2)
+            let decoded2 = try JSONDecoder().decode(
+                SpotifyAPI<AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>>.self,
+                from: data2
+            )
+            
+            let reEncodedData2 = try JSONEncoder().encode(decoded2)
+            
+            _ = (reEncodedData, reEncodedData2)
+            
+            XCTAssertNotEqual(
+                decoded.authorizationManager,
+                decoded2.authorizationManager
+            )
         
         } catch {
             XCTFail("\(error)")

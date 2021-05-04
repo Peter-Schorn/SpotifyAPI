@@ -10,16 +10,62 @@ import OpenCombineFoundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
-
 import Logging
 
-// MARK: TODO: Document
+/**
+ Manages the authorization proccess for the [Client Credentials Flow][1].
+ 
+ The Client Credentials flow is used in server-to-server authentication. Only
+ endpoints that do not access user information can be accessed. This means that
+ endpoints that require [authorization scopes][2] cannot be accessed. The
+ advantage of this authorization proccess is that no user interaction is
+ required.
+ 
+ # Backend
+ 
+ This class is generic over a backend. The backend handles the process of
+ requesting the authorization information from Spotify. It may do so directly
+ (see `ClientCredentialsFlowClientBackend`), or it may commuicate with a custom
+ backend server that you configure (see `ClientCredentialsFlowProxyBackend`).
+ This backend server can safely store your client id and client secret and
+ retrieve the authorization information from Spotify on your behalf, thereby
+ preventing these sensitive credentials from being exposed in your frontend app.
+ See `ClientCredentialsFlowBackend` for more information.
+ 
+ **If you do not have a custom backend server, then you should use the**
+ **concrete subclass of this class,** `ClientCredentialsFlowManager` **instead**.
+ It inherits from
+`ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`. This
+ class will store your client id and client secret locally.
+
+ # Authorization
+
+ The only method you must call to authorize your application is `authorize()`.
+ After that, you may begin making requests to the Soptify web API.
+ 
+ # Persistent Storage
+
+ Note that this type conforms to `Codable`. It is this type that you should
+ encode to data using a `JSONEncoder` in order to save the authorization
+ information to persistent storage. See this [article][3] for more information.
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+ */
 public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
     SpotifyAuthorizationManager,
     CustomStringConvertible
 {
-    
-    /// The logger for this class.
+
+    /**
+     The logger for this class.
+     
+     # Note
+     
+     This is a computed property which will provide access to the same
+     underlying logger for all concrete specializations of this type.
+     */
     public static var logger: Logger {
         get {
             return AuthorizationManagerLoggers
@@ -31,6 +77,20 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         }
     }
 
+    /**
+     A type that handles the process of requesting the authorization
+     information.
+     
+     The backend handles the process of requesting the authorization information
+     from Spotify. It may do so directly (see
+     `ClientCredentialsFlowClientBackend`), or it may commuicate with a custom
+     backend server that you configure (see
+     `ClientCredentialsFlowProxyBackend`). This backend server can safely store
+     your client id and client secret and retrieve the authorization information
+     from Spotify on your behalf, thereby preventing these sensitive credentials
+     from being exposed in your frontend app. See `ClientCredentialsFlowBackend`
+     for more information.
+     */
     public let backend: Backend
 
     /// The Spotify authorization scopes. **Always** an empty set
@@ -138,31 +198,33 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         label: "ClientCredentialsFlowManager.refrehTokens"
     )
 
-    // MARK: - Initializers -
+    // MARK: - Initializers
 
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
      
-     Remember, with this authorization flow, only endpoints that do not
-     access user information can be accessed. This means that endpoints
-     that require [authorization scopes][2] cannot be accessed.
-     
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app.
-     see the README in the root directory of this package for more information.
+     Remember, with this authorization flow, only endpoints that do not access
+     user information can be accessed. This means that endpoints that require
+     [authorization scopes][2] cannot be accessed.
 
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See this [article][4] for more information.
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][4] for more
+     information.
      
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - backend: A type that handles the process of requesting the
+             authorization information from Spotify. It may do so directly (see
+             `ClientCredentialsFlowClientBackend`), or it may commuicate with a
+             custom backend server that you configure (see
+             `ClientCredentialsFlowProxyBackend`). See
+             `ClientCredentialsFlowBackend` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(backend: Backend) {
         self.backend = backend
@@ -175,26 +237,27 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      **authorization information from an external source.** Otherwise, use
      `init(backend:)`.
     
-     You are discouraged from individually saving the properties of this instance
-     to persistent storage and then retrieving them later and passing them into
-     this initializer. Instead, encode this entire instance to data using a
-     `JSONEncoder` and then decode the data from storage later. See
+     You are discouraged from individually saving the properties of this
+     instance to persistent storage and then retrieving them later and passing
+     them into this initializer. Instead, encode this entire instance to data
+     using a `JSONEncoder` and then decode the data from storage later. See
      [Saving authorization information to persistent storage][2] for more
      information.
      
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app. see the README in the root
-     directory of this package for more information.
-     
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - backend: A type that handles the process of requesting the
+             authorization information from Spotify. It may do so directly (see
+             `ClientCredentialsFlowClientBackend`), or it may commuicate with a
+             custom backend server that you configure (see
+             `ClientCredentialsFlowProxyBackend`). See
+             `ClientCredentialsFlowBackend` for more information.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [3]: https://developer.spotify.com/dashboard/login
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(
         backend: Backend,
@@ -206,7 +269,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         self._expirationDate = expirationDate
     }
 
-    // MARK: - Codable -
+    // MARK: - Codable
 
     /// :nodoc:
     public required init(from decoder: Decoder) throws {
@@ -247,12 +310,11 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      Returns a copy of self.
      
      Copies the following properties:
-     * `clientId`
-     * `clientSecret`
+     * `backend`
      * `accessToken`
      * `expirationDate`
      */
-    public final func makeCopy() -> ClientCredentialsFlowBackendManager<Backend> {
+    public func makeCopy() -> ClientCredentialsFlowBackendManager<Backend> {
         let instance = ClientCredentialsFlowBackendManager(
             backend: backend
         )
@@ -263,7 +325,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         }
     }
  
-    /// :nodoc:
+    // :nodoc:
     public var description: String {
         // print("ClientCredentialsFlowBackendManager.description: WAITING for queue")
         return self.updateAuthInfoQueue.sync {
@@ -287,7 +349,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
 
 public extension ClientCredentialsFlowBackendManager {
     
-    // MARK: - Authorization -
+    // MARK: - Authorization
     
     /**
      Sets `accessToken` and `expirationDate` to `nil`.
@@ -362,8 +424,7 @@ public extension ClientCredentialsFlowBackendManager {
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoQueue.sync {
-            if self._accessToken == nil { return false }
-            return scopes.isEmpty
+            return self._accessToken != nil && scopes.isEmpty
         }
     }
     
@@ -508,7 +569,7 @@ public extension ClientCredentialsFlowBackendManager {
     
 }
 
-// MARK: - Private -
+// MARK: - Private
 
 private extension ClientCredentialsFlowBackendManager {
     
@@ -543,7 +604,7 @@ private extension ClientCredentialsFlowBackendManager {
     
 }
 
-// MARK: - Internal -
+// MARK: - Internal
 
 extension ClientCredentialsFlowBackendManager {
     
@@ -557,15 +618,13 @@ extension ClientCredentialsFlowBackendManager {
 
 }
 
-// MARK: - Hashable and Equatable -
+// MARK: - Hashable and Equatable
 
 extension ClientCredentialsFlowBackendManager: Hashable {
     
     /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoQueue.sync {
-//            hasher.combine(clientId)
-//            hasher.combine(clientSecret)
             hasher.combine(self.backend)
             hasher.combine(self._accessToken)
             hasher.combine(self._expirationDate)
@@ -596,7 +655,7 @@ extension ClientCredentialsFlowBackendManager: Hashable {
     
 }
 
-// MARK: - Testing -
+// MARK: - Testing
 
 extension ClientCredentialsFlowBackendManager {
     
@@ -634,24 +693,26 @@ extension ClientCredentialsFlowBackendManager {
 
  The Client Credentials flow is used in server-to-server authentication. Only
  endpoints that do not access user information can be accessed. This means that
- endpoints that require [authorization scopes][2] cannot be accessed.
- 
+ endpoints that require [authorization scopes][2] cannot be accessed. The
+ advantage of this authorization proccess is that no user interaction is
+ required.
+
+ This class stores the client id and client secret locally. Consider using
+ `ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>`, which
+ allows you to setup a custom backend server that can store these sensitive
+ credentials and which communicates with Spotify on your behalf in order to
+ retrieve the authoriztion information.
+
+ # Authorization
+
  The only method you must call to authorize your application is `authorize()`.
  After that, you may begin making requests to the Soptify web API.
 
- The advantage of this authorization proccess is that no user interaction is
- required.
- 
+ # Persistent Storage
+
  Note that this type conforms to `Codable`. It is this type that you should
- encode to data using a `JSONEncoder` in order to save it to persistent storage.
- See this [article][3] for more information.
- 
- Contains the following properties:
- 
- * The client id
- * The client secret
- * The access token
- * The expiration date of the access token
+ encode to data using a `JSONEncoder` in order to save the authorization
+ information to persistent storage. See this [article][3] for more information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
@@ -661,39 +722,52 @@ public final class ClientCredentialsFlowManager:
     ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>
 {
     
-    /// The client id for your application.
+    /**
+     The client id that you received when you [registered your application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public var clientId: String {
         return self.backend.clientId
     }
     
-    /// The client secret for your application.
+    /**
+     The client secret that you received when you [registered your
+     application][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     */
     public var clientSecret: String {
         return self.backend.clientSecret
     }
     
     /**
      Creates an authorization manager for the [Client Credentials Flow][1].
-     
-     Remember, with this authorization flow, only endpoints that do not
-     access user information can be accessed. This means that endpoints
-     that require [authorization scopes][2] cannot be accessed.
-     
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app.
-     see the README in the root directory of this package for more information.
+
+     Remember, with this authorization flow, only endpoints that do not access
+     user information can be accessed. This means that endpoints that require
+     [authorization scopes][2] cannot be accessed.
+
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][3] and create an app. see the README in the root directory of
+     this package for more information.
 
      Note that this type conforms to `Codable`. It is this type that you should
-     encode to data using a `JSONEncoder` in order to save it to persistent storage.
-     See this [article][4] for more information.
+     encode to data using a `JSONEncoder` in order to save the authorization
+     information to persistent storage. See this [article][4] for more
+     information.
      
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - clientId: The client id that you received when you [registered your
+             application][5].
+       - clientSecret: The client secret that you received when you [registered
+             your application][5].
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(
         clientId: String,
@@ -713,26 +787,29 @@ public final class ClientCredentialsFlowManager:
      **authorization information from an external source.** Otherwise, use
      `init(clientId:clientSecret:)`.
     
-     You are discouraged from individually saving the properties of this instance
-     to persistent storage and then retrieving them later and passing them into
-     this initializer. Instead, encode this entire instance to data using a
-     `JSONEncoder` and then decode the data from storage later. See
+     You are discouraged from individually saving the properties of this
+     instance to persistent storage and then retrieving them later and passing
+     them into this initializer. Instead, encode this entire instance to data
+     using a `JSONEncoder` and then decode the data from storage later. See
      [Saving authorization information to persistent storage][2] for more
      information.
      
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app. see the README in the root
-     directory of this package for more information.
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][3] and create an app. see the README in the root directory of
+     this package for more information.
      
      - Parameters:
-       - clientId: The client id for your application.
-       - clientSecret: The client secret for your application.
+       - clientId: The client id that you received when you [registered your
+             application][4].
+       - clientSecret: The client secret that you received when you [registered
+             your application][4].
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [3]: https://developer.spotify.com/dashboard/login
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(
         clientId: String,
@@ -748,12 +825,9 @@ public final class ClientCredentialsFlowManager:
         self._accessToken = accessToken
         self._expirationDate = expirationDate
         
-
     }
 
-    // MARK: TODO: Codable, Hashable, CustomStringConvertible
-
-    /// :nodoc:
+    // :nodoc:
     public override var description: String {
         return self.updateAuthInfoQueue.sync {
             let expirationDateString = self._expirationDate?
