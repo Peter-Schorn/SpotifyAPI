@@ -70,7 +70,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      contain the "Content-Type: application/x-www-form-urlencoded" header and
      the body will contain a key called "grant_type" with the value set to
      "client_credentials" in x-www-form-urlencoded format. For example:
-     "grant_type=client_credentials". See `ClientCredentialsTokenRequest`.
+     "grant_type=client_credentials". See `ClientCredentialsTokensRequest`.
 
      This method must return the authorization information as JSON data that can
      be decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which
@@ -93,7 +93,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 
-        let body = ClientCredentialsTokenRequest()
+        let body = ClientCredentialsTokensRequest()
             .formURLEncoded()
         
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"

@@ -97,7 +97,7 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 
-        let body = ClientCredentialsTokenRequest()
+        let body = ClientCredentialsTokensRequest()
             .formURLEncoded()
 
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
