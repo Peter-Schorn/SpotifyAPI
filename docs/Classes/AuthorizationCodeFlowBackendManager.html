@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowBackendManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (94% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (95% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -47,6 +47,12 @@
             <a href="../Authorization.html">Authorization</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a>
               </li>
               <li class="nav-group-task">
@@ -60,6 +66,29 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authorization%20Backends.html">Authorization Backends</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
               </li>
             </ul>
           </li>
@@ -319,6 +348,9 @@
               <li class="nav-group-task">
                 <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -405,18 +437,6 @@
                 <a href="../Structs/AuthInfo.html">AuthInfo</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
               </li>
               <li class="nav-group-task">
@@ -491,9 +511,26 @@
             <p>Manages the authorization process for the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
 
 <p>For applications where it is unsafe to store your client secret, consider
-using <code>AuthorizationCodeFlowPKCEManager</code>, which manages the
+using <code><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></code>, which manages the
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow with Proof Key for Code Exchange</a>; it provides
 an additional layer of security.</p>
+<h1 id='backend' class='heading'>Backend</h1>
+
+<p>This class is generic over a backend. The backend handles the process of
+requesting the authorization information and refreshing the access token from
+Spotify. It may do so directly (see <code><a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>), or
+it may communicate with a custom backend server that you configure (see
+<code><a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a></code>). This backend server can safely store your
+client secret and retrieve the authorization information from Spotify on your
+behalf, thereby preventing these sensitive credentials from being exposed in
+your frontend app. See <code><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></code> for more information.</p>
+
+<p><strong>If you do not have a custom backend server, then you are encouraged use the</strong>
+<strong>concrete subclass of this class,</strong> <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>
+<strong>instead</strong>. It inherits from
+<code>AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</code>. This
+class will store your client id and client secret locally.</p>
+<h1 id='authorization' class='heading'>Authorization</h1>
 
 <p>The first step in the authorization code flow is to make the
 authorization URL using
@@ -506,43 +543,24 @@ Spotify will redirect to the redirect URI specified in the authorization
 URL with query parameters appended to it. Pass this URL into
 <code>requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</code> to request
 the refresh and access tokens. After that, you can begin making requests
-to the Spotify API. The access token will be refreshed for you
-automatically when needed.</p>
+to the Spotify API. The access token will be refreshed for you automatically
+when needed.</p>
 
-<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
-
-<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
-for the specified scopes.</p>
+<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized for the
+specified scopes.</p>
 
 <p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
-and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
-which are immutable.</p>
+and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>, which are
+immutable.</p>
+<h1 id='persistent-storage' class='heading'>Persistent Storage</h1>
 
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The refresh token</li>
-<li>The expiration date for the access token</li>
-<li>The scopes that have been authorized for the access token</li>
-</ul>
+<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/TODO%3A%20document"></a>
-                <a name="//apple_ref/swift/Section/TODO: document" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/TODO%3A%20document"></a>
-                  <h3 class="section-name"><p>TODO: document</p>
-</h3>
-                </div>
-              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -558,6 +576,10 @@ which are immutable.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The logger for this class.</p>
+<h1 id='note' class='heading'>Note</h1>
+
+<p>This is a computed property which will provide access to the same
+underlying logger for all concrete specializations of this type.</p>
 
                       </div>
                       <div class="declaration">
@@ -599,13 +621,15 @@ which are immutable.</p>
                       <div class="abstract">
                         <p>Creates an authorization manager for the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
 
-<p>To get a client id and client secret, go to the
-<a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app. see the README in the
-root directory of this package for more information.</p>
+<p><strong>If you do not have a custom backend server, then you are encouraged to</strong>
+<strong>use the concrete subclass of this class,</strong> <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>
+<strong>instead</strong>. It inherits from
+<code>AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</code>.
+This class will store your client id and client secret locally.</p>
 
 <p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">Saving authorization information to persistent storage</a> for more
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more
 information.</p>
 
                       </div>
@@ -629,25 +653,13 @@ information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The backend used to retrieve and refresh tokens.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>networkAdaptor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A function that gets called everytime this class—and
-only this class—needs to make a network request. Use this
-function if you need to use a custom networking client. The <code>url</code>
-and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are
-guaranteed to be non-<code>nil</code>. No guarentees are made about which
-thread this function will be called on. The default is <code>nil</code>,
-in which case <code>URLSession</code> will be used for the network requests.</p>
+                                  <p>A type that handles the process of requesting the
+authorization information and refreshing the access token from
+Spotify. It may do so directly (see
+<code><a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>), or it may communicate with a
+custom backend server that you configure (see
+<code><a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a></code>). See
+<code><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></code> for more information.</p>
                                 </div>
                               </td>
                             </tr>
@@ -674,18 +686,20 @@ in which case <code>URLSession</code> will be used for the network requests.</p>
 
 <p><strong>In general, only use this initializer if you have retrieved the</strong>
 <strong>authorization information from an external source.</strong> Otherwise, use
-<code>init(clientId:clientSecret:networkAdaptor:)</code>.</p>
+<code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC7backendACyxGx_tcfc">init(backend:)</a></code>.</p>
 
-<p>You are discouraged from individually saving the properties of this instance
-to persistent storage and then retrieving them later and passing them into
-this initializer. Instead, encode this entire instance to data using a
-<code>JSONEncoder</code> and then decode the data from storage later. See
+<p><strong>If you do not have a custom backend server, then you are encouraged to</strong>
+<strong>use the concrete subclass of this class,</strong> <code><a href="../Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>
+<strong>instead</strong>. It inherits from
+<code>AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</code>.
+This class will store your client id and client secret locally.</p>
+
+<p>You are discouraged from individually saving the properties of this
+instance to persistent storage and then retrieving them later and passing
+them into this initializer. Instead, encode this entire instance to data
+using a <code>JSONEncoder</code> and then decode the data from storage later. See
 <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">Saving authorization information to persistent storage</a> for more
 information.</p>
-
-<p>To get a client id and client secret, go to the
-<a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app. see the README in the root
-directory of this package for more information.</p>
 
                       </div>
                       <div class="declaration">
@@ -714,7 +728,13 @@ directory of this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The backend used to retrieve and refresh tokens.</p>
+                                  <p>A type that handles the process of requesting the
+authorization information and refreshing the access token from
+Spotify. It may do so directly (see
+<code><a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>), or it may communicate with a
+custom backend server that you configure (see
+<code><a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a></code>). See
+<code><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></code> for more information.</p>
                                 </div>
                               </td>
                             </tr>
@@ -750,12 +770,12 @@ directory of this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The refresh token. If <code>nil</code> (not recommended), then it will
-not be possible to automatically refresh the access token when it
-expires; instead, you will have to go through the authorization process
-again, as described in the README in the root directory of this package.
-Use <code>accessTokenIsExpired(tolerance:)</code> to check if the access token is
-expired.</p>
+                                  <p>The refresh token. If <code>nil</code> (not recommended), then it
+will not be possible to automatically refresh the access token when
+it expires; instead, you will have to go through the authorization
+process again, as described in the README in the root directory of
+this package. Use <code>accessTokenIsExpired(tolerance:)</code> to check if
+the access token is expired.</p>
                                 </div>
                               </td>
                             </tr>
@@ -768,24 +788,6 @@ expired.</p>
                               <td>
                                 <div>
                                   <p>The scopes that have been authorized for the access token.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>networkAdaptor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A function that gets called everytime this class—and
-only this class—needs to make a network request. Use this
-function if you need to use a custom networking client. The <code>url</code>
-and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are
-guaranteed to be non-<code>nil</code>. No guarentees are made about which
-thread this function will be called on. The default is <code>nil</code>,
-in which case <code>URLSession</code> will be used for the network requests.</p>
                                 </div>
                               </td>
                             </tr>
@@ -833,13 +835,12 @@ application, Spotify will redirect to <code>redirectURI</code> with query parame
 appended to it. Pass that URL into
 <code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code> to complete
 the authorization process.</p>
-<h1 id='warning' class='heading'>Warning:</h1>
+<h1 id='warning' class='heading'>Warning</h1>
 
 <p><strong>DO NOT add a forward-slash to the end of the redirect URI</strong>.</p>
 
-<p>All of these values will be automatically percent-encoded.
-Therefore, do not percent-encode them yourself before passing them
-into this method.</p>
+<p>All of these values will be automatically percent-encoded. Therefore, do
+not percent-encode them yourself before passing them into this method.</p>
 
 <ul>
 <li><p>Tag: makeAuthorizationURL</p></li>
@@ -871,12 +872,12 @@ into this method.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The location that Spotify will redirect to
-after the user authorizes or denies authorization for your app.
-Usually, this should be a custom URL scheme that redirects to a
-location in your app. This URI needs to have been entered in the
-Redirect URI whitelist that you specified when you
-<a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your application</a>.</p>
+                                  <p>The location that Spotify will redirect to after the user
+authorizes or denies authorization for your app. Usually, this
+should be a custom URL scheme that redirects to a location in your
+app. This URI needs to have been entered in the Redirect URI
+whitelist that you specified when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your
+application</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -909,9 +910,9 @@ redirected and will have to approve the app again.</p>
 <code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>,
 <strong>otherwise an error will be thrown.</strong> The state can be useful for
 correlating requests and responses. Because your redirect URI can
-be guessed, using a state value can increase your assurance that
-an incoming connection is the result of an authentication request
-that you made. If you generate a random string or encode the hash of
+be guessed, using a state value can increase your assurance that an
+incoming connection is the result of an authentication request that
+you made. If you generate a random string or encode the hash of
 some client state (e.g., a cookie) in this state variable, you can
 validate the response to additionally ensure that the request and
 response originated in the same browser. This provides protection
@@ -958,12 +959,12 @@ against attacks such as cross-site request forgery.</p>
                         <p>The second and final step in the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
 
 <p>After you open the URL from
-<code>makeAuthorizationURL(redirectURI:scopes:showDialog:state:)</code>
-and the user either authorizes or denies authorization for your app,
-Spotify will redirect to the redirect URI you specified with query
-parameters appended to it. Pass this URL into this method to request
-access and refresh tokens. The access token is required for all endpoints,
-even those that do not access user data.</p>
+<code>makeAuthorizationURL(redirectURI:scopes:showDialog:state:)</code> and the user
+either authorizes or denies authorization for your app, Spotify will
+redirect to the redirect URI you specified with query parameters appended
+to it. Pass this URL into this method to request access and refresh tokens.
+The access token is required for all endpoints, even those that do not
+access user data.</p>
 
 <p>If the user denied your app&rsquo;s authorization request or the request failed
 for some other reason, then <code><a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code> will be thrown to
@@ -973,14 +974,13 @@ error to check if the user denied your app&rsquo;s authorization request.</p>
 <p>If the request for the access and refresh tokens succeeds, <code>self.didChange</code>
 will emit a signal, which causes <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">SpotifyAPI.authorizationManagerDidChange</a></code>
 to emit a signal.</p>
-<h1 id='warning' class='heading'>Warning:</h1>
+<h1 id='warning' class='heading'>Warning</h1>
 
-<p>All of these values will be automatically percent-encoded.
-Therefore, do not percent-encode them yourself before passing them
-into this method.</p>
+<p>All of these values will be automatically percent-encoded. Therefore, do
+not percent-encode them yourself before passing them into this method.</p>
 
 <ul>
-<li>Tag: requestAccessAndRefreshTokens-redirectURIWithQuery</li>
+<li><p>Tag: requestAccessAndRefreshTokens-redirectURIWithQuery</p></li>
 </ul>
 
                       </div>
@@ -1007,8 +1007,8 @@ into this method.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The redirect URI with query parameters appended to
-it.</p>
+                                  <p>The redirect URI with query parameters appended
+to it.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1020,17 +1020,18 @@ it.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The value of the state parameter that you provided when
-making the authorization URL. The state can be useful for
-correlating requests and responses. Because your redirect URI can
-be guessed, using a state value can increase your assurance that
-an incoming connection is the result of an authentication request
-that you made. <strong>If the state parameter in the query string of</strong>
-<code>redirectURIWithQuery</code> <strong>doesn&rsquo;t match this value, then an error will</strong>
-<strong>be thrown.</strong> If <code>nil</code>, then the state parameter must not be present
-in <code>redirectURIWithQuery</code> either, otherwise an error will be thrown.
-After this request has been made, you should generate a new value
-for this parameter in preparation for the next authorization process.</p>
+                                  <p>The value of the state parameter that you provided when making
+the authorization URL. The state can be useful for correlating
+requests and responses. Because your redirect URI can be guessed,
+using a state value can increase your assurance that an incoming
+connection is the result of an authentication request that you
+made. <strong>If the state parameter in the query string of</strong>
+<code>redirectURIWithQuery</code> <strong>doesn&rsquo;t match this value, then an error</strong>
+<strong>will be thrown.</strong> If <code>nil</code>, then the state parameter must not be
+present in <code>redirectURIWithQuery</code> either, otherwise an error will
+be thrown. After this request has been made, you should generate a
+new value for this parameter in preparation for the next
+authorization process.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1064,8 +1065,8 @@ to emit a signal.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
 <p>Calling this method is thread-safe. If a network request to refresh the
-tokens is already in progress, additional calls will return a reference
-to the same publisher as a class instance.</p>
+tokens is already in progress, additional calls will return a reference to
+the same publisher as a class instance.</p>
 
 <p><strong>However</strong>, no guarantees are made about the thread that the publisher
 returned by this method will emit on.</p>
@@ -1106,13 +1107,12 @@ returned by this method will emit on.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The tolerance in seconds to use when determining
-if the token is expired. Defaults to 120, meaning that
-a new token will be retrieved if the current one has expired
-or will expire in the next two minutes. The token is
-considered expired if <code>expirationDate</code> - <code>tolerance</code> is
-equal to or before the current date. This parameter has
-no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
+                                  <p>The tolerance in seconds to use when determining if the
+token is expired. Defaults to 120, meaning that a new token will be
+retrieved if the current one has expired or will expire in the next
+two minutes. The token is considered expired if <code>expirationDate</code> -
+<code>tolerance</code> is equal to or before the current date. This parameter
+has no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1127,7 +1127,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-03)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

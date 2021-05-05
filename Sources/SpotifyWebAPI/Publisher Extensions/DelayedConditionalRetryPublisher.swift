@@ -117,7 +117,7 @@ extension Publishers {
     }
     
     static let retryQueue = DispatchQueue(
-        label: "DelayedConditionalRetry"
+        label: "SpotifyAPI.DelayedConditionalRetry"
     )
 
 }

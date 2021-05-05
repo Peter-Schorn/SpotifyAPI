@@ -25,9 +25,10 @@ import FoundationNetworking
  that require authorization scopes if you are using an authorization manager
  that doesn't support them.
  
- `AuthorizationCodeFlowManager` and `AuthorizationCodeFlowPKCEManager`
- conform to `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowManager`
- is not a conforming type because it does not support authorization scopes.
+ `AuthorizationCodeFlowBackendManager` and
+ `AuthorizationCodeFlowPKCEBackendManager` conform to
+ `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowBackendManager` is
+ not a conforming type because it does not support authorization scopes.
  
  All of the endpoints are documented at the the [web API reference][1].
  

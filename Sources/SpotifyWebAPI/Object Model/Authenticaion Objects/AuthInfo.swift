@@ -8,7 +8,7 @@ import Foundation
  
  * When decoding the respose after requesting the access and refresh tokens
  * When decoding the response after refreshing the tokens
- * As a wrapper for decoding and encoding the authorization information.
+ * As a wrapper for decoding and encoding the authorization managers.
  
  Because of its diverse uses, all of its properties are optional, which means
  that it will never fail to decode itself from data, so be careful about
@@ -38,6 +38,15 @@ public struct AuthInfo: Hashable {
     /// The scopes that have been authorized for the access token.
     public let scopes: Set<Scope>?
 
+    /**
+     Creates an instance that holds the authorization information.
+
+     - Parameters:
+       - accessToken: The access token.
+       - refreshToken: The refresh token.
+       - expirationDate: The expiration date.
+       - scopes: The authorization Scopes.
+     */
     public init(
         accessToken: String?,
         refreshToken: String?,

@@ -6,10 +6,10 @@ import Foundation
  the process of authorizing your app.
 
  This error will only be thrown during the process of requesting access and
- refresh tokens using `AuthorizationCodeFlowManager` or
- `AuthorizationCodeFlowPKCEManager`. More specifically, it is created from the
- "error" (and possibly the "state") parameter of the query string of the
- redirect URI. It is *not* decoded from the response body of a request.
+ refresh tokens using `AuthorizationCodeFlowBackendManager` or
+ `AuthorizationCodeFlowPKCEBackendManager`. More specifically, it is created
+ from the "error" (and possibly the "state") parameter of the query string of
+ the redirect URI. It is *not* decoded from the response body of a request.
  
  Do not confuse this with `SpotifyAuthenticationError`. See also:
  

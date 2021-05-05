@@ -11,7 +11,7 @@ public struct SpotifyAPILogHandler: LogHandler {
     private static var handlerIsInitialized = false
     
     private static let initializeHandlerDispatchQueue = DispatchQueue(
-        label: "SpotifyAPILogHandler.initializeHandler"
+        label: "SpotifyAPI.SpotifyAPILogHandler.initializeHandler"
     )
     
     /**

@@ -3,18 +3,14 @@ import Foundation
 #if !os(macOS)
 
 /// A stub for compilation.
-@usableFromInline
 class NSDistributedLock {
     
     init?(path: String) { return nil }
     
-    @usableFromInline
     func `try`() -> Bool { return false }
 
-    @usableFromInline
     func unlock() { }
-    
-    @usableFromInline
+
     var lockDate: Date { Date() }
 
 }
@@ -79,10 +75,8 @@ public struct DistributedLock {
     /// The path to the file that is used for this lock.
     public let path: String?
 
-    @usableFromInline
     let _lock: NSDistributedLock?
     
-    @usableFromInline
     let queue: DispatchQueue
 
     private init(name: String) {
@@ -106,7 +100,6 @@ public struct DistributedLock {
     // MARK: - Locking
 
     /// Polls the lock at an interval of 0.5 seconds until it is aquired.
-    @inlinable @inline(__always)
     public func lock() {
         self.queue.sync {
             guard let lock = self._lock else {
@@ -124,7 +117,6 @@ public struct DistributedLock {
     }
     
     /// Unlocks the lock.
-    @inlinable @inline(__always)
     public func unlock() {
         self.queue.sync {
             if let lock = self._lock {

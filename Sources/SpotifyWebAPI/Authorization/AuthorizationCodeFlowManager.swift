@@ -16,7 +16,7 @@ import FoundationNetworking
  Manages the authorization process for the [Authorization Code Flow][1].
  
  For applications where it is unsafe to store your client secret, consider
- using `AuthorizationCodeFlowPKCEManager`, which manages the
+ using `AuthorizationCodeFlowPKCEBackendManager`, which manages the
  [Authorization Code Flow with Proof Key for Code Exchange][2]; it provides
  an additional layer of security.
  
@@ -108,7 +108,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][3] for more
+     information to persistent storage. See this [article][2] for more
      information.
      
      - Parameters:
@@ -121,8 +121,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
              `AuthorizationCodeFlowBackend` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: https://developer.spotify.com/dashboard/login
-     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(backend: Backend) {
         super.init(backend: backend)
@@ -141,11 +140,11 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`.
      This class will store your client id and client secret locally.
     
-     You are discouraged from individually saving the properties of this instance
-     to persistent storage and then retrieving them later and passing them into
-     this initializer. Instead, encode this entire instance to data using a
-     `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][3] for more
+     You are discouraged from individually saving the properties of this
+     instance to persistent storage and then retrieving them later and passing
+     them into this initializer. Instead, encode this entire instance to data
+     using a `JSONEncoder` and then decode the data from storage later. See
+     [Saving authorization information to persistent storage][2] for more
      information.
      
      - Parameters:
@@ -158,17 +157,16 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
              `AuthorizationCodeFlowBackend` for more information.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - refreshToken: The refresh token. If `nil` (not recommended), then it will
-             not be possible to automatically refresh the access token when it
-             expires; instead, you will have to go through the authorization process
-             again, as described in the README in the root directory of this package.
-             Use `accessTokenIsExpired(tolerance:)` to check if the access token is
-             expired.
+       - refreshToken: The refresh token. If `nil` (not recommended), then it
+             will not be possible to automatically refresh the access token when
+             it expires; instead, you will have to go through the authorization
+             process again, as described in the README in the root directory of
+             this package. Use `accessTokenIsExpired(tolerance:)` to check if
+             the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-     [2]: https://developer.spotify.com/dashboard/login
-     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public convenience init(
         backend: Backend,
@@ -184,7 +182,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         self._scopes = scopes
     }
     
-    // MARK: - Codable
+    // MARK: - Codable, Hashable, CustomStringConvertable
     
     /// :nodoc:
     public required override init(from decoder: Decoder) throws {
@@ -238,28 +236,27 @@ public extension AuthorizationCodeFlowBackendManager {
      displays a permissions dialog to the user. Open the URL in a
      browser/webview so that the user can login to their Spotify account and
      authorize your app.
-     
+
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
      appended to it. Pass that URL into
      `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to complete
      the authorization process.
      
-     # Warning:
+     # Warning
      
      **DO NOT add a forward-slash to the end of the redirect URI**.
      
-     All of these values will be automatically percent-encoded.
-     Therefore, do not percent-encode them yourself before passing them
-     into this method.
+     All of these values will be automatically percent-encoded. Therefore, do
+     not percent-encode them yourself before passing them into this method.
 
      - Parameters:
-       - redirectURI: The location that Spotify will redirect to
-             after the user authorizes or denies authorization for your app.
-             Usually, this should be a custom URL scheme that redirects to a
-             location in your app. This URI needs to have been entered in the
-             Redirect URI whitelist that you specified when you
-             [registered your application][2].
+       - redirectURI: The location that Spotify will redirect to after the user
+             authorizes or denies authorization for your app. Usually, this
+             should be a custom URL scheme that redirects to a location in your
+             app. This URI needs to have been entered in the Redirect URI
+             whitelist that you specified when you [registered your
+             application][2].
        - showDialog: Whether or not to force the user to approve the app again
              if they’ve already done so. If `false`, a user who has already
              approved the application may be automatically redirected to the
@@ -270,9 +267,9 @@ public extension AuthorizationCodeFlowBackendManager {
              `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
              **otherwise an error will be thrown.** The state can be useful for
              correlating requests and responses. Because your redirect URI can
-             be guessed, using a state value can increase your assurance that
-             an incoming connection is the result of an authentication request
-             that you made. If you generate a random string or encode the hash of
+             be guessed, using a state value can increase your assurance that an
+             incoming connection is the result of an authentication request that
+             you made. If you generate a random string or encode the hash of
              some client state (e.g., a cookie) in this state variable, you can
              validate the response to additionally ensure that the request and
              response originated in the same browser. This provides protection
@@ -314,42 +311,42 @@ public extension AuthorizationCodeFlowBackendManager {
      The second and final step in the [Authorization Code Flow][1].
      
      After you open the URL from
-     `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)`
-     and the user either authorizes or denies authorization for your app,
-     Spotify will redirect to the redirect URI you specified with query
-     parameters appended to it. Pass this URL into this method to request
-     access and refresh tokens. The access token is required for all endpoints,
-     even those that do not access user data.
-     
+     `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)` and the user
+     either authorizes or denies authorization for your app, Spotify will
+     redirect to the redirect URI you specified with query parameters appended
+     to it. Pass this URL into this method to request access and refresh tokens.
+     The access token is required for all endpoints, even those that do not
+     access user data.
+
      If the user denied your app's authorization request or the request failed
      for some other reason, then `SpotifyAuthorizationError` will be thrown to
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
-     
+
      If the request for the access and refresh tokens succeeds, `self.didChange`
      will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
      to emit a signal.
      
+     # Warning
+     
+     All of these values will be automatically percent-encoded. Therefore, do
+     not percent-encode them yourself before passing them into this method.
+
      - Parameters:
-       - redirectURIWithQuery: The redirect URI with query parameters appended to
-             it.
-       - state: The value of the state parameter that you provided when
-             making the authorization URL. The state can be useful for
-             correlating requests and responses. Because your redirect URI can
-             be guessed, using a state value can increase your assurance that
-             an incoming connection is the result of an authentication request
-             that you made. **If the state parameter in the query string of**
-             `redirectURIWithQuery` **doesn't match this value, then an error will**
-             **be thrown.** If `nil`, then the state parameter must not be present
-             in `redirectURIWithQuery` either, otherwise an error will be thrown.
-             After this request has been made, you should generate a new value
-             for this parameter in preparation for the next authorization process.
-     
-     # Warning:
-     
-     All of these values will be automatically percent-encoded.
-     Therefore, do not percent-encode them yourself before passing them
-     into this method.
+       - redirectURIWithQuery: The redirect URI with query parameters appended
+             to it.
+       - state: The value of the state parameter that you provided when making
+             the authorization URL. The state can be useful for correlating
+             requests and responses. Because your redirect URI can be guessed,
+             using a state value can increase your assurance that an incoming
+             connection is the result of an authentication request that you
+             made. **If the state parameter in the query string of**
+             `redirectURIWithQuery` **doesn't match this value, then an error**
+             **will be thrown.** If `nil`, then the state parameter must not be
+             present in `redirectURIWithQuery` either, otherwise an error will
+             be thrown. After this request has been made, you should generate a
+             new value for this parameter in preparation for the next
+             authorization process.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      
@@ -443,7 +440,7 @@ public extension AuthorizationCodeFlowBackendManager {
     
      **You shouldn't need to call this method**. It gets called automatically
      each time you make a request to the Spotify API.
-     
+
      If the access and/or refresh tokens are refreshed, then `self.didChange`
      will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
      to emit a signal.
@@ -451,21 +448,20 @@ public extension AuthorizationCodeFlowBackendManager {
      # Thread Safety
      
      Calling this method is thread-safe. If a network request to refresh the
-     tokens is already in progress, additional calls will return a reference
-     to the same publisher as a class instance.
-     
+     tokens is already in progress, additional calls will return a reference to
+     the same publisher as a class instance.
+
      **However**, no guarantees are made about the thread that the publisher
      returned by this method will emit on.
      
      - Parameters:
        - onlyIfExpired: Only refresh the access token if it is expired.
-       - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 120, meaning that
-             a new token will be retrieved if the current one has expired
-             or will expire in the next two minutes. The token is
-             considered expired if `expirationDate` - `tolerance` is
-             equal to or before the current date. This parameter has
-             no effect if `onlyIfExpired` is `false`.
+       - tolerance: The tolerance in seconds to use when determining if the
+             token is expired. Defaults to 120, meaning that a new token will be
+             retrieved if the current one has expired or will expire in the next
+             two minutes. The token is considered expired if `expirationDate` -
+             `tolerance` is equal to or before the current date. This parameter
+             has no effect if `onlyIfExpired` is `false`.
      */
     func refreshTokens(
         onlyIfExpired: Bool,
@@ -566,6 +562,8 @@ public extension AuthorizationCodeFlowBackendManager {
 
 extension AuthorizationCodeFlowBackendManager: Hashable {
 
+    // MARK: - Hashable
+
     /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowBackendManager,
@@ -653,9 +651,9 @@ public final class AuthorizationCodeFlowManager:
     /**
      Creates an authorization manager for the [Authorization Code Flow][1].
      
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][2] and create an app. see the README in the
-     root directory of this package for more information.
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][2] and create an app. see the README in the root directory of
+     this package for more information.
      
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
@@ -693,16 +691,16 @@ public final class AuthorizationCodeFlowManager:
      **authorization information from an external source.** Otherwise, use
      `init(clientId:clientSecret:)`.
     
-     You are discouraged from individually saving the properties of this instance
-     to persistent storage and then retrieving them later and passing them into
-     this initializer. Instead, encode this entire instance to data using a
-     `JSONEncoder` and then decode the data from storage later. See
+     You are discouraged from individually saving the properties of this
+     instance to persistent storage and then retrieving them later and passing
+     them into this initializer. Instead, encode this entire instance to data
+     using a `JSONEncoder` and then decode the data from storage later. See
      [Saving authorization information to persistent storage][3] for more
      information.
      
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][2] and create an app. see the README in the root
-     directory of this package for more information.
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][2] and create an app. see the README in the root directory of
+     this package for more information.
      
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -711,12 +709,12 @@ public final class AuthorizationCodeFlowManager:
              your application][4].
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
-       - refreshToken: The refresh token. If `nil` (not recommended), then it will
-             not be possible to automatically refresh the access token when it
-             expires; instead, you will have to go through the authorization process
-             again, as described in the README in the root directory of this package.
-             Use `accessTokenIsExpired(tolerance:)` to check if the access token is
-             expired.
+       - refreshToken: The refresh token. If `nil` (not recommended), then it
+             will not be possible to automatically refresh the access token when
+             it expires; instead, you will have to go through the authorization
+             process again, as described in the README in the root directory of
+             this package. Use `accessTokenIsExpired(tolerance:)` to check if
+             the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow

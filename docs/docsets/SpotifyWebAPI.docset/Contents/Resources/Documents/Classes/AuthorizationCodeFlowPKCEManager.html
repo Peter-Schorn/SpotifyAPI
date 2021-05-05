@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowPKCEManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (95% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -66,6 +66,29 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authorization%20Backends.html">Authorization Backends</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
               </li>
             </ul>
           </li>
@@ -317,6 +340,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -377,6 +414,15 @@
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -388,6 +434,27 @@
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -395,6 +462,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -431,10 +501,7 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span>
-    <span class="kt"><a href="../Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a></span><span class="p">,</span>
-    <span class="kt"><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+    <span class="kt"><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a></span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
@@ -443,48 +510,26 @@
 
 <p>The authorization code flow with PKCE is the best option for mobile and desktop
 applications where it is unsafe to store your client secret. It provides an
-additional layer of security compared to the authorization code flow. For further
-information about this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
+additional layer of security compared to the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">authorization code flow</a>. For
+further information about this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
 
-<p>Before each authentication request your app should generate a code verifier and
-a code challenge. The code verifier is a cryptographically random string between
-43 and 128 characters in length. It can contain letters, digits, underscores,
-periods, hyphens, or tildes.</p>
+<p>This class stores the client id locally. Consider using
+<code><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager&lt;AuthorizationCodeFlowPKCEProxyBackend&gt;</a></code>,
+which allows you to setup a custom backend server that can store these
+sensitive credentials and which communicates with Spotify on your behalf in
+order to retrieve the authoriztion information.</p>
+<h1 id='authorization' class='heading'>Authorization</h1>
 
-<p>In order to generate the code challenge, your app should hash the code verifier
-using the SHA256 algorithm. Then, <a href="https://tools.ietf.org/html/rfc4648#section-5">base64url</a> encode the hash that you generated.
-<strong>Do not include any</strong> <code>=</code> <strong>padding characters</strong> (percent-encoded or not).</p>
-
-<p>You can use <code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6length5usingSSSi_xztSGRzlFZ">String.randomURLSafe(length:using:)</a></code> or
-<code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6lengthSSSi_tFZ">String.randomURLSafe(length:)</a></code> to generate the code verifier. You can Use the
-<code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE17makeCodeChallengeSSyF">String.makeCodeChallenge()</a></code> instance method to create the code challenge
-from the code verifier. For example:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">codeVerifier</span> <span class="o">=</span> <span class="kt">String</span><span class="o">.</span><span class="nf">randomURLSafe</span><span class="p">(</span><span class="nv">length</span><span class="p">:</span> <span class="mi">128</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">codeChallenge</span> <span class="o">=</span> <span class="n">codeVerifier</span><span class="o">.</span><span class="nf">makeCodeChallenge</span><span class="p">()</span>
-</code></pre>
-
-<p>If you use your own method to create these values, you can validate them
-using this <a href="https://tonyxu-io.github.io/pkce-generator/">PKCE generator tool</a>. See also <code><a href="../Extensions/Data.html#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF">Data.base64URLEncodedString()</a></code>
-and <code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE17urlSafeCharactersSSvpZ">String.urlSafeCharacters</a></code>.</p>
-
-<p>The first step in the authorization process is to make the authorization
-URL using
-<code>makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)</code>.
-Open this URL in a browser/webview to allow the user to login
-to their Spotify account and authorize your application. It displays a
-permissions dialog to the user.</p>
+<p>The first step in the authorization process is to create the authorization URL
+using <code>makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)</code>. It
+displays a permissions dialog to the user. Open the URL in a browser/webview so
+that the user can login to their Spotify account and authorize your app.</p>
 
 <p>After the user either authorizes or denies authorization for your application,
-Spotify will redirect to the redirect URI specified in the authorization
-URL with query parameters appended to it. Pass this URL into
-<code>requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</code>
-to request the refresh and access tokens. After that, you can begin making
-requests to the Spotify API. The access token will be refreshed for you
-automatically when needed.</p>
-
-<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+Spotify will redirect to <code>redirectURI</code> with query parameters appended to it.
+Pass that URL into
+<code>requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</code> to
+complete the authorization process.</p>
 
 <p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
 for the specified scopes.</p>
@@ -492,17 +537,11 @@ for the specified scopes.</p>
 <p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
 and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
 which are immutable.</p>
+<h1 id='persistant-storage' class='heading'>Persistant Storage</h1>
 
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The refresh token</li>
-<li>The expiration date for the access token</li>
-<li>The scopes that have been authorized for the access token</li>
-</ul>
+<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
           </section>
           <section class="section task-group-section">
@@ -511,9 +550,9 @@ which are immutable.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC6logger7Logging6LoggerVvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/logger" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC6logger7Logging6LoggerVvpZ">logger</a>
+                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientIdSSvp"></a>
+                    <a name="//apple_ref/swift/Property/clientId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientIdSSvp">clientId</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -521,14 +560,14 @@ which are immutable.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The logger for this class.</p>
+                        <p>The client id that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your application</a>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -538,9 +577,9 @@ which are immutable.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId0H6Secret14networkAdaptorACSS_SS7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAJ10URLRequestVcSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(clientId:clientSecret:networkAdaptor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId0H6Secret14networkAdaptorACSS_SS7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAJ10URLRequestVcSgtcfc">init(clientId:<wbr>clientSecret:<wbr>networkAdaptor:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientIdACSS_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clientId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientIdACSS_tcfc">init(clientId:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -551,26 +590,21 @@ which are immutable.</p>
                         <p>Creates an authorization manager for the
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
 
-<p>To get a client id and client secret, go to the
-<a href="https://developer.spotify.com/dashboard/login">Spotify Developer Dashboard</a> and create an app.
-see the README in the root directory of this package for more information.</p>
+<p>To get a client id and client secret, go to the <a href="https://developer.spotify.com/dashboard/login">Spotify Developer
+Dashboard</a> and create an app. see the README in the root directory of
+this package for more information.</p>
 
 <p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more
+information.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">networkAdaptor</span><span class="p">:</span> <span class="p">(</span>
-        <span class="p">(</span><span class="kt">URLRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span>
-    <span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -586,37 +620,8 @@ See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authori
                               </td>
                               <td>
                                 <div>
-                                  <p>The client id for your application.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>clientSecret</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The client secret for your application.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>networkAdaptor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A function that gets called every time this class—and
-only this class—needs to make a network request. Use this
-function if you need to use a custom networking client. The <code>url</code>
-and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are
-guaranteed to be non-<code>nil</code>. No guarantees are made about which
-thread this function will be called on. The default is <code>nil</code>,
-in which case <code>URLSession</code> will be used for the network requests.</p>
+                                  <p>The client id that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your
+application</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -629,9 +634,9 @@ in which case <code>URLSession</code> will be used for the network requests.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopes14networkAdaptorACSS_S2S10Foundation0N0VSSSgShyAA5ScopeOG7Combine12AnyPublisherVyAK4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAK10URLRequestVcSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(clientId:clientSecret:accessToken:expirationDate:refreshToken:scopes:networkAdaptor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId0H6Secret11accessToken14expirationDate07refreshL06scopes14networkAdaptorACSS_S2S10Foundation0N0VSSSgShyAA5ScopeOG7Combine12AnyPublisherVyAK4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAK10URLRequestVcSgtcfc">init(clientId:<wbr>clientSecret:<wbr>accessToken:<wbr>expirationDate:<wbr>refreshToken:<wbr>scopes:<wbr>networkAdaptor:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId11accessToken14expirationDate07refreshK06scopesACSS_SS10Foundation0M0VSSSgShyAA5ScopeOGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clientId:accessToken:expirationDate:refreshToken:scopes:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId11accessToken14expirationDate07refreshK06scopesACSS_SS10Foundation0M0VSSSgShyAA5ScopeOGtcfc">init(clientId:<wbr>accessToken:<wbr>expirationDate:<wbr>refreshToken:<wbr>scopes:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -644,7 +649,7 @@ in which case <code>URLSession</code> will be used for the network requests.</p>
 
 <p><strong>In general, only use this initializer if you have retrieved the</strong>
 <strong>authorization information from an external source.</strong> Otherwise, use
-<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientId0H6Secret14networkAdaptorACSS_SS7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAJ10URLRequestVcSgtcfc">init(clientId:clientSecret:networkAdaptor:)</a></code>.</p>
+<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC8clientIdACSS_tcfc">init(clientId:)</a></code>.</p>
 
 <p>You are discouraged from individually saving the properties of this instance
 to persistent storage and then retrieving them later and passing them into
@@ -664,14 +669,10 @@ directory of this package for more information.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">expirationDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span>
     <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span><span class="p">,</span>
-    <span class="nv">networkAdaptor</span><span class="p">:</span> <span class="p">(</span>
-        <span class="p">(</span><span class="kt">URLRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span>
-    <span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -688,19 +689,8 @@ directory of this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The client id for your application.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>clientSecret</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The client secret for your application.</p>
+                                  <p>The client id that you received when you <a href="https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app">registered your
+application</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -736,12 +726,12 @@ directory of this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The refresh token. If <code>nil</code> (not recommended), then it will
-not be possible to automatically refresh the access token when it
-expires; instead, you will have to go through the authorization process
-again, as described in the README in the root directory of this package.
-Use <code>accessTokenIsExpired(tolerance:)</code> to check if the access token is
-expired.</p>
+                                  <p>The refresh token. If <code>nil</code> (not recommended), then it
+will not be possible to automatically refresh the access token when
+it expires; instead, you will have to go through the authorization
+process again, as described in the README in the root directory of
+this package. Use <code>accessTokenIsExpired(tolerance:)</code> to check if
+the access token is expired.</p>
                                 </div>
                               </td>
                             </tr>
@@ -757,387 +747,6 @@ expired.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>networkAdaptor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A function that gets called every time this class—and
-only this class—needs to make a network request. Use this
-function if you need to use a custom networking client. The <code>url</code>
-and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are
-guaranteed to be non-<code>nil</code>. No guarantees are made about which
-thread this function will be called on. The default is <code>nil</code>,
-in which case <code>URLSession</code> will be used for the network requests.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Authorization"></a>
-                <a name="//apple_ref/swift/Section/Authorization" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Authorization"></a>
-                  <h3 class="section-name"><p>Authorization</p>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI13codeChallenge5state6scopes10Foundation0I0VSgAK_S2SSgShyAA5ScopeOGtF"></a>
-                    <a name="//apple_ref/swift/Method/makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI13codeChallenge5state6scopes10Foundation0I0VSgAK_S2SSgShyAA5ScopeOGtF">makeAuthorizationURL(redirectURI:<wbr>codeChallenge:<wbr>state:<wbr>scopes:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The first step in the authorization process for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
-
-<p>Creates the URL that is used to request authorization for your app. It
-displays a permissions dialog to the user. Open the URL in a
-browser/webview so that the user can login to their Spotify account and
-authorize your app.</p>
-
-<p>Before each authentication request your app should generate a code verifier
-and a code challenge. The code verifier is a cryptographically random string
-between 43 and 128 characters in length. It can contain letters, digits,
-underscores, periods, hyphens, or tildes.</p>
-
-<p>In order to generate the code challenge, your app should hash the code verifier
-using the SHA256 algorithm. Then, <a href="https://tools.ietf.org/html/rfc4648#section-5">base64url</a> encode the hash that you
-generated.  <strong>Do not include any</strong> <code>=</code> <strong>padding characters</strong>
-(percent-encoded or not).</p>
-
-<p>You can use <code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6length5usingSSSi_xztSGRzlFZ">String.randomURLSafe(length:using:)</a></code> or
-<code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6lengthSSSi_tFZ">String.randomURLSafe(length:)</a></code> to generate the code verifier. You can Use the
-<code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE17makeCodeChallengeSSyF">String.makeCodeChallenge()</a></code> instance method to create the code challenge
-from the code verifier. For example:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">codeVerifier</span> <span class="o">=</span> <span class="kt">String</span><span class="o">.</span><span class="nf">randomURLSafe</span><span class="p">(</span><span class="nv">length</span><span class="p">:</span> <span class="mi">128</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">codeChallenge</span> <span class="o">=</span> <span class="n">codeVerifier</span><span class="o">.</span><span class="nf">makeCodeChallenge</span><span class="p">()</span>
-</code></pre>
-
-<p>If you use your own method to create these values, you can validate them
-using this <a href="https://tonyxu-io.github.io/pkce-generator/">PKCE generator tool</a>. See also <code><a href="../Extensions/Data.html#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF">Data.base64URLEncodedString()</a></code>
-and <code><a href="../Extensions/String.html#/s:SS13SpotifyWebAPIE17urlSafeCharactersSSvpZ">String.urlSafeCharacters</a></code>.</p>
-
-<p>After the user either authorizes or denies authorization for your
-application, Spotify will redirect to <code>redirectURI</code> with query parameters
-appended to it. Pass that URL into
-<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a></code>
-to complete the authorization process.</p>
-<h1 id='warning' class='heading'>Warning:</h1>
-
-<p><strong>DO NOT add a forward-slash to the end of the redirect URI</strong>.</p>
-
-<p>All of these values will be automatically percent-encoded.
-Therefore, do not percent-encode them yourself before passing them
-into this method.</p>
-
-<ul>
-<li><p>Tag: PKCEmakeAuthorizationURL</p></li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeAuthorizationURL</span><span class="p">(</span>
-    <span class="nv">redirectURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
-    <span class="nv">codeChallenge</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">scopes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Scope.html">Scope</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>redirectURI</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The location that Spotify will redirect to
-after the user authorizes or denies authorization for your app.
-Usually, this should be a custom URL scheme that redirects to a
-location in your app. This URI needs to have been entered in the
-Redirect URI whitelist that you specified when you
-<a href="https://developer.spotify.com/dashboard/applications">registered your application</a>.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>codeChallenge</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The code challenge. See above.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>state</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Optional, but strongly recommended. <strong>If you provide a value</strong>
-<strong>for this parameter, you must pass the same value to</strong>
-<code><a href="../Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</a></code>,
-<strong>otherwise an error will be thrown.</strong> The state can be useful for
-correlating requests and responses. Because your redirect URI can
-be guessed, using a state value can increase your assurance that
-an incoming connection is the result of an authentication request
-that you made. If you generate a random string or encode the hash of
-some client state (e.g., a cookie) in this state variable, you can
-validate the response to additionally ensure that the request and
-response originated in the same browser. This provides protection
-against attacks such as cross-site request forgery.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>scopes</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A set of <a href="https://developer.spotify.com/documentation/general/guides/scopes/">Spotify Authorization scopes</a>.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The URL that must be opened to authorize your app. May return
-  <code>nil</code> if the URL could not be created.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF"></a>
-                    <a name="//apple_ref/swift/Method/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF">requestAccessAndRefreshTokens(redirectURIWithQuery:<wbr>codeVerifier:<wbr>state:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The second and final step in the authorization process for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
-
-<p>After you open the URL from
-<code>makeAuthorizationURL(redirectURI:scopes:showDialog:state:)</code>
-and the user either authorizes or denies authorization for your app,
-Spotify will redirect to the redirect URI you specified with query
-parameters appended to it. Pass this URL into this method to request
-access and refresh tokens. The access token is required for all endpoints,
-even those that do not access user data.</p>
-
-<p>If the user denied your app&rsquo;s authorization request or the request failed
-for some other reason, then <code><a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code> will be thrown to
-downstream subscribers. Use the <code>accessWasDenied</code> boolean property of this
-error to check if the user denied your app&rsquo;s authorization request.</p>
-
-<p>If the request for the access and refresh tokens succeeds, <code>self.didChange</code>
-will emit a signal, which causes <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">SpotifyAPI.authorizationManagerDidChange</a></code>
-to emit a signal.</p>
-<h1 id='warning' class='heading'>Warning:</h1>
-
-<p>All of these values will be automatically percent-encoded.
-Therefore, do not percent-encode them yourself before passing them
-into this method.</p>
-
-<ul>
-<li>Tag: PKCErequestAccessAndRefreshTokens-redirectURIWithQuery</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">requestAccessAndRefreshTokens</span><span class="p">(</span>
-    <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
-    <span class="nv">codeVerifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>redirectURIWithQuery</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The redirect URI with query parameters appended to it.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>codeVerifier</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The code verifier that you generated when creating the
-authorization URL. <strong>This must be between 43 and 128 characters long.</strong>
-After this request has completed, you should generate a new
-code verifier and code challenge in preparation for the next
-authorization process.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>state</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The value of the state parameter that you provided when
-making the authorization URL. The state can be useful for
-correlating requests and responses. Because your redirect URI can
-be guessed, using a state value can increase your assurance that
-an incoming connection is the result of an authentication request
-that you made. <strong>If the state parameter in the query string of</strong>
-<code>redirectURIWithQuery</code> <strong>doesn&rsquo;t match this value, then an error will</strong>
-<strong>be thrown.</strong> If <code>nil</code>, then the state parameter must not be present
-in <code>redirectURIWithQuery</code> either, otherwise an error will be thrown.
-After this request has been made, you should generate a new value
-for this parameter in preparation for the next authorization process.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC13refreshTokens13onlyIfExpired9tolerance7Combine12AnyPublisherVyyts5Error_pGSb_SdtF"></a>
-                    <a name="//apple_ref/swift/Method/refreshTokens(onlyIfExpired:tolerance:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC13refreshTokens13onlyIfExpired9tolerance7Combine12AnyPublisherVyyts5Error_pGSb_SdtF">refreshTokens(onlyIfExpired:<wbr>tolerance:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Uses the refresh token to get a new access token.</p>
-
-<p><strong>You shouldn&rsquo;t need to call this method</strong>. It gets called automatically
-each time you make a request to the Spotify API.</p>
-
-<p>If the access and/or refresh tokens are refreshed, then <code>self.didChange</code>
-will emit a signal, which causes <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">SpotifyAPI.authorizationManagerDidChange</a></code>
-to emit a signal.</p>
-<h1 id='thread-safety' class='heading'>Thread Safety</h1>
-
-<p>Calling this method is thread-safe. If a network request to refresh the
-tokens is already in progress, additional calls will return a reference
-to the same publisher as a class instance.</p>
-
-<p><strong>However</strong>, no guarantees are made about the thread that the publisher
-returned by this method will emit on.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">refreshTokens</span><span class="p">(</span>
-    <span class="nv">onlyIfExpired</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
-    <span class="nv">tolerance</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>onlyIfExpired</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Only refresh the access token if it is expired.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>tolerance</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The tolerance in seconds to use when determining
-if the token is expired. Defaults to 120, meaning that
-a new token will be retrieved if the current one has expired
-or will expire in the next two minutes. The token is
-considered expired if <code>expirationDate</code> - <code>tolerance</code> is
-equal to or before the current date. This parameter has
-no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1149,7 +758,7 @@ no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

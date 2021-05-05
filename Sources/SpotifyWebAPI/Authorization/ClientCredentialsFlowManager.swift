@@ -187,7 +187,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     
     /// Ensure no data races occur when updating auth info.
     let updateAuthInfoQueue = DispatchQueue(
-        label: "updateAuthInfoQueue"
+        label: "SpotifyAPI.ClientCredentialsFlowBackendManager.updateAuthInfo"
     )
 
     /**
@@ -200,7 +200,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
     private let refreshTokensQueue = DispatchQueue(
-        label: "ClientCredentialsFlowManager.refrehTokens"
+        label: "SpotifyAPI.ClientCredentialsFlowBackendManager.refrehTokens"
     )
 
     // MARK: - Initializers
@@ -373,18 +373,18 @@ public extension ClientCredentialsFlowBackendManager {
     // MARK: - Authorization
     
     /**
-     Sets `accessToken` and `expirationDate` to `nil`.
-     Does not change `clientId` or `clientSecret`, which are immutable.
+     Sets `accessToken` and `expirationDate` to `nil`. Does not change
+     `clientId` or `clientSecret`, which are immutable.
 
-     After calling this method, you must authorize your application
-     again before accessing any of the Spotify web API endpoints.
-     
-     If this instance is stored in persistent storage, consider
-     removing it after calling this method.
+     After calling this method, you must authorize your application again before
+     accessing any of the Spotify web API endpoints.
 
-     Calling this method causes `didDeauthorize` to emit a signal, which
-     will also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to
-     emit a signal.
+     If this instance is stored in persistent storage, consider removing it
+     after calling this method.
+
+     Calling this method causes `didDeauthorize` to emit a signal, which will
+     also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to emit a
+     signal.
      
      # Thread Safety
      
@@ -402,14 +402,13 @@ public extension ClientCredentialsFlowBackendManager {
     }
     
     /**
-     Determines whether the access token is expired
-     within the given tolerance.
-     
+     Determines whether the access token is expired within the given tolerance.
+
      See also `isAuthorized(for:)`.
-     
-     The access token is refreshed automatically when necessary
-     before each request to the Spotify web API is made.
-     Therefore, **you should never need to call this method directly.**
+
+     The access token is refreshed automatically when necessary before each
+     request to the Spotify web API is made. Therefore, **you should never**
+     **need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds.
            Default 120.
@@ -428,14 +427,13 @@ public extension ClientCredentialsFlowBackendManager {
     }
     
     /**
-     Returns `true` if `accessToken` is not `nil` and
-     the set of scopes is empty.
+     Returns `true` if `accessToken` is not `nil` and the set of scopes is
+     empty.
      
-     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
-           This must be an empty set, or this method will return `false`
-           because the client credentials flow does not support
-           authorization scopes; it only supports endpoints that do not
-           access user data.
+     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1]. This must be
+           an empty set, or this method will return `false` because the client
+           credentials flow does not support authorization scopes; it only
+           supports endpoints that do not access user data.
      
      # Thread Safety
      
@@ -456,7 +454,7 @@ public extension ClientCredentialsFlowBackendManager {
      After this publisher finished normally, you can begin making requests to
      the Spotify web API. The access token will be automatically refreshed for
      you.
-     
+
      If the authorization request succeeds, then `self.didChange` will emit a
      signal, causing `SpotifyAPI.authorizationManagerDidChange` to emit a
      signal.
@@ -513,37 +511,35 @@ public extension ClientCredentialsFlowBackendManager {
     /**
      Retrieves a new access token.
     
-     **You shouldn't need to call this method**. It gets
-     called automatically each time you make a request to the
-     Spotify web API.
+     **You shouldn't need to call this method**. It gets called automatically
+     each time you make a request to the Spotify web API.
      
-     The [Client Credentials Flow][1] does not provide a refresh token,
-     so calling this method and passing in `false` for `onlyIfExpired`
-     is equivalent to calling `authorize`.
-     
-     If a new access token is successfully retrieved, then `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     The [Client Credentials Flow][1] does not provide a refresh token, so
+     calling this method and passing in `false` for `onlyIfExpired` is
+     equivalent to calling `authorize`.
+
+     If a new access token is successfully retrieved, then `self.didChange` will
+     emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange` to
+     emit a signal.
      
      # Thread Safety
      
      Calling this method is thread-safe. If a network request to refresh the
      tokens is already in progress, additional calls will return a reference to
      the same publisher as a class instance.
-     
+
      **However**, no guarentees are made about the thread that the publisher
      returned by this method will emit on.
 
      - Parameters:
-       - onlyIfExpired: Only retrieve a new access token if the current
-             one is expired.
-       - tolerance: The tolerance in seconds to use when determining
-             if the token is expired. Defaults to 120, meaning that
-             a new token will be retrieved if the current one has expired
-             or will expire in the next two minutes. The token is
-             considered expired if `expirationDate` - `tolerance` is
-             equal to or before the current date. This parameter has
-             no effect if `onlyIfExpired` is `false`.
+       - onlyIfExpired: Only retrieve a new access token if the current one is
+             expired.
+       - tolerance: The tolerance in seconds to use when determining if the
+             token is expired. Defaults to 120, meaning that a new token will be
+             retrieved if the current one has expired or will expire in the next
+             two minutes. The token is considered expired if `expirationDate` -
+             `tolerance` is equal to or before the current date. This parameter
+             has no effect if `onlyIfExpired` is `false`.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
@@ -591,10 +587,64 @@ public extension ClientCredentialsFlowBackendManager {
     
 }
 
-// MARK: - Private
+
+extension ClientCredentialsFlowBackendManager {
+    
+    // MARK: - Internal
+    
+    /// Used internally by this library. Do not call this method directly.
+    public func _assertNotOnUpdateAuthInfoDispatchQueue() {
+        #if DEBUG
+        dispatchPrecondition(
+            condition: .notOnQueue(self.updateAuthInfoQueue)
+        )
+        #endif
+    }
+    
+}
+
+
+extension ClientCredentialsFlowBackendManager: Hashable {
+    
+    // MARK: - Hashable
+
+    /// :nodoc:
+    public func hash(into hasher: inout Hasher) {
+        self.updateAuthInfoQueue.sync {
+            hasher.combine(self.backend)
+            hasher.combine(self._accessToken)
+            hasher.combine(self._expirationDate)
+        }
+    }
+    
+    /// :nodoc:
+    public static func == (
+        lhs: ClientCredentialsFlowBackendManager,
+        rhs: ClientCredentialsFlowBackendManager
+    ) -> Bool {
+        
+        let (lhsAccessToken, lhsExpirationDate) =
+            lhs.updateAuthInfoQueue.sync {
+                return (lhs._accessToken, lhs._expirationDate)
+            }
+        
+        let (rhsAccessToken, rhsExpirationDate) =
+            rhs.updateAuthInfoQueue.sync {
+                return (rhs._accessToken, rhs._expirationDate)
+            }
+        
+        return lhs.backend == rhs.backend &&
+            lhsAccessToken == rhsAccessToken &&
+            lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
+        
+    }
+    
+}
 
 private extension ClientCredentialsFlowBackendManager {
     
+    // MARK: - Private
+
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
         self._accessToken = authInfo.accessToken
         self._expirationDate = authInfo.expirationDate
@@ -626,63 +676,12 @@ private extension ClientCredentialsFlowBackendManager {
     
 }
 
-// MARK: - Internal
-
 extension ClientCredentialsFlowBackendManager {
     
-    public func _assertNotOnUpdateAuthInfoDispatchQueue() {
-        #if DEBUG
-        dispatchPrecondition(
-            condition: .notOnQueue(self.updateAuthInfoQueue)
-        )
-        #endif
-    }
-
-}
-
-// MARK: - Hashable and Equatable
-
-extension ClientCredentialsFlowBackendManager: Hashable {
+    // MARK: - Testing
     
-    /// :nodoc:
-    public func hash(into hasher: inout Hasher) {
-        self.updateAuthInfoQueue.sync {
-            hasher.combine(self.backend)
-            hasher.combine(self._accessToken)
-            hasher.combine(self._expirationDate)
-        }
-    }
-    
-    /// :nodoc:
-    public static func == (
-        lhs: ClientCredentialsFlowBackendManager,
-        rhs: ClientCredentialsFlowBackendManager
-    ) -> Bool {
-        
-        let (lhsAccessToken, lhsExpirationDate) =
-                lhs.updateAuthInfoQueue.sync {
-            return (lhs._accessToken, lhs._expirationDate)
-        }
-        
-        let (rhsAccessToken, rhsExpirationDate) =
-                rhs.updateAuthInfoQueue.sync {
-            return (rhs._accessToken, rhs._expirationDate)
-        }
-
-        return lhs.backend == rhs.backend &&
-                lhsAccessToken == rhsAccessToken &&
-                lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
-
-    }
-    
-}
-
-// MARK: - Testing
-
-extension ClientCredentialsFlowBackendManager {
-    
-    /// This method sets random values for various properties
-    /// for testing purposes. Do not call it outside of test cases.
+    /// This method sets random values for various properties for testing
+    /// purposes. Do not call it outside of test cases.
     func mockValues() {
         self.updateAuthInfoQueue.sync {
             self._expirationDate = Date()
@@ -706,7 +705,6 @@ extension ClientCredentialsFlowBackendManager {
     }
     
 }
-
 
 // MARK: - ClientCredentialsFlowManager -
 
@@ -858,7 +856,7 @@ public final class ClientCredentialsFlowManager:
         
     }
 
-    // :nodoc:
+    /// :nodoc:
     public override var description: String {
         return self.updateAuthInfoQueue.sync {
             let expirationDateString = self._expirationDate?
