@@ -242,7 +242,7 @@ extension SpotifyAPIEpisodeTests {
                     joeRogan1531.description,
                     """
                     Miley Cyrus is a singer-songwriter, actress, and record \
-                    producer. http://mileyl.ink/midnightsky 
+                    producer. http://mileyl.ink/midnightsky
                     """
                 )
                 XCTAssertEqual(joeRogan1531.name, "#1531 - Miley Cyrus")
