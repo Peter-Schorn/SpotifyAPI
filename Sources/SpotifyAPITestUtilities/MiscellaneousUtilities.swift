@@ -313,3 +313,22 @@ public extension String {
     }
 
 }
+
+public struct VaporServerError: Error, Codable {
+    public let reason: String
+    public let error: Bool
+}
+
+public func decodeVaporServerError(
+    data: Data, response: HTTPURLResponse
+) -> Error? {
+
+    guard response.statusCode == 400 else {
+        return nil
+    }
+    
+    return try? JSONDecoder().decode(
+        VaporServerError.self, from: data
+    )
+
+}

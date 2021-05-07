@@ -58,6 +58,8 @@ open class SpotifyAPIClientCredentialsFlowProxyTests:
                 from: encoded
             )
             Self.spotify = decoded
+            Self.spotify.authorizationManager.backend.decodeServerError =
+                decodeVaporServerError(data:response:)
 
         } catch {
             XCTFail("\(error)")
@@ -113,6 +115,8 @@ open class SpotifyAPIAuthorizationCodeFlowProxyTests:
                 from: encoded
             )
             Self.spotify = decoded
+            Self.spotify.authorizationManager.backend.decodeServerError =
+                decodeVaporServerError(data:response:)
 
         } catch {
             XCTFail("\(error)")
@@ -166,6 +170,8 @@ open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests:
                 from: encoded
             )
             Self.spotify = decoded
+            Self.spotify.authorizationManager.backend.decodeServerError =
+                    decodeVaporServerError(data:response:)
 
         } catch {
             XCTFail("\(error)")

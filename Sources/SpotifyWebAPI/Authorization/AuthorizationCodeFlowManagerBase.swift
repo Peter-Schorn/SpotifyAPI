@@ -56,8 +56,12 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      Spotify on your behalf, thereby preventing these sensitive credentials from
      being exposed in your frontend app. See `AuthorizationCodeFlowBackend` and
      `AuthorizationCodeFlowPKCEBackend` for more information.
+     
+     - Warning: Do not mutate this property when a request to retrieve
+           authorization information is in progress. Doing so is *not* thread
+           safe.
      */
-    public let backend: Backend
+    public var backend: Backend
 
     /**
      The access token used in all of the requests to the Spotify web API.

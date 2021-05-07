@@ -95,8 +95,12 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      from Spotify on your behalf, thereby preventing these sensitive credentials
      from being exposed in your frontend app. See `ClientCredentialsFlowBackend`
      for more information.
+     
+     - Warning: Do not mutate this property when a request to retrieve
+           authorization information is in progress. Doing so is *not* thread
+           safe.
      */
-    public let backend: Backend
+    public var backend: Backend
 
     /// The Spotify authorization scopes. **Always** an empty set
     /// because the client credentials flow does not support

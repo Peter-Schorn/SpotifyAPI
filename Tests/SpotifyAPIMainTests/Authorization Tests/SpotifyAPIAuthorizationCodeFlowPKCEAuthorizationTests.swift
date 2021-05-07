@@ -122,21 +122,6 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
     }
 
-    func codingSpotifyAPI() throws {
-
-        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
-
-        let decodedSpotifyAPI = try JSONDecoder().decode(
-            SpotifyAPI<AuthorizationManager>.self,
-            from: spotifyAPIData
-        )
-
-        Self.spotify = decodedSpotifyAPI
-
-        self.deauthorizeReauthorize()
-
-    }
-
     func reassigningAuthorizationManager() {
 
         var didChangeCount = 0
@@ -223,13 +208,41 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
     func refreshWithInvalidRefreshToken() {
 
+        func receiveCompletion(
+            _ completion: Subscribers.Completion<Error>
+        ) {
+            defer { expectation.fulfill() }
+            guard case .failure(let error) = completion else {
+                XCTFail("should not finish normally")
+                return
+            }
+            
+            if Self.spotify.authorizationManager is
+                    AuthorizationCodeFlowPKCEManager {
+                guard let authError = error as? SpotifyAuthenticationError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertEqual(authError.error, "invalid_grant")
+                XCTAssertEqual(authError.errorDescription, "Invalid refresh token")
+            }
+            else {
+                guard let vaporError = error as? VaporServerError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertEqual(vaporError.reason, "Bad Request")
+                XCTAssertEqual(vaporError.error, true)
+            }
+        }
+
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(
             scopes: [],
             showDialog: false
         )
 
         // make the refresh token invalid
-        Self.spotify.authorizationManager._refreshToken = ""
+        Self.spotify.authorizationManager._refreshToken = "invalidtoken"
 
         let expectation = XCTestExpectation(
             description: "refreshWithInvalidRefreshToken"
@@ -239,23 +252,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
             onlyIfExpired: false, tolerance: 120
         )
         .sink(
-            receiveCompletion: { completion in
-                defer { expectation.fulfill() }
-                guard case .failure(let error) = completion else {
-                    XCTFail("should not finish normally")
-                    return
-                }
-                guard Self.spotify.authorizationManager is
-                        AuthorizationCodeFlowPKCEManager else {
-                    return
-                }
-                guard let authError = error as? SpotifyAuthenticationError else {
-                    XCTFail("unexpected error: \(error)")
-                    return
-                }
-                XCTAssertEqual(authError.error, "invalid_grant")
-                XCTAssertEqual(authError.errorDescription, "Invalid refresh token")
-            },
+            receiveCompletion: receiveCompletion(_:),
             receiveValue: {
                 XCTFail("should not receive value")
             }
@@ -810,7 +807,18 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
 
-    func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
+    func testCodingSpotifyAPI() throws {
+        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
+        
+        let decodedSpotifyAPI = try JSONDecoder().decode(
+            SpotifyAPI<AuthorizationManager>.self,
+            from: spotifyAPIData
+        )
+        
+        Self.spotify = decodedSpotifyAPI
+        
+        self.deauthorizeReauthorize()
+    }
 
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
 
@@ -923,7 +931,22 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
 
-    func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
+    func testCodingSpotifyAPI() throws {
+        let decodeServerError = Self.spotify.authorizationManager
+            .backend.decodeServerError
+        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
+        
+        let decodedSpotifyAPI = try JSONDecoder().decode(
+            SpotifyAPI<AuthorizationManager>.self,
+            from: spotifyAPIData
+        )
+        
+        Self.spotify = decodedSpotifyAPI
+        Self.spotify.authorizationManager.backend.decodeServerError =
+            decodeServerError
+        
+        self.deauthorizeReauthorize()
+    }
 
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
 
@@ -955,7 +978,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
         let backend = AuthorizationCodeFlowPKCEProxyBackend(
             clientId: decodedAuthManager.backend.clientId,
             tokensURL: decodedAuthManager.backend.tokensURL,
-            tokenRefreshURL: decodedAuthManager.backend.tokenRefreshURL
+            tokenRefreshURL: decodedAuthManager.backend.tokenRefreshURL,
+            decodeServerError: decodedAuthManager.backend.decodeServerError
         )
 
         let newAuthorizationManager = AuthorizationCodeFlowPKCEBackendManager(

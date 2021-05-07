@@ -33,7 +33,8 @@ public extension SpotifyAPI where
             backend: AuthorizationCodeFlowProxyBackend(
                 clientId: spotifyCredentials.clientId,
                 tokensURL: authorizationCodeFlowTokensURL,
-                tokenRefreshURL: authorizationCodeFlowRefreshTokensURL
+                tokenRefreshURL: authorizationCodeFlowRefreshTokensURL,
+                decodeServerError: decodeVaporServerError(data:response:)
             )
         )
     )

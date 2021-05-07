@@ -72,21 +72,6 @@ extension SpotifyAPIClientCredentialsFlowAuthorizationTests {
         
     }
     
-    func codingSpotifyAPI() throws {
-        
-        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
-        
-        let decodedSpotifyAPI = try JSONDecoder().decode(
-            SpotifyAPI<AuthorizationManager>.self,
-            from: spotifyAPIData
-        )
-        
-        Self.spotify = decodedSpotifyAPI
-        
-        self.deauthorizeReauthorize()
-        
-    }
-    
     func reassigningAuthorizationManager() {
         
         var didChangeCount = 0
@@ -214,7 +199,18 @@ final class SpotifyAPIClientCredentialsFlowClientAuthorizationTests:
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
 
-    func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
+    func testCodingSpotifyAPI() throws {
+        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
+        
+        let decodedSpotifyAPI = try JSONDecoder().decode(
+            SpotifyAPI<AuthorizationManager>.self,
+            from: spotifyAPIData
+        )
+        
+        Self.spotify = decodedSpotifyAPI
+        
+        self.deauthorizeReauthorize()
+    }
 
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
     
@@ -291,7 +287,23 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
 
     func testDeauthorizeReauthorize() { deauthorizeReauthorize() }
 
-    func testCodingSpotifyAPI() throws { try codingSpotifyAPI() }
+    func testCodingSpotifyAPI() throws {
+        
+        let decodeServerError = Self.spotify.authorizationManager
+            .backend.decodeServerError
+        let spotifyAPIData = try JSONEncoder().encode(Self.spotify)
+        
+        let decodedSpotifyAPI = try JSONDecoder().decode(
+            SpotifyAPI<AuthorizationManager>.self,
+            from: spotifyAPIData
+        )
+        
+        Self.spotify = decodedSpotifyAPI
+        Self.spotify.authorizationManager.backend.decodeServerError =
+            decodeServerError
+        
+        self.deauthorizeReauthorize()
+    }
 
     func testReassigningAuthorizationManager() { reassigningAuthorizationManager() }
 
@@ -318,7 +330,8 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
 
         let newAuthorizationManager = ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
-                tokensURL: clientCredentialsFlowTokensURL
+                tokensURL: clientCredentialsFlowTokensURL,
+                decodeServerError: decodedAuthManager.backend.decodeServerError
             ),
             accessToken: accessToken,
             expirationDate: expirationDate
