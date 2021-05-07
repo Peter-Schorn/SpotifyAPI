@@ -29,7 +29,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
 
     /// The logger for this struct.
     public static var logger = Logger(
-        label: "AuthorizationCodeFlowProxyBackend", level: .critical
+        label: "AuthorizationCodeFlowPKCEProxyBackend", level: .critical
     )
     
     /**
@@ -59,6 +59,31 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
     public let tokenRefreshURL: URL
 
     /**
+     A hook for decoding an error produced by your backend server into an error
+     type, which will then be thrown to downstream subscribers.
+     
+     After the response from your server is received following a call to
+     `self.makePKCETokensRequest(code:codeVerifier:redirectURIWithQuery:)` or
+     `self.makePKCERefreshTokenRequest(refreshToken:)`, this function is called
+     with the raw data and response metadata from the server. If you return an
+     error from this function, then this error will be thrown to downstream
+     subscribers. If you return `nil`, then the response from the server will be
+     passed through unmodified to downstream subscribers.
+     
+     - Important: Do not use this function to decode the documented error
+     objects produced by Spotify, such as `SpotifyAuthenticationError`.
+     This will be done elsewhere. Only use this function to decode error
+     objects produced by your custom backend server.
+     
+     # Thread Safety
+     
+     No guarentees are made about which thread this function will be called on.
+     Do not mutate this property while a request is being made for the
+     authorization information.
+     */
+    public var decodeServerError: ((Data, HTTPURLResponse) -> Error?)?
+
+    /**
      Creates an instance that manages the authorization process for the
      [Authorization Code Flow with Proof Key for Code Exchange][1] by
      communicating with a custom backend server.
@@ -81,14 +106,25 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
              authorization information. See
              `self.makePKCERefreshTokenRequest(refreshToken:)` for more
              information.
+       - decodeServerError: A hook for decoding an error produced by your
+             backend server into an error type, which will then be thrown to
+             downstream subscribers Do not use this function to decode the
+             documented error objects produced by Spotify, such as
+             `SpotifyAuthenticationError`. This will be done elsewhere.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
-    public init(clientId: String, tokensURL: URL, tokenRefreshURL: URL) {
+    public init(
+        clientId: String,
+        tokensURL: URL,
+        tokenRefreshURL: URL,
+        decodeServerError: ((Data, HTTPURLResponse) -> Error?)? = nil
+    ) {
         self.clientId = clientId
         self.tokensURL = tokensURL
         self.tokenRefreshURL = tokenRefreshURL
+        self.decodeServerError = decodeServerError
     }
 
     /**
@@ -117,6 +153,10 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      }
      ```
      
+     After the response is retrieved from the server, `self.decodeServerError`
+     is called in order to decode any custom error objects that your server
+     might return.
+
      Read about the underlying request that must be made to Spotify by your
      server in order to retrieve this data [here][1].
      
@@ -157,9 +197,20 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         tokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         tokensRequest.httpBody = body
 
+        // `URLSession.defaultNetworkAdaptor` is used so that the test targets
+        // can substitue different networking clients for testing purposes.
+        // In your own code, you can just use `URLSession.dataTaskPublisher`
+        // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
             request: tokensRequest
         )
+        .tryMap { data, response in
+            if let error = self.decodeServerError?(data, response) {
+                throw error
+            }
+            return (data: data, response: response)
+        }
+        .eraseToAnyPublisher()
         
     }
 
@@ -194,6 +245,10 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      }
      ```
 
+     After the response is retrieved from the server, `self.decodeServerError`
+     is called in order to decode any custom error objects that your server
+     might return.
+
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
@@ -226,9 +281,20 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
         refreshTokensRequest.allHTTPHeaderFields = Headers.formURLEncoded
         refreshTokensRequest.httpBody = body
 
+        // `URLSession.defaultNetworkAdaptor` is used so that the test targets
+        // can substitue different networking clients for testing purposes.
+        // In your own code, you can just use `URLSession.dataTaskPublisher`
+        // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
             request: refreshTokensRequest
         )
+        .tryMap { data, response in
+            if let error = self.decodeServerError?(data, response) {
+                throw error
+            }
+            return (data: data, response: response)
+        }
+        .eraseToAnyPublisher()
         
     }
 }
@@ -245,4 +311,30 @@ extension AuthorizationCodeFlowPKCEProxyBackend: CustomStringConvertible {
             """
     }
 
+}
+
+extension AuthorizationCodeFlowPKCEProxyBackend: Hashable {
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.clientId == rhs.clientId &&
+            lhs.tokensURL == rhs.tokensURL &&
+            lhs.tokenRefreshURL == rhs.tokenRefreshURL
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.clientId)
+        hasher.combine(self.tokensURL)
+        hasher.combine(self.tokenRefreshURL)
+    }
+    
+}
+
+extension AuthorizationCodeFlowPKCEProxyBackend: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case tokensURL = "tokens_url"
+        case tokenRefreshURL = "token_refresh_url"
+    }
+    
 }

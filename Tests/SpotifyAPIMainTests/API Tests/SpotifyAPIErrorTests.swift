@@ -142,31 +142,38 @@ extension SpotifyAPIErrorTests {
 
         let dispatchGroup = DispatchGroup()
 
-        for i in 1...500 {
+        for i in 1...250 {
             
-            let artist = URIs.Artists.allCases.randomElement()!
-            
-            print("$ making request for \(i)")
-            dispatchGroup.enter()
-            Self.spotify.artist(artist)
-                .sink(
-                    receiveCompletion: { completion in
-                        switch completion {
-                            case .failure(let error):
-                                XCTFail("\(i): unexpected error: \(error)")
-                                receivedErrors += 1
-                            case .finished:
-                                successfulCompletions += 1
+            DispatchQueue.concurrentPerform(iterations: 2) { j in
+                
+                let artist = URIs.Artists.allCases.randomElement()!
+                
+                print("making request for i:\(i); j:\(j)")
+                dispatchGroup.enter()
+                let cancellable = Self.spotify.artist(artist)
+                    .receive(on: queue)
+                    .sink(
+                        receiveCompletion: { completion in
+                            switch completion {
+                                case .failure(let error):
+                                    XCTFail("\(i): unexpected error: \(error)")
+                                    receivedErrors += 1
+                                case .finished:
+                                    successfulCompletions += 1
+                            }
+                            print("finished request for i:\(i); j:\(j)")
+                            dispatchGroup.leave()
+                        },
+                        receiveValue: { _ in
+                            receivedValues += 1
                         }
-                        print("$ finished request for \(i)")
-                        dispatchGroup.leave()
-                    },
-                    receiveValue: { _ in
-                        receivedValues += 1
-                    }
-                )
-                .store(in: &Self.cancellables)
-            dispatchGroup.wait()
+                    )
+                queue.async {
+                    Self.cancellables.insert(cancellable)
+                }
+                dispatchGroup.wait()
+                
+            }
             
         }
         

@@ -145,9 +145,9 @@ extension Publisher {
     /**
      Retries the request up to three times depending on the error received.
      
-     Retries upon receiving a `RateLimitedError`. If a `SpotifyError` or
-     `SpotifyPlayerError` is received, then retries if the status code is
-     500, 502, 503, or 504.
+     Retries upon receiving a `RateLimitedError`. If a `SpotifyError`,
+     `SpotifyPlayerError`, or `SpotifyLocalError.httpError` is received, then
+     retries if the status code is 500, 502, 503, or 504.
      */
     func retryOnSpotifyErrors() -> AnyPublisher<Output, Failure> {
         

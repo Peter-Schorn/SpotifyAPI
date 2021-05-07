@@ -20,10 +20,12 @@ import OpenCombineFoundation
  backend server that you setup (see `AuthorizationCodeFlowProxyBackend`) which
  itself communicates with the Spotify web API. This server can safely store your
  client secret, which prevents it from being exposed in your frontend app. This
- is the key reason for using a backend server. Furthermore, after your backend
- server retrieves the authorization information from Spotify, it could encrypt
- it before sending it back to your app. Your app could then decrypt this
- information when it recieves it, providing an additional layer of security.
+ is the key reason for using a backend server.
+ 
+ Furthermore, after your backend server retrieves the authorization information
+ from Spotify, it could encrypt it before sending it back to your app. Your app
+ could then decrypt this information when it recieves it, providing an
+ additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
@@ -143,10 +145,12 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
  `AuthorizationCodeFlowPKCEProxyBackend`) which itself communicates with the
  Spotify web API. This server can safely store your client secret, which
  prevents it from being exposed in your frontend app. This is the key reason for
- using a backend server. Furthermore, after your backend server retrieves the
- authorization information from Spotify, it could encrypt it before sending it
- back to your app. Your app could then decrypt this information when it recieves
- it, providing an additional layer of security.
+ using a backend server.
+ 
+ Furthermore, after your backend server retrieves the authorization information
+ from Spotify, it could encrypt it before sending it back to your app. Your app
+ could then decrypt this information when it recieves it, providing an
+ additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */

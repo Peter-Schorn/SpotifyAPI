@@ -543,13 +543,12 @@ extension SpotifyAPIArtistTests {
         )
         .store(in: &Self.cancellables)
 
+        self.wait(for: [expectation], timeout: 60)
         self.wait(
-            for: [
-                expectation,
-                authorizationManagerDidChangeExpectation
-            ],
-            timeout: 60
+            for: [authorizationManagerDidChangeExpectation],
+            timeout: 5
         )
+
         internalQueue.sync {
             XCTAssertEqual(
                 didChangeCount, 1,

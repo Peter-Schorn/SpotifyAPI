@@ -228,7 +228,8 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
             showDialog: false
         )
 
-        Self.spotify.authorizationManager._refreshToken = "invalid token"
+        // make the refresh token invalid
+        Self.spotify.authorizationManager._refreshToken = ""
 
         let expectation = XCTestExpectation(
             description: "refreshWithInvalidRefreshToken"
@@ -242,6 +243,10 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
                 defer { expectation.fulfill() }
                 guard case .failure(let error) = completion else {
                     XCTFail("should not finish normally")
+                    return
+                }
+                guard Self.spotify.authorizationManager is
+                        AuthorizationCodeFlowPKCEManager else {
                     return
                 }
                 guard let authError = error as? SpotifyAuthenticationError else {
