@@ -198,8 +198,6 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             label: "SpotifyAPIRefreshTokensConcurrentTests.internalQueue"
         )
 
-        let dispatchGroup = DispatchGroup()
-
         let incrementDidChangeCountExpectation = XCTestExpectation(
             description: "incrementDidChangeCountExpectation"
         )
@@ -222,86 +220,97 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
         var receivedArtist = false
         
         let concurrentQueue1 = DispatchQueue(
-            label: "concurrentRequestsWithExpiredToken.concurrentQueue1"
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue1",
+            attributes: .concurrent
         )
         let concurrentQueue2 = DispatchQueue(
-            label: "concurrentRequestsWithExpiredToken.concurrentQueue2"
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue2",
+            attributes: .concurrent
         )
         let concurrentQueue3 = DispatchQueue(
-            label: "concurrentRequestsWithExpiredToken.concurrentQueue3"
+            label: "concurrentRequestsWithExpiredToken.concurrentQueue3",
+            attributes: .concurrent
+        )
+
+        let trackExpectation = XCTestExpectation(
+            description: "track"
+        )
+        let albumExpectation = XCTestExpectation(
+            description: "album"
+        )
+        let artistExpectation = XCTestExpectation(
+            description: "artist"
         )
 
         concurrentQueue1.async {
             // MARK: track
-            dispatchGroup.enter()
             let cancellable = Self.spotify.track(URIs.Tracks.breathe)
                 .XCTAssertNoFailure()
                 .sink(
                     receiveCompletion: { completion in
                         print("track completion: \(completion)")
-                        dispatchGroup.leave()
+                        trackExpectation.fulfill()
                     },
                     receiveValue: { track in
                         print("received track: \(track.name)")
                         receivedTrack = true
                     }
                 )
-            dispatchGroup.enter()
             internalQueue.async {
                 Self.cancellables.insert(cancellable)
-                dispatchGroup.leave()
             }
         }
 
         concurrentQueue2.async {
             // MARK: album
-            dispatchGroup.enter()
             let cancellable = Self.spotify.album(URIs.Albums.darkSideOfTheMoon)
                 .XCTAssertNoFailure()
                 .sink(
                     receiveCompletion: { completion in
                         print("album completion: \(completion)")
-                        dispatchGroup.leave()
+                        albumExpectation.fulfill()
                     },
                     receiveValue: { album in
                         print("received album: \(album.name)")
                         receivedAlbum = true
                     }
                 )
-            dispatchGroup.enter()
             internalQueue.async {
                 Self.cancellables.insert(cancellable)
-                dispatchGroup.leave()
             }
         }
 
         concurrentQueue3.async {
             // MARK: artist
-            dispatchGroup.enter()
             let cancellable = Self.spotify.artist(URIs.Artists.crumb)
                 .XCTAssertNoFailure()
                 .sink(
                     receiveCompletion: { completion in
                         print("artist completion: \(completion)")
-                        dispatchGroup.leave()
+                        artistExpectation.fulfill()
                     },
                     receiveValue: { artist in
                         print("received artist: \(artist.name)")
                         receivedArtist = true
                     }
                 )
-            dispatchGroup.enter()
             internalQueue.async {
                 Self.cancellables.insert(cancellable)
-                dispatchGroup.leave()
             }
         }
         
         print("waiting for track, album, and artist")
-        dispatchGroup.wait()
         print("finished waiting")
 
-        self.wait(for: [incrementDidChangeCountExpectation], timeout: 30)
+        self.wait(
+            for: [
+                trackExpectation,
+                albumExpectation,
+                artistExpectation
+            ],
+            timeout: 120
+        )
+        self.wait(for: [incrementDidChangeCountExpectation], timeout: 10)
 
         internalQueue.sync {
             XCTAssertEqual(didChangeCount, 1)

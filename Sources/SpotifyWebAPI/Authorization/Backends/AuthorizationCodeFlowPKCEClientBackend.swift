@@ -44,6 +44,11 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
      [Authorization Code Flow with Proof Key for Code Exchange][1] by
      communicating *directly* with the Spotify web API.
      
+     Usually you should not need to create instances of this type directly.
+     `AuthorizationCodeFlowPKCEManager` uses this type internally by inheriting
+     from
+     `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+
      - Parameters:
        - clientId: The client id that you received when you [registered your
              application][1].

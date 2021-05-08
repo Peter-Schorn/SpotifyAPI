@@ -54,6 +54,10 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
      Creates an instance that manages the authorization process for the [Client
      Credentials Flow][1] by communicating *directly* with the Spotify web API.
      
+     Usually you should not need to create instances of this type directly.
+     `ClientCredentialsFlowManager` uses this type internally by inheriting from
+     `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+
      - Parameters:
        - clientId: The client id that you received when you [registered your
              application][2].
