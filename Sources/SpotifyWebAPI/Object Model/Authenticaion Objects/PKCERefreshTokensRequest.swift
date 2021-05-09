@@ -15,7 +15,8 @@ import Foundation
  network request made in the `refreshTokens(refreshToken:)` method.
 
  When using a custom backend server, use `ProxyPKCERefreshTokensRequest`
- instead.
+ instead, which does not contain the `clientId`, as this property should be
+ stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -39,12 +40,16 @@ public struct PKCERefreshTokensRequest: Hashable {
     public let clientId: String
     
     /**
-     Creates an instance of this type, which is used to request the
-     authorization information for the [Authorization Code Flow with Proof Key
-     for Code Exchange][1].
-     
-     This type should be used by the `refreshTokens(refreshToken:)` method of
-     your type that conforms to `AuthorizationCodeFlowPKCEBackend`.
+     Creates an instance which refreshes the access token using the
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
+
+     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     and which communicates *directly* with Spotify, use this type in the body
+     of the network request made in the `refreshTokens(refreshToken:)` method.
+
+     When using a custom backend server, use `ProxyPKCERefreshTokensRequest`
+     instead, which does not contain the `clientId`, as this property should be
+     stored on the server.
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a

@@ -108,9 +108,9 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
                 
         let body = PKCETokensRequest(
             code: code,
+            codeVerifier: codeVerifier,
             redirectURI: baseRedirectURI,
-            clientId: self.clientId,
-            codeVerifier: codeVerifier
+            clientId: self.clientId
         )
         .formURLEncoded()
         

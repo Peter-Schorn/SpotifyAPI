@@ -11,7 +11,9 @@ import Foundation
  `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
  method.
  
- When using a custom backend server, use `ProxyPKCETokensRequest` instead.
+ When using a custom backend server, use `ProxyPKCETokensRequest` instead,
+ which does not contain the `redirectURI` or `clientId`, as these properties
+ should be stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -44,7 +46,19 @@ public struct PKCETokensRequest: Hashable {
     public let clientId: String
 
     /**
+     Creates an instance of this type, which is used to refresh the access token
+     for the [Authorization Code Flow with Proof Key for Code Exchange][1].
      
+     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     and which communicates *directly* with Spotify, use this type in the body
+     of the network request made in the
+     `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+     method.
+
+     When using a custom backend server, use `ProxyPKCETokensRequest` instead,
+     which does not contain the `redirectURI` or `clientId`, as these properties
+     should be stored on the server.
+
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using `self.formURLEncoded`.
@@ -56,11 +70,12 @@ public struct PKCETokensRequest: Hashable {
              validation only. There will be no further redirection to this
              location.
        - clientId: The client id that you received when you [registered your
-             application][1].
+             application][2].
        - codeVerifier: The code verifier that you generated when creating the
              authorization URL.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(
         code: String,

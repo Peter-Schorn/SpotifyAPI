@@ -14,8 +14,9 @@ import Foundation
  which communicates with a custom backend server, use this type in the body of
  the network request made in the `refreshTokens(refreshToken:)` method.
  
- In contrast with `PKCERefreshTokensRequest`, this type does not contain the
- `clientId` because this value should be securely stored on your backend server.
+ In contrast with `PKCERefreshTokensRequest`, which should be used if you are
+ communicating directly with Spotify, this type does not contain the `clientId`
+ because this value should be securely stored on your backend server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -37,12 +38,26 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
     public let refreshToken: String
 
     /**
-     
+     Creates an instance which refreshes the access token using the
+     [Authorization Code Flow with Proof Key for Code Exchange][1].
+
+     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     and which communicates with a custom backend server, use this type in the
+     body of the network request made in the `refreshTokens(refreshToken:)`
+     method.
+
+     In contrast with `PKCERefreshTokensRequest`, which should be used if you
+     are communicating directly with Spotify, this type does not contain the
+     `clientId` because this value should be securely stored on your backend
+     server.
+
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using `self.formURLEncoded`.
      
      - Parameter refreshToken: The refresh token.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
     public init(refreshToken: String) {
         self.refreshToken = refreshToken

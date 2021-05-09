@@ -10,9 +10,10 @@ import Foundation
  network request made in the
  `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
  
- In contrast with `TokensRequest`, this type does not contain the `redirectURI`
- `clientId`, or `clientSecret` because these values should be securely stored on
- your backend server.
+ In contrast with `TokensRequest`, which should be used if you are communicating
+ directly with Spotify, this type does not contain the `redirectURI` `clientId`,
+ or `clientSecret` because these values should be securely stored on your
+ backend server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -30,6 +31,18 @@ public struct ProxyTokensRequest: Hashable {
     public let code: String
     
     /**
+     Creates an instance which is used to request the authorization information
+     using the [Authorization Code Flow][1].
+
+     When creating a type that conforms to `AuthorizationCodeFlowBackend` and
+     which communicates with a custom backend server, use this type in the body
+     of the network request made in the
+     `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+
+     In contrast with `TokensRequest`, which should be used if you are
+     communicating directly with Spotify, this type does not contain the
+     `redirectURI` `clientId`, or `clientSecret` because these values should be
+     securely stored on your backend server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -38,6 +51,8 @@ public struct ProxyTokensRequest: Hashable {
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
              redirect URI.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      */
     public init(code: String) {
         self.code = code

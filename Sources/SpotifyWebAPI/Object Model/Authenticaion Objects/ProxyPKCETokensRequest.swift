@@ -11,7 +11,8 @@ import Foundation
  `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
  method.
 
- In contrast with `PKCETokensRequest`, this type does not contain the
+ In contrast with `PKCETokensRequest`, which should be used if you are
+ communicating directly with Spotify, this type does not contain the
  `redirectURI` or `clientId` because these values should be securely stored on
  your backend server.
 
@@ -35,7 +36,19 @@ public struct ProxyPKCETokensRequest: Hashable {
     public let codeVerifier: String
     
     /**
-     
+     Creates an instance that is used to retrieve the authoriztion information
+     using the [Authorization Code Flow with Proof Key for Code Exchange][1].
+
+     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     and which communicates with a custom backend server, use this type in the
+     body of the network request made in the
+     `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+     method.
+
+     In contrast with `PKCETokensRequest`, which should be used if you are
+     communicating directly with Spotify, this type does not contain the
+     `redirectURI` or `clientId` because these values should be securely stored
+     on your backend server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -46,6 +59,8 @@ public struct ProxyPKCETokensRequest: Hashable {
              redirect URI.
        - codeVerifier: The code verifier that you generated when creating the
              authorization URL.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
     public init(code: String, codeVerifier: String) {
         self.code = code

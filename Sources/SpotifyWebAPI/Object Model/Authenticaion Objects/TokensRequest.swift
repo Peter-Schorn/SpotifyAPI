@@ -10,7 +10,9 @@ import Foundation
  request made in the
  `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
  
- When using a custom backend server, use `ProxyTokensRequest` instead.
+ When using a custom backend server, use `ProxyTokensRequest` instead, which
+ does not contain the `redirectURI`, `clientId`, or `clientSecret`, as these
+ properties should be stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -47,6 +49,17 @@ public struct TokensRequest: Hashable {
     public let clientSecret: String
 
     /**
+     Creates an instance that is used to retrieve the authorization information
+     using the [Authorization Code Flow][1].
+
+     When creating a type that conforms to `AuthorizationCodeFlowBackend` and
+     which communicates *directly* with Spotify, use this type in the body of
+     the network request made in the
+     `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+
+     When using a custom backend server, use `ProxyTokensRequest` instead, which
+     does not contain the `redirectURI`, `clientId`, or `clientSecret`, as these
+     properties should be stored on the server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -59,11 +72,12 @@ public struct TokensRequest: Hashable {
              validation only. There will be no further redirection to this
              location.
        - clientId: The client id that you received when you [registered your
-             application][1].
+             application][2].
        - clientSecret: The client secret that you received when you [registered
-             your application][1].
+             your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(
         code: String,

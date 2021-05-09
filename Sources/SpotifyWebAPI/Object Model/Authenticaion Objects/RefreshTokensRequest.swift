@@ -23,13 +23,21 @@ public struct RefreshTokensRequest: Hashable {
     public let refreshToken: String
     
     /**
+     Creates an instance which refreshes the access token using the
+     [Authorization Code Flow][1].
      
+     This type should be used in the body of the network request made in the
+     `refreshTokens(refreshToken:)` method of your type that conforms to
+     `AuthorizationCodeFlowBackend`.
+
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using `self.formURLEncoded`.
      
      
      - Parameter refreshToken: The refresh token.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      */
     public init(refreshToken: String) {
         self.refreshToken = refreshToken
