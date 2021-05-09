@@ -102,7 +102,7 @@ public extension SpotifyImage {
             .anyFailingPublisher()
         }
         
-        let publisher = URLSession.combineShared.dataTaskPublisher(
+        let publisher = URLSession.shared.dataTaskPublisher(
             for: imageURL
         )
 
