@@ -25,6 +25,11 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL
 ) -> URL? {
     
+    DistributedLock.redirectListener.lock()
+    defer {
+        DistributedLock.redirectListener.unlock()
+    }
+
     #if TEST
     // MARK: start the server
     
@@ -52,11 +57,11 @@ public func openAuthorizationURLAndWaitForRedirect(
 
     // MARK: open the authorization URL
     
-    #if canImport(AppKit)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)
-    #else
+    #endif
     print(
         """
 
@@ -67,7 +72,6 @@ public func openAuthorizationURLAndWaitForRedirect(
         \(authorizationURL)
         """
     )
-    #endif
     
     #if TEST
     print(

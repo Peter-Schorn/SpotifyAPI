@@ -11,43 +11,13 @@ public struct SpotifyAPILogHandler: LogHandler {
     private static var handlerIsInitialized = false
     
     private static let initializeHandlerDispatchQueue = DispatchQueue(
-        label: "SpotifyAPILogHandler.initializeHandler"
+        label: "SpotifyAPI.SpotifyAPILogHandler.initializeHandler"
     )
     
-    /**
-     Prevents this type from becoming the logging backend.
-     
-     This method allows you to provide your own global logging backend,
-     as only a single one can be configured per process.
-
-     This method *must* be called before a call to
-     `SpotifyAPILogHandler.bootstrap()` is made, otherwise calling this
-     method has no effect. Because `SpotifyAPILogHandler.bootstrap()` is
-     called automatically when you create an instance of `SpotifyAPI`,
-     **this method should be called before an instance of** `SpotifyAPI`
-     **is created.**
-     
-     # Thread Safety
-     
-     This method is thread-safe.
-     */
-    public static func disable() {
-        Self.initializeHandlerDispatchQueue.sync {
-            Self.handlerIsInitialized = true
-        }
-    }
-
     /**
      Calls `LoggingSystem.bootstrap(_:)` and configures this type as the logging
      backend. The default log level is `info`.
     
-     If `SpotifyAPILogHandler.disable()` has been called, then
-     `LoggingSystem.bootstrap(_:)` will *not* be called and this method will
-     have no effect.
-
-     This method is automatically called when an instance of `SpotifyAPI`, the
-     central class in this library, is created or decoded from JSON data.
-     
      This method should only be called once. Calling it additional times is
      safe, but has no effect.
      

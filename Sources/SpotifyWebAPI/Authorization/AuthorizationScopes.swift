@@ -128,7 +128,7 @@ public enum Scope: String, Codable, Hashable {
     // MARK: Users
     
     /**
-     Read access to user’s email address.
+     Read access to a user’s email address.
      
      Required for the `SpotifyAPI.currentUserProfile()` endpoint
      in order to retrieve the `email` property of the returned

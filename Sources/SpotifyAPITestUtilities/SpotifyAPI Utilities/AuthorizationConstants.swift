@@ -95,6 +95,77 @@ public let spotifyCredentials: SpotifyCredentials = {
 /// ```
 public let localHostURL = URL(string: "http://localhost:8080")!
 
+
+private func retrieveURLFromEnvironment(
+    for name: String
+) -> URL {
+    
+    guard let urlString = ProcessInfo.processInfo.environment[name] else {
+        fatalError("\ncould not find '\(name)' in environment variables")
+    }
+    
+    guard let url = URL(string: urlString) else {
+        fatalError("could not convert to URL: '\(urlString)'")
+    }
+    
+    return url
+
+}
+
+/// The URL for retrieving tokens using the authorization code flow.
+/// Retrieved from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
+)
+
+/// The URL for refreshing the access token using the authorization code flow.
+/// Retrieved from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowRefreshTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL"
+)
+
+/// The URL for retrieving tokens using the authorization code flow with proof
+/// key for code exchange. Retrieved from the
+/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL" environment variable.
+public let authorizationCodeFlowPKCETokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL"
+)
+
+/// The URL for refreshing the access token using the authorization code flow
+/// with proof key for code exchange. Retrieved from the
+/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
+/// environment variable.
+public let authorizationCodeFlowPKCERefreshTokensURL = retrieveURLFromEnvironment(
+    for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
+)
+
+/// The URL for retrieving tokens using the client credentials flow.
+/// Retrieved from the "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
+/// environment variable.
+public let clientCredentialsFlowTokensURL: URL = {
+    
+    let __clientCredentialsFlowTokensURL__ = ""
+
+    if !__clientCredentialsFlowTokensURL__.isEmpty {
+        guard let url = URL(
+                string: __clientCredentialsFlowTokensURL__
+        ) else {
+            fatalError(
+                "could not convert to URL: " +
+                "'\(__clientCredentialsFlowTokensURL__)'"
+            )
+        }
+        return url
+    }
+    
+    return retrieveURLFromEnvironment(
+        for: "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
+    )
+
+}()
+
 /**
  Contains the client id and client secret.
  

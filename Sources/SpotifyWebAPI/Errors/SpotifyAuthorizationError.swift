@@ -2,12 +2,14 @@ import Foundation
 
 
 /**
- The user denied your app's authorization request or there was an error
- during the process of authorizing your app.
- 
+ The user denied your app's authorization request or there was an error during
+ the process of authorizing your app.
+
  This error will only be thrown during the process of requesting access and
- refresh tokens using `AuthorizationCodeFlowManager` or
- `AuthorizationCodeFlowPKCEManager`.
+ refresh tokens using `AuthorizationCodeFlowBackendManager` or
+ `AuthorizationCodeFlowPKCEBackendManager`. More specifically, it is created
+ from the "error" (and possibly the "state") parameter of the query string of
+ the redirect URI. It is *not* decoded from the response body of a request.
  
  Do not confuse this with `SpotifyAuthenticationError`. See also:
  

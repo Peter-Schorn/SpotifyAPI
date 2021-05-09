@@ -27,7 +27,28 @@ custom_categories:
     - Scope
     - SpotifyAuthorizationManager
     - SpotifyScopeAuthorizationManager
-    
+
+  - name: Authorization Backends
+    children:
+    - AuthorizationCodeFlowClientBackend
+    - AuthorizationCodeFlowProxyBackend
+    - AuthorizationCodeFlowPKCEClientBackend
+    - AuthorizationCodeFlowPKCEProxyBackend
+    - ClientCredentialsFlowClientBackend
+    - ClientCredentialsFlowProxyBackend
+
+  - name: Authentication Objects
+    children:
+    - AuthInfo
+    - ClientCredentialsTokensRequest
+    - TokensRequest
+    - ProxyTokensRequest
+    - RefreshTokensRequest
+    - PKCETokensRequest
+    - ProxyPKCETokensRequest
+    - PKCERefreshTokensRequest
+    - ProxyPKCERefreshTokensRequest
+
   - name: Errors
     children:
     - SpotifyError
@@ -49,7 +70,7 @@ custom_categories:
     children:
     - Paginated
     - SpotifyURIConvertible
-    
+
   - name: Music Objects
     children:
     - Album

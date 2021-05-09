@@ -1,10 +1,8 @@
 import XCTest
-import SpotifyWebAPIMainTests
-import SpotifyAPITestUtilities
+
+import SpotifyAPIMainTests
 
 var tests = [XCTestCaseEntry]()
-tests += SpotifyWebAPIMainTests.__allTests()
-
-_ = XCTestObserver()
+tests += SpotifyAPIMainTests.__allTests()
 
 XCTMain(tests)

@@ -3,7 +3,7 @@ import Foundation
 /// A Spotify [followers object][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
-public struct Followers: Codable, Hashable {
+public struct Followers: Hashable {
     
     /**
      A link to the Spotify web API endpoint providing full details of
@@ -36,6 +36,28 @@ public struct Followers: Codable, Hashable {
     ) {
         self.href = href
         self.total = total
+    }
+
+}
+
+extension Followers: Codable {
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.href = try container.decodeIfPresent(String.self, forKey: .href)
+        let total = try container.decodeIfPresent(Int.self, forKey: .total)
+        self.total = total ?? 0
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(self.href, forKey: .href)
+        try container.encode(self.total, forKey: .total)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case href
+        case total
     }
 
 }

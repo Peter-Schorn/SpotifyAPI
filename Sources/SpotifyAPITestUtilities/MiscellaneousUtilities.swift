@@ -9,7 +9,7 @@ import OpenCombineFoundation
 #endif
 
 import XCTest
-import SpotifyWebAPI
+@testable import SpotifyWebAPI
 
 #if canImport(AppKit)
 import AppKit
@@ -120,7 +120,7 @@ public func XCTAssertFinishedNormally<E: Error>(
  - Returns: An array of expectations that will be fullfilled when
        each image is loaded from its URL.
  */
-#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
 public func XCTAssertImagesExist(
     _ images: [SpotifyImage],
     file: StaticString = #file,
@@ -204,7 +204,7 @@ public extension URLSession {
         var request = request
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        return self.dataTaskPublisher(for: request)
+        return  URLSession.shared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -217,7 +217,52 @@ public extension URLSession {
             .eraseToAnyPublisher()
 
     }
+    
 
+    static let __defaultNetworkAdaptor: (
+        URLRequest
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
+        
+        #if canImport(Combine)
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .mapError { $0 as Error }
+            .map { data, response -> (data: Data, response: HTTPURLResponse) in
+                guard let httpURLResponse = response as? HTTPURLResponse else {
+                    fatalError(
+                        "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                    )
+                }
+//                let dataString = String(data: data, encoding: .utf8) ?? "nil"
+//                print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
+                return (data: data, response: httpURLResponse)
+            }
+            .eraseToAnyPublisher()
+        #else
+        // the OpenCombine implementation of `DataTaskPublisher` has
+        // some concurrency issues.
+        return Future<(data: Data, response: HTTPURLResponse), Error> { promise in
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data, let response = response {
+                    guard let httpURLResponse = response as? HTTPURLResponse else {
+                        fatalError(
+                            "could not cast URLResponse to HTTPURLResponse:\n\(response)"
+                        )
+                    }
+//                    let dataString = String(data: data, encoding: .utf8) ?? "nil"
+//                    print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
+                    promise(.success((data: data, response: httpURLResponse)))
+                }
+                else {
+                    let error = error ?? URLError(.unknown)
+                    promise(.failure(error))
+                }
+            }
+            .resume()
+        }
+        .eraseToAnyPublisher()
+        #endif
+
+    }
 
 }
 
@@ -225,12 +270,15 @@ public extension String {
     
     func append(to file: URL, terminator: String = "\n") throws {
 
-        var data = self.data(using: .utf8)!
-        let terminatorData = terminator.data(using: .utf8)!
+        guard var data = self.data(using: .utf8) else {
+            return
+        }
+        guard let terminatorData = terminator.data(using: .utf8) else {
+            return
+        }
         data.append(terminatorData)
 
         let manager = FileManager.default
-        
 
         if manager.fileExists(atPath: file.path) {
             let handle = try FileHandle(forUpdating: file)
@@ -251,9 +299,36 @@ public extension String {
             
         }
         else {
+            let directory = file.deletingLastPathComponent()
+            if !manager.fileExists(atPath: directory.path) {
+                try manager.createDirectory(
+                    at: directory,
+                    withIntermediateDirectories: true
+                )
+            }
+            
             try data.write(to: file, options: [.atomic])
         }
         
     }
+
+}
+
+public struct VaporServerError: Error, Codable {
+    public let reason: String
+    public let error: Bool
+}
+
+public func decodeVaporServerError(
+    data: Data, response: HTTPURLResponse
+) -> Error? {
+
+    guard response.statusCode == 400 else {
+        return nil
+    }
+    
+    return try? JSONDecoder().decode(
+        VaporServerError.self, from: data
+    )
 
 }

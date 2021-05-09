@@ -1,44 +1,52 @@
 import Foundation
 
 /**
- The authorization info that Spotify returns during the authorization
+ The authorization information that Spotify returns during the authorization
  process.
 
  This is used in various different contexts, including:
  
  * When decoding the respose after requesting the access and refresh tokens
  * When decoding the response after refreshing the tokens
- * As a wrapper for decoding and encoding the authorization information.
+ * As a wrapper for decoding and encoding the authorization managers.
  
- Because of its diverse uses, all of its properties are optional,
- which means that it will never fail to decode itself from data,
- so be careful about swallowing errors.
+ Because of its diverse uses, all of its properties are optional, which means
+ that it will never fail to decode itself from data, so be careful about
+ swallowing errors.
  
  Includes the following properties:
  
- * `accessToken`: used in all of the requests to the Spotify web API
-   for authorization.
+ * `accessToken`: used in all of the requests to the Spotify web API for
+   authorization.
  * `refreshToken`: Used to refresh the access token.
  * `expirationDate`: The expiration date of the access token.
  * `scopes`: The scopes that have been authorized for the access token.
  
  */
-struct AuthInfo: Hashable {
+public struct AuthInfo: Hashable {
     
-    /// The access token used in all of the requests
-    /// to the Spotify web API.
-    let accessToken: String?
+    /// The access token used in all of the requests to the Spotify web API.
+    public let accessToken: String?
     
     /// Used to refresh the access token.
-    let refreshToken: String?
+    public let refreshToken: String?
     
     /// The expiration date of the access token.
-    let expirationDate: Date?
+    public let expirationDate: Date?
     
     /// The scopes that have been authorized for the access token.
-    let scopes: Set<Scope>?
+    public let scopes: Set<Scope>?
 
-    init(
+    /**
+     Creates an instance that holds the authorization information.
+
+     - Parameters:
+       - accessToken: The access token.
+       - refreshToken: The refresh token.
+       - expirationDate: The expiration date.
+       - scopes: The authorization Scopes.
+     */
+    public init(
         accessToken: String?,
         refreshToken: String?,
         expirationDate: Date?,
@@ -54,7 +62,7 @@ struct AuthInfo: Hashable {
 
 extension AuthInfo: Codable {
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
             keyedBy: CodingKeys.self
@@ -99,7 +107,7 @@ extension AuthInfo: Codable {
         
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(
             keyedBy: CodingKeys.self
@@ -120,12 +128,14 @@ extension AuthInfo: Codable {
         
     }
     
-    enum CodingKeys: String, CodingKey {
+    /// :nodoc:
+    public enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case refreshToken = "refresh_token"
         case expirationDate = "expiration_date"
         case expiresInSeconds = "expires_in"
         case scopes = "scope"
+		case backend = "backend"
         case clientId = "client_id"
         case clientSecret = "client_secret"
     }
@@ -136,10 +146,10 @@ extension AuthInfo: Codable {
 
 extension AuthInfo: CustomStringConvertible {
     
-    var description: String {
+    public var description: String {
         
         let expirationDateString = expirationDate?
-                .description(with: .autoupdatingCurrent)
+                .description(with: .current)
                 ?? "nil"
         
         var scopeString = "nil"
@@ -179,7 +189,7 @@ extension AuthInfo {
 
 extension AuthInfo: ApproximatelyEquatable {
     
-    func isApproximatelyEqual(to other: AuthInfo) -> Bool {
+    public func isApproximatelyEqual(to other: AuthInfo) -> Bool {
         return self.accessToken == other.accessToken &&
             self.refreshToken == other.refreshToken &&
             self.scopes == other.scopes &&

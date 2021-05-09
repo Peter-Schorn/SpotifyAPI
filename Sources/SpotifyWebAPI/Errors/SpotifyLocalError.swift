@@ -140,8 +140,8 @@ extension SpotifyLocalError: LocalizedError {
                 return "An internal error occurred."
             case .insufficientScope(_, _):
                 return """
-                    Authorization has not been granted for this \
-                    operation.
+                    The permissions required for this operation have not been \
+                    granted
                     """
             case .invalidIdCategory(_, _):
                 return "An internal error occurred"
@@ -197,7 +197,7 @@ extension SpotifyLocalError: CustomStringConvertible {
                     """
             case .httpError(let response, let data):
                 let dataString = String(data: data, encoding: .utf8)
-                    ?? "nil"
+                        ?? "\(data)"
                 return """
                     SpotifyLocalError.httpError(\
                     HTTPURLResponse: \(response), Data: \(dataString))

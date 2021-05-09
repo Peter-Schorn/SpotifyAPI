@@ -66,9 +66,7 @@ public extension URL {
     }
 
     /// A dictionary of the query items in the URL. See also `queryItems`.
-    var queryItemsDict: [String: String]
-    {
-
+    var queryItemsDict: [String: String] {
         return self.queryItems.reduce(into: [:]) { dict, query in
             dict[query.name] = query.value
         }

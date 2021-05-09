@@ -70,6 +70,61 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Authorization%20Backends.html">Authorization Backends</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Authentication%20Objects.html">Authentication Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredentialsTokensRequest.html">ClientCredentialsTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyTokensRequest.html">ProxyTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RefreshTokensRequest.html">RefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCETokensRequest.html">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCETokensRequest.html">ProxyPKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCERefreshTokensRequest.html">PKCERefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCERefreshTokensRequest.html">ProxyPKCERefreshTokensRequest</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Errors.html">Errors</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -317,6 +372,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -377,6 +446,15 @@
                 <a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -431,6 +509,15 @@
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Authorization%20Code%20Flow%20PKCE%20Manager"></a>
+                <a name="//apple_ref/swift/Section/Authorization Code Flow PKCE Manager" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Authorization%20Code%20Flow%20PKCE%20Manager"></a>
+                  <h3 class="section-name"><p>Authorization Code Flow PKCE Manager</p>
+</h3>
+                </div>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -450,48 +537,26 @@
 
 <p>The authorization code flow with PKCE is the best option for mobile and desktop
 applications where it is unsafe to store your client secret. It provides an
-additional layer of security compared to the authorization code flow. For further
-information about this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
+additional layer of security compared to the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">authorization code flow</a>. For
+further information about this flow, see <a href="https://tools.ietf.org/html/rfc7636">IETF RFC-7636</a>.</p>
 
-<p>Before each authentication request your app should generate a code verifier and
-a code challenge. The code verifier is a cryptographically random string between
-43 and 128 characters in length. It can contain letters, digits, underscores,
-periods, hyphens, or tildes.</p>
+<p>This class stores the client id locally. Consider using
+<code><a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager&lt;AuthorizationCodeFlowPKCEProxyBackend&gt;</a></code>,
+which allows you to setup a custom backend server that can store these
+sensitive credentials and which communicates with Spotify on your behalf in
+order to retrieve the authoriztion information.</p>
+<h1 id='authorization' class='heading'>Authorization</h1>
 
-<p>In order to generate the code challenge, your app should hash the code verifier
-using the SHA256 algorithm. Then, <a href="https://tools.ietf.org/html/rfc4648#section-5">base64url</a> encode the hash that you generated.
-<strong>Do not include any</strong> <code>=</code> <strong>padding characters</strong> (percent-encoded or not).</p>
-
-<p>You can use <code><a href="Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6length5usingSSSi_xztSGRzlFZ">String.randomURLSafe(length:using:)</a></code> or
-<code><a href="Extensions/String.html#/s:SS13SpotifyWebAPIE13randomURLSafe6lengthSSSi_tFZ">String.randomURLSafe(length:)</a></code> to generate the code verifier. You can Use the
-<code><a href="Extensions/String.html#/s:SS13SpotifyWebAPIE17makeCodeChallengeSSyF">String.makeCodeChallenge()</a></code> instance method to create the code challenge
-from the code verifier. For example:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">codeVerifier</span> <span class="o">=</span> <span class="kt">String</span><span class="o">.</span><span class="nf">randomURLSafe</span><span class="p">(</span><span class="nv">length</span><span class="p">:</span> <span class="mi">128</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">codeChallenge</span> <span class="o">=</span> <span class="n">codeVerifier</span><span class="o">.</span><span class="nf">makeCodeChallenge</span><span class="p">()</span>
-</code></pre>
-
-<p>If you use your own method to create these values, you can validate them
-using this <a href="https://tonyxu-io.github.io/pkce-generator/">PKCE generator tool</a>. See also <code><a href="Extensions/Data.html#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF">Data.base64URLEncodedString()</a></code>
-and <code><a href="Extensions/String.html#/s:SS13SpotifyWebAPIE17urlSafeCharactersSSvpZ">String.urlSafeCharacters</a></code>.</p>
-
-<p>The first step in the authorization process is to make the authorization
-URL using
-<code>makeAuthorizationURL(redirectURI:showDialog:codeChallenge:state:scopes:)</code>.
-Open this URL in a browser/webview to allow the user to login
-to their Spotify account and authorize your application. It displays a
-permissions dialog to the user.</p>
+<p>The first step in the authorization process is to create the authorization URL
+using <code>makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)</code>. It
+displays a permissions dialog to the user. Open the URL in a browser/webview so
+that the user can login to their Spotify account and authorize your app.</p>
 
 <p>After the user either authorizes or denies authorization for your application,
-Spotify will redirect to the redirect URI specified in the authorization
-URL with query parameters appended to it. Pass this URL into
-<code>requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</code>
-to request the refresh and access tokens. After that, you can begin making
-requests to the Spotify API. The access token will be refreshed for you
-automatically when needed.</p>
-
-<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+Spotify will redirect to <code>redirectURI</code> with query parameters appended to it.
+Pass that URL into
+<code>requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)</code> to
+complete the authorization process.</p>
 
 <p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
 for the specified scopes.</p>
@@ -499,17 +564,11 @@ for the specified scopes.</p>
 <p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
 and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
 which are immutable.</p>
+<h1 id='persistant-storage' class='heading'>Persistant Storage</h1>
 
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The refresh token</li>
-<li>The expiration date for the access token</li>
-<li>The scopes that have been authorized for the access token</li>
-</ul>
+<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
                         <a href="Classes/AuthorizationCodeFlowPKCEManager.html" class="slightly-smaller">See more</a>
                       </div>
@@ -518,16 +577,26 @@ which are immutable.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span>
-    <span class="kt"><a href="Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a></span><span class="p">,</span>
-    <span class="kt"><a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEManager</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+    <span class="kt"><a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Authorization%20Code%20Flow%20Manager"></a>
+                <a name="//apple_ref/swift/Section/Authorization Code Flow Manager" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Authorization%20Code%20Flow%20Manager"></a>
+                  <h3 class="section-name"><p>Authorization Code Flow Manager</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -548,10 +617,17 @@ using <code><a href="Classes/AuthorizationCodeFlowPKCEManager.html">Authorizatio
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow with Proof Key for Code Exchange</a>; it provides
 an additional layer of security.</p>
 
+<p>This class stores the client id and client secret locally. Consider using
+<code><a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowProxyBackend&gt;</a></code>, which
+allows you to setup a custom backend server that can store these sensitive
+credentials and which communicates with Spotify on your behalf in order to
+retrieve the authoriztion information.</p>
+<h1 id='authorization' class='heading'>Authorization</h1>
+
 <p>The first step in the authorization code flow is to make the
 authorization URL using
 <code>makeAuthorizationURL(redirectURI:showDialog:state:scopes:)</code>.
-Open this URL in a broswer/webview to allow the user to login
+Open this URL in a browser/webview to allow the user to login
 to their Spotify account and authorize your application.</p>
 
 <p>After they either authorize or deny authorization for your application,
@@ -559,30 +635,20 @@ Spotify will redirect to the redirect URI specified in the authorization
 URL with query parameters appended to it. Pass this URL into
 <code>requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</code> to request
 the refresh and access tokens. After that, you can begin making requests
-to the Spotify API. The access token will be refreshed for you
-automatically when needed.</p>
+to the Spotify API. The access token will be refreshed for you automatically
+when needed.</p>
 
-<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
-
-<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
-for the specified scopes.</p>
+<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized for the
+specified scopes.</p>
 
 <p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
-and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
-which are immutable.</p>
+and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>, which are
+immutable.</p>
+<h1 id='persistent-storage' class='heading'>Persistent Storage</h1>
 
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The refresh token</li>
-<li>The expiration date for the access token</li>
-<li>The scopes that have been authorized for the access token</li>
-</ul>
+<p>Note that this type conforms to <code>Codable</code>. It is this type that you should
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
                         <a href="Classes/AuthorizationCodeFlowManager.html" class="slightly-smaller">See more</a>
                       </div>
@@ -591,10 +657,7 @@ which are immutable.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span>
-    <span class="kt"><a href="Classes/AuthorizationCodeFlowManagerBase.html">AuthorizationCodeFlowManagerBase</a></span><span class="p">,</span>
-    <span class="kt"><a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowManager</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+    <span class="kt"><a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -615,28 +678,18 @@ which are immutable.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The base class for functionality shared between
-<code><a href="Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a></code> and <code><a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code>.</p>
+ <code><a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a></code> and
+<code><a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></code>.</p>
 
-<p>You cannot—and should not—create an instance of this class.
-Instead, you create an instance of one of the sub-classes above.</p>
+<p>You cannot—and should not—create an instance of this class. Instead, you create
+ an instance of one of the sub-classes above.</p>
 
-<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized
-for the specified scopes.</p>
+<p>Use <code>isAuthorized(for:)</code> to check if your application is authorized for the
+ specified scopes.</p>
 
 <p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
-and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>,
-which are immutable.</p>
-
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The refresh token</li>
-<li>The expiration date for the access token</li>
-<li>The scopes that have been authorized for the access token</li>
-</ul>
+ and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>, which are
+ immutable.</p>
 
                         <a href="Classes/AuthorizationCodeFlowManagerBase.html" class="slightly-smaller">See more</a>
                       </div>
@@ -644,13 +697,26 @@ which are immutable.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManagerBase</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AuthorizationCodeFlowManagerBase</span><span class="o">&lt;</span><span class="kt">Backend</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Backend</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/ClientCredentialsFlowManager"></a>
+                <a name="//apple_ref/swift/Section/ClientCredentialsFlowManager" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/ClientCredentialsFlowManager"></a>
+                  <h3 class="section-name"><p>ClientCredentialsFlowManager</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -668,26 +734,29 @@ which are immutable.</p>
 
 <p>The Client Credentials flow is used in server-to-server authentication. Only
 endpoints that do not access user information can be accessed. This means that
-endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a> cannot be accessed.</p>
-
-<p>The only method you must call to authorize your application is <code>authorize()</code>.
-After that, you may begin making requests to the Soptify web API.</p>
-
-<p>The advantage of this authorization proccess is that no user interaction is
+endpoints that require <a href="https://developer.spotify.com/documentation/general/guides/scopes/">authorization scopes</a> cannot be accessed. The
+advantage of this authorization proccess is that no user interaction is
 required.</p>
 
+<p>This class stores the client id and client secret locally. Consider using
+<code><a href="Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager&lt;ClientCredentialsFlowProxyBackend&gt;</a></code>, which
+allows you to setup a custom backend server that can store these sensitive
+credentials and which communicates with Spotify on your behalf in order to
+retrieve the authoriztion information.</p>
+<h1 id='authorization' class='heading'>Authorization</h1>
+
+<p>The only method you must call to authorize your application is <code>authorize()</code>.
+After that, you may begin making requests to the Soptify web API. The access
+token will be refreshed for you automatically when needed.</p>
+
+<p>Use <code>deauthorize()</code> to set the <code>accessToken</code>, <code>refreshToken</code>, <code>expirationDate</code>,
+and <code>scopes</code> to <code>nil</code>. Does not change <code>clientId</code> or <code>clientSecret</code>, which are
+immutable.</p>
+<h1 id='persistent-storage' class='heading'>Persistent Storage</h1>
+
 <p>Note that this type conforms to <code>Codable</code>. It is this type that you should
-encode to data using a <code>JSONEncoder</code> in order to save it to persistent storage.
-See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
-
-<p>Contains the following properties:</p>
-
-<ul>
-<li>The client id</li>
-<li>The client secret</li>
-<li>The access token</li>
-<li>The expiration date of the access token</li>
-</ul>
+encode to data using a <code>JSONEncoder</code> in order to save the authorization
+information to persistent storage. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
                         <a href="Classes/ClientCredentialsFlowManager.html" class="slightly-smaller">See more</a>
                       </div>
@@ -695,9 +764,8 @@ See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authori
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ClientCredentialsFlowManager</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SpotifyAuthorizationManager.html">SpotifyAuthorizationManager</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClientCredentialsFlowManager</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClientCredentialsFlowManager</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ClientCredentialsFlowManager</span><span class="p">:</span>
+    <span class="kt"><a href="Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -795,7 +863,8 @@ Read more at the <a href="https://developer.spotify.com/documentation/general/gu
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Scope</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Scope</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Scope</span><span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>
@@ -820,6 +889,9 @@ Spotify web API. It also contains all the authorization information.</p>
 
 <p>It provides an access token, the scopes that have been authorized for the
 access token, and a method for refreshing the access token.</p>
+
+<p>Types that support authorization scopes should conform to
+<code><a href="Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>, which inherits from this protocol.</p>
 
 <p>Note that this protocol inherits from <code>Codable</code>.
 It is this type that you should encode to data using a <code>JSONEncoder</code>
@@ -852,12 +924,13 @@ information.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A type that can manage the authorization process for the
-Spotify web API and that <strong>supports authorization scopes</strong>.</p>
+                        <p>A type that can manage the authorization process for the Spotify web API and
+that <strong>supports authorization scopes</strong>.</p>
 
-<p><code><a href="Classes/AuthorizationCodeFlowManager.html">AuthorizationCodeFlowManager</a></code> and <code><a href="Classes/AuthorizationCodeFlowPKCEManager.html">AuthorizationCodeFlowPKCEManager</a></code>
-conform to this protocol. <code><a href="Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a></code>
-is not a conforming type because it does not support authorization scopes.</p>
+<p><code><a href="Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a></code> and
+<code><a href="Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></code> conform to this protocol.
+<code><a href="Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a></code> is not a conforming type because it does
+not support authorization scopes.</p>
 
                       </div>
                       <div class="declaration">
@@ -876,7 +949,7 @@ is not a conforming type because it does not support authorization scopes.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

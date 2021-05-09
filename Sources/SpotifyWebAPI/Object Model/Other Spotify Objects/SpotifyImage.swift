@@ -102,12 +102,10 @@ public extension SpotifyImage {
             .anyFailingPublisher()
         }
         
-        #if canImport(Combine)
-        let publisher = URLSession.shared.dataTaskPublisher(for: imageURL)
-        #else
-        let publisher = URLSession.OCombine(.shared).dataTaskPublisher(for: imageURL)
-        #endif
-        
+        let publisher = URLSession.shared.dataTaskPublisher(
+            for: imageURL
+        )
+
         return publisher
             .tryMap { data, response -> Image in
 

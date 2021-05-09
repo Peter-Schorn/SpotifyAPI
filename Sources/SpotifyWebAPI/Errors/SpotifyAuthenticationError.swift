@@ -37,15 +37,12 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
      A more detailed description of the error as specified in
      [RFC 6749 Section 4.1.2.1][1].
      
+     May be `nil` in rare cases.
+     
      [1]: https://tools.ietf.org/html/rfc6749#section-4.1.2.1
      */
-    public let description: String
+    public let errorDescription: String?
 
-    /// :nodoc:
-    public var errorDescription: String? {
-        return description
-    }
-    
 }
 
 extension SpotifyAuthenticationError: Codable {
@@ -53,7 +50,7 @@ extension SpotifyAuthenticationError: Codable {
     /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case error
-        case description = "error_description"
+        case errorDescription = "error_description"
     }
     
 }

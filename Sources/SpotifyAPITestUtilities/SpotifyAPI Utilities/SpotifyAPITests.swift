@@ -8,68 +8,129 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 
 #endif
+
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 @testable import SpotifyWebAPI
 
 /// The base protocol that all tests involving `SpotifyAPI` inherit from.
 public protocol SpotifyAPITests: SpotifyAPITestCase {
     
-    associatedtype AuthorizationManager: SpotifyAuthorizationManager
+    associatedtype AuthorizationManager: _InternalSpotifyAuthorizationManager
     
     static var spotify: SpotifyAPI<AuthorizationManager> { get set }
     static var cancellables: Set<AnyCancellable> { get set }
     
 }
 
-public extension SpotifyAPITests {
-    
-    static func setUpDebugging() {
-        spotify.setupDebugging()
-    }
+// MARK: - Internal Authorization Managers -
+
+/// Provides generic access to members that are only expected to be
+/// available in the authorization managers in this library, as opposed
+/// to those that may be created by other clients.
+public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager, Equatable {
+
+    /**
+     Sets the expiration date of the access token to the specified date.
+     **Only use for testing purposes**.
+     
+     - Parameter date: The date to set the expiration date to.
+     */
+    func setExpirationDate(to date: Date) -> Void
+   
+    func waitUntilAuthorized() -> Void
 
 }
 
-public extension SpotifyAPITests where
-    AuthorizationManager: SpotifyScopeAuthorizationManager
+/// Provides generic access to members that are only expected to be
+/// available in the **scope** authorization managers in this library, as opposed
+/// to those that may be created by other clients.
+public protocol _InternalSpotifyScopeAuthorizationManager:
+    SpotifyScopeAuthorizationManager,
+    _InternalSpotifyAuthorizationManager
+
 {
-
-    static func authorizeAndWaitForTokens(
-        scopes: Set<Scope>, showDialog: Bool = false
-    ) {
-        if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowManager> {
-            spotify.authorizeAndWaitForTokens(
-                scopes: scopes, showDialog: showDialog
-            )
-        }
-        else if let spotify = Self.spotify as?
-                SpotifyAPI<AuthorizationCodeFlowPKCEManager> {
-            spotify.authorizeAndWaitForTokens(
-                scopes: scopes
-            )
-        }
-        else {
-            fatalError(
-                "unsupported authorization manager: " +
-                "\(type(of: Self.spotify.authorizationManager))"
-            )
-        }
-    }
+    
+    /// Blocks the thread until the application has been authorized
+    /// and the refresh and access tokens have been retrieved.
+    /// Returns early if the application is already authorized.
+    func authorizeAndWaitForTokens(
+        scopes: Set<Scope>, showDialog: Bool
+    ) -> Void
     
 }
 
-public extension SpotifyAuthorizationManager {
+// MARK: - Generic Over Backend -
+
+public protocol _AuthorizationCodeFlowManagerProtool: _InternalSpotifyScopeAuthorizationManager {
     
-    /// Only use for testing purposes.
-    func setExpirationDate(to date: Date) {
-        if let authManager = self as? AuthorizationCodeFlowManagerBase {
-            authManager.setExpirationDate(to: Date())
-        }
-        else if let authManager = self as? ClientCredentialsFlowManager {
-            authManager.setExpirationDate(to: Date())
-        }
-        else {
-            fatalError("not implemented")
-        }
-    }
+    var _refreshToken: String? { get set }
+
+    func makeAuthorizationURL(
+        redirectURI: URL,
+        showDialog: Bool,
+        state: String?,
+        scopes: Set<Scope>
+    ) -> URL?
+    
+    func requestAccessAndRefreshTokens(
+        redirectURIWithQuery: URL,
+        state: String?
+    ) -> AnyPublisher<Void, Error>
     
 }
+
+public protocol _AuthorizationCodeFlowPKCEManagerProtool: _InternalSpotifyScopeAuthorizationManager {
+    
+    var _refreshToken: String? { get set }
+
+    func makeAuthorizationURL(
+        redirectURI: URL,
+        codeChallenge: String,
+        state: String?,
+        scopes: Set<Scope>
+    ) -> URL?
+    
+    func requestAccessAndRefreshTokens(
+        redirectURIWithQuery: URL,
+        codeVerifier: String,
+        state: String?
+    ) -> AnyPublisher<Void, Error> 
+    
+}
+
+public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthorizationManager {
+    
+    var _accessToken: String? { get set }
+
+    func authorize() -> AnyPublisher<Void, Error>
+
+}
+
+// MARK: - Conformances -
+
+extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool {
+    
+    public func waitUntilAuthorized() {
+        self.authorizeAndWaitForTokens(
+            scopes: Scope.allCases,
+            showDialog: false
+        )
+    }
+
+}
+
+extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtool {
+    
+    public func waitUntilAuthorized() {
+        self.authorizeAndWaitForTokens(scopes: Scope.allCases)
+    }
+
+}
+
+extension ClientCredentialsFlowBackendManager: _ClientCredentialsFlowManagerProtocol { }
+
+

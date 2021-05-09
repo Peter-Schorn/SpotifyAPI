@@ -7,66 +7,72 @@ import OpenCombineDispatch
 import OpenCombineFoundation
 
 #endif
-import Logging
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
 
+import Logging
+
 /**
  The base class for functionality shared between
- `AuthorizationCodeFlowPKCEManager` and `AuthorizationCodeFlowManager`.
- 
- You cannot—and should not—create an instance of this class.
- Instead, you create an instance of one of the sub-classes above.
- 
- Use `isAuthorized(for:)` to check if your application is authorized
- for the specified scopes.
- 
+ `AuthorizationCodeFlowBackendManager` and
+`AuthorizationCodeFlowPKCEBackendManager`.
+
+ You cannot—and should not—create an instance of this class. Instead, you create
+ an instance of one of the sub-classes above.
+
+ Use `isAuthorized(for:)` to check if your application is authorized for the
+ specified scopes.
+
  Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
- which are immutable.
+ and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
+ immutable.
  
- Contains the following properties:
- 
- * The client id
- * The client secret
- * The access token
- * The refresh token
- * The expiration date for the access token
- * The scopes that have been authorized for the access token
- 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
-public class AuthorizationCodeFlowManagerBase {
+public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     /// The logger for this class. Sub-classes will not use this logger;
     /// instead, they will create their own logger.
-    public static var baseLogger = Logger(
-        label: "AuthorizationCodeFlowManagerBase", level: .critical
-    )
-    
-    /// The client id for your application.
-    public let clientId: String
-    
-    /// The client secret for your application.
-    public let clientSecret: String
-    
-    /// The base 64 encoded authorization header with the client id
-    /// and client secret
-    let basicBase64EncodedCredentialsHeader: [String: String]
+    public static var baseLogger: Logger {
+        get {
+            return AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger
+        }
+        set {
+            AuthorizationManagerLoggers
+                    .authorizationCodeFlowManagerBaseLogger = newValue
+        }
+    }
 
     /**
-     The access token used in all of the requests
-     to the Spotify web API.
+     A type that handles the process of requesting the authorization
+     information.
+
+     The backend handles the process of requesting the authorization information
+     from Spotify. It may do so directly or it may communicate with a custom
+     backend server that you configure This backend server can safely store your
+     client id and client secret and retrieve the authorization information from
+     Spotify on your behalf, thereby preventing these sensitive credentials from
+     being exposed in your frontend app. See `AuthorizationCodeFlowBackend` and
+     `AuthorizationCodeFlowPKCEBackend` for more information.
      
+     - Warning: Do not mutate this property when a request to retrieve
+           authorization information is in progress. Doing so is *not* thread
+           safe.
+     */
+    public var backend: Backend
+
+    /**
+     The access token used in all of the requests to the Spotify web API.
+
      # Thread Safety
-     
+
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
     public var accessToken: String? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._accessToken
         }
     }
@@ -74,14 +80,14 @@ public class AuthorizationCodeFlowManagerBase {
     
     /**
      Used to refresh the access token.
-     
+
      # Thread Safety
-     
+
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
     public var refreshToken: String? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._refreshToken
         }
     }
@@ -89,17 +95,16 @@ public class AuthorizationCodeFlowManagerBase {
     
     /**
      The expiration date of the access token.
-    
-     You are encouraged to use `accessTokenIsExpired(tolerance:)`
-     to check if the token is expired.
-     
+          You are encouraged to use `accessTokenIsExpired(tolerance:)` to check
+     if the token is expired.
+
      # Thread Safety
-     
+
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
     public var expirationDate: Date? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._expirationDate
         }
     }
@@ -107,17 +112,16 @@ public class AuthorizationCodeFlowManagerBase {
     
     /**
      The scopes that have been authorized for the access token.
-    
-     You are encouraged to use `isAuthorized(for:)` to check
-     which scopes the access token is authorized for.
-     
+          You are encouraged to use `isAuthorized(for:)` to check which scopes
+     the access token is authorized for.
+
      # Thread Safety
-     
+
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
     public var scopes: Set<Scope>? {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             self._scopes
         }
     }
@@ -129,19 +133,15 @@ public class AuthorizationCodeFlowManagerBase {
      **You are discouraged from subscribing to this publisher directly.**
      
      Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
-     publisher. This allows you to be notified of changes even
-     when you create a new instance of this class and assign it to the
-     `authorizationManager` instance property of `SpotifyAPI`.
+     publisher. This allows you to be notified of changes even when you create a
+     new instance of this class and assign it to the `authorizationManager`
+     instance property of `SpotifyAPI`.
      
      Emits after the following events occur:
      * After the access and refresh tokens are retrieved using
-       ```
-       requestAccessAndRefreshTokens(redirectURIWithQuery:state:)
-       ```
+       `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`
        or
-       ```
-       requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)
-       ```
+       `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
      * After the access token (and possibly the refresh token as well) is
        refreshed using `refreshTokens(onlyIfExpired:tolerance:)`.
      
@@ -152,7 +152,6 @@ public class AuthorizationCodeFlowManagerBase {
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didChange = PassthroughSubject<Void, Never>()
     
@@ -163,8 +162,8 @@ public class AuthorizationCodeFlowManagerBase {
      
      Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
      publisher. This allows you to be notified even when you create a new
-     instance of this class and assign it to the `authorizationManager`
-     instance property of `SpotifyAPI`.
+     instance of this class and assign it to the `authorizationManager` instance
+     property of `SpotifyAPI`.
      
      `deauthorize()` sets the access token, expiration date, refresh token,
      and scopes to `nil`.
@@ -177,35 +176,18 @@ public class AuthorizationCodeFlowManagerBase {
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     Always receive on the main thread if you plan on updating the UI.
      */
     public let didDeauthorize = PassthroughSubject<Void, Never>()
-    
-    /**
-     A function that gets called everytime this class—and only this
-     class—needs to make a network request.
-    
-     Use this function if you need to use a custom networking client. The `url`
-     and `httpMethod` properties of the `URLRequest` parameter are guaranteed
-     to be non-`nil`. No guarentees are made about which thread this function
-     will be called on. By default, `URLSession` will be used for the network
-     requests.
-     
-     - Warning: Do not mutate this property while a network request is being
-           made.
-     */
-    public var networkAdaptor:
-        (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
     var cancellables: Set<AnyCancellable> = []
     
     /// Ensure no data races occur when updating the auth info.
-    let updateAuthInfoDispatchQueue = DispatchQueue(
-        label: "updateAuthInfoDispatchQueue"
+    let updateAuthInfoQueue = DispatchQueue(
+        label: "SpotifyAPI.AuthorizationCodeFlowManagerBase.updateAuthInfo"
     )
     
     let refreshTokensQueue = DispatchQueue(
-        label: "AuthorizationCodeFlowManagerBase.refrehTokens"
+        label: "SpotifyAPI.AuthorizationCodeFlowManagerBase.refrehTokens"
     )
 
     /**
@@ -217,24 +199,12 @@ public class AuthorizationCodeFlowManagerBase {
      */
     var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
-    required init(
-        clientId: String,
-        clientSecret: String,
-        networkAdaptor: (
-            (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
-        )? = nil
-    ) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-            clientId: self.clientId,
-            clientSecret: self.clientSecret
-        )!
-        self.networkAdaptor = networkAdaptor
-                ?? URLSession.shared.defaultNetworkAdaptor(request:)
+    required init(backend: Backend) {
+        self.backend = backend
+        
     }
     
-    // MARK: - Codable -
+    // MARK: - Codable, Hashable -
     
     /// :nodoc:
     init(from decoder: Decoder) throws {
@@ -249,23 +219,15 @@ public class AuthorizationCodeFlowManagerBase {
         let container = try decoder.container(
             keyedBy: AuthInfo.CodingKeys.self
         )
-        self.clientId = try container.decode(
-            String.self, forKey: .clientId
+        self.backend = try container.decode(
+            Backend.self, forKey: .backend
         )
-        self.clientSecret = try container.decode(
-            String.self, forKey: .clientSecret
-        )
-        self.basicBase64EncodedCredentialsHeader = Headers.basicBase64Encoded(
-            clientId: self.clientId,
-            clientSecret: self.clientSecret
-        )!
-        self.networkAdaptor = URLSession.shared.defaultNetworkAdaptor(request:)
         
     }
     
     /// :nodoc:
     func encode(to encoder: Encoder) throws {
-        let codingWrapper = self.updateAuthInfoDispatchQueue.sync {
+        let codingWrapper = self.updateAuthInfoQueue.sync {
             return AuthInfo(
                 accessToken: self._accessToken,
                 refreshToken: self._refreshToken,
@@ -278,20 +240,16 @@ public class AuthorizationCodeFlowManagerBase {
             keyedBy: AuthInfo.CodingKeys.self
         )
         
-        try container.encode(
-            self.clientId, forKey: .clientId
-        )
-        try container.encode(
-            self.clientSecret, forKey: .clientSecret
-        )
+		try container.encode(
+			self.backend, forKey: .backend
+		)
         try codingWrapper.encode(to: encoder)
         
     }
     
     func hash(into hasher: inout Hasher) {
-        self.updateAuthInfoDispatchQueue.sync {
-            hasher.combine(self.clientId)
-            hasher.combine(self.clientSecret)
+        self.updateAuthInfoQueue.sync {
+            hasher.combine(self.backend)
             hasher.combine(self._accessToken)
             hasher.combine(self._refreshToken)
             hasher.combine(self._expirationDate)
@@ -303,25 +261,22 @@ public class AuthorizationCodeFlowManagerBase {
      Returns a copy of self.
      
      Copies the following properties:
-     * `clientId`
-     * `clientSecret`
+     * `backend`
      * `accessToken`
      * `refreshToken`
      * `expirationDate`
      * `scopes`
-     * `networkAdaptor`
      */
     public func makeCopy() -> Self {
-        let instance = Self(
-            clientId: self.clientId, clientSecret: self.clientSecret
+        let copy = Self(
+            backend: self.backend
         )
-        return self.updateAuthInfoDispatchQueue.sync {
-            instance._accessToken = self._accessToken
-            instance._refreshToken = self._refreshToken
-            instance._expirationDate = self._expirationDate
-            instance._scopes = self._scopes
-            instance.networkAdaptor = self.networkAdaptor
-            return instance
+        return self.updateAuthInfoQueue.sync {
+            copy._accessToken = self._accessToken
+            copy._refreshToken = self._refreshToken
+            copy._expirationDate = self._expirationDate
+            copy._scopes = self._scopes
+            return copy
         }
     }
 }
@@ -331,26 +286,25 @@ public extension AuthorizationCodeFlowManagerBase {
     // MARK: - Authorization -
     
     /**
-     Sets `accessToken`, `refreshToken`, `expirationDate`, and
-     `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
-     which are immutable.
-     
-     After calling this method, you must authorize your application
-     again before accessing any of the Spotify web API endpoints.
-     
-     If this instance is stored in persistent storage, consider
-     removing it after calling this method.
+     Sets `accessToken`, `refreshToken`, `expirationDate`, and `scopes` to
+     `nil`. Does not change `clientId` or `clientSecret`, which are immutable.
 
-     Calling this method causes `didDeauthorize` to emit a signal, which
-     will also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to
-     emit a signal.
+     After calling this method, you must authorize your application again before
+     accessing any of the Spotify web API endpoints.
+
+     If this instance is stored in persistent storage, consider removing it
+     after calling this method.
+
+     Calling this method causes `didDeauthorize` to emit a signal, which will
+     also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to emit a
+     signal.
      
      # Thread Safety
      
      This method is thread-safe.
      */
     func deauthorize() {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             self._accessToken = nil
             self._refreshToken = nil
             self._expirationDate = nil
@@ -362,40 +316,36 @@ public extension AuthorizationCodeFlowManagerBase {
     }
     
     /**
-     Determines whether the access token is expired within the given
-     tolerance.
+     Determines whether the access token is expired within the given tolerance.
      
      See also `isAuthorized(for:)`.
      
-     The access token is refreshed automatically when necessary
-     before each request to the Spotify web API is made.
-     Therefore, **you should never need to call this method directly.**
+     The access token is refreshed automatically when necessary before each
+     request to the Spotify web API is made. Therefore, **you should never**
+     **need to call this method directly.**
      
-     - Parameter tolerance: The tolerance in seconds.
-           Default 120.
-     - Returns: `true` if `expirationDate` - `tolerance` is
-           equal to or before the current date or if `accessToken`
-           is `nil`. Else, `false`.
+     - Parameter tolerance: The tolerance in seconds. Default 120.
+     - Returns: `true` if `expirationDate` - `tolerance` is equal to or before
+           the current date or if `accessToken` is `nil`. Else, `false`.
      
      # Thread Safety
      
      This method is thread-safe.
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             return accessTokenIsExpiredNOTTHreadSafe(tolerance: tolerance)
         }
     }
     
     /**
-     Returns `true` if `accessToken` is not `nil` and the application
-     is authorized for the specified scopes, else `false`.
+     Returns `true` if `accessToken` is not `nil` and the application is
+     authorized for the specified scopes, else `false`.
      
-     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1].
-     Use an empty set (default) to check if an `accessToken`
-     has been retrieved for the application, which is still
-     required for all endpoints, even those that do not require
-     scopes.
+     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1]. Use an empty
+           set (default) to check if an `accessToken` has been retrieved for the
+           application, which is still required for all endpoints, even those
+           that do not require scopes.
      
      # Thread Safety
      
@@ -404,7 +354,7 @@ public extension AuthorizationCodeFlowManagerBase {
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
-        return self.updateAuthInfoDispatchQueue.sync {
+        return self.updateAuthInfoQueue.sync {
             if self._accessToken == nil { return false }
             return scopes.isSubset(of: self._scopes ?? [])
         }
@@ -412,22 +362,22 @@ public extension AuthorizationCodeFlowManagerBase {
     
 }
 
-// MARK: - Internal -
-
 extension AuthorizationCodeFlowManagerBase {
+
+    // MARK: - Internal -
     
     func updateFromAuthInfo(_ authInfo: AuthInfo) {
-        self.updateAuthInfoDispatchQueue.sync {
-            self._accessToken = authInfo.accessToken
-            if let refreshToken = authInfo.refreshToken {
-                self._refreshToken = refreshToken
-            }
-            self._expirationDate = authInfo.expirationDate
-            self._scopes = authInfo.scopes
-            self.refreshTokensPublisher = nil
+        self._accessToken = authInfo.accessToken
+        if let refreshToken = authInfo.refreshToken {
+            self._refreshToken = refreshToken
         }
-        Self.baseLogger.trace("\(Self.self): didChange.send()")
-        self.didChange.send()
+        self._expirationDate = authInfo.expirationDate
+        self._scopes = authInfo.scopes
+        self.refreshTokensPublisher = nil
+        self.refreshTokensQueue.async {
+            Self.baseLogger.trace("\(Self.self): didChange.send()")
+            self.didChange.send()
+        }
     }
     
     /// This method should **ALWAYS** be called within
@@ -450,10 +400,11 @@ extension AuthorizationCodeFlowManagerBase {
         return expirationDate.addingTimeInterval(-tolerance) <= Date()
     }
     
+    /// Used internally by this library. Do not call this method directly.
     public func _assertNotOnUpdateAuthInfoDispatchQueue() {
         #if DEBUG
         dispatchPrecondition(
-            condition: .notOnQueue(self.updateAuthInfoDispatchQueue)
+            condition: .notOnQueue(self.updateAuthInfoQueue)
         )
         #endif
     }
@@ -461,7 +412,7 @@ extension AuthorizationCodeFlowManagerBase {
     func isEqualTo(other: AuthorizationCodeFlowManagerBase) -> Bool {
         
         let (lhsAccessToken, lhsRefreshToken, lhsScopes, lhsExpirationDate) =
-            self.updateAuthInfoDispatchQueue
+            self.updateAuthInfoQueue
                 .sync { () -> (String?, String?, Set<Scope>?, Date?) in
                     return (
                         self._accessToken,
@@ -472,7 +423,7 @@ extension AuthorizationCodeFlowManagerBase {
                 }
         
         let (rhsAccessToken, rhsRefreshToken, rhsScopes, rhsExpirationDate) =
-                other.updateAuthInfoDispatchQueue
+                other.updateAuthInfoQueue
                     .sync { () -> (String?, String?, Set<Scope>?, Date?) in
                         return (
                             other._accessToken,
@@ -482,8 +433,7 @@ extension AuthorizationCodeFlowManagerBase {
                         )
                     }
         
-        return self.clientId == other.clientId &&
-                self.clientSecret == other.clientSecret &&
+		return self.backend == other.backend &&
                 lhsAccessToken == rhsAccessToken &&
                 lhsRefreshToken == rhsRefreshToken &&
                 lhsScopes == rhsScopes &&
@@ -493,15 +443,14 @@ extension AuthorizationCodeFlowManagerBase {
 
 }
 
-// MARK: - Testing -
-
 extension AuthorizationCodeFlowManagerBase {
+
+    // MARK: - Testing -
     
-    /// This method sets random values for various properties
-    /// for testing purposes. Do not call it outside the context
-    /// of tests.
+    /// This method sets random values for various properties for testing
+    /// purposes. Do not call it outside the context of tests.
     func mockValues() {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             self._accessToken = UUID().uuidString
             self._refreshToken = UUID().uuidString
             self._expirationDate = Date()
@@ -509,7 +458,7 @@ extension AuthorizationCodeFlowManagerBase {
         }
     }
     
-    /// Only use for testing purposes.
+	/// Only use for testing purposes.
     func subscribeToDidChange() {
         
         self.didChange
@@ -526,7 +475,7 @@ extension AuthorizationCodeFlowManagerBase {
      - Parameter date: The date to set the expiration date to.
      */
     public func setExpirationDate(to date: Date) {
-        self.updateAuthInfoDispatchQueue.sync {
+        self.updateAuthInfoQueue.sync {
             Self.baseLogger.notice(
                 "\(Self.self): mock expiration date: \(date.description(with: .current))"
             )

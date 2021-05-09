@@ -1,15 +1,26 @@
 import Foundation
+#if canImport(Combine)
+import Combine
+#else
+import OpenCombine
+import OpenCombineDispatch
+import OpenCombineFoundation
+#endif
+
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 // MARK: Dictionary Extensions
 
 public extension Dictionary where Key == String, Value == String {
     
     /**
-     Encodes this dictionary into data according to
-     `application/x-www-form-urlencoded`.
+     Encodes this dictionary into data according to the "x-www-form-urlencoded"
+     format.
     
-     Returns `nil` if the query string cannot be converted to
-     `Data` using a utf-8 character encoding.
+     Returns `nil` if the query string cannot be converted to `Data` using a
+     utf-8 character encoding.
      */
     func formURLEncoded() -> Data? {
         
@@ -17,7 +28,7 @@ public extension Dictionary where Key == String, Value == String {
         urlComponents.queryItems = self.map { item in
             URLQueryItem(name: item.key, value: item.value)
         }
-        return urlComponents.query?.data(using: .utf8)
+        return (urlComponents.percentEncodedQuery ?? "").data(using: .utf8)
     }
     
 }
@@ -162,6 +173,66 @@ public extension Collection where Index == Int {
     }
 
 }
+
+// extension DispatchQueue {
+//     
+//     #if canImport(Combine)
+//     static func combineGlobal(
+//         qos: DispatchQoS.QoSClass = .default
+//     ) -> DispatchQueue {
+//         return DispatchQueue.global(qos: qos)
+//     }
+//     #else
+//     static func combineGlobal(
+//         qos: DispatchQoS.QoSClass = .default
+//     ) -> DispatchQueue.OCombine {
+//         return DispatchQueue.OCombine(.global(qos: qos))
+//     }
+//     #endif
+//     
+//     #if canImport(Combine)
+//     static func combine(label: String) -> DispatchQueue {
+//         return DispatchQueue(label: label)
+//     }
+//     #else
+//     static func combine(label: String) -> DispatchQueue.OCombine {
+//         return DispatchQueue.OCombine(.init(label: label))
+//     }
+//     #endif
+//     
+//     #if canImport(Combine)
+//     var queue: DispatchQueue { self }
+//     #endif
+// 
+// }
+// 
+// #if !canImport(Combine)
+// extension DispatchQueue.OCombine {
+//     
+//     @inlinable @inline(__always)
+//     func sync<T>(execute block: () throws -> T) rethrows -> T {
+//         return try self.queue.sync(execute: block)
+//     }
+//     
+//     @inlinable @inline(__always)
+//     func async(execute block: @escaping () -> Void) {
+//         self.queue.async(execute: block)
+//     }
+//     
+// }
+// 
+// extension DispatchPredicate {
+// 
+//     static func notOnQueue(_ queue: DispatchQueue.OCombine) -> Self {
+//         return Self.notOnQueue(queue.queue)
+//     }
+//     
+//     static func onQueue(_ queue: DispatchQueue.OCombine) -> Self {
+//         return Self.onQueue(queue.queue)
+//     }
+// 
+// }
+// #endif
 
 // MARK: - Optional Extensions -
 

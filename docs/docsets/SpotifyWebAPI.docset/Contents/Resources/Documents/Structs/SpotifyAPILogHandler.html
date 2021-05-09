@@ -70,6 +70,61 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Authorization%20Backends.html">Authorization Backends</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authentication%20Objects.html">Authentication Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsTokensRequest.html">ClientCredentialsTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyTokensRequest.html">ProxyTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshTokensRequest.html">RefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PKCETokensRequest.html">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyPKCETokensRequest.html">ProxyPKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PKCERefreshTokensRequest.html">PKCERefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyPKCERefreshTokensRequest.html">ProxyPKCERefreshTokensRequest</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Errors.html">Errors</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -317,6 +372,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -375,6 +444,15 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
@@ -443,46 +521,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ"></a>
-                    <a name="//apple_ref/swift/Method/disable()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ">disable()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Prevents this type from becoming the logging backend.</p>
-
-<p>This method allows you to provide your own global logging backend,
-as only a single one can be configured per process.</p>
-
-<p>This method <em>must</em> be called before a call to
-<code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">SpotifyAPILogHandler.bootstrap()</a></code> is made, otherwise calling this
-method has no effect. Because <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">SpotifyAPILogHandler.bootstrap()</a></code> is
-called automatically when you create an instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>,
-<strong>this method should be called before an instance of</strong> <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>
-<strong>is created.</strong></p>
-<h1 id='thread-safety' class='heading'>Thread Safety</h1>
-
-<p>This method is thread-safe.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">disable</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ"></a>
                     <a name="//apple_ref/swift/Method/bootstrap()" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ">bootstrap()</a>
@@ -495,13 +533,6 @@ called automatically when you create an instance of <code><a href="../Classes/Sp
                       <div class="abstract">
                         <p>Calls <code>LoggingSystem.bootstrap(_:)</code> and configures this type as the logging
 backend. The default log level is <code>info</code>.</p>
-
-<p>If <code><a href="../Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV7disableyyFZ">SpotifyAPILogHandler.disable()</a></code> has been called, then
-<code>LoggingSystem.bootstrap(_:)</code> will <em>not</em> be called and this method will
-have no effect.</p>
-
-<p>This method is automatically called when an instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, the
-central class in this library, is created or decoded from JSON data.</p>
 
 <p>This method should only be called once. Calling it additional times is
 safe, but has no effect.</p>
@@ -739,7 +770,7 @@ safe, but has no effect.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

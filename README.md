@@ -66,11 +66,10 @@ import SpotifyWebAPI
 
 let spotify = SpotifyAPI(
     authorizationManager: AuthorizationCodeFlowPKCEManager(
-        clientId: "Your Client Id", clientSecret: "Your Client Secret"
+        clientId: "Your Client Id"
     )
 )
 ```
-
 
 Before each authentication request your app should generate a code verifier and a code challenge. The code verifier is a cryptographically random string between 43 and 128 characters in length. It can contain letters, digits, underscores, periods, hyphens, and tildes.
 

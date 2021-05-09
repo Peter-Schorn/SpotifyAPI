@@ -13,10 +13,12 @@ import OpenCombineFoundation
 import SpotifyExampleContent
 
 
+
 private let serialMockQueue = DispatchQueue(label: "serialMockQueue")
 
 public extension SpotifyAPI {
     
+
     /**
      Throws the error that you pass in to downstream subscribers in order
      to test the retry logic.
