@@ -112,7 +112,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
              to it.
      
      */
-    public func makeTokensRequest(
+    public func requestAccessAndRefreshTokens(
         code: String,
         redirectURIWithQuery: URL
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
@@ -178,14 +178,14 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
      - Parameter refreshToken: The refresh token, which can be exchanged for
            a new access token.
      */
-	public func makeRefreshTokenRequest(
+	public func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
         let headers = self.basicBase64EncodedCredentialsHeader +
 				Headers.formURLEncoded
 
-		let body = RefreshAccessTokenRequest(
+		let body = RefreshTokensRequest(
 			refreshToken: refreshToken
 		)
 		.formURLEncoded()

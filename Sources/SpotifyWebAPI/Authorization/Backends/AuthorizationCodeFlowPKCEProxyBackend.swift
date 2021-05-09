@@ -44,7 +44,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      authorization code and coder verifier in the body in x-www-form-urlencoded
      format and which must return the authorization information.
      
-     See `self.makePKCETokensRequest(code:codeVerifier:redirectURIWithQuery:)`
+     See `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
      for more information.
      */
     public let tokensURL: URL
@@ -54,7 +54,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      refresh token in the body in x-www-form-urlencoded format and which must
      return the authorization information.
 
-     See `self.makePKCERefreshTokenRequest(refreshToken:)` for more information.
+     See `self.refreshTokens(refreshToken:)` for more information.
      */
     public let tokenRefreshURL: URL
 
@@ -63,8 +63,8 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      type, which will then be thrown to downstream subscribers.
      
      After the response from your server is received following a call to
-     `self.makePKCETokensRequest(code:codeVerifier:redirectURIWithQuery:)` or
-     `self.makePKCERefreshTokenRequest(refreshToken:)`, this function is called
+     `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)` or
+     `self.refreshTokens(refreshToken:)`, this function is called
      with the raw data and response metadata from the server. If you return an
      error from this function, then this error will be thrown to downstream
      subscribers. If you return `nil`, then the response from the server will be
@@ -98,13 +98,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
              request with the authorization code and coder verifier in the body
              in "x-www-form-urlencoded" format and which must return the
              authorization information. See
-             `self.makePKCETokensRequest(code:codeVerifier:redirectURIWithQuery:)`
+             `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
              for more information.
        - tokenRefreshURL: The URL to your custom backend server that accepts a
              post request with the refresh token in the body in
              "x-www-form-urlencoded" format and which must return the
              authorization information. See
-             `self.makePKCERefreshTokenRequest(refreshToken:)` for more
+             `self.refreshTokens(refreshToken:)` for more
              information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
@@ -136,7 +136,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      authorization code and a key called "code_verifier" with the value set to
      the code verifier in x-www-form-urlencoded format. For example:
      "code=AQDy8...xMhKNA&code_verifier=ahjhjds...ajhdh". See
-     `RemotePKCETokensRequest`.
+     `ProxyPKCETokensRequest`.
      
      The endpoint at `self.tokensURL` must return the authorization information
      as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
@@ -171,13 +171,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20your%20app%20exchanges%20the%20code%20for%20an%20access%20token
      */
-    public func makePKCETokensRequest(
+    public func requestAccessAndRefreshTokens(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        let body = RemotePKCETokensRequest(
+        let body = ProxyPKCETokensRequest(
             code: code,
             codeVerifier: codeVerifier
         )
@@ -228,7 +228,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      "PKCE", and a key called "grant_type" with the value set to "refresh_token"
      in x-www-form-urlencoded format. For example:
      "refresh_token=AQDy8...xMhKNA&method=PKCE&grant_type=refresh_token". See
-     `RemotePKCERefreshAccessTokenRequest`.
+     `ProxyPKCERefreshTokensRequest`.
 
      The endpoint at `self.tokenRefreshURL` must return the authorization
      information as JSON data that can be decoded into `AuthInfo`. The
@@ -257,11 +257,11 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=6.%20requesting%20a%20refreshed%20access%20token
      */
-    public func makePKCERefreshTokenRequest(
+    public func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        let body = RemotePKCERefreshAccessTokenRequest(
+        let body = ProxyPKCERefreshTokensRequest(
             refreshToken: refreshToken
         )
         .formURLEncoded()

@@ -46,7 +46,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      authorization code in the body in x-www-form-urlencoded format and which
      must return the authorization information.
      
-     See `self.makeTokensRequest(code:redirectURIWithQuery:)` for more
+     See `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` for more
      information.
      */
 	public let tokensURL: URL
@@ -56,7 +56,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      refresh token in the body in x-www-form-urlencoded format and which must
      return the authorization information.
      
-     See `self.makeRefreshTokenRequest(refreshToken:)` for more information.
+     See `self.refreshTokens(refreshToken:)` for more information.
      */
     public let tokenRefreshURL: URL
 
@@ -65,8 +65,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      type, which will then be thrown to downstream subscribers.
 
      After the response from your server is received following a call to
-     `self.makeTokensRequest(code:redirectURIWithQuery:)` or
-     `self.makeRefreshTokenRequest(refreshToken:)`, this function is called with
+     `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` or
+     `self.refreshTokens(refreshToken:)`, this function is called with
      the raw data and response metadata from the server. If you return an error
      from this function, then this error will be thrown to downstream
      subscribers. If you return `nil`, then the response from the server will be
@@ -99,12 +99,12 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
        - tokensURL: The URL to a server that accepts a post request with the
              authorization code in the body in "x-www-form-urlencoded" format
              and which must return the authorization information. See
-             `self.makeTokensRequest(code:redirectURIWithQuery:)` for more
+             `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` for more
              information.
        - tokenRefreshURL: The URL to a server that accepts a post request with
              the refresh token in the body in "x-www-form-urlencoded" format and
              which must return the new authorization information. See
-             `self.makeRefreshTokenRequest(refreshToken:)` for more information.
+             `self.refreshTokens(refreshToken:)` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers Do not use this function to decode the
@@ -134,7 +134,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      contain the "Content-Type: application/x-www-form-urlencoded" header
      and the body will contain a key called "code" with the value set to the
      authorization code in x-www-form-urlencoded format. For example:
-     "code=AQDy8...xMhKNA". See `RemoteTokensRequest`.
+     "code=AQDy8...xMhKNA". See `ProxyTokensRequest`.
      
      The endpoint at `self.tokensURL` must return the authorization information
      as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
@@ -167,12 +167,12 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=2.%20have%20your%20application%20request%20refresh%20and%20access%20tokens%3B%20spotify%20returns%20access%20and%20refresh%20tokens
      */
-	public func makeTokensRequest(
+	public func requestAccessAndRefreshTokens(
         code: String,
         redirectURIWithQuery: URL
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
-        let body = RemoteTokensRequest(code: code)
+        let body = ProxyTokensRequest(code: code)
             .formURLEncoded()
 
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
@@ -219,7 +219,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      to the the refresh token and a key called "grant_type" with the value set
      to "refresh_token" in x-www-form-urlencoded format. For example:
      "refresh_token=AQDy8...xMhKNA&grant_type=refresh_token". See
-     `RefreshAccessTokenRequest`.
+     `RefreshTokensRequest`.
      
      The endpoint at `self.tokenRefreshURL` must return the authorization
      information as JSON data that can be decoded into `AuthInfo`. The
@@ -251,11 +251,11 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20requesting%20a%20refreshed%20access%20token%3B%20spotify%20returns%20a%20new%20access%20token%20to%20your%20app
      */
-	public func makeRefreshTokenRequest(
+	public func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
-        let body = RefreshAccessTokenRequest(
+        let body = RefreshTokensRequest(
 			refreshToken: refreshToken
 		)
 		.formURLEncoded()

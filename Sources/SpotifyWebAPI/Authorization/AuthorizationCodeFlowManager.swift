@@ -401,9 +401,9 @@ public extension AuthorizationCodeFlowBackendManager {
             .anyFailingPublisher()
         }
         
-        Self.logger.trace("backend.makeTokenRequest")
+        Self.logger.trace("backend.requestAccessAndRefreshTokens")
         
-        return self.backend.makeTokensRequest(
+        return self.backend.requestAccessAndRefreshTokens(
             code: code,
             redirectURIWithQuery: redirectURIWithQuery
         )
@@ -503,8 +503,8 @@ public extension AuthorizationCodeFlowBackendManager {
                         throw SpotifyLocalError.unauthorized(errorMessage)
                     }
                     
-                    Self.logger.trace("backend.makeRefreshTokenRequest")
-                    let refreshTokensPublisher = self.backend.makeRefreshTokenRequest(
+                    Self.logger.trace("backend.refreshTokens")
+                    let refreshTokensPublisher = self.backend.refreshTokens(
                         refreshToken: refreshToken
                     )
                     .castToURLResponse()

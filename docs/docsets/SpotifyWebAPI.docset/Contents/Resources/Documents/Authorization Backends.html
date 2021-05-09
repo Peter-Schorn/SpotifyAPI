@@ -17,7 +17,7 @@
     <a title="Authorization Backends  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (95% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,6 +89,38 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Authentication%20Objects.html">Authentication Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredentialsTokensRequest.html">ClientCredentialsTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyTokensRequest.html">ProxyTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RefreshTokensRequest.html">RefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCETokensRequest.html">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCETokensRequest.html">ProxyPKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCERefreshTokensRequest.html">PKCERefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCERefreshTokensRequest.html">ProxyPKCERefreshTokensRequest</a>
               </li>
             </ul>
           </li>
@@ -434,27 +466,6 @@
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/AuthInfo.html">AuthInfo</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -462,9 +473,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -571,6 +579,8 @@ used in the Spotify iOS SDK.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
                       </div>
@@ -645,6 +655,8 @@ and redirect URI.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowPKCEProxyBackend</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEProxyBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEProxyBackend</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowPKCEProxyBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
                       </div>
@@ -715,6 +727,8 @@ client secret.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ClientCredentialsFlowProxyBackend</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClientCredentialsFlowProxyBackend</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClientCredentialsFlowProxyBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
                       </div>
@@ -726,7 +740,7 @@ client secret.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-05)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

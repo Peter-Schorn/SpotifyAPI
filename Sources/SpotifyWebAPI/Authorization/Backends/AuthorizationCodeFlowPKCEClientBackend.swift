@@ -94,7 +94,7 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
              logged in to their Spotify account, with query parameters appended
              to it.
      */
-    public func makePKCETokensRequest(
+    public func requestAccessAndRefreshTokens(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
@@ -164,11 +164,11 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
      */
-    public func makePKCERefreshTokenRequest(
+    public func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        let body = PKCERefreshAccessTokenRequest(
+        let body = PKCERefreshTokensRequest(
             refreshToken: refreshToken,
             clientId: self.clientId
         )

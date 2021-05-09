@@ -17,7 +17,7 @@
     <a title="Other Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">SpotifyWebAPI Docs</a> (95% documented)</p>
+        <p><a href="index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,6 +89,38 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Authentication%20Objects.html">Authentication Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredentialsTokensRequest.html">ClientCredentialsTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyTokensRequest.html">ProxyTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RefreshTokensRequest.html">RefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCETokensRequest.html">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCETokensRequest.html">ProxyPKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PKCERefreshTokensRequest.html">PKCERefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ProxyPKCERefreshTokensRequest.html">ProxyPKCERefreshTokensRequest</a>
               </li>
             </ul>
           </li>
@@ -434,27 +466,6 @@
                 <a href="Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/AuthInfo.html">AuthInfo</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -462,9 +473,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -503,278 +511,6 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI8AuthInfoV"></a>
-                    <a name="//apple_ref/swift/Struct/AuthInfo" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI8AuthInfoV">AuthInfo</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The authorization information that Spotify returns during the authorization
-process.</p>
-
-<p>This is used in various different contexts, including:</p>
-
-<ul>
-<li>When decoding the respose after requesting the access and refresh tokens</li>
-<li>When decoding the response after refreshing the tokens</li>
-<li>As a wrapper for decoding and encoding the authorization managers.</li>
-</ul>
-
-<p>Because of its diverse uses, all of its properties are optional, which means
-that it will never fail to decode itself from data, so be careful about
-swallowing errors.</p>
-
-<p>Includes the following properties:</p>
-
-<ul>
-<li><code>accessToken</code>: used in all of the requests to the Spotify web API for
-authorization.</li>
-<li><code>refreshToken</code>: Used to refresh the access token.</li>
-<li><code>expirationDate</code>: The expiration date of the access token.</li>
-<li><code>scopes</code>: The scopes that have been authorized for the access token.</li>
-</ul>
-
-                        <a href="Structs/AuthInfo.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInfo</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthInfo</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthInfo</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthInfo</span><span class="p">:</span> <span class="kt"><a href="Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/PKCERefreshAccessTokenRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Used during the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>
-to retrieve a new access token and refresh token using the refresh token.</p>
-
-<p>Unlike the Authorization Code Flow, a refresh token that has been obtained using
-the Authorization Code Flow with Proof Key for Code Exchange can be exchanged
-for an access token only once, after which it becomes invalid. This implies that
-Spotify should always return a new refresh token in addition to an access token.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PKCERefreshAccessTokenRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PKCERefreshAccessTokenRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI17PKCETokensRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/PKCETokensRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>After the user has authorized your app and a code has been provided,
-this struct is used to request a refresh and access token for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PKCETokensRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PKCETokensRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI25RefreshAccessTokenRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/RefreshAccessTokenRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Used during the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a> to retrieve a new access
-token using the refresh token. Spotify may also return a new refresh token.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RefreshAccessTokenRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RefreshAccessTokenRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI35RemotePKCERefreshAccessTokenRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/RemotePKCERefreshAccessTokenRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI35RemotePKCERefreshAccessTokenRequestV">RemotePKCERefreshAccessTokenRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Used during the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>
-to retrieve a new access token and refresh token using the refresh token.</p>
-
-<p>Unlike the Authorization Code Flow, a refresh token that has been obtained using
-the Authorization Code Flow with Proof Key for Code Exchange can be exchanged
-for an access token only once, after which it becomes invalid. This implies that
-Spotify should always return a new refresh token in addition to an access token.</p>
-
-                        <a href="Structs/RemotePKCERefreshAccessTokenRequest.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RemotePKCERefreshAccessTokenRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RemotePKCERefreshAccessTokenRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI23RemotePKCETokensRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/RemotePKCETokensRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>After the user has authorized your app and a code has been provided,
-this struct is used to request a refresh and access token for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RemotePKCETokensRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RemotePKCETokensRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI19RemoteTokensRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/RemoteTokensRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>After the user has authorized your app and a code has been provided,
-this struct is used to request a refresh and access token for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RemoteTokensRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RemoteTokensRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SpotifyWebAPI13TokensRequestV"></a>
-                    <a name="//apple_ref/swift/Struct/TokensRequest" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>After the user has authorized your app and a code has been provided,
-this struct is used to request a refresh and access token for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TokensRequest</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TokensRequest</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -951,7 +687,7 @@ which include the id, the URI, and the URL.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-05)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

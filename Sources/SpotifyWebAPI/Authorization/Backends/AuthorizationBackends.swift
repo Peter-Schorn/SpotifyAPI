@@ -40,7 +40,6 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     var clientId: String { get }
-	
     
     /**
      Exchanges an authorization code for the access and refresh tokens.
@@ -78,6 +77,8 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     See also `TokensRequest` and `ProxyTokensRequest`.
+     
      - Parameters:
        - code: The authorization code, which will also be present in
              `redirectURIWithQuery`.
@@ -87,7 +88,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=2.%20have%20your%20application%20request%20refresh%20and%20access%20tokens%3B%20spotify%20returns%20access%20and%20refresh%20tokens
      */
-	func makeTokensRequest(
+	func requestAccessAndRefreshTokens(
         code: String,
         redirectURIWithQuery: URL
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
@@ -123,12 +124,14 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     See also `RefreshTokensRequest`.
+
      - Parameter refreshToken: The refresh token, which can be exchanged for
            a new access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20requesting%20a%20refreshed%20access%20token%3B%20spotify%20returns%20a%20new%20access%20token%20to%20your%20app
      */
-    func makeRefreshTokenRequest(
+    func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
@@ -202,6 +205,8 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     See also `PKCETokensRequest` and `ProxyPKCETokensRequest`.
+
      - Parameters:
        - code: The authorization code, which will also be present in
              `redirectURIWithQuery`.
@@ -213,7 +218,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20your%20app%20exchanges%20the%20code%20for%20an%20access%20token
      */
-    func makePKCETokensRequest(
+    func requestAccessAndRefreshTokens(
         code: String,
         codeVerifier: String,
         redirectURIWithQuery: URL
@@ -251,12 +256,14 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     See also `PKCERefreshTokensRequest` and `ProxyPKCERefreshTokensRequest`.
+
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=6.%20requesting%20a%20refreshed%20access%20token
      */
-	func makePKCERefreshTokenRequest(
+	func refreshTokens(
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
@@ -314,6 +321,8 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     See also `ClientCredentialsTokensRequest`.
+
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
      */
     func makeClientCredentialsTokensRequest(

@@ -16,11 +16,11 @@ import FoundationNetworking
 public extension Dictionary where Key == String, Value == String {
     
     /**
-     Encodes this dictionary into data according to
-     `application/x-www-form-urlencoded`.
+     Encodes this dictionary into data according to the "x-www-form-urlencoded"
+     format.
     
-     Returns `nil` if the query string cannot be converted to
-     `Data` using a utf-8 character encoding.
+     Returns `nil` if the query string cannot be converted to `Data` using a
+     utf-8 character encoding.
      */
     func formURLEncoded() -> Data? {
         
@@ -28,7 +28,7 @@ public extension Dictionary where Key == String, Value == String {
         urlComponents.queryItems = self.map { item in
             URLQueryItem(name: item.key, value: item.value)
         }
-        return urlComponents.percentEncodedQuery?.data(using: .utf8)
+        return (urlComponents.percentEncodedQuery ?? "").data(using: .utf8)
     }
     
 }

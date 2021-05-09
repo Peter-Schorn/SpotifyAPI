@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowProxyBackend Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (95% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -89,6 +89,38 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ClientCredentialsFlowProxyBackend.html">ClientCredentialsFlowProxyBackend</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Authentication%20Objects.html">Authentication Objects</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredentialsTokensRequest.html">ClientCredentialsTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TokensRequest.html">TokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyTokensRequest.html">ProxyTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshTokensRequest.html">RefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PKCETokensRequest.html">PKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyPKCETokensRequest.html">ProxyPKCETokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PKCERefreshTokensRequest.html">PKCERefreshTokensRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProxyPKCERefreshTokensRequest.html">ProxyPKCERefreshTokensRequest</a>
               </li>
             </ul>
           </li>
@@ -434,27 +466,6 @@
                 <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/AuthInfo.html">AuthInfo</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI29PKCERefreshAccessTokenRequestV">PKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI17PKCETokensRequestV">PKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RemotePKCERefreshAccessTokenRequest.html">RemotePKCERefreshAccessTokenRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI23RemotePKCETokensRequestV">RemotePKCETokensRequest</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -462,9 +473,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other%20Structs.html#/s:13SpotifyWebAPI13TokensRequestV">TokensRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
@@ -502,6 +510,8 @@
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthorizationCodeFlowProxyBackend</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
 
                 </div>
               </div>
@@ -590,7 +600,7 @@ used in the Spotify iOS SDK.</p>
 authorization code in the body in x-www-form-urlencoded format and which
 must return the authorization information.</p>
 
-<p>See <code>self.makeTokensRequest(code:redirectURIWithQuery:)</code> for more
+<p>See <code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> for more
 information.</p>
 
                       </div>
@@ -622,7 +632,7 @@ information.</p>
 refresh token in the body in x-www-form-urlencoded format and which must
 return the authorization information.</p>
 
-<p>See <code>self.makeRefreshTokenRequest(refreshToken:)</code> for more information.</p>
+<p>See <code>self.refreshTokens(refreshToken:)</code> for more information.</p>
 
                       </div>
                       <div class="declaration">
@@ -639,9 +649,58 @@ return the authorization information.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV8clientId9tokensURL012tokenRefreshL0ACSS_10Foundation0L0VAItcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(clientId:tokensURL:tokenRefreshURL:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV8clientId9tokensURL012tokenRefreshL0ACSS_10Foundation0L0VAItcfc">init(clientId:<wbr>tokensURL:<wbr>tokenRefreshURL:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV17decodeServerErrors0K0_pSg10Foundation4DataV_So17NSHTTPURLResponseCtcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/decodeServerError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV17decodeServerErrors0K0_pSg10Foundation4DataV_So17NSHTTPURLResponseCtcSgvp">decodeServerError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A hook for decoding an error produced by your backend server into an error
+type, which will then be thrown to downstream subscribers.</p>
+
+<p>After the response from your server is received following a call to
+<code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> or
+<code>self.refreshTokens(refreshToken:)</code>, this function is called with
+the raw data and response metadata from the server. If you return an error
+from this function, then this error will be thrown to downstream
+subscribers. If you return <code>nil</code>, then the response from the server will be
+passed through unmodified to downstream subscribers.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Do not use this function to decode the documented error
+  objects produced by Spotify, such as <code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>.
+  This will be done elsewhere. Only use this function to decode error
+  objects produced by your custom backend server.
+
+</div>
+<h1 id='thread-safety' class='heading'>Thread Safety</h1>
+
+<p>No guarentees are made about which thread this function will be called on.
+Do not mutate this property while a request is being made for the
+authorization information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">decodeServerError</span><span class="p">:</span> <span class="p">((</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV8clientId9tokensURL012tokenRefreshL017decodeServerErrorACSS_10Foundation0L0VAJs0Q0_pSgAH4DataV_So17NSHTTPURLResponseCtcSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clientId:tokensURL:tokenRefreshURL:decodeServerError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV8clientId9tokensURL012tokenRefreshL017decodeServerErrorACSS_10Foundation0L0VAJs0Q0_pSgAH4DataV_So17NSHTTPURLResponseCtcSgtcfc">init(clientId:<wbr>tokensURL:<wbr>tokenRefreshURL:<wbr>decodeServerError:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -661,7 +720,12 @@ standard used in the Spotify iOS SDK.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tokensURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">tokenRefreshURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+       <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+       <span class="nv">tokensURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+       <span class="nv">tokenRefreshURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+       <span class="nv">decodeServerError</span><span class="p">:</span> <span class="p">((</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?)?</span> <span class="o">=</span> <span class="kc">nil</span>
+   <span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -693,7 +757,7 @@ application</a>.</p>
                                   <p>The URL to a server that accepts a post request with the
 authorization code in the body in &ldquo;x-www-form-urlencoded&rdquo; format
 and which must return the authorization information. See
-<code>self.makeTokensRequest(code:redirectURIWithQuery:)</code> for more
+<code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> for more
 information.</p>
                                 </div>
                               </td>
@@ -709,7 +773,23 @@ information.</p>
                                   <p>The URL to a server that accepts a post request with
 the refresh token in the body in &ldquo;x-www-form-urlencoded&rdquo; format and
 which must return the new authorization information. See
-<code>self.makeRefreshTokenRequest(refreshToken:)</code> for more information.</p>
+<code>self.refreshTokens(refreshToken:)</code> for more information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decodeServerError</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A hook for decoding an error produced by your
+backend server into an error type, which will then be thrown to
+downstream subscribers Do not use this function to decode the
+documented error objects produced by Spotify, such as
+<code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>. This will be done elsewhere.</p>
                                 </div>
                               </td>
                             </tr>
@@ -722,9 +802,9 @@ which must return the new authorization information. See
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV17makeTokensRequest4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF"></a>
-                    <a name="//apple_ref/swift/Method/makeTokensRequest(code:redirectURIWithQuery:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV17makeTokensRequest4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF">makeTokensRequest(code:<wbr>redirectURIWithQuery:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV29requestAccessAndRefreshTokens4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF"></a>
+                    <a name="//apple_ref/swift/Method/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV29requestAccessAndRefreshTokens4code20redirectURIWithQuery7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_AJ3URLVtF">requestAccessAndRefreshTokens(code:<wbr>redirectURIWithQuery:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -738,7 +818,7 @@ which must return the new authorization information. See
 contain the &ldquo;Content-Type: application/x-www-form-urlencoded&rdquo; header
 and the body will contain a key called &ldquo;code&rdquo; with the value set to the
 authorization code in x-www-form-urlencoded format. For example:
-&ldquo;code=AQDy8&hellip;xMhKNA&rdquo;. See <code><a href="../Other%20Structs.html#/s:13SpotifyWebAPI19RemoteTokensRequestV">RemoteTokensRequest</a></code>.</p>
+&ldquo;code=AQDy8&hellip;xMhKNA&rdquo;. See <code><a href="../Structs/ProxyTokensRequest.html">ProxyTokensRequest</a></code>.</p>
 
 <p>The endpoint at <code>self.tokensURL</code> must return the authorization information
 as JSON data that can be decoded into <code><a href="../Structs/AuthInfo.html">AuthInfo</a></code>. The <code>accessToken</code>,
@@ -753,6 +833,10 @@ as JSON data that can be decoded into <code><a href="../Structs/AuthInfo.html">A
 <span class="p">}</span>
 </code></pre>
 
+<p>After the response is retrieved from the server, <code>self.decodeServerError</code>
+is called in order to decode any custom error objects that your server
+might return.</p>
+
 <p>Read about the underlying request that must be made to Spotify by your
 server in order to retrieve this data <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#:%7E:text=2.%20have%20your%20application%20request%20refresh%20and%20access%20tokens%3B%20spotify%20returns%20access%20and%20refresh%20tokens">here</a>.</p>
 
@@ -761,7 +845,7 @@ server in order to retrieve this data <a href="https://developer.spotify.com/doc
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeTokensRequest</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">requestAccessAndRefreshTokens</span><span class="p">(</span>
        <span class="nv">code</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
        <span class="nv">redirectURIWithQuery</span><span class="p">:</span> <span class="kt">URL</span>
    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
@@ -808,9 +892,9 @@ to it.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV23makeRefreshTokenRequest07refreshK07Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF"></a>
-                    <a name="//apple_ref/swift/Method/makeRefreshTokenRequest(refreshToken:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV23makeRefreshTokenRequest07refreshK07Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF">makeRefreshTokenRequest(refreshToken:<wbr>)</a>
+                    <a name="/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV13refreshTokens0I5Token7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/refreshTokens(refreshToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI33AuthorizationCodeFlowProxyBackendV13refreshTokens0I5Token7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGSS_tF">refreshTokens(refreshToken:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -830,7 +914,7 @@ and the body will contain a key called &ldquo;refresh_token&rdquo; with the valu
 to the the refresh token and a key called &ldquo;grant_type&rdquo; with the value set
 to &ldquo;refresh_token&rdquo; in x-www-form-urlencoded format. For example:
 &ldquo;refresh_token=AQDy8&hellip;xMhKNA&amp;grant_type=refresh_token&rdquo;. See
-<code><a href="../Other%20Structs.html#/s:13SpotifyWebAPI25RefreshAccessTokenRequestV">RefreshAccessTokenRequest</a></code>.</p>
+<code><a href="../Structs/RefreshTokensRequest.html">RefreshTokensRequest</a></code>.</p>
 
 <p>The endpoint at <code>self.tokenRefreshURL</code> must return the authorization
 information as JSON data that can be decoded into <code><a href="../Structs/AuthInfo.html">AuthInfo</a></code>. The
@@ -844,6 +928,10 @@ information as JSON data that can be decoded into <code><a href="../Structs/Auth
 <span class="p">}</span>
 </code></pre>
 
+<p>After the response is retrieved from the server, <code>self.decodeServerError</code>
+is called in order to decode any custom error objects that your server
+might return.</p>
+
 <p>Read about the underlying request that must be made to Spotify by your
 server in order to retrieve this data <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#:%7E:text=4.%20requesting%20a%20refreshed%20access%20token%3B%20spotify%20returns%20a%20new%20access%20token%20to%20your%20app">here</a>.</p>
 
@@ -852,7 +940,7 @@ server in order to retrieve this data <a href="https://developer.spotify.com/doc
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeRefreshTokenRequest</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refreshTokens</span><span class="p">(</span>
        <span class="nv">refreshToken</span><span class="p">:</span> <span class="kt">String</span>
    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
@@ -921,12 +1009,64 @@ to it.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SH4hash4intoys6HasherVz_tF"></a>
+                    <a name="//apple_ref/swift/Method/hash(into:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SH4hash4intoys6HasherVz_tF">hash(into:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="n">into</span> <span class="nv">hasher</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Hasher</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-05)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

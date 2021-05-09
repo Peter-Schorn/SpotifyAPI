@@ -467,7 +467,7 @@ public extension ClientCredentialsFlowBackendManager {
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
-        Self.logger.trace("backend.makeTokensRequest")
+        Self.logger.trace("backend.makeClientCredentialsTokensRequest")
 
         return self.backend.makeClientCredentialsTokensRequest()
             .castToURLResponse()
@@ -565,9 +565,9 @@ public extension ClientCredentialsFlowBackendManager {
                 
                 Self.logger.trace("access token is expired; authorizing again")
                 
-                // If another request to refresh the tokens is currently
-                // in progress, return the same request instead of creating
-                // a new network request.
+                // If another request to refresh the tokens is currently in
+                // progress, return the same request instead of creating a new
+                // network request.
                 if let publisher = self.refreshTokensPublisher {
                     Self.logger.trace("using previous publisher")
                     return publisher
@@ -575,9 +575,9 @@ public extension ClientCredentialsFlowBackendManager {
                 
                 Self.logger.trace("creating new publisher")
                 
-                // The process for refreshing the token is the same as that
-                // for authorizing the application. The client credentials flow
-                // does not return a refresh token, unlike the authorization code
+                // The process for refreshing the token is the same as that for
+                // authorizing the application. The client credentials flow does
+                // not return a refresh token, unlike the authorization code
                 // flow.
                 let refreshTokensPublisher = self.authorize()
                     .share()

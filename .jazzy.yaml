@@ -36,7 +36,19 @@ custom_categories:
     - AuthorizationCodeFlowPKCEProxyBackend
     - ClientCredentialsFlowClientBackend
     - ClientCredentialsFlowProxyBackend
-    
+
+  - name: Authentication Objects
+    children:
+    - AuthInfo
+    - ClientCredentialsTokensRequest
+    - TokensRequest
+    - ProxyTokensRequest
+    - RefreshTokensRequest
+    - PKCETokensRequest
+    - ProxyPKCETokensRequest
+    - PKCERefreshTokensRequest
+    - ProxyPKCERefreshTokensRequest
+
   - name: Errors
     children:
     - SpotifyError
@@ -58,7 +70,7 @@ custom_categories:
     children:
     - Paginated
     - SpotifyURIConvertible
-    
+
   - name: Music Objects
     children:
     - Album
