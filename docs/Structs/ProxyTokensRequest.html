@@ -513,9 +513,19 @@
 
                 </div>
               </div>
-            <p>After the user has authorized your app and a code has been provided,
-this struct is used to request a refresh and access token for the
-<a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
+            <p>After the user has authorized your app and a code has been provided, this type
+is used to request a refresh and access token for the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code
+Flow</a>.</p>
+
+<p>When creating a type that conforms to <code><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></code> and which
+communicates with a custom backend server, use this type in the body of the
+network request made in the
+<code>requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> method.</p>
+
+<p>In contrast with <code><a href="../Structs/TokensRequest.html">TokensRequest</a></code>, which should be used if you are communicating
+directly with Spotify, this type does not contain the <code>redirectURI</code> <code>clientId</code>,
+or <code>clientSecret</code> because these values should be securely stored on your
+backend server.</p>
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     Although this type conforms to <code>Codable</code>, it should actually be
@@ -528,6 +538,33 @@ this struct is used to request a refresh and access token for the
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI18ProxyTokensRequestV9grantTypeSSvp"></a>
+                    <a name="//apple_ref/swift/Property/grantType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI18ProxyTokensRequestV9grantTypeSSvp">grantType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The grant type. Always set to &ldquo;authorization_code&rdquo;.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">grantType</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -569,7 +606,19 @@ URI.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <div class="aside aside-important">
+                        <p>Creates an instance which is used to request the authorization information
+using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
+
+<p>When creating a type that conforms to <code><a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a></code> and
+which communicates with a custom backend server, use this type in the body
+of the network request made in the
+<code>requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> method.</p>
+
+<p>In contrast with <code><a href="../Structs/TokensRequest.html">TokensRequest</a></code>, which should be used if you are
+communicating directly with Spotify, this type does not contain the
+<code>redirectURI</code> <code>clientId</code>, or <code>clientSecret</code> because these values should be
+securely stored on your backend server.</p>
+<div class="aside aside-important">
     <p class="aside-title">Important</p>
     <p>Although this type conforms to <code>Codable</code>, it should actually
   be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -644,7 +693,7 @@ a <code>JSONEncoder</code>) before being sent in a network request.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-08)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

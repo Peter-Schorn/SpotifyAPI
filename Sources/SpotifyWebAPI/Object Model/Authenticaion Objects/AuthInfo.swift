@@ -25,8 +25,7 @@ import Foundation
  */
 public struct AuthInfo: Hashable {
     
-    /// The access token used in all of the requests
-    /// to the Spotify web API.
+    /// The access token used in all of the requests to the Spotify web API.
     public let accessToken: String?
     
     /// Used to refresh the access token.

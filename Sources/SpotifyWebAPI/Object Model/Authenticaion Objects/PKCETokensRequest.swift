@@ -1,10 +1,10 @@
 import Foundation
 
 /**
- After the user has authorized your app and a code has been provided, this
- type is used to request a refresh and access token for the [Authorization
- Code Flow with Proof Key for Code Exchange][1].
- 
+ After the user has authorized your app and a code has been provided, this type
+ is used to request a refresh and access token for the [Authorization Code Flow
+ with Proof Key for Code Exchange][1].
+
  When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend` and
  which communicates *directly* with Spotify, use this type in the body of the
  network request made in the
