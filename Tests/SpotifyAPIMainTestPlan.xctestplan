@@ -12,7 +12,7 @@
     "environmentVariableEntries" : [
       {
         "enabled" : false,
-        "key" : "spotify_credentials_path",
+        "key" : "SPOTIFY_CREDENTIALS_PATH",
         "value" : "path\/to\/file"
       },
       {
@@ -21,29 +21,24 @@
         "value" : "path\/to\/folder"
       },
       {
-        "enabled" : false,
         "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL",
-        "value" : "url"
+        "value" : "http:\/\/127.0.0.1:7000\/authorization-code-flow\/retrieve-tokens"
       },
       {
-        "enabled" : false,
         "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_REFRESH_TOKENS_URL",
-        "value" : "url"
+        "value" : "http:\/\/127.0.0.1:7000\/authorization-code-flow\/refresh-tokens"
       },
       {
-        "enabled" : false,
         "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_TOKENS_URL",
-        "value" : "url"
+        "value" : "http:\/\/127.0.0.1:7000\/authorization-code-flow-pkce\/retrieve-tokens"
       },
       {
-        "enabled" : false,
         "key" : "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL",
-        "value" : "url"
+        "value" : "http:\/\/127.0.0.1:7000\/authorization-code-flow-pkce\/refresh-tokens"
       },
       {
-        "enabled" : false,
         "key" : "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL",
-        "value" : "url"
+        "value" : "http:\/\/127.0.0.1:7000\/client-credentials-tokens"
       }
     ],
     "targetForVariableExpansion" : {

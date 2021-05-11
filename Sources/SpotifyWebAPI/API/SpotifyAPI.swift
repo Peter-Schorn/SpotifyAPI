@@ -308,14 +308,11 @@ extension SpotifyAPI {
     /// Only use it for testing purposes.
     public func setupDebugging() {
         
-        // MARK: keep up to date with "Debugging" wiki page
-        // https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging
-        
         self.logger.logLevel = .trace
         self.apiRequestLogger.logLevel = .trace
         self.authDidChangeLogger.logLevel = .trace
 
-        // auth managers
+        // authorization managers
         AuthorizationManagerLoggers
                 .authorizationCodeFlowManagerBaseLogger.logLevel = .trace
         AuthorizationManagerLoggers

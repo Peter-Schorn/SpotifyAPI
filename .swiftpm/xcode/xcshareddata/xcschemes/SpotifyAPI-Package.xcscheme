@@ -120,7 +120,7 @@
       allowLocationSimulation = "YES">
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "spotify_credentials_path"
+            key = "SPOTIFY_CREDENTIALS_PATH"
             value = "path/to/file"
             isEnabled = "NO">
          </EnvironmentVariable>

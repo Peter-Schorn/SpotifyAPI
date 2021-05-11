@@ -99,7 +99,7 @@ public struct DistributedLock {
     
     // MARK: - Locking
 
-    /// Polls the lock at an interval of 0.5 seconds until it is aquired.
+    /// Polls the lock at an interval of 0.25 seconds until it is aquired.
     public func lock() {
         self.queue.sync {
             guard let lock = self._lock else {

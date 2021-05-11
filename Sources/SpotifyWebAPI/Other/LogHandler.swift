@@ -45,7 +45,7 @@ public struct SpotifyAPILogHandler: LogHandler {
     public var metadata: Logger.Metadata
 
     /**
-     Creates the logging backend.
+     Creates a logger.
      
      - Parameters:
        - label: A label for the logger.

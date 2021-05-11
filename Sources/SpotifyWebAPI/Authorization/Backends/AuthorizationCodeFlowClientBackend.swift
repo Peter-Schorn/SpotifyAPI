@@ -259,7 +259,6 @@ extension AuthorizationCodeFlowClientBackend: Codable {
 
 extension AuthorizationCodeFlowClientBackend: CustomStringConvertible {
     
-    // :nodoc:
     public var description: String {
         return """
             AuthorizationCodeFlowClientBackend(

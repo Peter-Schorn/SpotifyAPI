@@ -537,16 +537,21 @@ extension SpotifyAPIErrorTests where
 {
     
     func decodeSpotifyPlayerError() {
-        
+
+        DistributedLock.player.lock()
+        defer {
+            DistributedLock.player.unlock()
+        }
+
         let expectation = XCTestExpectation(
             description: "decodeSpotifyPlayerError"
         )
-
+        
         Self.spotify.play(.init(URIs.Tracks.because))
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 2)
             .flatMap { () -> AnyPublisher<Void, Error> in
-                // pause playbackk the first time
+                // pause playback the first time
                 Self.spotify.pausePlayback()
             }
             .XCTAssertNoFailure()
@@ -595,6 +600,22 @@ extension SpotifyAPIErrorTests where
             .store(in: &Self.cancellables)
             
         self.wait(for: [expectation], timeout: 240)
+
+        let resumePlaybackExpectation = XCTestExpectation(
+            description: "resumePlayback"
+        )
+        
+        Self.spotify.play(.init(URIs.Tracks.because))
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in
+                    resumePlaybackExpectation.fulfill()
+                },
+                receiveValue: { }
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [resumePlaybackExpectation], timeout: 60)
 
     }
     

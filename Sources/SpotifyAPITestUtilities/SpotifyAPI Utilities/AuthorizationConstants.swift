@@ -13,7 +13,7 @@ import Foundation
    scripts must be run with the root directory of this package as the
    working directory.
 
- * The file at the path specified by the "spotify_credentials_path"
+ * The file at the path specified by the "SPOTIFY_CREDENTIALS_PATH"
    environment variable. This file should contain JSON data that can
    be decoded into `SpotifyCredentials`. For example:
  ```
@@ -32,8 +32,12 @@ import Foundation
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
-    // these properties will be populated by the "set_credentials" script.
+    // these properties can be populated by the "set_credentials" script
+    // using the indicated environment variables:
+    
+    // SPOTIFY_SWIFT_TESTING_CLIENT_ID
     let __clientId__ = ""
+    // SPOTIFY_SWIFT_TESTING_CLIENT_SECRET
     let __clientSecret__ = ""
     
     if !__clientId__.isEmpty && !__clientSecret__.isEmpty {
@@ -45,7 +49,8 @@ public let spotifyCredentials: SpotifyCredentials = {
     
     let environment = ProcessInfo.processInfo.environment
 
-    if let path = environment["spotify_credentials_path"] {
+    if let path = environment["SPOTIFY_CREDENTIALS_PATH"] ??
+            environment["spotify_credentials_path"] {
         
         let url = URL(fileURLWithPath: path)
         do {
@@ -78,7 +83,7 @@ public let spotifyCredentials: SpotifyCredentials = {
     else {
         fatalError(
             """
-            Could not find 'spotify_credentials_path' or \
+            Could not find 'SPOTIFY_CREDENTIALS_PATH' or \
             'SPOTIFY_SWIFT_TESTING_CLIENT_ID' and/or \
             'SPOTIFY_SWIFT_TESTING_CLIENT_SECRET' \
             in the environment variables
@@ -101,7 +106,7 @@ private func retrieveURLFromEnvironment(
 ) -> URL {
     
     guard let urlString = ProcessInfo.processInfo.environment[name] else {
-        fatalError("\ncould not find '\(name)' in environment variables")
+        fatalError("could not find '\(name)' in the environment variables")
     }
     
     guard let url = URL(string: urlString) else {
@@ -146,6 +151,8 @@ public let authorizationCodeFlowPKCERefreshTokensURL = retrieveURLFromEnvironmen
 /// environment variable.
 public let clientCredentialsFlowTokensURL: URL = {
     
+    // this can be populated by the "set_credentials" script using the
+    // 'SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL' environment variable.
     let __clientCredentialsFlowTokensURL__ = ""
 
     if !__clientCredentialsFlowTokensURL__.isEmpty {
