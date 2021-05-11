@@ -90,6 +90,7 @@
         "SpotifyAPIAuthorizationCodeFlowPKCEPersonalizationTests",
         "SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests",
         "SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests",
+        "SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests",
         "SpotifyAPIAuthorizationCodeFlowPKCERefreshTokensConcurrentTests",
         "SpotifyAPIAuthorizationCodeFlowPKCESearchTests",
         "SpotifyAPIAuthorizationCodeFlowPKCEShowTests",
