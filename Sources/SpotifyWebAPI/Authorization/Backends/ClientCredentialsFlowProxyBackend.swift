@@ -52,9 +52,9 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      passed through unmodified to downstream subscribers.
      
      - Important: Do not use this function to decode the documented error
-     objects produced by Spotify, such as `SpotifyAuthenticationError`.
-     This will be done elsewhere. Only use this function to decode error
-     objects produced by your custom backend server.
+           objects produced by Spotify, such as `SpotifyAuthenticationError`.
+           This will be done elsewhere. Only use this function to decode error
+           objects produced by your custom backend server.
      
      # Thread Safety
      
@@ -76,11 +76,11 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
              `self.makeClientCredentialsTokensRequest()` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
-             downstream subscribers Do not use this function to decode the
+             downstream subscribers. Do not use this function to decode the
              documented error objects produced by Spotify, such as
              `SpotifyAuthenticationError`. This will be done elsewhere.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
     public init(
         tokensURL: URL,
@@ -106,7 +106,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      "grant_type=client_credentials". See `ClientCredentialsTokensRequest`.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which
+     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
      can be decoded from the "expires_in" JSON key) properties must be
      non-`nil`. For example:
 

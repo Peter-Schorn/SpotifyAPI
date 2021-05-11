@@ -11,9 +11,9 @@ import Foundation
  `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
  
  In contrast with `TokensRequest`, which should be used if you are communicating
- directly with Spotify, this type does not contain the `redirectURI` `clientId`,
- or `clientSecret` because these values should be securely stored on your
- backend server.
+ directly with Spotify, this type does not contain the `clientId`, or
+ `clientSecret` because these values should be securely stored on your backend
+ server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -30,6 +30,10 @@ public struct ProxyTokensRequest: Hashable {
     /// URI.
     public let code: String
     
+    /// The redirect URI. This is sent in the request for validation only. There
+    /// will be no further redirection to this location.
+    public let redirectURI: URL
+
     /**
      Creates an instance which is used to request the authorization information
      using the [Authorization Code Flow][1].
@@ -41,8 +45,8 @@ public struct ProxyTokensRequest: Hashable {
 
      In contrast with `TokensRequest`, which should be used if you are
      communicating directly with Spotify, this type does not contain the
-     `redirectURI` `clientId`, or `clientSecret` because these values should be
-     securely stored on your backend server.
+     `clientId`, or `clientSecret` because these values should be securely
+     stored on your backend server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -51,11 +55,15 @@ public struct ProxyTokensRequest: Hashable {
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
              redirect URI.
+       - redirectURI: The redirect URI. This is sent in the request for
+             validation only. There will be no further redirection to this
+             location.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      */
-    public init(code: String) {
+    public init(code: String, redirectURI: URL) {
         self.code = code
+        self.redirectURI = redirectURI
     }
     
     /**
@@ -67,7 +75,9 @@ public struct ProxyTokensRequest: Hashable {
     public func formURLEncoded() -> Data {
         guard let data = [
             CodingKeys.grantType.rawValue: self.grantType,
-            CodingKeys.code.rawValue: self.code
+            CodingKeys.code.rawValue: self.code,
+            CodingKeys.redirectURI.rawValue: self.redirectURI.absoluteString
+            
         ].formURLEncoded() else {
             fatalError("could not form-url-encode `ProxyTokensRequest`")
         }
@@ -82,6 +92,7 @@ extension ProxyTokensRequest: Codable {
     public enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case code
+        case redirectURI = "redirect_uri"
     }
 
 }

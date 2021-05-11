@@ -101,7 +101,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      `AuthorizationCodeFlowBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which
+     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
      can be decoded from the "expires_in" JSON key) properties must be
      non-`nil`. For example:
 
@@ -299,7 +299,7 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
      be made.
      
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which
+     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
      can be decoded from the "expires_in" JSON key) properties must be
      non-`nil`. For example:
      

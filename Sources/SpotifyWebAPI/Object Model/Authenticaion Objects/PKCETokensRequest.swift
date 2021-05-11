@@ -12,8 +12,8 @@ import Foundation
  method.
  
  When using a custom backend server, use `ProxyPKCETokensRequest` instead,
- which does not contain the `redirectURI` or `clientId`, as these properties
- should be stored on the server.
+ which does not contain the `clientId` because this value should be stored on
+ the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -36,7 +36,7 @@ public struct PKCETokensRequest: Hashable {
 
     /// The redirect URI. This is sent in the request for validation only. There
     /// will be no further redirection to this location.
-    public let redirectURI: String
+    public let redirectURI: URL
     
     /**
      The client id that you received when you [registered your application][1].
@@ -56,8 +56,8 @@ public struct PKCETokensRequest: Hashable {
      method.
 
      When using a custom backend server, use `ProxyPKCETokensRequest` instead,
-     which does not contain the `redirectURI` or `clientId`, as these properties
-     should be stored on the server.
+     which does not contain the `clientId` because this value should be stored
+     on the server.
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -85,7 +85,7 @@ public struct PKCETokensRequest: Hashable {
     ) {
         self.code = code
         self.codeVerifier = codeVerifier
-        self.redirectURI = redirectURI.absoluteString
+        self.redirectURI = redirectURI
         self.clientId = clientId
     }
     
@@ -101,7 +101,7 @@ public struct PKCETokensRequest: Hashable {
             CodingKeys.grantType.rawValue: self.grantType,
             CodingKeys.code.rawValue: self.code,
             CodingKeys.codeVerifier.rawValue: self.codeVerifier,
-            CodingKeys.redirectURI.rawValue: self.redirectURI,
+            CodingKeys.redirectURI.rawValue: self.redirectURI.absoluteString,
             CodingKeys.clientId.rawValue: self.clientId
         ].formURLEncoded()
         else {

@@ -162,7 +162,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
      `AuthorizationCodeFlowBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
 
      This method returns the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, and `expirationDate` (which
+     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
      can be decoded from the "expires_in" JSON key) properties should be
      non-`nil`. For example:
 

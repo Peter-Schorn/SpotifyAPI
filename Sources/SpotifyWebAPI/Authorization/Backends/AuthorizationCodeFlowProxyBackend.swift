@@ -107,7 +107,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
              `self.refreshTokens(refreshToken:)` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
-             downstream subscribers Do not use this function to decode the
+             downstream subscribers. Do not use this function to decode the
              documented error objects produced by Spotify, such as
              `SpotifyAuthenticationError`. This will be done elsewhere.
      
@@ -130,11 +130,24 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     /**
      Exchanges an authorization code for the access and refresh tokens.
      
+     After validing the `redirectURIWithQuery`,
+     `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
+     calls this method in order to retrieve the authorization information.
+     
+     If the `redirectURIWithQuery` contains an error parameter or the value for
+     the state parameter doesn't match the value passed in as an argument to the
+     above method, then an error will be thrown *before* this method is called.
+     
      This method makes a post request to `self.tokensURL`. The headers will
-     contain the "Content-Type: application/x-www-form-urlencoded" header
-     and the body will contain a key called "code" with the value set to the
-     authorization code in x-www-form-urlencoded format. For example:
-     "code=AQDy8...xMhKNA". See `ProxyTokensRequest`.
+     contain the "Content-Type: application/x-www-form-urlencoded" header and
+     the body will contain the following in x-www-form-urlencoded format:
+     
+     * "grant_type": set to "authorization_code"
+     * "code": the authorization code
+     * "redirect_uri": the redirect URI
+     
+     For example: "grant_type=authorization_code&code=asd...xbdjc
+     &redirect_uri=http://localhost:8080". See `ProxyTokensRequest`.
      
      The endpoint at `self.tokensURL` must return the authorization information
      as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
@@ -172,8 +185,17 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
         redirectURIWithQuery: URL
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
-        let body = ProxyTokensRequest(code: code)
-            .formURLEncoded()
+        // This must match the redirectURI provided when making the
+        // authorization URL.
+        let baseRedirectURI = redirectURIWithQuery
+            .removingQueryItems()
+            .removingTrailingSlashInPath()
+
+        let body = ProxyTokensRequest(
+            code: code,
+            redirectURI: baseRedirectURI
+        )
+        .formURLEncoded()
 
         let bodyString = String(data: body, encoding: .utf8) ?? "nil"
         Self.logger.trace(
@@ -215,15 +237,17 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 
      This method makes a post request to `self.tokenRefreshURL`. The headers
      will contain the "Content-Type: application/x-www-form-urlencoded" header
-     and the body will contain a key called "refresh_token" with the value set
-     to the the refresh token and a key called "grant_type" with the value set
-     to "refresh_token" in x-www-form-urlencoded format. For example:
-     "refresh_token=AQDy8...xMhKNA&grant_type=refresh_token". See
+     and the body will contain the following in x-www-form-urlencoded format:
+     
+     * "grant_type": set to "refresh_token"
+     * "refresh_token": the refresh token
+     
+     For example: "grant_type=refresh_token&refresh_token=djsnd...dnvnbfr". See
      `RefreshTokensRequest`.
      
      The endpoint at `self.tokenRefreshURL` must return the authorization
      information as JSON data that can be decoded into `AuthInfo`. The
-     `accessToken`, and `expirationDate` (which can be decoded from the
+     `accessToken` and `expirationDate` (which can be decoded from the
      "expires_in" JSON key) properties must be non-`nil`. For example:
 
      ```

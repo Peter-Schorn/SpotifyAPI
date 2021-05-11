@@ -11,8 +11,8 @@ import Foundation
  `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
  
  When using a custom backend server, use `ProxyTokensRequest` instead, which
- does not contain the `redirectURI`, `clientId`, or `clientSecret`, as these
- properties should be stored on the server.
+ does not contain the `clientId`, or `clientSecret`, as these properties should
+ be stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -31,7 +31,7 @@ public struct TokensRequest: Hashable {
     
     /// The redirect URI. This is sent in the request for validation only. There
     /// will be no further redirection to this location.
-    public let redirectURI: String
+    public let redirectURI: URL
     
     /**
      The client id that you received when you [registered your application][1].
@@ -58,8 +58,8 @@ public struct TokensRequest: Hashable {
      `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
 
      When using a custom backend server, use `ProxyTokensRequest` instead, which
-     does not contain the `redirectURI`, `clientId`, or `clientSecret`, as these
-     properties should be stored on the server.
+     does not contain the `clientId`, or `clientSecret`, as these properties
+     should be stored on the server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
@@ -86,7 +86,7 @@ public struct TokensRequest: Hashable {
         clientSecret: String
     ) {
         self.code = code
-        self.redirectURI = redirectURI.absoluteString
+        self.redirectURI = redirectURI
         self.clientId = clientId
         self.clientSecret = clientSecret
     }
@@ -102,7 +102,7 @@ public struct TokensRequest: Hashable {
         guard let data = [
             CodingKeys.grantType.rawValue: self.grantType,
             CodingKeys.code.rawValue: self.code,
-            CodingKeys.redirectURI.rawValue: self.redirectURI,
+            CodingKeys.redirectURI.rawValue: self.redirectURI.absoluteString,
             CodingKeys.clientId.rawValue: self.clientId,
             CodingKeys.clientSecret.rawValue: self.clientSecret
         ].formURLEncoded()
