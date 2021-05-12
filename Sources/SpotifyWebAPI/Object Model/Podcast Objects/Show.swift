@@ -57,7 +57,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Show` as the
      response type to retrieve the results.
      */
-    public let href: String
+    public let href: URL
        
     /**
      Known [external urls][1] for this episode.
@@ -69,7 +69,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// `true` if the episode is hosted outside of Spotify's CDN
     /// (content delivery network). Else, `false`.
@@ -138,8 +138,8 @@ public struct Show: Hashable, SpotifyURIConvertible {
         id: String,
         images: [SpotifyImage]? = nil,
         availableMarkets: [String],
-        href: String,
-        externalURLs: [String: String]? = nil,
+        href: URL,
+        externalURLs: [String: URL]? = nil,
         isExternallyHosted: Bool,
         languages: [String],
         copyrights: [SpotifyCopyright]? = nil,

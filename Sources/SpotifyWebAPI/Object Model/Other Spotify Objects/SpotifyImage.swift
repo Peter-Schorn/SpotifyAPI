@@ -56,7 +56,7 @@ public struct SpotifyImage: Codable, Hashable {
            `SpotifyAPI.playlistImage(_:)` to retrieve the image
            for a playlist.
      */
-    public let url: String
+    public let url: URL
 
     /**
      Creates a Spotify [image][1] object.
@@ -71,7 +71,7 @@ public struct SpotifyImage: Codable, Hashable {
     public init(
         height: Int? = nil,
         width: Int? = nil,
-        url: String
+        url: URL
     ) {
         self.height = height
         self.width = width
@@ -95,15 +95,8 @@ public extension SpotifyImage {
      */
     func load() -> AnyPublisher<Image, Error> {
 
-        guard let imageURL = URL(string: url) else {
-            return SpotifyLocalError.other(
-                "couldn't convert string to URL: '\(url)'"
-            )
-            .anyFailingPublisher()
-        }
-        
         let publisher = URLSession.shared.dataTaskPublisher(
-            for: imageURL
+            for: self.url
         )
 
         return publisher

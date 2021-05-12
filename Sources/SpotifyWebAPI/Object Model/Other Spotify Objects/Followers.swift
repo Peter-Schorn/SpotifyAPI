@@ -13,7 +13,7 @@ public struct Followers: Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Followers` as the
      response type to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
 
     /// The total number of followers.
     public let total: Int
@@ -31,7 +31,7 @@ public struct Followers: Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
      */
     public init(
-        href: String? = nil,
+        href: URL? = nil,
         total: Int
     ) {
         self.href = href
@@ -44,7 +44,7 @@ extension Followers: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.href = try container.decodeIfPresent(String.self, forKey: .href)
+        self.href = try container.decodeIfPresent(URL.self, forKey: .href)
         let total = try container.decodeIfPresent(Int.self, forKey: .total)
         self.total = total ?? 0
     }

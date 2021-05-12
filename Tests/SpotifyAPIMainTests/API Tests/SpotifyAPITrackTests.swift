@@ -28,7 +28,7 @@ extension SpotifyAPITrackTests {
         XCTAssertEqual(track.id, "1rxoyGj1QuPoVi8fOft1Kt")
         XCTAssertEqual(
             track.href,
-            "https://api.spotify.com/v1/tracks/1rxoyGj1QuPoVi8fOft1Kt"
+            URL(string: "https://api.spotify.com/v1/tracks/1rxoyGj1QuPoVi8fOft1Kt")!
         )
         XCTAssertFalse(track.isLocal)
         XCTAssertEqual(track.durationMS, 165666)
@@ -68,7 +68,7 @@ extension SpotifyAPITrackTests {
         if let externalURLs = track.externalURLs {
             XCTAssertEqual(
                 externalURLs["spotify"],
-                "https://open.spotify.com/track/1rxoyGj1QuPoVi8fOft1Kt",
+                URL(string: "https://open.spotify.com/track/1rxoyGj1QuPoVi8fOft1Kt")!,
                 "\(externalURLs)"
             )
         }
@@ -104,19 +104,15 @@ extension SpotifyAPITrackTests {
                 for (i, image) in images.enumerated() {
                     XCTAssertNotNil(image.height)
                     XCTAssertNotNil(image.width)
-                    guard let url = URL(string: image.url) else {
-                        XCTFail("couldn't convert to URL: '\(image.url)'")
-                        continue
-                    }
                     let imageExpectation = XCTestExpectation(
                         description: "check image url \(i)"
                     )
                     imageExpectations.append(imageExpectation)
-                    print("check image url \(i): '\(url)'")
-                    assertURLExists(url)
+                    print("check image url \(i): '\(image.url)'")
+                    assertURLExists(image.url)
                         .sink(receiveCompletion: { completion in
                             if case .finished = completion {
-                                print("exists: '\(url)'")
+                                print("exists: '\(image.url)'")
                             }
                             imageExpectation.fulfill()
                         })
@@ -185,7 +181,7 @@ extension SpotifyAPITrackTests {
             
             XCTAssertEqual(
                 linkedTrack.href,
-                "https://api.spotify.com/v1/tracks/6kLCHFM39wkFjOuyPGLGeQ"
+                URL(string: "https://api.spotify.com/v1/tracks/6kLCHFM39wkFjOuyPGLGeQ")!
             )
             XCTAssertEqual(linkedTrack.id, "6kLCHFM39wkFjOuyPGLGeQ")
             XCTAssertEqual(linkedTrack.type, .track)
@@ -194,7 +190,7 @@ extension SpotifyAPITrackTests {
             if let externalURLs = linkedTrack.externalURLs {
                 XCTAssertEqual(
                     externalURLs["spotify"],
-                    "https://open.spotify.com/track/6kLCHFM39wkFjOuyPGLGeQ",
+                    URL(string: "https://open.spotify.com/track/6kLCHFM39wkFjOuyPGLGeQ")!,
                     "\(externalURLs)"
                 )
             }
@@ -269,9 +265,8 @@ extension SpotifyAPITrackTests {
                 
                 XCTAssertEqual(
                     onTheRun.href,
-                    "https://api.spotify.com/v1/tracks/73OIUNKRi2y24Cu9cOLrzM"
+                    URL(string: "https://api.spotify.com/v1/tracks/73OIUNKRi2y24Cu9cOLrzM")!
                 )
-                XCTAssertNotNil(onTheRun.href.map(URL.init(string:)))
                 
                 if let popularity = onTheRun.popularity {
                     XCTAssert((0...100).contains(popularity))
@@ -320,9 +315,8 @@ extension SpotifyAPITrackTests {
                 
                 XCTAssertEqual(
                     reckoner.href,
-                    "https://api.spotify.com/v1/tracks/02ppMPbg1OtEdHgoPqoqju"
+                    URL(string: "https://api.spotify.com/v1/tracks/02ppMPbg1OtEdHgoPqoqju")!
                 )
-                XCTAssertNotNil(reckoner.href.map(URL.init(string:)))
                 
                 if let popularity = reckoner.popularity {
                     XCTAssert((0...100).contains(popularity))
@@ -742,7 +736,7 @@ extension SpotifyAPITrackTests {
             )
             XCTAssertEqual(
                 track.analysisURL,
-                "https://api.spotify.com/v1/audio-analysis/2TjdnqlpwOjhijHCwHCP2d"
+                URL(string: "https://api.spotify.com/v1/audio-analysis/2TjdnqlpwOjhijHCwHCP2d")!
             )
             XCTAssertEqual(track.durationMS, 283872)
             XCTAssertEqual(track.timeSignature, 4)
@@ -824,7 +818,7 @@ extension SpotifyAPITrackTests {
                 )
                 XCTAssertEqual(
                     track.analysisURL,
-                    "https://api.spotify.com/v1/audio-analysis/1tDWVeCR9oWGX8d5J9rswk"
+                    URL(string: "https://api.spotify.com/v1/audio-analysis/1tDWVeCR9oWGX8d5J9rswk")!
                 )
                 XCTAssertEqual(track.durationMS, 130429)
                 XCTAssertEqual(track.timeSignature, 4)
@@ -854,7 +848,7 @@ extension SpotifyAPITrackTests {
                 )
                 XCTAssertEqual(
                     track.analysisURL,
-                    "https://api.spotify.com/v1/audio-analysis/05uGBKRCuePsf43Hfm0JwX"
+                    URL(string: "https://api.spotify.com/v1/audio-analysis/05uGBKRCuePsf43Hfm0JwX")!
                 )
                 XCTAssertEqual(track.durationMS, 226667)
                 XCTAssertEqual(track.timeSignature, 4)
@@ -884,7 +878,7 @@ extension SpotifyAPITrackTests {
                 )
                 XCTAssertEqual(
                     track.analysisURL,
-                    "https://api.spotify.com/v1/audio-analysis/2EqlS6tkEnglzr7tkKAAYD"
+                    URL(string: "https://api.spotify.com/v1/audio-analysis/2EqlS6tkEnglzr7tkKAAYD")!
                 )
                 XCTAssertEqual(track.durationMS, 259947)
                 XCTAssertEqual(track.timeSignature, 4)

@@ -34,38 +34,26 @@ public extension SpotifyAPI {
      - Returns: The data decoded into `responseType`.
      */
     func getFromHref<ResponseType: Decodable>(
-        _ href: String,
+        _ href: URL,
         responseType: ResponseType.Type
     ) -> AnyPublisher<ResponseType, Error> {
         
-        do {
-            
-            guard let url = URL(string: href, sortQueryItems: true) else {
-                throw SpotifyLocalError.other(
-                    #"couldn't convert href to URL: "\#(href)""#
+        return self.refreshTokensAndEnsureAuthorized(for: [])
+            .flatMap { accessToken -> AnyPublisher<ResponseType, Error> in
+                
+                self.apiRequestLogger.trace(
+                    #"GET request to href: "\#(href)""#
                 )
+                
+                var request = URLRequest(url: href)
+                request.allHTTPHeaderFields =
+                    Headers.bearerAuthorization(accessToken)
+                
+                return self.networkAdaptor(request)
+                    .decodeSpotifyObject(ResponseType.self)
+                
             }
-            
-            return self.refreshTokensAndEnsureAuthorized(for: [])
-                .flatMap { accessToken -> AnyPublisher<ResponseType, Error> in
-                    
-                    self.apiRequestLogger.trace(
-                        #"GET request to href: "\#(url)""#
-                    )
-                    
-                    var request = URLRequest(url: url)
-                    request.allHTTPHeaderFields =
-                            Headers.bearerAuthorization(accessToken)
-
-                    return self.networkAdaptor(request)
-                        .decodeSpotifyObject(ResponseType.self)
-
-                }
-                .eraseToAnyPublisher()
-        
-        } catch {
-            return error.anyFailingPublisher()
-        }
+            .eraseToAnyPublisher()
         
     }
 
@@ -194,7 +182,9 @@ public extension SpotifyAPI {
         maxExtraPages: Int? = nil
     ) -> AnyPublisher<Page, Error> {
         
-        guard var hrefComponents = URLComponents(string: page.href) else {
+        guard var hrefComponents = URLComponents(
+            url: page.href, resolvingAgainstBaseURL: false
+        ) else {
             return SpotifyLocalError.other(
                 #"couldn't create URLComponents from href "\#(page.href)""#
             )
@@ -252,7 +242,7 @@ public extension SpotifyAPI {
             pageHrefComponents.queryItems!.append(
                 URLQueryItem(name: "offset", value: "\(offset)")
             )
-            guard let pageHref = pageHrefComponents.string else {
+            guard let pageHref = pageHrefComponents.url else {
                 self.logger.error(
                     #"couldn't create URL for page from "\#(pageHrefComponents)""#
                 )

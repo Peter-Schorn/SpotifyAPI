@@ -34,7 +34,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `SpotifyUser` as the
      response type to retrieve the results.
      */
-    public let href: String
+    public let href: URL
 
     /**
      When `true`, indicates that explicit content *is* allowed. If `false`,
@@ -103,7 +103,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// The object type. Always `user`.
     public let type: IDCategory
@@ -159,14 +159,14 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
         uri: String,
         id: String,
         images: [SpotifyImage]? = nil,
-        href: String,
+        href: URL,
         allowsExplicitContent: Bool,
         explicitContentSettingIsLocked: Bool,
         followers: Followers? = nil,
         country: String? = nil,
         email: String? = nil,
         product: String? = nil,
-        externalURLs: [String: String]? = nil
+        externalURLs: [String: URL]? = nil
     ) {
         self.displayName = displayName
         self.uri = uri
@@ -205,7 +205,7 @@ extension SpotifyUser: Codable {
             [SpotifyImage].self, forKey: .images
         )
         self.href = try container.decode(
-            String.self, forKey: .href
+            URL.self, forKey: .href
         )
         
         // The user’s explicit content settings are only available when
@@ -251,7 +251,7 @@ extension SpotifyUser: Codable {
             String.self, forKey: .product
         )
         self.externalURLs = try container.decodeIfPresent(
-            [String: String].self, forKey: .externalURLs
+            [String: URL].self, forKey: .externalURLs
         )
         self.type = try container.decode(
             IDCategory.self, forKey: .type

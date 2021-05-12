@@ -62,7 +62,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// Information about the followers of the playlist.
     ///
@@ -75,7 +75,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
-    public let href: String
+    public let href: URL
     
     /// The [Spotify ID][1] for the playlist.
     ///
@@ -157,9 +157,9 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         isCollaborative: Bool,
         description: String? = nil,
         snapshotId: String,
-        externalURLs: [String: String]? = nil,
+        externalURLs: [String: URL]? = nil,
         followers: Followers? = nil,
-        href: String,
+        href: URL,
         id: String,
         uri: String,
         images: [SpotifyImage]

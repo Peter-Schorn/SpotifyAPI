@@ -63,11 +63,13 @@ final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
         )
         XCTAssertEqual(
             context.context?.externalURLs,
-            ["spotify": "https://open.spotify.com/playlist/2EgZjzog2eSfApWQHZVn6t"]
+            [
+                "spotify": URL(string: "https://open.spotify.com/playlist/2EgZjzog2eSfApWQHZVn6t")!
+            ]
         )
         XCTAssertEqual(
             context.context?.href,
-            "https://api.spotify.com/v1/playlists/2EgZjzog2eSfApWQHZVn6t"
+            URL(string: "https://api.spotify.com/v1/playlists/2EgZjzog2eSfApWQHZVn6t")!
         )
         XCTAssertEqual(context.context?.type, .playlist)
         XCTAssertEqual(
@@ -120,7 +122,7 @@ final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
         )
         XCTAssertEqual(
             track.previewURL,
-            "https://p.scdn.co/mp3-preview/b87069f9d4bdf4273d9178ff86d97af05e2adbb7?cid=774b29d4f13844c495f206cafdad9c86"
+            URL(string: "https://p.scdn.co/mp3-preview/b87069f9d4bdf4273d9178ff86d97af05e2adbb7?cid=774b29d4f13844c495f206cafdad9c86")!
         )
         
         // MARK: Check Album
@@ -130,11 +132,13 @@ final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
         XCTAssertEqual(album.availableMarkets, ["AD", "AE", "ZA"])
         XCTAssertEqual(
             album.externalURLs,
-            ["spotify": "https://open.spotify.com/album/4W4gNYa4tt3t8V6FmONWEK"]
+            [
+                "spotify": URL(string: "https://open.spotify.com/album/4W4gNYa4tt3t8V6FmONWEK")!
+            ]
         )
         XCTAssertEqual(
             album.href,
-            "https://api.spotify.com/v1/albums/4W4gNYa4tt3t8V6FmONWEK"
+            URL(string: "https://api.spotify.com/v1/albums/4W4gNYa4tt3t8V6FmONWEK")!
         )
         XCTAssertEqual(album.id, "4W4gNYa4tt3t8V6FmONWEK")
         
@@ -157,21 +161,21 @@ final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
         XCTAssertEqual(albumImages[0].width, 641)
         XCTAssertEqual(
             albumImages[0].url,
-            "https://i.scdn.co/image/ab67616d0000b273412e18ab5452ac84eafe5c9d"
+            URL(string: "https://i.scdn.co/image/ab67616d0000b273412e18ab5452ac84eafe5c9d")!
         )
         
         XCTAssertEqual(albumImages[1].height, 300)
         XCTAssertEqual(albumImages[1].width, 301)
         XCTAssertEqual(
             albumImages[1].url,
-            "https://i.scdn.co/image/ab67616d00001e02412e18ab5452ac84eafe5c9d"
+            URL(string: "https://i.scdn.co/image/ab67616d00001e02412e18ab5452ac84eafe5c9d")!
         )
         
         XCTAssertEqual(albumImages[2].height, 64)
         XCTAssertEqual(albumImages[2].width, 65)
         XCTAssertEqual(
             albumImages[2].url,
-            "https://i.scdn.co/image/ab67616d00004851412e18ab5452ac84eafe5c9d"
+            URL(string: "https://i.scdn.co/image/ab67616d00004851412e18ab5452ac84eafe5c9d")!
         )
         
         // MARK: Check Artist

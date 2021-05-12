@@ -27,11 +27,11 @@ final class CodingCursorPagingObjectPlayHistoryTests: SpotifyAPITestCase {
         
         XCTAssertEqual(
             playHistory.href,
-            "https://api.spotify.com/v1/me/player/recently-played?before=1600723343395&limit=45"
+            URL(string: "https://api.spotify.com/v1/me/player/recently-played?before=1600723343395&limit=45")!
         )
         XCTAssertEqual(
             playHistory.next,
-            "https://api.spotify.com/v1/me/player/recently-played?before=1600459749010&limit=45"
+            URL(string: "https://api.spotify.com/v1/me/player/recently-played?before=1600459749010&limit=45")!
         )
         XCTAssertEqual(playHistory.limit, 45)
         
@@ -59,7 +59,7 @@ final class CodingCursorPagingObjectPlayHistoryTests: SpotifyAPITestCase {
             )
             XCTAssertEqual(
                 context.href,
-                "https://api.spotify.com/v1/playlists/33yLOStnp2emkEA76ew1Dz"
+                URL(string: "https://api.spotify.com/v1/playlists/33yLOStnp2emkEA76ew1Dz")!
             )
             XCTAssertEqual(context.type, .playlist)
             
@@ -105,7 +105,7 @@ final class CodingCursorPagingObjectPlayHistoryTests: SpotifyAPITestCase {
             )
             XCTAssertEqual(
                 context.href,
-                "https://api.spotify.com/v1/albums/4LH4d3cOWNNsVw41Gqt2kv"
+                URL(string: "https://api.spotify.com/v1/albums/4LH4d3cOWNNsVw41Gqt2kv")!
             )
             XCTAssertEqual(context.type, .album)
             

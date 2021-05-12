@@ -103,7 +103,7 @@ public enum PlaylistItem: Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the full results.
      */
     @inlinable
-    public var href: String? {
+    public var href: URL? {
         switch self {
             case .track(let track):
                 return track.href
@@ -123,7 +123,7 @@ public enum PlaylistItem: Hashable {
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     @inlinable
-    public var externalURLs: [String: String]? {
+    public var externalURLs: [String: URL]? {
         switch self {
             case .track(let track):
                 return track.externalURLs

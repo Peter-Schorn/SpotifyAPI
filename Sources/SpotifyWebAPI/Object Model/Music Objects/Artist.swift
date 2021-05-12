@@ -44,7 +44,7 @@ public struct Artist: Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// Information about the followers of the artist.
     ///
@@ -67,7 +67,7 @@ public struct Artist: Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Artist` as the
      response type to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
     
     /// The object type. Always `artist`.
     public let type: IDCategory
@@ -101,10 +101,10 @@ public struct Artist: Hashable {
         id: String? = nil,
         images: [SpotifyImage]? = nil,
         popularity: Int? = nil,
-        externalURLs: [String: String]? = nil,
+        externalURLs: [String: URL]? = nil,
         followers: Followers? = nil,
         genres: [String]? = nil,
-        href: String? = nil
+        href: URL? = nil
     ) {
         self.name = name
         self.uri = uri

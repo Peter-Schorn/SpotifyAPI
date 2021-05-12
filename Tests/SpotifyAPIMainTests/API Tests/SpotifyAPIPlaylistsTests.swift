@@ -426,7 +426,7 @@ extension SpotifyAPIPlaylistsTests {
                             XCTAssertEqual(show.type, .show)
                             XCTAssertEqual(
                                 show.href,
-                                "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk"
+                                URL(string: "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk")!
                             )
                         }
                         else {
@@ -1425,17 +1425,12 @@ extension SpotifyAPIPlaylistsTests where
                     )
                     .store(in: &Self.cancellables)
 
-                guard let url = URL(string: image.url) else {
-                    XCTFail("couldn't convert to URL: '\(image.url)'")
-                    continue
-                }
-
                 let assertImageExistsExpectation = XCTestExpectation(
                     description: "assert image exists \(i)"
                 )
                 imageExpectations.append(assertImageExistsExpectation)
 
-                assertURLExists(url)
+                assertURLExists(image.url)
                     .sink(
                         receiveCompletion: { _ in
                             print("urlExists.fulfill() '\(image.url)'")
@@ -1483,11 +1478,6 @@ extension SpotifyAPIPlaylistsTests where
     }
 
     func uploadPlaylistImage() {
-
-        DistributedLock.general.lock()
-        defer {
-            DistributedLock.general.unlock()
-        }
 
         let spotifyDecodeLogLevel = spotifyDecodeLogger.logLevel
         spotifyDecodeLogger.logLevel = .warning

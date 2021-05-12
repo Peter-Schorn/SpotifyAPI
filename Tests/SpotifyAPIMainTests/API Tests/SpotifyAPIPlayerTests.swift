@@ -164,12 +164,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 XCTAssertEqual(context.type, .show)
                 XCTAssertEqual(
                     context.href,
-                    "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk"
+                    URL(string: "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk")!
                 )
                 if let externalURLs = context.externalURLs {
                     XCTAssertEqual(
                         externalURLs["spotify"],
-                        "https://open.spotify.com/show/5rgumWEx4FsqIY8e1wJNAk",
+                        URL(string: "https://open.spotify.com/show/5rgumWEx4FsqIY8e1wJNAk")!,
                         "\(externalURLs)"
                     )
                 }

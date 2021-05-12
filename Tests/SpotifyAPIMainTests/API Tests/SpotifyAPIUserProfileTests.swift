@@ -26,7 +26,7 @@ extension SpotifyAPIUserProfileTests {
             XCTAssertEqual(user.displayName, "April")
             XCTAssertEqual(
                 user.href,
-                "https://api.spotify.com/v1/users/p8gjjfbirm8ucyt82ycfi9zuu"
+                URL(string: "https://api.spotify.com/v1/users/p8gjjfbirm8ucyt82ycfi9zuu")!
             )
             XCTAssertEqual(user.id, "p8gjjfbirm8ucyt82ycfi9zuu")
             XCTAssertEqual(user.type, .user)
@@ -35,7 +35,7 @@ extension SpotifyAPIUserProfileTests {
             if let externalURLs = user.externalURLs {
                 XCTAssertEqual(
                     externalURLs["spotify"],
-                    "https://open.spotify.com/user/p8gjjfbirm8ucyt82ycfi9zuu",
+                    URL(string: "https://open.spotify.com/user/p8gjjfbirm8ucyt82ycfi9zuu")!,
                     "\(externalURLs)"
                 )
             }
@@ -52,16 +52,12 @@ extension SpotifyAPIUserProfileTests {
 
             var imageExpectations: [XCTestExpectation] = []
             for (i, image) in images.enumerated() {
-                guard let url = URL(string: image.url) else {
-                    XCTFail("couldn't convert string to URL: '\(image.url)'")
-                    continue
-                }
                 let expectation = XCTestExpectation(
                     description: "assert image url exists \(i)"
                 )
                 imageExpectations.append(expectation)
                 
-                assertURLExists(url)
+                assertURLExists(image.url)
                     .XCTAssertNoFailure()
                     .sink(
                         receiveCompletion: { _ in

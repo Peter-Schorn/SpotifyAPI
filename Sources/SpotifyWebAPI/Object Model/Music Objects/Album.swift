@@ -77,7 +77,7 @@ public struct Album: Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Album` as the
      response type to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
 
     /**
      Known [external urls][1] for this artist.
@@ -89,7 +89,7 @@ public struct Album: Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /**
      Known external IDs for the album.
@@ -240,8 +240,8 @@ public struct Album: Hashable {
         popularity: Int? = nil,
         label: String? = nil,
         genres: [String]? = nil,
-        href: String? = nil,
-        externalURLs: [String: String]? = nil,
+        href: URL? = nil,
+        externalURLs: [String: URL]? = nil,
         externalIds: [String: String]? = nil,
         albumType: AlbumType? = nil,
         albumGroup: AlbumType? = nil,
@@ -320,10 +320,10 @@ extension Album: Codable {
             [String].self, forKey: .genres
         )
         self.href = try container.decodeIfPresent(
-            String.self, forKey: .href
+            URL.self, forKey: .href
         )
         self.externalURLs = try container.decodeIfPresent(
-            [String: String].self, forKey: .externalURLs
+            [String: URL].self, forKey: .externalURLs
         )
         self.externalIds = try container.decodeIfPresent(
             [String: String].self, forKey: .externalIds

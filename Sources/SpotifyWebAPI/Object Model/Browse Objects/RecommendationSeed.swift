@@ -26,7 +26,7 @@ public struct RecommendationSeed: Codable, Hashable {
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
     
     /// The artist, track, or genre id used to select this seed.
     public let id: String
@@ -63,7 +63,7 @@ public struct RecommendationSeed: Codable, Hashable {
     public init(
         afterFilteringSize: Int,
         afterRelinkingSize: Int,
-        href: String?,
+        href: URL?,
         id: String,
         initialPoolSize: Int,
         type: IDCategory

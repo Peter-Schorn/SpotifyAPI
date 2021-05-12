@@ -111,7 +111,7 @@ private func testNextHref<AuthorizationManager: SpotifyScopeAuthorizationManager
     let dispatchGroup = DispatchGroup()
     
     /// The full URL to the next page of results
-    var nextHref: String? = nil
+    var nextHref: URL? = nil
 
     dispatchGroup.enter()
     spotifyAPI.currentUserTopArtists()

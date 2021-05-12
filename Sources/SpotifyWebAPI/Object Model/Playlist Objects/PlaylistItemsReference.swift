@@ -19,7 +19,7 @@ public struct PlaylistItemsReference: Codable, Hashable {
      use `SpotifyAPI.playlistItems(_:limit:offset:market:)`, passing in
      the URI of this playlist.
      */
-    public let href: String?
+    public let href: URL?
 
     /// The total number of tracks/episodes.
     public let total: Int
@@ -41,7 +41,7 @@ public struct PlaylistItemsReference: Codable, Hashable {
        - total: The total number of tracks/episodes.
      */
     public init(
-        href: String?,
+        href: URL?,
         total: Int
     ) {
         self.href = href

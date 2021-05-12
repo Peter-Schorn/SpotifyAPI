@@ -28,7 +28,7 @@ extension SpotifyAPIArtistTests {
         XCTAssertEqual(artist.id, "0k17h0D3J5VfsdmQ1iZtE9")
         XCTAssertEqual(
             artist.href,
-            "https://api.spotify.com/v1/artists/0k17h0D3J5VfsdmQ1iZtE9"
+            URL(string: "https://api.spotify.com/v1/artists/0k17h0D3J5VfsdmQ1iZtE9")!
         )
         if let popularity = artist.popularity {
             XCTAssert((0...100).contains(popularity), "\(popularity)")
@@ -53,7 +53,7 @@ extension SpotifyAPIArtistTests {
         if let externalURLs = artist.externalURLs {
             XCTAssertEqual(
                 externalURLs["spotify"],
-                "https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9",
+                URL(string: "https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9")!,
                 "\(externalURLs)"
             )
         }
@@ -78,16 +78,12 @@ extension SpotifyAPIArtistTests {
         for (i, image) in images.enumerated() {
             XCTAssertNotNil(image.height)
             XCTAssertNotNil(image.width)
-            guard let url = URL(string: image.url) else {
-                XCTFail("couldn't convert to URL: '\(image.url)'")
-                continue
-            }
             let imageExpectation = XCTestExpectation(
                 description: "loadImage \(i)"
             )
             imageExpectations.append(imageExpectation)
             
-            assertURLExists(url)
+            assertURLExists(image.url)
                 .sink(receiveCompletion: { _ in
                     imageExpectation.fulfill()
                 })
@@ -109,9 +105,9 @@ extension SpotifyAPIArtistTests {
         XCTAssertNil(albums.previous)
         XCTAssertEqual(
             albums.href,
-            "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B" +
+            URL(string: "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B" +
             "/albums?offset=0&limit=35&include_groups=album,single," +
-            "compilation,appears_on&market=US"
+            "compilation,appears_on&market=US")!
         )
         
         for album in albums.items {

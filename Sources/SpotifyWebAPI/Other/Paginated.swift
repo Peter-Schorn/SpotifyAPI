@@ -18,6 +18,6 @@ import Foundation
 public protocol Paginated: Codable {
 
     /// A link (href) to the next page of results.
-    var next: String? { get }
+    var next: URL? { get }
     
 }

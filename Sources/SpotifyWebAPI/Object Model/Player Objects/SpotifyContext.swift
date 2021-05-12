@@ -18,7 +18,7 @@ public struct SpotifyContext: Hashable {
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
     
     /**
      Known [external urls][1] for the context.
@@ -30,7 +30,7 @@ public struct SpotifyContext: Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /**
      The object type of the item's context. Valid values are
@@ -53,8 +53,8 @@ public struct SpotifyContext: Hashable {
      */
     public init(
         uri: String,
-        href: String?,
-        externalURLs: [String: String]?,
+        href: URL?,
+        externalURLs: [String: URL]?,
         type: IDCategory
     ) {
         self.uri = uri

@@ -71,7 +71,7 @@ public func assertUserIsPeter(
  
     XCTAssertEqual(
         user.href,
-        "https://api.spotify.com/v1/users/petervschorn",
+        URL(string: "https://api.spotify.com/v1/users/petervschorn")!,
         file: file, line: line
     )
     XCTAssertEqual(
@@ -131,16 +131,12 @@ public func XCTAssertImagesExist(
     for (i, image) in images.enumerated() {
         XCTAssertNotNil(image.height)
         XCTAssertNotNil(image.width)
-        guard let url = URL(string: image.url) else {
-            XCTFail("couldn't convert to URL: '\(image.url)'")
-            continue
-        }
         let existsExpectation = XCTestExpectation(
             description: "image exists \(i)"
         )
         imageExpectations.append(existsExpectation)
         
-        assertURLExists(url, file: file, line: line)
+        assertURLExists(image.url, file: file, line: line)
             .sink(receiveCompletion: { _ in
                 existsExpectation.fulfill()
             })

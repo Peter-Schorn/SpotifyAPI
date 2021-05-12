@@ -91,13 +91,13 @@ public struct Track: Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track` as the
      response type to retrieve the results.
      */
-    public let href: String?
+    public let href: URL?
 
     /// A link to a 30 second preview of the track in MP3 format.
     ///
     /// Will probably be `nil` if this track was retrieved while using the
     /// client credentials flow manager.
-    public let previewURL: String?
+    public let previewURL: URL?
     
     /**
      Known [external urls][1] for this track.
@@ -109,7 +109,7 @@ public struct Track: Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// Known external IDs for the track.
     ///
@@ -247,9 +247,9 @@ public struct Track: Hashable {
         trackNumber: Int? = nil,
         isExplicit: Bool,
         isPlayable: Bool? = nil,
-        href: String? = nil,
-        previewURL: String? = nil,
-        externalURLs: [String: String]? = nil,
+        href: URL? = nil,
+        previewURL: URL? = nil,
+        externalURLs: [String: URL]? = nil,
         externalIds: [String: String]? = nil,
         availableMarkets: [String]? = nil,
         linkedFrom: TrackLink? = nil,

@@ -17,7 +17,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     
     /// A URL to a 30 second preview (MP3 format) of the episode,
     /// if available.
-    public let audioPreviewURL: String?
+    public let audioPreviewURL: URL?
     
     /// A description of the episode.
     public let description: String
@@ -60,7 +60,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Episode` as the
      response type to retrieve the results.
      */
-    public let href: String
+    public let href: URL
        
     /// `true` if the episode is playable in the given market.
     /// Else, `false`.
@@ -76,7 +76,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /// `true` if the episode is hosted outside of Spotify's CDN
     /// (content delivery network). Else, `false`.
@@ -136,7 +136,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     public init(
         name: String,
         show: Show? = nil,
-        audioPreviewURL: String? = nil,
+        audioPreviewURL: URL? = nil,
         description: String,
         resumePoint: ResumePoint? = nil,
         durationMS: Int,
@@ -145,9 +145,9 @@ public struct Episode: Hashable, SpotifyURIConvertible {
         uri: String,
         id: String,
         images: [SpotifyImage]? = nil,
-        href: String,
+        href: URL,
         isPlayable: Bool,
-        externalURLs: [String: String]? = nil,
+        externalURLs: [String: URL]? = nil,
         isExternallyHosted: Bool,
         languages: [String],
         releaseDatePrecision: String? = nil
@@ -188,7 +188,7 @@ extension Episode: Codable {
             Show.self, forKey: .show
         )
         self.audioPreviewURL = try container.decodeIfPresent(
-            String.self, forKey: .audioPreviewURL
+            URL.self, forKey: .audioPreviewURL
         )
         self.description = try container.decode(
             String.self, forKey: .description
@@ -224,13 +224,13 @@ extension Episode: Codable {
         )
         
         self.href = try container.decode(
-            String.self, forKey: .href
+            URL.self, forKey: .href
         )
         self.isPlayable = try container.decode(
             Bool.self, forKey: .isPlayable
         )
         self.externalURLs = try container.decodeIfPresent(
-            [String: String].self, forKey: .externalURLs
+            [String: URL].self, forKey: .externalURLs
         )
         self.isExternallyHosted = try container.decode(
             Bool.self, forKey: .isExternallyHosted

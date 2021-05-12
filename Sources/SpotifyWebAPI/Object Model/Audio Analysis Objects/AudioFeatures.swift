@@ -146,7 +146,7 @@ public struct AudioFeatures: Codable, Hashable {
      using `SpotifyAPI.trackAudioAnalysis(_:)`, passing in the URI of this
      track.
      */
-    public let analysisURL: String
+    public let analysisURL: URL
 
     /// The duration of the track in milliseconds.
     public let durationMS: Int
@@ -263,7 +263,7 @@ public struct AudioFeatures: Codable, Hashable {
         uri: String,
         id: String,
         trackHref: String,
-        analysisURL: String,
+        analysisURL: URL,
         durationMS: Int,
         type: String
     ) {

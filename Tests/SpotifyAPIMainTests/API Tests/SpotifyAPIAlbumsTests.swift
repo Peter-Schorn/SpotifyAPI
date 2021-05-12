@@ -40,7 +40,7 @@ extension SpotifyAPIAlbumsTests {
         
         XCTAssertEqual(
             album.href,
-            "https://api.spotify.com/v1/albums/3vukTUpiENDHDoYTVrwqtz"
+            URL(string: "https://api.spotify.com/v1/albums/3vukTUpiENDHDoYTVrwqtz")!
         )
 
         if let releaseDate = album.releaseDate {
@@ -68,7 +68,7 @@ extension SpotifyAPIAlbumsTests {
         if let externalURLs = album.externalURLs {
             XCTAssertEqual(
                 externalURLs["spotify"],
-                "https://open.spotify.com/album/3vukTUpiENDHDoYTVrwqtz",
+                URL(string: "https://open.spotify.com/album/3vukTUpiENDHDoYTVrwqtz")!,
                 "\(externalURLs)"
             )
         }
@@ -91,7 +91,7 @@ extension SpotifyAPIAlbumsTests {
         if let artist = album.artists?.first {
             XCTAssertEqual(
                 artist.href,
-                "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B"
+                URL(string: "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B")!
             )
             XCTAssertEqual(artist.uri, "spotify:artist:4kSGbjWGxTchKpIxXPJv0B")
             XCTAssertEqual(artist.id, "4kSGbjWGxTchKpIxXPJv0B")
@@ -99,7 +99,7 @@ extension SpotifyAPIAlbumsTests {
             if let externalURLs = artist.externalURLs {
                 XCTAssertEqual(
                     externalURLs["spotify"],
-                    "https://open.spotify.com/artist/4kSGbjWGxTchKpIxXPJv0B",
+                    URL(string: "https://open.spotify.com/artist/4kSGbjWGxTchKpIxXPJv0B")!,
                     "\(externalURLs)"
                 )
             }
@@ -154,16 +154,12 @@ extension SpotifyAPIAlbumsTests {
             for (i, image) in images.enumerated() {
                 XCTAssertNotNil(image.height)
                 XCTAssertNotNil(image.width)
-                guard let url = URL(string: image.url) else {
-                    XCTFail("couldn't convert to URL: '\(image.url)'")
-                    continue
-                }
                 let imageExpectation = XCTestExpectation(
                     description: "loadImage \(i)"
                 )
                 imageExpectations.append(imageExpectation)
                 
-                assertURLExists(url)
+                assertURLExists(image.url)
                     .sink(receiveCompletion: { _ in
                         imageExpectation.fulfill()
                     })
@@ -770,8 +766,7 @@ extension SpotifyAPIAlbumsTests {
         XCTAssertNotNil(page.next)
         XCTAssertEqual(page.offset, 0)
         
-        XCTAssertNotNil(URL(string: page.href))
-        XCTAssertNotNil(page.next.map(URL.init(string:)))
+        XCTAssertNotNil(page.next)
         
         let tracks = page.items
         self.checkTracksPage1(tracks)
@@ -790,11 +785,10 @@ extension SpotifyAPIAlbumsTests {
         XCTAssertEqual(page.limit, 50)
         XCTAssertEqual(page.total, 125)
         XCTAssertNotNil(page.next)
-        XCTAssertNotNil(page.next.map(URL.init(string:)))
+        XCTAssertNotNil(page.next)
         XCTAssertNotNil(page.previous)
-        XCTAssertNotNil(page.previous.map(URL.init(string:)))
+        XCTAssertNotNil(page.previous)
         XCTAssertEqual(page.offset, 50)
-        XCTAssertNotNil(URL(string: page.href))
         
         let tracks = page.items
         self.checkTracksPage2(tracks)
@@ -813,10 +807,9 @@ extension SpotifyAPIAlbumsTests {
         XCTAssertEqual(page.limit, 50)
         XCTAssertEqual(page.total, 125)
         XCTAssertNotNil(page.previous)
-        XCTAssertNotNil(page.previous.map(URL.init(string:)))
+        XCTAssertNotNil(page.previous)
         XCTAssertNil(page.next)
         XCTAssertEqual(page.offset, 100)
-        XCTAssertNotNil(URL(string: page.href))
         
         
         let tracks = page.items

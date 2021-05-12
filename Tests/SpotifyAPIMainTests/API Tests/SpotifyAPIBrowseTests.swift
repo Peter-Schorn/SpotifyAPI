@@ -36,7 +36,7 @@ extension SpotifyAPIBrowseTests {
                 XCTAssertEqual(category.id, "party")
                 XCTAssertEqual(
                     category.href,
-                    "https://api.spotify.com/v1/browse/categories/party"
+                    URL(string: "https://api.spotify.com/v1/browse/categories/party")!
                 )
                 
 //                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
@@ -237,7 +237,7 @@ extension SpotifyAPIBrowseTests {
             }) {
                 XCTAssertEqual(
                     theBeatles.href,
-                    "https://api.spotify.com/v1/artists/3WrFJ7ztbogyGnTHbHJFl2"
+                    URL(string: "https://api.spotify.com/v1/artists/3WrFJ7ztbogyGnTHbHJFl2")!
                 )
             }
             else {
@@ -249,7 +249,7 @@ extension SpotifyAPIBrowseTests {
             }) {
                 XCTAssertEqual(
                     crumb.href,
-                    "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B"
+                    URL(string: "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B")!
                 )
             }
             else {
@@ -268,7 +268,7 @@ extension SpotifyAPIBrowseTests {
             }) {
                 XCTAssertEqual(
                     fearless.href,
-                    "https://api.spotify.com/v1/tracks/7AalBKBoLDR4UmRYRJpdbj"
+                    URL(string: "https://api.spotify.com/v1/tracks/7AalBKBoLDR4UmRYRJpdbj")!
                 )
             }
             else {

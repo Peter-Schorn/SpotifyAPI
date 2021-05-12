@@ -18,14 +18,14 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
-    public let externalURLs: [String: String]?
+    public let externalURLs: [String: URL]?
     
     /**
      A link to the Spotify web API endpoint providing the full track object.
      
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
      */
-    public let href: String
+    public let href: URL
     
     /// The [Spotify URI][1] for the track.
     ///
@@ -61,8 +61,8 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
      [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
-        externalURLs: [String: String]? = nil,
-        href: String,
+        externalURLs: [String: URL]? = nil,
+        href: URL,
         uri: String,
         id: String
     ) {

@@ -22,7 +22,7 @@ public struct SpotifyCategory: Codable, Hashable {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in
      `SpotifyCategory` as the response type to retrieve the results.
      */
-    public let href: String
+    public let href: URL
 
     /// The category icon, in various sizes.
     public let icons: [SpotifyImage]
@@ -43,7 +43,7 @@ public struct SpotifyCategory: Codable, Hashable {
     public init(
         name: String,
         id: String,
-        href: String,
+        href: URL,
         icons: [SpotifyImage]
     ) {
         self.name = name

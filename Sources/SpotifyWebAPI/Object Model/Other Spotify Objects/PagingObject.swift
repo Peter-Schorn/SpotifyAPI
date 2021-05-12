@@ -35,7 +35,7 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
      `PagingObject`—NOT the type of `Item`—to retrieve the results.
      */
-    public let href: String
+    public let href: URL
     
     /// An array of the requested data in this `PagingObject`.
     public let items: [Item]
@@ -63,7 +63,7 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
-    public let next: String?
+    public let next: URL?
     
     /**
      The URL (href) to the previous page of items or `nil` if none
@@ -76,7 +76,7 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
-    public let previous: String?
+    public let previous: URL?
 
     /// The offset of the items returned (as set in the query or
     /// by default) in this `PagingObject`.
@@ -116,11 +116,11 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
      */
     public init(
-        href: String,
+        href: URL,
         items: [Item],
         limit: Int,
-        next: String? = nil,
-        previous: String? = nil,
+        next: URL? = nil,
+        previous: URL? = nil,
         offset: Int,
         total: Int
     ) {
@@ -277,7 +277,7 @@ public protocol PagingObjectProtocol: Paginated {
      A link to the Spotify web API endpoint returning
      the full result of the request in this paging object.
      */
-    var href: String { get }
+    var href: URL { get }
     
     /// An array of the requested data in this paging object.
     var items: [Item] { get }
@@ -286,10 +286,10 @@ public protocol PagingObjectProtocol: Paginated {
     var limit: Int { get }
     
     /// The URL (href) to the next page of items or `nil` if none.
-    var next: String? { get }
+    var next: URL? { get }
     
     /// The URL (href) to the previous page of items or `nil` if none
-    var previous: String? { get }
+    var previous: URL? { get }
     
     /// The offset of the items returned.
     var offset: Int { get }

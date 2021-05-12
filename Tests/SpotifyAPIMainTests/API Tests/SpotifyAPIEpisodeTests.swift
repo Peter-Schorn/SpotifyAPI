@@ -39,7 +39,7 @@ extension SpotifyAPIEpisodeTests {
         XCTAssertFalse(episode.isExplicit)
         XCTAssertEqual(
             episode.href,
-            "https://api.spotify.com/v1/episodes/3OEdPEYB69pfXoBrhvQYeC"
+            URL(string: "https://api.spotify.com/v1/episodes/3OEdPEYB69pfXoBrhvQYeC")!
         )
         XCTAssertEqual(episode.id, "3OEdPEYB69pfXoBrhvQYeC")
         XCTAssertFalse(episode.isExternallyHosted)
@@ -52,7 +52,7 @@ extension SpotifyAPIEpisodeTests {
         if let externalURLs = episode.externalURLs {
             XCTAssertEqual(
                 externalURLs["spotify"],
-                "https://open.spotify.com/episode/3OEdPEYB69pfXoBrhvQYeC",
+                URL(string: "https://open.spotify.com/episode/3OEdPEYB69pfXoBrhvQYeC")!,
                 "\(externalURLs)"
             )
         }
@@ -130,7 +130,7 @@ extension SpotifyAPIEpisodeTests {
         XCTAssertFalse(show.isExplicit)
         XCTAssertEqual(
             show.href,
-            "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk"
+            URL(string: "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk")!
         )
         XCTAssertEqual(show.id, "5rgumWEx4FsqIY8e1wJNAk")
         XCTAssertFalse(show.isExternallyHosted)
