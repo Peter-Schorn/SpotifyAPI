@@ -219,7 +219,7 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 
 // MARK: - Publisher Extensions -
 
-extension Publisher where Output == (data: Data, response: URLResponse) {
+extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
  
     /// Use if `decodeSpotifyObject` or `decodeOptionalSpotifyObject`
     /// will also be applied in the same publishing stream in order to
@@ -228,14 +228,8 @@ extension Publisher where Output == (data: Data, response: URLResponse) {
 
         return self.tryMap { data, response in
 
-            guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError(
-                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
-                )
-            }
-
             if let error = SpotifyWebAPI.decodeSpotifyErrors(
-                data: data, httpURLResponse: httpURLResponse
+                data: data, httpURLResponse: response
             ) {
                 throw error
             }
@@ -249,7 +243,7 @@ extension Publisher where Output == (data: Data, response: URLResponse) {
 
 }
 
-public extension Publisher where Output == (data: Data, response: URLResponse) {
+public extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
 
     /**
      Tries to decode the raw data from a Spotify web API request
@@ -281,10 +275,8 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
             HTTP request.
      */
     func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
-
         return self.decodeSpotifyErrorsNoRetry()
             .retryOnSpotifyErrors()
-
     }
     
 
@@ -333,15 +325,9 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
 
         return self.tryMap { data, response -> ResponseType in
 
-            guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError(
-                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
-                )
-            }
-
             return try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,
-                httpURLResponse: httpURLResponse,
+                httpURLResponse: response,
                 responseType: responseType
             )
 
@@ -396,23 +382,17 @@ public extension Publisher where Output == (data: Data, response: URLResponse) {
         
         return self.tryMap { data, response -> ResponseType? in
 
-            guard let httpURLResponse = response as? HTTPURLResponse else {
-                fatalError(
-                    "could not cast URLResponse to HTTPURLResponse:\n\(response)"
-                )
-            }
-
             let errorStatusCodeRange = 400..<600
 
             if data.isEmpty &&
-                    !errorStatusCodeRange.contains(httpURLResponse.statusCode) {
+                    !errorStatusCodeRange.contains(response.statusCode) {
                 // only return `nil` if a successful status code is returned
                 return nil
             }
             
             return try SpotifyWebAPI.decodeSpotifyObject(
                 data: data,
-                httpURLResponse: httpURLResponse,
+                httpURLResponse: response,
                 responseType: responseType
             )
 

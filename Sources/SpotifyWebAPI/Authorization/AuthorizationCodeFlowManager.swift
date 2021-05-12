@@ -407,7 +407,6 @@ public extension AuthorizationCodeFlowBackendManager {
             code: code,
             redirectURIWithQuery: redirectURIWithQuery
         )
-        .castToURLResponse()
         .decodeSpotifyObject(AuthInfo.self)
         .tryMap { authInfo in
             
@@ -507,10 +506,6 @@ public extension AuthorizationCodeFlowBackendManager {
                     let refreshTokensPublisher = self.backend.refreshTokens(
                         refreshToken: refreshToken
                     )
-                    .castToURLResponse()
-                    // Decoding into `AuthInfo` never fails because all of its
-                    // properties are optional, so we must try to decode errors
-                    // first.
                     .decodeSpotifyObject(AuthInfo.self)
                     .receive(on: self.updateAuthInfoQueue)
                     .tryMap { authInfo in

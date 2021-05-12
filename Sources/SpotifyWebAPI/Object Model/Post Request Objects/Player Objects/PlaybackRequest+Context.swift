@@ -1,39 +1,43 @@
 import Foundation
 
-/**
- The context in which to play Spotify content. See `PlaybackRequest`.
- 
- One of the following:
- 
- * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-   play the content. Must correspond to one of the following:
-   * Album
-   * Artist
-   * Show
-   * Playlist
- 
- * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
-*/
-public enum ContextOption {
+public extension PlaybackRequest {
     
     /**
-     A URI for the context in which to play the content.
+     The context in which to play Spotify content. See `PlaybackRequest`.
      
-     Must be one of the following categories:
+     One of the following:
+     
+     * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
+     play the content. Must correspond to one of the following:
      * Album
      * Artist
      * Show
      * Playlist
+     
+     * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      */
-    case contextURI(SpotifyURIConvertible)
-    
-    /// An array of track/episode URIs. Passing in a single item
-    /// will cause that item to be played.
-    case uris([SpotifyURIConvertible])
-    
+    enum Context {
+        
+        /**
+         A URI for the context in which to play the content.
+         
+         Must be one of the following categories:
+         * Album
+         * Artist
+         * Show
+         * Playlist
+         */
+        case contextURI(SpotifyURIConvertible)
+        
+        /// An array of track/episode URIs. Passing in a single item
+        /// will cause that item to be played.
+        case uris([SpotifyURIConvertible])
+        
+    }
+
 }
 
-extension ContextOption: Codable {
+extension PlaybackRequest.Context: Codable {
     
     /// :nodoc:
     public init(from decoder: Decoder) throws {
@@ -91,7 +95,7 @@ extension ContextOption: Codable {
 
 }
 
-extension ContextOption: Hashable {
+extension PlaybackRequest.Context: Hashable {
     
     /// :nodoc:
     public func hash(into hasher: inout Hasher) {

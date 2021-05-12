@@ -262,36 +262,3 @@ public func urlQueryDictionary(
     return unwrapped.mapValues { "\($0)" }
 }
 
-/// This protocol is deprecated.
-@available(*, deprecated)
-public protocol SomeOptional {
-
-    /// This protocol is deprecated.
-    associatedtype Wrapped
-    
-    /// This property is deprecated.
-    var optional: Wrapped? { get set }
-}
-
-@available(*, deprecated)
-extension Optional: SomeOptional {
-
-    /// This property is deprecated.
-    @inlinable @inline(__always) @available(*, deprecated)
-    public var optional: Wrapped? {
-        get { return self }
-        set { self = newValue }
-    }
-
-}
-
-@available(*, deprecated)
-public extension Sequence where Element: SomeOptional {
-
-    /// This method is deprecated.
-    @inlinable @available(*, deprecated)
-    func removedIfNil() -> [Element.Wrapped] {
-        return self.compactMap { $0.optional }
-    }
-    
-}

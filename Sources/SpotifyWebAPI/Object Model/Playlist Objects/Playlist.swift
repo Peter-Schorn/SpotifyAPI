@@ -33,11 +33,6 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /// other users to modify the playlist. Else, `false`.
     public let isCollaborative: Bool
     
-    /// This property has been renamed to `isCollaborative`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "isCollaborative")
-    public var collaborative: Bool { isCollaborative }
-    
     /// The playlist description. Only returned for modified,
     /// verified playlists, else `nil`.
     public let description: String?
@@ -111,6 +106,9 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      */
     public let images: [SpotifyImage]
     
+    /// The object type. Always `playlist`.
+    public let type: IDCategory
+
     /**
      Creates a Spotify [playlist][1].
      
@@ -179,44 +177,9 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         self.id = id
         self.uri = uri
         self.images = images
+        self.type = .playlist
     }
     
-    /// :nodoc:
-    @available(
-        *,
-        deprecated,
-        renamed: "init(name:items:owner:isPublic:isCollaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)"
-    )
-    public init(
-        name: String,
-        items: Items,
-        owner: SpotifyUser? = nil,
-        isPublic: Bool? = nil,
-        collaborative: Bool,
-        description: String? = nil,
-        snapshotId: String,
-        externalURLs: [String: String]? = nil,
-        followers: Followers? = nil,
-        href: String,
-        id: String,
-        uri: String,
-        images: [SpotifyImage]
-    ) {
-        self.name = name
-        self.items = items
-        self.owner = owner
-        self.isPublic = isPublic
-        self.isCollaborative = collaborative
-        self.description = description
-        self.snapshotId = snapshotId
-        self.externalURLs = externalURLs
-        self.followers = followers
-        self.href = href
-        self.id = id
-        self.uri = uri
-        self.images = images
-    }
-
 }
 
 extension Playlist: Codable {
@@ -236,6 +199,7 @@ extension Playlist: Codable {
         case id
         case uri
         case images
+        case type
     }
     
     

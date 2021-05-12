@@ -449,7 +449,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             codeVerifier: codeVerifier,
             redirectURIWithQuery: redirectURIWithQuery
         )
-        .castToURLResponse()
         .decodeSpotifyObject(AuthInfo.self)
         .tryMap { authInfo in
             
@@ -549,7 +548,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                     let refreshTokensPublisher = self.backend.refreshTokens(
                         refreshToken: refreshToken
                     )
-                    .castToURLResponse()
                     .decodeSpotifyObject(AuthInfo.self)
                     .receive(on: self.updateAuthInfoQueue)
                     .tryMap { authInfo in

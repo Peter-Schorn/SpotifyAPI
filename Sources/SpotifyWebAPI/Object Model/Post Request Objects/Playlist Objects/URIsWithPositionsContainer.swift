@@ -60,19 +60,6 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
         self.urisWithPositions = urisWithPositions
     }
 
-    /// This initializer is deprecated.
-    /// :nodoc:
-    @available(*, deprecated)
-    public init(
-        snapshotId: String? = nil,
-        urisWithPositions: [(uri: SpotifyURIConvertible, positions: [Int])]
-    ) {
-        self.snapshotId = snapshotId
-        self.urisWithPositions = urisWithPositions.map { item in
-            URIWithPositions(uri: item.uri, positions: item.positions)
-        }
-    }
-    
     /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case snapshotId = "snapshot_id"

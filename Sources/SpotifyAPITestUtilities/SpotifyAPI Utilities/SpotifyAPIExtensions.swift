@@ -36,7 +36,7 @@ public extension SpotifyAPI {
         var times = times
 
         return Deferred {
-            Future<(data: Data, response: URLResponse), Error> { promise in
+            Future<(data: Data, response: HTTPURLResponse), Error> { promise in
                 if times > 0 {
                     self.logger.trace("returning error. times: \(times)")
                     promise(.failure(error))
@@ -75,7 +75,7 @@ public extension SpotifyAPI {
     ) -> AnyPublisher<T?, Error> {
         
         return Deferred {
-            Future<(data: Data, response: URLResponse), Error> { promise in
+            Future<(data: Data, response: HTTPURLResponse), Error> { promise in
                 
                 let url = URL(string: "http://example.com/")!
 

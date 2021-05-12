@@ -51,7 +51,7 @@ public struct PlaybackRequest: Hashable {
      
      * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
      */
-    public var context: ContextOption
+    public var context: Context
     
     /**
      Indicates where in the context playback should start.
@@ -65,7 +65,7 @@ public struct PlaybackRequest: Hashable {
      If `nil`, then either the first item or a random item in the context
      will be played, depending on whether the user has shuffle on.
      */
-    public var offset: OffsetOption?
+    public var offset: Offset?
     
     /**
      Indicates from what position to start playback in milliseconds.
@@ -114,8 +114,8 @@ public struct PlaybackRequest: Hashable {
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     public init(
-        context: ContextOption,
-        offset: OffsetOption?,
+        context: Context,
+        offset: Offset?,
         positionMS: Int? = nil
     ) {
         self.context = context
@@ -173,9 +173,9 @@ extension PlaybackRequest: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.context = try ContextOption(from: decoder)
+        self.context = try Context(from: decoder)
         self.offset = try container.decodeIfPresent(
-            OffsetOption.self, forKey: .offset
+            Offset.self, forKey: .offset
         )
         self.positionMS = try container.decodeIfPresent(
             Int.self, forKey: .positionMS

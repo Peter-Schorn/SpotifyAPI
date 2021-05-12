@@ -1,27 +1,30 @@
 import Foundation
 
-/**
- Indicates where in the context playback should start.
- See `PlaybackRequest`.
- 
- One of the following:
- 
- * `position(Int)`: The index of the item in the context at which to
-   start playback. Cannot be used if the context is an artist.
- * `uri(SpotifyURIConvertible)`: The URI of the item in the context
-   to start playback at.
-*/
-public enum OffsetOption {
+public extension PlaybackRequest {
     
-    /// The index of the item in the context at which to
-    /// start playback. Cannot be used if the context is an artist.
-    case position(Int)
-    
-    /// The URI of the item in the context to start playback at.
-    case uri(SpotifyURIConvertible)
+    /**
+     Indicates where in the context playback should start.
+     See `PlaybackRequest`.
+     
+     One of the following:
+     
+     * `position(Int)`: The index of the item in the context at which to
+       start playback. Cannot be used if the context is an artist.
+     * `uri(SpotifyURIConvertible)`: The URI of the item in the context
+       to start playback at.
+     */
+    enum Offset {
+        
+        /// The index of the item in the context at which to
+        /// start playback. Cannot be used if the context is an artist.
+        case position(Int)
+        
+        /// The URI of the item in the context to start playback at.
+        case uri(SpotifyURIConvertible)
+    }
 }
 
-extension OffsetOption: Codable {
+extension PlaybackRequest.Offset: Codable {
     
     /// :nodoc:
     public init(from decoder: Decoder) throws {
@@ -77,7 +80,7 @@ extension OffsetOption: Codable {
 
 }
 
-extension OffsetOption: Hashable {
+extension PlaybackRequest.Offset: Hashable {
     
     /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {

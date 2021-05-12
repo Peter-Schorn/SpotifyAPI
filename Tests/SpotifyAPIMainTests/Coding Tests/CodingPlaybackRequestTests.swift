@@ -51,7 +51,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     
     func testCodingContextOption1() {
         
-        let contextOption = ContextOption.contextURI(
+        let contextOption = PlaybackRequest.Context.contextURI(
             URIs.Tracks.because
         )
         encodeDecode(contextOption, areEqual: ==)
@@ -64,7 +64,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
 
         decodeEncodeDecode(
             data,
-            type: ContextOption.self,
+            type: PlaybackRequest.Context.self,
             areEqual: self.compareToData(contextOption)
         )
 
@@ -73,7 +73,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     func testCodingContextOption2() {
         
         let uris = URIs.Tracks.array(.eclipse, .faces, .friends)
-        let contextOption = ContextOption.uris(uris)
+        let contextOption = PlaybackRequest.Context.uris(uris)
         encodeDecode(contextOption, areEqual: ==)
         
         let data = """
@@ -84,7 +84,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
 
         decodeEncodeDecode(
             data,
-            type: ContextOption.self,
+            type: PlaybackRequest.Context.self,
             areEqual: self.compareToData(contextOption)
         )
 
@@ -92,7 +92,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     
     func testCodingOffsetOption1() {
         
-        let offsetOption = OffsetOption.position(5)
+        let offsetOption = PlaybackRequest.Offset.position(5)
         encodeDecode(offsetOption, areEqual: ==)
         
         let data = """
@@ -103,7 +103,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
 
         decodeEncodeDecode(
             data,
-            type: OffsetOption.self,
+            type: PlaybackRequest.Offset.self,
             areEqual: self.compareToData(offsetOption)
         )
 
@@ -111,7 +111,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
     
     func testCodingOffsetOption2() {
         
-        let offsetOption = OffsetOption.uri(URIs.Tracks.because)
+        let offsetOption = PlaybackRequest.Offset.uri(URIs.Tracks.because)
         encodeDecode(offsetOption, areEqual: ==)
         
         let data = """
@@ -122,7 +122,7 @@ final class CodingPlaybackRequestTests: SpotifyAPITestCase {
 
         decodeEncodeDecode(
             data,
-            type: OffsetOption.self,
+            type: PlaybackRequest.Offset.self,
             areEqual: self.compareToData(offsetOption)
         )
 

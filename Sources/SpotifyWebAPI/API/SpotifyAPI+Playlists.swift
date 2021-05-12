@@ -61,7 +61,7 @@ private extension SpotifyAPI {
         offset: Int?,
         market: String?,
         additionalTypes: [IDCategory]
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         do {
             
@@ -125,26 +125,6 @@ public extension SpotifyAPI {
 
     // MARK: Playlists
 
-    /// This method has been renamed to
-    /// `filteredPlaylist(_:filters:additionalTypes:market:)`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "filteredPlaylist(_:filters:additionalTypes:market:)")
-    func filteredPlaylistRequest(
-        _ playlist: SpotifyURIConvertible,
-        filters: String,
-        additionalTypes: [IDCategory],
-        market: String? = nil
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
-    
-        return self.filteredPlaylist(
-            playlist,
-            filters: filters,
-            additionalTypes: additionalTypes,
-            market: market
-        )
-    
-    }
-    
     /**
      Makes a request to the "/playlists/{playlistId}" endpoint
      and allows you to specify fields to filter the query.
@@ -232,7 +212,7 @@ public extension SpotifyAPI {
         filters: String,
         additionalTypes: [IDCategory],
         market: String? = nil
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         do {
             let playlistId = try SpotifyIdentifier(
@@ -436,7 +416,7 @@ public extension SpotifyAPI {
         limit: Int? = nil,
         offset: Int? = nil,
         market: String? = nil
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         return self._playlistItems(
             playlist,
@@ -780,24 +760,6 @@ public extension SpotifyAPI where
         
     }
     
-    /// This method has been renamed to `playlistImage(_:)`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "playlistImage(_:)")
-    func getPlaylistImage(
-        _ playlist: SpotifyURIConvertible
-    ) -> AnyPublisher<[SpotifyImage], Error> {
-        return self.playlistImage(playlist)
-    }
-    
-    /// This method has been renamed to `playlistImage(_:)`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "playlistImage(_:)")
-    func getPlaylistCoverImage(
-        _ playlist: SpotifyURIConvertible
-    ) -> AnyPublisher<[SpotifyImage], Error> {
-        return self.playlistImage(playlist)
-    }
-    
     /**
      Add tracks/episodes to one of the current user's playlists.
      
@@ -1113,8 +1075,6 @@ public extension SpotifyAPI where
         imageData: Data
     ) -> AnyPublisher<Void, Error> {
         
-        let thisFunction = #function
-        
         do {
 
             if imageData.count > 256_000 {
@@ -1158,15 +1118,7 @@ public extension SpotifyAPI where
                 requiredScopes: [.ugcImageUpload]
             )
             .decodeSpotifyErrors()
-            .map { data, urlResponse in
-            
-                let statusCode = (urlResponse as! HTTPURLResponse).statusCode
-                self.logger.trace(
-                    "status code: \(statusCode)",
-                    function: thisFunction
-                )
-            
-            }
+            .map { _, _ in }
             .eraseToAnyPublisher()
             
         } catch {

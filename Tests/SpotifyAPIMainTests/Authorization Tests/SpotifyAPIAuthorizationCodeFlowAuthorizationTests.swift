@@ -322,7 +322,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                 return
             }
             guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError")
+                XCTFail("error should be SpotifyLocalError: \(error)")
                 return
             }
             print(localError)
@@ -407,7 +407,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                 return
             }
             guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError")
+                XCTFail("error should be SpotifyLocalError: \(error)")
                 return
             }
             print(localError)
@@ -493,7 +493,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                 return
             }
             guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError")
+                XCTFail("error should be SpotifyLocalError: \(error)")
                 return
             }
             print(localError)
@@ -562,7 +562,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                 return
             }
             guard let authError = error as? SpotifyAuthenticationError else {
-                XCTFail("error should be SpotifyAuthenticationError")
+                XCTFail("error should be SpotifyAuthenticationError: \(error)")
                 return
             }
             encodeDecode(authError, areEqual: ==)
@@ -630,7 +630,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                 return
             }
             guard let authError = error as? SpotifyAuthenticationError else {
-                XCTFail("error should be SpotifyAuthenticationError")
+                XCTFail("error should be SpotifyAuthenticationError: \(error)")
                 return
             }
             encodeDecode(authError, areEqual: ==)

@@ -46,8 +46,3 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
     }
     
 }
-
-/// This type has ben renamed to `AlbumType`.
-/// :nodoc:
-@available(*, deprecated, renamed: "AlbumType")
-public typealias AlbumGroup = AlbumType

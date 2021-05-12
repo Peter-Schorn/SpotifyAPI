@@ -43,11 +43,6 @@ public struct PlaylistDetails: Hashable {
      */
     public var isCollaborative: Bool?
 
-    /// This property has been renamed to `isCollaborative`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "isCollaborative")
-    public var collaborative: Bool? { isCollaborative }
-    
     /// *Optional*. A new playlist description as displayed in
     /// Spotify Clients and in the Web API.
     public var description: String?
@@ -83,23 +78,6 @@ public struct PlaylistDetails: Hashable {
         self.isCollaborative = isCollaborative
         self.description = description
     }
-    
-    /// This method has been renamed to
-    /// `init(name:isPublic:isCollaborative:description:)`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "init(name:isPublic:isCollaborative:description:)")
-    public init(
-        name: String? = nil,
-        isPublic: Bool? = nil,
-        collaborative: Bool? = nil,
-        description: String? = nil
-    ) {
-        self.name = name
-        self.isPublic = isPublic
-        self.isCollaborative = collaborative
-        self.description = description
-    }
-    
     
 }
 

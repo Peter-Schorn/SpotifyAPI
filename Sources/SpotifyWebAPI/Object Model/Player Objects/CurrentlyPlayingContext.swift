@@ -14,11 +14,6 @@ public struct CurrentlyPlayingContext: Hashable {
         label: "CurrentlyPlayingContext", level: .critical
     )
     
-    /// This property has been renamed to `device`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "device")
-    public var activeDevice: Device { device }
-    
     /**
      The device that the content is or was playing on.
      
@@ -78,11 +73,6 @@ public struct CurrentlyPlayingContext: Hashable {
      */
     public let item: PlaylistItem?
     
-    /// This property has been renamed to `item`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "item")
-    public var currentlyPlayingItem: PlaylistItem? { item }
-    
     /**
      The id category of `item`—the content that is, or was most
      recently, playing.
@@ -94,11 +84,6 @@ public struct CurrentlyPlayingContext: Hashable {
      Can also be `unknown`.
      */
     public let itemType: IDCategory
-    
-    /// This property has been renamed to `itemType`.
-    /// :nodoc:
-    @available(*, deprecated, renamed: "itemType")
-    public var currentlyPlayingType: IDCategory { itemType }
     
     /**
      The playback actions that are allowed within the given context.

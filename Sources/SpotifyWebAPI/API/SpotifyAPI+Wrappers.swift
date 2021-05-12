@@ -155,7 +155,7 @@ extension SpotifyAPI {
         makeHeaders: @escaping (_ accessToken: String) -> [String: String],
         bodyData: Data?,
         requiredScopes: Set<Scope>
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         let endpoint = Endpoints.apiEndpoint(
             path, queryItems: queryItems
@@ -163,7 +163,7 @@ extension SpotifyAPI {
         
         return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
             .flatMap { accessToken ->
-                AnyPublisher<(data: Data, response: URLResponse), Error> in
+                AnyPublisher<(data: Data, response: HTTPURLResponse), Error> in
 
                 if self.apiRequestLogger.logLevel <= .warning {
                 
@@ -199,7 +199,6 @@ extension SpotifyAPI {
                 urlRequest.httpBody = bodyData
                 
                 return self.networkAdaptor(urlRequest)
-                    .castToURLResponse()
             
             }
             .eraseToAnyPublisher()
@@ -255,7 +254,7 @@ extension SpotifyAPI {
         makeHeaders: @escaping (_ accessToken: String) -> [String: String],
         body: Body?,
         requiredScopes: Set<Scope>
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         do {
             
@@ -301,7 +300,7 @@ extension SpotifyAPI {
         path: String,
         queryItems: [String: LosslessStringConvertible?],
         requiredScopes: Set<Scope>
-    ) -> AnyPublisher<(data: Data, response: URLResponse), Error> {
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
         return self.apiRequest(
             path: path,

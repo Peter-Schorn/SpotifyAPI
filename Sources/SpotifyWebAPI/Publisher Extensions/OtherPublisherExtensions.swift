@@ -145,48 +145,6 @@ public extension Publisher where Output: PagingObjectProtocol {
 
 }
 
-public extension Publisher {
-    
-    /**
-     Transforms all elements from an upstream publisher
-     into a new or existing publisher.
-    
-     `tryFlatMap` merges the output from all returned publishers
-     into a single stream of output.
-    
-     - Parameters:
-       - maxPublishers: The maximum number of publishers produced by this method.
-       - transform: A **throwing** closure that takes an element as a parameter
-             and returns a publisher that produces elements of that type.
-     - Returns: A publisher that transforms elements from an
-           upstream publisher into a publisher of that element’s type.
-     */
-    @available(*, deprecated)
-    func tryFlatMap<NewPublisher: Publisher>(
-        maxPublishers: Subscribers.Demand = .unlimited,
-        _ transform: @escaping (Self.Output) throws -> NewPublisher
-    ) -> Publishers.FlatMap<
-            AnyPublisher<NewPublisher.Output, Error>, Self> {
-        
-        return flatMap(
-            maxPublishers: maxPublishers
-        ) { output -> AnyPublisher<NewPublisher.Output, Error> in
-            
-            do {
-                return try transform(output)
-                    .mapError { $0 as Error }
-                    .eraseToAnyPublisher()
-                
-            } catch {
-                return error.anyFailingPublisher()
-            }
-            
-        }
-        
-    }
-    
-}
-
 public extension Publisher where Output == Void {
     
     /**
@@ -242,25 +200,6 @@ public extension Error {
     }
     
 }
-
-extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
-    
-    /**
-     Casts `(data: Data, response: HTTPURLResponse)` to
-     `(data: Data, response: URLResponse)`.
-    
-     `URLResponse` is a superclass of `HTTPURLResponse`, so this cast
-     can never fail.
-     */
-    func castToURLResponse() -> AnyPublisher<(data: Data, response: URLResponse), Failure> {
-        return self.map { data, response in
-            let urlResponse = response as URLResponse
-            return (data: data, response: urlResponse)
-        }
-        .eraseToAnyPublisher()
-    }
-
-} 
 
 #if canImport(Combine)
 typealias ResultPublisher<Success, Failure: Error> =

@@ -163,32 +163,4 @@ public extension SpotifyAPI {
         
     }
     
-    /// This function has been renamed to
-    /// `search(query:categories:market:limit:offset:includeExternal:)`.
-    /// The "types" paramater was renamed to "categories".
-    /// :nodoc:
-    @available(
-        *, deprecated,
-        renamed: "search(query:categories:market:limit:offset:includeExternal:)"
-    )
-    func search(
-        query: String,
-        types: [IDCategory],
-        market: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        includeExternal: String? = nil
-    ) -> AnyPublisher<SearchResult, Error> {
-        
-        return self.search(
-            query: query,
-            categories: types,
-            market: market,
-            limit: limit,
-            offset: offset,
-            includeExternal: includeExternal
-        )
-
-    }
-    
 }

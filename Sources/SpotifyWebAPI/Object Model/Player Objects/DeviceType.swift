@@ -45,4 +45,3 @@ public enum DeviceType: String, Codable, Hashable, CaseIterable {
     case unknown = "Unknown"
     
 }
-

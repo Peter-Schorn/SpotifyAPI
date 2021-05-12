@@ -470,7 +470,6 @@ public extension ClientCredentialsFlowBackendManager {
         Self.logger.trace("backend.makeClientCredentialsTokensRequest")
 
         return self.backend.makeClientCredentialsTokensRequest()
-            .castToURLResponse()
             .decodeSpotifyObject(AuthInfo.self)
             .receive(on: self.updateAuthInfoQueue)
             .tryMap { authInfo in
