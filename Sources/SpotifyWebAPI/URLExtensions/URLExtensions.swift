@@ -79,7 +79,9 @@ public extension URL {
         )
     }
 
-    // MARK: Initializers
+}
+
+extension URL {
     
     init?(
         string: String,

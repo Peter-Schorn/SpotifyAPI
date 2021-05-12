@@ -1,6 +1,6 @@
 import Foundation
 
-public extension URLComponents {
+extension URLComponents {
 
     init(
         scheme: String?,
@@ -75,6 +75,10 @@ public extension URLComponents {
         }
         
     }
+    
+}
+
+public extension URLComponents {
 
     /// A dictionary of the query items in the URL.
     var queryItemsDict: [String: String] {
