@@ -88,8 +88,7 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
 
 extension ProxyPKCERefreshTokensRequest: Codable {
 
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case method
         case grantType = "grant_type"
         case refreshToken = "refresh_token"

@@ -79,8 +79,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
 
 extension PlaylistItemContainer: Codable {
 
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case addedAt = "added_at"
         case addedBy = "added_by"
         case isLocal = "is_local"

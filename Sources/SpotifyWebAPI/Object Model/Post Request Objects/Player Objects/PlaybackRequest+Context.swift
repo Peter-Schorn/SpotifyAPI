@@ -87,8 +87,7 @@ extension PlaybackRequest.Context: Codable {
         }
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case contextURI = "context_uri"
         case uris
     }

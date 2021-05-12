@@ -169,8 +169,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
 
 extension Show: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case description
         case episodes

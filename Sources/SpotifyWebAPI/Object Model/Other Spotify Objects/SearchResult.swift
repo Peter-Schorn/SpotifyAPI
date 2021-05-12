@@ -77,8 +77,7 @@ public struct SearchResult: Hashable {
 
 extension SearchResult: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case artists
         case albums
         case tracks

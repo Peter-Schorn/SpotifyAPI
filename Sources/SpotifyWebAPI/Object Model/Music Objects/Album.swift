@@ -425,8 +425,7 @@ extension Album: Codable {
         
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case tracks
         case artists

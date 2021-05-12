@@ -133,8 +133,7 @@ public struct ReorderPlaylistItems: Hashable {
 
 extension ReorderPlaylistItems: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case rangeStart = "range_start"
         case rangeLength = "range_length"
         case insertBefore = "insert_before"

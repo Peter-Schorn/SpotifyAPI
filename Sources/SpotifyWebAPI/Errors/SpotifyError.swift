@@ -82,17 +82,17 @@ extension SpotifyError: Codable {
     /// :nodoc:
     public init(from decoder: Decoder) throws {
         
-        let topLevelContainer = try decoder.container(
-            keyedBy: TopLevelCodingKeys.self
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
         )
 
-        let container = try topLevelContainer.nestedContainer(
-            keyedBy: CodingKeys.self, forKey: .error
+        let errorContainer = try container.nestedContainer(
+            keyedBy: CodingKeys.Error.self, forKey: .error
         )
-        self.message = try container.decode(
+        self.message = try errorContainer.decode(
             String.self, forKey: .message
         )
-        self.statusCode = try container.decode(
+        self.statusCode = try errorContainer.decode(
             Int.self, forKey: .statusCode
         )
         
@@ -100,27 +100,24 @@ extension SpotifyError: Codable {
     
     /// :nodoc:
     public func encode(to encoder: Encoder) throws {
-        var topLevelContainer = encoder.container(
-            keyedBy: TopLevelCodingKeys.self
+        var container = encoder.container(
+            keyedBy: CodingKeys.self
         )
-        var container = topLevelContainer.nestedContainer(
-            keyedBy: CodingKeys.self, forKey: .error
+        var errorContainer = container.nestedContainer(
+            keyedBy: CodingKeys.Error.self, forKey: .error
         )
             
-        try container.encode(self.message, forKey: .message)
-        try container.encode(self.statusCode, forKey: .statusCode)
+        try errorContainer.encode(self.message, forKey: .message)
+        try errorContainer.encode(self.statusCode, forKey: .statusCode)
         
     }
     
-    /// :nodoc:
-    public enum TopLevelCodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case error
-    }
-    
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
-        case message
-        case statusCode = "status"
+        enum Error: String, CodingKey {
+            case message
+            case statusCode = "status"
+        }
     }
     
 }

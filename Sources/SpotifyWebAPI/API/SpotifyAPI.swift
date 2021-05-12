@@ -257,8 +257,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         )
     }
   
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case authorizationManager
     }
 

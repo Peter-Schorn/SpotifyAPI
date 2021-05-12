@@ -198,8 +198,7 @@ extension PlaybackRequest: Codable {
 
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case offset
         case positionMS = "position_ms"
     }

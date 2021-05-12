@@ -60,8 +60,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
         self.urisWithPositions = urisWithPositions
     }
 
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case snapshotId = "snapshot_id"
         case urisWithPositions = "tracks"
     }

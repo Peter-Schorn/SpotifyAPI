@@ -133,8 +133,7 @@ public struct Segment: Hashable {
 
 extension Segment: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case start
         case duration
         case confidence

@@ -122,8 +122,7 @@ public struct Artist: Hashable {
 
 extension Artist: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case uri
         case id

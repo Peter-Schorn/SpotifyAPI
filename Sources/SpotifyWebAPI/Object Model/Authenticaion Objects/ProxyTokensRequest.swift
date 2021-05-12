@@ -88,8 +88,7 @@ public struct ProxyTokensRequest: Hashable {
 
 extension ProxyTokensRequest: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case code
         case redirectURI = "redirect_uri"

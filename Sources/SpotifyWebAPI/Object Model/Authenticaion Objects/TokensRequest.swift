@@ -118,8 +118,7 @@ public struct TokensRequest: Hashable {
 
 extension TokensRequest: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case code
         case redirectURI = "redirect_uri"

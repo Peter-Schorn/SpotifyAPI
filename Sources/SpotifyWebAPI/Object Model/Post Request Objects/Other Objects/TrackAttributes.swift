@@ -486,8 +486,7 @@ public struct TrackAttributes: Hashable {
 
 extension TrackAttributes: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case seedArtists = "seed_artists"
         case seedTracks = "seed_tracks"
         case seedGenres = "seed_genres"

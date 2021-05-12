@@ -167,8 +167,7 @@ extension SavedItem: Codable {
         
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey, Codable {
+    private enum CodingKeys: String, CodingKey, Codable {
         case addedAt = "added_at"
         case track
         case album

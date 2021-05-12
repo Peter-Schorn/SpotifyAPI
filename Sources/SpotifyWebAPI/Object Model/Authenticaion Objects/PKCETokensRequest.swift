@@ -116,8 +116,7 @@ public struct PKCETokensRequest: Hashable {
 
 extension PKCETokensRequest: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case code
         case codeVerifier = "code_verifier"

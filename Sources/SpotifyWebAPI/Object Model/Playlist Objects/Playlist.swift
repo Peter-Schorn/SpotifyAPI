@@ -184,8 +184,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
 
 extension Playlist: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case items = "tracks"
         case owner

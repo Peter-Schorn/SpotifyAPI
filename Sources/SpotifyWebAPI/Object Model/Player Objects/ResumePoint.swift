@@ -32,8 +32,7 @@ public struct ResumePoint: Codable, Hashable {
         self.resumePositionMS = resumePositionMS
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case fullyPlayed = "fully_played"
         case resumePositionMS = "resume_position_ms"
     }

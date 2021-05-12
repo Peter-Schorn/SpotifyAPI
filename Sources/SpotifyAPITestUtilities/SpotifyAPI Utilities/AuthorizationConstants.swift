@@ -193,7 +193,7 @@ public struct SpotifyCredentials: Codable {
     /// The client secret for the application.
     public let clientSecret: String
     
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case clientId = "client_id"
         case clientSecret = "client_secret"
     }

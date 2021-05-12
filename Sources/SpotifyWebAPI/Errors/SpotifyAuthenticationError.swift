@@ -47,8 +47,7 @@ public struct SpotifyAuthenticationError: LocalizedError, Hashable {
 
 extension SpotifyAuthenticationError: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case error
         case errorDescription = "error_description"
     }

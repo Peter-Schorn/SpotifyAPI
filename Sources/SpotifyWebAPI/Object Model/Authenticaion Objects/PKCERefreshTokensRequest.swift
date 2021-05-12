@@ -93,8 +93,7 @@ public struct PKCERefreshTokensRequest: Hashable {
 
 extension PKCERefreshTokensRequest: Codable {
 
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case refreshToken = "refresh_token"
         case clientId = "client_id"

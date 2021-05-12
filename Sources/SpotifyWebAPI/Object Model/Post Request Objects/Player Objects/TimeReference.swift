@@ -136,8 +136,7 @@ public enum TimeReference: Codable, Hashable {
         
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case before, after
     }
 }

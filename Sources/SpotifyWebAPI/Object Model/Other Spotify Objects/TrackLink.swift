@@ -77,8 +77,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
 
 extension TrackLink: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case externalURLs = "external_urls"
         case href
         case uri

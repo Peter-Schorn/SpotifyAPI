@@ -102,8 +102,7 @@ public struct ProxyPKCETokensRequest: Hashable {
 
 extension ProxyPKCETokensRequest: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case code
         case codeVerifier = "code_verifier"

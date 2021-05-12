@@ -319,8 +319,7 @@ extension Episode: Codable {
         
     }
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case show
         case audioPreviewURL = "audio_preview_url"

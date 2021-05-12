@@ -203,8 +203,7 @@ extension PagingObject {
 
 extension PagingObject: Codable {
     
-    /// :nodoc:
-    public enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case href
         case items
         case limit
