@@ -28,7 +28,6 @@ final class ExampleContentTests: SpotifyAPITestCase {
     
     func testAlbums() {
         encodeDecode(Album.abbeyRoad)
-        
         XCTAssertEqual(Album.abbeyRoad.name, "Abbey Road (Remastered)")
         encodeDecode(Album.darkSideOfTheMoon)
         XCTAssertEqual(
@@ -250,7 +249,6 @@ final class ExampleContentTests: SpotifyAPITestCase {
         encodeDecode(SpotifyUser.sampleCurrentUserProfile, areEqual: ==)
     }
 
-    // print(<#type#>.<#property#>, to: &sink)
     // XCTAssertEqual(Playlist.<#name#>.name, "<#name#>")
     
 }
