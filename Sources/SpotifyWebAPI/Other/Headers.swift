@@ -57,7 +57,10 @@ public enum Headers {
     public static func bearerAuthorizationAndContentTypeJSON(
         _ accessToken: String
     ) -> [String: String] {
-        return bearerAuthorization(accessToken) + contentTypeJSON
+        return bearerAuthorization(accessToken).merging(
+            Self.contentTypeJSON,
+            uniquingKeysWith: { lhs, rhs in lhs }
+        )
     }
     
     /**

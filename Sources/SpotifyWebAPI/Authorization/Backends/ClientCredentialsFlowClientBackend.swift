@@ -113,8 +113,9 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
             """
         )
         
-        let headers = self.basicBase64EncodedCredentialsHeader +
-                Headers.formURLEncoded
+        let headers = self.basicBase64EncodedCredentialsHeader.merging(
+            Headers.formURLEncoded, uniquingKeysWith: { lhs, rhs in lhs }
+        )
         
         var tokensRequest = URLRequest(url: Endpoints.getTokens)
         tokensRequest.httpMethod = "POST"

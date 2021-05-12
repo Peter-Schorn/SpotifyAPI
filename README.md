@@ -75,13 +75,13 @@ Before each authentication request your app should generate a code verifier and 
 
 In order to generate the code challenge, your app should hash the code verifier using the SHA256 algorithm. Then, [base64url][19] encode the hash that you generated. **Do not include any** `=` **padding characters** (percent-encoded or not).
 
-You can use `String.randomURLSafe(length:using:)` or `String.randomURLSafe(length:)` to generate the code verifier. You can use the `String.makeCodeChallenge()` instance method to create the code challenge from the code verifier. 
+You can use `String.randomURLSafe(length:using:)` or `String.randomURLSafe(length:)` to generate the code verifier. You can use the `String.makeCodeChallenge(codeVerifier:)` instance method to create the code challenge from the code verifier. 
 
 For example:
 
 ```swift
 let codeVerifier = String.randomURLSafe(length: 128)
-let codeChallenge = codeVerifier.makeCodeChallenge()
+let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
 
 // optional, but strongly recommended
 let state = String.randomURLSafe(length: 128)

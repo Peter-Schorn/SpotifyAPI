@@ -33,7 +33,7 @@ private class READMEExamplesCompilationTests {
         )
         
         let codeVerifier = String.randomURLSafe(length: 128)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
         let state = String.randomURLSafe(length: 128)
         
         let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(

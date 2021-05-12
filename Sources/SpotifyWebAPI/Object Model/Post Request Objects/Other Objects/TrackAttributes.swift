@@ -340,18 +340,18 @@ public struct TrackAttributes: Hashable {
             dictionary[CodingKeys.seedArtists.rawValue] = idsString
             seedsCount += seedArtists.count
         }
-        if let seedGenres = self.seedGenres {
-            dictionary[
-                CodingKeys.seedGenres.rawValue
-            ] = seedGenres.joined(separator: ",")
-            seedsCount += seedGenres.count
-        }
         if let seedTracks = self.seedTracks {
             let idsString = try SpotifyIdentifier.commaSeparatedIdsString(
                 seedTracks, ensureCategoryMatches: [.track]
             )
             dictionary[CodingKeys.seedTracks.rawValue] = idsString
             seedsCount += seedTracks.count
+        }
+        if let seedGenres = self.seedGenres {
+            dictionary[
+                CodingKeys.seedGenres.rawValue
+            ] = seedGenres.joined(separator: ",")
+            seedsCount += seedGenres.count
         }
         
         if seedsCount > 5 {
@@ -366,73 +366,115 @@ public struct TrackAttributes: Hashable {
         }
         
         if let acousticness = self.acousticness {
-            dictionary += acousticness.queryDictionary(
-                attributeName: CodingKeys.acousticness.rawValue
+            dictionary.merge(
+                acousticness.queryDictionary(
+                    attributeName: CodingKeys.acousticness.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let danceability = self.danceability {
-            dictionary += danceability.queryDictionary(
-                attributeName: CodingKeys.danceability.rawValue
+            dictionary.merge(
+                danceability.queryDictionary(
+                    attributeName: CodingKeys.danceability.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let durationMS = self.durationMS {
-            dictionary += durationMS.queryDictionary(
-                attributeName: CodingKeys.durationMS.rawValue
+            dictionary.merge(
+                durationMS.queryDictionary(
+                    attributeName: CodingKeys.durationMS.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let energy = self.energy {
-            dictionary += energy.queryDictionary(
-                attributeName: CodingKeys.energy.rawValue
+            dictionary.merge(
+                energy.queryDictionary(
+                    attributeName: CodingKeys.energy.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let instrumentalness = self.instrumentalness {
-            dictionary += instrumentalness.queryDictionary(
-                attributeName: CodingKeys.instrumentalness.rawValue
+            dictionary.merge(
+                instrumentalness.queryDictionary(
+                    attributeName: CodingKeys.instrumentalness.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let key = self.key {
-            dictionary += key.queryDictionary(
-                attributeName: CodingKeys.key.rawValue
+            dictionary.merge(
+                key.queryDictionary(
+                    attributeName: CodingKeys.key.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let liveness = self.liveness {
-            dictionary += liveness.queryDictionary(
-                attributeName: CodingKeys.liveness.rawValue
+            dictionary.merge(
+                liveness.queryDictionary(
+                    attributeName: CodingKeys.liveness.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let loudness = self.loudness {
-            dictionary += loudness.queryDictionary(
-                attributeName: CodingKeys.loudness.rawValue
+            dictionary.merge(
+                loudness.queryDictionary(
+                    attributeName: CodingKeys.loudness.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let mode = self.mode {
-            dictionary += mode.queryDictionary(
-                attributeName: CodingKeys.mode.rawValue
+            dictionary.merge(
+                mode.queryDictionary(
+                    attributeName: CodingKeys.mode.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let popularity = self.popularity {
-            dictionary += popularity.queryDictionary(
-                attributeName: CodingKeys.popularity.rawValue
+            dictionary.merge(
+                popularity.queryDictionary(
+                    attributeName: CodingKeys.popularity.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let speechiness = self.speechiness {
-            dictionary += speechiness.queryDictionary(
-                attributeName: CodingKeys.speechiness.rawValue
+            dictionary.merge(
+                speechiness.queryDictionary(
+                    attributeName: CodingKeys.speechiness.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let tempo = self.tempo {
-            dictionary += tempo.queryDictionary(
-                attributeName: CodingKeys.tempo.rawValue
+            dictionary.merge(
+                tempo.queryDictionary(
+                    attributeName: CodingKeys.tempo.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let timeSignature = self.timeSignature {
-            dictionary += timeSignature.queryDictionary(
-                attributeName: CodingKeys.timeSignature.rawValue
+            dictionary.merge(
+                timeSignature.queryDictionary(
+                    attributeName: CodingKeys.timeSignature.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         if let valence = self.valence {
-            dictionary += valence.queryDictionary(
-                attributeName: CodingKeys.valence.rawValue
+            dictionary.merge(
+                valence.queryDictionary(
+                    attributeName: CodingKeys.valence.rawValue
+                ),
+                uniquingKeysWith: { lhs, rhs in lhs }
             )
         }
         

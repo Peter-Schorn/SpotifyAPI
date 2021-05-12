@@ -1105,8 +1105,10 @@ public extension SpotifyAPI where
             ).id
             
             func makeHeaders(accessToken: String) -> [String: String] {
-                return Headers.bearerAuthorization(accessToken) +
-                    Headers.contentTypeImageJpeg
+                return Headers.bearerAuthorization(accessToken).merging(
+                    Headers.contentTypeImageJpeg,
+                    uniquingKeysWith: { lhs, rhs in lhs }
+                )
             }
             
             return self.apiRequest(

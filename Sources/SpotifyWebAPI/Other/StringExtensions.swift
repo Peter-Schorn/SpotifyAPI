@@ -156,9 +156,9 @@ public extension String {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
-    func makeCodeChallenge() -> String {
+    static func makeCodeChallenge(codeVerifier: String) -> String {
         
-        let data = self.data(using: .utf8)!
+        let data = codeVerifier.data(using: .utf8)!
         
         // The hash is an array of bytes (UInt8).
         let hash = SHA256.hash(data: data)

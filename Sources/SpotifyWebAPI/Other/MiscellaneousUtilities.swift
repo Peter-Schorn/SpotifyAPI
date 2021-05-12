@@ -33,47 +33,6 @@ public extension Dictionary where Key == String, Value == String {
     
 }
 
-public extension Dictionary {
-    
-    /**
-     Merges the two dictionaries.
-     
-     Duplicate keys in the left hand side will replace those in the right hand
-     side.
-     
-     - Warning: This operation is non-commutative.
-     
-     - Parameters:
-       - lhs: A dictionary.
-       - rhs: Another dictionary.
-     */
-    static func + (lhs: Self, rhs: Self) -> Self {
-        return lhs.merging(rhs) { lhsKey, rhsKey in
-            return lhsKey
-        }
-    }
-    
-    /**
-     Merges the left hand side dictionary with the right hand dictionary
-     in-place.
-    
-     Duplicate keys in the left hand side will replace those in the right
-     hand side.
-     
-     - Warning: This operation is non-commutative.
-     
-     - Parameters:
-       - lhs: A dictionary.
-       - rhs: Another dictionary.
-     */
-    static func += (lhs: inout Self, rhs: Self) {
-        lhs.merge(rhs) { lhsKey, rhsKey in
-            return lhsKey
-        }
-    }
-    
-}
-
 public extension DecodingError {
     
     /// The context of the error.

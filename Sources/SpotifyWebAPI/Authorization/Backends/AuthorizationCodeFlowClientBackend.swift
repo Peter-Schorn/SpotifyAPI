@@ -182,8 +182,9 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
         refreshToken: String
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
 		
-        let headers = self.basicBase64EncodedCredentialsHeader +
-				Headers.formURLEncoded
+        let headers = self.basicBase64EncodedCredentialsHeader.merging(
+            Headers.formURLEncoded, uniquingKeysWith: { lhs, rhs in lhs }
+        )
 
 		let body = RefreshTokensRequest(
 			refreshToken: refreshToken

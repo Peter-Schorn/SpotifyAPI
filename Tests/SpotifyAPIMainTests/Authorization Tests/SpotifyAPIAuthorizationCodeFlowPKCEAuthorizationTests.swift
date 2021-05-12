@@ -155,7 +155,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
     func invalidCredentials() {
 
         let codeVerifier = String.randomURLSafe(length: 100)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
@@ -278,7 +278,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
@@ -367,7 +367,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
         let authorizationState = String.randomURLSafe(length: 128)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -457,7 +457,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
         let authorizationState = String.randomURLSafe(length: 100)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -545,7 +545,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
         .store(in: &cancellables)
 
         let codeVerifier = String.randomURLSafe(length: 44)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,
@@ -621,7 +621,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
         let requestedScopes = Set(Scope.allCases.shuffled().prefix(5))
         let codeVerifier = String.randomURLSafe(length: 128)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
         let state = String.randomURLSafe(length: 128)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
@@ -710,7 +710,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
         .store(in: &cancellables)
 
         let codeVerifier = String.randomURLSafe(length: 44)
-        let codeChallenge = codeVerifier.makeCodeChallenge()
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
 
         let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
             redirectURI: localHostURL,

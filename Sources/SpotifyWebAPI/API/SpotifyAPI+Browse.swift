@@ -341,8 +341,11 @@ public extension SpotifyAPI {
     
         do {
             
-            let queryDict = try trackAttributes.queryDictionary() +
-                urlQueryDictionary(["limit": limit, "market": market])
+            let queryDict = try trackAttributes.queryDictionary()
+                .merging(
+                    urlQueryDictionary(["limit": limit, "market": market]),
+                    uniquingKeysWith: { lhs, rhs in rhs }
+                )
             
             return self.getRequest(
                 path: "/recommendations",

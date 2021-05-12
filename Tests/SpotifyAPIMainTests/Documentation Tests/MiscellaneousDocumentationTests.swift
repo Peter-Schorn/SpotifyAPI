@@ -14,7 +14,7 @@ import SpotifyWebAPI
 private func testCodeVerifierCodeChallenge() {
 
     let codeVerifier = String.randomURLSafe(length: 128)
-    let codeChallenge = codeVerifier.makeCodeChallenge()
+    let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
     
     // suppress warnings.
     _ = codeVerifier

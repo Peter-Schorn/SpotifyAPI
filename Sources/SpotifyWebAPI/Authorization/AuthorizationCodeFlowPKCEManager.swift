@@ -253,12 +253,12 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
 
      You can use `String.randomURLSafe(length:using:)` or
      `String.randomURLSafe(length:)` to generate the code verifier. You can Use
-     the `String.makeCodeChallenge()` instance method to create the code
-     challenge from the code verifier. For example:
+     the `String.makeCodeChallenge(codeVerifier:)` instance method to create the
+     code challenge from the code verifier. For example:
      
      ```
      let codeVerifier = String.randomURLSafe(length: 128)
-     let codeChallenge = codeVerifier.makeCodeChallenge()
+     let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
      ```
      
      If you use your own method to create these values, you can validate them
