@@ -35,7 +35,7 @@ public struct AuthInfo: Hashable {
     public let expirationDate: Date?
     
     /// The scopes that have been authorized for the access token.
-    public let scopes: Set<Scope>?
+    public let scopes: Set<Scope>
 
     /**
      Creates an instance that holds the authorization information.
@@ -50,7 +50,7 @@ public struct AuthInfo: Hashable {
         accessToken: String?,
         refreshToken: String?,
         expirationDate: Date?,
-        scopes: Set<Scope>?
+        scopes: Set<Scope>
     ) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
@@ -77,7 +77,7 @@ extension AuthInfo: Codable {
         )
         self.scopes = try container.decodeSpotifyScopesIfPresent(
             forKey: .scopes
-        )
+        ) ?? []
         
         // If the json data was retrieved directly from the Spotify API,
         // then the expiration date will be an integer representing
@@ -152,10 +152,7 @@ extension AuthInfo: CustomStringConvertible {
                 .description(with: .current)
                 ?? "nil"
         
-        var scopeString = "nil"
-        if let scopes = scopes {
-            scopeString = "\(scopes.map(\.rawValue))"
-        }
+        let scopeString = "\(self.scopes.map(\.rawValue))"
         
         return """
             AuthInfo(

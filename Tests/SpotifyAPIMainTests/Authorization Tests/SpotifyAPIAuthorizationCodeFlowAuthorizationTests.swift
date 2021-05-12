@@ -59,7 +59,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             })
             .store(in: &cancellables)
 
-        let currentScopes = Self.spotify.authorizationManager.scopes ?? []
+        let currentScopes = Self.spotify.authorizationManager.scopes 
 
         Self.spotify.authorizationManager.deauthorize()
         
@@ -91,9 +91,9 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
 
         XCTAssertTrue(
             Self.spotify.authorizationManager.isAuthorized(for: currentScopes),
-            "\(Self.spotify.authorizationManager.scopes ?? [])"
+            "\(Self.spotify.authorizationManager.scopes )"
         )
-        XCTAssertEqual(Self.spotify.authorizationManager.scopes ?? [], currentScopes)
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes , currentScopes)
         XCTAssertFalse(
             Self.spotify.authorizationManager.accessTokenIsExpired(tolerance: 0)
         )
@@ -722,8 +722,7 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
         guard
             let accessToken = decodedAuthManager.accessToken,
             let expirationDate = decodedAuthManager.expirationDate,
-            let refreshToken = decodedAuthManager.refreshToken,
-            let scopes = decodedAuthManager.scopes
+            let refreshToken = decodedAuthManager.refreshToken
         else {
             XCTFail("none of the properties should be nil: \(decodedAuthManager)")
             return
@@ -739,7 +738,7 @@ final class SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests:
             accessToken: accessToken,
             expirationDate: expirationDate,
             refreshToken: refreshToken,
-            scopes: scopes
+            scopes: decodedAuthManager.scopes
         )
 
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)
@@ -846,8 +845,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
         guard
             let accessToken = decodedAuthManager.accessToken,
             let expirationDate = decodedAuthManager.expirationDate,
-            let refreshToken = decodedAuthManager.refreshToken,
-            let scopes = decodedAuthManager.scopes
+            let refreshToken = decodedAuthManager.refreshToken
         else {
             XCTFail("none of the properties should be nil: \(decodedAuthManager)")
             return
@@ -865,7 +863,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests:
             accessToken: accessToken,
             expirationDate: expirationDate,
             refreshToken: refreshToken,
-            scopes: scopes
+            scopes: decodedAuthManager.scopes
         )
 
         XCTAssertEqual(Self.spotify.authorizationManager, newAuthorizationManager)

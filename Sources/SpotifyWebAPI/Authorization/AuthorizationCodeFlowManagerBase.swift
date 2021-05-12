@@ -120,12 +120,12 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
-    public var scopes: Set<Scope>? {
+    public var scopes: Set<Scope> {
         return self.updateAuthInfoQueue.sync {
             self._scopes
         }
     }
-    var _scopes: Set<Scope>? = nil
+    var _scopes: Set<Scope> = []
     
     /**
      A publisher that emits after the authorization information changes.
@@ -308,7 +308,7 @@ public extension AuthorizationCodeFlowManagerBase {
             self._accessToken = nil
             self._refreshToken = nil
             self._expirationDate = nil
-            self._scopes = nil
+            self._scopes = []
             self.refreshTokensPublisher = nil
         }
         Self.baseLogger.trace("\(Self.self): didDeauthorize.send()")
@@ -356,7 +356,7 @@ public extension AuthorizationCodeFlowManagerBase {
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoQueue.sync {
             if self._accessToken == nil { return false }
-            return scopes.isSubset(of: self._scopes ?? [])
+            return scopes.isSubset(of: self._scopes)
         }
     }
     

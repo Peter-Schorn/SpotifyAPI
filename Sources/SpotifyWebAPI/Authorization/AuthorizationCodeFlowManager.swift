@@ -208,8 +208,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
                     .description(with: .current)
                     ?? "nil"
             
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
+            let scopeString = self._scopes.map(\.rawValue)
             
             return """
                 AuthorizationCodeFlowBackendManager(
@@ -745,8 +744,7 @@ public final class AuthorizationCodeFlowManager:
                     .description(with: .current)
                     ?? "nil"
             
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
+            let scopeString = self._scopes.map(\.rawValue)
             
             return """
                 AuthorizationCodeFlowManager(

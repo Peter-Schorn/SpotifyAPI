@@ -40,7 +40,7 @@ public protocol SpotifyAuthorizationManager: Codable {
     var expirationDate: Date? { get }
     
     /// The scopes that have been authorized for the access token.
-    var scopes: Set<Scope>? { get }
+    var scopes: Set<Scope> { get }
     
     /**
      A publisher that emits after the authorization information has changed.

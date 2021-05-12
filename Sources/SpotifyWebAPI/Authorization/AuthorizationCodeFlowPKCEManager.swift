@@ -212,8 +212,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
                     .description(with: .current)
                     ?? "nil"
             
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
+            let scopeString = self._scopes.map(\.rawValue)
             
             return """
                 AuthorizationCodeFlowPKCEBackendManager(
@@ -774,8 +773,7 @@ public final class AuthorizationCodeFlowPKCEManager:
                     .description(with: .current)
                     ?? "nil"
             
-            let scopeString = self._scopes.map({ "\($0.map(\.rawValue))" })
-                    ?? "nil"
+            let scopeString = self._scopes.map(\.rawValue)
             
             return """
                 AuthorizationCodeFlowPKCEManager(

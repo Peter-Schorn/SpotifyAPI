@@ -105,7 +105,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     /// The Spotify authorization scopes. **Always** an empty set
     /// because the client credentials flow does not support
     /// authorization scopes.
-    public let scopes: Set<Scope>? = []
+    public let scopes: Set<Scope> = []
     
     /**
      The access token used in all of the requests
@@ -319,7 +319,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
                 accessToken: self._accessToken,
                 refreshToken: nil,
                 expirationDate: self._expirationDate,
-                scopes: nil
+                scopes: []
             )
         }
         

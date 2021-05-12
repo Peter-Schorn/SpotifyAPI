@@ -1562,7 +1562,7 @@ extension SpotifyAPIPlaylistsTests where
         
         Self.spotify.authorizationManager.deauthorize()
         XCTAssertEqual(
-            Self.spotify.authorizationManager.scopes ?? [], []
+            Self.spotify.authorizationManager.scopes , []
         )
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(for: [])

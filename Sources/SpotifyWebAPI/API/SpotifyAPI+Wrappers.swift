@@ -111,7 +111,7 @@ extension SpotifyAPI {
             else {
                 throw SpotifyLocalError.insufficientScope(
                     requiredScopes: requiredScopes,
-                    authorizedScopes: self.authorizationManager.scopes ?? []
+                    authorizedScopes: self.authorizationManager.scopes
                 )
             }
             
