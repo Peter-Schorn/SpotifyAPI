@@ -23,39 +23,55 @@ extension SpotifyAPI {
      */
     
     /**
-     Refreshes the access token if it is expired and ensures that
-     the application is authorized for the specified scopes.
+     Makes a request to the Spotify Web API. You should usually not need to call
+     this method youself. All requests to endpoints other than those for
+     authorizing the app and retrieving/refreshing the tokens call through to
+     this method.
+     
+     The access token will be refreshed automatically if needed before the
+     request is made.
+     
+     A closure that accepts the access token must be used to make the headers
+     because the access token will not be accessed until after a call to
+     `authorizationManager.refreshAccessToken(onlyIfExpired: true)` is made.
+     This method may return a new access token, which will then be used in
+     the headers.
      
      - Parameters:
-       - scopes: The [authorization scopes][1] that are required for this endpoint.
-       - tolerance: The tolerance in seconds to use when determining if the
-             access token is expired. The default is 120, meaning that the access
-             token will be refreshed if it is expired or will expire in the next
-             two minutes.
-     - Throws: If the access token is `nil`, if the application is not
-           authorized for the specified scopes, or if an error was encountered
-           when trying to refresh the access token.
-     - Returns: The access token unwrapped from
-           `self.authorizationManager.accessToken`. This is required
-           in the header of requests to all endpoints.
-     
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+       - url: The full URL to a Spotify endpoint.
+       - queryItems: The URL query items. Each value in the the dictionary
+             that is NOT `nil` will be added to the query string.
+       - httpMethod: The http method.
+       - makeHeaders: A function that accepts an access token and
+             returns a dictionary of headers. See the `Headers`
+             enum, which contains convienence methods for making
+             headers.
+       - bodyData: The body of the request as `Data`.
+       - requiredScopes: The scopes required for this endpoint.
+     - Returns: The raw data and the URL response from the server.
      */
-    func refreshTokensAndEnsureAuthorized(
-        for scopes: Set<Scope>, tolerance: Double = 120
-    ) -> AnyPublisher<String, Error> {
+    func apiRequest(
+        url: URL,
+        queryItems: [String: LosslessStringConvertible?],
+        httpMethod: String,
+        makeHeaders: @escaping (_ accessToken: String) -> [String: String],
+        bodyData: Data?,
+        requiredScopes: Set<Scope>
+    ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        self.logger.trace("scopes: \(scopes.map(\.rawValue))")
+        self.logger.trace(
+            "required scopes: \(requiredScopes.map(\.rawValue))"
+        )
         
         /*
          It's more informative for the client to notifiy them that
          they haven't retrieved an access token for their application
          before throwing other errors, so that's why this check is
          performed first.
-
+         
          Additionally, all other errors usually indicate a bug with
          this library.
-
+         
          If an access token hasn't been retrieved, then a refresh
          token hasn't been retrieved either, and, without this check,
          `authorizationManager.refreshTokens` would throw an error
@@ -74,7 +90,7 @@ extension SpotifyAPI {
         }
         
         return self.authorizationManager.refreshTokens(
-            onlyIfExpired: true, tolerance: tolerance
+            onlyIfExpired: true, tolerance: 120
         )
         .tryMap { () -> String in
             
@@ -90,11 +106,11 @@ extension SpotifyAPI {
             }
             
             guard self.authorizationManager.isAuthorized(
-                for: scopes
+                for: requiredScopes
             )
             else {
                 throw SpotifyLocalError.insufficientScope(
-                    requiredScopes: scopes,
+                    requiredScopes: requiredScopes,
                     authorizedScopes: self.authorizationManager.scopes ?? []
                 )
             }
@@ -102,10 +118,49 @@ extension SpotifyAPI {
             return acccessToken
             
         }
+        .flatMap { accessToken ->
+            AnyPublisher<(data: Data, response: HTTPURLResponse), Error> in
+            
+            if self.apiRequestLogger.logLevel <= .warning {
+                
+                if let bodyData = bodyData {
+                    if let bodyString = String(data: bodyData, encoding: .utf8) {
+                        self.apiRequestLogger.trace(
+                            """
+                            \(httpMethod) request to "\(url)"; request body:
+                            \(bodyString)
+                            """
+                        )
+                    }
+                    else {
+                        self.apiRequestLogger.warning(
+                            """
+                            \(httpMethod) request to "\(url)"; \
+                            couldn't convert body data to string
+                            """
+                        )
+                    }
+                }
+                else {
+                    self.apiRequestLogger.trace(
+                        #"\#(httpMethod) request to "\#(url)""#
+                    )
+                }
+                
+            }
+            
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = httpMethod
+            urlRequest.allHTTPHeaderFields = makeHeaders(accessToken)
+            urlRequest.httpBody = bodyData
+            
+            return self.networkAdaptor(urlRequest)
+            
+        }
         .eraseToAnyPublisher()
         
     }
-    
+
     /**
      Makes a request to the Spotify Web API. You should usually not need to call
      this method youself. All requests to endpoints other than those for
@@ -137,6 +192,7 @@ extension SpotifyAPI {
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
              base URL above. Do **NOT** forget the leading forward-slash.
+             There is an overload of this method that accepts a full URL.
        - queryItems: The URL query items. Each value in the the dictionary
              that is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
@@ -161,47 +217,14 @@ extension SpotifyAPI {
             path, queryItems: queryItems
         )
         
-        return self.refreshTokensAndEnsureAuthorized(for: requiredScopes)
-            .flatMap { accessToken ->
-                AnyPublisher<(data: Data, response: HTTPURLResponse), Error> in
-
-                if self.apiRequestLogger.logLevel <= .warning {
-                
-                    if let bodyData = bodyData {
-                        if let bodyString = String(data: bodyData, encoding: .utf8) {
-                            self.apiRequestLogger.trace(
-                                """
-                                \(httpMethod) request to "\(endpoint)"; request body:
-                                \(bodyString)
-                                """
-                            )
-                        }
-                        else {
-                            self.apiRequestLogger.warning(
-                                """
-                                \(httpMethod) request to "\(endpoint)"; \
-                                couldn't convert body data to string
-                                """
-                            )
-                        }
-                    }
-                    else {
-                        self.apiRequestLogger.trace(
-                            #"\#(httpMethod) request to "\#(endpoint)""#
-                        )
-                    }
-                
-                }
-                
-                var urlRequest = URLRequest(url: endpoint)
-                urlRequest.httpMethod = httpMethod
-                urlRequest.allHTTPHeaderFields = makeHeaders(accessToken)
-                urlRequest.httpBody = bodyData
-                
-                return self.networkAdaptor(urlRequest)
-            
-            }
-            .eraseToAnyPublisher()
+        return self.apiRequest(
+            url: endpoint,
+            queryItems: queryItems,
+            httpMethod: httpMethod,
+            makeHeaders: makeHeaders,
+            bodyData: bodyData,
+            requiredScopes: requiredScopes
+        )
 
     }
     
@@ -236,6 +259,7 @@ extension SpotifyAPI {
      - Parameters:
        - path: The path to the endpoint, which will be appended to the
              base URL above. Do **NOT** forget the leading forward-slash.
+             There is an overload of this method that accepts a full URL.
        - queryItems: The URL query items. Each value in the the dictionary
              that is NOT `nil` will be added to the query string.
        - httpMethod: The http method.

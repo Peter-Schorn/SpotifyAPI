@@ -22,6 +22,7 @@ typealias PlatformImage = UIImage
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+import Foundation
 
 
 /**

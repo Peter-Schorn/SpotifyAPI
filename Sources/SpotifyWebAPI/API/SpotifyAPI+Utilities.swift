@@ -38,22 +38,15 @@ public extension SpotifyAPI {
         responseType: ResponseType.Type
     ) -> AnyPublisher<ResponseType, Error> {
         
-        return self.refreshTokensAndEnsureAuthorized(for: [])
-            .flatMap { accessToken -> AnyPublisher<ResponseType, Error> in
-                
-                self.apiRequestLogger.trace(
-                    #"GET request to href: "\#(href)""#
-                )
-                
-                var request = URLRequest(url: href)
-                request.allHTTPHeaderFields =
-                    Headers.bearerAuthorization(accessToken)
-                
-                return self.networkAdaptor(request)
-                    .decodeSpotifyObject(ResponseType.self)
-                
-            }
-            .eraseToAnyPublisher()
+        return self.apiRequest(
+            url: href,
+            queryItems: [:],
+            httpMethod: "GET",
+            makeHeaders: Headers.bearerAuthorization(_:),
+            bodyData: nil,
+            requiredScopes: []
+        )
+        .decodeSpotifyObject(ResponseType.self)
         
     }
 
