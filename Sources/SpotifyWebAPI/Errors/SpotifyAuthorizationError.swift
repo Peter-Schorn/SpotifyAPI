@@ -16,7 +16,7 @@ import Foundation
  * `SpotifyError`
  * `SpotifyPlayerError`
  * `RateLimitedError`
- * `SpotifyLocalError`
+ * `SpotifyGeneralError`
  
  See the [authorization process][1].
  

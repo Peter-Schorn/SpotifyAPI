@@ -317,12 +317,12 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
 
             guard case .failure(let error) = completion else {
                 XCTFail(
-                    "publisher should fail with SpotifyLocalError.invalidState"
+                    "publisher should fail with SpotifyGeneralError.invalidState"
                 )
                 return
             }
-            guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError: \(error)")
+            guard let localError = error as? SpotifyGeneralError else {
+                XCTFail("error should be SpotifyGeneralError: \(error)")
                 return
             }
             print(localError)
@@ -402,12 +402,12 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
 
             guard case .failure(let error) = completion else {
                 XCTFail(
-                    "publisher should fail with SpotifyLocalError.invalidState"
+                    "publisher should fail with SpotifyGeneralError.invalidState"
                 )
                 return
             }
-            guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError: \(error)")
+            guard let localError = error as? SpotifyGeneralError else {
+                XCTFail("error should be SpotifyGeneralError: \(error)")
                 return
             }
             print(localError)
@@ -488,12 +488,12 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
 
             guard case .failure(let error) = completion else {
                 XCTFail(
-                    "publisher should fail with SpotifyLocalError.invalidState"
+                    "publisher should fail with SpotifyGeneralError.invalidState"
                 )
                 return
             }
-            guard let localError = error as? SpotifyLocalError else {
-                XCTFail("error should be SpotifyLocalError: \(error)")
+            guard let localError = error as? SpotifyGeneralError else {
+                XCTFail("error should be SpotifyGeneralError: \(error)")
                 return
             }
             print(localError)

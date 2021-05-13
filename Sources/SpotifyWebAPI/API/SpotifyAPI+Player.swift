@@ -45,7 +45,7 @@ public extension SpotifyAPI where
             if let devices = dict["devices"] {
                 return devices
             }
-            throw SpotifyLocalError.topLevelKeyNotFound(
+            throw SpotifyGeneralError.topLevelKeyNotFound(
                 key: "devices", dict: dict
             )
         }

@@ -39,7 +39,7 @@ public extension SpotifyAPI {
             if let markets = dict[key] {
                 return markets
             }
-            throw SpotifyLocalError.topLevelKeyNotFound(
+            throw SpotifyGeneralError.topLevelKeyNotFound(
                 key: key, dict: dict
             )
         }

@@ -42,7 +42,7 @@ private extension SpotifyAPI {
                 if let snapshotId = dict["snapshot_id"] {
                     return snapshotId
                 }
-                throw SpotifyLocalError.topLevelKeyNotFound(
+                throw SpotifyGeneralError.topLevelKeyNotFound(
                     key: "snapshot_id", dict: dict
                 )
             }
@@ -110,7 +110,7 @@ private extension SpotifyAPI {
         }
         else {
             guard additionalTypes.allSatisfy({ validTypes.contains($0) }) else {
-                throw SpotifyLocalError.invalidIdCategory(
+                throw SpotifyGeneralError.invalidIdCategory(
                     expected: validTypes, received: additionalTypes
                 )
             }

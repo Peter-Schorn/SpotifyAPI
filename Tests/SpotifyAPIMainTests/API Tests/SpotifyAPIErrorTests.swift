@@ -288,10 +288,10 @@ extension SpotifyAPIErrorTests {
             )
             .store(in: &Self.cancellables)
         
-        // MARK: SpotifyLocalError.httpError
+        // MARK: SpotifyGeneralError.httpError
 
         let spotifyLocalErrorExpectation = XCTestExpectation(
-            description: "SpotifyLocalError"
+            description: "SpotifyGeneralError"
         )
         
         let data = """
@@ -304,7 +304,7 @@ extension SpotifyAPIErrorTests {
             httpVersion: nil,
             headerFields: nil
         )!
-        let httpError = SpotifyLocalError.httpError(response, data)
+        let httpError = SpotifyGeneralError.httpError(response, data)
         
         var receivedValue3 = false
 
@@ -468,7 +468,7 @@ extension SpotifyAPIErrorTests {
                     return
                 }
                 guard case .httpError(let response, let data) =
-                        error as? SpotifyLocalError else {
+                        error as? SpotifyGeneralError else {
                     XCTFail("unexpected error: \(error)")
                     return
                 }
@@ -628,8 +628,8 @@ extension SpotifyAPIErrorTests where
                 XCTFail("should not complete normally")
                 return
             }
-            guard let spotifyLocalError = error as? SpotifyLocalError else {
-                XCTFail("should've received SpotifyLocalError: \(error)")
+            guard let spotifyLocalError = error as? SpotifyGeneralError else {
+                XCTFail("should've received SpotifyGeneralError: \(error)")
                 return
             }
             let expectedDescriptions = [
@@ -643,7 +643,7 @@ extension SpotifyAPIErrorTests where
             )
             guard case .httpError(let response, _) = spotifyLocalError else {
                 XCTFail(
-                    "should've received SpotifyLocalError.httpError: " +
+                    "should've received SpotifyGeneralError.httpError: " +
                     "\(spotifyLocalError)"
                 )
                 return

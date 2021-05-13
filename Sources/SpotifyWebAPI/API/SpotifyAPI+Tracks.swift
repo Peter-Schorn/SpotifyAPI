@@ -111,7 +111,7 @@ public extension SpotifyAPI {
                 if let tracks = dict["tracks"] {
                     return tracks
                 }
-                throw SpotifyLocalError.topLevelKeyNotFound(
+                throw SpotifyGeneralError.topLevelKeyNotFound(
                     key: "tracks", dict: dict
                 )
             }
@@ -261,7 +261,7 @@ public extension SpotifyAPI {
                 if let audioFeatures = dict["audio_features"] {
                     return audioFeatures
                 }
-                throw SpotifyLocalError.topLevelKeyNotFound(
+                throw SpotifyGeneralError.topLevelKeyNotFound(
                     key: "audio_features", dict: dict
                 )
             }

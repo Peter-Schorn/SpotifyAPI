@@ -68,7 +68,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             if !allIdCategories.allSatisfy({ category in
                 categories.contains(category)
             }) {
-                throw SpotifyLocalError.invalidIdCategory(
+                throw SpotifyGeneralError.invalidIdCategory(
                     expected: categories, received: allIdCategories
                 )
             }
@@ -217,7 +217,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             
             if let categories = categories,
                     !categories.contains(idCategory) {
-                throw SpotifyLocalError.invalidIdCategory(
+                throw SpotifyGeneralError.invalidIdCategory(
                     expected: categories, received: [idCategory]
                 )
             }
@@ -228,7 +228,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
         }
        
-        throw SpotifyLocalError.identifierParsingError(
+        throw SpotifyGeneralError.identifierParsingError(
             message: "could not parse Spotify id and/or " +
                      "id category from string: '\(uri)'" + errorMessage
         )
@@ -297,7 +297,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
             
         }
         
-        throw SpotifyLocalError.identifierParsingError(
+        throw SpotifyGeneralError.identifierParsingError(
             message: "could not parse Spotify id category and/or id " +
                      "from url: '\(url)': \(errorMessage)"
         )

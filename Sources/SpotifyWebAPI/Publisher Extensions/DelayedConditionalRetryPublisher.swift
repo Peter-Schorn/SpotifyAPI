@@ -146,7 +146,7 @@ extension Publisher {
      Retries the request up to three times depending on the error received.
      
      Retries upon receiving a `RateLimitedError`. If a `SpotifyError`,
-     `SpotifyPlayerError`, or `SpotifyLocalError.httpError` is received, then
+     `SpotifyPlayerError`, or `SpotifyGeneralError.httpError` is received, then
      retries if the status code is 500, 502, 503, or 504.
      */
     func retryOnSpotifyErrors() -> AnyPublisher<Output, Failure> {
@@ -200,7 +200,7 @@ extension Publisher {
             else if let spotifyPlayerError = error as? SpotifyPlayerError {
                 statusCode = spotifyPlayerError.statusCode
             }
-            else if case .httpError(let response, _) = error as? SpotifyLocalError {
+            else if case .httpError(let response, _) = error as? SpotifyGeneralError {
                 statusCode = response.statusCode
             }
             else {

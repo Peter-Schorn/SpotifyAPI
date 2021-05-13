@@ -135,7 +135,7 @@ public extension SpotifyAPI {
             ]
             guard !categories.isEmpty &&
                     categories.allSatisfy(validCategories.contains) else {
-                throw SpotifyLocalError.invalidIdCategory(
+                throw SpotifyGeneralError.invalidIdCategory(
                     expected: validCategories, received: categories
                 )
             }

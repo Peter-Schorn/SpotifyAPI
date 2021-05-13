@@ -354,7 +354,7 @@ extension SpotifyAPIAlbumsTests {
                     receiveAlbumTracksPage3CalledCount += 1
                 }
                 guard let previous = albumTracks.previous else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "third page of results should have prevous href"
                     )
                     .anyFailingPublisher()

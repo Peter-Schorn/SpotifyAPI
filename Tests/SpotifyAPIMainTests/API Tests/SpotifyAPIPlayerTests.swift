@@ -424,7 +424,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .XCTAssertNoFailure()
             .flatMap(maxPublishers: .max(1)) { playback -> AnyPublisher<Void, Error> in
                 guard let playback = playback else {
-                    return SpotifyLocalError.other("playback was nil")
+                    return SpotifyGeneralError.other("playback was nil")
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
@@ -467,7 +467,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .flatMap(maxPublishers: .max(1)) { playback -> AnyPublisher<Void, Error> in
                 print("FLATMAP Received Playback: \(playback as Any)")
                 guard let playback = playback else {
-                    return SpotifyLocalError.other("playback was nil")
+                    return SpotifyGeneralError.other("playback was nil")
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
@@ -595,7 +595,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .XCTAssertNoFailure()
             .flatMap { playback -> AnyPublisher<Void, Error> in
                 guard let playback = playback else {
-                    return SpotifyLocalError.other("playback was nil")
+                    return SpotifyGeneralError.other("playback was nil")
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
@@ -657,7 +657,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .receiveOnMain(delay: 2)
             .flatMap { () -> AnyPublisher<Void, Error> in
                 guard let trackDuration = trackDuration else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "couldn't track duration"
                     )
                     .anyFailingPublisher()
@@ -771,7 +771,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 guard let activeDevice = devices.first(where: { device in
                     device.isActive
                 }) else {
-                    return SpotifyLocalError.other("no active device")
+                    return SpotifyGeneralError.other("no active device")
                         .anyFailingPublisher()
                 }
                 activeDeviceId = activeDevice.id
@@ -830,7 +830,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 guard let activeDevice = devices.first(where: { device in
                     device.isActive
                 }) else {
-                    return SpotifyLocalError.other("no active device")
+                    return SpotifyGeneralError.other("no active device")
                         .anyFailingPublisher()
                 }
                 activeDeviceId = activeDevice.id
@@ -877,7 +877,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 encodeDecode(recentlyPlayed)
 
                 guard let beforeTimestamp = recentlyPlayed.cursors?.before else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "before cursor was nil"
                     )
                     .anyFailingPublisher()
@@ -894,7 +894,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 encodeDecode(recentlyPlayed)
 
                 guard let afterTimestamp = recentlyPlayed.cursors?.after else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "after cursor was nil"
                     )
                     .anyFailingPublisher()
@@ -1008,7 +1008,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                             queueItem, deviceId: activeDevice.id
                         )
                     }
-                    return SpotifyLocalError.other("no active device found")
+                    return SpotifyGeneralError.other("no active device found")
                         .anyFailingPublisher()
                 }
                 .XCTAssertNoFailure()
@@ -1231,7 +1231,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .flatMap { devices -> AnyPublisher<Void, Error> in
 
                 guard let activeDevice = devices.first(where: \.isActive) else {
-                    return SpotifyLocalError.other("no active device to use")
+                    return SpotifyGeneralError.other("no active device to use")
                         .anyFailingPublisher()
                 }
 
@@ -1241,7 +1241,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                             device.id != nil
                 })
                 guard let transferDevice = transferDevice else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "couldn't find another available device to " +
                             "transfer playback to"
                     )

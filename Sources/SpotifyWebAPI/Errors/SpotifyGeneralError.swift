@@ -6,7 +6,7 @@ import FoundationNetworking
 
 /**
  An error originating from this library that is not represented
- by any of the other error types in this library.
+ by any of the other error types.
  
  For example if you try to make an API request but have not
  authorized your application yet, you will get a `.unauthorized(String)`
@@ -16,7 +16,7 @@ import FoundationNetworking
  to the end user. Use the string representation of this instance for a more
  detailed description suitable for debugging.
  */
-public enum SpotifyLocalError {
+public enum SpotifyGeneralError {
     
     /**
      You have tried to access an endpoint before authorizing your app
@@ -121,7 +121,7 @@ public enum SpotifyLocalError {
     
 }
 
-extension SpotifyLocalError: LocalizedError {
+extension SpotifyGeneralError: LocalizedError {
     
     /// :nodoc:
     public var errorDescription: String? {
@@ -158,26 +158,26 @@ extension SpotifyLocalError: LocalizedError {
     
 }
 
-extension SpotifyLocalError: CustomStringConvertible {
+extension SpotifyGeneralError: CustomStringConvertible {
     
     /// :nodoc:
     public var description: String {
         switch self {
              case .unauthorized(let message):
-                return "SpotifyLocalError.unauthorized: \(message)"
+                return "SpotifyGeneralError.unauthorized: \(message)"
             case .invalidState(let supplied, let received):
                 return """
-                    SpotifyLocalError.invalidState: The value for the state \
+                    SpotifyGeneralError.invalidState: The value for the state \
                     parameter provided when requesting access and refresh \
                     tokens '\(supplied ?? "nil")' did not match the value \
                     received from Spotify in the query string of the redirect URI: \
                     '\(received ?? "nil")'
                     """
             case .identifierParsingError(let message):
-                return "SpotifyLocalError.identifierParsingError: \(message)"
+                return "SpotifyGeneralError.identifierParsingError: \(message)"
             case .insufficientScope(let required, let authorized):
                 return """
-                    SpotifyLocalError.insufficientScope: The endpoint you \
+                    SpotifyGeneralError.insufficientScope: The endpoint you \
                     tried to access requires the following scopes: \
                     \(required.map(\.rawValue)) \
                     but your app is only authorized for theses scopes: \
@@ -185,13 +185,13 @@ extension SpotifyLocalError: CustomStringConvertible {
                     """
             case .invalidIdCategory(let expected, let received):
                 return """
-                    SpotifyLocalError.invalidIdCategory: expected id categories \
+                    SpotifyGeneralError.invalidIdCategory: expected id categories \
                     to match the following: \(expected.map(\.rawValue)), \
                     but received \(received.map(\.rawValue))
                     """
             case .topLevelKeyNotFound(let key, let dict):
                 return """
-                    SpotifyLocalError.topLevelKeyNotFound: The expected top \
+                    SpotifyGeneralError.topLevelKeyNotFound: The expected top \
                     level key '\(key)' was not found in the dictionary:
                     \(dict)
                     """
@@ -199,11 +199,11 @@ extension SpotifyLocalError: CustomStringConvertible {
                 let dataString = String(data: data, encoding: .utf8)
                     .map({ #""\#($0)""# }) ?? "\(data)"
                 return """
-                    SpotifyLocalError.httpError(\
+                    SpotifyGeneralError.httpError(\
                     HTTPURLResponse: \(response), Data: \(dataString))
                     """
             case .other(let message, _):
-                return "SpotifyLocalError.other: \(message)"
+                return "SpotifyGeneralError.other: \(message)"
         }
     }
   

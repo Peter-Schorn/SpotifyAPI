@@ -83,7 +83,7 @@ extension SpotifyAPI {
          */
         if self.authorizationManager.accessToken == nil {
             self.logger.warning("unauthorized: no access token")
-            return SpotifyLocalError.unauthorized(
+            return SpotifyGeneralError.unauthorized(
                 "unauthorized: no access token"
             )
             .anyFailingPublisher()
@@ -100,7 +100,7 @@ extension SpotifyAPI {
                 self.logger.error(
                     "second check for accessToken failed"
                 )
-                throw SpotifyLocalError.unauthorized(
+                throw SpotifyGeneralError.unauthorized(
                     "unauthorized: no access token"
                 )
             }
@@ -109,7 +109,7 @@ extension SpotifyAPI {
                 for: requiredScopes
             )
             else {
-                throw SpotifyLocalError.insufficientScope(
+                throw SpotifyGeneralError.insufficientScope(
                     requiredScopes: requiredScopes,
                     authorizedScopes: self.authorizationManager.scopes
                 )

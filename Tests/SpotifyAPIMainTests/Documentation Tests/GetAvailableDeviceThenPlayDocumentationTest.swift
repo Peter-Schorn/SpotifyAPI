@@ -47,7 +47,7 @@ private extension SpotifyAPI where
                 return self.play(playbackRequest, deviceId: deviceId)
             }
             else {
-                return SpotifyLocalError.other(
+                return SpotifyGeneralError.other(
                     "no active or available devices",
                     localizedDescription:
                     "There are no devices available to play content on. " +

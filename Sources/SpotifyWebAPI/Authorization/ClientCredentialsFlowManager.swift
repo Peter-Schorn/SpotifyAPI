@@ -485,7 +485,7 @@ public extension ClientCredentialsFlowBackendManager {
                         \(authInfo)
                         """
                     Self.logger.error("\(errorMessage)")
-                    throw SpotifyLocalError.other(errorMessage)
+                    throw SpotifyGeneralError.other(errorMessage)
                 }
                 
                 self.updateFromAuthInfo(authInfo)

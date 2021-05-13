@@ -178,7 +178,7 @@ public extension SpotifyAPI {
         guard var hrefComponents = URLComponents(
             url: page.href, resolvingAgainstBaseURL: false
         ) else {
-            return SpotifyLocalError.other(
+            return SpotifyGeneralError.other(
                 #"couldn't create URLComponents from href "\#(page.href)""#
             )
             .anyFailingPublisher()

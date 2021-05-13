@@ -143,7 +143,7 @@ public extension SpotifyAPI {
                 if let shows = dict["episodes"] {
                     return shows
                 }
-                throw SpotifyLocalError.topLevelKeyNotFound(
+                throw SpotifyGeneralError.topLevelKeyNotFound(
                     key: "episodes", dict: dict
                 )
             }

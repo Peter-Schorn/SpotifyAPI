@@ -18,7 +18,7 @@ import Foundation
  * `SpotifyError`
  * `SpotifyPlayerError`
  * `RateLimitedError`
- * `SpotifyLocalError`
+ * `SpotifyGeneralError`
  
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
  [2]: https://tools.ietf.org/html/rfc6749

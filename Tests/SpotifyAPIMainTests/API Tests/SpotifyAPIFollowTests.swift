@@ -358,7 +358,7 @@ extension SpotifyAPIFollowTests where
             .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 guard let user = currentUserURI else {
-                    return SpotifyLocalError.other("user URI was nil")
+                    return SpotifyGeneralError.other("user URI was nil")
                         .anyFailingPublisher()
                 }
                 return Self.spotify.usersFollowPlaylist(
@@ -378,7 +378,7 @@ extension SpotifyAPIFollowTests where
             .receiveOnMain(delay: 1)
             .flatMap { () -> AnyPublisher<[Bool], Error> in
                 guard let user = currentUserURI else {
-                    return SpotifyLocalError.other("user URI was nil")
+                    return SpotifyGeneralError.other("user URI was nil")
                         .anyFailingPublisher()
                 }
                 return Self.spotify.usersFollowPlaylist(

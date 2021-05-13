@@ -421,7 +421,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             }
             
             Self.logger.error("unknown error")
-            return SpotifyLocalError.other(
+            return SpotifyGeneralError.other(
                 """
                 an unknown error occurred when handling the redirect URI: \
                 expected to find 'code' or 'error' parameter in query string: \
@@ -435,7 +435,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
         // Ensure the state parameter in the query string of the redirect
         // URI matches the value provided to this method.
         guard state == queryDict["state"] else {
-            return SpotifyLocalError.invalidState(
+            return SpotifyGeneralError.invalidState(
                 supplied: state, received: queryDict["state"]
             )
             .anyFailingPublisher()
@@ -464,7 +464,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                     \(authInfo)
                     """
                 Self.logger.error("\(errorMessage)")
-                throw SpotifyLocalError.other(errorMessage)
+                throw SpotifyGeneralError.other(errorMessage)
                 
             }
             
@@ -539,7 +539,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                         let errorMessage =
                                 "can't refresh access token: no refresh token"
                         Self.logger.warning("\(errorMessage)")
-                        throw SpotifyLocalError.unauthorized(errorMessage)
+                        throw SpotifyGeneralError.unauthorized(errorMessage)
                     }
                     
                     Self.logger.trace("backend.refreshTokens")
@@ -572,7 +572,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                                 \(authInfo)
                                 """
                             Self.logger.error("\(errorMessage)")
-                            throw SpotifyLocalError.other(errorMessage)
+                            throw SpotifyGeneralError.other(errorMessage)
                             
                         }
                         

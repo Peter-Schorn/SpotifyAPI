@@ -27,8 +27,8 @@ extension SpotifyAPIInsufficientScopeTests {
                 XCTFail("should've finished with error")
                 return
             }
-            guard let spotifyLocalError = error as? SpotifyLocalError else {
-                XCTFail("should've received SpotifyLocalError: \(error)")
+            guard let spotifyLocalError = error as? SpotifyGeneralError else {
+                XCTFail("should've received SpotifyGeneralError: \(error)")
                 return
             }
             switch spotifyLocalError {
@@ -95,8 +95,8 @@ extension SpotifyAPIInsufficientScopeTests where
                 XCTFail("should've finished with error")
                 return
             }
-            guard let localError = error as? SpotifyLocalError else {
-                XCTFail("should've received SpotifyLocalError: \(error)")
+            guard let localError = error as? SpotifyGeneralError else {
+                XCTFail("should've received SpotifyGeneralError: \(error)")
                 return
             }
             switch localError {

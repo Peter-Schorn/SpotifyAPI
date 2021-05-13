@@ -216,7 +216,7 @@ public extension SpotifyAPI where
                 if let artists = dict[key] {
                     return artists
                 }
-                throw SpotifyLocalError.topLevelKeyNotFound(
+                throw SpotifyGeneralError.topLevelKeyNotFound(
                     key: key, dict: dict
                 )
             }

@@ -16,7 +16,7 @@ private class Keychain {
     }
 
     func remove(_ key: String) throws {
-        throw SpotifyLocalError.other("unreachable")
+        throw SpotifyGeneralError.other("unreachable")
     }
 
     init(service: String) {

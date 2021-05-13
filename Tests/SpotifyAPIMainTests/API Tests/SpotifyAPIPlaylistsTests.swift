@@ -1525,7 +1525,7 @@ extension SpotifyAPIPlaylistsTests where
             .flatMap { () -> AnyPublisher<Void, Error> in
                 // MARK: Unfollow Playlist
                 guard let createdPlaylistURI = createdPlaylistURI else {
-                    return SpotifyLocalError.other(
+                    return SpotifyGeneralError.other(
                         "couldn't get created playlist"
                     )
                     .anyFailingPublisher()

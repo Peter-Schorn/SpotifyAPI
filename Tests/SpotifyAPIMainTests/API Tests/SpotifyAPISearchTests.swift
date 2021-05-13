@@ -21,8 +21,8 @@ extension SpotifyAPISearchTests {
         
         func validateError(_ error: Error) {
             print("\n\n\(error)\n\n")
-            guard let localError = error as? SpotifyLocalError else {
-                XCTFail("should've recieved SpotifyLocalError: \(error)")
+            guard let localError = error as? SpotifyGeneralError else {
+                XCTFail("should've recieved SpotifyGeneralError: \(error)")
                 return
             }
             
