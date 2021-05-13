@@ -316,7 +316,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             XCTAssertEqual(didChangeCount, 1)
             XCTAssertTrue(receivedTrack, "did not receive track")
             XCTAssertTrue(receivedAlbum, "did not receive album")
-            XCTAssertTrue(receivedArtist, "did not recieved artist")
+            XCTAssertTrue(receivedArtist, "did not recieve artist")
         }
 
     }

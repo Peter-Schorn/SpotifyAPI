@@ -133,11 +133,10 @@ public extension String {
     
 
     /**
-     Hashes `self` using the SHA256 algorithm and returns the
+     Hashes the `codeVerifier` using the SHA256 algorithm and returns the
      Base-64 URL-encoded hash.
      
-     This method can be used to generate the code challenge if `self`
-     is the code verifier for the
+     This method can be used to generate the code challenge for the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
      
      Equivalent to
@@ -149,11 +148,14 @@ public extension String {
      
      // Convert the array of bytes into data.
      let bytes = Data(hash)
-
+     
      // Base-64 URL-encode the bytes.
      return bytes.base64URLEncodedString()
      ```
      
+     - Parameter codeVerifier: The code verifier.
+     - Returns: The code challenge.
+
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
     static func makeCodeChallenge(codeVerifier: String) -> String {
