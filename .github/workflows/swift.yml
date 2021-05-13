@@ -170,3 +170,14 @@ jobs:
         -derivedDataPath "$PWD/.derivedData" build \
         -scheme "SpotifyAPI" \
         -destination "${{ matrix.platform }}"
+
+  build_spotify_api_server:
+    runs-on: ubuntu-latest
+    steps:
+    - name: build
+      run: |
+        git clone https://github.com/Peter-Schorn/SpotifyAPIServer.git
+        cd SpotifyAPIServer
+        swift package edit SpotifyAPI --revision $GITHUB_SHA
+        swift build -Xswiftc -warnings-as-errors
+      
