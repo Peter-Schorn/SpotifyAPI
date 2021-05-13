@@ -1,6 +1,6 @@
 import Foundation
 
-#if TEST
+#if !TEST
 import NIO
 import NIOHTTP1
 import AsyncHTTPClient
@@ -22,14 +22,14 @@ public final class NetworkAdaptorManager {
     
     public static let shared = NetworkAdaptorManager()
     
-    #if TEST
+    #if !TEST
     private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
     #endif
     
     private init() { }
     
     deinit {
-        #if TEST
+        #if !TEST
         try? self.httpClient.syncShutdown()
         #endif
     }
@@ -38,7 +38,7 @@ public final class NetworkAdaptorManager {
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
-        #if TEST
+        #if !TEST
         return self.nioNetworkAdaptor(request: request)
         #else
         print("NetworkAdaptorManager:networkAdaptor:URLSession.defaultNetworkAdaptor(request: request)")
@@ -47,7 +47,7 @@ public final class NetworkAdaptorManager {
         
     }
     
-    #if TEST
+    #if !TEST
     private func nioNetworkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
