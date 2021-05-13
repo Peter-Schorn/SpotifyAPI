@@ -48,11 +48,11 @@ pattern = rf"^(\s*){flags[0]}\s*$"
 replacement = rf"\1{flags[1]}"
 
 for file in swift_files:
-    # print(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         text = f.read()
     new_text = re.sub(pattern, replacement, text, flags=re.MULTILINE)
-    with open(file, "w") as f:
+    with open(file, "w", encoding='utf-8') as f:
         f.write(new_text)
+
 
 
