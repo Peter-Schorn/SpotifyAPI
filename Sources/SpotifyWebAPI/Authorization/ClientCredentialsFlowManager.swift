@@ -294,7 +294,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         self._expirationDate = expirationDate
     }
 
-    // MARK: - Codable
+    // MARK: - Codable, Hashable, CustomStringConvertable
 
     /// :nodoc:
     public required init(from decoder: Decoder) throws {
@@ -330,7 +330,38 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         try codingWrapper.encode(to: encoder)
         
     }
+ 
+    /// :nodoc:
+    public func hash(into hasher: inout Hasher) {
+        self.updateAuthInfoQueue.sync {
+            hasher.combine(self.backend)
+            hasher.combine(self._accessToken)
+            hasher.combine(self._expirationDate)
+        }
+    }
     
+    /// :nodoc:
+    public static func == (
+        lhs: ClientCredentialsFlowBackendManager,
+        rhs: ClientCredentialsFlowBackendManager
+    ) -> Bool {
+        
+        let (lhsAccessToken, lhsExpirationDate) =
+            lhs.updateAuthInfoQueue.sync {
+                return (lhs._accessToken, lhs._expirationDate)
+            }
+        
+        let (rhsAccessToken, rhsExpirationDate) =
+            rhs.updateAuthInfoQueue.sync {
+                return (rhs._accessToken, rhs._expirationDate)
+            }
+        
+        return lhs.backend == rhs.backend &&
+            lhsAccessToken == rhsAccessToken &&
+            lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
+        
+    }
+
     /**
      Returns a copy of self.
      
@@ -602,44 +633,6 @@ extension ClientCredentialsFlowBackendManager {
             condition: .notOnQueue(self.updateAuthInfoQueue)
         )
         #endif
-    }
-    
-}
-
-
-extension ClientCredentialsFlowBackendManager: Hashable {
-    
-    // MARK: - Hashable
-
-    /// :nodoc:
-    public func hash(into hasher: inout Hasher) {
-        self.updateAuthInfoQueue.sync {
-            hasher.combine(self.backend)
-            hasher.combine(self._accessToken)
-            hasher.combine(self._expirationDate)
-        }
-    }
-    
-    /// :nodoc:
-    public static func == (
-        lhs: ClientCredentialsFlowBackendManager,
-        rhs: ClientCredentialsFlowBackendManager
-    ) -> Bool {
-        
-        let (lhsAccessToken, lhsExpirationDate) =
-            lhs.updateAuthInfoQueue.sync {
-                return (lhs._accessToken, lhs._expirationDate)
-            }
-        
-        let (rhsAccessToken, rhsExpirationDate) =
-            rhs.updateAuthInfoQueue.sync {
-                return (rhs._accessToken, rhs._expirationDate)
-            }
-        
-        return lhs.backend == rhs.backend &&
-            lhsAccessToken == rhsAccessToken &&
-            lhsExpirationDate.isApproximatelyEqual(to: rhsExpirationDate)
-        
     }
     
 }

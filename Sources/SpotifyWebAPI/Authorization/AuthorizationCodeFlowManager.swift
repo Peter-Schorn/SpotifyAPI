@@ -73,6 +73,7 @@ import FoundationNetworking
 public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
     SpotifyScopeAuthorizationManager,
+    Hashable,
     CustomStringConvertible
 {
     
@@ -197,6 +198,16 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
     /// :nodoc:
     public override func hash(into hasher: inout Hasher) {
         super.hash(into: &hasher)
+    }
+    
+    /// :nodoc:
+    public static func == (
+        lhs: AuthorizationCodeFlowBackendManager,
+        rhs: AuthorizationCodeFlowBackendManager
+    ) -> Bool {
+        
+        return lhs.isEqualTo(other: rhs)
+        
     }
     
     /// :nodoc:
@@ -416,11 +427,11 @@ public extension AuthorizationCodeFlowBackendManager {
                 authInfo.expirationDate == nil {
                 
                 let errorMessage = """
-                missing properties after requesting access and \
-                refresh tokens (expected access token, refresh token, \
-                and expiration date):
-                \(authInfo)
-                """
+                    missing properties after requesting access and \
+                    refresh tokens (expected access token, refresh token, \
+                    and expiration date):
+                    \(authInfo)
+                    """
                 Self.logger.error("\(errorMessage)")
                 throw SpotifyGeneralError.other(errorMessage)
                 
@@ -552,22 +563,6 @@ public extension AuthorizationCodeFlowBackendManager {
         
     }
     
-}
-
-extension AuthorizationCodeFlowBackendManager: Hashable {
-
-    // MARK: - Hashable
-
-    /// :nodoc:
-    public static func == (
-        lhs: AuthorizationCodeFlowBackendManager,
-        rhs: AuthorizationCodeFlowBackendManager
-    ) -> Bool {
-        
-        return lhs.isEqualTo(other: rhs)
-        
-    }
-
 }
 
 // MARK: - Authorization Code Flow Manager -

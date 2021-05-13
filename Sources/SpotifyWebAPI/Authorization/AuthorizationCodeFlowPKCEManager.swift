@@ -74,6 +74,7 @@ import Logging
 public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeFlowPKCEBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
     SpotifyScopeAuthorizationManager,
+    Hashable,
     CustomStringConvertible
 {
     
@@ -201,6 +202,16 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     /// :nodoc:
     public override func hash(into hasher: inout Hasher) {
         super.hash(into: &hasher)
+    }
+
+    /// :nodoc:
+    public static func == (
+        lhs: AuthorizationCodeFlowPKCEBackendManager,
+        rhs: AuthorizationCodeFlowPKCEBackendManager
+    ) -> Bool {
+        
+        return lhs.isEqualTo(other: rhs)
+        
     }
 
     /// :nodoc:
@@ -603,22 +614,6 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
         
     }
     
-}
-
-extension AuthorizationCodeFlowPKCEBackendManager: Hashable {
-
-    // MARK: - Hashable
-
-    /// :nodoc:
-    public static func == (
-        lhs: AuthorizationCodeFlowPKCEBackendManager,
-        rhs: AuthorizationCodeFlowPKCEBackendManager
-    ) -> Bool {
-        
-       return lhs.isEqualTo(other: rhs)
-        
-    }
-
 }
 
 // MARK: - Authorization Code Flow PKCE Manager -

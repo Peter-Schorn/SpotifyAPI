@@ -9,8 +9,6 @@ exclude:
   - "Sources/SpotifyWebAPI/Other/DateExtensions.swift"
   - "Sources/SpotifyWebAPI/Other/DateFormatterExtensions.swift"
   - "Sources/SpotifyWebAPI/Other/MiscellaneousUtilities.swift"
-  - "Sources/SpotifyWebAPI/Publisher Extensions/LogOutputOperators.swift"
-  - "Sources/SpotifyWebAPI/Other/Headers.swift"
   
 custom_categories:
 
@@ -24,6 +22,9 @@ custom_categories:
     - AuthorizationCodeFlowManager
     - AuthorizationCodeFlowManagerBase
     - ClientCredentialsFlowManager
+    - AuthorizationCodeFlowBackendManager
+    - AuthorizationCodeFlowPKCEBackendManager
+    - ClientCredentialsFlowBackendManager
     - Scope
     - SpotifyAuthorizationManager
     - SpotifyScopeAuthorizationManager
@@ -53,7 +54,7 @@ custom_categories:
     children:
     - SpotifyError
     - SpotifyPlayerError
-    - SpotifyLocalError
+    - SpotifyGeneralError
     - RateLimitedError
     - SpotifyAuthenticationError
     - SpotifyAuthorizationError
@@ -103,8 +104,6 @@ custom_categories:
   - name: Post Request Objects
     children:
     - PlaybackRequest
-    - ContextOption
-    - OffsetOption
     - PlaylistDetails
     - ReorderPlaylistItems
     - TimeReference

@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Proxy Server
+
+* Three new authorization managers have been added: `AuthorizationCodeFlowBackendManager`, `AuthorizationCodeFlowPKCEBackendManager`, and `ClientCredentialsFlowBackendManager`. `AuthorizationCodeFlowManager`, `AuthorizationCodeFlowPKCEManager`, and `ClientCredentialsFlowManager` have been refactored to inherit from these classes, respectively. The former three classes are generic over a backend. This backend can handle the process of retrieving the authorization information either directly from Spotify or via a custom backend server that makes requests to Spotify on behalf of your frontend app. This allows you to store sensitive credentials, such as your client id and client secret securely on your backend server, thereby preventing them from being exposed directly in your frontend app.
+* Three new protocols have been added:
+    * `AuthorizationCodeFlowBackend`. Conforming types: `AuthorizationCodeFlowClientBackend` and `AuthorizationCodeFlowProxyBackend`.
+    * `AuthorizationCodeFlowPKCEBackend`. Conforming types: `AuthorizationCodeFlowPKCEClientBackend` and `AuthorizationCodeFlowPKCEProxyBackend`.
+    * `ClientCredentialsFlowBackend`. Conforming types: `ClientCredentialsFlowClientBackend` and `ClientCredentialsFlowProxyBackend`.
+
+### Other
+
+* Removed the `networkAdaptor` property from the authorization managers. If you need to use a custom networking client, then create a type that conforms to one of the backend protocols in `Sources/SpotifyWebAPI/Authorization/Backends/AuthorizationBackends.swift` based on which authorization method you are using.
+
+- `SpotifyAPILogHandler` is no longer automatically bootstrapped when an instance of `SpotifyAPI` is created. You now must call its `bootstrap` method manually. This allows you to select a different logging backend, if needed.
+- Removed `clientSecret` from `AuthorizationCodeFlowPKCEManager` because it is not needed.
+- `SpotifyAuthenticationError.errorDescription` is now optional because it can be missing in the JSON payload in rare cases.
+- Removed all deprecated symbols.
+- Publisher extensions where the output is `URLResponse` are now extensions where the output is `HTTPURLResponse`. Other methods that returned `URLResponse`, such as `SpotifyAPI.filteredPlaylist(_:filters:additionalTypes:market:)`, now also return `HTTPURLResponse`.
+- Refactored `ContextOption` and `OffsetOption` as nested types under `PlaybackRequest` (`Context` and `Offset`).
+- Added `type` property to `Playlist`.
+- Changed the type of properties in the object model that represent URLs from String to URL. `SpotifyAPI.getFromHref(_:responseType)` now accepts a URL as well instead of a string.
+- `String.makeCodeChallenge()` is now a static method that accepts the coder verifier as a parameter.
+- Removed the + and += operators from `Dictionary`.
+- The custom `URLComponents` and `URL` initializers are now internal.
+- The `scopes` properties of `AuthInfo` and the authorization managers are non-optional. Instead, the lack of scopes is represented by an empty set.
+- Renamed `SpotifyLocalError` to `SpotifyGeneralError`.
+
 ## [1.6.1] - 2021-4-26
 
 ### Fixed

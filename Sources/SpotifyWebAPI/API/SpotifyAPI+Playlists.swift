@@ -197,8 +197,7 @@ public extension SpotifyAPI {
            is entirely dependent on the filters you specify, you are responsible
            for decoding the data. Use the combine operators
            `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)` instead
-           `decode(type:decoder:)`. Any error objects returned by Spotify will be
-           decoded automatically and thrown as an error to downstream subscribers.
+           of `decode(type:decoder:)`.
      
      [1]: https://developer.spotify.com/console/get-playlist/
      [2]: https://jsoneditoronline.org/
@@ -232,7 +231,6 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyErrorsNoRetry()
         
         } catch {
             return error.anyFailingPublisher()
@@ -399,8 +397,7 @@ public extension SpotifyAPI {
            is entirely dependent on the filters you specify, you are responsible
            for decoding the data. Use the combine operators
            `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)` instead
-           `decode(type:decoder:)`. Any error objects returned by Spotify will be
-           decoded automatically and thrown as an error to downstream subscribers.
+           of `decode(type:decoder:)`.
      
      [1]: https://developer.spotify.com/console/get-playlist-tracks/
      [2]: https://jsoneditoronline.org/
@@ -426,12 +423,11 @@ public extension SpotifyAPI {
             market: market,
             additionalTypes: additionalTypes
         )
-        .decodeSpotifyErrorsNoRetry()
         
     }
     
     /**
-     Get all of the tracks in a playlist.
+     Get all of the episodes and tracks in a playlist in `Track` format.
      
      # Warning
      

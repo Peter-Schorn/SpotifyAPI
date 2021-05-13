@@ -59,6 +59,15 @@
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -137,7 +146,7 @@
                 <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+                <a href="../Enums/SpotifyGeneralError.html">SpotifyGeneralError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
@@ -259,10 +268,10 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ContextOption.html">ContextOption</a>
+                <a href="../Structs/PlaybackRequest/Context.html">– Context</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+                <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
@@ -372,20 +381,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -398,6 +393,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
@@ -483,9 +481,6 @@
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
               <li class="nav-group-task">
@@ -508,94 +503,16 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Paginated.html">Paginated</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">Void</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">)</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
 
                 </div>
               </div>
             
           </section>
           <section class="section task-group-section">
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPIE10tryFlatMap13maxPublishers_AA0J0O0gH0Vy_AA03AnyB0Vy6OutputQyd__s5Error_pGxGAA11SubscribersO6DemandV_qd__AMQzKctAaBRd__sAO_p7FailureRtzlF"></a>
-                    <a name="//apple_ref/swift/Method/tryFlatMap(maxPublishers:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPIE10tryFlatMap13maxPublishers_AA0J0O0gH0Vy_AA03AnyB0Vy6OutputQyd__s5Error_pGxGAA11SubscribersO6DemandV_qd__AMQzKctAaBRd__sAO_p7FailureRtzlF">tryFlatMap(maxPublishers:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Transforms all elements from an upstream publisher
-into a new or existing publisher.</p>
-
-<p><code>tryFlatMap</code> merges the output from all returned publishers
-into a single stream of output.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">)</span>
-<span class="kd">func</span> <span class="n">tryFlatMap</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="nv">maxPublishers</span><span class="p">:</span> <span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Demand</span> <span class="o">=</span> <span class="o">.</span><span class="n">unlimited</span><span class="p">,</span>
-    <span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">NewPublisher</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span>
-        <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">NewPublisher</span><span class="o">.</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">Self</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>maxPublishers</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The maximum number of publishers produced by this method.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>transform</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A <strong>throwing</strong> closure that takes an element as a parameter
-and returns a publisher that produces elements of that type.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A publisher that transforms elements from an
-  upstream publisher into a publisher of that element’s type.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Available%20where%20%60Output%60%3A%20%60Paginated%60"></a>
@@ -908,11 +825,11 @@ unlimited number of values, prior to returning the subscriber.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60URLResponse%60%29"></a>
-                <a name="//apple_ref/swift/Section/Available where `Output` == (`data`: `Data`, `response`: `URLResponse`)" class="dashAnchor"></a>
+                <a name="/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60HTTPURLResponse%60%29"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output` == (`data`: `Data`, `response`: `HTTPURLResponse`)" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60URLResponse%60%29"></a>
-                  <h3 class="section-name"><p>Available where <code>Output</code> == (<code>data</code>: <code>Data</code>, <code>response</code>: <code>URLResponse</code>)</p>
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60%20%3D%3D%20%28%60data%60%3A%20%60Data%60%2C%20%60response%60%3A%20%60HTTPURLResponse%60%29"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code> == (<code>data</code>: <code>Data</code>, <code>response</code>: <code>HTTPURLResponse</code>)</p>
 </h3>
                 </div>
               </div>
@@ -920,9 +837,9 @@ unlimited number of values, prior to returning the subscriber.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF"></a>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF"></a>
                     <a name="//apple_ref/swift/Method/decodeSpotifyErrors()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF">decodeSpotifyErrors()</a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ErrorsAA03AnyB0VyAgH_AjKts5Error_pGyF">decodeSpotifyErrors()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -948,20 +865,13 @@ to downstream subscribers:</p>
 </ul>
 
 <p>If the data cannot be decoded into one of these errors, then
-<code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code> is thrown as an error to downstream
+<code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code> is thrown as an error to downstream
 subscribers.</p>
 
 <p>Automatically retries the request up to three times, depending on the
 error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
-<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code>
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code>
 is received, then retries if the status code is 500, 502, 503, or 504.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    This method force-downcasts <code>URLResponse</code> to
-  <code>HTTPURLResponse</code>. Only use this method if you are making an
-   HTTP request.
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -978,9 +888,9 @@ is received, then retries if the status code is 500, 502, 503, or 504.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF"></a>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF"></a>
                     <a name="//apple_ref/swift/Method/decodeSpotifyObject(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:<wbr>)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -991,7 +901,7 @@ is received, then retries if the status code is 500, 502, 503, or 504.</p>
                         <p>Tries to decode the raw data from a Spotify web API request.
 You normally don&rsquo;t need to call this method directly.</p>
 
-<p>Use <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF">decodeOptionalSpotifyObject(_:)</a></code> instead if the data might be empty.
+<p>Use <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF">decodeOptionalSpotifyObject(_:)</a></code> instead if the data might be empty.
 Simply passing in an optional type does not work because empty data is
 not considered valid json.</p>
 
@@ -1004,7 +914,7 @@ Spotify via <code><a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06de
 <li><code><a href="../Structs/SpotifyError.html">SpotifyError</a></code></li>
 <li><code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
 <li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
-<li><code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code></li>
+<li><code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code></li>
 </ul>
 
 <p>If a successful status code is returned, then tries to decode the data into
@@ -1013,18 +923,11 @@ resort.</p>
 
 <p>Automatically retries the request up to three times, depending on the
 error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
-<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code>
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code>
 is received, then retries if the status code is 500, 502, 503, or 504.</p>
 
 <p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
 when decoding the <code>responseType</code>, not the error objects.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <p>This method force-downcasts <code>URLResponse</code> to
-  <code>HTTPURLResponse</code>. Only use this method if you are making an
-   HTTP request.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -1050,7 +953,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                               <td>
                                 <div>
                                   <p>The json response that you are
-are expecting from the Spotify web API.</p>
+  are expecting from the Spotify web API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1063,9 +966,9 @@ are expecting from the Spotify web API.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF"></a>
+                    <a name="/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF"></a>
                     <a name="//apple_ref/swift/Method/decodeOptionalSpotifyObject(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF">decodeOptionalSpotifyObject(_:<wbr>)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE014decodeOptionalC6ObjectyAA03AnyB0Vyqd__Sgs5Error_pGqd__mSeRd__lF">decodeOptionalSpotifyObject(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1076,9 +979,9 @@ are expecting from the Spotify web API.</p>
                         <p>Tries to decode the raw data from a Spotify web API request.
 You normally don&rsquo;t need to call this method directly.</p>
 
-<p>Unlike <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code>, first checks to see if the data
+<p>Unlike <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code>, first checks to see if the data
 is empty. If so, returns <code>nil</code>. Simply passing in an optional type
-to <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So13NSURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code> does not work because empty data is not
+to <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code> does not work because empty data is not
 considered valid json.</p>
 
 <p>If the status code of the http response is in the 4xx or 5xx range,
@@ -1090,7 +993,7 @@ Spotify via <code><a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06de
 <li><code><a href="../Structs/SpotifyError.html">SpotifyError</a></code></li>
 <li><code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
 <li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
-<li><code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code></li>
+<li><code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code></li>
 </ul>
 
 <p>If a successful status code is returned, then tries to decode the data into
@@ -1099,18 +1002,11 @@ resort.</p>
 
 <p>Automatically retries the request up to three times, depending on the
 error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
-<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyLocalError.html#/s:13SpotifyWebAPI0A10LocalErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyLocalError.httpError(_:_:)</a></code>
+<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code>
 is received, then retries if the status code is 500, 502, 503, or 504.</p>
 
 <p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
 when decoding the <code>responseType</code>, not the error objects.</p>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <p>This method force-downcasts <code>URLResponse</code> to
-  <code>HTTPURLResponse</code>. Only use this method if you are making an
-   HTTP request.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -1136,7 +1032,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                               <td>
                                 <div>
                                   <p>The json response that you are
-are expecting from the Spotify web API.</p>
+  are expecting from the Spotify web API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1151,7 +1047,7 @@ are expecting from the Spotify web API.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-11)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -59,6 +59,15 @@
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -137,7 +146,7 @@
                 <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+                <a href="../Enums/SpotifyGeneralError.html">SpotifyGeneralError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
@@ -259,10 +268,10 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ContextOption.html">ContextOption</a>
+                <a href="../Structs/PlaybackRequest/Context.html">– Context</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+                <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
@@ -372,20 +381,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -398,6 +393,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
@@ -482,9 +480,6 @@
           <li class="nav-group-name">
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -2727,9 +2722,9 @@ returned without a network request being made.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF"></a>
                     <a name="//apple_ref/swift/Method/filteredPlaylist(_:filters:additionalTypes:market:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:<wbr>filters:<wbr>additionalTypes:<wbr>market:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:<wbr>filters:<wbr>additionalTypes:<wbr>market:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2743,7 +2738,7 @@ and allows you to specify fields to filter the query.</p>
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
@@ -2780,7 +2775,7 @@ otherwise the above doesn&rsquo;t apply.</p>
     <span class="nv">filters</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">additionalTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span><span class="p">],</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -2876,8 +2871,7 @@ is associated with their account in the <a href="https://www.spotify.com/account
   is entirely dependent on the filters you specify, you are responsible
   for decoding the data. Use the combine operators
   <code>decodeSpotifyObject(_:)</code> or <code>decodeOptionalSpotifyObject(_:)</code> instead
-  <code>decode(type:decoder:)</code>. Any error objects returned by Spotify will be
-  decoded automatically and thrown as an error to downstream subscribers.</p>
+  of <code>decode(type:decoder:)</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -2904,7 +2898,7 @@ information about it.</p>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
@@ -2987,9 +2981,9 @@ is associated with their account in the <a href="https://www.spotify.com/account
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF"></a>
                     <a name="//apple_ref/swift/Method/filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:<wbr>filters:<wbr>additionalTypes:<wbr>limit:<wbr>offset:<wbr>market:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:<wbr>filters:<wbr>additionalTypes:<wbr>limit:<wbr>offset:<wbr>market:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3000,13 +2994,13 @@ is associated with their account in the <a href="https://www.spotify.com/account
                         <p>Makes a request to the &ldquo;/playlists/{playlistId}/tracks&rdquo; endpoint
 and allows you to specify fields to filter the query.</p>
 
-<p>Unlike, <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code>,
+<p>Unlike, <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code>,
 this endpoint allows you to request different pages of results.</p>
 
 <p>See also:</p>
 
 <ul>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
@@ -3042,7 +3036,7 @@ otherwise the above doesn&rsquo;t apply.</p>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">market</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">URLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -3164,8 +3158,7 @@ is associated with their account in the <a href="https://www.spotify.com/account
   is entirely dependent on the filters you specify, you are responsible
   for decoding the data. Use the combine operators
   <code>decodeSpotifyObject(_:)</code> or <code>decodeOptionalSpotifyObject(_:)</code> instead
-  <code>decode(type:decoder:)</code>. Any error objects returned by Spotify will be
-  decoded automatically and thrown as an error to downstream subscribers.</p>
+  of <code>decode(type:decoder:)</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -3183,7 +3176,7 @@ is associated with their account in the <a href="https://www.spotify.com/account
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Get all of the tracks in a playlist.</p>
+                        <p>Get all of the episodes and tracks in a playlist in <code><a href="../Structs/Track.html">Track</a></code> format.</p>
 <h1 id='warning' class='heading'>Warning</h1>
 
 <p><strong>This endpoint does NOT return only the tracks in a playlist.</strong>
@@ -3199,7 +3192,7 @@ of <code><a href="../Structs/Track.html">Track</a></code> to check if it is actu
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C13playlistItems_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA0nO0OGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistItems(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
@@ -3325,7 +3318,7 @@ is associated with their account in the <a href="https://www.spotify.com/account
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
 <li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
-<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So13NSURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
 
@@ -4528,9 +4521,9 @@ these properties.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF"></a>
+                    <a name="/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF"></a>
                     <a name="//apple_ref/swift/Method/getFromHref(_:responseType:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">getFromHref(_:<wbr>responseType:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF">getFromHref(_:<wbr>responseType:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -4555,7 +4548,7 @@ appropriate <code>ResponseType</code>.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">getFromHref</span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="p">:</span> <span class="kt">Decodable</span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
     <span class="nv">responseType</span><span class="p">:</span> <span class="kt">ResponseType</span><span class="o">.</span><span class="k">Type</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">ResponseType</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
 
@@ -8847,7 +8840,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-11)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

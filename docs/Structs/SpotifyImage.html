@@ -59,6 +59,15 @@
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -137,7 +146,7 @@
                 <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+                <a href="../Enums/SpotifyGeneralError.html">SpotifyGeneralError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
@@ -259,10 +268,10 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ContextOption.html">ContextOption</a>
+                <a href="../Structs/PlaybackRequest/Context.html">– Context</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+                <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
@@ -372,20 +381,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -398,6 +393,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
@@ -482,9 +480,6 @@
           <li class="nav-group-name">
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -587,9 +582,9 @@ May be <code>nil</code>, especially if uploaded by a user.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A5ImageV3urlSSvp"></a>
+                    <a name="/s:13SpotifyWebAPI0A5ImageV3url10Foundation3URLVvp"></a>
                     <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV3urlSSvp">url</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV3url10Foundation3URLVvp">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -614,7 +609,7 @@ May be <code>nil</code>, especially if uploaded by a user.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
 
                         </div>
                       </div>
@@ -624,9 +619,9 @@ May be <code>nil</code>, especially if uploaded by a user.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AGSStcfc"></a>
+                    <a name="/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AG10Foundation3URLVtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(height:width:url:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AGSStcfc">init(height:<wbr>width:<wbr>url:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A5ImageV6height5width3urlACSiSg_AG10Foundation3URLVtcfc">init(height:<wbr>width:<wbr>url:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -644,7 +639,7 @@ May be <code>nil</code>, especially if uploaded by a user.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">height</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">width</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -737,7 +732,7 @@ cannot be converted to <code>Image</code>, or if some other network error occurs
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-11)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

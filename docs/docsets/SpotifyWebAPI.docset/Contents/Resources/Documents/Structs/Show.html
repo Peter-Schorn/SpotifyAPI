@@ -59,6 +59,15 @@
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -137,7 +146,7 @@
                 <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+                <a href="../Enums/SpotifyGeneralError.html">SpotifyGeneralError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
@@ -259,10 +268,10 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ContextOption.html">ContextOption</a>
+                <a href="../Structs/PlaybackRequest/Context.html">– Context</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+                <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
@@ -372,20 +381,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -398,6 +393,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
@@ -482,9 +480,6 @@
           <li class="nav-group-name">
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -775,9 +770,9 @@ identified by their <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">IS
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI4ShowV4hrefSSvp"></a>
+                    <a name="/s:13SpotifyWebAPI4ShowV4href10Foundation3URLVvp"></a>
                     <a name="//apple_ref/swift/Property/href" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV4hrefSSvp">href</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV4href10Foundation3URLVvp">href</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -787,7 +782,7 @@ identified by their <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">IS
                       <div class="abstract">
                         <p>A link to the Spotify web API endpoint providing the full show object.</p>
 
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in <code>Show</code> as the
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in <code>Show</code> as the
 response type to retrieve the results.</p>
 
                       </div>
@@ -795,7 +790,7 @@ response type to retrieve the results.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
 
                         </div>
                       </div>
@@ -805,9 +800,9 @@ response type to retrieve the results.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI4ShowV12externalURLsSDyS2SGSgvp"></a>
+                    <a name="/s:13SpotifyWebAPI4ShowV12externalURLsSDySS10Foundation3URLVGSgvp"></a>
                     <a name="//apple_ref/swift/Property/externalURLs" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV12externalURLsSDyS2SGSgvp">externalURLs</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV12externalURLsSDySS10Foundation3URLVGSgvp">externalURLs</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -828,7 +823,7 @@ response type to retrieve the results.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">URL</span><span class="p">]?</span></code></pre>
 
                         </div>
                       </div>
@@ -1003,9 +998,9 @@ Only available for the full version.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI4ShowV4name11description8episodes13totalEpisodes10isExplicit3uri2id6images16availableMarkets4href12externalURLs0J16ExternallyHosted9languages10copyrights9mediaType9publisherACSS_SSAA12PagingObjectVyAA7EpisodeVGSgSiSbS2SSayAA0A5ImageVGSgSaySSGSSSDyS2SGSgSbA2_SayAA0A9CopyrightVGSgS2Stcfc"></a>
+                    <a name="/s:13SpotifyWebAPI4ShowV4name11description8episodes13totalEpisodes10isExplicit3uri2id6images16availableMarkets4href12externalURLs0J16ExternallyHosted9languages10copyrights9mediaType9publisherACSS_SSAA12PagingObjectVyAA7EpisodeVGSgSiSbS2SSayAA0A5ImageVGSgSaySSG10Foundation3URLVSDySSA5_GSgSbA2_SayAA0A9CopyrightVGSgS2Stcfc"></a>
                     <a name="//apple_ref/swift/Method/init(name:description:episodes:totalEpisodes:isExplicit:uri:id:images:availableMarkets:href:externalURLs:isExternallyHosted:languages:copyrights:mediaType:publisher:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV4name11description8episodes13totalEpisodes10isExplicit3uri2id6images16availableMarkets4href12externalURLs0J16ExternallyHosted9languages10copyrights9mediaType9publisherACSS_SSAA12PagingObjectVyAA7EpisodeVGSgSiSbS2SSayAA0A5ImageVGSgSaySSGSSSDyS2SGSgSbA2_SayAA0A9CopyrightVGSgS2Stcfc">init(name:<wbr>description:<wbr>episodes:<wbr>totalEpisodes:<wbr>isExplicit:<wbr>uri:<wbr>id:<wbr>images:<wbr>availableMarkets:<wbr>href:<wbr>externalURLs:<wbr>isExternallyHosted:<wbr>languages:<wbr>copyrights:<wbr>mediaType:<wbr>publisher:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI4ShowV4name11description8episodes13totalEpisodes10isExplicit3uri2id6images16availableMarkets4href12externalURLs0J16ExternallyHosted9languages10copyrights9mediaType9publisherACSS_SSAA12PagingObjectVyAA7EpisodeVGSgSiSbS2SSayAA0A5ImageVGSgSaySSG10Foundation3URLVSDySSA5_GSgSbA2_SayAA0A9CopyrightVGSgS2Stcfc">init(name:<wbr>description:<wbr>episodes:<wbr>totalEpisodes:<wbr>isExplicit:<wbr>uri:<wbr>id:<wbr>images:<wbr>availableMarkets:<wbr>href:<wbr>externalURLs:<wbr>isExternallyHosted:<wbr>languages:<wbr>copyrights:<wbr>mediaType:<wbr>publisher:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1030,8 +1025,8 @@ Only available for the full version.</p>
     <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">availableMarkets</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
-    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">URL</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">isExternallyHosted</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="nv">languages</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
     <span class="nv">copyrights</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyCopyright.html">SpotifyCopyright</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -1299,7 +1294,7 @@ floating point properties for the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-11)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

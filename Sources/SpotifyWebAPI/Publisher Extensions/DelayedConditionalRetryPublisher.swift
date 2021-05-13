@@ -177,13 +177,13 @@ extension Publisher {
                     // first place.
                     case 2:
                         var millisecondsDelay = secondsDelay * 1_000
-                        // + 0...5 seconds; step: 0.01 seconds
-                        millisecondsDelay += Int.random(in: 0...500) * 10
+                        // + 0...5 seconds
+                        millisecondsDelay += Int.random(in: 0...5_000)
                         return .milliseconds(millisecondsDelay)
                     default /* 1 */:
                         var millisecondsDelay = secondsDelay * 1000
-                        // + 5...10 seconds; step: 0.01 seconds
-                        millisecondsDelay += Int.random(in: 500...1_000) * 10
+                        // + 5...10 seconds
+                        millisecondsDelay += Int.random(in: 5_000...10_000)
                         return .milliseconds(millisecondsDelay)
                 }
             }

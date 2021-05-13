@@ -59,6 +59,15 @@
                 <a href="../Classes/ClientCredentialsFlowManager.html">ClientCredentialsFlowManager</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/Scope.html">Scope</a>
               </li>
               <li class="nav-group-task">
@@ -137,7 +146,7 @@
                 <a href="../Structs/SpotifyPlayerError/ErrorReason.html">– ErrorReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SpotifyLocalError.html">SpotifyLocalError</a>
+                <a href="../Enums/SpotifyGeneralError.html">SpotifyGeneralError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RateLimitedError.html">RateLimitedError</a>
@@ -259,10 +268,10 @@
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ContextOption.html">ContextOption</a>
+                <a href="../Structs/PlaybackRequest/Context.html">– Context</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/OffsetOption.html">OffsetOption</a>
+                <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
@@ -372,20 +381,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Global%20Variables.html">Other Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -398,6 +393,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/Endpoints.html">Endpoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Headers.html">Headers</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/IDCategory.html">IDCategory</a>
@@ -482,9 +480,6 @@
           <li class="nav-group-name">
             <a href="../Other%20Typealiases.html">Other Type Aliases</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI23PlaylistsItemsReferencea">PlaylistsItemsReference</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Other%20Typealiases.html#/s:13SpotifyWebAPI10SavedAlbuma">SavedAlbum</a>
               </li>
@@ -728,9 +723,9 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI8PlaylistV12externalURLsSDyS2SGSgvp"></a>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV12externalURLsSDySS10Foundation3URLVGSgvp"></a>
                     <a name="//apple_ref/swift/Property/externalURLs" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV12externalURLsSDyS2SGSgvp">externalURLs</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV12externalURLsSDySS10Foundation3URLVGSgvp">externalURLs</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -751,7 +746,7 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">URL</span><span class="p">]?</span></code></pre>
 
                         </div>
                       </div>
@@ -790,9 +785,9 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI8PlaylistV4hrefSSvp"></a>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV4href10Foundation3URLVvp"></a>
                     <a name="//apple_ref/swift/Property/href" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4hrefSSvp">href</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4href10Foundation3URLVvp">href</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -803,14 +798,14 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                         <p>A link to the Spotify web API endpoint providing full details of the
 playlist.</p>
 
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pGSS_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results.</p>
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code> to retrieve the results.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">href</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
 
                         </div>
                       </div>
@@ -916,9 +911,36 @@ uploaded by the user.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic0H13Collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDyS2SGSgAA9FollowersVSgS3SSayAA0A5ImageVGtcfc"></a>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV4typeAA10IDCategoryOvp"></a>
+                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4typeAA10IDCategoryOvp">type</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The object type. Always <code>playlist</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Enums/IDCategory.html">IDCategory</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic0H13Collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDySS10Foundation3URLVGSgAA9FollowersVSgAYS2SSayAA0A5ImageVGtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(name:items:owner:isPublic:isCollaborative:description:snapshotId:externalURLs:followers:href:id:uri:images:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic0H13Collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDyS2SGSgAA9FollowersVSgS3SSayAA0A5ImageVGtcfc">init(name:<wbr>items:<wbr>owner:<wbr>isPublic:<wbr>isCollaborative:<wbr>description:<wbr>snapshotId:<wbr>externalURLs:<wbr>followers:<wbr>href:<wbr>id:<wbr>uri:<wbr>images:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI8PlaylistV4name5items5owner8isPublic0H13Collaborative11description10snapshotId12externalURLs9followers4href2id3uri6imagesACyxGSS_xAA0A4UserVSgSbSgSbSSSgSSSDySS10Foundation3URLVGSgAA9FollowersVSgAYS2SSayAA0A5ImageVGtcfc">init(name:<wbr>items:<wbr>owner:<wbr>isPublic:<wbr>isCollaborative:<wbr>description:<wbr>snapshotId:<wbr>externalURLs:<wbr>followers:<wbr>href:<wbr>id:<wbr>uri:<wbr>images:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -941,9 +963,9 @@ uploaded by the user.</p>
     <span class="nv">isCollaborative</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">snapshotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">externalURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">URL</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">followers</span><span class="p">:</span> <span class="kt"><a href="../Structs/Followers.html">Followers</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">href</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">href</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
     <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">uri</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/SpotifyImage.html">SpotifyImage</a></span><span class="p">]</span>
@@ -1140,7 +1162,7 @@ details of the playlist.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-11)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

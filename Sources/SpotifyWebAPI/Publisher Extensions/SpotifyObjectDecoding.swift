@@ -186,10 +186,10 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
         let urlString = httpURLResponse.url?.absoluteString ?? "nil"
         spotifyDecodeLogger.trace(
             """
-                will try to decode the raw data from the URL '\(urlString)' \
-                into '\(responseType)':
-                \(dataString)
-                """
+            will try to decode the raw data from the URL '\(urlString)' \
+            into '\(responseType)':
+            \(dataString)
+            """
         )
     }
     
@@ -219,30 +219,6 @@ public func decodeSpotifyObject<ResponseType: Decodable>(
 
 // MARK: - Publisher Extensions -
 
-extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
- 
-    /// Use if `decodeSpotifyObject` or `decodeOptionalSpotifyObject`
-    /// will also be applied in the same publishing stream in order to
-    /// avoid using the `retryOnSpotifyErrors` operator twice.
-    func decodeSpotifyErrorsNoRetry() -> AnyPublisher<Self.Output, Error> {
-
-        return self.tryMap { data, response in
-
-            if let error = SpotifyWebAPI.decodeSpotifyErrors(
-                data: data, httpURLResponse: response
-            ) {
-                throw error
-            }
-
-            return (data, response)
-
-        }
-        .eraseToAnyPublisher()
-
-    }
-
-}
-
 public extension Publisher where Output == (data: Data, response: HTTPURLResponse) {
 
     /**
@@ -270,15 +246,22 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      `SpotifyError`, `SpotifyPlayerError`, or `SpotifyGeneralError.httpError(_:_:)`
      is received, then retries if the status code is 500, 502, 503, or 504.
 
-     - Warning: This method force-downcasts `URLResponse` to
-           `HTTPURLResponse`. Only use this method if you are making an
-            HTTP request.
      */
     func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
-        return self.decodeSpotifyErrorsNoRetry()
-            .retryOnSpotifyErrors()
+        return self.tryMap { data, response in
+            
+            if let error = SpotifyWebAPI.decodeSpotifyErrors(
+                data: data, httpURLResponse: response
+            ) {
+                throw error
+            }
+            
+            return (data, response)
+            
+        }
+        .retryOnSpotifyErrors()
+        
     }
-    
 
     /**
      Tries to decode the raw data from a Spotify web API request.
@@ -311,11 +294,7 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      when decoding the `responseType`, not the error objects.
 
      - Parameter responseType: The json response that you are
-     are expecting from the Spotify web API.
-
-     - Warning: This method force-downcasts `URLResponse` to
-           `HTTPURLResponse`. Only use this method if you are making an
-            HTTP request.
+           are expecting from the Spotify web API.
      
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
@@ -368,12 +347,8 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      when decoding the `responseType`, not the error objects.
 
      - Parameter responseType: The json response that you are
-     are expecting from the Spotify web API.
+           are expecting from the Spotify web API.
 
-     - Warning: This method force-downcasts `URLResponse` to
-           `HTTPURLResponse`. Only use this method if you are making an
-            HTTP request.
-     
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeOptionalSpotifyObject<ResponseType: Decodable>(
