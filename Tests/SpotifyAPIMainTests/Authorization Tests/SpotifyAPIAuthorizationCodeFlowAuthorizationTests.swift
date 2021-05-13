@@ -82,7 +82,7 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             )
         }
 
-        XCTAssertNil(Self.spotify.authorizationManager.scopes)
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes, [])
         XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized(for: []))
 
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(

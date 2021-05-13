@@ -311,8 +311,21 @@ public extension String {
 }
 
 public struct VaporServerError: Error, Codable {
+    
+    /// The reason for the error.
     public let reason: String
+    
+    /// Always set to `true` to indicate that the JSON payload represents an
+    /// error response.
     public let error: Bool
+}
+
+extension VaporServerError: CustomStringConvertible {
+    public var description: String {
+        return """
+            \(Self.self)(reason: "\(self.reason)")
+            """
+    }
 }
 
 public func decodeVaporServerError(

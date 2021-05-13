@@ -197,7 +197,7 @@ extension SpotifyLocalError: CustomStringConvertible {
                     """
             case .httpError(let response, let data):
                 let dataString = String(data: data, encoding: .utf8)
-                        ?? "\(data)"
+                    .map({ #""\#($0)""# }) ?? "\(data)"
                 return """
                     SpotifyLocalError.httpError(\
                     HTTPURLResponse: \(response), Data: \(dataString))
