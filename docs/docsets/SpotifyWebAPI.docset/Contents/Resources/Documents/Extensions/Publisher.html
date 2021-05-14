@@ -543,11 +543,11 @@
 
 <p>Compare with <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPagesConcurrently(_:maxExtraPages:)</a></code>.</p>
 
-<p>Each time an additional page is received, its <code>next</code> property is used
-to retrieve the next page of results, and so on, until <code>next</code> is <code>nil</code>
-or <code>maxExtraPages</code> is reached. This means that the next page will not
-be requested until the previous one is received and that the pages
-will always be returned in order.</p>
+<p>Each time an additional page is received, its <code>next</code> property is used to
+retrieve the next page of results, and so on, until <code>next</code> is <code>nil</code> or
+<code>maxExtraPages</code> is reached. This means that the next page will not be
+requested until the previous one is received and that the pages will always
+be returned in order.</p>
 
 <p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
 
@@ -576,9 +576,8 @@ will always be returned in order.</p>
                               <td>
                                 <div>
                                   <p>An instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, which is required for
-accessing the access token required to make requests to
-the Spotify web API. The access token will also be refreshed if
-needed.</p>
+accessing the access token required to make requests to the Spotify
+web API. The access token will also be refreshed if needed.</p>
                                 </div>
                               </td>
                             </tr>
@@ -590,9 +589,9 @@ needed.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The maximum number of additional pages to retrieve.
-For example, to just get the next page, use <code>1</code>. Leave as
-<code>nil</code> (default) to retrieve all pages of results.</p>
+                                  <p>The maximum number of additional pages to retrieve. For
+example, to just get the next page, use <code>1</code>. Leave as <code>nil</code>
+(default) to retrieve all pages of results.</p>
                                 </div>
                               </td>
                             </tr>
@@ -601,9 +600,9 @@ For example, to just get the next page, use <code>1</code>. Leave as
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A publisher that immediately republishes the page received
-  from the upstream publisher, as well as additional pages that are
-  returned by the Spotify web API.</p>
+                        <p>A publisher that immediately republishes the page received from
+  the upstream publisher, as well as additional pages that are returned
+  by the Spotify web API.</p>
                       </div>
                     </section>
                   </div>
@@ -634,21 +633,19 @@ For example, to just get the next page, use <code>1</code>. Leave as
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieves additional pages of results from a paging object
-<em>concurrently</em>.</p>
+                        <p>Retrieves additional pages of results from a paging object <em>concurrently</em>.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C23extendPagesConcurrently_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA20PagingObjectProtocolRd__lF">SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)</a></code>.</p>
 
 <p>Compare with <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD9Paginated6OutputRpzrlE11extendPages_08maxExtraI0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPages(_:maxExtraPages:)</a></code>.</p>
 
-<p>This method immediately republishes the page of results that
-were passed in and then requests additional pages <em>concurrently</em>.
-This method has better performance than
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>, which must wait for
-the previous page to be received before requesting the next page.
-<strong>However, the order in which the pages are received is</strong>
-<strong>unpredictable.</strong> If you need to wait all pages to be received
-before processing them, then always use this method.</p>
+<p>This method immediately republishes the page of results that were passed in
+and then requests additional pages <em>concurrently</em>. This method has better
+performance than <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11extendPages_08maxExtraE07Combine12AnyPublisherVyqd__s5Error_pGqd___SiSgtAA9PaginatedRd__lF">SpotifyAPI.extendPages(_:maxExtraPages:)</a></code>, which must
+wait for the previous page to be received before requesting the next page.
+<strong>However, the order in which the pages are received unpredictable.</strong>
+If you need to wait all pages to be received before processing them, then
+always use this method.</p>
 
 <p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
 
@@ -679,9 +676,8 @@ before processing them, then always use this method.</p>
                               <td>
                                 <div>
                                   <p>An instance of <code><a href="../Classes/SpotifyAPI.html">SpotifyAPI</a></code>, which is required for
-accessing the access token required to make requests to
-the Spotify web API. The access token will also be refreshed if
-needed.</p>
+accessing the access token required to make requests to the Spotify
+web API. The access token will also be refreshed if needed.</p>
                                 </div>
                               </td>
                             </tr>
@@ -693,9 +689,9 @@ needed.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The maximum number of additional pages to retrieve.
-For example, to just get the next page, use <code>1</code>. Leave as
-<code>nil</code> (default) to retrieve all pages of results.</p>
+                                  <p>The maximum number of additional pages to retrieve. For
+example, to just get the next page, use <code>1</code>. Leave as <code>nil</code>
+(default) to retrieve all pages of results.</p>
                                 </div>
                               </td>
                             </tr>
@@ -704,9 +700,9 @@ For example, to just get the next page, use <code>1</code>. Leave as
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A publisher that immediately republishes the page received
-  from the upstream publisher, as well as additional pages that are
-  returned by the Spotify web API.</p>
+                        <p>A publisher that immediately republishes the page received from
+  the upstream publisher, as well as additional pages that are returned
+  by the Spotify web API.</p>
                       </div>
                     </section>
                   </div>
@@ -729,9 +725,9 @@ publisher and then sorts the items based on the offset of each page they
 were received in.</p>
 
 <p>This method is particularly useful in combination with
-<code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPagesConcurrently(_:maxExtraPages:)</a></code>, which delivers
-pages in an unpredictable order. It waits for all pages to be delivered
-and then sorts them and returns just the items in the pages.</p>
+<code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPIAD20PagingObjectProtocol6OutputRpzrlE23extendPagesConcurrently_08maxExtraK0AA03AnyB0VyAGs5Error_pGAD0cE0Cyqd__G_SiSgtAD0C20AuthorizationManagerRd__lF">Publisher.extendPagesConcurrently(_:maxExtraPages:)</a></code>, which delivers pages
+in an unpredictable order. It waits for all pages to be delivered and then
+sorts them and returns just the items in the pages.</p>
 
 <p>See <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results">Working with Paginated Results</a>.</p>
 
@@ -776,12 +772,12 @@ and then sorts them and returns just the items in the pages.</p>
                         <p>A convenience wrapper for sink that only requires a <code>receiveCompletion</code>
 closure. Available when <code>Output</code> == <code>Void</code>.</p>
 
-<p>You are discouraged from using trailing closure syntax with this
-method in order to avoid confusion with <code>sink(receiveValue:)</code>
-(available when <code>Failure</code> == <code>Never</code>).</p>
+<p>You are discouraged from using trailing closure syntax with this method in
+order to avoid confusion with <code>sink(receiveValue:)</code> (available when
+<code>Failure</code> == <code>Never</code>).</p>
 
-<p>This method creates the subscriber and immediately requests an
-unlimited number of values, prior to returning the subscriber.</p>
+<p>This method creates the subscriber and immediately requests an unlimited
+number of values, prior to returning the subscriber.</p>
 
                       </div>
                       <div class="declaration">
@@ -815,8 +811,8 @@ unlimited number of values, prior to returning the subscriber.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A subscriber that performs the provided closure upon
-  receiving completion.</p>
+                        <p>A subscriber that performs the provided closure upon receiving
+  completion.</p>
                       </div>
                     </section>
                   </div>
@@ -925,9 +921,12 @@ resort.</p>
 error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
 <code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code>
 is received, then retries if the status code is 500, 502, 503, or 504.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p><code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered when
+  decoding the <code>responseType</code>, not the error objects.</p>
 
-<p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
-when decoding the <code>responseType</code>, not the error objects.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -952,8 +951,8 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The json response that you are
-  are expecting from the Spotify web API.</p>
+                                  <p>The json response that you are expecting from the
+  Spotify web API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -976,17 +975,17 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tries to decode the raw data from a Spotify web API request.
-You normally don&rsquo;t need to call this method directly.</p>
+                        <p>Tries to decode the raw data from a Spotify web API request. You normally
+don&rsquo;t need to call this method directly.</p>
 
-<p>Unlike <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code>, first checks to see if the data
-is empty. If so, returns <code>nil</code>. Simply passing in an optional type
-to <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code> does not work because empty data is not
+<p>Unlike <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code>, first checks to see if the data is empty.
+If so, returns <code>nil</code>. Simply passing in an optional type to
+<code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP13SpotifyWebAPI10Foundation4DataV4data_So17NSHTTPURLResponseC8responset6OutputRtzrlE06decodeC6ObjectyAA03AnyB0Vyqd__s5Error_pGqd__mSeRd__lF">decodeSpotifyObject(_:)</a></code> does not work because empty data is not
 considered valid json.</p>
 
-<p>If the status code of the http response is in the 4xx or 5xx range,
-then the data will be decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by
-Spotify via <code><a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a></code>:</p>
+<p>If the status code of the http response is in the 4xx or 5xx range, then
+the data will be decoded into one of the <a href="https://developer.spotify.com/documentation/web-api/#response-schema">errors</a> returned by Spotify
+via <code><a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06decodeA6Errors4data15httpURLResponses5Error_pSg10Foundation4DataV_So17NSHTTPURLResponseCtF">decodeSpotifyErrors(data:httpURLResponse:)</a></code>:</p>
 
 <ul>
 <li><code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
@@ -997,16 +996,19 @@ Spotify via <code><a href="../Publisher%20Extensions.html#/s:13SpotifyWebAPI06de
 </ul>
 
 <p>If a successful status code is returned, then tries to decode the data into
-<code>responseType</code>. If that fails, then <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown as a last
-resort.</p>
+<code>responseType</code>. If that fails, then <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> is thrown as a
+last resort.</p>
 
-<p>Automatically retries the request up to three times, depending on the
-error received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a
-<code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code>
-is received, then retries if the status code is 500, 502, 503, or 504.</p>
+<p>Automatically retries the request up to three times, depending on the error
+received. Retries upon receiving a <code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code>. If a <code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>,
+<code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>, or <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">SpotifyGeneralError.httpError(_:_:)</a></code> is received,
+then retries if the status code is 500, 502, 503, or 504.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p><code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered when
+  decoding the <code>responseType</code>, not the error objects.</p>
 
-<p><strong>Note</strong>: <code><a href="../Structs/SpotifyDecodingError.html">SpotifyDecodingError</a></code> represents the error encountered
-when decoding the <code>responseType</code>, not the error objects.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -1031,8 +1033,8 @@ when decoding the <code>responseType</code>, not the error objects.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The json response that you are
-  are expecting from the Spotify web API.</p>
+                                  <p>The json response that you are expecting from the
+  Spotify web API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1047,7 +1049,7 @@ when decoding the <code>responseType</code>, not the error objects.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

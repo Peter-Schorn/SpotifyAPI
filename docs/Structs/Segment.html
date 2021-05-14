@@ -614,8 +614,8 @@ may correspond to low values in this field.</p>
                       <div class="abstract">
                         <p>The onset loudness of the segment in decibels (dB).</p>
 
-<p>Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these components
-can be used to describe the “attack” of the segment.</p>
+<p>Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these components can be
+used to describe the “attack” of the segment.</p>
 
                       </div>
                       <div class="declaration">
@@ -644,8 +644,8 @@ can be used to describe the “attack” of the segment.</p>
                       <div class="abstract">
                         <p>The peak loudness of the segment in decibels (dB).</p>
 
-<p>Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these components
-can be used to describe the “attack” of the segment.</p>
+<p>Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these components can
+be used to describe the “attack” of the segment.</p>
 
                       </div>
                       <div class="declaration">
@@ -672,9 +672,10 @@ can be used to describe the “attack” of the segment.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The segment-relative offset of the segment peak loudness in seconds.
-Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code>, these components can
-be used to describe the “attack” of the segment.</p>
+                        <p>The segment-relative offset of the segment peak loudness in seconds.</p>
+
+<p>Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code>, these components can be
+used to describe the “attack” of the segment.</p>
 
                       </div>
                       <div class="declaration">
@@ -702,10 +703,10 @@ be used to describe the “attack” of the segment.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A “chroma” vector representing the pitch content of the segment,
-corresponding to the 12 pitch classes C, C#, D to B, with values
-ranging from 0 to 1 that describe the relative dominance of every
-pitch in the chromatic scale. More details about how to interpret
-this vector can be found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch">here</a>.</p>
+corresponding to the 12 pitch classes C, C#, D to B, with values ranging
+from 0 to 1 that describe the relative dominance of every pitch in the
+chromatic scale. More details about how to interpret this vector can be
+found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch">here</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -733,9 +734,9 @@ this vector can be found <a href="https://developer.spotify.com/documentation/we
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Timbre is the quality of a musical note or sound that distinguishes
-different types of musical instruments, or voices. Timbre vectors are
-best used in comparison with each other. More details about how to
-interpret this vector can be found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#timbre">here</a>.</p>
+different types of musical instruments, or voices. Timbre vectors are best
+used in comparison with each other. More details about how to interpret
+this vector can be found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#timbre">here</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -764,8 +765,8 @@ interpret this vector can be found <a href="https://developer.spotify.com/docume
                       <div class="abstract">
                         <p>The offset loudness of the segment in decibels (dB).</p>
 
-<p>This value should be equivalent to the <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> of the
-following segment.</p>
+<p>This value should be equivalent to the <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> of the following
+segment.</p>
 
                       </div>
                       <div class="declaration">
@@ -792,7 +793,7 @@ following segment.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Crestes a <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object">segment</a> of a track.</p>
+                        <p>Creates a <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object">segment</a> of a track.</p>
 
                       </div>
                       <div class="declaration">
@@ -849,10 +850,9 @@ following segment.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The confidence, from 0.0 to 1.0, of the reliability of
-the segmentation. Segments of the song which are difficult to
-logically segment (e.g: noise) may correspond to low values in
-this field.</p>
+                                  <p>The confidence, from 0.0 to 1.0, of the reliability of the
+segmentation. Segments of the song which are difficult to logically
+segment (e.g: noise) may correspond to low values in this field.</p>
                                 </div>
                               </td>
                             </tr>
@@ -878,9 +878,9 @@ can be used to describe the “attack” of the segment.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The peak loudness of the segment in decibels (dB). Combined
-with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these components can be
-used to describe the “attack” of the segment.</p>
+                                  <p>The peak loudness of the segment in decibels (dB).
+Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV15loudnessMaxTimeSdvp">loudnessMaxTime</a></code>, these
+components can be used to describe the “attack” of the segment.</p>
                                 </div>
                               </td>
                             </tr>
@@ -892,9 +892,10 @@ used to describe the “attack” of the segment.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The segment-relative offset of the segment peak loudness
-in seconds. Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code>, these
-components can be used to describe the “attack” of the segment.</p>
+                                  <p>The segment-relative offset of the segment peak
+loudness in seconds. Combined with <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> and
+<code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV11loudnessMaxSdvp">loudnessMax</a></code>, these components can be used to describe the
+“attack” of the segment.</p>
                                 </div>
                               </td>
                             </tr>
@@ -906,11 +907,11 @@ components can be used to describe the “attack” of the segment.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A “chroma” vector representing the pitch content of the segment,
-corresponding to the 12 pitch classes C, C#, D to B, with values
-ranging from 0 to 1 that describe the relative dominance of every
-pitch in the chromatic scale. More details about how to interpret
-this vector can be found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch">here</a>.</p>
+                                  <p>A “chroma” vector representing the pitch content of the
+segment, corresponding to the 12 pitch classes C, C#, D to B, with
+values ranging from 0 to 1 that describe the relative dominance of
+every pitch in the chromatic scale. More details about how to
+interpret this vector can be found <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch">here</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -937,9 +938,9 @@ details about how to interpret this vector can be found <a href="https://develop
                               </td>
                               <td>
                                 <div>
-                                  <p>The offset loudness of the segment in decibels (dB).
-This value should be equivalent to the <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> of the
-following segment.</p>
+                                  <p>The offset loudness of the segment in decibels (dB). This
+value should be equivalent to the <code><a href="../Structs/Segment.html#/s:13SpotifyWebAPI7SegmentV13loudnessStartSdvp">loudnessStart</a></code> of the following
+segment.</p>
                                 </div>
                               </td>
                             </tr>
@@ -962,9 +963,9 @@ following segment.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns <code>true</code> if all the properties of <code>self</code> are approximately
-equal to those of <code>other</code> within an absolute tolerance of 0.001.
-Else, returns <code>false</code>.</p>
+                        <p>Returns <code>true</code> if all the properties of <code>self</code> are approximately equal to
+those of <code>other</code> within an absolute tolerance of 0.001. Else, returns
+<code>false</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -1002,7 +1003,7 @@ Else, returns <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

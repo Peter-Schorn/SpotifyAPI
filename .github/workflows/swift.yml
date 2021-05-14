@@ -50,7 +50,8 @@ jobs:
         SpotifyAPIClientCredentialsFlowTrackTests|\
         SpotifyAPIClientCredentialsFlowUserProfileTests|\
         SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests\
+        SpotifyPlayerErrorCodingTests|\
+        RepeatModeTests\
         "
 
   test_linux:
@@ -103,7 +104,8 @@ jobs:
         SpotifyAPIClientCredentialsFlowTrackTests|\
         SpotifyAPIClientCredentialsFlowUserProfileTests|\
         SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests\
+        SpotifyPlayerErrorCodingTests|\
+        RepeatModeTests\
         "
   
   test_other_platforms:
@@ -158,7 +160,8 @@ jobs:
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowTrackTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowUserProfileTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
-        -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests"
+        -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests" \
+        -only-testing "RepeatModeTests"
         
   build_watch_os_mac_catalyst:
     strategy:

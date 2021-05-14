@@ -507,15 +507,14 @@
 
                 </div>
               </div>
-            <p>A container that holds <code><a href="../Structs/URIWithPositions.html">URIWithPositions</a></code> and, optionally,
-the <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of the playlist that the items associated with the URIs
-(usually tracks/episodes) are contained in.</p>
+            <p>A container that holds <code><a href="../Structs/URIWithPositions.html">URIWithPositions</a></code> and, optionally, the <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a>
+of the playlist that the items associated with the URIs (usually
+tracks/episodes) are contained in.</p>
 
-<p>Used in the body of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
+<p>Used in the body of <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE37removeSpecificOccurrencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)</a></code>.</p>
 
-<p>This is used for removing specific occurences of items from a playlist.
-The positions of the URIs are necessary in case the playlist has duplicate
-items.</p>
+<p>This is used for removing specific occurrences of items from a playlist. The
+positions of the URIs are necessary in case the playlist has duplicate items.</p>
 
 <p>Compare with <code><a href="../Structs/URIsContainer.html">URIsContainer</a></code>.</p>
 
@@ -592,8 +591,8 @@ items.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a container that holds an array of URIs and their positions
-in a playlist.</p>
+                        <p>Creates a container that holds an array of URIs and their positions in a
+playlist.</p>
 
 <p>See also:</p>
 
@@ -626,12 +625,12 @@ in a playlist.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of a playlist. If <code>nil</code>,
-the most recent version of the playist is targeted.
-This is an identifer for the current version of the playlist.
-Every time the playlist changes, a new snapshot id is generated.
-You can use this value to efficiently determine whether a playlist
-has changed since the last time you retrieved it.</p>
+                                  <p>The <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of a playlist. If <code>nil</code>, the most
+recent version of the playlist is targeted. This is an identifier
+for the current version of the playlist. Every time the playlist
+changes, a new snapshot id is generated. You can use this value to
+efficiently determine whether a playlist has changed since the last
+time you retrieved it.</p>
                                 </div>
                               </td>
                             </tr>
@@ -643,10 +642,10 @@ has changed since the last time you retrieved it.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A collection of URIs along with their positions
-in a playlist. The
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>
-endpoint accepts a maximum of 100 items.</p>
+                                  <p>A collection of URIs along with their positions in
+a playlist. The
+<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE37removeSpecificOccurrencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)</a></code>
+ endpoint accepts a maximum of 100 items.</p>
                                 </div>
                               </td>
                             </tr>
@@ -703,12 +702,12 @@ playlist.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of a playlist. If <code>nil</code>,
-the most recent version of the playist is targeted.
-This is an identifer for the current version of the playlist.
-Every time the playlist changes, a new snapshot id is generated.
-You can use this value to efficiently determine whether a playlist
-has changed since the last time you retrieved it.</p>
+                                  <p>The <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> of a playlist. If <code>nil</code>, the most
+recent version of the playlist is targeted. This is an identifier
+for the current version of the playlist. Every time the playlist
+changes, a new snapshot id is generated. You can use this value to
+efficiently determine whether a playlist has changed since the last
+time you retrieved it.</p>
                                 </div>
                               </td>
                             </tr>
@@ -747,13 +746,12 @@ position.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates an array of <code>Self</code>, each element of which can be used in
-a request to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code>.</p>
+                        <p>Creates an array of <code>Self</code>, each element of which can be used in a request
+to <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE37removeSpecificOccurrencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)</a></code>.</p>
 
-<p><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE36removeSpecificOccurencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)</a></code> accepts a
-maximum of 100 unique items. Use this method when you need to remove
-more than 100 unique items from a playlist by making a separate request
-for each element.</p>
+<p><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE37removeSpecificOccurrencesFromPlaylist_2of7Combine12AnyPublisherVySSs5Error_pGAA0A14URIConvertible_p_AA26URIsWithPositionsContainerVtF">SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)</a></code> accepts a maximum
+of 100 unique items. Use this method when you need to remove more than 100
+unique items from a playlist by making a separate request for each element.</p>
 
                       </div>
                       <div class="declaration">
@@ -797,7 +795,7 @@ for each element.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -554,9 +554,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The items in this <code>Playlist</code>. Consult the documentation
-for the specific endpoint that this playlist was retrieved
-from for more information.</p>
+                        <p>The items in this <code>Playlist</code>. Consult the documentation for the specific
+endpoint that this playlist was retrieved from for more information.</p>
 
                       </div>
                       <div class="declaration">
@@ -612,8 +611,8 @@ from for more information.</p>
                       <div class="abstract">
                         <p>The playlist’s public/private status.</p>
 
-<p>If <code>true</code> the playlist is public; if <code>false</code>, the playlist is private.
-If <code>nil</code>, the playlist status is not relevant.</p>
+<p>If <code>true</code> the playlist is public; if <code>false</code>, the playlist is private. If
+<code>nil</code>, the playlist status is not relevant.</p>
 
 <p>For more about public/private status, see <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status">Working with Playlists</a>.</p>
 
@@ -642,9 +641,9 @@ If <code>nil</code>, the playlist status is not relevant.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>true</code> if context is not search (you retrieved this playlist
-using the search endpoint) and the owner allows
-other users to modify the playlist. Else, <code>false</code>.</p>
+                        <p><code>true</code> if the owner allows others to modify the playlist; else, <code>false</code></p>
+
+<p>Will always be <code>false</code> if retrieved from the search endpoint.</p>
 
                       </div>
                       <div class="declaration">
@@ -671,8 +670,8 @@ other users to modify the playlist. Else, <code>false</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The playlist description. Only returned for modified,
-verified playlists, else <code>nil</code>.</p>
+                        <p>The playlist description. Only returned for modified, verified
+playlists, else <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -701,12 +700,12 @@ verified playlists, else <code>nil</code>.</p>
                       <div class="abstract">
                         <p>The version identifier for the current playlist.</p>
 
-<p>Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated.
-You can use this value to efficiently determine whether a playlist
-has changed since the last time you retrieved it.</p>
+<p>Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated. You
+can use this value to efficiently determine whether a playlist has changed
+since the last time you retrieved it.</p>
 
-<p>Can be supplied in other requests to target a specific
-playlist version: see <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist">Remove Tracks from a Playlist</a>.</p>
+<p>Can be supplied in other requests to target a specific playlist version:
+see <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist">Remove Tracks from a Playlist</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -736,8 +735,8 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                         <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this playlist.</p>
 
 <ul>
-<li>key: The type of the URL, for example:
-&ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a>
+  for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul>
 
@@ -881,18 +880,16 @@ playlist.</p>
                       <div class="abstract">
                         <p>The Images for the playlist.</p>
 
-<p>The array may be empty or contain up to three images.
-The images are returned by size in descending order.
-See <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">Working with Playlists</a>.</p>
+<p>The array may be empty or contain up to three images. The images are
+returned by size in descending order. See <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/">Working with Playlists</a>.</p>
 
-<p>The dimensions of the images may be <code>nil</code>, especially if
-uploaded by the user.</p>
+<p>The dimensions of the images may be <code>nil</code>, especially if uploaded by the
+user.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    The urls of these images, if returned,
-  are temporary and will expire in less than a day.
-  Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">SpotifyAPI.playlistImage(_:)</a></code> to retrieve
-  the image for a playlist.
+    The urls of these images, if returned, are temporary and will
+  expire in less than a day. Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">SpotifyAPI.playlistImage(_:)</a></code> to
+  retrieve the image for a playlist.
 
 </div>
 
@@ -1021,10 +1018,10 @@ uploaded by the user.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The playlist’s public/private status. If <code>true</code> the
-playlist is public; if <code>false</code>, the playlist is private.
-If <code>nil</code>, the playlist status is not relevant. For more about
-public/private status, see <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status">Working with Playlists</a>.</p>
+                                  <p>The playlist’s public/private status. If <code>true</code> the playlist
+is public; if <code>false</code>, the playlist is private. If <code>nil</code>, the
+playlist status is not relevant. For more about public/private
+status, see <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status">Working with Playlists</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1063,12 +1060,12 @@ verified playlists, else <code>nil</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The version identifier for the current playlist.
-Every time the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated.
-You can use this value to efficiently determine whether a playlist
-has changed since the last time you retrieved it.
-Can be supplied in other requests to target a specific
-playlist version: see <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist">Remove Tracks from a Playlist</a>.</p>
+                                  <p>The version identifier for the current playlist. Every time
+the playlist changes, a new <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots">snapshot id</a> is generated. You can
+use this value to efficiently determine whether a playlist has
+changed since the last time you retrieved it. Can be supplied in
+other requests to target a specific playlist version: see <a href="https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist">Remove
+Tracks from a Playlist</a>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1083,8 +1080,8 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                                   <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this artist.
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify
+  URL</a> for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul></p>
                                 </div>
@@ -1110,8 +1107,8 @@ playlist version: see <a href="https://developer.spotify.com/documentation/web-a
                               </td>
                               <td>
                                 <div>
-                                  <p>A link to the Spotify web API endpoint providing full
-details of the playlist.</p>
+                                  <p>A link to the Spotify web API endpoint providing full details of
+the playlist.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1162,7 +1159,7 @@ details of the playlist.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

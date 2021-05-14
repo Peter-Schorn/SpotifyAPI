@@ -520,27 +520,26 @@
 <li><p>context: The context in which to play the content. One of the following:</p>
 
 <ul>
-<li><code>contextURI(SpotifyURIConvertible)</code>: A URI for the context in which to
-play the content. Must be in one of the following categories:</li>
+<li><code>contextURI(SpotifyURIConvertible)</code>: A URI for the context in which to play
+the content. Must be in one of the following categories:</li>
 <li>Album</li>
 <li>Artist</li>
 <li>Show</li>
 <li>Playlist</li>
 <li><code>uris([SpotifyURIConvertible])</code>: An array of track/episode URIs.</li>
 </ul></li>
-<li><p>offset: Indicates where in the context playback should start.
-One of the following:</p>
+<li><p>offset: Indicates where in the context playback should start. One of the
+following:</p>
 
 <ul>
-<li><code>position(Int)</code>: The index of the item in the context at which to
-start playback. Cannot be used if the context is an artist.</li>
+<li><code>position(Int)</code>: The index of the item in the context at which to start
+playback. Cannot be used if the context is an artist.</li>
 <li><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</li>
 </ul></li>
-<li><p>positionMS: Indicates from what position to start playback in
-milliseconds. If <code>nil</code>, then the track/episode will start from
-the beginning. Passing in a position that is greater than the
-length of the track/episode will cause the player to start playing
-the next item.</p></li>
+<li><p>positionMS: Indicates from what position to start playback in milliseconds.
+If <code>nil</code>, then the track/episode will start from the beginning. Passing in a
+position that is greater than the length of the track/episode will cause the
+player to start playing the next item.</p></li>
 </ul>
 
           </section>
@@ -607,13 +606,13 @@ play the content. Must be in one of the following categories:</p>
 <p>One of the following:</p>
 
 <ul>
-<li><code>position(Int)</code>: The index of the item in the context at which to
-  start playback. Cannot be used if the context is an artist.</li>
+<li><code>position(Int)</code>: The index of the item in the context at which to start
+playback. Cannot be used if the context is an artist.</li>
 <li><code>uri(SpotifyURIConvertible)</code>: The URI of the item to start playback at.</li>
 </ul>
 
-<p>If <code>nil</code>, then either the first item or a random item in the context
-will be played, depending on whether the user has shuffle on.</p>
+<p>If <code>nil</code>, then either the first item or a random item in the context will
+be played, depending on whether the user has shuffle on.</p>
 
                       </div>
                       <div class="declaration">
@@ -642,9 +641,9 @@ will be played, depending on whether the user has shuffle on.</p>
                       <div class="abstract">
                         <p>Indicates from what position to start playback in milliseconds.</p>
 
-<p>If <code>nil</code>, then the track/episode will start from the beginning.
-Passing in a position that is greater than the length of the track
-will cause the player to start playing the next song.</p>
+<p>If <code>nil</code>, then the track/episode will start from the beginning. Passing in
+a position that is greater than the length of the track will cause the
+player to start playing the next song.</p>
 
                       </div>
                       <div class="declaration">
@@ -705,7 +704,8 @@ request to play a single track/episode.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The context in which to play the content. One of the following:</p>
+                                  <p>The context in which to play the content. One of the
+following:</p>
                                 </div>
                               </td>
                             </tr>
@@ -731,10 +731,10 @@ One of the following:</p>
                               <td>
                                 <div>
                                   <p>Indicates from what position to start playback in
-milliseconds. If <code>nil</code>, then the track/episode will start from
-the beginning. Passing in a position that is greater than the
-length of the track/episode will cause the player to start playing
-the next item.</p>
+milliseconds. If <code>nil</code>, then the track/episode will start from the
+beginning. Passing in a position that is greater than the length of
+the track/episode will cause the player to start playing the next
+item.</p>
                                 </div>
                               </td>
                             </tr>
@@ -811,10 +811,10 @@ track/episode.</p>
                               <td>
                                 <div>
                                   <p>Indicates from what position to start playback in
-milliseconds. If <code>nil</code>, then the track/episode will start from
-the beginning. Passing in a position that is greater than the
-length of the track/episode will cause the player to start playing
-the next item.</p>
+milliseconds. If <code>nil</code>, then the track/episode will start from the
+beginning. Passing in a position that is greater than the length of
+the track/episode will cause the player to start playing the next
+item.</p>
                                 </div>
                               </td>
                             </tr>
@@ -879,14 +879,14 @@ play the content. Must correspond to one of the following:</li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates where in the context playback should start.
-See <code><a href="../Structs/PlaybackRequest.html">PlaybackRequest</a></code>.</p>
+                        <p>Indicates where in the context playback should start. See
+<code><a href="../Structs/PlaybackRequest.html">PlaybackRequest</a></code>.</p>
 
 <p>One of the following:</p>
 
 <ul>
-<li><code>position(Int)</code>: The index of the item in the context at which to
-start playback. Cannot be used if the context is an artist.</li>
+<li><code>position(Int)</code>: The index of the item in the context at which to start
+playback. Cannot be used if the context is an artist.</li>
 <li><code>uri(SpotifyURIConvertible)</code>: The URI of the item in the context
 to start playback at.</li>
 </ul>
@@ -911,7 +911,7 @@ to start playback at.</li>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

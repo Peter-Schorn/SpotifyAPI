@@ -5,6 +5,8 @@ import SpotifyWebAPI
 public protocol SpotifyURIConvertibleEnum:
     SpotifyURIConvertible,
     CaseIterable,
+    Codable,
+    Hashable,
     RawRepresentable where RawValue == String
 {
     

@@ -586,11 +586,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The artists who performed the track. The simplified versions
-will be returned.</p>
+                        <p>The artists who performed the track. The simplified versions will be
+returned.</p>
 
-<p>Each artist object includes a link in href to more detailed
-information about the artist.</p>
+<p>Each artist object includes a link in href to more detailed information
+about the artist.</p>
 
                       </div>
                       <div class="declaration">
@@ -673,8 +673,7 @@ information about the artist.</p>
                       <div class="abstract">
                         <p>Whether or not the track is from a <a href="https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files">local file</a>.</p>
 
-<p>When this is <code>true</code>, expect many of the other properties
-to be <code>nil</code>.</p>
+<p>When this is <code>true</code>, expect many of the other properties to be <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -703,15 +702,15 @@ to be <code>nil</code>.</p>
                       <div class="abstract">
                         <p>The popularity of the track.</p>
 
-<p>The value will be between 0 and 100, with 100 being the most popular.
-The popularity is calculated by algorithm and is based, in the most part,
-on the total number of plays the track has had and how recent those plays
-are. Generally speaking, songs that are being played a lot now will have a
+<p>The value will be between 0 and 100, with 100 being the most popular. The
+popularity is calculated by algorithm and is based, in the most part, on
+the total number of plays the track has had and how recent those plays are.
+Generally speaking, songs that are being played a lot now will have a
 higher popularity than songs that were played a lot in the past. Duplicate
-tracks (e.g. the same track from a single and an album) are rated independently.
-Artist and album popularity is derived mathematically from track popularity.
-Note that the popularity value may lag actual popularity by a few days: the
-value is not updated in real time.</p>
+tracks (e.g. the same track from a single and an album) are rated
+independently. Artist and album popularity is derived mathematically from
+track popularity. Note that the popularity value may lag actual popularity
+by a few days: the value is not updated in real time.</p>
 
 <p>Only available for the full track object.</p>
 
@@ -769,8 +768,8 @@ value is not updated in real time.</p>
                       <div class="abstract">
                         <p>The number of the track.</p>
 
-<p>If an album has several discs,
-the track number is the number on the specified disc.</p>
+<p>If an album has several discs, the track number is the number on the
+specified disc.</p>
 
                       </div>
                       <div class="declaration">
@@ -797,8 +796,7 @@ the track number is the number on the specified disc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Whether or not the track has explicit lyrics.
-<code>false</code> if unknown.</p>
+                        <p>Whether or not the track has explicit lyrics. <code>false</code> if unknown.</p>
 
                       </div>
                       <div class="declaration">
@@ -825,9 +823,8 @@ the track number is the number on the specified disc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied.
-Else, <code>nil</code>. If <code>true</code>, the track is playable in the given market.
-Otherwise, <code>false</code>.</p>
+                        <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied. Else, <code>nil</code>. If
+<code>true</code>, the track is playable in the given market. Otherwise, <code>false</code>.</p>
 
 <p>See also <code><a href="../Structs/Track.html#/s:13SpotifyWebAPI5TrackV12restrictionsSDyS2SGSgvp">restrictions</a></code>.</p>
 
@@ -919,8 +916,8 @@ client credentials flow manager.</p>
                         <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this track.</p>
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a>
+   for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul>
 
@@ -978,12 +975,11 @@ client credentials flow manager.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A list of the countries in which the track can be played,
-identified by their <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code</a>.</p>
+                        <p>A list of the countries in which the track can be played, identified by
+their <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 code</a>.</p>
 
-<p>If a market parameter was supplied in the request that returned
-this track, then this property will be <code>nil</code> and <code><a href="../Structs/Track.html#/s:13SpotifyWebAPI5TrackV10isPlayableSbSgvp">isPlayable</a></code>
-will be non-<code>nil</code>.</p>
+<p>If a market parameter was supplied in the request that returned this track,
+then this property will be <code>nil</code> and <code><a href="../Structs/Track.html#/s:13SpotifyWebAPI5TrackV10isPlayableSbSgvp">isPlayable</a></code> will be non-<code>nil</code>.</p>
 
 <p>See also <code><a href="../Structs/Track.html#/s:13SpotifyWebAPI5TrackV12restrictionsSDyS2SGSgvp">restrictions</a></code> and the <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking Guide</a>.</p>
 
@@ -1012,9 +1008,9 @@ will be non-<code>nil</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied,
-and the requested track has been replaced with different track.
-The track link contains information about the originally requested track.</p>
+                        <p>Part of the response when <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a> is applied, and the
+requested track has been replaced with different track. The track link
+contains information about the originally requested track.</p>
 
                       </div>
                       <div class="declaration">
@@ -1041,8 +1037,8 @@ The track link contains information about the originally requested track.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Part of the response when a content restriction, such as
-<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>, is applied.</p>
+                        <p>Part of the response when a content restriction, such as <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track
+Relinking</a>, is applied.</p>
 
 <p>The key will be &ldquo;reason&rdquo;, and the value will be one of the
 following:</p>
@@ -1084,8 +1080,8 @@ set to not play explicit content.</li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The disc number (usually 1 unless the album consists of
-more than one disc).</p>
+                        <p>The disc number (usually 1 unless the album consists of more than one
+disc).</p>
 
                       </div>
                       <div class="declaration">
@@ -1112,8 +1108,8 @@ more than one disc).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object type. Usually <code>track</code>, but may be <code>episode</code> if
-this was retrieved from a playlist.</p>
+                        <p>The object type. Usually <code>track</code>, but may be <code>episode</code> if this was
+retrieved from a playlist.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">SpotifyAPI.playlistTracks(_:limit:offset:market:)</a></code>.</p>
 
@@ -1322,8 +1318,8 @@ Otherwise, <code>false</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A link to the Spotify web API endpoint providing the full
-track object.</p>
+                                  <p>A link to the Spotify web API endpoint providing the full track
+object.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1436,8 +1432,8 @@ from.</li>
                               </td>
                               <td>
                                 <div>
-                                  <p>The disc number (usually 1 unless the album consists of more
-than one disc).</p>
+                                  <p>The disc number (usually 1 unless the album consists of
+more than one disc).</p>
                                 </div>
                               </td>
                             </tr>
@@ -1517,7 +1513,7 @@ floating point properties for the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

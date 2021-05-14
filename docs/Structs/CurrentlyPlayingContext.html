@@ -528,8 +528,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Logs messages for this struct, especially those involving
-the decoding of data into this type.</p>
+                        <p>Logs messages for this struct, especially those involving the decoding
+of data into this type.</p>
 
                       </div>
                       <div class="declaration">
@@ -558,12 +558,12 @@ the decoding of data into this type.</p>
                       <div class="abstract">
                         <p>The device that the content is or was playing on.</p>
 
-<p>The information returned by <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback6market7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGSSSg_tF">SpotifyAPI.currentPlayback(market:)</a></code>
-is for the last known state, which means an inactive device could be
-returned if it was the last one to execute playback.</p>
+<p>The information returned by <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE15currentPlayback6market7Combine12AnyPublisherVyAA23CurrentlyPlayingContextVSgs5Error_pGSSSg_tF">SpotifyAPI.currentPlayback(market:)</a></code> is for
+the last known state, which means an inactive device could be returned if
+it was the last one to execute playback.</p>
 
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">SpotifyAPI.availableDevices()</a></code> to get the current user&rsquo;s available
-and active devices.</p>
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE16availableDevices7Combine12AnyPublisherVySayAA6DeviceVGs5Error_pGyF">SpotifyAPI.availableDevices()</a></code> to get the current user&rsquo;s available and
+active devices.</p>
 
                       </div>
                       <div class="declaration">
@@ -590,8 +590,7 @@ and active devices.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The repeat mode of the player.
-Either <code>off</code>, <code>track</code>, or <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV7contextAA0aF0VSgvp">context</a></code>.</p>
+                        <p>The repeat mode of the player. Either <code>off</code>, <code>track</code>, or <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV7contextAA0aF0VSgvp">context</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -647,14 +646,8 @@ Either <code>off</code>, <code>track</code>, or <code><a href="../Structs/Curren
                       <div class="abstract">
                         <p>The context of the user&rsquo;s playback.</p>
 
-<p>Can be <code>nil</code>. For example, If the user has a private
-session enabled, then this will be <code>nil</code>.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Testing suggets that if the user is playing an episode,
-  then this will be <code>nil</code>.
-
-</div>
+<p>Can be <code>nil</code>. For example, If the user has a private session enabled, then
+this will be <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -709,11 +702,10 @@ millisecond-precision timestamp).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Progress into the currently playing track/episode in
-milliseconds.</p>
+                        <p>Progress into the currently playing track/episode in milliseconds.</p>
 
-<p>Can be <code>nil</code>. For example, If the user has a private
-session enabled, then this will be <code>nil</code>.</p>
+<p>Can be <code>nil</code>. For example, If the user has a private session enabled,
+then this will be <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -767,16 +759,15 @@ session enabled, then this will be <code>nil</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The full version of a track or episode. Represents the content
-that is, or was most recently, playing.</p>
+                        <p>The full version of a track or episode. Represents the content that is, or
+was most recently, playing.</p>
 
 <p>Use <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV02isE0Sbvp">isPlaying</a></code> to check if the content is currently playing.</p>
 
-<p>Although the type is <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>, this does not necessarily
-mean that the item is playing in the context of a playlist.</p>
-
-<p>Can be <code>nil</code>. For example, If the user has a private
-session enabled, then this will be <code>nil</code>.</p>
+<p>Although the type is <code><a href="../Enums/PlaylistItem.html">PlaylistItem</a></code>, this does not necessarily mean that
+the item is playing in the context of a playlist. Can be <code>nil</code>. For
+example, If the user has a private session enabled, then this will be
+<code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -803,14 +794,12 @@ session enabled, then this will be <code>nil</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The id category of <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a></code>—the content that is, or was most
-recently, playing.</p>
+                        <p>The id category of <code><a href="../Structs/CurrentlyPlayingContext.html#/s:13SpotifyWebAPI23CurrentlyPlayingContextV4itemAA12PlaylistItemOSgvp">item</a></code>—the content that is, or was most recently,
+playing.</p>
 
-<p>For example, if a track is currently playing, then this property will
-be <code>track</code>; if an episode is currently playing then this property will
-be <code>episode</code>.</p>
-
-<p>Can also be <code>unknown</code>.</p>
+<p>For example, if a track is currently playing, then this property will be
+<code>track</code>; if an episode is currently playing then this property will be
+<code>episode</code>. Can also be <code>unknown</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -839,14 +828,14 @@ be <code>episode</code>.</p>
                       <div class="abstract">
                         <p>The playback actions that are allowed within the given context.</p>
 
-<p>Attemping to perform actions that are not contained within this set
-will result in an error from the Spotify web API.</p>
+<p>Attempting to perform actions that are not contained within this set will
+result in an error from the Spotify web API.</p>
 
-<p>For example, you cannot skip to the previous or next track
-or seek to a position in a track while an ad is playing.</p>
+<p>For example, you cannot skip to the previous or next track or seek to a
+position in a track while an ad is playing.</p>
 
-<p>You could use this property to disable UI elements that perform
-actions that are not contained within this set.</p>
+<p>You could use this property to disable UI elements that perform actions
+that are not contained within this set.</p>
 
                       </div>
                       <div class="declaration">
@@ -1088,7 +1077,7 @@ the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

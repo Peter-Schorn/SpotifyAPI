@@ -559,11 +559,11 @@
                       <div class="abstract">
                         <p>The tracks of the album.</p>
 
-<p>For certain endpoints, this property may be nil, especially if it is
-nested inside a much larger object. For example, it will be <code>nil</code> if
-retrieved from the search endpoint or if nested inside a <code><a href="../Structs/Track.html">Track</a></code>. When
-this property is <code>nil</code>, use <code>albumTracks(_:market:limit:offset:)</code>
-instead, passing in the URI of this album.</p>
+<p>For certain endpoints, this property may be nil, especially if it is nested
+inside a much larger object. For example, it will be <code>nil</code> if retrieved
+from the search endpoint or if nested inside a <code><a href="../Structs/Track.html">Track</a></code>. When this property
+is <code>nil</code>, use <code>albumTracks(_:market:limit:offset:)</code> instead, passing in the
+URI of this album.</p>
 
                       </div>
                       <div class="declaration">
@@ -592,8 +592,8 @@ instead, passing in the URI of this album.</p>
                       <div class="abstract">
                         <p>The artists of the album. The simplified versions will be returned.</p>
 
-<p>Each artist object includes a link in href
-to more detailed information about the artist.</p>
+<p>Each artist object includes a link in href to more detailed information
+about the artist.</p>
 
                       </div>
                       <div class="declaration">
@@ -620,8 +620,7 @@ to more detailed information about the artist.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The date the album was first released.
-See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV20releaseDatePrecisionSSSgvp">releaseDatePrecision</a></code>.</p>
+                        <p>The date the album was first released. See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV20releaseDatePrecisionSSSgvp">releaseDatePrecision</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -731,10 +730,9 @@ See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV20release
                       <div class="abstract">
                         <p>The popularity of the album.</p>
 
-<p>The value will be between 0 and 100,
-with 100 being the most popular.
-The popularity is calculated
-from the popularity of the album’s individual tracks.</p>
+<p>The value will be between 0 and 100, with 100 being the most popular. The
+popularity is calculated from the popularity of the album’s individual
+tracks.</p>
 
 <p>Only available for the full album object.</p>
 
@@ -794,8 +792,8 @@ from the popularity of the album’s individual tracks.</p>
                       <div class="abstract">
                         <p>A list of the genres the artist is associated with.</p>
 
-<p>For example: &ldquo;Prog Rock&rdquo; , &ldquo;Post-Grunge&rdquo;.
-(If not yet classified, the array is empty.)</p>
+<p>For example: &ldquo;Prog Rock&rdquo; , &ldquo;Post-Grunge&rdquo;. (If not yet classified, the array
+is empty.)</p>
 
 <p>Only available for the full album object.</p>
 
@@ -857,8 +855,8 @@ response type to retrieve the results.</p>
                         <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this artist.</p>
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a>
+  for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul>
 
@@ -927,8 +925,8 @@ response type to retrieve the results.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The type of the album: one of <code>album</code>, <code>single</code>,
-or <code>compilation</code>. See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV10albumGroupAA0D4TypeOSgvp">albumGroup</a></code>.</p>
+                        <p>The type of the album: one of <code>album</code>, <code>single</code>, or <code>compilation</code>. See
+also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV10albumGroupAA0D4TypeOSgvp">albumGroup</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -959,9 +957,9 @@ or <code>compilation</code>. See also <code><a href="../Structs/Album.html#/s:13
 
 <p>See also <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code>.</p>
 
-<p>Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>,
-and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents
-the relationship between the artist and the album.</p>
+<p>Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>, and <code>appearsOn</code>.
+Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents the relationship between the
+artist and the album.</p>
 
                       </div>
                       <div class="declaration">
@@ -988,11 +986,11 @@ the relationship between the artist and the album.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The markets in which the album is available:
-<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country codes</a>.</p>
+                        <p>The markets in which the album is available: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country
+codes</a>.</p>
 
-<p>Note that an album is considered available in a market
-when at least 1 of its tracks is available in that market.</p>
+<p>Note that an album is considered available in a market when at least 1 of
+its tracks is available in that market.</p>
 
                       </div>
                       <div class="declaration">
@@ -1046,8 +1044,8 @@ when at least 1 of its tracks is available in that market.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The precision with which <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV11releaseDate10Foundation0F0VSgvp">releaseDate</a></code> is known:
-&ldquo;year&rdquo;, &ldquo;month&rdquo;, or &ldquo;day&rdquo;.</p>
+                        <p>The precision with which <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV11releaseDate10Foundation0F0VSgvp">releaseDate</a></code> is known: &ldquo;year&rdquo;, &ldquo;month&rdquo;, or
+&ldquo;day&rdquo;.</p>
 
                       </div>
                       <div class="declaration">
@@ -1074,18 +1072,18 @@ when at least 1 of its tracks is available in that market.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Part of the response when a content restriction, such as
-<a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track Relinking</a>, is applied. Else, <code>nil</code>.</p>
+                        <p>Part of the response when a content restriction, such as <a href="https://developer.spotify.com/documentation/general/guides/track-relinking-guide/">Track
+Relinking</a>, is applied. Else, <code>nil</code>.</p>
 
 <p>The key will be &ldquo;reason&rdquo;, and the value will be one of the
 following:</p>
 
 <ul>
 <li>&ldquo;market&rdquo; - The content item is not available in the given market.</li>
-<li>&ldquo;product&rdquo; - The content item is not available for the user’s
-subscription type.</li>
-<li>&ldquo;explicit&rdquo; - The content item is explicit and the user’s account is
-set to not play explicit content.</li>
+<li>&ldquo;product&rdquo; - The content item is not available for the user’s subscription
+type.</li>
+<li>&ldquo;explicit&rdquo; - The content item is explicit and the user’s account is set
+to not play explicit content.</li>
 </ul>
 
 <p>Additional reasons and additional keys may be added in the future.</p>
@@ -1309,8 +1307,8 @@ the album.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A link to the Spotify web API endpoint providing the full
-album object.</p>
+                                  <p>A link to the Spotify web API endpoint providing the full album
+object.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1325,8 +1323,8 @@ album object.</p>
                                   <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this artist.
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify
+  URL</a> for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul></p>
                                 </div>
@@ -1377,9 +1375,9 @@ album object.</p>
                               <td>
                                 <div>
                                   <p>This field is present when getting an artist’s albums.
-Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>,
-and <code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents
-the relationship between the artist and the album.</p>
+Possible values are <code>album</code>, <code>single</code>, <code>compilation</code>, and
+<code>appearsOn</code>. Compared to <code><a href="../Structs/Album.html#/s:13SpotifyWebAPI5AlbumV9albumTypeAA0dF0OSgvp">albumType</a></code> this field represents the
+relationship between the artist and the album.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1391,10 +1389,10 @@ the relationship between the artist and the album.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The markets in which the album is available:
-<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country codes</a>.
-Note that an album is considered available in a market
-when at least 1 of its tracks is available in that market.</p>
+                                  <p>The markets in which the album is available: <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO
+3166-1 alpha-2 country codes</a>. Note that an album is considered
+available in a market when at least 1 of its tracks is available in
+that market.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1436,8 +1434,7 @@ when at least 1 of its tracks is available in that market.</p>
 &ldquo;reason&rdquo;, and the value will be one of the following:
 
 <ul>
-<li>&ldquo;market&rdquo; - The content item is not available in the given
-market.</li>
+<li>&ldquo;market&rdquo; - The content item is not available in the given market.</li>
 <li>&ldquo;product&rdquo; - The content item is not available for the user’s
 subscription type.</li>
 <li>&ldquo;explicit&rdquo; - The content item is explicit and the user’s account
@@ -1512,7 +1509,7 @@ is considered a floating point property for the purposes of this method.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

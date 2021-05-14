@@ -525,8 +525,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns <code>self</code>, with the assumption that it represents
-a <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URI</a>.</p>
+                        <p>Returns <code>self</code>, with the assumption that it represents a <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify
+URI</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -555,8 +555,8 @@ a <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new string made by removing characters contained in a
-given character set from both ends of the String.</p>
+                        <p>Returns a new string made by removing characters contained in a given
+character set from both ends of the String.</p>
 
 <p>Alias for <code>String.trimmingCharacters(in:)</code>.</p>
 
@@ -584,8 +584,8 @@ given character set from both ends of the String.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The character set to use when trimming
-  the string. Default: <code>whitespacesAndNewlines</code>.</p>
+                                  <p>The character set to use when trimming the
+  string. Default: <code>whitespacesAndNewlines</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -691,7 +691,7 @@ given character set from both ends of the String.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Characters that are safe for use in a URL: Letters, digits, the
-underscore character, and the hypen character.</p>
+underscore character, and the hyphen character.</p>
 
 <p>There are a total of 64 characters.</p>
 
@@ -751,7 +751,7 @@ creating the state parameter.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">randomURLSafe</span><span class="o">&lt;</span><span class="kt">Generator</span><span class="p">:</span> <span class="kt">RandomNumberGenerator</span><span class="o">&gt;</span><span class="p">(</span>
     <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-    <span class="n">using</span> <span class="nv">randumNumberGenerator</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Generator</span>
+    <span class="n">using</span> <span class="nv">randomNumberGenerator</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Generator</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
@@ -768,14 +768,14 @@ creating the state parameter.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The legnth of the string.</p>
+                                  <p>The length of the string.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>randumNumberGenerator</em>
+                                <em>randomNumberGenerator</em>
                                 </code>
                               </td>
                               <td>
@@ -863,11 +863,10 @@ number generator to use.</li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Hashes <code>self</code> using the SHA256 algorithm and returns the
+                        <p>Hashes the <code>codeVerifier</code> using the SHA256 algorithm and returns the
 Base-64 URL-encoded hash.</p>
 
-<p>This method can be used to generate the code challenge if <code>self</code>
-is the code verifier for the
+<p>This method can be used to generate the code challenge for the
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>.</p>
 
 <p>Equivalent to</p>
@@ -892,6 +891,29 @@ is the code verifier for the
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>codeVerifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The code verifier.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The code challenge.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -900,7 +922,7 @@ is the code verifier for the
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

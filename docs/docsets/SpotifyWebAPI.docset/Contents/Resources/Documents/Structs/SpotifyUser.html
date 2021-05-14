@@ -510,9 +510,9 @@
               </div>
             <p>A <a href="https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject">Spotify user</a>.</p>
 
-<p>Can represent both the public and private version. When the public
-version is returned, properties that are only available in the private
-version will be <code>nil</code>.</p>
+<p>Can represent both the public and private version. When the public version is
+returned, properties that are only available in the private version will be
+<code>nil</code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -531,8 +531,7 @@ version will be <code>nil</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The name displayed on the user’s profile.
-<code>nil</code> if not available.</p>
+                        <p>The name displayed on the user’s profile.</p>
 
                       </div>
                       <div class="declaration">
@@ -642,8 +641,8 @@ version will be <code>nil</code>.</p>
                       <div class="abstract">
                         <p>A link to the Spotify web API endpoint for this user.</p>
 
-<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in <code>SpotifyUser</code> as the
-response type to retrieve the results.</p>
+<p>Use <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C11getFromHref_12responseType7Combine12AnyPublisherVyqd__s5Error_pG10Foundation3URLV_qd__mtSeRd__lF">SpotifyAPI.getFromHref(_:responseType:)</a></code>, passing in <code>SpotifyUser</code> as
+the response type to retrieve the results.</p>
 
                       </div>
                       <div class="declaration">
@@ -670,9 +669,9 @@ response type to retrieve the results.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>When <code>true</code>, indicates that explicit content <em>is</em> allowed. If <code>false</code>,
-then explicit content should <em>not</em> be played because the user has disabled
-it in their settings.</p>
+                        <p>When <code>true</code>, indicates that explicit content <em>is</em> allowed. If <code>false</code>, then
+explicit content should <em>not</em> be played because the user has disabled it in
+their settings.</p>
 
 <p>This property is only available for the <em>current</em> user and requires the
 <code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
@@ -702,10 +701,11 @@ it in their settings.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>When <code>true</code>, indicates that the explicit content setting is locked
-and can’t be changed by the user. For example, this user may be
-associated with a kids account that has content restrictions on it
-(e.g., parental controls).</p>
+                        <p>When <code>true</code>, indicates that the explicit content setting is locked and
+can’t be changed by the user.</p>
+
+<p>For example, this user may be associated with a kids account that has
+content restrictions on it (e.g., parental controls).</p>
 
 <p>This property is only available for the <em>current</em> user and requires the
 <code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
@@ -762,8 +762,8 @@ associated with a kids account that has content restrictions on it
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The country of the user, as set in the user’s account profile.
-An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>.</p>
+                        <p>The country of the user, as set in the user’s account profile. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO
+3166-1 alpha-2 country code</a>.</p>
 
 <p>This property is only available for the <em>current</em> user and requires the
 <code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
@@ -793,15 +793,15 @@ An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The user’s email address, as entered by the user when
-creating their account.</p>
+                        <p>The user’s email address, as entered by the user when creating their
+account.</p>
 
 <p>This property is only available for the <em>current</em> user and requires the
 <code>userReadEmail</code> scope. Otherwise, it will be <code>nil</code>.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    This email address is unverified; there is no proof that
-  it actually belongs to the user.
+    This email address is unverified; there is no proof that it
+  actually belongs to the user.
 
 </div>
 
@@ -830,9 +830,8 @@ creating their account.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The user’s Spotify subscription level:
-&ldquo;premium&rdquo;, &ldquo;free&rdquo;, etc. (The subscription level &ldquo;open&rdquo; can be
-considered the same as &ldquo;free&rdquo;.)</p>
+                        <p>The user’s Spotify subscription level: &ldquo;premium&rdquo;, &ldquo;free&rdquo;, etc. (The
+subscription level &ldquo;open&rdquo; can be considered the same as &ldquo;free&rdquo;.)</p>
 
 <p>This property is only available for the <em>current</em> user and requires the
 <code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
@@ -865,8 +864,8 @@ considered the same as &ldquo;free&rdquo;.)</p>
                         <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this user.</p>
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a>
+  for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul>
 
@@ -1018,12 +1017,11 @@ considered the same as &ldquo;free&rdquo;.)</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>When <code>true</code>, indicates that explicit
-content <em>is</em> allowed. If <code>false</code>, then explicit content
-should <em>not</em> be played because the user has disabled it
-in their settings. This property is only available for the
-<em>current</em> user and requires the <code>userReadPrivate</code> scope.
-Otherwise, it will be <code>nil</code>.</p>
+                                  <p>When <code>true</code>, indicates that explicit content
+<em>is</em> allowed. If <code>false</code>, then explicit content should <em>not</em> be
+played because the user has disabled it in their settings. This
+property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1036,12 +1034,11 @@ Otherwise, it will be <code>nil</code>.</p>
                               <td>
                                 <div>
                                   <p>When <code>true</code>, indicates that the
-explicit content setting is locked and can’t be changed by
-the user. For example, this user may be associated with a
-kids account that has content restrictions on it (e.g.,
-parental controls). This property is only available for the
-<em>current</em> user and requires the <code>userReadPrivate</code> scope.
-Otherwise, it will be <code>nil</code>.</p>
+explicit content setting is locked and can’t be changed by the
+user. For example, this user may be associated with a kids account
+that has content restrictions on it (e.g., parental controls). This
+property is only available for the <em>current</em> user and requires the
+<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1065,10 +1062,10 @@ Otherwise, it will be <code>nil</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The country of the user, as set in the user’s account
-profile. An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>. This property
-is only available for the <em>current</em> user and requires the
-<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
+                                  <p>The country of the user, as set in the user’s account profile.
+An <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 country code</a>. This property is only
+available for the <em>current</em> user and requires the <code>userReadPrivate</code>
+scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1080,10 +1077,10 @@ is only available for the <em>current</em> user and requires the
                               </td>
                               <td>
                                 <div>
-                                  <p>The user’s email address, as entered by the user when
-creating their account. This property is only available for
-the <em>current</em> user and requires the <code>userReadEmail</code> scope.
-Otherwise, it will be <code>nil</code>.</p>
+                                  <p>The user’s email address, as entered by the user when creating
+their account. This property is only available for the <em>current</em>
+user and requires the <code>userReadEmail</code> scope. Otherwise, it will be
+<code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1095,11 +1092,10 @@ Otherwise, it will be <code>nil</code>.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The user’s Spotify subscription level:
-&ldquo;premium&rdquo;, &ldquo;free&rdquo;, etc. (The subscription level &ldquo;open&rdquo;
-can be considered the same as &ldquo;free&rdquo;.) This property
-is only available for the <em>current</em> user and requires the
-<code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
+                                  <p>The user’s Spotify subscription level: &ldquo;premium&rdquo;, &ldquo;free&rdquo;,
+etc. (The subscription level &ldquo;open&rdquo; can be considered the same as
+&ldquo;free&rdquo;.) This property is only available for the <em>current</em> user and
+requires the <code>userReadPrivate</code> scope. Otherwise, it will be <code>nil</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1114,8 +1110,8 @@ is only available for the <em>current</em> user and requires the
                                   <p>Known <a href="https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject">external urls</a> for this artist.
 
 <ul>
-<li>key: The type of the URL, for example:
-  &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify URL</a> for the object.</li>
+<li>key: The type of the URL, for example: &ldquo;spotify&rdquo; - The <a href="https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids">Spotify
+  URL</a> for the object.</li>
 <li>value: An external, public URL to the object.</li>
 </ul></p>
                                 </div>
@@ -1184,7 +1180,7 @@ is only available for the <em>current</em> user and requires the
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -509,16 +509,16 @@
 
                 </div>
               </div>
-            <p>An error originating from this library that is not represented
-by any of the other error types.</p>
+            <p>An error originating from this library that is not represented by any of the
+other error types.</p>
 
-<p>For example if you try to make an API request but have not
-authorized your application yet, you will get a <code>.unauthorized(String)</code>
-error, which is thrown before any network requests are even made.</p>
+<p>For example if you try to make an API request but have not authorized your
+application yet, you will get a <code>.unauthorized(String)</code> error, which is thrown
+before any network requests are even made.</p>
 
-<p>Use <code>localizedDescription</code> for an error message suitable for displaying
-to the end user. Use the string representation of this instance for a more
-detailed description suitable for debugging.</p>
+<p>Use <code>localizedDescription</code> for an error message suitable for displaying to the
+end user. Use the string representation of this instance for a more detailed
+description suitable for debugging.</p>
 
           </section>
           <section class="section task-group-section">
@@ -537,8 +537,8 @@ detailed description suitable for debugging.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>You have tried to access an endpoint before authorizing your app
-or the access token needed to be refreshed but the refresh token was <code>nil</code>.</p>
+                        <p>You have tried to access an endpoint before authorizing your app or the
+access token needed to be refreshed but the refresh token was <code>nil</code>.</p>
 
 <p>See also <code><a href="../Enums/SpotifyGeneralError.html#/s:13SpotifyWebAPI0A12GeneralErrorO17insufficientScopeyACShyAA0G0OG_AGtcACmF">insufficientScope(requiredScopes:authorizedScopes:)</a></code>.</p>
 
@@ -567,15 +567,15 @@ or the access token needed to be refreshed but the refresh token was <code>nil</
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The value provided for the state parameter when you requested
-access and refresh tokens didn&rsquo;t match the value returned from Spotify
-in the query string of the redirect URI.</p>
+                        <p>The value provided for the state parameter when you requested access and
+refresh tokens didn&rsquo;t match the value returned from Spotify in the query
+string of the redirect URI.</p>
 
 <ul>
 <li>supplied: The value supplied when requesting the access and refresh
-tokens.</li>
-<li>received: The value received from Spotify in the query string of
-the redirect URI.</li>
+  tokens.</li>
+<li>received: The value received from Spotify in the query string of the
+  redirect URI.</li>
 </ul>
 
                       </div>
@@ -636,7 +636,7 @@ scopes for.</p>
 
 <ul>
 <li>requiredScopes: The scopes that are required for this endpoint.</li>
-<li>authorizedScopes: The scopes that your app is authroized for.</li>
+<li>authorizedScopes: The scopes that your app is authorized for.</li>
 </ul>
 
                       </div>
@@ -669,20 +669,21 @@ scopes for.</p>
                         <p>The id category or categories didn&rsquo;t match one of the expected categories.</p>
 
 <ul>
-<li>expected: The expected categories. Some endpoints allow for
-URIS from multiple categories. For example, the endpoint for
-adding items to a playlist allows for track or episode URIs.</li>
+<li>expected: The expected categories. Some endpoints allow for URIS from
+   multiple categories. For example, the endpoint for adding items to a
+   playlist allows for track or episode URIs.</li>
 <li>received: The id category that was received. In some cases, multiple
-categories will be returned. It is not necessarily the case that all of
-these categories are invalid. For example, if you provide a collection
-of artist, track, and episode URIS to the endpoint for adding items to a
-playlist, then <code>expected</code> will be <code>[track, episode]</code> and <code>received</code> will be
-<code>[track, episode, artist]</code>, representing all of the provided categories,
-not just the invalid ones.</li>
+   categories will be returned. It is not necessarily the case that all
+   of these categories are invalid. For example, if you provide a
+   collection of artist, track, and episode URIS to the endpoint for
+   adding items to a playlist, then <code>expected</code> will be <code>[track,
+   episode]</code> and <code>received</code> will be <code>[track, episode, artist]</code>,
+   representing all of the provided categories, not just the invalid
+   ones.</li>
 </ul>
 
-<p>For example, if you pass a track URI to the endpoint for retrieving
-an artist, you will get this error.</p>
+<p>For example, if you pass a track URI to the endpoint for retrieving an
+artist, you will get this error.</p>
 
 <p>See also <code><a href="../Enums/IDCategory.html">IDCategory</a></code>.</p>
 
@@ -714,17 +715,15 @@ an artist, you will get this error.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Spotify sometimes returns data wrapped in an extraneous top-level
-dictionary that the client doesn&rsquo;t need to care about. This error
-is thrown if the expected top level key associated with the data
-is not found.</p>
+dictionary that the client doesn&rsquo;t need to care about. This error is thrown
+if the expected top level key associated with the data is not found.</p>
 
-<p>For example, adding a tracks to a playlist returns the following
-response:</p>
+<p>For example, adding a tracks to a playlist returns the following response:</p>
 <pre class="highlight swift"><code><span class="p">{</span> <span class="s">"snapshot_id"</span> <span class="p">:</span> <span class="s">"3245kj..."</span> <span class="p">}</span>
 </code></pre>
 
-<p>The value of the snapshot id is returned instead of the entire
-dictionary or this error is thrown if the key can&rsquo;t be found.</p>
+<p>The value of the snapshot id is returned instead of the entire dictionary
+or this error is thrown if the key can&rsquo;t be found.</p>
 
                       </div>
                       <div class="declaration">
@@ -787,8 +786,8 @@ decoded into any of the other errors types (<code><a href="../Structs/SpotifyAut
                       <div class="abstract">
                         <p>Some other error.</p>
 
-<p>The first string will be used for <code>description</code>.
-<code>localizedDescription</code> will be used for <code>errorDescription</code>.</p>
+<p>The first string will be used for <code>description</code>. <code>localizedDescription</code>
+will be used for <code>errorDescription</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -810,7 +809,7 @@ decoded into any of the other errors types (<code><a href="../Structs/SpotifyAut
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

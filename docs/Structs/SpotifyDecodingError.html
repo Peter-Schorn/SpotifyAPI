@@ -510,10 +510,10 @@
             <p>The data from the Spotify web API could not be decoded into any of the
 expected types.</p>
 
-<p>Assign a folder URL to the static var <code>dataDumpfolder</code> to write the json
+<p>Assign a folder URL to the static var <code>dataDumpFolder</code> to write the json
 response from the Spotify web API to disk when instances of this error are
 created. See <code>writeToFolder(_:)</code>. This is intended for debugging purposes.
-It it initialzed to the path specified by the &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo; environment
+It it initialized to the path specified by the &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo; environment
 variable, if it exists. You can change this if necessary.</p>
 
 <p>This error is almost always due to an error in this library. Report a bug
@@ -531,9 +531,9 @@ the error to the end user.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/dataDumpfolder" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ">dataDumpfolder</a>
+                    <a name="/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpFolder10Foundation3URLVSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dataDumpFolder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpFolder10Foundation3URLVSgvpZ">dataDumpFolder</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -541,16 +541,15 @@ the error to the end user.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The folder to write the json response (<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code>) from the Spotify web
-API to when instances of this error are created. This is intended for
-debugging purposes.</p>
+                        <p>The folder to write the json response (<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code>) from the Spotify web API
+to when instances of this error are created. This is intended for debugging
+purposes.</p>
 
-<p>It it initialzed to the path specified by the &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo;
-environment variable, if it exists. You can change this if
-necessary.</p>
+<p>It it initialized to the path specified by the &ldquo;SPOTIFY_DATA_DUMP_FOLDER&rdquo;
+environment variable, if it exists. You can change this if necessary.</p>
 
-<p>The name of the folder will be <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code> with the current
-date appended to it.</p>
+<p>The name of the folder will be <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code> with the current date
+appended to it.</p>
 
 <p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org">online JSON viewer</a>.</p>
 
@@ -559,7 +558,7 @@ date appended to it.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">dataDumpfolder</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">dataDumpFolder</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -606,11 +605,11 @@ date appended to it.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The raw data returned by the server. You should almost always be
-able to decode this into a string.</p>
+                        <p>The raw data returned by the server. You should almost always be able to
+decode this into a string.</p>
 
-<p>This property, along with <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code>, is written to
-a file when you call <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
+<p>This property, along with <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code>, is written to a file
+when you call <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -637,8 +636,8 @@ a file when you call <code><a href="../Structs/SpotifyDecodingError.html#/s:13Sp
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The type that this library was expecting to be able to decode
-the data into.</p>
+                        <p>The type that this library was expecting to be able to decode the data
+into.</p>
 
                       </div>
                       <div class="declaration">
@@ -692,8 +691,8 @@ the data into.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The underlying error encountered when trying to decode <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code>
-into <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code>. Usually <a href="https://developer.apple.com/documentation/swift/decodingerror">DecodingError</a>.</p>
+                        <p>The underlying error encountered when trying to decode <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code> into
+<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code>. Usually <a href="https://developer.apple.com/documentation/swift/decodingerror">DecodingError</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -721,8 +720,8 @@ into <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13D
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>If the underlying error is a <a href="https://developer.apple.com/documentation/swift/decodingerror">DecodingError</a>, then this will be the
-coding path formatted as if you were accessing nested properties
-from a Swift type; for example, “items[27].track.album.release_date”.</p>
+coding path formatted as if you were accessing nested properties from a
+Swift type; for example, “items[27].track.album.release_date”.</p>
 
                       </div>
                       <div class="declaration">
@@ -751,10 +750,9 @@ from a Swift type; for example, “items[27].track.album.release_date”.</p>
                       <div class="abstract">
                         <p>Creates a new decoding error.</p>
 
-<p>As soon as this instance is created, <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code> and
-<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code> will be written to a folder at the path
-specified by <code>Self.dataDumpfolder</code>, if it is non-<code>nil</code>, using
-<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
+<p>As soon as this instance is created, <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code> and <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code>
+will be written to a folder at the path specified by <code>Self.dataDumpFolder</code>,
+if it is non-<code>nil</code>, using <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -807,8 +805,8 @@ specified by <code>Self.dataDumpfolder</code>, if it is non-<code>nil</code>, us
                               </td>
                               <td>
                                 <div>
-                                  <p>The type that the caller was expecting to be able
-to decode the data into.</p>
+                                  <p>The type that the caller was expecting to be able to
+decode the data into.</p>
                                 </div>
                               </td>
                             </tr>
@@ -832,8 +830,8 @@ to decode the data into.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The underlying error encountered when trying to
-decode the data. Usually <code>DecodingError</code>.</p>
+                                  <p>The underlying error encountered when trying to decode
+the data. Usually <code>DecodingError</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -856,15 +854,15 @@ decode the data. Usually <code>DecodingError</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Writes <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code> and <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code> to a sub-folder
-within the specified folder.</p>
+                        <p>Writes <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code> and <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV05debugE11DescriptionSSvp">debugErrorDescription</a></code> to a sub-folder within the
+specified folder.</p>
 
-<p>The name of the sub-folder will be <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code> with the
-current date appended to it.</p>
+<p>The name of the sub-folder will be <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV20expectedResponseTypeypXpvp">expectedResponseType</a></code> with the current
+date appended to it.</p>
 
-<p>If <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ">dataDumpfolder</a></code> is non-<code>nil</code>, then this method is called by
+<p>If <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpFolder10Foundation3URLVSgvpZ">dataDumpFolder</a></code> is non-<code>nil</code>, then this method is called by
 <code>init(rawData:responseType:statusCode:underlyingError:)</code>, passing in
-<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpfolder10Foundation3URLVSgvpZ">dataDumpfolder</a></code>.</p>
+<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV14dataDumpFolder10Foundation3URLVSgvpZ">dataDumpFolder</a></code>.</p>
 
 <p>You are encouraged to upload the data to this <a href="https://jsoneditoronline.org">online JSON viewer</a>.</p>
 <div class="aside aside-throws">
@@ -923,11 +921,10 @@ current date appended to it.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Debug information that is useful in diagnosing the cause
-of this error.</p>
+                        <p>Debug information that is useful in diagnosing the cause of this error.</p>
 
-<p>This property, along with <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code>, is written to a file
-when you call <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
+<p>This property, along with <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV7rawData10Foundation0G0VSgvp">rawData</a></code>, is written to a file when you call
+<code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWebAPI0A13DecodingErrorV13writeToFoldery10Foundation3URLVAGKF">writeToFolder(_:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -946,7 +943,7 @@ when you call <code><a href="../Structs/SpotifyDecodingError.html#/s:13SpotifyWe
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-13)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
