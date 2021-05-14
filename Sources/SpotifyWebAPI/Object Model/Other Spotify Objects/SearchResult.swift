@@ -3,9 +3,9 @@ import Foundation
 /**
  The response from the [search][1] endpoint:
  `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)`.
- 
- The search endpoint has a `categories` parameter, which specifies
- which objects will be returned in the response. Valid categories are:
+
+ The search endpoint has a `categories` parameter, which specifies which objects
+ will be returned in the response. Valid categories are:
  
  * `album`
  * `artist`
@@ -14,13 +14,13 @@ import Foundation
  * `show`
  * `episode`
  
- The corresponding `albums`, `artist`, `playlists`, `tracks`, `shows`,
- and `episodes` properties of this struct will be non-`nil`
- for each of the categories that were requested from the `search` endpoint.
- 
+ The corresponding `albums`, `artist`, `playlists`, `tracks`, `shows`, and
+ `episodes` properties of this struct will be non-`nil` for each of the
+ categories that were requested from the `search` endpoint.
+
  If no results were found for a category, then the `items` property of the
- property's paging object will be empty; the property itself will only
- be `nil` if it was not requested in the search.
+ property's paging object will be empty; the property itself will only be `nil`
+ if it was not requested in the search.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
  */
@@ -53,7 +53,7 @@ public struct SearchResult: Hashable {
        - tracks: A `PagingObject` containing full `Track` objects.
        - playlists: A `PagingObject` containing simplified `Playlist` objects.
        - episodes: A `PagingObject` containing simplified `Episode` objects.
-       - shows: A `PaginObject` containing simplified `Show` objects.
+       - shows: A `PagingObject` containing simplified `Show` objects.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
      */
@@ -94,10 +94,10 @@ extension SearchResult: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      Dates are compared using `timeIntervalSince1970`, so they are considered
      floating point properties for the purposes of this method.
-     
+
      - Parameter other: Another instance of `Self`.
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {

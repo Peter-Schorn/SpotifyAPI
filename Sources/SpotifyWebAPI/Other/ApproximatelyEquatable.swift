@@ -9,8 +9,7 @@ import Foundation
 public protocol ApproximatelyEquatable {
     
     /**
-     Determines whether two values are approximately equal to each
-     other.
+     Determines whether two values are approximately equal to each other.
      
      - Parameter other: Another instance of `Self`.
      */
@@ -50,11 +49,9 @@ extension Optional: ApproximatelyEquatable where Wrapped: ApproximatelyEquatable
 extension Sequence where Element: ApproximatelyEquatable {
     
     /**
-     Compares each element in the sequences, in order, for
-     approximate equality.
+     Compares each element in the sequences, in order, for approximate equality.
      
-     Returns `false` if the sequences produce a different number of
-     elements.
+     Returns `false` if the sequences produce a different number of elements.
 
      - Parameter other: Another sequence.
      */
@@ -113,11 +110,10 @@ extension Sequence where Element: ApproximatelyEquatable {
 extension RandomAccessCollection where Element: ApproximatelyEquatable {
 
     /**
-     Compares each element in the collections, in order, for
-     approximate equality.
+     Compares each element in the collections, in order, for approximate
+     equality.
 
-     Returns `false` if the collections have a different number of
-     elements.
+     Returns `false` if the collections have a different number of elements.
 
      - Parameter other: Another collection.
      */
@@ -127,8 +123,8 @@ extension RandomAccessCollection where Element: ApproximatelyEquatable {
     ) -> Bool where C.Element == Self.Element {
 
         // fast path:
-        // `count` is only guarenteed to have O(1) complexity if the
-        // collection is random access.
+        // `count` is only guaranteed to have O(1) complexity if the collection
+        // is random access.
         if self.count != other.count {
             return false
         }

@@ -2,8 +2,8 @@
 import Foundation
 import Vapor
 
-/// Manages a server that can be started to listen for when the Spotify
-/// web API redirects to a specified redirect URI.
+/// Manages a server that can be started to listen for when the Spotify web API
+/// redirects to a specified redirect URI.
 public struct RedirectListener {
     
     private let app: Application
@@ -40,8 +40,8 @@ public struct RedirectListener {
     }
     
     /**
-     Creates a listener that listens for redirects to the specified URL.
-     The url *must* contain a host and a port.
+     Creates a listener that listens for redirects to the specified URL. The url
+     *must* contain a host and a port.
     
      - Parameter url: The URL to listen for redirects to.
      */
@@ -54,11 +54,11 @@ public struct RedirectListener {
     }
     
     /**
-     Starts the server. Does not block; returns immediately after the
-     server starts.
+     Starts the server. Does not block; returns immediately after the server
+     starts.
     
-     - Parameter receiveURL: A closure that is called when the server
-           receives the URL.
+     - Parameter receiveURL: A closure that is called when the server receives
+           the URL.
      */
     public mutating func start(
         receiveURL: @escaping (URL) -> Void

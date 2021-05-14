@@ -14,8 +14,8 @@ public struct Show: Hashable, SpotifyURIConvertible {
     public let description: String
     
     /**
-     The episodes for this show: An array of simplified episode objects
-     wrapped in a paging object.
+     The episodes for this show: An array of simplified episode objects wrapped
+     in a paging object.
      
      Only available for the full version.
      
@@ -28,8 +28,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /// Only available for the full version.
     public let totalEpisodes: Int?
     
-    /// Whether or not the episode has explicit content.
-    /// `false` if unknown.
+    /// Whether or not the episode has explicit content. `false` if unknown.
     public let isExplicit: Bool
 
     /// The [Spotify URI][1] for the episode.
@@ -45,8 +44,8 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /// The cover art for the episode in various sizes, widest first.
     public let images: [SpotifyImage]?
     
-    /// A list of the countries in which the show can be played,
-    /// identified by their [ISO 3166-1 alpha-2][1] code.
+    /// A list of the countries in which the show can be played, identified by
+    /// their [ISO 3166-1 alpha-2][1] code.
     ///
     /// [1]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     public let availableMarkets: [String]
@@ -62,8 +61,8 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /**
      Known [external urls][1] for this episode.
 
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -71,18 +70,17 @@ public struct Show: Hashable, SpotifyURIConvertible {
      */
     public let externalURLs: [String: URL]?
     
-    /// `true` if the episode is hosted outside of Spotify's CDN
-    /// (content delivery network). Else, `false`.
+    /// `true` if the episode is hosted outside of Spotify's CDN (content
+    /// delivery network). Else, `false`.
     public let isExternallyHosted: Bool
     
-    /// A list of the languages used in the episode,
-    /// identified by their [ISO 639][1] code.
+    /// A list of the languages used in the episode, identified by their [ISO
+    /// 639][1] code.
     ///
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
     public let languages: [String]
     
-    /// An array of copyright objects.
-    /// Only available for the full version.
+    /// An array of copyright objects. Only available for the full version.
     public let copyrights: [SpotifyCopyright]?
     
     /// The media type of the show.
@@ -111,13 +109,13 @@ public struct Show: Hashable, SpotifyURIConvertible {
        - href: A link to the Spotify web API endpoint providing the full show
              object.
        - externalURLs: Known [external urls][4] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][2] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][2] for the object.
              - value: An external, public URL to the object.
        - isExternallyHosted: `true` if the episode is hosted outside of
              Spotify's CDN (content delivery network). Else, `false`.
-       - languages: A list of the languages used in the episode,
-             identified by their [ISO 639][5] code.
+       - languages: A list of the languages used in the episode, identified by
+             their [ISO 639][5] code.
        - copyrights: An array of copyright objects.
        - mediaType: The media type of the show.
        - publisher: The publisher of the show.

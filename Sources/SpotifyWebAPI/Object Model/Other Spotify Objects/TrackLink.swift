@@ -11,8 +11,8 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
     /**
      Known [external urls][1] for this track.
 
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -47,11 +47,11 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
      
      - Parameters:
        - externalURLs: Known [external urls][3] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][4] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][4] for the object.
              - value: An external, public URL to the object.
-       - href: A link to the Spotify web API endpoint providing the full
-             track object.
+       - href: A link to the Spotify web API endpoint providing the full track
+             object.
        - uri: The [Spotify URI][4] for the track.
        - id: The [Spotify ID][4] for the track.
      

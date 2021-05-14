@@ -1,7 +1,6 @@
 import Foundation
 
-/// The repeat mode of the user's player.
-/// Either `off`, `track`, or `context`.
+/// The repeat mode of the user's player. Either `off`, `track`, or `context`.
 public enum RepeatMode: String, Codable, Hashable, CaseIterable {
     
     /// Repeat mode is off.
@@ -20,9 +19,9 @@ public extension RepeatMode {
     /**
      Cycles self among the between modes.
      
-     If the repeat mode is `off`, then it becomes `context`;
-     if the repeat mode is `context`, then it becomes `track`;
-     if the repeat mode is `track`, then it becomes `off`.
+     If the repeat mode is `off`, then it becomes `context`; if the repeat mode
+     is `context`, then it becomes `track`; if the repeat mode is `track`, then
+     it becomes `off`.
      
      See also `cycled()`.
      */
@@ -33,23 +32,23 @@ public extension RepeatMode {
     /**
      Returns self cycled among the repeat modes.
      
-     If the repeat mode is `off`, then `context` is returned;
-     if the repeat mode is `context`, then `track` is returned;
-     if the repeat mode is `track`, then `off` is returned.
+     If the repeat mode is `off`, then `context` is returned; if the repeat mode
+     is `context`, then `track` is returned; if the repeat mode is `track`, then
+     `off` is returned.
      
      See also `cycle()`.
      */
     func cycled() -> Self {
-        if self == .off {
-            return .context
+        
+        switch self {
+            case .off:
+                return .context
+            case .context:
+                return .track
+            case .track:
+                return .off
         }
-        else if self == .context {
-            return .track
-        }
-        // else if self == .track
-        else {
-            return .off
-        }
+
     }
     
 }

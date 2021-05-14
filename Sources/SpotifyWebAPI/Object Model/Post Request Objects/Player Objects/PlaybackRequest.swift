@@ -10,8 +10,8 @@ import Foundation
  Read more at the [Spotify web API reference][2].
  
  * context: The context in which to play the content. One of the following:
-   * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
-     play the content. Must be in one of the following categories:
+   * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to play
+     the content. Must be in one of the following categories:
      * Album
      * Artist
      * Show
@@ -19,18 +19,17 @@ import Foundation
  
    * `uris([SpotifyURIConvertible])`: An array of track/episode URIs.
  
- * offset: Indicates where in the context playback should start.
-   One of the following:
+ * offset: Indicates where in the context playback should start. One of the
+   following:
  
-   * `position(Int)`: The index of the item in the context at which to
-     start playback. Cannot be used if the context is an artist.
+   * `position(Int)`: The index of the item in the context at which to start
+     playback. Cannot be used if the context is an artist.
    *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
  
- * positionMS: Indicates from what position to start playback in
-   milliseconds. If `nil`, then the track/episode will start from
-   the beginning. Passing in a position that is greater than the
-   length of the track/episode will cause the player to start playing
-   the next item.
+ * positionMS: Indicates from what position to start playback in milliseconds.
+   If `nil`, then the track/episode will start from the beginning. Passing in a
+   position that is greater than the length of the track/episode will cause the
+   player to start playing the next item.
  
  [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
  [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
@@ -58,21 +57,21 @@ public struct PlaybackRequest: Hashable {
      
      One of the following:
      
-     * `position(Int)`: The index of the item in the context at which to
-           start playback. Cannot be used if the context is an artist.
+     * `position(Int)`: The index of the item in the context at which to start
+        playback. Cannot be used if the context is an artist.
      *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
      
-     If `nil`, then either the first item or a random item in the context
-     will be played, depending on whether the user has shuffle on.
+     If `nil`, then either the first item or a random item in the context will
+     be played, depending on whether the user has shuffle on.
      */
     public var offset: Offset?
     
     /**
      Indicates from what position to start playback in milliseconds.
      
-     If `nil`, then the track/episode will start from the beginning.
-     Passing in a position that is greater than the length of the track
-     will cause the player to start playing the next song.
+     If `nil`, then the track/episode will start from the beginning. Passing in
+     a position that is greater than the length of the track will cause the
+     player to start playing the next song.
      */
     public var positionMS: Int?
     
@@ -88,7 +87,8 @@ public struct PlaybackRequest: Hashable {
      Read more at the [Spotify web API reference][2].
 
      - Parameters:
-       - context: The context in which to play the content. One of the following:
+       - context: The context in which to play the content. One of the
+         following:
          * `contextURI(SpotifyURIConvertible)`: A URI for the context in which
            to play the content. Must be in one of the following categories:
            * Album
@@ -102,13 +102,14 @@ public struct PlaybackRequest: Hashable {
          One of the following:
          * `position(Int)`: The index of the item in the context at which to
            start playback. Cannot be used if the context is an artist.
-         * `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+         * `uri(SpotifyURIConvertible)`: The URI of the item to start playback
+           at.
          
        - positionMS: Indicates from what position to start playback in
-             milliseconds. If `nil`, then the track/episode will start from
-             the beginning. Passing in a position that is greater than the
-             length of the track/episode will cause the player to start playing
-             the next item.
+             milliseconds. If `nil`, then the track/episode will start from the
+             beginning. Passing in a position that is greater than the length of
+             the track/episode will cause the player to start playing the next
+             item.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
@@ -145,10 +146,10 @@ public struct PlaybackRequest: Hashable {
      - Parameters:
        - uri: A track or episode URI.
        - positionMS: Indicates from what position to start playback in
-             milliseconds. If `nil`, then the track/episode will start from
-             the beginning. Passing in a position that is greater than the
-             length of the track/episode will cause the player to start playing
-             the next item.
+             milliseconds. If `nil`, then the track/episode will start from the
+             beginning. Passing in a position that is greater than the length of
+             the track/episode will cause the player to start playing the next
+             item.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback

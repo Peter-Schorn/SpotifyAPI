@@ -126,8 +126,8 @@ public extension SpotifyAPI {
     // MARK: Playlists
 
     /**
-     Makes a request to the "/playlists/{playlistId}" endpoint
-     and allows you to specify fields to filter the query.
+     Makes a request to the "/playlists/{playlistId}" endpoint and allows you to
+     specify fields to filter the query.
 
      See also:
      
@@ -137,67 +137,68 @@ public extension SpotifyAPI {
      * `playlistTracks(_:limit:offset:market:)`
      * `playlistImage(_:)`
      
-     No scopes are required for this endpoint. Both Public and Private
-     playlists belonging to any user can be retrieved.
-     
+     No scopes are required for this endpoint. Both Public and Private playlists
+     belonging to any user can be retrieved.
+
      Use the [Spotify console][1] to test your queries, then copy and paste the
      response into this [online JSON viewer][2].
-     
+
      You are also encouraged to assign a folder to
      `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is initialized
-     to—so that the data will be written to a folder when the decoding fails.
-     You can then upload this file to the JSON viewer. Set the `logLevel` of
-     `spotifyDecodeLogger` to `trace` to print the raw data of all requests to
-     the standard output.
-     
+     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is
+     initialized to—so that the data will be written to a folder when the
+     decoding fails. You can then upload this file to the JSON viewer. Set the
+     `logLevel` of `spotifyDecodeLogger` to `trace` to print the raw data of all
+     requests to the standard output.
+
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
      otherwise the above doesn't apply.
-     
+
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - filters: *Required*. Filters for the query: a comma-separated list
-             (no spaces) of the fields to return. If omitted, all fields are
-             returned. For example, to get just the playlist’s description
-             and URI: "description,uri". A dot separator can be used to specify
+       - filters: *Required*. Filters for the query: a comma-separated list (no
+             spaces) of the fields to return. If omitted, all fields are
+             returned. For example, to get just the playlist’s description and
+             URI: "description,uri". A dot separator can be used to specify
              non-reoccurring fields, while parentheses can be used to specify
-             reoccurring fields within objects. For example, to get just the added
-             date and user ID of the adder: "tracks.items(added_at,added_by.id)".
-             Use multiple parentheses to drill down into nested objects,
-             for example: "tracks.items(track(name,href,album(name,href)))".
-             Fields can be excluded by prefixing them with an exclamation mark,
-             for example: "tracks.items(track(name,href,album(!name,href)))".
-       - additionalTypes: *Required*. An array of id categories. Valid types
-             are `track` and `episode`. If you provide `[]` or `[.track]`,
-             then both tracks and episodes will be returned in the `Track`
-             format. In this case, trying to decode episodes into `PlaylistItem`
-             or `Episode` will always fail. Instead, both tracks and episodes
-             must be decoded into `Track`. If you expect the the playlist to
-             have both tracks and episodes, then use `[.episode]` or
-             `[.track, .episode]` and decode the tracks and episodes into
-             `PlaylistItem`.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the string
-             "from_token". For tracks, Provide this parameter if you want to apply
-             [Track Relinking][5]. For episodes, if the access token was granted on
-             behalf of a user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof key
-             for code exchange), the country associated with the user account will
-             take priority over this parameter. Users can view the country that
-             is associated with their account in the [account settings][6].
-             **Note: If neither market or user country are provided, the episodes**
-             **are considered unavailable for the client and** `nil` **will will**
-             **be returned at the corresponding positions for each episode.**
-             **Therefore, if you authorized your application using the client**
-             **credentials flow and you want to retrieve the episodes in a**
-             **playlist, you must provide a value for this parameter.**
-     - Returns: The raw data and URL response from the server. Because the response
-           is entirely dependent on the filters you specify, you are responsible
-           for decoding the data. Use the combine operators
-           `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)` instead
-           of `decode(type:decoder:)`.
+             reoccurring fields within objects. For example, to get just the
+             added date and user ID of the adder:
+             "tracks.items(added_at,added_by.id)". Use multiple parentheses to
+             drill down into nested objects, for example:
+             "tracks.items(track(name,href,album(name,href)))". Fields can be
+             excluded by prefixing them with an exclamation mark, for example:
+             "tracks.items(track(name,href,album(!name,href)))".
+       - additionalTypes: *Required*. An array of id categories. Valid types are
+             `track` and `episode`. If you provide `[]` or `[.track]`, then both
+             tracks and episodes will be returned in the `Track` format. In this
+             case, trying to decode episodes into `PlaylistItem` or `Episode`
+             will always fail. Instead, both tracks and episodes must be decoded
+             into `Track`. If you expect the the playlist to have both tracks
+             and episodes, then use `[.episode]` or `[.track, .episode]` and
+             decode the tracks and episodes into `PlaylistItem`.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the
+             string "from_token". For tracks, Provide this parameter if you want
+             to apply [Track Relinking][5]. For episodes, if the access token
+             was granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][6]. **Note: If neither market or user country**
+             **are provided, the episodes are considered unavailable for the**
+             **client and** `nil` **will will be returned at the corresponding**
+             **positions for each episode. Therefore, if you authorized your**
+             **application using the client credentials flow and you want to**
+             **retrieve the episodes in a playlist, you must provide a value**
+             **for this parameter.**
+     - Returns: The raw data and URL response from the server. Because the
+           response is entirely dependent on the filters you specify, you are
+           responsible for decoding the data. Use the combine operators
+           `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)`
+           instead of `decode(type:decoder:)`.
      
      [1]: https://developer.spotify.com/console/get-playlist/
      [2]: https://jsoneditoronline.org/
@@ -322,11 +323,11 @@ public extension SpotifyAPI {
     }
     
     /**
-     Makes a request to the "/playlists/{playlistId}/tracks" endpoint
-     and allows you to specify fields to filter the query.
+     Makes a request to the "/playlists/{playlistId}/tracks" endpoint and allows
+     you to specify fields to filter the query.
 
-     Unlike, `filteredPlaylist(_:filters:additionalTypes:market:)`,
-     this endpoint allows you to request different pages of results.
+     Unlike, `filteredPlaylist(_:filters:additionalTypes:market:)`, this
+     endpoint allows you to request different pages of results.
      
      See also:
      
@@ -336,16 +337,16 @@ public extension SpotifyAPI {
      * `playlistTracks(_:limit:offset:market:)`
      * `playlistImage(_:)`
      
-     No scopes are required for this endpoint. Both Public and Private
-     playlists belonging to any user can be retrieved.
+     No scopes are required for this endpoint. Both Public and Private playlists
+     belonging to any user can be retrieved.
      
      You are also encouraged to assign a folder to
      `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is initialized
-     to—so that the data will be written to a folder when the decoding fails.
-     You can then upload this file to the JSON viewer. Set the `logLevel` of
-     `spotifyDecodeLogger` to `trace` to print the raw data of all requests to
-     the standard output.
+     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is
+     initialized to—so that the data will be written to a folder when the
+     decoding fails. You can then upload this file to the JSON viewer. Set the
+     `logLevel` of `spotifyDecodeLogger` to `trace` to print the raw data of all
+     requests to the standard output.
      
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
@@ -355,49 +356,50 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - filters: *Required*. Filters for the query: a comma-separated list
-             (no spaces) of the fields to return. If omitted, all fields are
-             returned. For example, to get just the playlist’s description
-             and URI: "description,uri". A dot separator can be used to specify
+       - filters: *Required*. Filters for the query: a comma-separated list (no
+             spaces) of the fields to return. If omitted, all fields are
+             returned. For example, to get just the playlist’s description and
+             URI: "description,uri". A dot separator can be used to specify
              non-reoccurring fields, while parentheses can be used to specify
-             reoccurring fields within objects. For example, to get just the added
-             date and user ID of the adder: "tracks.items(added_at,added_by.id)".
-             Use multiple parentheses to drill down into nested objects,
-             for example: "tracks.items(track(name,href,album(name,href)))".
-             Fields can be excluded by prefixing them with an exclamation mark,
-             for example: "tracks.items(track(name,href,album(!name,href)))".
-       - additionalTypes: *Required*. An array of id categories. Valid types
-             are `track` and `episode`. If you provide `[]` or `[.track]`,
-             then both tracks and episodes will be returned in the `Track`
-             format. In this case, trying to decode episodes into `PlaylistItem`
-             or `Episode` will always fail. Instead, both tracks and episodes
-             must be decoded into `Track`. If you expect the the playlist to
-             have both tracks and episodes, then use `[.episode]` or
-             `[.track, .episode]` and decode the tracks and episodes into
-             `PlaylistItem`.
+             reoccurring fields within objects. For example, to get just the
+             added date and user ID of the adder:
+             "tracks.items(added_at,added_by.id)". Use multiple parentheses to
+             drill down into nested objects, for example:
+             "tracks.items(track(name,href,album(name,href)))". Fields can be
+             excluded by prefixing them with an exclamation mark, for example:
+             "tracks.items(track(name,href,album(!name,href)))".
+       - additionalTypes: *Required*. An array of id categories. Valid types are
+             `track` and `episode`. If you provide `[]` or `[.track]`, then both
+             tracks and episodes will be returned in the `Track` format. In this
+             case, trying to decode episodes into `PlaylistItem` or `Episode`
+             will always fail. Instead, both tracks and episodes must be decoded
+             into `Track`. If you expect the the playlist to have both tracks
+             and episodes, then use `[.episode]` or `[.track, .episode]` and
+             decode the tracks and episodes into `PlaylistItem`.
        - limit: *Optional*. The maximum number of items to return.
              Default: 100; minimum: 1; maximum: 100.
        - offset: *Optional*. The index of the first item to return.
              Default: 0. Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the string
-             "from_token". For tracks, Provide this parameter if you want to apply
-             [Track Relinking][5]. For episodes, if the access token was granted on
-             behalf of a user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof key
-             for code exchange), the country associated with the user account will
-             take priority over this parameter. Users can view the country that
-             is associated with their account in the [account settings][6].
-             **Note: If neither market or user country are provided, the**
-             **episodes are considered unavailable for the client and** `nil`
-             **will will be returned at the corresponding positions for each**
-             **episode. Therefore, if you authorized your application using the**
-             **client credentials flow and you want to retrieve the episodes in**
-             **a playlist, you must provide a value for this parameter.**
-     - Returns: The raw data and URL response from the server. Because the response
-           is entirely dependent on the filters you specify, you are responsible
-           for decoding the data. Use the combine operators
-           `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)` instead
-           of `decode(type:decoder:)`.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the
+             string "from_token". For tracks, Provide this parameter if you want
+             to apply [Track Relinking][5]. For episodes, if the access token
+             was granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][6]. **Note: If neither market or user country**
+             **are provided, the episodes are considered unavailable for the**
+             **client and** `nil` **will will be returned at the corresponding**
+             **positions for each episode. Therefore, if you authorized your**
+             **application using the client credentials flow and you want to**
+             **retrieve the episodes in a playlist, you must provide a value**
+             **for this parameter.**
+     - Returns: The raw data and URL response from the server. Because the
+           response is entirely dependent on the filters you specify, you are
+           responsible for decoding the data. Use the combine operators
+           `decodeSpotifyObject(_:)` or `decodeOptionalSpotifyObject(_:)`
+           instead of `decode(type:decoder:)`.
      
      [1]: https://developer.spotify.com/console/get-playlist-tracks/
      [2]: https://jsoneditoronline.org/
@@ -431,12 +433,12 @@ public extension SpotifyAPI {
      
      # Warning
      
-     **This endpoint does NOT return only the tracks in a playlist.**
-     Instead, it returns both the tracks and episodes in `Track` format.
-     You are discouraged from using this endpoint unless you are certain
-     that the playlist only contains tracks. If unsure, use
-     `playlistItems(_:limit:offset:market:)` instead. Use the `type` property
-     of `Track` to check if it is actually a track.
+     **This endpoint does NOT return only the tracks in a playlist.** Instead,
+     it returns both the tracks and episodes in `Track` format. You are
+     discouraged from using this endpoint unless you are certain that the
+     playlist only contains tracks. If unsure, use
+     `playlistItems(_:limit:offset:market:)` instead. Use the `type` property of
+     `Track` to check if it is actually a track.
      
      See also:
      
@@ -446,8 +448,8 @@ public extension SpotifyAPI {
      * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
      * `playlistImage(_:)`
      
-     No scopes are required for this endpoint. Tracks from both Public
-     and Private playlists belonging to any user can be retrieved.
+     No scopes are required for this endpoint. Tracks from both Public and
+     Private playlists belonging to any user can be retrieved.
      
      # Returns:
      ```
@@ -464,24 +466,25 @@ public extension SpotifyAPI {
  
      - Parameters:
        - playlist: The URI of a playlist.
-       - limit: *Optional*. The maximum number of items to return.
-             Default: 100; minimum: 1; maximum: 100.
-       - offset: *Optional*. The index of the first item to return.
-             Default: 0. Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the string
-             "from_token". For tracks, Provide this parameter if you want to apply
-             [Track Relinking][3]. For episodes, if the access token was granted on
-             behalf of a user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof key
-             for code exchange), the country associated with the user account will
-             take priority over this parameter. Users can view the country that
-             is associated with their account in the [account settings][4].
-             **Note: If neither market or user country are provided, the**
-             **episodes are considered unavailable for the client and** `nil`
-             **will will be returned at the corresponding positions for each**
-             **episode. Therefore, if you authorized your application using the**
-             **client credentials flow and you want to retrieve the episodes in**
-             **a playlist, you must provide a value for this parameter.**
+       - limit: *Optional*. The maximum number of items to return. Default: 100;
+             minimum: 1; maximum: 100.
+       - offset: *Optional*. The index of the first item to return. Default: 0.
+             Use with `limit` to get the next set of tracks.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
+             string "from_token". For tracks, Provide this parameter if you want
+             to apply [Track Relinking][5]. For episodes, if the access token
+             was granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][6]. **Note: If neither market or user country**
+             **are provided, the episodes are considered unavailable for the**
+             **client and** `nil` **will will be returned at the corresponding**
+             **positions for each episode. Therefore, if you authorized your**
+             **application using the client credentials flow and you want to**
+             **retrieve the episodes in a playlist, you must provide a value**
+             **for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -526,7 +529,7 @@ public extension SpotifyAPI {
      PagingObject<PlaylistItemContainer<PlaylistItem>>
      ```
      
-     To get an array of just the tracks/episdoes, use:
+     To get an array of just the tracks/episodes, use:
      ```
      let items: [PlaylistItem] = playlistItems.items.compactMap(\.item)
      ```
@@ -539,20 +542,21 @@ public extension SpotifyAPI {
              Default: 100; minimum: 1; maximum: 100.
        - offset: *Optional*. The index of the first item to return.
              Default: 0. Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the string
-             "from_token". For tracks, Provide this parameter if you want to apply
-             [Track Relinking][3]. For episodes, if the access token was granted on
-             behalf of a user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof key
-             for code exchange), the country associated with the user account will
-             take priority over this parameter. Users can view the country that
-             is associated with their account in the [account settings][4].
-             **Note: If neither market or user country are provided, the**
-             **episodes are considered unavailable for the client and** `nil`
-             **will will be returned at the corresponding positions for each**
-             **episode. Therefore, if you authorized your application using the**
-             **client credentials flow and you want to retrieve the episodes in**
-             **a playlist, you must provide a value for this parameter.**
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
+             string "from_token". For tracks, Provide this parameter if you want
+             to apply [Track Relinking][5]. For episodes, if the access token
+             was granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][6]. **Note: If neither market or user country**
+             **are provided, the episodes are considered unavailable for the**
+             **client and** `nil` **will will be returned at the corresponding**
+             **positions for each episode. Therefore, if you authorized your**
+             **application using the client credentials flow and you want to**
+             **retrieve the episodes in a playlist, you must provide a value**
+             **for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlists-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -584,14 +588,13 @@ public extension SpotifyAPI {
      
      See also `currentUserPlaylists(limit:offset:)`.
      
-     No scopes are required for retrieving the public playlists of any
-     user. Private playlists are only retrievable for the current user
-     and requires the `playlistReadPrivate` scope to have been authorized
-     by the user. Note that this scope alone will not return collaborative
-     playlists, even though they are always private. Collaborative playlists
-     are only retrievable for the current user and requires the
-     `playlistReadCollaborative` scope to have been authorized by the user.
-     See also [Working with Playlists][1].
+     No scopes are required for retrieving the public playlists of any user.
+     Private playlists are only retrievable for the current user and requires
+     the `playlistReadPrivate` scope to have been authorized by the user. Note
+     that this scope alone will not return collaborative playlists, even though
+     they are always private. Collaborative playlists are only retrievable for
+     the current user and requires the `playlistReadCollaborative` scope to have
+     been authorized by the user. See also [Working with Playlists][1].
      
      # Returns:
      ```
@@ -601,10 +604,10 @@ public extension SpotifyAPI {
      The simplified versions of the playlists will be returned.
      
      A `PlaylistItemsReference` simply contains a link to all of the
-     tracks/episodes and the total number in the playlist. To get all
-     of the tracks and episodes in each playlist, you can use
-     `playlistItems(_:limit:offset:market:)`, passing in the URI of
-     each of the playlists. To get all of the URIs, use:
+     tracks/episodes and the total number in the playlist. To get all of the
+     tracks and episodes in each playlist, you can use
+     `playlistItems(_:limit:offset:market:)`, passing in the URI of each of the
+     playlists. To get all of the URIs, use:
      ```
      let uris: [String] = playlists.items.map(\.uri)
      ```
@@ -613,11 +616,11 @@ public extension SpotifyAPI {
      
      - Parameters:
        - userURI: the URI of a Spotify user.
-       - limit: *Optional*. The maximum number of playlists to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first playlist to return.
-             Default: 0; Maximum: 100,000. Use with `limit` to get the next
-             set of playlists.
+       - limit: *Optional*. The maximum number of playlists to return. Default:
+             20; Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first playlist to return. Default:
+             0; Maximum: 100,000. Use with `limit` to get the next set of
+             playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-list-users-playlists
@@ -659,17 +662,17 @@ public extension SpotifyAPI where
     // MARK: Playlists (Requires Authorization Scopes)
     
     /**
-     Get a list of the current user's playlists, including those
-     that they are following.
-     
+     Get a list of the current user's playlists, including those that they are
+     following.
+
      See also `userPlaylists(for:limit:offset:)`.
-     
-     No scopes are required for retrieving the user's public playlists.
-     However, the access token must have been issued on behalf of a
-     user. Requires the `playlistReadPrivate` scope for retrieving private
-     playlists. The `playlistReadCollaborative` scope is required to
-     retrieve collarborative playlists, even though these are also
-     always private. See also [Working with Playlists][1].
+
+     No scopes are required for retrieving the user's public playlists. However,
+     the access token must have been issued on behalf of a user. Requires the
+     `playlistReadPrivate` scope for retrieving private playlists. The
+     `playlistReadCollaborative` scope is required to retrieve collaborative
+     playlists, even though these are also always private. See also [Working
+     with Playlists][1].
 
      # Returns:
      ```
@@ -679,10 +682,10 @@ public extension SpotifyAPI where
      The simplified versions of the playlists will be returned.
      
      A `PlaylistItemsReference` simply contains a link to all of the
-     tracks/episodes and the total number in the playlist. To get all
-     of the tracks and episodes in each playlist, you can use
-     `playlistItems(_:limit:offset:market:)`, passing in the URI of
-     each of the playlists. To get all of the URIs, use:
+     tracks/episodes and the total number in the playlist. To get all of the
+     tracks and episodes in each playlist, you can use
+     `playlistItems(_:limit:offset:market:)`, passing in the URI of each of the
+     playlists. To get all of the URIs, use:
      ```
      let uris: [String] = playlists.items.map(\.uri)
      ```
@@ -690,11 +693,11 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][2].
 
      - Parameters:
-       - limit: *Optional*. The maximum number of playlists to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first playlist to return.
-             Default: 0; Maximum: 100,000. Use with `limit` to get the next
-             set of playlists.
+       - limit: *Optional*. The maximum number of playlists to return. Default:
+             20; Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first playlist to return. Default:
+             0; Maximum: 100,000. Use with `limit` to get the next set of
+             playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-list-of-current-users-playlists
@@ -721,15 +724,15 @@ public extension SpotifyAPI where
      
      See also `playlist(_:market:)`.
      
-     No scopes are required for this endpoint; the access token
-     must have been issued on behalf of *a* user, but not necessarily
-     the owner of this playlist.
+     No scopes are required for this endpoint; the access token must have been
+     issued on behalf of *a* user, but not necessarily the owner of this
+     playlist.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameter playlist: A Spotify playlist.
-     - Returns: An array of image objects, which contain the URL for
-           the image and its dimensions.
+     - Returns: An array of image objects, which contain the URL for the image
+           and its dimensions.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-playlist-cover
      */
@@ -759,10 +762,10 @@ public extension SpotifyAPI where
     /**
      Add tracks/episodes to one of the current user's playlists.
      
-     Adding items to the current user’s public playlists requires
-     authorization of the `playlistModifyPublic` scope; adding items
-     to the current user’s private playlists (including collaborative
-     playlists) requires the `playlistModifyPrivate` scope.
+     Adding items to the current user’s public playlists requires authorization
+     of the `playlistModifyPublic` scope; adding items to the current user’s
+     private playlists (including collaborative playlists) requires the
+     `playlistModifyPrivate` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -770,15 +773,14 @@ public extension SpotifyAPI where
        - playlist: The URI of a playlist.
        - uris: An Array of URIs for tracks/episodes. A maximum of 100 items can
              be added in one request.
-       - position: *Optional*. The position to insert the items.
-             A zero-based index. If `nil`, the items will be
-             appended to the playlist.
+       - position: *Optional*. The position to insert the items. A zero-based
+             index. If `nil`, the items will be appended to the playlist.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist
-           changes, a new snapshot id is generated. You can use this value
-           to efficiently determine whether a playlist has changed since
-           the last time you retrieved it. Can be supplied in other requests
-           to target a specific playlist version.
+           the current version of the playlist. Every time the playlist changes,
+           a new snapshot id is generated. You can use this value to efficiently
+           determine whether a playlist has changed since the last time you
+           retrieved it. Can be supplied in other requests to target a specific
+           playlist version.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-tracks-to-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
@@ -815,8 +817,8 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - userURI: The URI of a user. **The access token must have been
-           issued on behalf of this user.**
+       - userURI: The URI of a user. **The access token must have been issued**
+             **on behalf of this user.**
        - playlistDetails: The details of the playlist.
      - Returns: The just-created playlist. It will be empty until you add
            tracks/episodes.
@@ -855,8 +857,8 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`
-     * `removeAllOccurencesFromPlaylist(_:uris:)`
+     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
+     * `removeAllOccurrencesFromPlaylist(_:uris:)`
      * `replaceAllPlaylistItems(_:with:)`
 
      Reordering items in the current user’s public playlists requires
@@ -878,16 +880,15 @@ public extension SpotifyAPI where
      # Examples:
      
      To reorder the first item to the last position in a playlist with 10 items,
-     set `rangeStart` to 0, set `rangeLength` to 1 (default) and
-     `insertBefore` to 10.
+     set `rangeStart` to 0, set `rangeLength` to 1 (default) and `insertBefore`
+     to 10.
      
-     To reorder the last item in a playlist with 10 items to the start of
-     the playlist, set `rangeStart` to 9, set `rangeLength` to 1 (default)
-     and set `insertBefore` to 0.
-     
-     To move the items at index 9-10 to the start of the playlist,
-     set `rangeStart` to 9, set `rangeLength` to 2, and set
+     To reorder the last item in a playlist with 10 items to the start of the
+     playlist, set `rangeStart` to 9, set `rangeLength` to 1 (default) and set
      `insertBefore` to 0.
+
+     To move the items at index 9-10 to the start of the playlist, set
+     `rangeStart` to 9, set `rangeLength` to 2, and set `insertBefore` to 0.
      
      Read more at the [Spotify web API reference][1].
      
@@ -895,11 +896,11 @@ public extension SpotifyAPI where
        - playlist: The URI of a playlist.
        - body: An instance of `ReorderPlaylistItems.` See above.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist
-           changes, a new snapshot id is generated. You can use this value
-           to efficiently determine whether a playlist has changed since
-           the last time you retrieved it. Can be supplied in other requests
-           to target a specific playlist version.
+           the current version of the playlist. Every time the playlist changes,
+           a new snapshot id is generated. You can use this value to efficiently
+           determine whether a playlist has changed since the last time you
+           retrieved it. Can be supplied in other requests to target a specific
+           playlist version.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
@@ -923,21 +924,21 @@ public extension SpotifyAPI where
     
     /**
      Replace all the tracks/episodes in a playlist with new items.
-     
-     Replace all the items in a playlist, overwriting its existing items.
-     This powerful request can be useful for replacing items, re-ordering
-     existing items, or clearing the playlist.
+
+     Replace all the items in a playlist, overwriting its existing items. This
+     powerful request can be useful for replacing items, re-ordering existing
+     items, or clearing the playlist.
      
      See also:
      
-     * `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`
-     * `removeAllOccurencesFromPlaylist(_:uris:)`
+     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
+     * `removeAllOccurrencesFromPlaylist(_:uris:)`
      * `reorderPlaylistItems(_:body:)`
      
-     Setting items in the current user’s public playlists requires
-     authorization of the `playlistModifyPublic` scope; setting items in
-     the current user’s private playlists (including collaborative playlists)
-     requires the `playlistModifyPrivate` scope.
+     Setting items in the current user’s public playlists requires authorization
+     of the `playlistModifyPublic` scope; setting items in the current user’s
+     private playlists (including collaborative playlists) requires the
+     `playlistModifyPrivate` scope.
      
      **If a single URI is invalid, then the entire request will fail and the**
      **playlist will not be modified.**
@@ -950,11 +951,11 @@ public extension SpotifyAPI where
              A maximum of 100 items can be sent at once. **Pass in an empty**
              **array to remove all of the items from the playlist**.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist
-           changes, a new snapshot id is generated. You can use this value
-           to efficiently determine whether a playlist has changed since
-           the last time you retrieved it. Can be supplied in other requests
-           to target a specific playlist version.
+           the current version of the playlist. Every time the playlist changes,
+           a new snapshot id is generated. You can use this value to efficiently
+           determine whether a playlist has changed since the last time you
+           retrieved it. Can be supplied in other requests to target a specific
+           playlist version.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
@@ -979,19 +980,19 @@ public extension SpotifyAPI where
     /**
      Change the details of a playlist.
      
-     Changing a public playlist for a user requires authorization of
-     the `playlistModifyPublic` scope; changing a private playlist
-     requires the `playlistModifyPrivate` scope.
+     Changing a public playlist for a user requires authorization of the
+     `playlistModifyPublic` scope; changing a private playlist requires the
+     `playlistModifyPrivate` scope.
      
      The details of the playlist that can be changed are:
      
      * name: The new name for the playlist.
-     * isPublic: If `true` the playlist will be public;
-           if `false` it will be private.
-     * collaborative: If `true`, the playlist will become collaborative
-           and other users will be able to modify the playlist in their
-           Spotify client. **Note**: You can only set collaborative to `true`
-           on non-public playlists.
+     * isPublic: If `true` the playlist will be public; if `false` it will be
+           private.
+     * collaborative: If `true`, the playlist will become collaborative and
+           other users will be able to modify the playlist in their Spotify
+           client. **Note**: You can only set collaborative to `true` on
+           non-public playlists.
      * description: A new playlist description as displayed in
            Spotify Clients and in the Web API.
      
@@ -1038,11 +1039,10 @@ public extension SpotifyAPI where
     /**
      Upload an image for a playlist.
      
-     This endpoint requires the `ugcImageUpload` scope.
-     In addition, the `playlistModifyPublic` scope is required
-     for public playlists, and the `playlistModifyPrivate` scope
-     is required for private playlists.
-     
+     This endpoint requires the `ugcImageUpload` scope. In addition, the
+     `playlistModifyPublic` scope is required for public playlists, and the
+     `playlistModifyPrivate` scope is required for private playlists.
+
      To convert a `UIImage` to base64-encoded jpeg data, use:
      ```
      let jpegData = uiImage.jpegData(
@@ -1050,19 +1050,17 @@ public extension SpotifyAPI where
      )!
      let base64EncodedData = jpegData.base64EncodedData()
      ```
-     Adjust the compression quality as needed to ensure the size
-     is below 256 KB.
-     
-     The process of uploading the image may take some time,
-     so performing a request for this playlist may not immediately
-     return the image.
-     
+     Adjust the compression quality as needed to ensure the size is below 256
+     KB.
+
+     The process of uploading the image may take some time, so performing a
+     request for this playlist may not immediately return the image.
+
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - imageData: Base64-encoded JPEG image data.
-             **Maximum size is 256 KB.**
+       - imageData: Base64-encoded JPEG image data. **Maximum size is 256 KB.**
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-upload-custom-playlist-cover
      */
@@ -1126,23 +1124,22 @@ public extension SpotifyAPI where
     }
     
     /**
-     Removes **all** occurences of the specified tracks/episodes
-     from a playlist.
+     Removes **all** Occurrences of the specified tracks/episodes from a
+     playlist.
      
      See also:
      
-     * `removeSpecificOccurencesFromPlaylist(_:urisWithPostions:)`
+     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
      * `replaceAllPlaylistItems(_:with:)`
      * `reorderPlaylistItems(_:body:)`
      
-     Removing items from a user’s public playlist requires authorization
-     of the `playlistModifyPublic` scope; removing items from a
-     private playlist requires the `playlistModifyPrivate` scope.
+     Removing items from a user’s public playlist requires authorization of the
+     `playlistModifyPublic` scope; removing items from a private playlist
+     requires the `playlistModifyPrivate` scope.
      
      **If a single URI is invalid, then the entire request will fail and the**
      **playlist will not be modified.** Trying to remove an item that is not
      contained in the playlist has no effect.
-     
      
      Read more at the [Spotify web API reference][1].
 
@@ -1151,18 +1148,18 @@ public extension SpotifyAPI where
        - uris: An Array of URIs for tracks/episodes. A maximum of 100 items can
              be removed at once.
        - snapshotId: The [snapshot id][2] of the playlist to target. If `nil`,
-             the most recent version of the playist is targeted.
+             the most recent version of the playlist is targeted.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist
-           changes, a new snapshot id is generated. You can use this value
-           to efficiently determine whether a playlist has changed since
-           the last time you retrieved it. Can be supplied in other requests
-           to target a specific playlist version.
+           the current version of the playlist. Every time the playlist changes,
+           a new snapshot id is generated. You can use this value to efficiently
+           determine whether a playlist has changed since the last time you
+           retrieved it. Can be supplied in other requests to target a specific
+           playlist version.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
-    func removeAllOccurencesFromPlaylist(
+    func removeAllOccurrencesFromPlaylist(
         _ playlist: SpotifyURIConvertible,
         of uris: [SpotifyURIConvertible],
         snapshotId: String? = nil
@@ -1181,51 +1178,49 @@ public extension SpotifyAPI where
     }
     
     /**
-     Removes the specified tracks/episodes at the specified positions
-     from a playlist. This is useful if the playlist contains duplicate
-     items.
+     Removes the specified tracks/episodes at the specified positions from a
+     playlist. This is useful if the playlist contains duplicate items.
      
      See also:
      
-     * `removeAllOccurencesFromPlaylist(_:uris:)`
+     * `removeAllOccurrencesFromPlaylist(_:uris:)`
      * `replaceAllPlaylistItems(_:with:)`
      * `reorderPlaylistItems(_:body:)`
      
-     Removing items from a user’s public playlist requires authorization
-     of the `playlistModifyPublic` scope; removing items from a
-     private playlist requires the `playlistModifyPrivate` scope.
+     Removing items from a user’s public playlist requires authorization of the
+     `playlistModifyPublic` scope; removing items from a private playlist
+     requires the `playlistModifyPrivate` scope.
      
-     **If a single URI is invalid or if a given item is not found at a**
-     **given position, the entire request will fail and no edits will take**
-     **place.**
+     **If a single URI is invalid or if a given item is not found at a given**
+     **position, the entire request will fail and no edits will take place.**
      
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - playlist: The URI for a playlist.
-       - urisWithPostions: A collection of URIs along with their positions
-         in a playlist and, optionally, the snapshot id of the playlist
-         you want to target. A maximum of 100 items can be sent at once.
+       - urisWithPositions: A collection of URIs along with their positions in a
+             playlist and, optionally, the snapshot id of the playlist you want
+             to target. **A maximum of 100 items can be sent at once.**
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist
-           changes, a new snapshot id is generated. You can use this value
-           to efficiently determine whether a playlist has changed since
-           the last time you retrieved it. Can be supplied in other requests
-           to target a specific playlist version.
+           the current version of the playlist. Every time the playlist changes,
+           a new snapshot id is generated. You can use this value to efficiently
+           determine whether a playlist has changed since the last time you
+           retrieved it. Can be supplied in other requests to target a specific
+           playlist version.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
-    func removeSpecificOccurencesFromPlaylist(
+    func removeSpecificOccurrencesFromPlaylist(
         _ playlist: SpotifyURIConvertible,
-        of urisWithPostions: URIsWithPositionsContainer
+        of urisWithPositions: URIsWithPositionsContainer
     ) -> AnyPublisher<String, Error>{
         
         return self.modifyPlaylist(
             playlist,
             httpMethod: "DELETE",
             queryItems: [:],
-            body: urisWithPostions,
+            body: urisWithPositions,
             // We can't know in advance which playlist
             // is being modified.
             requiredScopes: []

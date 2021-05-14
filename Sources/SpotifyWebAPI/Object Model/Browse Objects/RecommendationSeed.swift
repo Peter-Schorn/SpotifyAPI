@@ -10,7 +10,7 @@ import Foundation
  */
 public struct RecommendationSeed: Codable, Hashable {
     
-    /// The number of tracks available after the minimun and maximum filters
+    /// The number of tracks available after the minimum and maximum filters
     /// have been applied.
     public let afterFilteringSize: Int
     
@@ -43,20 +43,19 @@ public struct RecommendationSeed: Codable, Hashable {
      `RecommendationsResponse`.
      
      - Parameters:
-       - afterFilteringSize: The number of tracks available after the minimun
+       - afterFilteringSize: The number of tracks available after the minimum
              and maximum filters have been applied.
        - afterRelinkingSize: The number of tracks available after relinking
              for regional availability.
-       - href: A link to the full track or artist data for this seed.
-             For tracks this will be a link to a Track Object. For artists
-             a link to an Artist Object. For genre seeds, this value will be
-             `nil`. Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve
-             the results.
+       - href: A link to the full track or artist data for this seed. For tracks
+             this will be a link to a Track Object. For artists a link to an
+             Artist Object. For genre seeds, this value will be `nil`. Use
+             `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
        - id: The artist, track, or genre id used to select this seed.
-       - initialPoolSize: The number of recommended tracks available for
-             this seed.
-       - type: The entity type of this seed. Either `artist`, `track`
-             or `genre`.
+       - initialPoolSize: The number of recommended tracks available for this
+             seed.
+       - type: The entity type of this seed. Either `artist`, `track` or
+             `genre`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */

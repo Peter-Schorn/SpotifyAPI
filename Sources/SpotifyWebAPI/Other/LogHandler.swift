@@ -20,7 +20,7 @@ public struct SpotifyAPILogHandler: LogHandler {
     
      This method should only be called once. Calling it additional times is
      safe, but has no effect.
-     
+
      # Thread Safety
      
      This method is thread-safe.
@@ -104,15 +104,15 @@ public extension Logger {
     
 
     /**
-     Construct a `Logger` given a `label` identifying the creator of the `Logger`
-     or a non-standard `LogHandler`.
+     Construct a `Logger` given a `label` identifying the creator of the
+     `Logger` or a non-standard `LogHandler`.
           
      The `label` should identify the creator of the `Logger`. This can be an
      application, a sub-system, or even a datatype. This initializer provides an
-     escape hatch in case the global default logging backend implementation
-     (set up using `LoggingSystem.bootstrap`) is not appropriate for this
-     particular logger.
-
+     escape hatch in case the global default logging backend implementation (set
+     up using `LoggingSystem.bootstrap`) is not appropriate for this particular
+     logger.
+     
      - parameters:
        - label: An identifier for the creator of a `Logger`.
        - level: The log level for the logger.

@@ -1,8 +1,8 @@
 import Foundation
 
 /**
- A Spotify ID Category, which is the identifier that appears
- near the beginning of a Spotify URI.
+ A Spotify ID Category, which is the identifier that appears near the beginning
+ of a Spotify URI.
  
  In this URI:
  ```
@@ -78,8 +78,8 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      * `genre`
      * `unknown`
      
-     - Parameter rawValue: The raw value for an id category.
-           **It is case-insensitive**.
+     - Parameter rawValue: The raw value for an id category. **It is**
+           **case-insensitive**.
      */
     @inlinable
     public init?(rawValue: String) {

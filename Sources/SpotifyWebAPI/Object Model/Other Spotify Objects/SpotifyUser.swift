@@ -3,16 +3,15 @@ import Foundation
 /**
  A [Spotify user][1].
  
- Can represent both the public and private version. When the public
- version is returned, properties that are only available in the private
- version will be `nil`.
+ Can represent both the public and private version. When the public version is
+ returned, properties that are only available in the private version will be
+ `nil`.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
  */
 public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     
     /// The name displayed on the user’s profile.
-    /// `nil` if not available.
     public let displayName: String?
 
     /// The [Spotify URI][1] for this user.
@@ -31,27 +30,28 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     /**
      A link to the Spotify web API endpoint for this user.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `SpotifyUser` as the
-     response type to retrieve the results.
+     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `SpotifyUser` as
+     the response type to retrieve the results.
      */
     public let href: URL
 
     /**
-     When `true`, indicates that explicit content *is* allowed. If `false`,
-     then explicit content should *not* be played because the user has disabled
-     it in their settings.
-     
+     When `true`, indicates that explicit content *is* allowed. If `false`, then
+     explicit content should *not* be played because the user has disabled it in
+     their settings.
+
      This property is only available for the *current* user and requires the
      `userReadPrivate` scope. Otherwise, it will be `nil`.
      */
     public let allowsExplicitContent: Bool?
     
     /**
-     When `true`, indicates that the explicit content setting is locked
-     and can’t be changed by the user. For example, this user may be
-     associated with a kids account that has content restrictions on it
-     (e.g., parental controls).
+     When `true`, indicates that the explicit content setting is locked and
+     can’t be changed by the user.
      
+     For example, this user may be associated with a kids account that has
+     content restrictions on it (e.g., parental controls).
+
      This property is only available for the *current* user and requires the
      `userReadPrivate` scope. Otherwise, it will be `nil`.
      */
@@ -61,8 +61,8 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     public let followers: Followers?
     
     /**
-     The country of the user, as set in the user’s account profile.
-     An [ISO 3166-1 alpha-2 country code][1].
+     The country of the user, as set in the user’s account profile. An [ISO
+     3166-1 alpha-2 country code][1].
     
      This property is only available for the *current* user and requires the
      `userReadPrivate` scope. Otherwise, it will be `nil`.
@@ -72,21 +72,20 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     public let country: String?
     
     /**
-     The user’s email address, as entered by the user when
-     creating their account.
+     The user’s email address, as entered by the user when creating their
+     account.
      
      This property is only available for the *current* user and requires the
      `userReadEmail` scope. Otherwise, it will be `nil`.
      
-     - Warning: This email address is unverified; there is no proof that
-           it actually belongs to the user.
+     - Warning: This email address is unverified; there is no proof that it
+           actually belongs to the user.
      */
     public let email: String?
     
     /**
-     The user’s Spotify subscription level:
-     "premium", "free", etc. (The subscription level "open" can be
-     considered the same as "free".)
+     The user’s Spotify subscription level: "premium", "free", etc. (The
+     subscription level "open" can be considered the same as "free".)
      
      This property is only available for the *current* user and requires the
      `userReadPrivate` scope. Otherwise, it will be `nil`.
@@ -96,8 +95,8 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     /**
     Known [external urls][1] for this user.
 
-    - key: The type of the URL, for example:
-          "spotify" - The [Spotify URL][2] for the object.
+    - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+          for the object.
     - value: An external, public URL to the object.
 
     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -117,36 +116,33 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
        - id: The [Spotify user ID][2] for this user.
        - images: The user's profile image in various sizes.
        - href: A link to the Spotify web API endpoint for this user.
-       - allowsExplicitContent:  When `true`, indicates that explicit
-             content *is* allowed. If `false`, then explicit content
-             should *not* be played because the user has disabled it
-             in their settings. This property is only available for the
-             *current* user and requires the `userReadPrivate` scope.
-             Otherwise, it will be `nil`.
+       - allowsExplicitContent:  When `true`, indicates that explicit content
+             *is* allowed. If `false`, then explicit content should *not* be
+             played because the user has disabled it in their settings. This
+             property is only available for the *current* user and requires the
+             `userReadPrivate` scope. Otherwise, it will be `nil`.
        - explicitContentSettingIsLocked: When `true`, indicates that the
-             explicit content setting is locked and can’t be changed by
-             the user. For example, this user may be associated with a
-             kids account that has content restrictions on it (e.g.,
-             parental controls). This property is only available for the
-             *current* user and requires the `userReadPrivate` scope.
-             Otherwise, it will be `nil`.
+             explicit content setting is locked and can’t be changed by the
+             user. For example, this user may be associated with a kids account
+             that has content restrictions on it (e.g., parental controls). This
+             property is only available for the *current* user and requires the
+             `userReadPrivate` scope. Otherwise, it will be `nil`.
        - followers: Information about the followers of this user.
-       - country: The country of the user, as set in the user’s account
-             profile. An [ISO 3166-1 alpha-2 country code][3]. This property
-             is only available for the *current* user and requires the
-             `userReadPrivate` scope. Otherwise, it will be `nil`.
-       - email: The user’s email address, as entered by the user when
-             creating their account. This property is only available for
-             the *current* user and requires the `userReadEmail` scope.
-             Otherwise, it will be `nil`.
-       - product:  The user’s Spotify subscription level:
-             "premium", "free", etc. (The subscription level "open"
-             can be considered the same as "free".) This property
-             is only available for the *current* user and requires the
-             `userReadPrivate` scope. Otherwise, it will be `nil`.
+       - country: The country of the user, as set in the user’s account profile.
+             An [ISO 3166-1 alpha-2 country code][3]. This property is only
+             available for the *current* user and requires the `userReadPrivate`
+             scope. Otherwise, it will be `nil`.
+       - email: The user’s email address, as entered by the user when creating
+             their account. This property is only available for the *current*
+             user and requires the `userReadEmail` scope. Otherwise, it will be
+             `nil`.
+       - product:  The user’s Spotify subscription level: "premium", "free",
+             etc. (The subscription level "open" can be considered the same as
+             "free".) This property is only available for the *current* user and
+             requires the `userReadPrivate` scope. Otherwise, it will be `nil`.
        - externalURLs: Known [external urls][4] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][2] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][2] for the object.
              - value: An external, public URL to the object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject

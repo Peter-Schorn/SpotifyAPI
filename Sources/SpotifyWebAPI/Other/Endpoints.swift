@@ -10,8 +10,8 @@ public enum Endpoints {
     /**
      The base URL for the Spotify accounts service.
      
-     Used for authorizing your application, retrieving refresh and
-     access tokens, and refreshing the access token.
+     Used for authorizing your application, retrieving refresh and access
+     tokens, and refreshing the access token.
     
      ```
      "accounts.spotify.com"
@@ -22,8 +22,8 @@ public enum Endpoints {
     /**
      The base URL for the Spotify web API.
     
-     This is used for all requests other than those for authorizing
-     the application, retrieving tokens, and refreshing tokens.
+     This is used for all requests other than those for authorizing the
+     application, retrieving tokens, and refreshing tokens.
     
      ```
      "api.spotify.com"
@@ -73,7 +73,7 @@ public enum Endpoints {
     /**
      Use this method to make all of the endpoints other than those for
      authorizing the application and retrieving/refreshing the tokens.
-     
+
      Makes an endpoint beginning with:
      ```
      "https://api.spotify.com/v1"
@@ -82,11 +82,9 @@ public enum Endpoints {
      
      - Parameters:
        - path: A path to append to the URL.
-       - queryItems: Query items to add to the URL. Each value in the
-             the dictionary that is NOT `nil` will be added to the
-             query string.
-     - Returns: The URL, created from the provided path and
-           query items.
+       - queryItems: Query items to add to the URL. Each value in the the
+             dictionary that is NOT `nil` will be added to the query string.
+     - Returns: The URL, created from the provided path and query items.
      */
     public static func apiEndpoint(
         _ path: String,

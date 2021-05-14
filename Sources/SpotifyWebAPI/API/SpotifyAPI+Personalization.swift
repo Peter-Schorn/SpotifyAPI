@@ -22,32 +22,30 @@ public extension SpotifyAPI where
      This endpoint requires the `userTopRead` scope.
 
      Affinity is a measure of the expected preference a user has for a
-     particular artist. It is based on user behavior, including
-     play history, but does not include actions made while in incognito
-     mode. Light or infrequent users of Spotify may not have sufficient
-     play history to generate a full affinity data set. As a user’s behavior
-     is likely to shift over time, this preference data is available over
-     three time spans. See `timeRange` in the query parameter table for more
-     information. For each time range, the top 50 artists are
-     available for each user. In the future, it is likely that this
-     restriction will be relaxed. This data is typically updated once
-     each day for each user.
+     particular artist. It is based on user behavior, including play history,
+     but does not include actions made while in incognito mode. Light or
+     infrequent users of Spotify may not have sufficient play history to
+     generate a full affinity data set. As a user’s behavior is likely to shift
+     over time, this preference data is available over three time spans. See
+     `timeRange` in the query parameter table for more information. For each
+     time range, the top 50 artists are available for each user. In the future,
+     it is likely that this restriction will be relaxed. This data is typically
+     updated once each day for each user.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - timeRange: *Optional*. Over what time frame the
-             affinities are computed. Valid values: `longTerm`
-             (calculated from several years of data and including all
-             new data as it becomes available), `mediumTerm` (approximately
-             last 6 months), and `shortTerm` (approximately last 4 weeks).
-             Default: `mediumTerm`.
-       - offset: *Optional*. The index of the first artist to return.
-             Default: 0. Use with limit to get the next set of artists.
-       - limit: *Optional*. The number of artists to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-     - Returns: An array of the full versions of artist objects
-           wrapped in a paging object.
+       - timeRange: *Optional*. Over what time frame the affinities are
+             computed. Valid values: `longTerm` (calculated from several years
+             of data and including all new data as it becomes available),
+             `mediumTerm` (approximately last 6 months), and `shortTerm`
+             (approximately last 4 weeks). Default: `mediumTerm`.
+       - offset: *Optional*. The index of the first artist to return. Default:
+             0. Use with limit to get the next set of artists.
+       - limit: *Optional*. The number of artists to return. Default: 20;
+             Minimum: 1; Maximum: 50.
+     - Returns: An array of the full versions of artist objects wrapped in a
+           paging object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
      */
@@ -72,38 +70,36 @@ public extension SpotifyAPI where
     
     /**
      Get the current user's top tracks, calculated based on affinity.
-     
+
      See also `currentUserTopArtists(_:offset:limit:)`.
-     
+
      This endpoint requires the `userTopRead` scope.
 
      Affinity is a measure of the expected preference a user has for a
-     particular track. It is based on user behavior, including
-     play history, but does not include actions made while in incognito
-     mode. Light or infrequent users of Spotify may not have sufficient
-     play history to generate a full affinity data set. As a user’s behavior
-     is likely to shift over time, this preference data is available over
-     three time spans. See time_range in the query parameter table for more
-     information. For each time range, the top 50 tracks are
-     available for each user. In the future, it is likely that this
-     restriction will be relaxed. This data is typically updated once
-     each day for each user.
-     
+     particular track. It is based on user behavior, including play history, but
+     does not include actions made while in incognito mode. Light or infrequent
+     users of Spotify may not have sufficient play history to generate a full
+     affinity data set. As a user’s behavior is likely to shift over time, this
+     preference data is available over three time spans. See time_range in the
+     query parameter table for more information. For each time range, the top 50
+     tracks are available for each user. In the future, it is likely that this
+     restriction will be relaxed. This data is typically updated once each day
+     for each user.
+
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - timeRange: *Optional*. Over what time frame the
-             affinities are computed. Valid values: `longTerm`
-             (calculated from several years of data and including all
-             new data as it becomes available), `mediumTerm` (approximately
-             last 6 months), and `shortTerm` (approximately last 4 weeks).
-             Default: `mediumTerm`.
-       - offset: *Optional*. The index of the first track to return.
-             Default: 0. Use with limit to get the next set of tracks.
-       - limit: *Optional*. The number of tracks to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-     - Returns: An array of the full versions of track objects
-           wrapped in a paging object.
+       - timeRange: *Optional*. Over what time frame the affinities are
+             computed. Valid values: `longTerm` (calculated from several years
+             of data and including all new data as it becomes available),
+             `mediumTerm` (approximately last 6 months), and `shortTerm`
+             (approximately last 4 weeks). Default: `mediumTerm`.
+       - offset: *Optional*. The index of the first track to return. Default: 0.
+             Use with limit to get the next set of tracks.
+       - limit: *Optional*. The number of tracks to return. Default: 20;
+             Minimum: 1; Maximum: 50.
+     - Returns: An array of the full versions of track objects wrapped in a
+           paging object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
      */

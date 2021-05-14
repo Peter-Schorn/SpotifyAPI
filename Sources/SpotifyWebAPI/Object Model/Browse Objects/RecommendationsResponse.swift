@@ -2,15 +2,14 @@ import Foundation
 
 /**
  A [Recommendations Response Object][1]. Returned by
- `SpotifyAPI.recommendations(_:limit:market:)`. See also
- `RecommendationSeed`.
+ `SpotifyAPI.recommendations(_:limit:market:)`. See also `RecommendationSeed`.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
  */
 public struct RecommendationsResponse: Codable, Hashable {
 
     /**
-     An array of [recomendation seed objects][1].
+     An array of [recommendation seed objects][1].
 
      Consider using the `seedArtists`, `seedTracks`, or `seedGenres`
      computed properties, which are backed by this property.
@@ -51,7 +50,7 @@ public struct RecommendationsResponse: Codable, Hashable {
      `RecommendationSeed`.
      
      - Parameters:
-       - seeds: An array of [recomendation seed objects][2].
+       - seeds: An array of [recommendation seed objects][2].
        - tracks: An array of track objects.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
@@ -74,7 +73,7 @@ extension RecommendationsResponse: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      Dates are compared using `timeIntervalSince1970`, so they are considered
      floating point properties for the purposes of this method.
      

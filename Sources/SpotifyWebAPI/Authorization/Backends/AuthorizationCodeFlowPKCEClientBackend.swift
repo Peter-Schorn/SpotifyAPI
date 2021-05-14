@@ -14,7 +14,7 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
- authoriation information and refresh the access token using the [Authorization
+ authorization information and refresh the access token using the [Authorization
  Code Flow with Proof Key for Code Exchange][1].
 
  Compare with `AuthorizationCodeFlowPKCEProxyBackend`.
@@ -62,7 +62,7 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validing the `redirectURIWithQuery`,
+     After validating the `redirectURIWithQuery`,
      `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
      calls this method in order to retrieve the authorization information.
 
@@ -130,7 +130,7 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         tokensRequest.httpBody = body
         
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can substitue different networking clients for testing purposes.
+        // can substitute different networking clients for testing purposes.
         // In your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
@@ -192,7 +192,7 @@ public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCE
         refreshTokensRequest.httpBody = body
         
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can substitue different networking clients for testing purposes.
+        // can  substitute different networking clients for testing purposes.
         // In your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(

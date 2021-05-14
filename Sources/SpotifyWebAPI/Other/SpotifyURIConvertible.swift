@@ -8,9 +8,9 @@ import Foundation
  var uri: String { get }
  ```
  
- `SpotifyIdentifier`, `String`, `SubString`, and some of the objects
- returned by the Spotify web API are conforming types. Usually, you
- should not need to conform additional types to this protocol.
+ `SpotifyIdentifier`, `String`, `SubString`, and some of the objects returned by
+ the Spotify web API are conforming types. Usually, you should not need to
+ conform additional types to this protocol.
  
  A Spotify URI has the following format:
  ```
@@ -35,8 +35,7 @@ import Foundation
 public protocol SpotifyURIConvertible {
     
     /**
-     The unique resource identifier for the
-     Spotify content.
+     The unique resource identifier for the Spotify content.
      
      See [Spotify URIs and ids][1].
      
@@ -48,8 +47,8 @@ public protocol SpotifyURIConvertible {
 
 extension String: SpotifyURIConvertible {
 
-    /// Returns `self`, with the assumption that it represents
-    /// a [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+    /// Returns `self`, with the assumption that it represents a [Spotify
+    /// URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
     @inlinable @inline(__always)
     public var uri: Self { self }
 
@@ -57,8 +56,9 @@ extension String: SpotifyURIConvertible {
 
 extension Substring: SpotifyURIConvertible {
 
-    /// Returns `self` converted to `String`, with the assumption
-    /// that it represents a [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+    /// Returns `self` converted to `String`, with the assumption that it
+    /// represents a [Spotify
+    /// URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
     @inlinable @inline(__always)
     public var uri: String { String(self) }
 

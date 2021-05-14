@@ -31,6 +31,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - The custom `URLComponents` and `URL` initializers are now internal.
 - The `scopes` properties of `AuthInfo` and the authorization managers are non-optional. Instead, the lack of scopes is represented by an empty set.
 - Renamed `SpotifyLocalError` to `SpotifyGeneralError`.
+- Renamed `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)` to `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`.
+- Renamed `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)` to `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+- Renamed `SpotifyDecodingError.dataDumpfolder` to `dataDumpFolder`.
 
 ## [1.6.1] - 2021-4-26
 

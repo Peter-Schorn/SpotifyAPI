@@ -1,8 +1,8 @@
 import Foundation
 
 
-/// Represents a period before or after a specified date.
-/// Dates are converted to millisecond-precision timestamp strings.
+/// Represents a period before or after a specified date. Dates are converted to
+/// millisecond-precision timestamp strings.
 ///
 /// Used in the body of `SpotifyAPI.recentlyPlayed(_:limit:)`.
 public enum TimeReference: Codable, Hashable {
@@ -10,11 +10,11 @@ public enum TimeReference: Codable, Hashable {
     /**
      A period before a specified date.
      
-     The `String` value must be a unix timestamp in milliseconds,
-     *rounded to the nearest integer*. For example: "1616355451022".
-     This can be retrieved from the `before` property of a
-     `SpotifyCursor`, if it is non-`nil`, in order to reference the page
-     of results that chronologically precede the current page.
+     The `String` value must be a unix timestamp in milliseconds, *rounded to*
+     *the nearest integer*. For example: "1616355451022". This can be retrieved
+     from the `before` property of a `SpotifyCursor`, if it is non-`nil`, in
+     order to reference the page of results that chronologically precede the
+     current page.
      
      See also `Self.before(_ date: Date)`.
      */
@@ -23,11 +23,11 @@ public enum TimeReference: Codable, Hashable {
     /**
      A period after a specified date.
      
-     The `String` value must be a unix timestamp in milliseconds,
-     *rounded to the nearest integer*. For example: "1616373716005".
-     This can be retrieved from the `after` property of a
-     `SpotifyCursor`, if it is non-`nil`, in order to reference the page
-     of results that chronologically succeed the current page.
+     The `String` value must be a unix timestamp in milliseconds, *rounded to*
+     *the nearest integer*. For example: "1616373716005". This can be retrieved
+     from the `after` property of a `SpotifyCursor`, if it is non-`nil`, in
+     order to reference the page of results that chronologically succeed the
+     current page.
      
      See also `Self.after(_ date: Date)`.
      */
@@ -35,8 +35,7 @@ public enum TimeReference: Codable, Hashable {
     
     /**
      A period before a specified date. It will be converted to a
-     millisecond-precision timestamp string rounded to the nearest
-     integer.
+     millisecond-precision timestamp string rounded to the nearest integer.
 
      See also `Self.before(String)`.
 
@@ -48,8 +47,7 @@ public enum TimeReference: Codable, Hashable {
     
     /**
      A period before a specified date. It will be converted to a
-     millisecond-precision timestamp string rounded to the nearest
-     integer.
+     millisecond-precision timestamp string rounded to the nearest integer.
     
      See also `Self.after(String)`.
 
@@ -60,7 +58,7 @@ public enum TimeReference: Codable, Hashable {
     }
     
     /// Converts the date to an *integer* representing the number of
-    /// milliseconds since january 1, 1970.
+    /// milliseconds since January 1, 1970.
     private static func asMillisecondsString(date: Date) -> String {
         return String(format: "%.0f", date.millisecondsSince1970)
     }
@@ -69,9 +67,8 @@ public enum TimeReference: Codable, Hashable {
     /**
      Returns self as a query item.
      
-     The name will be "before" or "after" and the value will be the date
-     in milliseconds since the unix epoch rounded to the nearest whole
-     number.
+     The name will be "before" or "after" and the value will be the date in
+     milliseconds since the unix epoch rounded to the nearest whole number.
      */
     public func asQueryItem() -> [String: String] {
         let name: String
@@ -144,9 +141,9 @@ public enum TimeReference: Codable, Hashable {
 extension TimeReference: ApproximatelyEquatable {
     
     /**
-     Returns `true` if both instances are the same case of this
-     enum and if the timestamps are approximately equal within an
-     absolute tolerance of one second. Else, `false`.
+     Returns `true` if both instances are the same case of this enum and if the
+     timestamps are approximately equal within an absolute tolerance of one
+     second. Else, `false`.
      
      - Parameter other: Another instance of `Self`.
      */
@@ -177,6 +174,8 @@ extension TimeReference: ApproximatelyEquatable {
             )
             
         }
+        // shouldn't get to this point if the types are created properly;
+        // they should always be parsable into integers
         return timestamp == otherTimestamp
 
     }

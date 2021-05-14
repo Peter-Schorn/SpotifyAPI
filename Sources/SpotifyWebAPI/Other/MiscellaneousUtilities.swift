@@ -35,8 +35,7 @@ public extension Dictionary where Key == String, Value == String {
 
 public extension DecodingError {
     
-    /// The context of the error.
-    /// Each of the enum cases have a context.
+    /// The context of the error. Each of the enum cases have a context.
     var context: Context? {
         switch self {
             case .dataCorrupted(let context):
@@ -53,9 +52,8 @@ public extension DecodingError {
     }
     
     /**
-     Formats the coding path as if you were
-     accessing nested properties from a Swift type;
-     e.g., "items[27].track.album.release_date".
+     Formats the coding path as if you were accessing nested properties from a
+     Swift type; e.g., "items[27].track.album.release_date".
      */
     var prettyCodingPath: String? {
     
@@ -88,12 +86,10 @@ public extension Sequence where
 {
     
     /**
-     Creates a comma separated string of the raw values of
-     the sequence's elements. No spaces are added between the commas.
-    
-     Available when Sequence.Element conforms to `RawRepresentable`
-     and `Element.RawValue` conforms to `StringProtocol`
-     (`String` or `SubString`).
+     Creates a comma separated string of the raw values of the sequence's
+     elements. No spaces are added between the commas.
+          Available when Sequence.Element conforms to `RawRepresentable` and
+     `Element.RawValue` conforms to `StringProtocol` (`String` or `SubString`).
     
      Equivalent to `self.map(\.rawValue).joined(separator: ",")`.
      */
@@ -121,8 +117,8 @@ public extension Sequence where Element: Equatable {
 
 public extension Collection where Index == Int {
 
-    /// Splits this collection into an array of arrays, each of which
-    /// will have the specified size (although the last may be smaller).
+    /// Splits this collection into an array of arrays, each of which will have
+    /// the specified size (although the last may be smaller).
     ///
     /// - Parameter size: The size of each nested array.
     func chunked(size: Int) -> [[Element]] {
@@ -196,22 +192,21 @@ public extension Collection where Index == Int {
 // MARK: - Optional Extensions -
 
 /**
- Returns a new dictionary in which the key-value pairs
- for which the values are `nil` are removed from the dictionary
- and the remaining values are converted to strings.
- 
- The LosslessStringConvertible protocol prevents you from using
- types that cannot be converted to strings without losing information.
- (It should be possible to re-create an instance of a conforming type
- from its string representation.)
+ Returns a new dictionary in which the key-value pairs for which the values are
+ `nil` are removed from the dictionary and the remaining values are converted to
+ strings.
+
+ The LosslessStringConvertible protocol prevents you from using types that
+ cannot be converted to strings without losing information. (It should be
+ possible to re-create an instance of a conforming type from its string
+ representation.)
  
  `String` and `Int` are examples of conforming types.
  
- - Parameter dictionary: A dictionary in which the keys are strings
-       and the values are optional types with a wrapped type that
-       conforms to `LosslessStringConvertible`; that is, a type
-       that can be represented as a string in a lossless,
-       unambiguous way.
+ - Parameter dictionary: A dictionary in which the keys are strings and the
+       values are optional types with a wrapped type that conforms to
+       `LosslessStringConvertible`; that is, a type that can be represented as a
+       string in a lossless, unambiguous way.
  */
 @inlinable
 public func urlQueryDictionary(

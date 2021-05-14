@@ -3,20 +3,20 @@ import Foundation
 public extension PlaybackRequest {
     
     /**
-     Indicates where in the context playback should start.
-     See `PlaybackRequest`.
+     Indicates where in the context playback should start. See
+     `PlaybackRequest`.
      
      One of the following:
      
-     * `position(Int)`: The index of the item in the context at which to
-       start playback. Cannot be used if the context is an artist.
+     * `position(Int)`: The index of the item in the context at which to start
+       playback. Cannot be used if the context is an artist.
      * `uri(SpotifyURIConvertible)`: The URI of the item in the context
        to start playback at.
      */
     enum Offset {
         
-        /// The index of the item in the context at which to
-        /// start playback. Cannot be used if the context is an artist.
+        /// The index of the item in the context at which to start playback.
+        /// Cannot be used if the context is an artist.
         case position(Int)
         
         /// The URI of the item in the context to start playback at.

@@ -45,8 +45,8 @@ public extension AuthorizationCodeFlowBackendManager {
     
     
     /// Authorizes the application. You should probably use
-    /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead,
-    /// which blocks the thread until the application is authorized.
+    /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead, which blocks
+    /// the thread until the application is authorized.
     ///
     /// Returns early if the application is already authorized.
     func testAuthorize(
@@ -85,9 +85,9 @@ public extension AuthorizationCodeFlowBackendManager {
 
     }
     
-    /// Blocks the thread until the application has been authorized
-    /// and the refresh and access tokens have been retrieved.
-    /// Returns early if the application is already authorized.
+    /// Blocks the thread until the application has been authorized and the
+    /// refresh and access tokens have been retrieved. Returns early if the
+    /// application is already authorized.
     func authorizeAndWaitForTokens(
         scopes: Set<Scope> = Scope.allCases,
         showDialog: Bool = false

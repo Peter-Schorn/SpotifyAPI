@@ -31,10 +31,9 @@ extension Publishers {
         let options: S.SchedulerOptions?
 
         /**
-         A predicate that determines whether the request should
-         be retried and the delay to add before retrying it.
-         Return `nil` to indicate that the request should not
-         be retried.
+         A predicate that determines whether the request should be retried and
+         the delay to add before retrying it. Return `nil` to indicate that the
+         request should not be retried.
          */
         let condition: (
             _ additionalRetries: Int,

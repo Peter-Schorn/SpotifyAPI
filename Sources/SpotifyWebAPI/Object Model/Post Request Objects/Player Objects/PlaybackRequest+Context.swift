@@ -29,8 +29,8 @@ public extension PlaybackRequest {
          */
         case contextURI(SpotifyURIConvertible)
         
-        /// An array of track/episode URIs. Passing in a single item
-        /// will cause that item to be played.
+        /// An array of track/episode URIs. Passing in a single item will cause
+        /// that item to be played.
         case uris([SpotifyURIConvertible])
         
     }

@@ -95,8 +95,8 @@ public extension URLComponents {
     }
     
 
-    /// Returns a new URL with the trailing slash in the path component
-    /// removed if it exists.
+    /// Returns a new URL with the trailing slash in the path component removed
+    /// if it exists.
     func removingTrailingSlashInPath() -> URLComponents {
         var copy = self
         copy.removeTrailingSlashInPath()

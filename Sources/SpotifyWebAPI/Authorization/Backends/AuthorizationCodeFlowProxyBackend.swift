@@ -15,7 +15,7 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
- authoriation information and refresh the access token using the [Authorization
+  authorization information and refresh the access token using the [Authorization
  Code Flow][1].
 
  Compare with `AuthorizationCodeFlowClientBackend`.
@@ -79,7 +79,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      
      # Thread Safety
 
-     No guarentees are made about which thread this function will be called on.
+     No  guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the
      authorization information.
      */
@@ -130,7 +130,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     /**
      Exchanges an authorization code for the access and refresh tokens.
      
-     After validing the `redirectURIWithQuery`,
+     After  validating the `redirectURIWithQuery`,
      `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
      calls this method in order to retrieve the authorization information.
      
@@ -212,7 +212,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 		tokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets 
-        // can substitue different networking clients for testing purposes.
+        // can  substitute different networking clients for testing purposes.
         // In your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
@@ -300,7 +300,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 		refreshTokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can substitue different networking clients for testing purposes.
+        // can  substitute different networking clients for testing purposes.
         // In your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(

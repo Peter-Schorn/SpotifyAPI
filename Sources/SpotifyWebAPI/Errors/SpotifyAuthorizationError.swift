@@ -10,7 +10,7 @@ import Foundation
  `AuthorizationCodeFlowPKCEBackendManager`. More specifically, it is created
  from the "error" (and possibly the "state") parameter of the query string of
  the redirect URI. It is *not* decoded from the response body of a request.
- 
+
  Do not confuse this with `SpotifyAuthenticationError`. See also:
  
  * `SpotifyError`
@@ -27,17 +27,16 @@ public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
     /**
      The reason authorization failed; for example: "access_denied".
     
-     Use the `accessWasDenied` boolean property to check if the user
-     denied access to your application.
+     Use the `accessWasDenied` boolean property to check if the user denied
+     access to your application.
      */
     public let error: String
     
     /// The value of the state parameter supplied in the request.
     public let state: String?
     
-    /// Returns `true` if `error` == "access_denied".
-    /// Else, `false`. If `true`, then the user denied your app's
-    /// authorization request.
+    /// Returns `true` if `error` == "access_denied". Else, `false`. If `true`,
+    /// then the user denied your app's authorization request.
     public var accessWasDenied: Bool {
         return error == "access_denied"
     }

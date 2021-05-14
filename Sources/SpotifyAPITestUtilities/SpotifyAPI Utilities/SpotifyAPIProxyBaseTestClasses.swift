@@ -29,8 +29,8 @@ open class SpotifyAPIClientCredentialsFlowProxyTests:
     
     public static var cancellables: Set<AnyCancellable> = []
 
-    /// If you only need to setup the authorization,
-    /// override `setupAuthorization()` instead.
+    /// If you only need to setup the authorization, override
+    /// `setupAuthorization()` instead.
     override open class func setUp() {
         super.setUp()
         print(
@@ -80,8 +80,8 @@ open class SpotifyAPIAuthorizationCodeFlowProxyTests:
 
     public static var cancellables: Set<AnyCancellable> = []
 
-    /// If you only need to setup the authorization,
-    /// override `setupAuthorization()` instead.
+    /// If you only need to setup the authorization, override
+    /// `setupAuthorization()` instead.
     override open class func setUp() {
         super.setUp()
         print(
@@ -137,8 +137,8 @@ open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests:
 
     public static var cancellables: Set<AnyCancellable> = []
 
-    /// If you only need to setup the authorization,
-    /// override `setupAuthorization()` instead.
+    /// If you only need to setup the authorization, override
+    /// `setupAuthorization()` instead.
     override open class func setUp() {
         super.setUp()
         print(

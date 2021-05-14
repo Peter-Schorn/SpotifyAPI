@@ -21,7 +21,7 @@ public extension SpotifyAPI where
      This endpoint requires the `userReadPlaybackState` scope.
 
      You can use this endpoint to determine which devices are currently active
-     by checking each device's `isActice` property.
+     by checking each device's `isActive` property.
      
      See also [Using the Player Endpoints][1].
      
@@ -54,8 +54,8 @@ public extension SpotifyAPI where
     }
     
     /**
-     Get information about the user's current playback, including
-     the currently playing track or episode, progress, and active device.
+     Get information about the user's current playback, including the currently
+     playing track or episode, progress, and active device.
      
      See also `availableDevices()` and `recentlyPlayed(_:limit:)`.
      
@@ -68,17 +68,18 @@ public extension SpotifyAPI where
      * The progress into the currently playing track/episode
      * The current shuffle and repeat state
      
-     The information returned is for the last known state, which means an inactive
-     device could be returned if it was the last one to execute playback. When no
-     available devices are found, `nil` is returned. Always use `availableDevices()`
-     instead if you just need to get the available and active devices. Note that an
-     available device is not the same as an active device.
+     The information returned is for the last known state, which means an
+     inactive device could be returned if it was the last one to execute
+     playback. When no available devices are found, `nil` is returned. Always
+     use `availableDevices()` instead if you just need to get the available and
+     active devices. Note that an available device is not the same as an active
+     device.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameter market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-           the string "from_token". Provide this parameter if you want
-           to apply [Track Relinking][3].
+           the string "from_token". Provide this parameter if you want to apply
+           [Track Relinking][3].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback
      [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -107,39 +108,36 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userReadRecentlyPlayed` scope.
      
-     - Note: Currently doesn’t support podcast episodes.
+     **Currently doesn’t support podcast episodes.**
      
      Returns the most recent 50 tracks played by a user. Note that a track
      currently playing will not be visible in play history until it has
-     completed. **A track must be played for more than 30 seconds to be included**
-     **in the play history.**
-     
-     Any tracks listened to while the user had “Private Session”
-     enabled in their client will not be returned in the list of recently
-     played tracks.
-     
-     This endpoint uses a bidirectional cursor for paging. Follow the next
-     field with the before parameter to move back in time, or use the after
-     parameter to move forward in time. If you supply no before or after
-     parameter, the endpoint will return the most recently played tracks,
-     and the next link will page back in time.
+     completed. **A track must be played for more than 30 seconds to be
+     included** **in the play history.**
+
+     Any tracks listened to while the user had “Private Session” enabled in
+     their client will not be returned in the list of recently played tracks.
+
+     This endpoint uses a bidirectional cursor for paging. Follow the next field
+     with the before parameter to move back in time, or use the after parameter
+     to move forward in time. If you supply no before or after parameter, the
+     endpoint will return the most recently played tracks, and the next link
+     will page back in time.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - timeReference: *Optional*. A reference to a period of time before or
-             after a specified date. For example, `.before(Date())` refers
-             to the period of time before the current date. This is used
-             to filter the response. See `SpotifyCursor.before` and
-             `SpotifyCursor.after` (which is part of the returned
-             `CursorPagingObject`). Dates will be converted to
-             millisecond-precision timestamps. Only results that are within
-             the specified time period will be returned. If `nil`, the most
-             recently played tracks will be returned.
-       - limit: *Optional*. The maximum number of items to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-     - Returns: An array of simplified tracks wrapped in a
-           `CursorPagingObject`.
+             after a specified date. For example, `.before(Date())` refers to
+             the period of time before the current date. This is used to filter
+             the response. See `SpotifyCursor.before` and `SpotifyCursor.after`
+             (which is part of the returned `CursorPagingObject`). Dates will be
+             converted to millisecond-precision timestamps. Only results that
+             are within the specified time period will be returned. If `nil`,
+             the most recently played tracks will be returned.
+       - limit: *Optional*. The maximum number of items to return. Default: 20;
+             Minimum: 1; Maximum: 50.
+     - Returns: An array of simplified tracks wrapped in a `CursorPagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
      */
@@ -167,8 +165,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -182,13 +180,12 @@ public extension SpotifyAPI where
      
      - Parameters:
        - uri: The URI for either a track or an episode.
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to add to the queue for a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to add to the queue for a non-active
+             device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -221,8 +218,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -235,13 +232,12 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to skip to the next item on a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`.It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to skip to the next item on a
+             non-active device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -270,8 +266,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -284,13 +280,12 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to skip to the previous item on a non-active device,
-             call `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to skip to the previous item on a
+             non-active device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -320,8 +315,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     **If playback is already paused, then you will get a**
-     **403 "Player command failed: Restriction violated" error.**
+     **If playback is already paused, then you will get a 403 "Player command**
+     **failed: Restriction violated" error.**
      
      When performing an action that is restricted, a `SpotifyPlayerError`
      will be returned. It contains the following properties:
@@ -337,13 +332,12 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`.
-               It is highly recommended that you leave this as `nil`
-               (default) to target the active device. If you provide the id
-               of a device that is not active, you may get a
-               403 "Player command failed: Restriction violated" error.
-               If you want to pause playback on a non-active device, call
-               `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+               is highly recommended that you leave this as `nil` (default) to
+               target the active device. If you provide the id of a device that
+               is not active, you may get a 403 "Player command failed:
+               Restriction violated" error. If you want to pause playback on a
+               non-active device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -373,16 +367,15 @@ public extension SpotifyAPI where
      See also:
      
      * `play(_:deviceId:)` - play specific content
-     * `transferPlayback(to:play:)` - transfer playback to a different
-       device
+     * `transferPlayback(to:play:)` - transfer playback to a different device
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     **If content is already playing, then you will get a**
-     **403 “Player command failed: Restriction violated” error.**
+     **If content is already playing, then you will get a 403 “Player command**
+     **failed: Restriction violated” error.**
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -394,13 +387,12 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][3].
      
-     - Parameter deviceId: The id of the device to target.
-           See `availableDevices()`. It is highly recommended that you
-           leave this as `nil` (default) to target the active device.
-           If you provide the id of a device that is not active, you may
-           get a 403 "Player command failed: Restriction violated" error.
-           If you want to resume playback on a non-active device, call
-           `transferPlayback(to:play:)` first.
+     - Parameter deviceId: The id of the device to target. See
+           `availableDevices()`. It is highly recommended that you leave this as
+           `nil` (default) to target the active device. If you provide the id of
+           a device that is not active, you may get a 403 "Player command
+           failed: Restriction violated" error. If you want to resume playback
+           on a non-active device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -452,16 +444,16 @@ public extension SpotifyAPI where
      
        * `position(Int)`: The index of the item in the context at which to
          start playback. Cannot be used if the context is an artist.
-       *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback at.
+       *  `uri(SpotifyURIConvertible)`: The URI of the item to start playback
+          at.
      
      * positionMS: Indicates from what position to start playback in
-       milliseconds. If `nil`, then the track/episode will start from
-       the beginning. Passing in a position that is greater than the
-       length of the track/episode will cause the player to start playing the
-       next item.
+       milliseconds. If `nil`, then the track/episode will start from the
+       beginning. Passing in a position that is greater than the length of the
+       track/episode will cause the player to start playing the next item.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -478,9 +470,9 @@ public extension SpotifyAPI where
              **Unlike other player endpoints, you can provide the id of a**
              **non-active device, which will cause the given content to be**
              **played on that device**. Leave as `nil` to target the active
-             device. If there are no active devices, then you must provide
-             a device id, otherwise you will get a
-             "Player command failed: No active device found" error.
+             device. If there are no active devices, then you must provide a
+             device id, otherwise you will get a "Player command failed: No
+             active device found" error.
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
@@ -511,8 +503,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -525,17 +517,15 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - positionMS: The position in milliseconds to seek to. Must be a
-             positive number. Passing in a position that is greater than the
-             length of the track will cause the player to start playing the
-             next song.
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to seek to a position on a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - positionMS: The position in milliseconds to seek to. Must be a positive
+             number. Passing in a position that is greater than the length of
+             the track will cause the player to start playing the next song.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to seek to a position on a non-active
+             device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -569,8 +559,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -583,16 +573,15 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - repeatMode: Either `track`, `context` or `off`. track will repeat
-             the current track. context will repeat the current context.
-             `off` will turn repeat off.
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to set the repeat mode on a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - repeatMode: Either `track`, `context` or `off`. track will repeat the
+             current track. context will repeat the current context. `off` will
+             turn repeat off.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to set the repeat mode on a non-active
+             device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -628,8 +617,8 @@ public extension SpotifyAPI where
      
      **You can not set the volume for the Spotify iOS app.**
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -643,13 +632,12 @@ public extension SpotifyAPI where
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to set the volume on a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to set the volume on a non-active
+             device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -682,8 +670,8 @@ public extension SpotifyAPI where
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -697,13 +685,12 @@ public extension SpotifyAPI where
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
-       - deviceId: The id of the device to target. See `availableDevices()`.
-             It is highly recommended that you leave this as `nil`
-             (default) to target the active device. If you provide the id
-             of a device that is not active, you may get a
-             403 "Player command failed: Restriction violated" error.
-             If you want to set the shuffle mode on a non-active device, call
-             `transferPlayback(to:play:)` first.
+       - deviceId: The id of the device to target. See `availableDevices()`. It
+             is highly recommended that you leave this as `nil` (default) to
+             target the active device. If you provide the id of a device that is
+             not active, you may get a 403 "Player command failed: Restriction
+             violated" error. If you want to set the shuffle mode on a
+             non-active device, call `transferPlayback(to:play:)` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
@@ -734,15 +721,15 @@ public extension SpotifyAPI where
     /**
      Transfer the user's playback to a different device.
      
-     After you transfer playback to a different device, that device will
-     be considered active.
+     After you transfer playback to a different device, that device will be
+     considered active.
      
      See also `resumePlayback(_:deviceId:)` and `play(_:deviceId:)`.
      
      This endpoint requires the `userModifyPlaybackState` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
-     will be returned. It contains the following properties:
+     When performing an action that is restricted, a `SpotifyPlayerError` will
+     be returned. It contains the following properties:
      
      * `message`: A short description of the cause of the error.
      * `reason`: A [player error reason][1], modeled by
@@ -755,14 +742,13 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][3].
      
      - Parameters:
-       - deviceId: The id of a device to transfer the playback to.
-             Must be one of the devices returned by `availableDevices()`.
-       - play: If `true`, ensure playback happens on the new device.
-             If `false`, keep the current playback state. Note that a
-             value of `false` will **NOT** pause playback. To ensure
-             that playback is paused on the new device you should call
-             `pausePlayback(deviceId:)` (and wait for completion) *before*
-             transferring playback to the new device.
+       - deviceId: The id of a device to transfer the playback to. Must be one
+             of the devices returned by `availableDevices()`.
+       - play: If `true`, ensure playback happens on the new device. If `false`,
+             keep the current playback state. Note that a value of `false` will
+             **NOT** pause playback. To ensure that playback is paused on the
+             new device you should call `pausePlayback(deviceId:)` (and wait for
+             completion) *before* transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints

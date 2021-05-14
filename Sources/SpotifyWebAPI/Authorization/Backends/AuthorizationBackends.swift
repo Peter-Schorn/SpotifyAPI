@@ -24,7 +24,7 @@ import OpenCombineFoundation
  
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
- could then decrypt this information when it recieves it, providing an
+ could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
@@ -44,7 +44,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validing the `redirectURIWithQuery`,
+     After validating the `redirectURIWithQuery`,
      `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
      calls this method in order to retrieve the authorization information.
 
@@ -152,7 +152,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
  
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
- could then decrypt this information when it recieves it, providing an
+ could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
@@ -172,7 +172,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validing the `redirectURIWithQuery`,
+     After validating the `redirectURIWithQuery`,
      `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
      calls this method in order to retrieve the authorization information.
 
@@ -282,7 +282,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
  
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
- could then decrypt this information when it recieves it, providing an
+ could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow

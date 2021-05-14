@@ -14,7 +14,7 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
- authoriation information using the [Client Credentials Flow][1].
+  authorization information using the [Client Credentials Flow][1].
  
  Compare with `ClientCredentialsFlowProxyBackend`.
  
@@ -123,7 +123,7 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
         tokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can substitue different networking clients for testing purposes.
+        // can  substitute different networking clients for testing purposes.
         // In your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(

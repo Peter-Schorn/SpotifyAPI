@@ -4,15 +4,15 @@ import XCTest
 
 /**
  Encodes the object into data, then decodes it again (2x) and ensures that the
- decoded version matches the value that was originally passed in. This
- ensures that no information was lost or changed during encoding and decoding.
+ decoded version matches the value that was originally passed in. This ensures
+ that no information was lost or changed during encoding and decoding.
  
  - Parameters:
    - object: The object to encode and decode.
-   - file: A file name. Defaults to the file name
-         of the test case in which this function was called.
-   - line: A line number. Defaults to the line number on which this
+   - file: A file name. Defaults to the file name of the test case in which this
          function was called.
+   - line: A line number. Defaults to the line number on which this function was
+         called.
  - Returns: The data converted into a string.
  */
 @discardableResult
@@ -34,16 +34,16 @@ public func encodeDecode<T: Codable & ApproximatelyEquatable>(
 
 /**
  Encodes the object into data, then decodes it again (2x) and ensures that the
- decoded version matches the value that was originally passed in. This
- ensures that no information was lost or changed during encoding and decoding.
+ decoded version matches the value that was originally passed in. This ensures
+ that no information was lost or changed during encoding and decoding.
  
  - Parameters:
    - object: The object to encode and decode.
    - areEqual:  Used to compare the object for equality.
-   - file: A file name. Defaults to the file name
-         of the test case in which this function was called.
-   - line: A line number. Defaults to the line number on which this
+   - file: A file name. Defaults to the file name of the test case in which this
          function was called.
+   - line: A line number. Defaults to the line number on which this function was
+         called.
  - Returns: The data converted into a string.
  */
 @discardableResult
@@ -111,11 +111,11 @@ public func encodeDecode<T: Codable>(
  - Parameters:
    - data: The data to decode and encode.
    - type: The type to decode the data from.
-   - areEqual:  Used to compare the object for equality.
-   - file: A file name. Defaults to the file name
-         of the test case in which this function was called.
-   - line: A line number. Defaults to the line number on which this
+   - areEqual: Used to compare the object for equality.
+   - file: A file name. Defaults to the file name of the test case in which this
          function was called.
+   - line: A line number. Defaults to the line number on which this function was
+         called.
  - Returns: The data converted into a string.
  */
 @discardableResult
@@ -145,10 +145,10 @@ public func decodeEncodeDecode<T: Codable & ApproximatelyEquatable>(
    - data: The data to decode and encode.
    - type: The type to decode the data from.
    - areEqual:  Used to compare the object for equality.
-   - file: A file name. Defaults to the file name
-         of the test case in which this function was called.
-   - line: A line number. Defaults to the line number on which this
+   - file: A file name. Defaults to the file name of the test case in which this
          function was called.
+   - line: A line number. Defaults to the line number on which this function
+         was called.
  - Returns: The data converted into a string.
  */
 @discardableResult

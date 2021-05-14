@@ -20,13 +20,13 @@ public extension SpotifyAPI {
     
 
     /**
-     Throws the error that you pass in to downstream subscribers in order
-     to test the retry logic.
+     Throws the error that you pass in to downstream subscribers in order to
+     test the retry logic.
      
      - Parameters:
        - error: The error to throw.
-       - times: The number of times to throw the error before returning
-             a successful response.
+       - times: The number of times to throw the error before returning a
+             successful response.
      */
     func mockThrowError(
         _ error: Error,

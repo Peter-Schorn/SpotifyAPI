@@ -3,19 +3,18 @@ import Foundation
 /**
  The client id and client secret.
  
- These values are retrieved from one of the following locations, in the
- order listed:
+ These values are retrieved from one of the following locations, in the order
+ listed:
  
  * They can be directly injected into the source code by running the script
    "set_credentials.sh"; they can be removed by running "rm_credentials.sh".
    These scripts will use the "SPOTIFY_SWIFT_TESTING_CLIENT_ID" and
-   "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables. These
-   scripts must be run with the root directory of this package as the
-   working directory.
+   "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables. These scripts
+   must be run with the root directory of this package as the working directory.
 
- * The file at the path specified by the "SPOTIFY_CREDENTIALS_PATH"
-   environment variable. This file should contain JSON data that can
-   be decoded into `SpotifyCredentials`. For example:
+ * The file at the path specified by the "SPOTIFY_CREDENTIALS_PATH" environment
+   variable. This file should contain JSON data that can be decoded into
+   `SpotifyCredentials`. For example:
  ```
  {
      "client_id": "abc",
@@ -27,8 +26,7 @@ import Foundation
  * The "SPOTIFY_SWIFT_TESTING_CLIENT_ID" and
    "SPOTIFY_SWIFT_TESTING_CLIENT_SECRET" environment variables.
  
- If none of these values are populated, then a fatal error
- is thrown.
+ If none of these values are populated, then a fatal error is thrown.
  */
 public let spotifyCredentials: SpotifyCredentials = {
    
@@ -117,9 +115,8 @@ private func retrieveURLFromEnvironment(
 
 }
 
-/// The URL for retrieving tokens using the authorization code flow.
-/// Retrieved from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
-/// environment variable.
+/// The URL for retrieving tokens using the authorization code flow. Retrieved
+/// from the "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL" environment variable.
 public let authorizationCodeFlowTokensURL = retrieveURLFromEnvironment(
     for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_TOKENS_URL"
 )
@@ -140,15 +137,14 @@ public let authorizationCodeFlowPKCETokensURL = retrieveURLFromEnvironment(
 
 /// The URL for refreshing the access token using the authorization code flow
 /// with proof key for code exchange. Retrieved from the
-/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
-/// environment variable.
+/// "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL" environment
+/// variable.
 public let authorizationCodeFlowPKCERefreshTokensURL = retrieveURLFromEnvironment(
     for: "SPOTIFY_AUTHORIZATION_CODE_FLOW_PKCE_REFRESH_TOKENS_URL"
 )
 
-/// The URL for retrieving tokens using the client credentials flow.
-/// Retrieved from the "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL"
-/// environment variable.
+/// The URL for retrieving tokens using the client credentials flow. Retrieved
+/// from the "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL" environment variable.
 public let clientCredentialsFlowTokensURL: URL = {
     
     // this can be populated by the "set_credentials" script using the

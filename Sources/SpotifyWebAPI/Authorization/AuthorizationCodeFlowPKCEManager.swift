@@ -187,7 +187,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         self._scopes = scopes
     }
     
-    // MARK: - Codable, Hashable, CustomStringConvertable
+    // MARK: - Codable, Hashable, CustomStringConvertible
     
     /// :nodoc:
     public override required init(from decoder: Decoder) throws {
@@ -524,7 +524,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             return try self.updateAuthInfoQueue
                 .sync { () -> AnyPublisher<Void, Error> in
                     
-                    if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
+                    if onlyIfExpired && !self.accessTokenIsExpiredNOTThreadSafe(
                         tolerance: tolerance
                     ) {
                         Self.logger.trace(
@@ -631,7 +631,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>`,
  which allows you to setup a custom backend server that can store these
  sensitive credentials and which communicates with Spotify on your behalf in
- order to retrieve the authoriztion information.
+ order to retrieve the  authorization information.
 
  # Authorization
  

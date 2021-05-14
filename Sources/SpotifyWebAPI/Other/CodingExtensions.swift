@@ -51,7 +51,7 @@ private extension KeyedDecodingContainer {
         else {
             
             let errorMessage = """
-                Could not decode Soptify timestamp from '\(dateString)'
+                Could not decode Spotify timestamp from '\(dateString)'
                 for key \(key). It must be in ISO 8601 format.
                 """
             
@@ -81,11 +81,10 @@ public extension KeyedDecodingContainer {
      - "YYYY-MM"
      - "YYYY"
     
-     - Parameter key: The key that is associated with a date string
-           in one of the above formats.
-     - Throws: If the value cannot be decded into a string,
-           or if the format of the string does not match
-           any of the above formats.
+     - Parameter key: The key that is associated with a date string in one of
+           the above formats.
+     - Throws: If the value cannot be decoded into a string, or if the format of
+           the string does not match any of the above formats.
      - Returns: The decoded Date.
      */
     func decodeSpotifyDate(forKey key: Key) throws -> Date {
@@ -217,21 +216,21 @@ public extension KeyedEncodingContainer {
     // MARK: - Spotify Dates -
     
     /**
-     Encodes a Sate to a date-string in one of
-     the following formats, depending on the `datePrecision`.
-     
+     Encodes a Sate to a date-string in one of the following formats, depending
+     on the `datePrecision`.
+
      The expected values for `datePrecision` are:
      
-     - "YYYY-MM-DD" if `datePrecision` == "day"
-     - "YYYY-MM" if `datePrecision` == "month"
-     - "YYYY" if `datePrecision` == "year" or == `nil`.
+     * "YYYY-MM-DD" if `datePrecision` == "day"
+     * "YYYY-MM" if `datePrecision` == "month"
+     * "YYYY" if `datePrecision` == "year" or == `nil`.
      
      - Parameters:
        - date: A Date.
        - datePrecision: One of the above-mentioned values.
        - key: A key to associate the Date with.
-     - Throws: If the date string could not be encoded
-           into the container for the given key.
+     - Throws: If the date string could not be encoded into the container for
+           the given key.
      */
     mutating func encodeSpotifyDate(
         _ date: Date,

@@ -183,7 +183,7 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         self._scopes = scopes
     }
     
-    // MARK: - Codable, Hashable, CustomStringConvertable
+    // MARK: - Codable, Hashable, CustomStringConvertible
     
     /// :nodoc:
     public required override init(from decoder: Decoder) throws {
@@ -393,7 +393,7 @@ public extension AuthorizationCodeFlowBackendManager {
             Self.logger.error("unkown error")
             return SpotifyGeneralError.other(
                 """
-                an unknown error occured when handling the redirect URI: \
+                an unknown error occurred when handling the redirect URI: \
                 expected to find 'code' or 'error' parameter in query string: \
                 '\(redirectURIWithQuery.absoluteString)'
                 """
@@ -482,7 +482,7 @@ public extension AuthorizationCodeFlowBackendManager {
             return try self.updateAuthInfoQueue
                 .sync { () -> AnyPublisher<Void, Error> in
                     
-                    if onlyIfExpired && !self.accessTokenIsExpiredNOTTHreadSafe(
+                    if onlyIfExpired && !self.accessTokenIsExpiredNOTThreadSafe(
                         tolerance: tolerance
                     ) {
                         Self.logger.trace(
@@ -579,7 +579,7 @@ public extension AuthorizationCodeFlowBackendManager {
  `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>`, which
  allows you to setup a custom backend server that can store these sensitive
  credentials and which communicates with Spotify on your behalf in order to
- retrieve the authoriztion information.
+ retrieve the authorization information.
  
  # Authorization
  

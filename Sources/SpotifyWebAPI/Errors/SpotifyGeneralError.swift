@@ -5,36 +5,36 @@ import FoundationNetworking
 #endif
 
 /**
- An error originating from this library that is not represented
- by any of the other error types.
- 
- For example if you try to make an API request but have not
- authorized your application yet, you will get a `.unauthorized(String)`
- error, which is thrown before any network requests are even made.
- 
- Use `localizedDescription` for an error message suitable for displaying
- to the end user. Use the string representation of this instance for a more
- detailed description suitable for debugging.
+ An error originating from this library that is not represented by any of the
+ other error types.
+
+ For example if you try to make an API request but have not authorized your
+ application yet, you will get a `.unauthorized(String)` error, which is thrown
+ before any network requests are even made.
+
+ Use `localizedDescription` for an error message suitable for displaying to the
+ end user. Use the string representation of this instance for a more detailed
+ description suitable for debugging.
  */
 public enum SpotifyGeneralError {
     
     /**
-     You have tried to access an endpoint before authorizing your app
-     or the access token needed to be refreshed but the refresh token was `nil`.
+     You have tried to access an endpoint before authorizing your app or the
+     access token needed to be refreshed but the refresh token was `nil`.
      
      See also `insufficientScope(requiredScopes:authorizedScopes:)`.
      */
     case unauthorized(String)
     
     /**
-     The value provided for the state parameter when you requested
-     access and refresh tokens didn't match the value returned from Spotify
-     in the query string of the redirect URI.
+     The value provided for the state parameter when you requested access and
+     refresh tokens didn't match the value returned from Spotify in the query
+     string of the redirect URI.
      
      - supplied: The value supplied when requesting the access and refresh
-       tokens.
-     - received: The value received from Spotify in the query string of
-       the redirect URI.
+           tokens.
+     - received: The value received from Spotify in the query string of the
+           redirect URI.
      */
     case invalidState(supplied: String?, received: String?)
     
@@ -50,7 +50,7 @@ public enum SpotifyGeneralError {
      scopes for.
     
      - requiredScopes: The scopes that are required for this endpoint.
-     - authorizedScopes: The scopes that your app is authroized for.
+     - authorizedScopes: The scopes that your app is authorized for.
      */
     case insufficientScope(
         requiredScopes: Set<Scope>, authorizedScopes: Set<Scope>
@@ -59,19 +59,20 @@ public enum SpotifyGeneralError {
     /**
      The id category or categories didn't match one of the expected categories.
     
-      - expected: The expected categories. Some endpoints allow for
-        URIS from multiple categories. For example, the endpoint for
-        adding items to a playlist allows for track or episode URIs.
+      - expected: The expected categories. Some endpoints allow for URIS from
+            multiple categories. For example, the endpoint for adding items to a
+            playlist allows for track or episode URIs.
       - received: The id category that was received. In some cases, multiple
-        categories will be returned. It is not necessarily the case that all of
-        these categories are invalid. For example, if you provide a collection
-        of artist, track, and episode URIS to the endpoint for adding items to a
-        playlist, then `expected` will be `[track, episode]` and `received` will be
-        `[track, episode, artist]`, representing all of the provided categories,
-        not just the invalid ones.
+            categories will be returned. It is not necessarily the case that all
+            of these categories are invalid. For example, if you provide a
+            collection of artist, track, and episode URIS to the endpoint for
+            adding items to a playlist, then `expected` will be `[track,
+            episode]` and `received` will be `[track, episode, artist]`,
+            representing all of the provided categories, not just the invalid
+            ones.
      
-     For example, if you pass a track URI to the endpoint for retrieving
-     an artist, you will get this error.
+     For example, if you pass a track URI to the endpoint for retrieving an
+     artist, you will get this error.
      
      See also `IDCategory`.
      */
@@ -81,17 +82,15 @@ public enum SpotifyGeneralError {
     
     /**
      Spotify sometimes returns data wrapped in an extraneous top-level
-     dictionary that the client doesn't need to care about. This error
-     is thrown if the expected top level key associated with the data
-     is not found.
-     
-     For example, adding a tracks to a playlist returns the following
-     response:
+     dictionary that the client doesn't need to care about. This error is thrown
+     if the expected top level key associated with the data is not found.
+
+     For example, adding a tracks to a playlist returns the following response:
      ```
      { "snapshot_id" : "3245kj..." }
      ```
-     The value of the snapshot id is returned instead of the entire
-     dictionary or this error is thrown if the key can't be found.
+     The value of the snapshot id is returned instead of the entire dictionary
+     or this error is thrown if the key can't be found.
      */
     case topLevelKeyNotFound(
         key: String, dict: [AnyHashable: Any]
@@ -111,8 +110,8 @@ public enum SpotifyGeneralError {
     /**
      Some other error.
      
-     The first string will be used for `description`.
-     `localizedDescription` will be used for `errorDescription`.
+     The first string will be used for `description`. `localizedDescription`
+     will be used for `errorDescription`.
      */
     case other(
         String,
@@ -129,7 +128,7 @@ extension SpotifyGeneralError: LocalizedError {
              case .unauthorized(_):
                 return """
                     Authorization has not been granted for this \
-                    operation.
+                    request.
                     """
             case .invalidState(_, _):
                 return """
@@ -140,7 +139,7 @@ extension SpotifyGeneralError: LocalizedError {
                 return "An internal error occurred."
             case .insufficientScope(_, _):
                 return """
-                    The permissions required for this operation have not been \
+                    The permissions required for this request have not been \
                     granted
                     """
             case .invalidIdCategory(_, _):
@@ -164,46 +163,44 @@ extension SpotifyGeneralError: CustomStringConvertible {
     public var description: String {
         switch self {
              case .unauthorized(let message):
-                return "SpotifyGeneralError.unauthorized: \(message)"
+                return """
+                    \(Self.self).unauthorized("\(message)")
+                    """
             case .invalidState(let supplied, let received):
                 return """
-                    SpotifyGeneralError.invalidState: The value for the state \
-                    parameter provided when requesting access and refresh \
-                    tokens '\(supplied ?? "nil")' did not match the value \
-                    received from Spotify in the query string of the redirect URI: \
-                    '\(received ?? "nil")'
+                    \(Self.self).invalidState(supplied: "\(supplied as Any)", \
+                    received: "\(received as Any)")
                     """
             case .identifierParsingError(let message):
                 return "SpotifyGeneralError.identifierParsingError: \(message)"
             case .insufficientScope(let required, let authorized):
                 return """
-                    SpotifyGeneralError.insufficientScope: The endpoint you \
-                    tried to access requires the following scopes: \
-                    \(required.map(\.rawValue)) \
-                    but your app is only authorized for theses scopes: \
-                    \(authorized.map(\.rawValue))
+                    \(Self.self).insufficientScope(required: \
+                    \(required.map(\.rawValue)), authorized: \
+                    \(authorized.map(\.rawValue)))
                     """
             case .invalidIdCategory(let expected, let received):
                 return """
-                    SpotifyGeneralError.invalidIdCategory: expected id categories \
-                    to match the following: \(expected.map(\.rawValue)), \
-                    but received \(received.map(\.rawValue))
+                    \(Self.self).invalidIdCategory(expected: \
+                    \(expected.map(\.rawValue)), received: \
+                    \(received.map(\.rawValue)))
                     """
             case .topLevelKeyNotFound(let key, let dict):
                 return """
-                    SpotifyGeneralError.topLevelKeyNotFound: The expected top \
-                    level key '\(key)' was not found in the dictionary:
-                    \(dict)
+                    \(Self.self).topLevelKeyNotFound(key: "\(key)", \
+                    dict: \(dict))
                     """
             case .httpError(let response, let data):
                 let dataString = String(data: data, encoding: .utf8)
                     .map({ #""\#($0)""# }) ?? "\(data)"
                 return """
-                    SpotifyGeneralError.httpError(\
-                    HTTPURLResponse: \(response), Data: \(dataString))
+                    \(Self.self).httpError(HTTPURLResponse: \(response), \
+                    Data: \(dataString))
                     """
             case .other(let message, _):
-                return "SpotifyGeneralError.other: \(message)"
+                return """
+                    \(Self.self).other("\(message)")
+                    """
         }
     }
   

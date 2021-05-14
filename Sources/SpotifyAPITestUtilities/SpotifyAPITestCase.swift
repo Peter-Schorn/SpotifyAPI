@@ -123,16 +123,15 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     }
 }
 
-/// The base class for **all** test cases in this package.
-/// Overides `record(_:)` to record issues and`setUp()` to install
-/// a test observer.
+/// The base class for **all** test cases in this package. Overrides
+/// `record(_:)` to record issues and`setUp()` to install a test observer.
 open class SpotifyAPITestCase: XCTestCase {
     
     public static var failingTests: [String] = []
 
     /// The file that issues will be logged to during tests.
     public static let logFile: URL? = {
-        if let folder = SpotifyDecodingError.dataDumpfolder {
+        if let folder = SpotifyDecodingError.dataDumpFolder {
             let dateString = DateFormatter
                 .millisecondsTime.string(from: Date())
             return folder.appendingPathComponent(
@@ -143,7 +142,7 @@ open class SpotifyAPITestCase: XCTestCase {
         return nil
     }()
     
-    public static func selectNetworkAdpaptor() {
+    public static func selectNetworkAdaptor() {
         if Bool.random() {
             print(
                 "URLSession._defaultNetworkAdaptor = " +
@@ -166,7 +165,7 @@ open class SpotifyAPITestCase: XCTestCase {
             _ = SpotifyTestObserver()
         }
         
-        Self.selectNetworkAdpaptor()
+        Self.selectNetworkAdaptor()
 
     }
     
@@ -200,7 +199,7 @@ open class SpotifyAPITestCase: XCTestCase {
             \(locationString)
             \(testName)
             \(issue.compactDescription)
-            callstack:
+            call-stack:
             \(symbolNames)
             ------------------------------------------------
             """

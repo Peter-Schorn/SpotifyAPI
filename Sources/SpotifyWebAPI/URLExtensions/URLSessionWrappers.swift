@@ -20,8 +20,8 @@ extension URLSession {
     // #endif
 
     /**
-     The network adaptor that this library uses by default for all
-     network requests. Uses `URLSession`.
+     The network adaptor that this library uses by default for all network
+     requests. Uses `URLSession`.
     
      - Parameter request: The request to send.
      */
@@ -34,8 +34,8 @@ extension URLSession {
     }
 
     /// This property exists so that it can be replaced with a different
-    /// networking client during testing. Other than in the test targets,
-    /// it will not be modified.
+    /// networking client during testing. Other than in the test targets, it
+    /// will not be modified.
     static var _defaultNetworkAdaptor: (
         URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
@@ -49,14 +49,14 @@ extension URLSession {
                         "could not cast URLResponse to HTTPURLResponse:\n\(response)"
                     )
                 }
-//                let dataString = String(data: data, encoding: .utf8) ?? "nil"
-//                print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
+               // let dataString = String(data: data, encoding: .utf8) ?? "nil"
+               // print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
                 return (data: data, response: httpURLResponse)
             }
             .eraseToAnyPublisher()
         #else
-        // the OpenCombine implementation of `DataTaskPublisher` has
-        // some concurrency issues.
+        // the OpenCombine implementation of `DataTaskPublisher` has some
+        // concurrency issues.
         return Future<(data: Data, response: HTTPURLResponse), Error> { promise in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data, let response = response {
@@ -65,8 +65,8 @@ extension URLSession {
                             "could not cast URLResponse to HTTPURLResponse:\n\(response)"
                         )
                     }
-//                    let dataString = String(data: data, encoding: .utf8) ?? "nil"
-//                    print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
+                   // let dataString = String(data: data, encoding: .utf8) ?? "nil"
+                   // print("_defaultNetworkAdaptor: \(response.url!): \(dataString)")
                     promise(.success((data: data, response: httpURLResponse)))
                 }
                 else {

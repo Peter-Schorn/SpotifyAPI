@@ -28,9 +28,9 @@ public protocol SpotifyAPITests: SpotifyAPITestCase {
 
 // MARK: - Internal Authorization Managers -
 
-/// Provides generic access to members that are only expected to be
-/// available in the authorization managers in this library, as opposed
-/// to those that may be created by other clients.
+/// Provides generic access to members that are only expected to be available in
+/// the authorization managers in this library, as opposed to those that may be
+/// created by other clients.
 public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager, Equatable {
 
     /**
@@ -45,18 +45,18 @@ public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManage
 
 }
 
-/// Provides generic access to members that are only expected to be
-/// available in the **scope** authorization managers in this library, as opposed
-/// to those that may be created by other clients.
+/// Provides generic access to members that are only expected to be available in
+/// the **scope** authorization managers in this library, as opposed to those
+/// that may be created by other clients.
 public protocol _InternalSpotifyScopeAuthorizationManager:
     SpotifyScopeAuthorizationManager,
     _InternalSpotifyAuthorizationManager
 
 {
     
-    /// Blocks the thread until the application has been authorized
-    /// and the refresh and access tokens have been retrieved.
-    /// Returns early if the application is already authorized.
+    /// Blocks the thread until the application has been authorized and the
+    /// refresh and access tokens have been retrieved. Returns early if the
+    /// application is already authorized.
     func authorizeAndWaitForTokens(
         scopes: Set<Scope>, showDialog: Bool
     ) -> Void

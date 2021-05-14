@@ -1,8 +1,8 @@
 import Foundation
 
 /**
- A Spotify [resume point object][1]. Represents the user’s most recent
- position in an episode.
+ A Spotify [resume point object][1]. Represents the user’s most recent position
+ in an episode.
 
  Retrieving this object requires the `userReadPlaybackPosition` scope.
 
@@ -20,10 +20,10 @@ public struct ResumePoint: Codable, Hashable {
      Creates a [resume point object][1].
      
      - Parameters:
-       - fullyPlayed: Whether or not the episode has been fully played by
-             the user.
-       - resumePositionMS: The user's most recent position in the episode
-             in milliseconds.
+       - fullyPlayed: Whether or not the episode has been fully played by the
+             user.
+       - resumePositionMS: The user's most recent position in the episode in
+             milliseconds.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-resumepointobject
      */

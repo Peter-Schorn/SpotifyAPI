@@ -1,9 +1,9 @@
 import Foundation
 
 /**
- This is a generic object used to represent various time intervals
- within Audio Analysis. For information about how Bars, Beats, Tatums, Sections,
- and Segments are determined, please see [Rhythm][1].
+ This is a generic object used to represent various time intervals within Audio
+ Analysis. For information about how Bars, Beats, Tatums, Sections, and Segments
+ are determined, please see [Rhythm][1].
  
  Read more at the [Spotify web API reference][2].
  
@@ -24,9 +24,9 @@ public struct SpotifyTimeInterval: Codable, Hashable {
     /**
      Creates a Spotify [Time Interval][1].
      
-     This is a generic object used to represent various time intervals
-     within Audio Analysis. For information about Bars, Beats, Tatums, Sections,
-     and Segments are determined, please see [Rhythm][2].
+     This is a generic object used to represent various time intervals within
+     Audio Analysis. For information about Bars, Beats, Tatums, Sections, and
+     Segments are determined, please see [Rhythm][2].
      
      - Parameters:
        - start: The starting point (in seconds) of the time interval.
@@ -52,10 +52,10 @@ public struct SpotifyTimeInterval: Codable, Hashable {
 extension SpotifyTimeInterval: ApproximatelyEquatable {
     
     /**
-     Returns `true` if all the properties of `self` are approximately
-     equal to those of `other` within an absolute tolerance of 0.001.
-     Else, returns `false`.
-     
+     Returns `true` if all the properties of `self` are approximately equal to
+     those of `other` within an absolute tolerance of 0.001. Else, returns
+     `false`.
+
      - Parameter other: Another instance of `Self`.
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {

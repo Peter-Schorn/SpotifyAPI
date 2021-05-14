@@ -39,7 +39,7 @@ public struct ProxyPKCETokensRequest: Hashable {
     public let redirectURI: URL
     
     /**
-     Creates an instance that is used to retrieve the authoriztion information
+     Creates an instance that is used to retrieve the  authorization information
      using the [Authorization Code Flow with Proof Key for Code Exchange][1].
 
      When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`

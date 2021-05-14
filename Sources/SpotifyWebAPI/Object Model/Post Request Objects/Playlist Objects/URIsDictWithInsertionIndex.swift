@@ -3,7 +3,7 @@ import Foundation
 /**
  Contains an array of URIs and (optionally) the position to insert them
  in a playlist. Used in the body of
- `SpotifyAPI.addToPlaylist(_:uris:position:)`.
+`SpotifyAPI.addToPlaylist(_:uris:position:)`.
  
  For example:
  ```
@@ -24,8 +24,8 @@ public struct URIsDictWithInsertionIndex {
     /// An array of track/episode URIs that will be added to a playlist.
     public var uris: [SpotifyURIConvertible]
     
-    /// The zero-indexed position at which to insert `uris` in a playlist.
-    /// If `nil`, then the `uris` will be appended to the playlist.
+    /// The zero-indexed position at which to insert `uris` in a playlist. If
+    /// `nil`, then the `uris` will be appended to the playlist.
     public var position: Int?
     
     /**

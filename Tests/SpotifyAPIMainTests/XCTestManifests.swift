@@ -463,8 +463,8 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests {
         ("testOtherUserCurrentPlaylists", testOtherUserCurrentPlaylists),
         ("testPlaylistImage", testPlaylistImage),
         ("testPlaylistWithEpisodesAndLocalTracks", testPlaylistWithEpisodesAndLocalTracks),
-        ("testRemoveAllOccurencesFromPlaylist", testRemoveAllOccurencesFromPlaylist),
-        ("testRemoveSpecificOccurencesFromPlaylist", testRemoveSpecificOccurencesFromPlaylist),
+        ("testRemoveAllOccurrencesFromPlaylist", testRemoveAllOccurrencesFromPlaylist),
+        ("testRemoveSpecificOccurrencesFromPlaylist", testRemoveSpecificOccurrencesFromPlaylist),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testUploadPlaylistImage", testUploadPlaylistImage),
     ]
@@ -665,8 +665,8 @@ extension SpotifyAPIAuthorizationCodeFlowPlaylistsTests {
         ("testOtherUserCurrentPlaylists", testOtherUserCurrentPlaylists),
         ("testPlaylistImage", testPlaylistImage),
         ("testPlaylistWithEpisodesAndLocalTracks", testPlaylistWithEpisodesAndLocalTracks),
-        ("testRemoveAllOccurencesFromPlaylist", testRemoveAllOccurencesFromPlaylist),
-        ("testRemoveSpecificOccurencesFromPlaylist", testRemoveSpecificOccurencesFromPlaylist),
+        ("testRemoveAllOccurrencesFromPlaylist", testRemoveAllOccurrencesFromPlaylist),
+        ("testRemoveSpecificOccurrencesFromPlaylist", testRemoveSpecificOccurrencesFromPlaylist),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testUploadPlaylistImage", testUploadPlaylistImage),
     ]

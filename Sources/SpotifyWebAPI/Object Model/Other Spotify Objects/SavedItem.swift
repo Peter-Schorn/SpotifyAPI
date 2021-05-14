@@ -1,11 +1,11 @@
 import Foundation
 
 /**
- A [saved track object][1], [saved album object][2],
- [saved episode object][3], or [saved show object][4].
+ A [saved track object][1], [saved album object][2], [saved episode object][3],
+ or [saved show object][4].
  
- This is used when retrieving content from a user's library.
- It contains just three properties:
+ This is used when retrieving content from a user's library. It contains just
+ three properties:
   
  * `addedAt`: The date the item was added.
  * `item`: The item that was saved.
@@ -23,16 +23,15 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     /// The date the item was added.
     public let addedAt: Date
     
-    /// The item that was saved in this `SavedItem`.
-    /// Either a track, album, episode, or show.
+    /// The item that was saved in this `SavedItem`. Either a track, album,
+    /// episode, or show.
     ///
     /// See also `type`.
     public let item: Item
     
     /**
-     `track` if this is a [saved track object][1],
-     `album` if this is a [saved album object][2],
-     `episode` if this is a [saved episode object][3], or
+     `track` if this is a [saved track object][1], `album` if this is a [saved
+     album object][2], `episode` if this is a [saved episode object][3], or
      `show` if this is a [saved show object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
@@ -45,16 +44,15 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     /**
      Creates a Saved Item object.
      
-     The type of `Item` should only be `Track`, `Album`, or `Show`,
-     and this should match `type`.
+     The type of `Item` should only be `Track`, `Album`, or `Show`, and this
+     should match `type`.
      
      - Parameters:
        - addedAt: The date the item was added.
        - item: The item that was saved in this `SavedItem`.
-       - type: `track` if this is a [saved track object][1],
-             `album` if this is a [saved album object][2],
-             `episode` if this is a [saved episode object][3], or
-             `show` if this is a [saved show object][4].
+       - type: `track` if this is a [saved track object][1], `album` if this is
+             a [saved album object][2], `episode` if this is a [saved episode
+             object][3], or `show` if this is a [saved show object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
@@ -185,10 +183,10 @@ extension SavedItem: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      `SavedItem.addedAt` is compared using `timeIntervalSince1970`, so it is
      considered a floating point property for the purposes of this method.
-     
+
      - Parameter other: Another instance of `Self`.
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {
@@ -208,11 +206,11 @@ extension SavedItem where Item: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      Dates are compared using `timeIntervalSince1970`, so they are considered
      floating point properties for the purposes of this method.
 
-     
+
      - Parameter other: Another instance of `Self`.
      */
     func isApproximatelyEqual(to other: Self) -> Bool {

@@ -8,9 +8,8 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /// The name of the playlist.
     public let name: String
     
-    /// The items in this `Playlist`. Consult the documentation
-    /// for the specific endpoint that this playlist was retrieved
-    /// from for more information.
+    /// The items in this `Playlist`. Consult the documentation for the specific
+    /// endpoint that this playlist was retrieved from for more information.
     public let items: Items
     
     /// The user who owns the playlist.
@@ -19,8 +18,8 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /**
      The playlist’s public/private status.
      
-     If `true` the playlist is public; if `false`, the playlist is private.
-     If `nil`, the playlist status is not relevant.
+     If `true` the playlist is public; if `false`, the playlist is private. If
+     `nil`, the playlist status is not relevant.
      
      For more about public/private status, see [Working with Playlists][1].
      
@@ -28,24 +27,24 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      */
     public let isPublic: Bool?
     
-    /// `true` if context is not search (you retrieved this playlist
-    /// using the search endpoint) and the owner allows
-    /// other users to modify the playlist. Else, `false`.
+    /// `true` if the owner allows others to modify the playlist; else, `false`
+    ///
+    /// Will always be `false` if retrieved from the search endpoint.
     public let isCollaborative: Bool
     
-    /// The playlist description. Only returned for modified,
-    /// verified playlists, else `nil`.
+    /// The playlist description. Only returned for modified, verified
+    /// playlists, else `nil`.
     public let description: String?
     
     /**
      The version identifier for the current playlist.
 
-     Every time the playlist changes, a new [snapshot id][1] is generated.
-     You can use this value to efficiently determine whether a playlist
-     has changed since the last time you retrieved it.
+     Every time the playlist changes, a new [snapshot id][1] is generated. You
+     can use this value to efficiently determine whether a playlist has changed
+     since the last time you retrieved it.
      
-     Can be supplied in other requests to target a specific
-     playlist version: see [Remove Tracks from a Playlist][2].
+     Can be supplied in other requests to target a specific playlist version:
+     see [Remove Tracks from a Playlist][2].
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
@@ -55,8 +54,8 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /**
      Known [external urls][1] for this playlist.
      
-     - key: The type of the URL, for example:
-     "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -90,17 +89,15 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /**
      The Images for the playlist.
      
-     The array may be empty or contain up to three images.
-     The images are returned by size in descending order.
-     See [Working with Playlists][1].
+     The array may be empty or contain up to three images. The images are
+     returned by size in descending order. See [Working with Playlists][1].
      
-     The dimensions of the images may be `nil`, especially if
-     uploaded by the user.
+     The dimensions of the images may be `nil`, especially if uploaded by the
+     user.
      
-     - Warning: The urls of these images, if returned,
-           are temporary and will expire in less than a day.
-           Use `SpotifyAPI.playlistImage(_:)` to retrieve
-           the image for a playlist.
+     - Warning: The urls of these images, if returned, are temporary and will
+           expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
+           retrieve the image for a playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      */
@@ -116,28 +113,28 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
        - name: The name of the playlist.
        - items: The items in the playlist.
        - owner: The user who owns the playlist.
-       - isPublic: The playlist’s public/private status. If `true` the
-             playlist is public; if `false`, the playlist is private.
-             If `nil`, the playlist status is not relevant. For more about
-             public/private status, see [Working with Playlists][2].
+       - isPublic: The playlist’s public/private status. If `true` the playlist
+             is public; if `false`, the playlist is private. If `nil`, the
+             playlist status is not relevant. For more about public/private
+             status, see [Working with Playlists][2].
        - collaborative: `true` if context is not search (you retrieved this
              playlist using the search endpoint) and the owner allows other
              users to modify the playlist. Else, `false`.
        - description: The playlist description. Only returned for modified,
              verified playlists, else `nil`.
-       - snapshotId: The version identifier for the current playlist.
-             Every time the playlist changes, a new [snapshot id][3] is generated.
-             You can use this value to efficiently determine whether a playlist
-             has changed since the last time you retrieved it.
-             Can be supplied in other requests to target a specific
-             playlist version: see [Remove Tracks from a Playlist][4].
+       - snapshotId: The version identifier for the current playlist. Every time
+             the playlist changes, a new [snapshot id][3] is generated. You can
+             use this value to efficiently determine whether a playlist has
+             changed since the last time you retrieved it. Can be supplied in
+             other requests to target a specific playlist version: see [Remove
+             Tracks from a Playlist][4].
        - externalURLs: Known [external urls][5] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][6] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][6] for the object.
              - value: An external, public URL to the object.
        - followers: Information about the followers of the playlist.
-       - href: A link to the Spotify web API endpoint providing full
-             details of the playlist.
+       - href: A link to the Spotify web API endpoint providing full details of
+             the playlist.
        - id: The [Spotify ID][6] for the playlist.
        - uri: The [URI][6] for the playlist.
        - images: The Images for the playlist.

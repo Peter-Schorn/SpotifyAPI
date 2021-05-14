@@ -4,7 +4,7 @@ import Logging
 enum AuthorizationManagerLoggers {
     
     /*
-     These loggers are publicy exposed though computed properties on the
+     These loggers are publicly exposed though computed properties on the
      authorization managers.
      */
 

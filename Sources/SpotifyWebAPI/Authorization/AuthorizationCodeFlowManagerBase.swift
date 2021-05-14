@@ -187,12 +187,12 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     )
     
     let refreshTokensQueue = DispatchQueue(
-        label: "SpotifyAPI.AuthorizationCodeFlowManagerBase.refrehTokens"
+        label: "SpotifyAPI.AuthorizationCodeFlowManagerBase.refreshTokens"
     )
 
     /**
      The request to refresh the access token is stored in this
-     property so that if multiple asyncronous requests are made
+     property so that if multiple asynchronous requests are made
      to refresh the access token, then only one actual network
      request is made. Once this publisher finishes, it is set to
      `nil`.
@@ -334,7 +334,7 @@ public extension AuthorizationCodeFlowManagerBase {
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
         return self.updateAuthInfoQueue.sync {
-            return accessTokenIsExpiredNOTTHreadSafe(tolerance: tolerance)
+            return  accessTokenIsExpiredNOTThreadSafe(tolerance: tolerance)
         }
     }
     
@@ -342,10 +342,10 @@ public extension AuthorizationCodeFlowManagerBase {
      Returns `true` if `accessToken` is not `nil` and the application is
      authorized for the specified scopes, else `false`.
      
-     - Parameter scopes: A set of [Spotify Authorizaion Scopes][1]. Use an empty
-           set (default) to check if an `accessToken` has been retrieved for the
-           application, which is still required for all endpoints, even those
-           that do not require scopes.
+     - Parameter scopes: A set of [Spotify Authorization Scopes][1]. Use an
+           empty set (default) to check if an `accessToken` has been retrieved
+           for the application, which is still required for all endpoints, even
+           those that do not require scopes.
      
      # Thread Safety
      
@@ -383,7 +383,7 @@ extension AuthorizationCodeFlowManagerBase {
     /// This method should **ALWAYS** be called within
     /// `updateAuthInfoDispatchQueue`, or the thread-safety guarantees
     /// of this class will be violated.
-    func accessTokenIsExpiredNOTTHreadSafe(tolerance: Double = 120) -> Bool {
+    func  accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"

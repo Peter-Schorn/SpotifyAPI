@@ -30,20 +30,21 @@ import Foundation
 
  Includes the URL to the image and its height and width.
  
-  - Warning: If this image belongs to a playlist, then the URL is
-        temporary and will expire in less than a day. Use
-        `SpotifyAPI.playlistImage(_:)` to retrieve the image
-        for a playlist.
+  - Warning: If this image belongs to a playlist, then the URL is temporary and
+         will expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
+         retrieve the image for a playlist.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
  */
 public struct SpotifyImage: Codable, Hashable {
     
     /// The image height in pixels.
+    ///
     /// May be `nil`, especially if uploaded by a user.
     public let height: Int?
     
     /// The image width in pixels.
+    ///
     /// May be `nil`, especially if uploaded by a user.
     public let width: Int?
     
@@ -52,10 +53,9 @@ public struct SpotifyImage: Codable, Hashable {
      
      Consider using `self.load()` to load the image from this URL.
      
-     - Warning: If this image belongs to a playlist, then it is
-           temporary and will expire in less than a day. Use
-           `SpotifyAPI.playlistImage(_:)` to retrieve the image
-           for a playlist.
+     - Warning: If this image belongs to a playlist, then it is temporary and
+           will expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
+           retrieve the image for a playlist.
      */
     public let url: URL
 
@@ -91,8 +91,8 @@ public extension SpotifyImage {
      your own network client, then do so directly by making a GET request to
      `self.url`.
      
-     - Throws: if `self.url` cannot be converted to `URL`, if the data
-     cannot be converted to `Image`, or if some other network error occurs.
+     - Throws: if `self.url` cannot be converted to `URL`, if the data cannot be
+           converted to `Image`, or if some other network error occurs.
      */
     func load() -> AnyPublisher<Image, Error> {
 
@@ -129,12 +129,11 @@ public extension SpotifyImage {
 public extension Sequence where Element == SpotifyImage {
     
     /**
-     Returns the largest image in this sequence
-     of `SpotifyImage`, or `nil` if the sequence is empty.
+     Returns the largest image in this sequence of `SpotifyImage`, or `nil` if
+     the sequence is empty.
     
-     When determining the largest image, Images with
-     `nil` for `height` and/or `width` are considered
-     to have a `height` and/or `width` of 0.
+     When determining the largest image, Images with `nil` for `height` and/or
+     `width` are considered to have a `height` and/or `width` of 0.
      
      The largest image is calculated based on `height` * `width`.
      */

@@ -13,13 +13,13 @@ import FoundationNetworking
 #endif
 
 /**
- Opens the authorization URL and waits for the user to login
- and copy and paste the redirect URL into standard input or starts
- a server to listen for the redirect URL if the TEST flag is enabled.
+ Opens the authorization URL and waits for the user to login and copy and paste
+ the redirect URL into standard input or starts a server to listen for the
+ redirect URL if the TEST flag is enabled.
  
  - Parameter authorizationURL: The authorization URL.
- - Returns: The redirect URI with the query, which is used for
-       requesting access and refresh tokens
+ - Returns: The redirect URI with the query, which is used for requesting access
+       and refresh tokens
  */
 public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL

@@ -53,7 +53,7 @@ import Logging
 public enum Scope: String, Codable, Hashable {
     
     // MARK: Images
-    
+
     /**
      Write access to user-provided images.
      
@@ -98,8 +98,7 @@ public enum Scope: String, Codable, Hashable {
     
     /// Read access to a user’s currently playing content.
     ///
-    /// This scope is not required for any of the endpoints in this
-    /// library.
+    /// This scope is not required for any of the endpoints in this library.
     case userReadCurrentlyPlaying = "user-read-currently-playing"
     
     // MARK: Spotify Connect
@@ -107,8 +106,8 @@ public enum Scope: String, Codable, Hashable {
     /**
      Control playback of a Spotify track.
     
-     This scope is currently available to the [Web Playback SDK][1].
-     The user must have a Spotify Premium account.
+     This scope is currently available to the [Web Playback SDK][1]. The user
+     must have a Spotify Premium account.
      
      [1]: https://developer.spotify.com/documentation/web-playback-sdk/
      */
@@ -117,8 +116,8 @@ public enum Scope: String, Codable, Hashable {
     /**
      Remote control playback of Spotify.
     
-     This scope is currently available to the Spotify [iOS][1] and
-     [Android][2] SDKs.
+     This scope is currently available to the Spotify [iOS][1] and [Android][2]
+     SDKs.
      
      [1]: https://developer.spotify.com/documentation/ios/
      [2]: https://developer.spotify.com/documentation/android/
@@ -130,9 +129,8 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user’s email address.
      
-     Required for the `SpotifyAPI.currentUserProfile()` endpoint
-     in order to retrieve the `email` property of the returned
-     `SpotifyUser`.
+     Required for the `SpotifyAPI.currentUserProfile()` endpoint in order to
+     retrieve the `email` property of the returned `SpotifyUser`.
      */
     case userReadEmail = "user-read-email"
     
@@ -162,15 +160,14 @@ public enum Scope: String, Codable, Hashable {
     /**
      Write access to a user's public playlists.
      
-     Required for the following endpoints when targeting a *public*
-     playlist:
+     Required for the following endpoints when targeting a *public* playlist:
      * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
      * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
      * `SpotifyAPI.addToPlaylist(_:uris:position:)`
      * `SpotifyAPI.changePlaylistDetails(_:to:)`
      * `SpotifyAPI.createPlaylist(for:_:)`
-     * `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
-     * `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`
+     * `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
+     * `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
      * `SpotifyAPI.reorderPlaylistItems(_:body:)`
      * `SpotifyAPI.replaceAllPlaylistItems(_:with:)`
      * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
@@ -181,8 +178,7 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user's private playlists.
  
-     Required for the following endpoints when targeting a *private*
-     playlist:
+     Required for the following endpoints when targeting a *private* playlist:
      * `SpotifyAPI.usersFollowPlaylist(_:userURIs:)`
      * `SpotifyAPI.currentUserPlaylists(limit:offset:)`
      * `SpotifyAPI.userPlaylists(for:limit:offset:)`
@@ -193,15 +189,14 @@ public enum Scope: String, Codable, Hashable {
     /**
      Write access to a user's private playlists.
      
-     Required for the following endpoints when targeting a *private*
-     playlist:
+     Required for the following endpoints when targeting a *private* playlist:
      * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
      * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
      * `SpotifyAPI.addToPlaylist(_:uris:position:)`
      * `SpotifyAPI.changePlaylistDetails(_:to:)`
      * `SpotifyAPI.createPlaylist(for:_:)`
-     * `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
-     * `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`
+     * `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
+     * `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
      * `SpotifyAPI.reorderPlaylistItems(_:body:)`
      * `SpotifyAPI.replaceAllPlaylistItems(_:with:)`
      * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
@@ -258,8 +253,8 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user’s playback position in a content.
      
-     Required in order to retrieve the `ResumePoint` from the episode
-     objects returned by the following endpoints:
+     Required in order to retrieve the `ResumePoint` from the episode objects
+     returned by the following endpoints:
      
      * `SpotifyAPI.episode(_:market:)`
      * `SpotifyAPI.episodes(_:market:)`
@@ -293,8 +288,8 @@ public enum Scope: String, Codable, Hashable {
     case userFollowRead = "user-follow-read"
     
     /**
-     Write/delete access to the list of artists and other users that the
-     user follows.
+     Write/delete access to the list of artists and other users that the user
+     follows.
      
      Required for the following endpoints:
      * `SpotifyAPI.followArtistsForCurrentUser(_:)`
@@ -311,8 +306,8 @@ extension Scope: CaseIterable {
     
     public typealias AllCases = Set<Scope>
 
-    // The synthesized implementation of `allCases`
-    // is an array, but a set is more useful.
+    // The synthesized implementation of `allCases` is an array, but a set is
+    // more useful.
     /// A `Set` of all the authorization scopes.
     public static let allCases: Set<Scope> = [
         .ugcImageUpload,
@@ -343,11 +338,11 @@ extension Scope: CaseIterable {
 public extension Scope {
     
     /**
-     Creates a space-separated string of scopes, which can be used
-     for the scope query parameter of a Spotify endpoint.
+     Creates a space-separated string of scopes, which can be used for the scope
+     query parameter of a Spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
-     from a string of (usually space-separated) scopes.
+     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>` from
+     a string of (usually space-separated) scopes.
     
      - Parameter scopes: A variadic array of Spotify authorization scopes.
            Duplicates will be ignored.
@@ -361,11 +356,11 @@ public extension Scope {
     }
     
     /**
-     Creates a space-separated string of scopes, which can be used
-     for the scope query parameter of a Spotify endpoint.
+     Creates a space-separated string of scopes, which can be used for the scope
+     query parameter of a Spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>`
-     from a string of (usually space-separated) scopes.
+     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>` from
+     a string of (usually space-separated) scopes.
     
      - Parameter scopes: A set of Spotify authorization scopes.
     
@@ -378,11 +373,11 @@ public extension Scope {
     }
     
     /**
-     Creates an set of scopes from a string of Spotify scopes
-     (usually space-separated).
+     Creates an set of scopes from a string of Spotify scopes (usually
+     space-separated).
     
-     If any of the scopes in the string do not match the raw value
-     of any of the cases, then they are ignored.
+     If any of the scopes in the string do not match the raw value of any of the
+     cases, then they are ignored.
     
      This is the opposite of `Scope.makeString(_:)`, which creates a
      space-separated string of scopes from `Set<Scope>`.
@@ -408,11 +403,11 @@ public extension Scope {
     }
     
     /**
-     Returns `true` if the specified scope string matches
-     one of the known scopes of this enum. Else, `false`.
+     Returns `true` if the specified scope string matches one of the known
+     scopes of this enum. Else, `false`.
     
-     - Parameter scope: A Spotify authorization scope string.
-           The string must contain only a single scope.
+     - Parameter scope: A Spotify authorization scope string. The string must
+           contain only a single scope.
      */
     static func contains(_ scope: String) -> Bool {
         return Self.allCases.map(\.rawValue).contains(scope.strip())

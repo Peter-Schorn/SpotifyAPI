@@ -141,15 +141,15 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of albums to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first album to return.
-             Default: 0. Use with `limit` to get the next set of albums.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-             the string "from_token". Provide this parameter if you want
-             to apply [Track Relinking][3].
-     - Returns: An array of the full versions of `Album` objects wrapped in
-           a `SavedItem` object, wrapped in a `PagingObject`.
+       - limit: *Optional*. The maximum number of albums to return. Default: 20;
+             Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first album to return. Default: 0.
+             Use with `limit` to get the next set of albums.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
+             string "from_token". Provide this parameter if you want to apply
+             [Track Relinking][3].
+     - Returns: An array of the full versions of `Album` objects wrapped in a
+           `SavedItem` object, wrapped in a `PagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -189,16 +189,15 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of tracks to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first track to return.
-             Default: 0. Use with `limit` to get the next
-             set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-             the string "from_token". Provide this parameter if you want
-             to apply [Track Relinking][3].
-     - Returns: An array of the full versions of `Track` objects wrapped in
-           a `SavedItem` object, wrapped in a `PagingObject`.
+       - limit: *Optional*. The maximum number of tracks to return. Default: 20;
+             Minimum: 1; Maximum: 50.
+       - offset: *Optional*. The index of the first track to return. Default: 0.
+             Use with `limit` to get the next set of tracks.
+       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
+             string "from_token". Provide this parameter if you want to apply
+             [Track Relinking][3].
+     - Returns: An array of the full versions of `Track` objects wrapped in a
+           `SavedItem` object, wrapped in a `PagingObject`.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

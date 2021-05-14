@@ -13,22 +13,21 @@ public struct Album: Hashable {
     /**
      The tracks of the album.
      
-     For certain endpoints, this property may be nil, especially if it is
-     nested inside a much larger object. For example, it will be `nil` if
-     retrieved from the search endpoint or if nested inside a `Track`. When
-     this property is `nil`, use `albumTracks(_:market:limit:offset:)`
-     instead, passing in the URI of this album.
+     For certain endpoints, this property may be nil, especially if it is nested
+     inside a much larger object. For example, it will be `nil` if retrieved
+     from the search endpoint or if nested inside a `Track`. When this property
+     is `nil`, use `albumTracks(_:market:limit:offset:)` instead, passing in the
+     URI of this album.
      */
     public let tracks: PagingObject<Track>?
     
     /// The artists of the album. The simplified versions will be returned.
     ///
-    /// Each artist object includes a link in href
-    /// to more detailed information about the artist.
+    /// Each artist object includes a link in href to more detailed information
+    /// about the artist.
     public let artists: [Artist]?
     
-    /// The date the album was first released.
-    /// See also `releaseDatePrecision`.
+    /// The date the album was first released. See also `releaseDatePrecision`.
     public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the album.
@@ -47,11 +46,10 @@ public struct Album: Hashable {
     /**
      The popularity of the album.
 
-     The value will be between 0 and 100,
-     with 100 being the most popular.
-     The popularity is calculated
-     from the popularity of the album’s individual tracks.
-     
+     The value will be between 0 and 100, with 100 being the most popular. The
+     popularity is calculated from the popularity of the album’s individual
+     tracks.
+
      Only available for the full album object.
      */
     public let popularity: Int?
@@ -64,8 +62,8 @@ public struct Album: Hashable {
     /**
      A list of the genres the artist is associated with.
     
-     For example: "Prog Rock" , "Post-Grunge".
-     (If not yet classified, the array is empty.)
+     For example: "Prog Rock" , "Post-Grunge". (If not yet classified, the array
+     is empty.)
     
      Only available for the full album object.
      */
@@ -82,8 +80,8 @@ public struct Album: Hashable {
     /**
      Known [external urls][1] for this artist.
 
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -108,8 +106,8 @@ public struct Album: Hashable {
      */
     public let externalIds: [String: String]?
     
-    /// The type of the album: one of `album`, `single`,
-    /// or `compilation`. See also `albumGroup`.
+    /// The type of the album: one of `album`, `single`, or `compilation`. See
+    /// also `albumGroup`.
     public let albumType: AlbumType?
 
     /**
@@ -117,17 +115,17 @@ public struct Album: Hashable {
      
      See also `albumType`.
      
-     Possible values are `album`, `single`, `compilation`,
-     and `appearsOn`. Compared to `albumType` this field represents
-     the relationship between the artist and the album.
+     Possible values are `album`, `single`, `compilation`, and `appearsOn`.
+     Compared to `albumType` this field represents the relationship between the
+     artist and the album.
      */
     public let albumGroup: AlbumType?
     /**
-     The markets in which the album is available:
-     [ISO 3166-1 alpha-2 country codes][1].
+     The markets in which the album is available: [ISO 3166-1 alpha-2 country
+     codes][1].
 
-     Note that an album is considered available in a market
-     when at least 1 of its tracks is available in that market.
+     Note that an album is considered available in a market when at least 1 of
+     its tracks is available in that market.
      
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
@@ -136,21 +134,21 @@ public struct Album: Hashable {
     /// An array of copyright objects.
     public let copyrights: [SpotifyCopyright]?
 
-    /// The precision with which `releaseDate` is known:
-    /// "year", "month", or "day".
+    /// The precision with which `releaseDate` is known: "year", "month", or
+    /// "day".
     public let releaseDatePrecision: String?
 
     /**
-     Part of the response when a content restriction, such as
-     [Track Relinking][1], is applied. Else, `nil`.
+     Part of the response when a content restriction, such as [Track
+     Relinking][1], is applied. Else, `nil`.
      
      The key will be "reason", and the value will be one of the
      following:
      * "market" - The content item is not available in the given market.
-     * "product" - The content item is not available for the user’s
-       subscription type.
-     * "explicit" - The content item is explicit and the user’s account is
-       set to not play explicit content.
+     * "product" - The content item is not available for the user’s subscription
+       type.
+     * "explicit" - The content item is explicit and the user’s account is set
+       to not play explicit content.
      
      Additional reasons and additional keys may be added in the future.
      
@@ -180,11 +178,11 @@ public struct Album: Hashable {
        - label: The label for the album. Do not confuse this with the name of
              the album.
        - genres: A list of the genres the artist is associated with.
-       - href: A link to the Spotify web API endpoint providing the full
-             album object.
+       - href: A link to the Spotify web API endpoint providing the full album
+             object.
        - externalURLs: Known [external urls][3] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][4] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][4] for the object.
              - value: An external, public URL to the object.
        - externalIds: Known external IDs for the album.
              - key: The identifier type, for example:
@@ -195,23 +193,22 @@ public struct Album: Hashable {
        - albumType: The type of the album: one of `album`, `single`, or
              `compilation`.
        - albumGroup: This field is present when getting an artist’s albums.
-             Possible values are `album`, `single`, `compilation`,
-             and `appearsOn`. Compared to `albumType` this field represents
-             the relationship between the artist and the album.
-       - availableMarkets: The markets in which the album is available:
-             [ISO 3166-1 alpha-2 country codes][8].
-             Note that an album is considered available in a market
-             when at least 1 of its tracks is available in that market.
+             Possible values are `album`, `single`, `compilation`, and
+             `appearsOn`. Compared to `albumType` this field represents the
+             relationship between the artist and the album.
+       - availableMarkets: The markets in which the album is available: [ISO
+             3166-1 alpha-2 country codes][8]. Note that an album is considered
+             available in a market when at least 1 of its tracks is available in
+             that market.
        - copyrights: An array of copyright objects.
        - releaseDatePrecision: The precision with which `releaseDate` is known:
              "year", "month", or "day".
        - restrictions: Part of the response when a content restriction, such as
              [Track Relinking][9], is applied. Else, `nil`. The key will be
              "reason", and the value will be one of the following:
-             * "market" - The content item is not available in the given
-               market.
+             * "market" - The content item is not available in the given market.
              * "product" - The content item is not available for the user’s
-             subscription type.
+               subscription type.
              * "explicit" - The content item is explicit and the user’s account
                is set to not play explicit content.
              Additional reasons and additional keys may be added in the future.

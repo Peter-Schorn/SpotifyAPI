@@ -6,7 +6,7 @@ import Foundation
 
  This is used in various different contexts, including:
  
- * When decoding the respose after requesting the access and refresh tokens
+ * When decoding the response after requesting the access and refresh tokens
  * When decoding the response after refreshing the tokens
  * As a wrapper for decoding and encoding the authorization managers.
  
@@ -170,8 +170,7 @@ extension AuthInfo: CustomStringConvertible {
 
 extension AuthInfo {
     
-    /// Creates an instance with random values.
-    /// Only use for tests.
+    /// Creates an instance with random values. Only use for tests.
     static func withRandomValues() -> Self {
         return Self(
             accessToken: UUID().uuidString,

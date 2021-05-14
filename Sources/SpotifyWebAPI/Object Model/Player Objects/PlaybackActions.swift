@@ -1,13 +1,13 @@
 import Foundation
 
 /**
- The various actions that can be performed within the context
- of the user's current playback.
+ The various actions that can be performed within the context of the user's
+ current playback.
+
+ For example, you cannot skip to the previous or next track/episode or seek to a
+ position in a track/episode while an ad is playing.
  
- For example, you cannot skip to the previous or next track/episode
- or seek to a position in a track/episode while an ad is playing.
- 
- This enum maps to Spotify's [dissallows object][1].
+ This enum maps to Spotify's [disallows object][1].
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
  */
@@ -49,8 +49,8 @@ extension PlaybackActions: CaseIterable {
     
     public typealias AllCases = Set<PlaybackActions>
 
-    // The default implementation returns an array,
-    // but a set is more useful.
+    // The synthesized implementation of `allCases` is an array, but a set is
+    // more useful.
     public static let allCases: Set<PlaybackActions> = [
         .interruptPlayback,
         .pause,

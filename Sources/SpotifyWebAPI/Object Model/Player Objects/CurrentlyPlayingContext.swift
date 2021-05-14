@@ -8,8 +8,8 @@ import Logging
  */
 public struct CurrentlyPlayingContext: Hashable {
     
-    /// Logs messages for this struct, especially those involving
-    /// the decoding of data into this type.
+    /// Logs messages for this struct, especially those involving the decoding
+    /// of data into this type.
     public static var logger = Logger(
         label: "CurrentlyPlayingContext", level: .critical
     )
@@ -17,17 +17,16 @@ public struct CurrentlyPlayingContext: Hashable {
     /**
      The device that the content is or was playing on.
      
-     The information returned by `SpotifyAPI.currentPlayback(market:)`
-     is for the last known state, which means an inactive device could be
-     returned if it was the last one to execute playback.
+     The information returned by `SpotifyAPI.currentPlayback(market:)` is for
+     the last known state, which means an inactive device could be returned if
+     it was the last one to execute playback.
      
-     Use `SpotifyAPI.availableDevices()` to get the current user's available
-     and active devices.
+     Use `SpotifyAPI.availableDevices()` to get the current user's available and
+     active devices.
      */
     public let device: Device
     
-    /// The repeat mode of the player.
-    /// Either `off`, `track`, or `context`.
+    /// The repeat mode of the player. Either `off`, `track`, or `context`.
     public let repeatState: RepeatMode
     
     /// `true` if shuffle mode is on; else, `false`.
@@ -36,11 +35,9 @@ public struct CurrentlyPlayingContext: Hashable {
     /**
      The context of the user's playback.
      
-     Can be `nil`. For example, If the user has a private
-     session enabled, then this will be `nil`.
+     Can be `nil`. For example, If the user has a private session enabled, then
+     this will be `nil`.
      
-     - Note: Testing suggets that if the user is playing an episode,
-           then this will be `nil`.
      */
     public let context: SpotifyContext?
     
@@ -48,54 +45,51 @@ public struct CurrentlyPlayingContext: Hashable {
     /// millisecond-precision timestamp).
     public let timestamp: Date
     
-    /// Progress into the currently playing track/episode in
-    /// milliseconds.
-    ///
-    /// Can be `nil`. For example, If the user has a private
-    /// session enabled, then this will be `nil`.
+    /**
+     Progress into the currently playing track/episode in milliseconds.
+    
+     Can be `nil`. For example, If the user has a private session enabled,
+     then this will be `nil`.
+     */
     public let progressMS: Int?
     
     /// `true` if content is currently playing. Else, `false`.
     public let isPlaying: Bool
     
     /**
-     The full version of a track or episode. Represents the content
-     that is, or was most recently, playing.
-     
+     The full version of a track or episode. Represents the content that is, or
+     was most recently, playing.
+
      Use `isPlaying` to check if the content is currently playing.
-     
-     Although the type is `PlaylistItem`, this does not necessarily
-     mean that the item is playing in the context of a playlist.
-    
-     Can be `nil`. For example, If the user has a private
-     session enabled, then this will be `nil`.
-     
+
+     Although the type is `PlaylistItem`, this does not necessarily mean that
+     the item is playing in the context of a playlist. Can be `nil`. For
+     example, If the user has a private session enabled, then this will be
+     `nil`.
      */
     public let item: PlaylistItem?
     
     /**
-     The id category of `item`—the content that is, or was most
-     recently, playing.
+     The id category of `item`—the content that is, or was most recently,
+     playing.
     
-     For example, if a track is currently playing, then this property will
-     be `track`; if an episode is currently playing then this property will
-     be `episode`.
-     
-     Can also be `unknown`.
+     For example, if a track is currently playing, then this property will be
+     `track`; if an episode is currently playing then this property will be
+     `episode`. Can also be `unknown`.
      */
     public let itemType: IDCategory
     
     /**
      The playback actions that are allowed within the given context.
     
-     Attemping to perform actions that are not contained within this set
-     will result in an error from the Spotify web API.
+     Attempting to perform actions that are not contained within this set will
+     result in an error from the Spotify web API.
      
-     For example, you cannot skip to the previous or next track
-     or seek to a position in a track while an ad is playing.
+     For example, you cannot skip to the previous or next track or seek to a
+     position in a track while an ad is playing.
     
-     You could use this property to disable UI elements that perform
-     actions that are not contained within this set.
+     You could use this property to disable UI elements that perform actions
+     that are not contained within this set.
      */
     public let allowedActions: Set<PlaybackActions>
     
@@ -160,9 +154,9 @@ extension CurrentlyPlayingContext: Codable {
         case allowedActions = "actions"
     }
     
-    // the keys for the dictionary must be `String` or `Int`, or `JSONDecoder`
-    // will try and fail to decode the dictionary into an array
-    // see https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
+    // The keys for the dictionary must be `String` or `Int`, or `JSONDecoder`
+    // will try and fail to decode the dictionary into an array. See
+    // https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
     private typealias DisallowsObject = [String: [String: Bool?]]
     
     /// :nodoc:
@@ -311,7 +305,7 @@ extension CurrentlyPlayingContext: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      `CurrentlyPlayingContext.timestamp` is compared using
      `timeIntervalSince1970`, so it is considered a floating point property for
      the purposes of this method.

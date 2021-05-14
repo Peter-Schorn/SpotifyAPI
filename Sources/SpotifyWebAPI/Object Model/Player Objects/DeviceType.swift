@@ -41,7 +41,7 @@ public enum DeviceType: String, Codable, Hashable, CaseIterable {
     /// An automobile.
     case automobile = "Automobile"
     
-    /// Unkown.
+    /// Unknown.
     case unknown = "Unknown"
     
 }

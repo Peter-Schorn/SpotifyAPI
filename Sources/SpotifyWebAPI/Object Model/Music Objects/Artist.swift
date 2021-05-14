@@ -26,9 +26,9 @@ public struct Artist: Hashable {
     /**
      The popularity of the artist.
     
-     The value will be between 0 and 100, with 100 being the most popular.
-     The artist’s popularity is calculated
-     from the popularity of all the artist’s tracks.
+     The value will be between 0 and 100, with 100 being the most popular. The
+     artist’s popularity is calculated from the popularity of all the artist’s
+     tracks.
     
      Only available for the full artist object.
      */
@@ -37,8 +37,8 @@ public struct Artist: Hashable {
     /**
      Known [external urls][1] for this artist.
     
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
     
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -54,8 +54,8 @@ public struct Artist: Hashable {
     /**
      A list of the genres the artist is associated with.
     
-     For example: "Prog Rock" , "Post-Grunge".
-     (If not yet classified, the array is empty.)
+     For example: "Prog Rock" , "Post-Grunge". (If not yet classified, the array
+     is empty.)
     
      Only available for the full artist object.
      */
@@ -83,8 +83,8 @@ public struct Artist: Hashable {
        - popularity: The popularity of the artist. Should be between 0 and 100,
              inclusive.
        - externalURLs: Known [external urls][3] for this artist.
-             - key: The type of the URL, for example:
-                   "spotify" - The [Spotify URL][2] for the object.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][2] for the object.
              - value: An external, public URL to the object.
        - followers: Information about the followers of the artist.
        - genres: A list of the genres the artist is associated with.

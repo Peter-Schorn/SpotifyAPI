@@ -26,7 +26,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
     func concurrentTokensRefresh() {
         self.continueAfterFailure = false
         for i in 0..<20 {
-            SpotifyAPITestCase.selectNetworkAdpaptor()
+            SpotifyAPITestCase.selectNetworkAdaptor()
             Self.spotify.authorizationManager.setExpirationDate(to: Date())
             print("\n--- TOP LEVEL \(i) ---\n")
             self.concurrentTokensRefreshCore(topLevel: i)

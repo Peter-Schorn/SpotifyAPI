@@ -3,8 +3,8 @@ import RegularExpressions
 import Logging
 
 /**
- Encapsulates the various formats that Spotify uses to uniquely identify
- content such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
+ Encapsulates the various formats that Spotify uses to uniquely identify content
+ such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method that accepts a
  `SpotifyURIConvertible` type.
@@ -17,15 +17,15 @@ import Logging
 public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
     /**
-     Creates a comma separated string (with no spaces) of ids from a
-     sequence of URIs (used in the query parameter of some requests).
+     Creates a comma separated string (with no spaces) of ids from a sequence of
+     URIs (used in the query parameter of some requests).
     
      - Parameters:
        - uris: A sequence of Spotify URIs.
        - categories: If not `nil`, ensure the id categories of all the URIs
              match one or more categories. The default is `nil`.
-     - Throws: If `categories` is not `nil` and the id category of a URI
-           does not match one the required categories or if an id or id category
+     - Throws: If `categories` is not `nil` and the id category of a URI does
+           not match one the required categories or if an id or id category
            could not be parsed from a URI.
      - Returns: A comma-separated string of Ids.
      */
@@ -49,8 +49,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
        - uris: A sequence of Spotify URIs.
        - categories: If not `nil`, ensure the id categories of all the URIs
              match one or more categories. The default is `nil`.
-     - Throws: If `categories` is not `nil` and the id category of a URI
-           does not match one the required categories or if an id or id category
+     - Throws: If `categories` is not `nil` and the id category of a URI does
+           not match one the required categories or if an id or id category
            could not be parsed from a URI.
      - Returns: An array of Spotify ids.
      */
@@ -87,7 +87,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     /**
      The unique resource identifier for the Spotify content.
      
-     Eqvuivalent to
+     Equivalent to
      ```
      "spotify:\(idCategory.rawValue):\(id)"
      ```
@@ -120,8 +120,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     // MARK: Initializers
     
     /**
-     Creates an instance from an id and an id category.
-     See [Spotify URIs and ids][1].
+     Creates an instance from an id and an id category. See [Spotify URIs and
+     ids][1].
     
      The id category must be one of the following:
      
@@ -236,12 +236,12 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     }
     
     /**
-     Creates an instance from a Spotify URL to the content.
-     See [Spotify URIs and ids][1].
+     Creates an instance from a Spotify URL to the content. See [Spotify URIs
+     and ids][1].
     
-     The first path component must be the id category. The second path
-     component must be the id of the content. All additional path components
-     and/or query parameters, if present, are ignored.
+     The first path component must be the id category. The second path component
+     must be the id of the content. All additional path components and/or query
+     parameters, if present, are ignored.
      
      For example:
      ```
@@ -260,10 +260,10 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `user`
      * `genre`
      
-     - Parameter url: A URL that, when opened, displays the content in the
-           web player.
-     - Throws: If the id and/or id category of the content could not be
-           parsed from the URL.
+     - Parameter url: A URL that, when opened, displays the content in the web
+           player.
+     - Throws: If the id and/or id category of the content could not be parsed
+           from the URL.
      
      [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */

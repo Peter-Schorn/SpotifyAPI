@@ -3,8 +3,8 @@ import Foundation
 /**
  A Spotify [play history object][1].
  
- Contains information about a recently played track,
- including the time it was played, and the context it was played in.
+ Contains information about a recently played track, including the time it was
+ played, and the context it was played in.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
  */
@@ -16,8 +16,8 @@ public struct PlayHistory: Hashable {
     /// The date and time the track was played.
     public let playedAt: Date
     
-    /// The context the track was played from, such as
-    /// an album, artist, or playlist.
+    /// The context the track was played from, such as an album, artist, or
+    /// playlist.
     public let context: SpotifyContext?
     
     /**
@@ -26,8 +26,8 @@ public struct PlayHistory: Hashable {
      - Parameters:
        - track: The track that the user listened to (simplified version).
        - playedAt: The date and time the track was played.
-       - context: The context the track was played from, such as an album, artist,
-             or playlist.
+       - context: The context the track was played from, such as an album,
+             artist, or playlist.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
      */
@@ -91,10 +91,9 @@ extension PlayHistory: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
-     `PlayHistory.playedAt` is compared using `timeIntervalSince1970`,
-     so it is considered a floating point property for the purposes of this
-     method.
+
+     `PlayHistory.playedAt` is compared using `timeIntervalSince1970`, so it is
+     considered a floating point property for the purposes of this method.
      
      - Parameter other: Another instance of `Self`.
      */

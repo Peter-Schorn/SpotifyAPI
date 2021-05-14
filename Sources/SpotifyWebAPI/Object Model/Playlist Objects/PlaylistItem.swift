@@ -1,8 +1,8 @@
 import Foundation
 
 /**
- Either a track or an episode. Used for endpoints
- that return track and/or episode objects.
+ Either a track or an episode. Used for endpoints that return track and/or
+ episode objects.
 
  This enum has two cases with associated values:
  ```
@@ -10,11 +10,10 @@ import Foundation
  case episode(Episode)
  ```
  
- It also has convenience computed properties for every property
- that is common to both tracks and episodes, such as the name and URI.
- 
- This is usually, but not always, returned in the context of
- a playlist.
+ It also has convenience computed properties for every property that is common
+ to both tracks and episodes, such as the name and URI.
+
+ This is usually, but not always, returned in the context of a playlist.
  */
 public enum PlaylistItem: Hashable {
     
@@ -72,8 +71,8 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// Whether or not this `PlaylistItem` has explicit content.
-    /// `false` if unknown.
+    /// Whether or not this `PlaylistItem` has explicit content. `false` if
+    /// unknown.
     @inlinable
     public var isExplicit: Bool {
         switch self {
@@ -97,9 +96,9 @@ public enum PlaylistItem: Hashable {
     }
     
     /**
-     A link to the Spotify web API endpoint providing the full version of
-     this `PlaylistItem`.
-     
+     A link to the Spotify web API endpoint providing the full version of this
+     `PlaylistItem`.
+
      Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the full results.
      */
     @inlinable
@@ -115,8 +114,8 @@ public enum PlaylistItem: Hashable {
     /**
      Known [external urls][1] for this `PlaylistItem`.
 
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -196,7 +195,7 @@ extension PlaylistItem: ApproximatelyEquatable {
      approximately equal to those of `other` within an absolute tolerance of
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
-     
+
      Dates are compared using `timeIntervalSince1970`, so they are considered
      floating point properties for the purposes of this method.
      

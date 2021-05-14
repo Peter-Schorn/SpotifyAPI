@@ -14,26 +14,22 @@ import Foundation
 public struct SpotifyCursor: Codable, Hashable {
     
     /**
-     The key to the item before the current item—a unix millisecond
-     timestamp.
+     The key to the item before the current item—a unix millisecond timestamp.
     
      Use this parameter to move back in time.
      
-     Pass this value into `TimeReference.before(_:)` in order to reference
-     the page of results that chronologically precede the current
-     page.
+     Pass this value into `TimeReference.before(_:)` in order to reference the
+     page of results that chronologically precede the current page.
      */
     public let before: String?
     
     /**
-     The key to the item after the current item—a unix millisecond
-     timestamp.
+     The key to the item after the current item—a unix millisecond timestamp.
     
      Use this parameter to move forward in time.
      
-     Pass this value into `TimeReference.after(_:)` in order to reference
-     the page of results that chronologically succeed the current
-     page.
+     Pass this value into `TimeReference.after(_:)` in order to reference the
+     page of results that chronologically succeed the current page.
      */
     public let after: String?
     

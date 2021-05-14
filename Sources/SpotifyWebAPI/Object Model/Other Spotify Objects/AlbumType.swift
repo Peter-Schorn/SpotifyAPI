@@ -28,8 +28,8 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
     /**
      Creates a new instance with the specified raw value.
      
-     - Parameter rawValue: The raw value for an album type.
-           **It is case-insensitive**.
+     - Parameter rawValue: The raw value for an album type. **It is**
+           **case-insensitive**.
      */
     @inlinable
     public init?(rawValue: String) {

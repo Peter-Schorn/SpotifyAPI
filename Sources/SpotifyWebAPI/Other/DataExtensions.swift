@@ -3,8 +3,8 @@ import Foundation
 public extension Data {
     
     /**
-     Converts `self` to a Base-64 URL-encoded string.
-     The `=` padding character will be removed.
+     Converts `self` to a Base-64 URL-encoded string. The `=` padding character
+     will be removed.
      
      Equivalent to
      ```

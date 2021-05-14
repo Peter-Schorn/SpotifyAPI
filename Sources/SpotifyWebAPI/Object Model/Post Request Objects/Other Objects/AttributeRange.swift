@@ -2,11 +2,11 @@ import Foundation
 
 /**
  Represents a range for a track attribute. Has a minimum, target (ideal), and
- maximum value. See `TrackAttributes` and the endpoint for
- [getting recommendations based on seeds][1].
- 
+ maximum value. See `TrackAttributes` and the endpoint for [getting
+ recommendations based on seeds][1].
+
  Note that all of the properties are mutable.
- 
+
  The target value should not be smaller than the minimum or larger than the
  maximum.
  
@@ -20,8 +20,7 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
     
     /// The target (ideal) value for the attribute.
     ///
-    /// Should not be smaller than the minimum or larger than the
-    /// maximum.
+    /// Should not be smaller than the minimum or larger than the maximum.
     public var target: Value?
     
     /// The maximum value for the attribute.
@@ -32,9 +31,8 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
      
      - Parameters:
        - min: The minimum value for the attribute.
-       - target: The target (ideal) value for the attribute.
-             Should not be smaller than the minimum or larger than the
-             maximum.
+       - target: The target (ideal) value for the attribute. Should not be
+             smaller than the minimum or larger than the maximum.
        - max: The maximum value for the attribute.
      */
     public init(
@@ -50,11 +48,12 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
     
     /**
      Creates a dictionary in which the keys are the provided attribute name
-     prefixed with `min`, `target` and `max`, and the values are the values
-     for these properties converted to a string. Properties that are `nil`
-     will not appear in the dictionary.
+     prefixed with `min`, `target` and `max`, and the values are the values for
+     these properties converted to a string. Properties that are `nil` will not
+     appear in the dictionary.
      
-     For example, if the `attributeName` is "tempo", then the dictionary will be:
+     For example, if the `attributeName` is "tempo", then the dictionary will
+     be:
      ```
      [
          "min_tempo": self.min,
@@ -82,12 +81,12 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
 extension AttributeRange: ApproximatelyEquatable where Value: BinaryFloatingPoint {
     
     /**
-     Returns `true` if all the properties of `self` are approximately
-     equal to those of `other` within an absolute tolerance of 0.001.
-     Else, returns `false`.
-     
+     Returns `true` if all the properties of `self` are approximately equal to
+     those of `other` within an absolute tolerance of 0.001. Else, returns
+     `false`.
+
      Available when `Value` conforms to `BinaryFloatingPoint`.
-     
+
      - Parameter other: Another instance of `Self`.
      */
     public func isApproximatelyEqual(to other: Self) -> Bool {

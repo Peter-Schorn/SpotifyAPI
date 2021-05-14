@@ -20,25 +20,24 @@ public extension Publisher where Output: Paginated {
      
      Compare with `Publisher.extendPagesConcurrently(_:maxExtraPages:)`.
 
-     Each time an additional page is received, its `next` property is used
-     to retrieve the next page of results, and so on, until `next` is `nil`
-     or `maxExtraPages` is reached. This means that the next page will not
-     be requested until the previous one is received and that the pages
-     will always be returned in order.
+     Each time an additional page is received, its `next` property is used to
+     retrieve the next page of results, and so on, until `next` is `nil` or
+     `maxExtraPages` is reached. This means that the next page will not be
+     requested until the previous one is received and that the pages will always
+     be returned in order.
      
      See [Working with Paginated Results][1].
 
      - Parameters:
        - spotify: An instance of `SpotifyAPI`, which is required for
-             accessing the access token required to make requests to
-             the Spotify web API. The access token will also be refreshed if
-             needed.
-       - maxExtraPages: The maximum number of additional pages to retrieve.
-             For example, to just get the next page, use `1`. Leave as
-             `nil` (default) to retrieve all pages of results.
-     - Returns: A publisher that immediately republishes the page received
-           from the upstream publisher, as well as additional pages that are
-           returned by the Spotify web API.
+             accessing the access token required to make requests to the Spotify
+             web API. The access token will also be refreshed if needed.
+       - maxExtraPages: The maximum number of additional pages to retrieve. For
+             example, to just get the next page, use `1`. Leave as `nil`
+             (default) to retrieve all pages of results.
+     - Returns: A publisher that immediately republishes the page received from
+           the upstream publisher, as well as additional pages that are returned
+           by the Spotify web API.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
@@ -65,21 +64,19 @@ public extension Publisher where Output: PagingObjectProtocol {
     // Publishers.MergeMany is not implemented in OpenCombine yet :(
     #if canImport(Combine)
     /**
-     Retrieves additional pages of results from a paging object
-     *concurrently*.
-     
+     Retrieves additional pages of results from a paging object *concurrently*.
+
      See also `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
 
      Compare with `Publisher.extendPages(_:maxExtraPages:)`.
-     
-     This method immediately republishes the page of results that
-     were passed in and then requests additional pages *concurrently*.
-     This method has better performance than
-     `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must wait for
-     the previous page to be received before requesting the next page.
-     **However, the order in which the pages are received is**
-     **unpredictable.** If you need to wait all pages to be received
-     before processing them, then always use this method.
+
+     This method immediately republishes the page of results that were passed in
+     and then requests additional pages *concurrently*. This method has better
+     performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
+     wait for the previous page to be received before requesting the next page.
+     **However, the order in which the pages are received unpredictable.**
+     If you need to wait all pages to be received before processing them, then
+     always use this method.
      
      See [Working with Paginated Results][1].
 
@@ -87,15 +84,14 @@ public extension Publisher where Output: PagingObjectProtocol {
      
      - Parameters:
        - spotify: An instance of `SpotifyAPI`, which is required for
-             accessing the access token required to make requests to
-             the Spotify web API. The access token will also be refreshed if
-             needed.
-       - maxExtraPages: The maximum number of additional pages to retrieve.
-             For example, to just get the next page, use `1`. Leave as
-             `nil` (default) to retrieve all pages of results.
-     - Returns: A publisher that immediately republishes the page received
-           from the upstream publisher, as well as additional pages that are
-           returned by the Spotify web API.
+             accessing the access token required to make requests to the Spotify
+             web API. The access token will also be refreshed if needed.
+       - maxExtraPages: The maximum number of additional pages to retrieve. For
+             example, to just get the next page, use `1`. Leave as `nil`
+             (default) to retrieve all pages of results.
+     - Returns: A publisher that immediately republishes the page received from
+           the upstream publisher, as well as additional pages that are returned
+           by the Spotify web API.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
@@ -120,12 +116,12 @@ public extension Publisher where Output: PagingObjectProtocol {
      Collects the items from all the pages that are delivered by the upstream
      publisher and then sorts the items based on the offset of each page they
      were received in.
-     
+
      This method is particularly useful in combination with
-     `Publisher.extendPagesConcurrently(_:maxExtraPages:)`, which delivers
-     pages in an unpredictable order. It waits for all pages to be delivered
-     and then sorts them and returns just the items in the pages.
-     
+     `Publisher.extendPagesConcurrently(_:maxExtraPages:)`, which delivers pages
+     in an unpredictable order. It waits for all pages to be delivered and then
+     sorts them and returns just the items in the pages.
+
      See [Working with Paginated Results][1].
 
      [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
@@ -151,16 +147,16 @@ public extension Publisher where Output == Void {
      A convenience wrapper for sink that only requires a `receiveCompletion`
      closure. Available when `Output` == `Void`.
      
-     You are discouraged from using trailing closure syntax with this
-     method in order to avoid confusion with `sink(receiveValue:)`
-     (available when `Failure` == `Never`).
-     
-     This method creates the subscriber and immediately requests an
-     unlimited number of values, prior to returning the subscriber.
-     
+     You are discouraged from using trailing closure syntax with this method in
+     order to avoid confusion with `sink(receiveValue:)` (available when
+     `Failure` == `Never`).
+
+     This method creates the subscriber and immediately requests an unlimited
+     number of values, prior to returning the subscriber.
+
      - Parameter receiveCompletion: The closure to execute on completion.
-     - Returns: A subscriber that performs the provided closure upon
-           receiving completion.
+     - Returns: A subscriber that performs the provided closure upon receiving
+           completion.
      */
     func sink(
         receiveCompletion: @escaping (Subscribers.Completion<Self.Failure>) -> Void
@@ -179,16 +175,16 @@ public extension Publisher where Output == Void {
 public extension Error {
     
     /**
-     Returns `AnyPublisher` with the specified output type.
-     The error type is `self` type-erased to `Error`.
+     Returns `AnyPublisher` with the specified output type. The error type is
+     `self` type-erased to `Error`.
     
      Equivalent to
      ```
      Fail<Output, Error>(error: self).eraseToAnyPublisher()
      ```
     
-     - Parameter outputType: The output type for the publisher.
-           It can usually be inferred from the context.
+     - Parameter outputType: The output type for the publisher. It can usually
+           be inferred from the context.
      */
     func anyFailingPublisher<Output>(
         _ outputType: Output.Type = Output.self

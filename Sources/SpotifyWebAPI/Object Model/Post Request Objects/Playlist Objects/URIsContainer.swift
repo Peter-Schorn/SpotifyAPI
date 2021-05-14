@@ -3,7 +3,8 @@ import Foundation
 
 /**
  Contains an array of URIs and, optionally, the [snapshot id][1] of a playlist.
- Used in the body of `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`.
+ Used in the body of
+ `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`.
 
  Compare with `URIsWithPositionsContainer`.
 
@@ -23,19 +24,19 @@ public struct URIsContainer {
     public var items: [SpotifyURIConvertible]
     
     /**
-     Creates a container that holds an array of URIs and, optionally,
-     the snapshot id of a playlist that they are contained in.
+     Creates a container that holds an array of URIs and, optionally, the
+     snapshot id of a playlist that they are contained in.
     
      - Parameters:
        - items: An array of track/episode URIs.
-             The `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)`
+             The `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
              endpoint accepts a maximum of 100 items.
-       - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
-             the most recent version of the playist is targeted.
-             This is an identifer for the current version of the playlist.
-             Every time the playlist changes, a new snapshot id is generated.
-             You can use this value to efficiently determine whether a playlist
-             has changed since the last time you retrieved it.
+       - snapshotId: The [snapshot id][1] of a playlist. If `nil`, the most
+             recent version of the playlist is targeted. This is an identifier
+             for the current version of the playlist. Every time the playlist
+             changes, a new snapshot id is generated. You can use this value to
+             efficiently determine whether a playlist has changed since the last
+             time you retrieved it.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */

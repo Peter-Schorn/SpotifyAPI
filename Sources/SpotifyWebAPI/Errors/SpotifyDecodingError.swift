@@ -4,10 +4,10 @@ import Foundation
  The data from the Spotify web API could not be decoded into any of the
  expected types.
 
- Assign a folder URL to the static var `dataDumpfolder` to write the json
+ Assign a folder URL to the static var `dataDumpFolder` to write the json
  response from the Spotify web API to disk when instances of this error are
  created. See `writeToFolder(_:)`. This is intended for debugging purposes.
- It it initialzed to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER" environment
+ It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER" environment
  variable, if it exists. You can change this if necessary.
 
  This error is almost always due to an error in this library. Report a bug
@@ -21,22 +21,21 @@ import Foundation
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
     /**
-     The folder to write the json response (`rawData`) from the Spotify web
-     API to when instances of this error are created. This is intended for
-     debugging purposes.
-     
-     It it initialzed to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER"
-     environment variable, if it exists. You can change this if
-     necessary.
-     
-     The name of the folder will be `expectedResponseType` with the current
-     date appended to it.
-     
+     The folder to write the json response (`rawData`) from the Spotify web API
+     to when instances of this error are created. This is intended for debugging
+     purposes.
+
+     It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER"
+     environment variable, if it exists. You can change this if necessary.
+
+     The name of the folder will be `expectedResponseType` with the current date
+     appended to it.
+
      You are encouraged to upload the data to this [online JSON viewer][1].
      
      [1]: https://jsoneditoronline.org
      */
-    public static var dataDumpfolder: URL? = {
+    public static var dataDumpFolder: URL? = {
         
         let environment = ProcessInfo.processInfo.environment
         let folder = environment["data_dump_folder"] ??
@@ -52,31 +51,31 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     public let url: URL?
     
     /**
-     The raw data returned by the server. You should almost always be
-     able to decode this into a string.
-     
-     This property, along with `debugErrorDescription`, is written to
-     a file when you call `writeToFolder(_:)`.
+     The raw data returned by the server. You should almost always be able to
+     decode this into a string.
+
+     This property, along with `debugErrorDescription`, is written to a file
+     when you call `writeToFolder(_:)`.
      */
     public let rawData: Data?
     
-    /// The type that this library was expecting to be able to decode
-    /// the data into.
+    /// The type that this library was expecting to be able to decode the data
+    /// into.
     public let expectedResponseType: Any.Type
     
     /// The http status code.
     public let statusCode: Int?
     
-    /// The underlying error encountered when trying to decode `rawData`
-    /// into `expectedResponseType`. Usually [DecodingError][1].
+    /// The underlying error encountered when trying to decode `rawData` into
+    /// `expectedResponseType`. Usually [DecodingError][1].
     ///
     /// [1]: https://developer.apple.com/documentation/swift/decodingerror
     public let underlyingError: Error?
     
     /**
      If the underlying error is a [DecodingError][1], then this will be the
-     coding path formatted as if you were accessing nested properties
-     from a Swift type; for example, “items[27].track.album.release_date”.
+     coding path formatted as if you were accessing nested properties from a
+     Swift type; for example, “items[27].track.album.release_date”.
     
      [1]: https://developer.apple.com/documentation/swift/decodingerror
      */
@@ -88,19 +87,18 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /**
      Creates a new decoding error.
      
-     As soon as this instance is created, `rawData` and
-     `debugErrorDescription` will be written to a folder at the path
-     specified by `Self.dataDumpfolder`, if it is non-`nil`, using
-     `writeToFolder(_:)`.
+     As soon as this instance is created, `rawData` and `debugErrorDescription`
+     will be written to a folder at the path specified by `Self.dataDumpFolder`,
+     if it is non-`nil`, using `writeToFolder(_:)`.
      
      - Parameters:
        - url: The URL that was used to make the request for the data.
        - rawData: The raw data from the server.
-       - responseType: The type that the caller was expecting to be able
-             to decode the data into.
+       - responseType: The type that the caller was expecting to be able to
+             decode the data into.
        - statusCode: The HTTP status code.
-       - underlyingError: The underlying error encountered when trying to
-             decode the data. Usually `DecodingError`.
+       - underlyingError: The underlying error encountered when trying to decode
+             the data. Usually `DecodingError`.
      */
     public init (
         url: URL?,
@@ -115,7 +113,7 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         self.statusCode = statusCode
         self.underlyingError = underlyingError
         
-        if let folder = Self.dataDumpfolder {
+        if let folder = Self.dataDumpFolder {
             do {
                 let subFolder = try self.writeToFolder(folder)
                 let folderString = subFolder.path
@@ -132,15 +130,15 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     }
     
     /**
-     Writes `rawData` and `debugErrorDescription` to a sub-folder
-     within the specified folder.
-     
-     The name of the sub-folder will be `expectedResponseType` with the
-     current date appended to it.
-     
-     If `dataDumpfolder` is non-`nil`, then this method is called by
+     Writes `rawData` and `debugErrorDescription` to a sub-folder within the
+     specified folder.
+
+     The name of the sub-folder will be `expectedResponseType` with the current
+     date appended to it.
+
+     If `dataDumpFolder` is non-`nil`, then this method is called by
      `init(rawData:responseType:statusCode:underlyingError:)`, passing in
-     `dataDumpfolder`.
+     `dataDumpFolder`.
      
      You are encouraged to upload the data to this [online JSON viewer][1].
      
@@ -189,11 +187,10 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     }
     
     /**
-     Debug information that is useful in diagnosing the cause
-     of this error.
+     Debug information that is useful in diagnosing the cause of this error.
     
-     This property, along with `rawData`, is written to a file
-     when you call `writeToFolder(_:)`.
+     This property, along with `rawData`, is written to a file when you call
+     `writeToFolder(_:)`.
      */
     public var debugErrorDescription: String {
        

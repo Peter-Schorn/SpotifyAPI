@@ -1,16 +1,15 @@
 import Foundation
 
 /**
- A container that holds `URIWithPositions` and, optionally,
- the [snapshot id][1] of the playlist that the items associated with the URIs
- (usually tracks/episodes) are contained in.
- 
- Used in the body of `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`.
- 
- This is used for removing specific occurences of items from a playlist.
- The positions of the URIs are necessary in case the playlist has duplicate
- items.
- 
+ A container that holds `URIWithPositions` and, optionally, the [snapshot id][1]
+ of the playlist that the items associated with the URIs (usually
+ tracks/episodes) are contained in.
+
+ Used in the body of `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+
+ This is used for removing specific occurrences of items from a playlist. The
+ positions of the URIs are necessary in case the playlist has duplicate items.
+
  Compare with `URIsContainer`.
  
  Read more at the [Spotify web API reference][2].
@@ -30,8 +29,8 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
     public var urisWithPositions: [URIWithPositions]
     
     /**
-     Creates a container that holds an array of URIs and their positions
-     in a playlist.
+     Creates a container that holds an array of URIs and their positions in a
+     playlist.
      
      See also:
      
@@ -39,16 +38,16 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
      * `chunked(snapshotId:urisWithSinglePosition:)`
      
      - Parameters:
-       - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
-             the most recent version of the playist is targeted.
-             This is an identifer for the current version of the playlist.
-             Every time the playlist changes, a new snapshot id is generated.
-             You can use this value to efficiently determine whether a playlist
-             has changed since the last time you retrieved it.
-       - urisWithPositions: A collection of URIs along with their positions
-             in a playlist. The
-            `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`
-             endpoint accepts a maximum of 100 items.
+       - snapshotId: The [snapshot id][1] of a playlist. If `nil`, the most
+             recent version of the playlist is targeted. This is an identifier
+             for the current version of the playlist. Every time the playlist
+             changes, a new snapshot id is generated. You can use this value to
+             efficiently determine whether a playlist has changed since the last
+             time you retrieved it.
+       - urisWithPositions: A collection of URIs along with their positions in
+             a playlist. The
+             `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
+              endpoint accepts a maximum of 100 items.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      */
@@ -78,12 +77,12 @@ public extension URIsWithPositionsContainer {
      * `chunked(snapshotId:urisWithSinglePosition:)`
      
      - Parameters:
-       - snapshotId: The [snapshot id][1] of a playlist. If `nil`,
-             the most recent version of the playist is targeted.
-             This is an identifer for the current version of the playlist.
-             Every time the playlist changes, a new snapshot id is generated.
-             You can use this value to efficiently determine whether a playlist
-             has changed since the last time you retrieved it.
+       - snapshotId: The [snapshot id][1] of a playlist. If `nil`, the most
+             recent version of the playlist is targeted. This is an identifier
+             for the current version of the playlist. Every time the playlist
+             changes, a new snapshot id is generated. You can use this value to
+             efficiently determine whether a playlist has changed since the last
+             time you retrieved it.
        - urisWithSinglePosition: An array of tuples, each of which contain a URI
              and a *single* position in a playlist. Unlike
              `init(snapshotId:urisWithPositions:)`, `urisWithSinglePosition` is
@@ -115,13 +114,12 @@ public extension URIsWithPositionsContainer {
     }
     
     /**
-     Creates an array of `Self`, each element of which can be used in
-     a request to `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)`.
+     Creates an array of `Self`, each element of which can be used in a request
+     to `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
      
-     `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)` accepts a
-     maximum of 100 unique items. Use this method when you need to remove
-     more than 100 unique items from a playlist by making a separate request
-     for each element.
+     `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)` accepts a maximum
+     of 100 unique items. Use this method when you need to remove more than 100
+     unique items from a playlist by making a separate request for each element.
      
      - Parameter urisWithSinglePosition: An array of tuples, each of which
            contain a URI and a *single* position in a playlist. Unlike

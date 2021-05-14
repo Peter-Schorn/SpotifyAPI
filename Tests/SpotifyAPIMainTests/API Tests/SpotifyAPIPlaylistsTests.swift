@@ -925,7 +925,7 @@ extension SpotifyAPIPlaylistsTests where
 
     }
 
-    func removeAllOccurencesFromPlaylist() {
+    func removeAllOccurrencesFromPlaylist() {
 
         let itemsToAddToPlaylist: [SpotifyURIConvertible] = [
             URIs.Episodes.samHarris215,
@@ -966,7 +966,7 @@ extension SpotifyAPIPlaylistsTests where
 
 
         let playlistDetails = PlaylistDetails(
-            name: "removeAllOccurencesFromPlaylist",
+            name: "removeAllOccurrencesFromPlaylist",
             isPublic: false,
             isCollaborative: true
         )
@@ -974,7 +974,7 @@ extension SpotifyAPIPlaylistsTests where
         encodeDecode(playlistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
-            description: "testRemoveAllOccurencesFromPlaylist"
+            description: "testRemoveAllOccurrencesFromPlaylist"
         )
 
         var createdPlaylistURI = ""
@@ -993,7 +993,7 @@ extension SpotifyAPIPlaylistsTests where
             .flatMap { playlist -> AnyPublisher<String, Error> in
 
                 encodeDecode(playlist, areEqual: ==)
-                XCTAssertEqual(playlist.name, "removeAllOccurencesFromPlaylist")
+                XCTAssertEqual(playlist.name, "removeAllOccurrencesFromPlaylist")
                 XCTAssertFalse(playlist.isPublic ?? true)
                 XCTAssertTrue(playlist.isCollaborative)
                 XCTAssertEqual(playlist.items.items.count, 0)
@@ -1027,7 +1027,7 @@ extension SpotifyAPIPlaylistsTests where
 
                 XCTAssertNotNil(playlistSnapshotId)
 
-                return Self.spotify.removeAllOccurencesFromPlaylist(
+                return Self.spotify.removeAllOccurrencesFromPlaylist(
                     createdPlaylistURI, of: itemsToRemoveFromPlaylist,
                     snapshotId: playlistSnapshotId
                 )
@@ -1061,7 +1061,7 @@ extension SpotifyAPIPlaylistsTests where
 
     }
 
-    func removeSpecificOccurencesFromPlaylist() {
+    func removeSpecificOccurrencesFromPlaylist() {
 
         let itemsToAddToPlaylist: [SpotifyURIConvertible] = [
             URIs.Episodes.seanCarroll111,  // 0
@@ -1100,13 +1100,13 @@ extension SpotifyAPIPlaylistsTests where
         ]
 
         let playlistDetails = PlaylistDetails(
-            name: "removeSpecificOccurencesFromPlaylist",
+            name: "removeSpecificOccurrencesFromPlaylist",
             isCollaborative: nil
         )
         encodeDecode(playlistDetails, areEqual: ==)
 
         let newPlaylistDetails = PlaylistDetails(
-            name: "renamed removeSpecificOccurencesFromPlaylist",
+            name: "renamed removeSpecificOccurrencesFromPlaylist",
             isPublic: false,
             isCollaborative: false,
             description: "programmatically"
@@ -1114,7 +1114,7 @@ extension SpotifyAPIPlaylistsTests where
         encodeDecode(newPlaylistDetails, areEqual: ==)
 
         let expectation = XCTestExpectation(
-            description: "testRemoveSpecificOccurencesFromPlaylist"
+            description: "testRemoveSpecificOccurrencesFromPlaylist"
         )
 
         var createdPlaylistURI = ""
@@ -1133,7 +1133,7 @@ extension SpotifyAPIPlaylistsTests where
             .flatMap { playlist -> AnyPublisher<Void, Error> in
 
                 encodeDecode(playlist, areEqual: ==)
-                XCTAssertEqual(playlist.name, "removeSpecificOccurencesFromPlaylist")
+                XCTAssertEqual(playlist.name, "removeSpecificOccurrencesFromPlaylist")
                 if let isPublic = playlist.isPublic {
                     XCTAssertTrue(isPublic)
                 }
@@ -1175,7 +1175,7 @@ extension SpotifyAPIPlaylistsTests where
 
                 encodeDecode(playlist, areEqual: ==)
 
-                XCTAssertEqual(playlist.name, "renamed removeSpecificOccurencesFromPlaylist")
+                XCTAssertEqual(playlist.name, "renamed removeSpecificOccurrencesFromPlaylist")
                 if let isPublic = playlist.isPublic {
                     XCTAssertFalse(isPublic)
                 }
@@ -1193,7 +1193,7 @@ extension SpotifyAPIPlaylistsTests where
                 XCTAssertNotNil(playlistSnapshotId)
                 itemsToRemoveFromPlaylist.snapshotId = playlistSnapshotId
 
-                return Self.spotify.removeSpecificOccurencesFromPlaylist(
+                return Self.spotify.removeSpecificOccurrencesFromPlaylist(
                     createdPlaylistURI, of: itemsToRemoveFromPlaylist
                 )
             }
@@ -1652,12 +1652,12 @@ final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
             testCreatePlaylistAddRemoveReorderItems
         ),
         (
-            "testRemoveAllOccurencesFromPlaylist",
-            testRemoveAllOccurencesFromPlaylist
+            "testRemoveAllOccurrencesFromPlaylist",
+            testRemoveAllOccurrencesFromPlaylist
         ),
         (
-            "testRemoveSpecificOccurencesFromPlaylist",
-            testRemoveSpecificOccurencesFromPlaylist
+            "testRemoveSpecificOccurrencesFromPlaylist",
+            testRemoveSpecificOccurrencesFromPlaylist
         ),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testPlaylistImage", testPlaylistImage),
@@ -1692,11 +1692,11 @@ final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
     func testCreatePlaylistAddRemoveReorderItems() {
         createPlaylistAddRemoveReorderItems()
     }
-    func testRemoveAllOccurencesFromPlaylist() {
-        removeAllOccurencesFromPlaylist()
+    func testRemoveAllOccurrencesFromPlaylist() {
+        removeAllOccurrencesFromPlaylist()
     }
-    func testRemoveSpecificOccurencesFromPlaylist() {
-        removeSpecificOccurencesFromPlaylist()
+    func testRemoveSpecificOccurrencesFromPlaylist() {
+        removeSpecificOccurrencesFromPlaylist()
     }
     func testReplaceItemsInPlaylist() { replaceItemsInPlaylist() }
     func testPlaylistImage() { playlistImage() }
@@ -1727,12 +1727,12 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
             testCreatePlaylistAddRemoveReorderItems
         ),
         (
-            "testRemoveAllOccurencesFromPlaylist",
-            testRemoveAllOccurencesFromPlaylist
+            "testRemoveAllOccurrencesFromPlaylist",
+            testRemoveAllOccurrencesFromPlaylist
         ),
         (
-            "testRemoveSpecificOccurencesFromPlaylist",
-            testRemoveSpecificOccurencesFromPlaylist
+            "testRemoveSpecificOccurrencesFromPlaylist",
+            testRemoveSpecificOccurrencesFromPlaylist
         ),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testPlaylistImage", testPlaylistImage),
@@ -1766,11 +1766,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
     func testCreatePlaylistAddRemoveReorderItems() {
         createPlaylistAddRemoveReorderItems()
     }
-    func testRemoveAllOccurencesFromPlaylist() {
-        removeAllOccurencesFromPlaylist()
+    func testRemoveAllOccurrencesFromPlaylist() {
+        removeAllOccurrencesFromPlaylist()
     }
-    func testRemoveSpecificOccurencesFromPlaylist() {
-        removeSpecificOccurencesFromPlaylist()
+    func testRemoveSpecificOccurrencesFromPlaylist() {
+        removeSpecificOccurrencesFromPlaylist()
     }
     func testReplaceItemsInPlaylist() { replaceItemsInPlaylist() }
     func testPlaylistImage() { playlistImage() }

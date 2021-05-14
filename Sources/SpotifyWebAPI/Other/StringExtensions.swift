@@ -4,13 +4,13 @@ import Crypto
 public extension String {
     
     /**
-     Returns a new string made by removing characters contained in a
-     given character set from both ends of the String.
-     
+     Returns a new string made by removing characters contained in a given
+     character set from both ends of the String.
+
      Alias for `String.trimmingCharacters(in:)`.
      
-     - Parameter characterSet: The character set to use when trimming
-           the string. Default: `whitespacesAndNewlines`.
+     - Parameter characterSet: The character set to use when trimming the
+           string. Default: `whitespacesAndNewlines`.
      */
     @inlinable
     func strip(
@@ -53,7 +53,7 @@ public extension String {
     
     /**
      Characters that are safe for use in a URL: Letters, digits, the
-     underscore character, and the hypen character.
+     underscore character, and the hyphen character.
      
      There are a total of 64 characters.
      
@@ -77,7 +77,7 @@ public extension String {
     /**
      Returns a random string with the specified length that only contains
      letters, digits, the underscore character, and the hyphen character.
-     
+
      This method can be used for creating the code verifier for the
      [Authorization Code Flow with Proof Key for Code Exchange][1], and for
      creating the state parameter.
@@ -89,19 +89,19 @@ public extension String {
      * `makeCodeChallenge()`  - makes the code challenge from the code verifier
      
      - Parameters:
-       - length: The legnth of the string.
-       - randumNumberGenerator: The random number generator to use.
+       - length: The length of the string.
+       - randomNumberGenerator: The random number generator to use.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */
     static func randomURLSafe<Generator: RandomNumberGenerator>(
         length: Int,
-        using randumNumberGenerator: inout Generator
+        using randomNumberGenerator: inout Generator
     ) -> String {
         
         let characters = (0..<length).map { _ in
             String.urlSafeCharacters.randomElement(
-                using: &randumNumberGenerator
+                using: &randomNumberGenerator
             )!
         }
         return String(characters)
@@ -110,7 +110,7 @@ public extension String {
     /**
      Returns a random string with the specified length that only contains
      letters, digits, the underscore character, and the hyphen character.
-     
+
      This method can be used for creating the code verifier for the
      [Authorization Code Flow with Proof Key for Code Exchange][1], and for
      creating the state parameter.

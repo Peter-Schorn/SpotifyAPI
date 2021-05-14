@@ -6,10 +6,9 @@ import Foundation
 
  Do not confuse this with `SpotifyAuthorizationError`.
 
- Used whenever there are errors related to authentication or
- authorization, such as retrieving an access token or refreshing
- an access token.
- 
+ Used whenever there are errors related to authentication or authorization, such
+ as retrieving an access token or refreshing an access token.
+
  The error response follows [RFC 6749][2] on the OAuth 2.0 Authorization
  Framework.
  
@@ -26,16 +25,16 @@ import Foundation
 public struct SpotifyAuthenticationError: LocalizedError, Hashable {
     
     /**
-     A high level description of the error as specified in
-     [RFC 6749 Section 5.2][1].
+     A high level description of the error as specified in [RFC 6749 Section
+     5.2][1].
     
      [1]: https://tools.ietf.org/html/rfc6749#section-5.2
      */
     public let error: String
     
     /**
-     A more detailed description of the error as specified in
-     [RFC 6749 Section 4.1.2.1][1].
+     A more detailed description of the error as specified in [RFC 6749 Section
+     4.1.2.1][1].
      
      May be `nil` in rare cases.
      

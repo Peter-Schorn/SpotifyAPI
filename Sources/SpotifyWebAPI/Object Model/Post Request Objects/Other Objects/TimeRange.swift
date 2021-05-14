@@ -1,7 +1,7 @@
 import Foundation
 
-/// A Time Range. Used by the `currentUserTopArtists(_:offset:limit:)`
-/// and `currentUserTopTracks(_:offset:limit:)` methods.
+/// A Time Range. Used by the `currentUserTopArtists(_:offset:limit:)` and
+/// `currentUserTopTracks(_:offset:limit:)` methods.
 public enum TimeRange: String, Codable, Hashable, CaseIterable {
     
     /// Long term.

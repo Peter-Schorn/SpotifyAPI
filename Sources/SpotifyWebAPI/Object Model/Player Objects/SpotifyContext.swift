@@ -3,8 +3,8 @@ import Foundation
 /**
  The context that a track/episode is being played in.
  
- For example, if a track is being played, then the context
- may be an album, an artist, or a playlist.
+ For example, if a track is being played, then the context may be an album, an
+ artist, or a playlist.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingobject
  */
@@ -23,8 +23,8 @@ public struct SpotifyContext: Hashable {
     /**
      Known [external urls][1] for the context.
 
-     - key: The type of the URL, for example:
-           "spotify" - The [Spotify URL][2] for the object.
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+           for the object.
      - value: An external, public URL to the object.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
@@ -33,11 +33,11 @@ public struct SpotifyContext: Hashable {
     public let externalURLs: [String: URL]?
     
     /**
-     The object type of the item's context. Valid values are
-     `album`, `artist`, and `playlist`.
+     The object type of the item's context. Valid values are `album`, `artist`,
+     and `playlist`.
     
-     For example, if `type` is `playlist`, then the current track/episode
-     is playing in the context of a playlist.
+     For example, if `type` is `playlist`, then the current track/episode is
+     playing in the context of a playlist.
      */
     public let type: IDCategory
     
@@ -46,10 +46,11 @@ public struct SpotifyContext: Hashable {
      
      - Parameters:
        - uri: The URI of the context.
-       - href: A link to an endpoint providing further details about the context.
+       - href: A link to an endpoint providing further details about the
+             context.
        - externalURLs: Known [external urls][1] for the context.
-       - type: The object type of the item's context. Valid values are
-           `album`, `artist`, and `playlist`.
+       - type: The object type of the item's context. Valid values are `album`,
+             `artist`, and `playlist`.
      */
     public init(
         uri: String,
