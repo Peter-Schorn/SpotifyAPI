@@ -145,8 +145,8 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		tokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can  substitute different networking clients for testing purposes.
-        // In your own code, you can just use `URLSession.dataTaskPublisher`
+        // can substitute different networking clients for testing purposes. In
+        // your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
             request: tokensRequest
@@ -209,8 +209,8 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 		refreshTokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can  substitute different networking clients for testing purposes.
-        // In your own code, you can just use `URLSession.dataTaskPublisher`
+        // can substitute different networking clients for testing purposes. In
+        // your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
             request: refreshTokensRequest

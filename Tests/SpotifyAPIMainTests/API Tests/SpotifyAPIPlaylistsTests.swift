@@ -6,7 +6,6 @@ import Combine
 import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
-
 #endif
 
 @testable import SpotifyWebAPI

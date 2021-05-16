@@ -5,7 +5,6 @@ import Combine
 import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
-
 #endif
 
 public extension SpotifyAPI where

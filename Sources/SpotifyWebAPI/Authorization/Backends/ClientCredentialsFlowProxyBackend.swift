@@ -147,8 +147,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
         tokensRequest.httpBody = body
 
         // `URLSession.defaultNetworkAdaptor` is used so that the test targets
-        // can  substitute different networking clients for testing purposes.
-        // In your own code, you can just use `URLSession.dataTaskPublisher`
+        // can substitute different networking clients for testing purposes. In
+        // your own code, you can just use `URLSession.dataTaskPublisher`
         // directly, or a different networking client, if necessary.
         return URLSession.defaultNetworkAdaptor(
             request: tokensRequest

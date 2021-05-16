@@ -17,7 +17,7 @@ private extension SpotifyAPI where
      active device if one exists. Else, plays content on the first available
      device.
      
-     See [Using the Player Endpints][1].
+     See [Using the Player Endpoints][1].
 
      - Parameter playbackRequest: A request to play content.
 
@@ -36,9 +36,9 @@ private extension SpotifyAPI where
                 !device.isRestricted && device.id != nil
             }
 
-            // If there is an actice device, then it's usually a good idea
+            // If there is an active device, then it's usually a good idea
             // to use that one. For example, if content is already playing,
-            // then it will be playing on the actice device. If not, then
+            // then it will be playing on the active device. If not, then
             // just use the first available device.
             let device = usableDevices.first(where: \.isActive)
                     ?? usableDevices.first

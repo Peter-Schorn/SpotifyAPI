@@ -58,6 +58,7 @@ public enum Scope: String, Codable, Hashable {
      Write access to user-provided images.
      
      Required for the following endpoints:
+     
      * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
      
      */
@@ -139,6 +140,7 @@ public enum Scope: String, Codable, Hashable {
      
      May be required for the following endpoints, depending on the parameters
      specified and data desired in the response:
+     
      * `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)`
      * `SpotifyAPI.currentUserProfile()`
      
@@ -152,6 +154,7 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints when targeting a *collaborative*
      playlist:
+     
      * `SpotifyAPI.currentUserPlaylists(limit:offset:)`
      * `SpotifyAPI.userPlaylists(for:limit:offset:)`
      */
@@ -161,6 +164,7 @@ public enum Scope: String, Codable, Hashable {
      Write access to a user's public playlists.
      
      Required for the following endpoints when targeting a *public* playlist:
+     
      * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
      * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
      * `SpotifyAPI.addToPlaylist(_:uris:position:)`
@@ -179,6 +183,7 @@ public enum Scope: String, Codable, Hashable {
      Read access to a user's private playlists.
  
      Required for the following endpoints when targeting a *private* playlist:
+     
      * `SpotifyAPI.usersFollowPlaylist(_:userURIs:)`
      * `SpotifyAPI.currentUserPlaylists(limit:offset:)`
      * `SpotifyAPI.userPlaylists(for:limit:offset:)`
@@ -190,6 +195,7 @@ public enum Scope: String, Codable, Hashable {
      Write access to a user's private playlists.
      
      Required for the following endpoints when targeting a *private* playlist:
+     
      * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
      * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
      * `SpotifyAPI.addToPlaylist(_:uris:position:)`
@@ -244,6 +250,7 @@ public enum Scope: String, Codable, Hashable {
      Read access to a user's top artists and tracks.
      
      Required for the following endpoints:
+     
      * `SpotifyAPI.currentUserTopArtists(_:offset:limit:)`
      * `SpotifyAPI.currentUserTopTracks(_:offset:limit:)`
      
@@ -269,6 +276,7 @@ public enum Scope: String, Codable, Hashable {
      Read access to a user’s recently played tracks.
      
      Required for the following endpoint:
+     
      * `SpotifyAPI.recentlyPlayed(_:limit:)`
      
      */
@@ -280,6 +288,7 @@ public enum Scope: String, Codable, Hashable {
      Read access to the list of artists and other users that the user follows.
      
      Required for the following endpoints:
+     
      * `SpotifyAPI.currentUserFollowsArtists(_:)`
      * `SpotifyAPI.currentUserFollowsUsers(_:)`
      * `SpotifyAPI.currentUserFollowedArtists(after:limit:)`
@@ -292,6 +301,7 @@ public enum Scope: String, Codable, Hashable {
      follows.
      
      Required for the following endpoints:
+     
      * `SpotifyAPI.followArtistsForCurrentUser(_:)`
      * `SpotifyAPI.unfollowArtistsForCurrentUser(_:)`
      * `SpotifyAPI.followUsersForCurrentUser(_:)`
