@@ -29,8 +29,14 @@ public struct TokensRequest: Hashable {
     /// URI.
     public let code: String
     
-    /// The redirect URI. This is sent in the request for validation only. There
-    /// will be no further redirection to this location.
+    /**
+     The redirect URI. This is sent in the request for validation only. There
+     will be no further redirection to this location.
+     
+     This must be the same URI provided when creating the authorization URL that
+     was used to request the authorization code (as opposed to any of your
+     whitelisted redirect URIs).
+     */
     public let redirectURI: URL
     
     /**
@@ -70,7 +76,9 @@ public struct TokensRequest: Hashable {
              redirect URI.
        - redirectURI: The redirect URI. This is sent in the request for
              validation only. There will be no further redirection to this
-             location.
+             location. This must be the same URI provided when creating the
+             authorization URL that was used to request the authorization code
+             (as opposed to any of your whitelisted redirect URIs).
        - clientId: The client id that you received when you [registered your
              application][2].
        - clientSecret: The client secret that you received when you [registered

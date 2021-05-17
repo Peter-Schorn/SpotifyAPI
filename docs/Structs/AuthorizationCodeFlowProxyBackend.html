@@ -82,16 +82,25 @@
             <a href="../Authorization%20Backends.html">Authorization Backends</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
@@ -444,15 +453,6 @@
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -511,14 +511,29 @@
                 </div>
               </div>
             <p>Communicates with a backend server that you setup in order to retrieve the
- authorization information and refresh the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization
+authorization information and refresh the access token using the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization
 Code Flow</a>.</p>
 
-<p>Compare with <code><a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>.</p>
+<p>This server must have the following endpoints:</p>
 
-<p>This type requires a custom backend server that can store your client secret
-and redirect URI. It conforms to the <a href="https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/">&ldquo;Token Swap and Refresh&rdquo;</a> standard
-used in the Spotify iOS SDK.</p>
+<ul>
+<li><p><code>tokensURL</code>: Accepts a post request with the authorization code in the body
+in x-www-form-urlencoded format and must return the authorization
+information. See
+<code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> for more
+information.</p></li>
+<li><p><code>tokenRefreshURL</code>: Accepts a post request with the refresh token in the body
+in x-www-form-urlencoded format and must return the authorization
+information. See <code>self.refreshTokens(refreshToken:)</code> for more information.</p></li>
+</ul>
+
+<p>In contrast with <code><a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a></code>, which can be used if you
+are communicating directly with Spotify, this type does not send the
+<code>clientId</code>, or <code>clientSecret</code> in network requests because these values should
+be securely stored on your backend server.</p>
+
+<p>This conforms to the <a href="https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/">&ldquo;Token Swap and Refresh&rdquo;</a> standard used in the Spotify
+iOS SDK.</p>
 
           </section>
           <section class="section task-group-section">
@@ -595,6 +610,9 @@ used in the Spotify iOS SDK.</p>
 authorization code in the body in x-www-form-urlencoded format and which
 must return the authorization information.</p>
 
+<p>The <a href="https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowretrieve-tokens">/authorization-code-flow/retrieve-tokens</a> endpoint of
+SpotifyAPIServer can be used for this URL.</p>
+
 <p>See <code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> for more
 information.</p>
 
@@ -626,6 +644,9 @@ information.</p>
                         <p>The URL to your custom backend server that accepts a post request with the
 refresh token in the body in x-www-form-urlencoded format and which must
 return the authorization information.</p>
+
+<p>The <a href="https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowrefresh-tokens">/authorization-code-flow/refresh-tokens</a> endpoint of
+SpotifyAPIServer can be used for this URL.</p>
 
 <p>See <code>self.refreshTokens(refreshToken:)</code> for more information.</p>
 
@@ -674,7 +695,7 @@ passed through unmodified to downstream subscribers.</p>
 </div>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
-<p>No  guarantees are made about which thread this function will be called on.
+<p>No guarantees are made about which thread this function will be called on.
 Do not mutate this property while a request is being made for the
 authorization information.</p>
 
@@ -751,9 +772,11 @@ application</a>.</p>
                                 <div>
                                   <p>The URL to a server that accepts a post request with the
 authorization code in the body in &ldquo;x-www-form-urlencoded&rdquo; format
-and which must return the authorization information. See
-<code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code> for more
-information.</p>
+and which must return the authorization information. The
+<a href="https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowretrieve-tokens">/authorization-code-flow/retrieve-tokens</a> endpoint of
+SpotifyAPIServer can be used for this URL. See
+<code>self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)</code>
+for more information.</p>
                                 </div>
                               </td>
                             </tr>
@@ -767,7 +790,9 @@ information.</p>
                                 <div>
                                   <p>The URL to a server that accepts a post request with
 the refresh token in the body in &ldquo;x-www-form-urlencoded&rdquo; format and
-which must return the new authorization information. See
+which must return the new authorization information. The
+<a href="https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowrefresh-tokens">/authorization-code-flow/refresh-tokens</a> endpoint of
+SpotifyAPIServer can be used for this URL. See
 <code>self.refreshTokens(refreshToken:)</code> for more information.</p>
                                 </div>
                               </td>
@@ -809,7 +834,7 @@ documented error objects produced by Spotify, such as
                       <div class="abstract">
                         <p>Exchanges an authorization code for the access and refresh tokens.</p>
 
-<p>After  validating the <code>redirectURIWithQuery</code>,
+<p>After validating the <code>redirectURIWithQuery</code>,
 <code><a href="../Classes/AuthorizationCodeFlowBackendManager.html#/s:13SpotifyWebAPI35AuthorizationCodeFlowBackendManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF">AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)</a></code>,
 calls this method in order to retrieve the authorization information.</p>
 
@@ -1080,7 +1105,7 @@ to it.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-16)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

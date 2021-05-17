@@ -30,8 +30,14 @@ public struct ProxyTokensRequest: Hashable {
     /// URI.
     public let code: String
     
-    /// The redirect URI. This is sent in the request for validation only. There
-    /// will be no further redirection to this location.
+    /**
+     The redirect URI. This is sent in the request for validation only. There
+     will be no further redirection to this location.
+     
+     This must be the same URI provided when creating the authorization URL that
+     was used to request the authorization code (as opposed to any of your
+     whitelisted redirect URIs).
+     */
     public let redirectURI: URL
 
     /**
@@ -57,7 +63,9 @@ public struct ProxyTokensRequest: Hashable {
              redirect URI.
        - redirectURI: The redirect URI. This is sent in the request for
              validation only. There will be no further redirection to this
-             location.
+             location. This must be the same URI provided when creating the
+             authorization URL that was used to request the authorization code
+             (as opposed to any of your whitelisted redirect URIs).
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      */

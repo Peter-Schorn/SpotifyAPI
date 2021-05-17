@@ -198,7 +198,7 @@ public extension URLSession {
         var request = request
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        return  URLSession.shared.dataTaskPublisher(for: request)
+        return URLSession.shared.dataTaskPublisher(for: request)
             .mapError { $0 as Error }
             .map { data, response -> (data: Data, response: HTTPURLResponse) in
                 guard let httpURLResponse = response as? HTTPURLResponse else {

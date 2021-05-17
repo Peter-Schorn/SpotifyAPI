@@ -15,14 +15,28 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
-  authorization information and refresh the access token using the [Authorization
+ authorization information and refresh the access token using the [Authorization
  Code Flow][1].
 
- Compare with `AuthorizationCodeFlowClientBackend`.
+ This server must have the following endpoints:
+ 
+ * `tokensURL`: Accepts a post request with the authorization code in the body
+   in x-www-form-urlencoded format and must return the authorization
+   information. See
+   `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` for more
+   information.
+ 
+ * `tokenRefreshURL`: Accepts a post request with the refresh token in the body
+   in x-www-form-urlencoded format and must return the authorization
+   information. See `self.refreshTokens(refreshToken:)` for more information.
 
- This type requires a custom backend server that can store your client secret
- and redirect URI. It conforms to the ["Token Swap and Refresh"][2] standard
- used in the Spotify iOS SDK.
+ In contrast with `AuthorizationCodeFlowClientBackend`, which can be used if you
+ are communicating directly with Spotify, this type does not send the
+ `clientId`, or `clientSecret` in network requests because these values should
+ be securely stored on your backend server.
+
+ This conforms to the ["Token Swap and Refresh"][2] standard used in the Spotify
+ iOS SDK.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
@@ -46,8 +60,13 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      authorization code in the body in x-www-form-urlencoded format and which
      must return the authorization information.
      
+     The [/authorization-code-flow/retrieve-tokens][1] endpoint of
+     SpotifyAPIServer can be used for this URL.
+
      See `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` for more
      information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowretrieve-tokens
      */
 	public let tokensURL: URL
 
@@ -56,7 +75,12 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      refresh token in the body in x-www-form-urlencoded format and which must
      return the authorization information.
      
+     The [/authorization-code-flow/refresh-tokens][1] endpoint of
+     SpotifyAPIServer can be used for this URL.
+
      See `self.refreshTokens(refreshToken:)` for more information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowrefresh-tokens
      */
     public let tokenRefreshURL: URL
 
@@ -79,7 +103,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      
      # Thread Safety
 
-     No  guarantees are made about which thread this function will be called on.
+     No guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the
      authorization information.
      */
@@ -98,12 +122,16 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
              application][3].
        - tokensURL: The URL to a server that accepts a post request with the
              authorization code in the body in "x-www-form-urlencoded" format
-             and which must return the authorization information. See
-             `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` for more
-             information.
+             and which must return the authorization information. The
+             [/authorization-code-flow/retrieve-tokens][4] endpoint of
+             SpotifyAPIServer can be used for this URL. See
+             `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
+             for more information.
        - tokenRefreshURL: The URL to a server that accepts a post request with
              the refresh token in the body in "x-www-form-urlencoded" format and
-             which must return the new authorization information. See
+             which must return the new authorization information. The
+             [/authorization-code-flow/refresh-tokens][5] endpoint of
+             SpotifyAPIServer can be used for this URL. See
              `self.refreshTokens(refreshToken:)` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
@@ -114,6 +142,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
      [3]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     [4]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowretrieve-tokens
+     [5]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowrefresh-tokens
      */
 	public init(
         clientId: String,
@@ -130,7 +160,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     /**
      Exchanges an authorization code for the access and refresh tokens.
      
-     After  validating the `redirectURIWithQuery`,
+     After validating the `redirectURIWithQuery`,
      `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
      calls this method in order to retrieve the authorization information.
      

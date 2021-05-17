@@ -9,6 +9,5 @@ import Foundation
  `ClientCredentialsFlowBackendManager` is not a conforming type because it does
  not support authorization scopes.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
 public protocol SpotifyScopeAuthorizationManager: SpotifyAuthorizationManager { }

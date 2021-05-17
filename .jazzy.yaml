@@ -31,10 +31,13 @@ custom_categories:
 
   - name: Authorization Backends
     children:
+    - AuthorizationCodeFlowBackend
     - AuthorizationCodeFlowClientBackend
     - AuthorizationCodeFlowProxyBackend
+    - AuthorizationCodeFlowPKCEBackend
     - AuthorizationCodeFlowPKCEClientBackend
     - AuthorizationCodeFlowPKCEProxyBackend
+    - ClientCredentialsFlowBackend
     - ClientCredentialsFlowClientBackend
     - ClientCredentialsFlowProxyBackend
 

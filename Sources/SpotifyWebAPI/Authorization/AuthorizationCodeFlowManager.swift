@@ -67,7 +67,7 @@ import FoundationNetworking
  information to persistent storage. See this [article][3] for more information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowBackend>:
@@ -263,8 +263,8 @@ public extension AuthorizationCodeFlowBackendManager {
      - Parameters:
        - redirectURI: The location that Spotify will redirect to after the user
              authorizes or denies authorization for your app. Usually, this
-             should be a custom URL scheme that redirects to a location in your
-             app. This URI needs to have been entered in the Redirect URI
+             should contain a custom URL scheme that redirects to a location in
+             your app. This URI needs to have been entered in the Redirect URI
              whitelist that you specified when you [registered your
              application][2].
        - showDialog: Whether or not to force the user to approve the app again
@@ -611,7 +611,7 @@ public extension AuthorizationCodeFlowBackendManager {
  information to persistent storage. See this [article][3] for more information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class AuthorizationCodeFlowManager:

@@ -225,7 +225,7 @@ public struct AudioFeatures: Codable, Hashable {
              sound more negative (e.g. sad, depressed, angry).
        - tempo: The overall estimated tempo of a track in beats per minute
              (BPM). In musical terminology, tempo is the speed or pace of a
-             given piece  and derives directly from the average beat duration.
+             given piece and derives directly from the average beat duration.
        - uri: The Spotify URI for the track.
        - id: The Spotify ID for the track.
        - trackHref: A link to the Web API endpoint providing full details of the

@@ -196,7 +196,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
 
     /**
      The request to refresh the access token is stored in this
-     property so that if multiple  asynchronous requests are made
+     property so that if multiple asynchronous requests are made
      to refresh the access token, then only one actual network
      request is made. Once this publisher finishes, it is set to
      `nil`.
@@ -465,7 +465,7 @@ public extension ClientCredentialsFlowBackendManager {
      Returns `true` if `accessToken` is not `nil` and the set of scopes is
      empty.
      
-     - Parameter scopes: A set of [Spotify  Authorization Scopes][1]. This must be
+     - Parameter scopes: A set of [Spotify Authorization Scopes][1]. This must be
            an empty set, or this method will return `false` because the client
            credentials flow does not support authorization scopes; it only
            supports endpoints that do not access user data.
@@ -562,7 +562,7 @@ public extension ClientCredentialsFlowBackendManager {
      tokens is already in progress, additional calls will return a reference to
      the same publisher as a class instance.
 
-     **However**, no  guarantees are made about the thread that the publisher
+     **However**, No guarantees are made about the thread that the publisher
      returned by this method will emit on.
 
      - Parameters:
@@ -653,7 +653,7 @@ private extension ClientCredentialsFlowBackendManager {
     
     /// This method should **ALWAYS** be called within
     /// `updateAuthInfoDispatchQueue`.
-    func  accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
+    func accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"
@@ -717,7 +717,7 @@ extension ClientCredentialsFlowBackendManager {
  `ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>`, which
  allows you to setup a custom backend server that can store these sensitive
  credentials and which communicates with Spotify on your behalf in order to
- retrieve the  authorization information.
+ retrieve the authorization information.
 
  # Authorization
 

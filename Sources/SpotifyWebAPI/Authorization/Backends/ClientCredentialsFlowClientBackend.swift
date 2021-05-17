@@ -14,9 +14,12 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
-  authorization information using the [Client Credentials Flow][1].
+ authorization information using the [Client Credentials Flow][1].
  
- Compare with `ClientCredentialsFlowProxyBackend`.
+ If you are communicating with a custom backend server, then use
+ `ClientCredentialsFlowProxyBackend` instead, which does not send the `clientId`
+ and `clientSecret` in network requests because these values should be securely
+ stored on your backend server.
  
  Usually you should not need to create instances of this type directly.
  `ClientCredentialsFlowManager` uses this type internally by inheriting from
@@ -64,7 +67,7 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
        - clientSecret: The client secret that you received when you [registered
              your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(clientId: String, clientSecret: String) {

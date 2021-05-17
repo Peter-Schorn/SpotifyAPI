@@ -18,10 +18,22 @@ import OpenCombineFoundation
  authorization information and refresh the access token using the [Authorization
  Code Flow with Proof Key for Code Exchange][1].
  
- Compare with `AuthorizationCodeFlowPKCEClientBackend`.
+ This server must have the following endpoints:
  
- This type requires a custom backend server that can store your client secret
- and redirect URI.
+ * `tokensURL`: Accepts a post request with the authorization code and coder
+   verifier in the body in x-www-form-urlencoded format and must return the
+   authorization information. See
+   `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+   for more information.
+ 
+ * `tokenRefreshURL`: Accepts a post request with the refresh token in the body
+   in x-www-form-urlencoded format and which must return the authorization
+   information. See `self.refreshTokens(refreshToken:)` for more information.
+
+ In contrast with `AuthorizationCodeFlowPKCEClientBackend`, which can be used if
+ you are communicating directly with Spotify, this type does not send the
+ `clientSecret` in network requests because this value should be securely
+ stored on your backend server.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -44,8 +56,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      authorization code and coder verifier in the body in x-www-form-urlencoded
      format and which must return the authorization information.
      
+     The [/authorization-code-flow-pkce/retrieve-tokens][1] endpoint of
+     SpotifyAPIServer can be used for this URL.
+
      See `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
      for more information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkceretrieve-tokens
      */
     public let tokensURL: URL
     
@@ -54,7 +71,12 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      refresh token in the body in x-www-form-urlencoded format and which must
      return the authorization information.
 
+     The [/authorization-code-flow-pkce/refresh-tokens][1] endpoint of
+     SpotifyAPIServer can be used for this URL.
+
      See `self.refreshTokens(refreshToken:)` for more information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkcerefresh-tokens
      */
     public let tokenRefreshURL: URL
 
@@ -97,23 +119,28 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
        - tokensURL: The URL to your custom backend server that accepts a post
              request with the authorization code and coder verifier in the body
              in "x-www-form-urlencoded" format and which must return the
-             authorization information. See
+             authorization information. The
+             [/authorization-code-flow-pkce/retrieve-tokens][3] endpoint of
+             SpotifyAPIServer can be used for this URL. See
              `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
              for more information.
        - tokenRefreshURL: The URL to your custom backend server that accepts a
              post request with the refresh token in the body in
              "x-www-form-urlencoded" format and which must return the
-             authorization information. See
-             `self.refreshTokens(refreshToken:)` for more
-             information.
+             authorization information. The
+             [/authorization-code-flow-pkce/refresh-tokens][4] endpoint of
+             SpotifyAPIServer can be used for this URL. See
+             `self.refreshTokens(refreshToken:)` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers. Do not use this function to decode the
              documented error objects produced by Spotify, such as
              `SpotifyAuthenticationError`. This will be done elsewhere.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
+     [3]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkceretrieve-tokens
+     [4]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkcerefresh-tokens
      */
     public init(
         clientId: String,

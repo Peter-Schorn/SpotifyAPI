@@ -89,7 +89,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      Returns `true` if `accessToken` is not `nil` and the application is
      authorized for the specified scopes, else `false`.
      
-     - Parameter scopes: A set of [Spotify  Authorization Scopes][1].
+     - Parameter scopes: A set of [Spotify Authorization Scopes][1].
      
      [1]: https://developer.spotify.com/documentation/general/guides/scopes/
      */

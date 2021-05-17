@@ -14,13 +14,17 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
-  authorization information using the [Client Credentials Flow][1].
+ authorization information using the [Client Credentials Flow][1].
  
- Compare with `ClientCredentialsFlowClientBackend`.
- 
- This type requires a custom backend server that can store your client id and
- client secret.
- 
+ The server must have an endpoint (`tokensURL`) that accepts a post request
+ for the authorization information from Spotify. See
+ `self.makeClientCredentialsTokensRequest()` for more information.
+
+ In contrast with `ClientCredentialsFlowClientBackend`, which can be used if you
+ are communicating directly with Spotify, this type does not send the
+ `clientId`, or `clientSecret` in network requests because these values should
+ be securely stored on your backend server.
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  */
 public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
@@ -36,7 +40,12 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      "grant_type" with the value set to "client_credentials" in
      x-www-form-urlencoded format.
      
+     The [/client-credentials-tokens][1] endpoint of SpotifyAPIServer can be
+     used for this URL.
+
      See `self.makeClientCredentialsTokensRequest()` for more information.
+     
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
      */
     public let tokensURL: URL
 
@@ -58,7 +67,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      
      # Thread Safety
      
-     No  guarantees are made about which thread this function will be called on.
+     No guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the
      authorization information.
      */
@@ -72,8 +81,10 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
        - tokensURL: The URL to your custom backend server that accepts a post
              request for the authorization information. The body will contain a
              key called "grant_type" with the value set to "client_credentials"
-             in x-www-form-urlencoded format. See
-             `self.makeClientCredentialsTokensRequest()` for more information.
+             in x-www-form-urlencoded format. The
+             [/client-credentials-tokens][2] endpoint of SpotifyAPIServer can be
+             used for this URL. See `self.makeClientCredentialsTokensRequest()`
+             for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers. Do not use this function to decode the
@@ -81,6 +92,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
              `SpotifyAuthenticationError`. This will be done elsewhere.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
      */
     public init(
         tokensURL: URL,
@@ -125,7 +137,11 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
+     The [/client-credentials-tokens][2] endpoint of SpotifyAPIServer can be
+     used for this URL.
+     
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
+     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
      */
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {

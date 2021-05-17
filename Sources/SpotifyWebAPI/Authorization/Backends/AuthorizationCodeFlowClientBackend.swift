@@ -17,7 +17,10 @@ import OpenCombineFoundation
  authorization information and refresh the access token using the [Authorization
  Code Flow][1].
 
- Compare with `AuthorizationCodeFlowProxyBackend`.
+ If you are communicating with a custom backend server, then use
+ `AuthorizationCodeFlowProxyBackend` instead, which does not send the `clientId`
+ and `clientSecret` in network requests because these values should be securely
+ stored on your backend server.
 
  Usually you should not need to create instances of this type directly.
  `AuthorizationCodeFlowManager` uses this type internally by inheriting from

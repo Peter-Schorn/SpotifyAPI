@@ -19,7 +19,7 @@ import Logging
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
- additional layer of security compared to the [authorization code flow][2]. For
+ additional layer of security compared to the [Authorization Code Flow][2]. For
  further information about this flow, see [IETF RFC-7636][3].
  
  # Backend
@@ -291,8 +291,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      - Parameters:
        - redirectURI: The location that Spotify will redirect to after the user
              authorizes or denies authorization for your app. Usually, this
-             should be a custom URL scheme that redirects to a location in your
-             app. This URI needs to have been entered in the Redirect URI
+             should contain a custom URL scheme that redirects to a location in
+             your app. This URI needs to have been entered in the Redirect URI
              whitelist that you specified when you [registered your
              application][4].
        - codeChallenge: The code challenge. See above.
@@ -624,14 +624,14 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
- additional layer of security compared to the [authorization code flow][2]. For
+ additional layer of security compared to the [Authorization Code Flow][2]. For
  further information about this flow, see [IETF RFC-7636][3].
  
  This class stores the client id locally. Consider using
  `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>`,
  which allows you to setup a custom backend server that can store these
  sensitive credentials and which communicates with Spotify on your behalf in
- order to retrieve the  authorization information.
+ order to retrieve the authorization information.
 
  # Authorization
  
@@ -709,8 +709,8 @@ public final class AuthorizationCodeFlowPKCEManager:
     }
 
     /**
-     Creates an authorization manager for the
-     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     Creates an authorization manager for the [Authorization Code Flow with
+     Proof Key for Code Exchange][1].
 
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use

@@ -82,16 +82,25 @@
             <a href="../Authorization%20Backends.html">Authorization Backends</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowClientBackend.html">AuthorizationCodeFlowClientBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowProxyBackend.html">AuthorizationCodeFlowProxyBackend</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowPKCEClientBackend.html">AuthorizationCodeFlowPKCEClientBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCodeFlowPKCEProxyBackend.html">AuthorizationCodeFlowPKCEProxyBackend</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ClientCredentialsFlowClientBackend.html">ClientCredentialsFlowClientBackend</a>
@@ -444,15 +453,6 @@
                 <a href="../Protocols/ApproximatelyEquatable.html">ApproximatelyEquatable</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/AuthorizationCodeFlowBackend.html">AuthorizationCodeFlowBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/AuthorizationCodeFlowPKCEBackend.html">AuthorizationCodeFlowPKCEBackend</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/ClientCredentialsFlowBackend.html">ClientCredentialsFlowBackend</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Protocols/PagingObjectProtocol.html">PagingObjectProtocol</a>
               </li>
             </ul>
@@ -557,7 +557,7 @@ authorization information.</p>
 
 <p>It is this property that you should encode to data using a <code>JSONEncoder</code> in
 order to save it to persistent storage. This prevents the user from having
-to login again everytime the app is quit and relaunched. See this
+to login again every time the app is quit and relaunched. See this
 <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
 
 <p>Assigning a new authorization manager to this property causes
@@ -588,12 +588,12 @@ to login again everytime the app is quit and relaunched. See this
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A function that gets called everytime this class—and only this class—needs
+                        <p>A function that gets called every time this class—and only this class—needs
 to make a network request.</p>
 
 <p>Use this function if you need to use a custom networking client. The <code>url</code>
 and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are guaranteed to
-be non-<code>nil</code>. No  guarantees are made about which thread this function will
+be non-<code>nil</code>. No guarantees are made about which thread this function will
 be called on. By default, <code>URLSession</code> will be used for the network
 requests.</p>
 <div class="aside aside-warning">
@@ -887,13 +887,12 @@ this package for more information.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A function that gets called everytime this class—and
+                                  <p>A function that gets called every time this class—and
   only this class—needs to make a network request. The
-  <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> will <strong>NOT</strong> use this function. Instead,
-  you must configure a network adaptor for it as well. Use this
+  <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> will <strong>NOT</strong> use this function. Use this
   function if you need to use a custom networking client. The <code>url</code>
   and <code>httpMethod</code> properties of the <code>URLRequest</code> parameter are
-  guaranteed to be non-<code>nil</code>. No  guarantees are made about which
+  guaranteed to be non-<code>nil</code>. No guarantees are made about which
   thread this function will be called on. The default is <code>nil</code>, in
   which case <code>URLSession</code> will be used for the network requests.</p>
                                 </div>
@@ -4416,7 +4415,7 @@ compute the attribute with high certainty.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>Results are returned in the order requested. If the audio
-  features for a track  is not found, <code>nil</code> is returned in the
+  features for a track is not found, <code>nil</code> is returned in the
   appropriate position. Duplicate ids in the request will result in
   duplicate results in the response.</p>
                       </div>
@@ -8794,7 +8793,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-16)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

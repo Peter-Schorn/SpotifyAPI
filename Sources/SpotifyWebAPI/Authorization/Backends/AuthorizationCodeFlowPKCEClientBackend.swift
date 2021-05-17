@@ -17,7 +17,10 @@ import OpenCombineFoundation
  authorization information and refresh the access token using the [Authorization
  Code Flow with Proof Key for Code Exchange][1].
 
- Compare with `AuthorizationCodeFlowPKCEProxyBackend`.
+ If you are communicating with a custom backend server, then use
+ `AuthorizationCodeFlowPKCEProxyBackend` instead, which does not send the
+ `clientId` in network requests because this value should be securely stored on
+ your backend server.
 
  Usually you should not need to create instances of this type directly.
  `AuthorizationCodeFlowPKCEManager` uses this type internally by inheriting from
@@ -25,7 +28,7 @@ import OpenCombineFoundation
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
-public struct  AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
+public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
     
     /// The logger for this struct.
     public static var logger = Logger(

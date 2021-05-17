@@ -333,7 +333,7 @@ public extension AuthorizationCodeFlowManagerBase {
      */
     func accessTokenIsExpired(tolerance: Double = 120) -> Bool {
         return self.updateAuthInfoQueue.sync {
-            return  accessTokenIsExpiredNOTThreadSafe(tolerance: tolerance)
+            return accessTokenIsExpiredNOTThreadSafe(tolerance: tolerance)
         }
     }
     
@@ -382,7 +382,7 @@ extension AuthorizationCodeFlowManagerBase {
     /// This method should **ALWAYS** be called within
     /// `updateAuthInfoDispatchQueue`, or the thread-safety guarantees
     /// of this class will be violated.
-    func  accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
+    func accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
                 .description(with: .current) ?? "nil"

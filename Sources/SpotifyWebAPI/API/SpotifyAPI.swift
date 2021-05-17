@@ -44,7 +44,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      It is this property that you should encode to data using a `JSONEncoder` in
      order to save it to persistent storage. This prevents the user from having
-     to login again everytime the app is quit and relaunched. See this
+     to login again every time the app is quit and relaunched. See this
      [article][1] for more information.
 
      Assigning a new authorization manager to this property causes
@@ -69,12 +69,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     }
 
     /**
-     A function that gets called everytime this class—and only this class—needs
+     A function that gets called every time this class—and only this class—needs
      to make a network request.
     
      Use this function if you need to use a custom networking client. The `url`
      and `httpMethod` properties of the `URLRequest` parameter are guaranteed to
-     be non-`nil`. No  guarantees are made about which thread this function will
+     be non-`nil`. No guarantees are made about which thread this function will
      be called on. By default, `URLSession` will be used for the network
      requests.
 
@@ -178,13 +178,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
                information. It is this property that you should encode to data
                using a `JSONEncoder` in order to save it to persistent storage.
                See this [article][2] for more information.
-         - networkAdaptor: A function that gets called everytime this class—and
+         - networkAdaptor: A function that gets called every time this class—and
                only this class—needs to make a network request. The
-               `authorizationManager` will **NOT** use this function. Instead,
-               you must configure a network adaptor for it as well. Use this
+               `authorizationManager` will **NOT** use this function. Use this
                function if you need to use a custom networking client. The `url`
                and `httpMethod` properties of the `URLRequest` parameter are
-               guaranteed to be non-`nil`. No  guarantees are made about which
+               guaranteed to be non-`nil`. No guarantees are made about which
                thread this function will be called on. The default is `nil`, in
                which case `URLSession` will be used for the network requests.
      

@@ -107,13 +107,8 @@ public extension URLComponents {
     /// Removes the trailing slash in the path component, if it exists.
     mutating func removeTrailingSlashInPath() {
         if self.path.hasSuffix("/") {
-            let lastCharacterIndex = self.path.index(
-                before: self.path.endIndex
-            )
-            self.path.replaceSubrange(
-                lastCharacterIndex...lastCharacterIndex,
-                with: ""
-            )
+            let index = self.path.index(before: self.path.endIndex)
+            self.path.remove(at: index)
         }
     }
 

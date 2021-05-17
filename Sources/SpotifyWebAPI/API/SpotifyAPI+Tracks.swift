@@ -227,7 +227,7 @@ public extension SpotifyAPI {
              empty array will immediately cause an empty array of results to be
              returned without a network request being made.
      - Returns: Results are returned in the order requested. If the audio
-           features for a track  is not found, `nil` is returned in the
+           features for a track is not found, `nil` is returned in the
            appropriate position. Duplicate ids in the request will result in
            duplicate results in the response.
      
