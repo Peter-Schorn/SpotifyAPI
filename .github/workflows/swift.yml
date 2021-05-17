@@ -161,7 +161,7 @@ jobs:
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowUserProfileTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests" \
-        -only-testing "RepeatModeTests"
+        -only-testing "SpotifyAPIMainTests/RepeatModeTests"
         
   build_watch_os_mac_catalyst:
     strategy:

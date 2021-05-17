@@ -91,8 +91,8 @@ public extension SpotifyImage {
      your own network client, then do so directly by making a GET request to
      `self.url`.
      
-     - Throws: if `self.url` cannot be converted to `URL`, if the data cannot be
-           converted to `Image`, or if some other network error occurs.
+     - Throws: If the data cannot be converted to `Image`, or if some other
+           network error occurs.
      */
     func load() -> AnyPublisher<Image, Error> {
 
