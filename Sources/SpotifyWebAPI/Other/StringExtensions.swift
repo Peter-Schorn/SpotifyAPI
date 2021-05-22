@@ -21,7 +21,7 @@ public extension String {
     }
     
     /**
-     Base-64 encodes `self`. See also `String.base64URLEncoded()`.
+     Base-64 encodes `self`.
      
      Equivalent to
      ```
@@ -89,7 +89,8 @@ public extension String {
      * `makeCodeChallenge()`  - makes the code challenge from the code verifier
      
      - Parameters:
-       - length: The length of the string.
+       - length: The length of the string. The code verifier must between 43 and
+             128 characters in length, inclusive.
        - randomNumberGenerator: The random number generator to use.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
@@ -122,7 +123,8 @@ public extension String {
        number generator to use.
      * `makeCodeChallenge()` - makes the code challenge from the code verifier
      
-     - Parameter length: The length of the string.
+     - Parameter length: The length of the string. The code verifier must be
+           between 43 and 128 characters in length, inclusive.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */

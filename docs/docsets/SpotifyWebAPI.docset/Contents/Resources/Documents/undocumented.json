@@ -1,6 +1,33 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
+      "line": 43,
+      "symbol": "SpotifyAPILogHandler.logLevel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
+      "line": 45,
+      "symbol": "SpotifyAPILogHandler.metadata",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
+      "line": 65,
+      "symbol": "SpotifyAPILogHandler.subscript(metadataKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
+      "line": 74,
+      "symbol": "SpotifyAPILogHandler.log(level:message:metadata:source:file:function:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/pschorn/Swift/Libraries/SpotifyAPI"
 }

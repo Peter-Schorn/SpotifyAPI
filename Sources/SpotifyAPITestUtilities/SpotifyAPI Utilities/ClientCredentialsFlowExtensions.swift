@@ -31,7 +31,7 @@ public extension SpotifyAPI where
         authorizationManager: ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
                 tokensURL: clientCredentialsFlowTokensURL,
-                decodeServerError: decodeVaporServerError(data:response:)
+                decodeServerError: VaporServerError.decodeFromURLResponse(data:response:)
             )
         )
     )
@@ -61,7 +61,7 @@ public extension ClientCredentialsFlowBackendManager {
                 }
             })
         
-        _ = cancellable  // supress warnings
+        _ = cancellable  // suppress warnings
         
         semaphore.wait()
 

@@ -374,9 +374,9 @@ public extension AuthorizationCodeFlowBackendManager {
         // a dictionary of the query items in the URL
         let queryDict = redirectURIWithQuery.queryItemsDict
 
-        // if the code is found in the query,
-        // then the user successfully authorized the application.
-        // this is required for requesting the access and refresh tokens.
+        // If the code is found in the query, then the user successfully
+        // authorized the application. This is required for requesting the
+        // access and refresh tokens.
         guard let code = queryDict["code"] else {
             
             if let error = queryDict["error"] {
@@ -390,7 +390,7 @@ public extension AuthorizationCodeFlowBackendManager {
                 .anyFailingPublisher()
             }
             
-            Self.logger.error("unkown error")
+            Self.logger.error("unknown error")
             return SpotifyGeneralError.other(
                 """
                 an unknown error occurred when handling the redirect URI: \
@@ -402,7 +402,7 @@ public extension AuthorizationCodeFlowBackendManager {
             
         }
         
-        // Ensure the state paramter in the query string of the redirect
+        // Ensure the state parameter in the query string of the redirect
         // URI matches the value provided to this method.
         guard state == queryDict["state"] else {
             return SpotifyGeneralError.invalidState(

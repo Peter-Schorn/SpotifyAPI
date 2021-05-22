@@ -33,7 +33,7 @@ public extension SpotifyAPI where
                 clientId: spotifyCredentials.clientId,
                 tokensURL: authorizationCodeFlowPKCETokensURL,
                 tokenRefreshURL: authorizationCodeFlowPKCERefreshTokensURL,
-                decodeServerError: decodeVaporServerError(data:response:)
+                decodeServerError: VaporServerError.decodeFromURLResponse(data:response:)
             )
         )
     )
@@ -115,7 +115,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             }
         })
         
-        _ = cancellable  // supress warnings
+        _ = cancellable  // suppress warnings
         
         semaphore.wait()
         

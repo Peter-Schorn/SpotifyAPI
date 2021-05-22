@@ -177,7 +177,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      * "redirect_uri": the redirect URI
      
      For example: "grant_type=authorization_code&code=asd...xbdjc
-     &redirect_uri=http://localhost:8080". See `ProxyTokensRequest`.
+     &redirect_uri=http://localhost:8080". See `ProxyTokensRequest`, which is
+     used to encode this data.
      
      The endpoint at `self.tokensURL` must return the authorization information
      as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
@@ -273,7 +274,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      * "refresh_token": the refresh token
      
      For example: "grant_type=refresh_token&refresh_token=djsnd...dnvnbfr". See
-     `RefreshTokensRequest`.
+     `RefreshTokensRequest`, which is used to encode this data.
      
      The endpoint at `self.tokenRefreshURL` must return the authorization
      information as JSON data that can be decoded into `AuthInfo`. The

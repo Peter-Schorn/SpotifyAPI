@@ -53,7 +53,9 @@ extension SpotifyAPIInsufficientScopeTests {
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
                 for: [randomScope]
-            )
+            ),
+            "should not be authorized for \(randomScope.rawValue): " +
+            "\(Self.spotify.authorizationManager)"
         )
         
         let expectation = XCTestExpectation(
@@ -161,7 +163,9 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
                 for: [randomScope]
-            )
+            ),
+            "should not be authorized for \(randomScope.rawValue): " +
+            "\(Self.spotify.authorizationManager)"
         )
 
         self.wait(
@@ -282,7 +286,9 @@ extension SpotifyAPIInsufficientScopeTests where
         XCTAssertFalse(
             Self.spotify.authorizationManager.isAuthorized(
                 for: [randomScope]
-            )
+            ),
+            "should not be authorized for \(randomScope.rawValue): " +
+            "\(Self.spotify.authorizationManager)"
         )
 
         self.wait(

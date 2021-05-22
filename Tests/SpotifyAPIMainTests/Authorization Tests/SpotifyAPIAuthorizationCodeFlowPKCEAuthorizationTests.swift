@@ -13,7 +13,7 @@ import SpotifyAPITestUtilities
 @testable import SpotifyWebAPI
 
 public protocol SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests: SpotifyAPITests
-    where AuthorizationManager: _AuthorizationCodeFlowPKCEManagerProtool
+    where AuthorizationManager: _AuthorizationCodeFlowPKCEManagerProtocol
 {
 
     func makeFakeAuthManager() -> AuthorizationManager
@@ -772,6 +772,158 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
 
     }
 
+    func denyAuthorizationRequest() throws {
+        #if canImport(WebKit)
+        
+        encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
+        
+        let authorizationManagerDidDeauthorizeExpectation = XCTestExpectation(
+            description: "authorizationManagerDidDeauthorize"
+        )
+        
+        let internalQueue = DispatchQueue(label: "internal")
+        var cancellables: Set<AnyCancellable> = []
+        
+        var didChangeCount = 0
+        Self.spotify.authorizationManagerDidChange
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didChangeCount += 1
+            })
+            .store(in: &cancellables)
+        
+        var didDeauthorizeCount = 0
+        Self.spotify.authorizationManagerDidDeauthorize
+            .receive(on: internalQueue)
+            .sink(receiveValue: {
+                didDeauthorizeCount += 1
+                internalQueue.asyncAfter(deadline: .now() + 2) {
+                    authorizationManagerDidDeauthorizeExpectation.fulfill()
+                }
+            })
+            .store(in: &cancellables)
+        
+        
+        Self.spotify.authorizationManager.deauthorize()
+        
+        self.wait(
+            for: [
+                authorizationManagerDidDeauthorizeExpectation
+            ],
+            timeout: 10
+        )
+        
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 0,
+                "authorizationManagerDidChange should not emit"
+            )
+            XCTAssertEqual(
+                didDeauthorizeCount, 1,
+                "authorizationManagerDidDeauthorize should only emit once"
+                
+            )
+        }
+        
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes, [])
+        XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized(for: []))
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(for: [randomScope]),
+            "should not be authorized for \(randomScope.rawValue): " +
+                "\(Self.spotify.authorizationManager)"
+        )
+        
+        // MARK: Deny Authorization
+        
+        let state = String.randomURLSafe(length: 20)
+        let codeVerifier = String.randomURLSafe(length: 50)
+        let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
+
+        let authorizationURL = Self.spotify.authorizationManager.makeAuthorizationURL(
+            redirectURI: localHostURL,
+            codeChallenge: codeChallenge,
+            state: state,
+            scopes: []
+        )!
+        
+        guard let redirectURI = openAuthorizationURLAndWaitForRedirect(
+            authorizationURL, button: .cancel
+        ) else {
+            XCTFail("couldn't get redirectURI")
+            return
+        }
+        
+        XCTAssertEqual(redirectURI.queryItemsDict["state"], state)
+        XCTAssertEqual(redirectURI.queryItemsDict["error"], "access_denied")
+        
+        let requestTokensExpectation = XCTestExpectation(
+            description: "request tokens after denying authorization request"
+        )
+        
+        let invalidCodeVerifier = String.randomURLSafe(length: 50)
+        precondition(invalidCodeVerifier != codeVerifier)
+
+        Self.spotify.authorizationManager.requestAccessAndRefreshTokens(
+            redirectURIWithQuery: redirectURI,
+            codeVerifier: invalidCodeVerifier,
+            state: nil
+        )
+        .sink(
+            receiveCompletion: { completion in
+                defer { requestTokensExpectation.fulfill() }
+                guard case .failure(let error) = completion else {
+                    XCTFail("should not complete normally")
+                    return
+                }
+                guard let authError = error as? SpotifyAuthorizationError else {
+                    XCTFail("unexpected error: \(error)")
+                    return
+                }
+                XCTAssertTrue(authError.accessWasDenied)
+                XCTAssertEqual(authError.error, "access_denied")
+                XCTAssertEqual(authError.state, state)
+            },
+            receiveValue: {
+                XCTFail("should not receive value")
+            }
+            
+        )
+        .store(in: &Self.cancellables)
+        
+        // A network request shouldn't be made.
+        self.wait(for: [requestTokensExpectation], timeout: 10)
+        
+        XCTAssertEqual(Self.spotify.authorizationManager.scopes, [])
+        XCTAssertFalse(Self.spotify.authorizationManager.isAuthorized(for: []))
+        let randomScope2 = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(for: [randomScope2]),
+            "should not be authorized for \(randomScope2.rawValue): " +
+                "\(Self.spotify.authorizationManager)"
+        )
+        
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 5))
+        
+        internalQueue.sync {
+            XCTAssertEqual(
+                didChangeCount, 0,
+                "authorizationManagerDidChange should NOT emit"
+            )
+            XCTAssertEqual(
+                didDeauthorizeCount, 1,
+                "authorizationManagerDidDeauthorize should only emit once"
+                
+            )
+        }
+        
+        encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
+     
+        #else
+        throw XCTSkip("cannot test \(#function) without WebKit")
+        #endif
+    }
+
 }
 
 // MARK: - Client -
@@ -792,7 +944,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
         ("testInvalidState3", testInvalidState3),
         ("testInvalidCodeVerifier", testInvalidCodeVerifier),
         ("testInvalidRedirectURI", testInvalidRedirectURI),
-        ("testInvalidCode", testInvalidCode)
+        ("testInvalidCode", testInvalidCode),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest)
     ]
 
     override class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
@@ -889,6 +1042,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
 
     func testInvalidCode() { invalidCode() }
 
+    func testDenyAuthorizationRequest() throws { try denyAuthorizationRequest() }
+
     override class func tearDown() {
         Self.spotify.authorizationManager.deauthorize()
     }
@@ -911,7 +1066,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
         ("testInvalidCodeVerifier", testInvalidCodeVerifier),
-        ("testInvalidCode", testInvalidCode)
+        ("testInvalidCode", testInvalidCode),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest)
     ]
 
     override class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
@@ -1013,6 +1169,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
     func testInvalidCodeVerifier() { invalidCodeVerifier() }
 
     func testInvalidCode() { invalidCode() }
+
+    func testDenyAuthorizationRequest() throws { try denyAuthorizationRequest() }
 
     override class func tearDown() {
         Self.spotify.authorizationManager.deauthorize()

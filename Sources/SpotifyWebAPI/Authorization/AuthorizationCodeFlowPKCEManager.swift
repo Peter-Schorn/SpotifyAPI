@@ -253,8 +253,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
 
      Before each authentication request your app should generate a code verifier
      and a code challenge. The code verifier is a cryptographically random
-     string between 43 and 128 characters in length. It can contain letters,
-     digits, underscores, periods, hyphens, or tildes.
+     string between 43 and 128 characters in length, inclusive. It can contain
+     letters, digits, underscores, periods, hyphens, or tildes.
 
      In order to generate the code challenge, your app should hash the code
      verifier using the SHA256 algorithm. Then, [base64url][2] encode the hash
@@ -375,9 +375,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
               to it.
        - codeVerifier: The code verifier that you generated when creating the
              authorization URL. **This must be between 43 and 128 characters**
-             **long.** After this request has completed, you should generate a
-             new code verifier and code challenge in preparation for the next
-             authorization process.
+             **in length**, inclusive. After this request has completed, you
+             should generate a new code verifier and code challenge in
+             preparation for the next authorization process.
        - state: The value of the state parameter that you provided when making
              the authorization URL. The state can be useful for correlating
              requests and responses. Because your redirect URI can be guessed,
@@ -404,8 +404,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
         let count = codeVerifier.count
         assert(
             (43...128).contains(count),
-            "The code verifier must be between 43 and 128 characters " +
-            "(received \(count))"
+            "The code verifier must be between 43 and 128 characters in length, " +
+            "inclusive (received \(count))"
         )
         
         Self.logger.trace(

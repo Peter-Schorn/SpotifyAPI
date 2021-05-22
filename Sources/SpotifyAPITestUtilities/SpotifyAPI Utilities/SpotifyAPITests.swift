@@ -64,7 +64,7 @@ public protocol _InternalSpotifyScopeAuthorizationManager:
 
 // MARK: - Generic Over Backend -
 
-public protocol _AuthorizationCodeFlowManagerProtool: _InternalSpotifyScopeAuthorizationManager {
+public protocol _AuthorizationCodeFlowManagerProtocol: _InternalSpotifyScopeAuthorizationManager {
     
     var _refreshToken: String? { get set }
 
@@ -82,7 +82,7 @@ public protocol _AuthorizationCodeFlowManagerProtool: _InternalSpotifyScopeAutho
     
 }
 
-public protocol _AuthorizationCodeFlowPKCEManagerProtool: _InternalSpotifyScopeAuthorizationManager {
+public protocol _AuthorizationCodeFlowPKCEManagerProtocol: _InternalSpotifyScopeAuthorizationManager {
     
     var _refreshToken: String? { get set }
 
@@ -111,7 +111,7 @@ public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthoriza
 
 // MARK: - Conformances -
 
-extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtool {
+extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProtocol {
     
     public func waitUntilAuthorized() {
         self.authorizeAndWaitForTokens(
@@ -122,7 +122,7 @@ extension AuthorizationCodeFlowBackendManager: _AuthorizationCodeFlowManagerProt
 
 }
 
-extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtool {
+extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEManagerProtocol {
     
     public func waitUntilAuthorized() {
         self.authorizeAndWaitForTokens(scopes: Scope.allCases)

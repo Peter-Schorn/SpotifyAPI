@@ -326,16 +326,20 @@ extension VaporServerError: CustomStringConvertible {
     }
 }
 
-public func decodeVaporServerError(
-    data: Data, response: HTTPURLResponse
-) -> Error? {
-
-    guard response.statusCode == 400 else {
-        return nil
+extension VaporServerError {
+    
+    public static func decodeFromURLResponse(
+        data: Data, response: HTTPURLResponse
+    ) -> Error? {
+        
+        guard response.statusCode == 400 else {
+            return nil
+        }
+        
+        return try? JSONDecoder().decode(
+            Self.self, from: data
+        )
+        
     }
     
-    return try? JSONDecoder().decode(
-        VaporServerError.self, from: data
-    )
-
 }

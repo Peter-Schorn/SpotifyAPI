@@ -23,6 +23,8 @@ extension URLSession {
      The network adaptor that this library uses by default for all network
      requests. Uses `URLSession`.
     
+     During tests it will sometimes use a different network adaptor.
+
      - Parameter request: The request to send.
      */
     static func defaultNetworkAdaptor(

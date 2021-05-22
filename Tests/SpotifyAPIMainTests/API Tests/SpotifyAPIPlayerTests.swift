@@ -273,11 +273,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         func checkEpisode(_ episode: Episode) {
             encodeDecode(episode)
             if let resumePoint = episode.resumePoint {
-                XCTAssertFalse(resumePoint.fullyPlayed)
                 let resumePosition = resumePoint.resumePositionMS
                 XCTAssert(
                     (2_000_000...2_020_000).contains(resumePosition),
-                    "\(resumePosition)"
+                    "unexpected resume position: \(resumePosition)"
                 )
             }
             else {

@@ -175,8 +175,8 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      * "redirect_uri": the redirect URI
      
      For example: "grant_type=authorization_code&code=asd...xbdjc
-     &code_verifier=ahdbx...redbtcd&redirect_uri=http://localhost:8080".
-     See `ProxyPKCETokensRequest`.
+     &code_verifier=ahdbx...redbtcd&redirect_uri=http://localhost:8080". See
+     `ProxyPKCETokensRequest`, which is used to encode this data.
      
      The endpoint at `self.tokensURL` must return the authorization information
      as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
@@ -278,7 +278,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      
      For example:
      "method=PKCE&grant_type=refresh_token&refresh_token=djsnd...dnvnbfr". See
-     `ProxyPKCERefreshTokensRequest`.
+     `ProxyPKCERefreshTokensRequest`, which is used to encode this data.
 
      The endpoint at `self.tokenRefreshURL` must return the authorization
      information as JSON data that can be decoded into `AuthInfo`. The

@@ -33,12 +33,20 @@ public struct ProxyTokensRequest: Hashable {
     /**
      The redirect URI. This is sent in the request for validation only. There
      will be no further redirection to this location.
+
+     Can be `nil` if this value is already stored on your backend server.
+     `AuthorizationCodeFlowProxyBackend.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
+     *will* set this value. The [Spotify iOS SDK][1] will *not* set this value
+     (see "tokenSwap" URL, which Spotify will make a request to with data that
+     can be decoded into this type).
+
+     If not `nil`, then this must be the same URI provided when creating the
+     authorization URL that was used to request the authorization code (as
+     opposed to any of your whitelisted redirect URIs).
      
-     This must be the same URI provided when creating the authorization URL that
-     was used to request the authorization code (as opposed to any of your
-     whitelisted redirect URIs).
+     [1]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
      */
-    public let redirectURI: URL
+    public let redirectURI: URL?
 
     /**
      Creates an instance which is used to request the authorization information
@@ -63,13 +71,20 @@ public struct ProxyTokensRequest: Hashable {
              redirect URI.
        - redirectURI: The redirect URI. This is sent in the request for
              validation only. There will be no further redirection to this
-             location. This must be the same URI provided when creating the
-             authorization URL that was used to request the authorization code
-             (as opposed to any of your whitelisted redirect URIs).
+             location. Can be `nil` if this value is already stored on your
+             backend server.
+             `AuthorizationCodeFlowProxyBackend.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
+             *will* set this value. The [Spotify iOS SDK][2] will *not* set this
+             value (see "tokenSwap" URL, which Spotify will make a request to
+             with data that can be decoded into this type). If not `nil`, then
+             this must be the same URI provided when creating the authorization
+             URL that was used to request the authorization code (as opposed to
+             any of your whitelisted redirect URIs).
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
      */
-    public init(code: String, redirectURI: URL) {
+    public init(code: String, redirectURI: URL?) {
         self.code = code
         self.redirectURI = redirectURI
     }
@@ -81,12 +96,17 @@ public struct ProxyTokensRequest: Hashable {
      a `JSONEncoder`) before being sent in a network request.
      */
     public func formURLEncoded() -> Data {
-        guard let data = [
+        
+        var dictionary = [
             CodingKeys.grantType.rawValue: self.grantType,
-            CodingKeys.code.rawValue: self.code,
-            CodingKeys.redirectURI.rawValue: self.redirectURI.absoluteString
-            
-        ].formURLEncoded() else {
+            CodingKeys.code.rawValue: self.code
+        ]
+        if let redirectURI = self.redirectURI {
+            dictionary[CodingKeys.redirectURI.rawValue] =
+                    redirectURI.absoluteString
+        }
+
+        guard let data = dictionary.formURLEncoded() else {
             fatalError("could not form-url-encode `ProxyTokensRequest`")
         }
         return data

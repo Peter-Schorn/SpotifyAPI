@@ -115,7 +115,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      contain the "Content-Type: application/x-www-form-urlencoded" header and
      the body will contain a key called "grant_type" with the value set to
      "client_credentials" in x-www-form-urlencoded format. For example:
-     "grant_type=client_credentials". See `ClientCredentialsTokensRequest`.
+     "grant_type=client_credentials". See `ClientCredentialsTokensRequest`,
+     which is used to encode this data.
 
      This method must return the authorization information as JSON data that can
      be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
