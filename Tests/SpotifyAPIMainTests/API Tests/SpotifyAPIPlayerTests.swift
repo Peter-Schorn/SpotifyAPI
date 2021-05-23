@@ -39,10 +39,13 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return
             }
             encodeDecode(context)
-            
-            let difference = Date().timeIntervalSince1970 -
-                    context.timestamp.timeIntervalSince1970
-            XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+     
+            XCTAssertEqual(
+                context.timestamp.timeIntervalSince1970,
+                Date().timeIntervalSince1970,
+                accuracy: 30,
+                "context timestamp should be equal to the current date"
+            )
             
             XCTAssertTrue(context.isPlaying)
             XCTAssertEqual(context.itemType, .track)
@@ -50,7 +53,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 XCTAssert(
                     currentItem.name.starts(with: "Any Colour You Like"),
                     "\(currentItem.name) should start with " +
-                        "'Any Colour You Like'"
+                    "'Any Colour You Like'"
                 )
             }
             else {
@@ -59,7 +62,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             
             XCTAssertEqual(context.context?.uri, playlist.uri)
             if let progress = context.progressMS {
-                XCTAssert((100_000...120_000).contains(progress))
+                XCTAssertEqual(
+                    progress,
+                    100_000,
+                    accuracy: 30_000,  // 30 seconds
+                    "unexpected progress"
+                )
             }
             else {
                 XCTFail("context.progressMS should not be nil")
@@ -82,7 +90,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
-            // authroize the access token. Then, run the tests again.
+            // authorize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
             .flatMap {
@@ -142,17 +150,19 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             XCTAssertTrue(context.isPlaying)
             XCTAssertEqual(context.itemType, .episode)
 
-            let difference = Date().timeIntervalSince1970 -
-                    context.timestamp.timeIntervalSince1970
-            XCTAssert(
-                (0...20).contains(difference),
-                "timestamp is incorrect: \(context.timestamp)"
+            XCTAssertEqual(
+                context.timestamp.timeIntervalSince1970,
+                Date().timeIntervalSince1970,
+                accuracy: 30,
+                "context timestamp should be equal to the current date"
             )
 
             if let progress = context.progressMS {
-                XCTAssert(
-                    (2_000_000...2_020_000).contains(progress),
-                    "\(progress)"
+                XCTAssertEqual(
+                    progress,
+                    2_000_000,
+                    accuracy: 30_000,  // 30 seconds
+                    "unexpected progress"
                 )
             }
             else {
@@ -274,9 +284,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             encodeDecode(episode)
             if let resumePoint = episode.resumePoint {
                 let resumePosition = resumePoint.resumePositionMS
-                XCTAssert(
-                    (2_000_000...2_060_000).contains(resumePosition),
-                    "unexpected resume position: \(resumePosition)"
+                XCTAssertEqual(
+                    resumePosition,
+                    2_000_000,
+                    accuracy: 30_000,  // 30 seconds
+                    "unexpected resume position"
                 )
             }
             else {
@@ -428,12 +440,13 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
-                let difference = Date().timeIntervalSince1970 -
-                        playback.timestamp.timeIntervalSince1970
-                XCTAssert(
-                    (0...20).contains(difference),
-                    "timestamp is incorrect: \(playback)"
+                XCTAssertEqual(
+                    playback.timestamp.timeIntervalSince1970,
+                    Date().timeIntervalSince1970,
+                    accuracy: 30,
+                    "playback timestamp should be equal to the current date"
                 )
+
                 XCTAssertFalse(playback.shuffleIsOn)
                 XCTAssertEqual(playback.repeatState, .context)
                 XCTAssertTrue(playback.isPlaying)
@@ -519,9 +532,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         return
                     }
                     encodeDecode(playback)
-                    let difference = Date().timeIntervalSince1970 -
-                            playback.timestamp.timeIntervalSince1970
-                    XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+                    XCTAssertEqual(
+                        playback.timestamp.timeIntervalSince1970,
+                        Date().timeIntervalSince1970,
+                        accuracy: 30,
+                        "playback timestamp should be equal to the current date"
+                    )
                     XCTAssertFalse(playback.shuffleIsOn)
                     XCTAssertEqual(playback.repeatState, .context)
                     XCTAssertTrue(playback.isPlaying)
@@ -604,9 +620,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
-                let difference = Date().timeIntervalSince1970 -
-                        playback.timestamp.timeIntervalSince1970
-                XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+                XCTAssertEqual(
+                    playback.timestamp.timeIntervalSince1970,
+                    Date().timeIntervalSince1970,
+                    accuracy: 30,
+                    "playback timestamp should be equal to the current date"
+                )
                 XCTAssertTrue(playback.isPlaying)
                 XCTAssertEqual(
                     playback.itemType, .track,
@@ -688,9 +707,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         return
                     }
                     encodeDecode(playback)
-                    let difference = Date().timeIntervalSince1970 -
-                            playback.timestamp.timeIntervalSince1970
-                    XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+                    XCTAssertEqual(
+                        playback.timestamp.timeIntervalSince1970,
+                        Date().timeIntervalSince1970,
+                        accuracy: 30,
+                        "playback timestamp should be equal to the current date"
+                    )
                     XCTAssertTrue(playback.isPlaying)
                     XCTAssertEqual(
                         playback.itemType, .track,
@@ -706,15 +728,16 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         return
                     }
 
-                    let expectedRange = newPosition...(newPosition + 20_000)
                     guard let progress = playback.progressMS else {
                         XCTFail("progress for track was nil")
                         return
                     }
-                    XCTAssert(
-                        expectedRange.contains(progress),
-                        "After seeking to \(newPosition), progress" +
-                        "should be in the range \(expectedRange)"
+                    XCTAssertEqual(
+                        progress,
+                        newPosition,
+                        accuracy: 30_000,  // 30 seconds
+                        "After seeking to \(newPosition), progress should be " +
+                        "\(progress)"
                     )
                 }
 
@@ -751,15 +774,24 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return
             }
             encodeDecode(context)
-            let difference = Date().timeIntervalSince1970 -
-                    context.timestamp.timeIntervalSince1970
-            XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+            XCTAssertEqual(
+                context.timestamp.timeIntervalSince1970,
+                Date().timeIntervalSince1970,
+                accuracy: 30,
+                "context timestamp should be equal to the current date"
+            )
+            
             XCTAssertTrue(context.isPlaying)
             XCTAssertEqual(context.itemType, .track)
             XCTAssertEqual(context.device.id, activeDeviceId)
             XCTAssertEqual(context.item?.uri, selectedItem)
             if let progress = context.progressMS {
-                XCTAssert((150_000...170_000).contains(progress))
+                XCTAssertEqual(
+                    progress,
+                    150_000,
+                    accuracy: 30_000,  // 30 seconds
+                    "unexpected progress"
+                )
             }
             else {
                 XCTFail("context.progressMS should not be nil")
@@ -817,9 +849,12 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return
             }
             encodeDecode(context)
-            let difference = Date().timeIntervalSince1970 -
-                    context.timestamp.timeIntervalSince1970
-            XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+            XCTAssertEqual(
+                context.timestamp.timeIntervalSince1970,
+                Date().timeIntervalSince1970,
+                accuracy: 30,
+                "context timestamp should be equal to the current date"
+            )
             XCTAssertTrue(context.isPlaying)
             XCTAssertEqual(context.itemType, .track)
             XCTAssertEqual(context.device.id, activeDeviceId)
@@ -1051,7 +1086,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
-            // authroize the access token. Then, run the tests again.
+            // authorize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
             .flatMap {
@@ -1136,7 +1171,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .context)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1155,7 +1190,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .off)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1173,7 +1208,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .track)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback()
             }

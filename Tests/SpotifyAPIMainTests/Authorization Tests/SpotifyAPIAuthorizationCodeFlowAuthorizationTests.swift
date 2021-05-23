@@ -213,6 +213,15 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
             }
             
             switch error {
+                case let authError as SpotifyAuthenticationError:
+                    XCTAssertEqual(
+                        authError.error,
+                        "invalid_grant"
+                    )
+                    XCTAssertEqual(
+                        authError.errorDescription,
+                        "Invalid refresh token"
+                    )
                 case let vaporServerError as VaporServerError:
                     XCTAssertEqual(vaporServerError.reason, "Bad Request")
                     XCTAssertEqual(vaporServerError.error, true)
@@ -226,15 +235,20 @@ extension SpotifyAPIAuthorizationCodeFlowAuthorizationTests {
                             """
                         )
                     }
-                case let authError as SpotifyAuthenticationError:
-                    XCTAssertEqual(
-                        authError.error,
-                        "invalid_grant"
-                    )
-                    XCTAssertEqual(
-                        authError.errorDescription,
-                        "Invalid refresh token"
-                    )
+                case .httpError(let data, let response) as SpotifyGeneralError:
+                    if let vaporServerError = VaporServerError
+                            .decodeFromNetworkResponse(
+                                data: data, response: response
+                            ) {
+                        let dataString = String(data: data, encoding: .utf8) ?? "nil"
+                        XCTFail(
+                            """
+                            was able to decode VaporServerError from data:
+                            \(dataString)
+                            \(vaporServerError)
+                            """
+                        )
+                    }
                 default:
                     XCTFail("unexpected error: \(error)")
                     

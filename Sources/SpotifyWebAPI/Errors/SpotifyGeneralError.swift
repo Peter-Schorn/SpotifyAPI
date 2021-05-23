@@ -7,14 +7,15 @@ import FoundationNetworking
 /**
  An error originating from this library that is not represented by any of the
  other error types.
+ 
+ See also:
+ 
+ * `SpotifyAuthorizationError`
+ * `SpotifyAuthenticationError`
+ * `SpotifyError`
+ * `SpotifyPlayerError`
+ * `RateLimitedError`
 
- For example if you try to make an API request but have not authorized your
- application yet, you will get a `.unauthorized(String)` error, which is thrown
- before any network requests are even made.
-
- Use `localizedDescription` for an error message suitable for displaying to the
- end user. Use the string representation of this instance for a more detailed
- description suitable for debugging.
  */
 public enum SpotifyGeneralError {
     
@@ -102,9 +103,9 @@ public enum SpotifyGeneralError {
      decoded into any of the other errors types (`SpotifyAuthenticationError`,
      `SpotifyError`, `SpotifyPlayerError`).
      
-     Contains the http response metadata and data from the server.
+     Contains the body data and http response metadata from the server.
      */
-    case httpError(HTTPURLResponse, Data)
+    case httpError(Data, HTTPURLResponse)
 
     /// Some other error.
     case other(
@@ -139,7 +140,7 @@ extension SpotifyGeneralError: LocalizedError {
                 return "An internal error occurred"
             case .topLevelKeyNotFound(_, _):
                 return "The format of the data from Spotify was invalid."
-            case .httpError(let response, _):
+            case .httpError(_, let response):
                 return HTTPURLResponse.localizedString(
                     forStatusCode: response.statusCode
                 )
@@ -194,7 +195,7 @@ extension SpotifyGeneralError: CustomStringConvertible {
                     \(Self.self).topLevelKeyNotFound(key: "\(key)", \
                     dict: \(topLevelStringDict))
                     """
-            case .httpError(let response, let data):
+            case .httpError(let data, let response):
                 let dataString = String(data: data, encoding: .utf8)
                     .map({ #""\#($0)""# }) ?? "\(data)"
                 return """

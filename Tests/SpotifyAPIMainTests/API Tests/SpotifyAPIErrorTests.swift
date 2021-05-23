@@ -304,7 +304,7 @@ extension SpotifyAPIErrorTests {
             httpVersion: nil,
             headerFields: nil
         )!
-        let httpError = SpotifyGeneralError.httpError(response, data)
+        let httpError = SpotifyGeneralError.httpError(data, response)
         
         var receivedValue3 = false
 
@@ -467,7 +467,7 @@ extension SpotifyAPIErrorTests {
                     XCTFail("should not finished normally")
                     return
                 }
-                guard case .httpError(let response, let data) =
+                guard case .httpError(let data, let response) =
                         error as? SpotifyGeneralError else {
                     XCTFail("unexpected error: \(error)")
                     return
@@ -641,7 +641,7 @@ extension SpotifyAPIErrorTests where
                 expectedDescriptions.contains(description),
                 "unexpected description: \(description)"
             )
-            guard case .httpError(let response, _) = spotifyLocalError else {
+            guard case .httpError(_, let response) = spotifyLocalError else {
                 XCTFail(
                     "should've received SpotifyGeneralError.httpError: " +
                     "\(spotifyLocalError)"

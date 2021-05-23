@@ -199,7 +199,7 @@ extension Publisher {
             else if let spotifyPlayerError = error as? SpotifyPlayerError {
                 statusCode = spotifyPlayerError.statusCode
             }
-            else if case .httpError(let response, _) = error as? SpotifyGeneralError {
+            else if case .httpError(_, let response) = error as? SpotifyGeneralError {
                 statusCode = response.statusCode
             }
             else {

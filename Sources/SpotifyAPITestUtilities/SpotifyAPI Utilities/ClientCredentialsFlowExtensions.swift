@@ -31,7 +31,7 @@ public extension SpotifyAPI where
         authorizationManager: ClientCredentialsFlowBackendManager(
             backend: ClientCredentialsFlowProxyBackend(
                 tokensURL: clientCredentialsFlowTokensURL,
-                decodeServerError: VaporServerError.decodeFromURLResponse(data:response:)
+                decodeServerError: VaporServerError.decodeFromNetworkResponse(data:response:)
             )
         )
     )

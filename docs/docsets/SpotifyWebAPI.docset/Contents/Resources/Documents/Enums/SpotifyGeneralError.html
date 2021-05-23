@@ -512,13 +512,15 @@
             <p>An error originating from this library that is not represented by any of the
 other error types.</p>
 
-<p>For example if you try to make an API request but have not authorized your
-application yet, you will get a <code>.unauthorized(String)</code> error, which is thrown
-before any network requests are even made.</p>
+<p>See also:</p>
 
-<p>Use <code>localizedDescription</code> for an error message suitable for displaying to the
-end user. Use the string representation of this instance for a more detailed
-description suitable for debugging.</p>
+<ul>
+<li><code><a href="../Structs/SpotifyAuthorizationError.html">SpotifyAuthorizationError</a></code></li>
+<li><code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code></li>
+<li><code><a href="../Structs/SpotifyError.html">SpotifyError</a></code></li>
+<li><code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code></li>
+<li><code><a href="../Structs/RateLimitedError.html">RateLimitedError</a></code></li>
+</ul>
 
           </section>
           <section class="section task-group-section">
@@ -742,9 +744,9 @@ or this error is thrown if the key can&rsquo;t be found.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF"></a>
+                    <a name="/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yAC10Foundation4DataV_So17NSHTTPURLResponseCtcACmF"></a>
                     <a name="//apple_ref/swift/Element/httpError(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yACSo17NSHTTPURLResponseC_10Foundation4DataVtcACmF">httpError(_:<wbr>_:<wbr>)</a>
+                    <a class="token" href="#/s:13SpotifyWebAPI0A12GeneralErrorO04httpE0yAC10Foundation4DataV_So17NSHTTPURLResponseCtcACmF">httpError(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -757,14 +759,14 @@ error) or 5xx (server error) range, and the response body could not be
 decoded into any of the other errors types (<code><a href="../Structs/SpotifyAuthenticationError.html">SpotifyAuthenticationError</a></code>,
 <code><a href="../Structs/SpotifyError.html">SpotifyError</a></code>, <code><a href="../Structs/SpotifyPlayerError.html">SpotifyPlayerError</a></code>).</p>
 
-<p>Contains the http response metadata and data from the server.</p>
+<p>Contains the body data and http response metadata from the server.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">httpError</span><span class="p">(</span><span class="kt">HTTPURLResponse</span><span class="p">,</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">httpError</span><span class="p">(</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

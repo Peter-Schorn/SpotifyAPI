@@ -127,7 +127,7 @@ public func decodeSpotifyErrors(
         return error
     }
     
-    return SpotifyGeneralError.httpError(httpURLResponse, data)
+    return SpotifyGeneralError.httpError(data, httpURLResponse)
     
 }
 

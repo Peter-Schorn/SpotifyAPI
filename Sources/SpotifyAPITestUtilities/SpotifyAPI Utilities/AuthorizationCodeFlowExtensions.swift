@@ -34,7 +34,7 @@ public extension SpotifyAPI where
                 clientId: spotifyCredentials.clientId,
                 tokensURL: authorizationCodeFlowTokensURL,
                 tokenRefreshURL: authorizationCodeFlowRefreshTokensURL,
-                decodeServerError: VaporServerError.decodeFromURLResponse(data:response:)
+                decodeServerError: VaporServerError.decodeFromNetworkResponse(data:response:)
             )
         )
     )

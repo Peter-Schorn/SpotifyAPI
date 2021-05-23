@@ -240,6 +240,20 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
                         authError.errorDescription,
                         "Invalid refresh token"
                     )
+                case .httpError(let data, let response) as SpotifyGeneralError:
+                    if let vaporServerError = VaporServerError
+                            .decodeFromNetworkResponse(
+                                data: data, response: response
+                            ) {
+                        let dataString = String(data: data, encoding: .utf8) ?? "nil"
+                        XCTFail(
+                            """
+                            was able to decode VaporServerError from data:
+                            \(dataString)
+                            \(vaporServerError)
+                            """
+                        )
+                    }
                 default:
                     XCTFail("unexpected error: \(error)")
                     
