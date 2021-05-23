@@ -198,6 +198,11 @@ extension SpotifyAPIInsufficientScopeTests where
             description: "testInsufficientScope play track"
         )
         
+        DistributedLock.player.lock()
+        defer {
+            DistributedLock.player.unlock()
+        }
+
         Self.spotify.play(.init(URIs.Tracks.breathe))
             .sink(
                 receiveCompletion: { completion in

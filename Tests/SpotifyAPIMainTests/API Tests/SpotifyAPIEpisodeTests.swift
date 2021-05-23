@@ -96,6 +96,7 @@ extension SpotifyAPIEpisodeTests {
         ) {
             XCTAssertNotNil(
                 episode.resumePoint,
+                "episode resume point was nil: " +
                 "\(type(of: Self.spotify.authorizationManager))"
             )
         }

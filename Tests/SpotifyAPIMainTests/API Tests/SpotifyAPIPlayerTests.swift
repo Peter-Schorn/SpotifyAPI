@@ -92,7 +92,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             // and ensure it's logged in to the same account used to
             // authorize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -102,7 +102,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.pausePlayback()
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -121,7 +121,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.resumePlayback()
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -313,16 +313,22 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback(market: "US")
             }
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .XCTAssertNoFailure()
             .flatMap { playback -> AnyPublisher<Episode, Error> in
                 checkContext(playback)
+                guard let playbackURI = playback?.item?.uri else {
+                    return SpotifyGeneralError.other(
+                        "playback?.item?.uri was nil: \(playback?.item as Any)"
+                    )
+                    .anyFailingPublisher()
+                }
                 return Self.spotify.episode(
-                    URIs.Episodes.samHarris217,
+                    playbackURI,
                     market: "US"
                 )
             }
@@ -376,7 +382,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
             Self.spotify.setShuffle(to: false)
                 .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
+                .receiveOnMain(delay: 3)
                 .sink(receiveCompletion: { _ in
                     shuffleExpectation.fulfill()
                 })
@@ -384,10 +390,10 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
             Self.spotify.skipToNext()
                 .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
+                .receiveOnMain(delay: 3)
                 .flatMap { Self.spotify.skipToNext() }
                 .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
+                .receiveOnMain(delay: 3)
                 .sink(receiveCompletion: { _ in
                     skipExpectation.fulfill()
                 })
@@ -431,7 +437,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         let publisher: AnyPublisher<CurrentlyPlayingContext?, Error> =
             Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap(maxPublishers: .max(1)) {
                 Self.spotify.currentPlayback()
             }
@@ -470,11 +476,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.skipToNext()
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .XCTAssertNoFailure()
             .eraseToAnyPublisher()
 
@@ -515,7 +521,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .eraseToAnyPublisher()
 
         publisher2
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap(maxPublishers: .max(1))  {
                 Self.spotify.currentPlayback()
             }
@@ -580,6 +586,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         // next tracks has predictable behavior.
         Self.spotify.setRepeatMode(to: .context)
             .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
             .sink(receiveCompletion: { _ in
                 repeatExpectation.fulfill()
             })
@@ -587,7 +594,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         Self.spotify.setShuffle(to: false)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .sink(receiveCompletion: { _ in
                 shuffleExpectation.fulfill()
             })
@@ -611,7 +618,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -680,7 +687,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             .XCTAssertNoFailure()
 
         publisher
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap { () -> AnyPublisher<Void, Error> in
                 guard let trackDuration = trackDuration else {
                     return SpotifyGeneralError.other(
@@ -696,7 +703,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.seekToPosition(newPosition!)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -738,8 +745,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         Double(progress),
                         Double(newPosition),
                         accuracy: 30_000,  // 30 seconds
-                        "After seeking to \(newPosition), progress should be " +
-                        "\(progress)"
+                        "unexpected progress"
                     )
                 }
 
@@ -819,7 +825,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 )
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -881,7 +887,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 )
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1090,7 +1096,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             // and ensure it's logged in to the same account used to
             // authorize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1105,7 +1111,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setShuffle(to: true)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1123,7 +1129,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setShuffle(to: false)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1156,9 +1162,9 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             // This test will fail if you don't have an active
             // device. Open a Spotify client (such as the iOS app)
             // and ensure it's logged in to the same account used to
-            // authroize the access token. Then, run the tests again.
+            // authorize the access token. Then, run the tests again.
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1173,7 +1179,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .context)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1192,7 +1198,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .off)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1210,7 +1216,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 return Self.spotify.setRepeatMode(to: .track)
             }
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 2)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentPlayback()
             }
@@ -1267,7 +1273,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         let publisher: AnyPublisher<Void, Error> = Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap(Self.spotify.availableDevices)
             .XCTAssertNoFailure()
             .flatMap { devices -> AnyPublisher<Void, Error> in

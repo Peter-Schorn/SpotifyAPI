@@ -22,7 +22,7 @@ extension SpotifyAPISearchTests {
         func validateError(_ error: Error) {
             print("\n\n\(error)\n\n")
             guard let localError = error as? SpotifyGeneralError else {
-                XCTFail("should've recieved SpotifyGeneralError: \(error)")
+                XCTFail("should've received SpotifyGeneralError: \(error)")
                 return
             }
             
@@ -193,7 +193,7 @@ extension SpotifyAPISearchTests {
             XCTAssertNil(results.shows)
             
             guard let tracks = results.tracks?.items else {
-                XCTFail("should've recieved tracks")
+                XCTFail("should've received tracks")
                 return
             }
             
@@ -248,7 +248,7 @@ extension SpotifyAPISearchTests {
             XCTAssertNil(results.shows)
             
             guard let albums = results.albums?.items else {
-                XCTFail("should've recieved albums")
+                XCTFail("should've received albums")
                 return
             }
             

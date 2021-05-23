@@ -112,7 +112,7 @@ extension SpotifyAPIFollowTests where
                 let artists = artistsPagingObject.items
                 guard artists.count >= 2 else {
                     XCTFail(
-                        "should recieve at least two artists: \(artists.count)"
+                        "should receive at least two artists: \(artists.count)"
                     )
                     return
                 }

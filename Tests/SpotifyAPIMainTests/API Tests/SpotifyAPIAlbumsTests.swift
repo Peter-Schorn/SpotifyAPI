@@ -402,7 +402,7 @@ extension SpotifyAPIAlbumsTests {
                 if currentPage == 1 {
                     XCTAssertEqual(
                         albumTracks.offset, 0,
-                        "first page should be recieved first"
+                        "first page should be received first"
                     )
                     XCTAssertEqual(receivedPages, 1)
                     currentPage = 2
@@ -414,7 +414,7 @@ extension SpotifyAPIAlbumsTests {
                 else if currentPage == 2 {
                     XCTAssertEqual(
                         albumTracks.offset, 50,
-                        "second page should be recieved second"
+                        "second page should be received second"
                     )
                     XCTAssertEqual(receivedPages, 2)
                     currentPage = 3
@@ -426,7 +426,7 @@ extension SpotifyAPIAlbumsTests {
                 else if currentPage == 3 {
                     XCTAssertEqual(
                         albumTracks.offset, 100,
-                        "third page should be recieved third"
+                        "third page should be received third"
                     )
                     XCTAssertEqual(receivedPages, 3)
                     currentPage = nil
@@ -461,7 +461,7 @@ extension SpotifyAPIAlbumsTests {
                     if currentPageHref == 1 {
                         XCTAssertEqual(
                             albumTracks.offset, 0,
-                            "first page should be recieved first"
+                            "first page should be received first"
                         )
                         XCTAssertEqual(receivedPagesHref, 1)
                         currentPageHref = 2
@@ -473,7 +473,7 @@ extension SpotifyAPIAlbumsTests {
                     else if currentPageHref == 2 {
                         XCTAssertEqual(
                             albumTracks.offset, 50,
-                            "second page should be recieved second"
+                            "second page should be received second"
                         )
                         XCTAssertEqual(receivedPagesHref, 2)
                         currentPageHref = 3
@@ -485,7 +485,7 @@ extension SpotifyAPIAlbumsTests {
                     else if currentPageHref == 3 {
                         XCTAssertEqual(
                             albumTracks.offset, 100,
-                            "third page should be recieved third"
+                            "third page should be received third"
                         )
                         XCTAssertEqual(receivedPagesHref, 3)
                         currentPageHref = nil

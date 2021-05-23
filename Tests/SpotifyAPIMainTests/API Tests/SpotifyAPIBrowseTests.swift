@@ -170,7 +170,7 @@ extension SpotifyAPIBrowseTests {
     
     func newAlbumReleases() {
         
-        func recieveNewAlbumReleases(_ albumReleases: NewAlbumReleases) {
+        func receiveNewAlbumReleases(_ albumReleases: NewAlbumReleases) {
             encodeDecode(albumReleases)
             let albums = albumReleases.albums
             XCTAssertEqual(albums.limit, 5)
@@ -189,7 +189,7 @@ extension SpotifyAPIBrowseTests {
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: recieveNewAlbumReleases(_:)
+                receiveValue: receiveNewAlbumReleases(_:)
             )
             .store(in: &Self.cancellables)
         
