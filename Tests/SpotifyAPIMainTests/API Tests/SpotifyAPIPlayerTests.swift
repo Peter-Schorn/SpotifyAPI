@@ -398,6 +398,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 timeout: 120
             )
         }
+        
+        sleep(2)
 
         /*
          The Dark Side of the Moon - spotify:album:4LH4d3cOWNNsVw41Gqt2kv
