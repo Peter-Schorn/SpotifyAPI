@@ -63,8 +63,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             XCTAssertEqual(context.context?.uri, playlist.uri)
             if let progress = context.progressMS {
                 XCTAssertEqual(
-                    progress,
-                    100_000,
+                    Double(progress),
+                    Double(100_000),
                     accuracy: 30_000,  // 30 seconds
                     "unexpected progress"
                 )
@@ -159,8 +159,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
             if let progress = context.progressMS {
                 XCTAssertEqual(
-                    progress,
-                    2_000_000,
+                    Double(progress),
+                    Double(2_000_000),
                     accuracy: 30_000,  // 30 seconds
                     "unexpected progress"
                 )
@@ -285,7 +285,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             if let resumePoint = episode.resumePoint {
                 let resumePosition = resumePoint.resumePositionMS
                 XCTAssertEqual(
-                    resumePosition,
+                    Double(resumePosition),
                     2_000_000,
                     accuracy: 30_000,  // 30 seconds
                     "unexpected resume position"
@@ -733,8 +733,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         return
                     }
                     XCTAssertEqual(
-                        progress,
-                        newPosition,
+                        Double(progress),
+                        Double(newPosition),
                         accuracy: 30_000,  // 30 seconds
                         "After seeking to \(newPosition), progress should be " +
                         "\(progress)"
@@ -787,8 +787,8 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             XCTAssertEqual(context.item?.uri, selectedItem)
             if let progress = context.progressMS {
                 XCTAssertEqual(
-                    progress,
-                    150_000,
+                    Double(progress),
+                    Double(150_000),
                     accuracy: 30_000,  // 30 seconds
                     "unexpected progress"
                 )
