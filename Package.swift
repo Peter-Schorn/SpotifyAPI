@@ -90,7 +90,7 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "vapor",
             url: "https://github.com/vapor/vapor.git",
-            from: "4.41.9"
+            from: "4.45.3"
         ),
         .package(
             name: "swift-nio",
