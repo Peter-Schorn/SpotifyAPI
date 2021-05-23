@@ -67,8 +67,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run tests ${{ matrix.image }}
       run: |
-        apt update
-        apt install -y python3
+        apt-get update && apt-get install -y python3
         python3 enable_testing.py true
         swift test --filter "\
         AuthorizationScopesTests|\

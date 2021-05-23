@@ -26,11 +26,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Refactored `ContextOption` and `OffsetOption` as nested types under `PlaybackRequest` (`Context` and `Offset`).
 - Added `type` property to `Playlist`.
 - Changed the type of properties in the object model that represent URLs from String to URL. `SpotifyAPI.getFromHref(_:responseType)` now accepts a URL as well instead of a string.
-- `String.makeCodeChallenge()` is now a static method that accepts the coder verifier as a parameter.
+- `String.makeCodeChallenge()` is now a static method that accepts the coder verifier as a parameter: `String.makeCodeChallenge(codeVerifier:)`.
 - Removed the + and += operators from `Dictionary`.
 - The custom `URLComponents` and `URL` initializers are now internal.
 - The `scopes` properties of `AuthInfo` and the authorization managers are non-optional. Instead, the lack of scopes is represented by an empty set.
 - Renamed `SpotifyLocalError` to `SpotifyGeneralError`.
+- Renamed `SpotifyLocalError.httpError(HTTPURLResponse:Data)` to `SpotifyLocalError.httpError(Data:HTTPURLResponse)`
 - Renamed `SpotifyAPI.removeAllOccurencesFromPlaylist(_:of:snapshotId:)` to `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`.
 - Renamed `SpotifyAPI.removeSpecificOccurencesFromPlaylist(_:of:)` to `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
 - Renamed `SpotifyDecodingError.dataDumpfolder` to `dataDumpFolder`.
