@@ -184,7 +184,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
             XCTAssertEqual(
                 didChangeCount, 1,
                 "authorizationManagerDidChange should emit exactly once; " +
-                    "top level: \(topLevel)"
+                "top level: \(topLevel)"
             )
         }
 

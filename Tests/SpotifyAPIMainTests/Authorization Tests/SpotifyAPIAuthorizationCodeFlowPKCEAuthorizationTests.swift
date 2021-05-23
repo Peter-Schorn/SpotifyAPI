@@ -217,23 +217,34 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
                 return
             }
             
-            if Self.spotify.authorizationManager is
-                    AuthorizationCodeFlowPKCEManager {
-                guard let authError = error as? SpotifyAuthenticationError else {
+            switch error {
+                case let vaporServerError as VaporServerError:
+                    XCTAssertEqual(vaporServerError.reason, "Bad Request")
+                    XCTAssertEqual(vaporServerError.error, true)
+                    if Self.spotify.authorizationManager is
+                            AuthorizationCodeFlowPKCEManager {
+                        XCTFail(
+                            """
+                            authorization code flow pkce manager should not \
+                            return VaporServerError:
+                            \(Self.spotify.authorizationManager)
+                            """
+                        )
+                    }
+                case let authError as SpotifyAuthenticationError:
+                    XCTAssertEqual(
+                        authError.error,
+                        "invalid_grant"
+                    )
+                    XCTAssertEqual(
+                        authError.errorDescription,
+                        "Invalid refresh token"
+                    )
+                default:
                     XCTFail("unexpected error: \(error)")
-                    return
-                }
-                XCTAssertEqual(authError.error, "invalid_grant")
-                XCTAssertEqual(authError.errorDescription, "Invalid refresh token")
+                    
             }
-            else {
-                guard let vaporError = error as? VaporServerError else {
-                    XCTFail("unexpected error: \(error)")
-                    return
-                }
-                XCTAssertEqual(vaporError.reason, "Bad Request")
-                XCTAssertEqual(vaporError.error, true)
-            }
+            
         }
 
         Self.spotify.authorizationManager.authorizeAndWaitForTokens(
@@ -775,6 +786,11 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
     func denyAuthorizationRequest() throws {
         #if canImport(WebKit)
         
+        try XCTSkipIf(
+            spotifyDCCookieValue == nil,
+            "Cannot test \(#function) without 'SPOTIFY_DC' environment variable."
+        )
+
         encodeDecode(Self.spotify.authorizationManager, areEqual: ==)
         
         let authorizationManagerDidDeauthorizeExpectation = XCTestExpectation(
@@ -949,7 +965,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests:
     ]
 
     override class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
-
+        Self.spotify.authorizationManager.deauthorize()
     }
 
     func makeFakeAuthManager() -> AuthorizationCodeFlowPKCEManager{
@@ -1071,7 +1087,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests:
     ]
 
     override class func setupAuthorization(scopes: Set<Scope> = Scope.allCases) {
-
+        Self.spotify.authorizationManager.deauthorize()
     }
 
     func makeFakeAuthManager() -> AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend> {

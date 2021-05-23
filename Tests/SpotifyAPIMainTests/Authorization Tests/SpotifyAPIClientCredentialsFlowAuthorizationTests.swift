@@ -187,7 +187,7 @@ final class SpotifyAPIClientCredentialsFlowClientAuthorizationTests:
     ]
 
     override class func setupAuthorization() {
-        
+        Self.spotify.authorizationManager.deauthorize()
     }
 
     func makeFakeAuthManager() -> ClientCredentialsFlowManager {
@@ -274,7 +274,7 @@ final class SpotifyAPIClientCredentialsFlowProxyAuthorizationTests:
     ]
 
     override class func setupAuthorization() {
-        
+        Self.spotify.authorizationManager.deauthorize()
     }
 
     func makeFakeAuthManager() -> ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend> {

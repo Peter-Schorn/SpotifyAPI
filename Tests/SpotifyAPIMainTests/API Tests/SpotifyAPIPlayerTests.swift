@@ -275,7 +275,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             if let resumePoint = episode.resumePoint {
                 let resumePosition = resumePoint.resumePositionMS
                 XCTAssert(
-                    (2_000_000...2_020_000).contains(resumePosition),
+                    (2_000_000...2_060_000).contains(resumePosition),
                     "unexpected resume position: \(resumePosition)"
                 )
             }
@@ -301,10 +301,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
         Self.spotify.play(playbackRequest)
             .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 2)
             .flatMap {
                 Self.spotify.currentPlayback(market: "US")
             }
+            .receiveOnMain(delay: 2)
             .XCTAssertNoFailure()
             .flatMap { playback -> AnyPublisher<Episode, Error> in
                 checkContext(playback)
@@ -470,9 +471,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                         .anyFailingPublisher()
                 }
                 encodeDecode(playback)
-                let difference = Date().timeIntervalSince1970 -
-                        playback.timestamp.timeIntervalSince1970
-                XCTAssert((0...20).contains(difference), "timestamp is incorrect")
+                XCTAssertEqual(
+                    playback.timestamp.timeIntervalSince1970,
+                    Date().timeIntervalSince1970,
+                    accuracy: 30,
+                    "playback timestamp should be equal to the current date"
+                )
+
+
                 XCTAssertFalse(playback.shuffleIsOn)
                 XCTAssertEqual(playback.repeatState, .context)
                 XCTAssertTrue(playback.isPlaying)
@@ -1350,7 +1356,7 @@ final class SpotifyAPIAuthorizationCodeFlowPlayerTests:
     func testPlaySkipToNextAndPrevious() {
         // let max = 5
         // for i in 1...max {
-            // print("\n--- Toplevel \(i) ---\n")
+            // print("\n--- top level \(i) ---\n")
             playSkipToNextAndPrevious()
             // if i != max { sleep(5) }
         // }
@@ -1402,7 +1408,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlayerTests:
     func testPlaySkipToNextAndPrevious() {
         // let max = 5
         // for i in 1...max {
-            // print("\n--- Toplevel \(i) ---\n")
+            // print("\n--- top level \(i) ---\n")
             playSkipToNextAndPrevious()
             // if i != max { sleep(5) }
         // }

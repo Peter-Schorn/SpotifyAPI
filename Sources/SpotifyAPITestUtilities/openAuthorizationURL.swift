@@ -19,11 +19,11 @@ import FoundationNetworking
  accept or cancel button in order to redirect the user to the redirect URI with
  the query. Requires cookies from Spotify, which prevent the browser from having
  to log in.
- 
- If WebKit cannot be imported or an error occurs during the above-described process,
- then opens the authorization URL and waits for the user to login and copy and
- paste the redirect URL into standard input or starts a server to listen for the
- redirect URL if the TEST flag is enabled.
+
+ If WebKit cannot be imported or an error occurs during the above-described
+ process, then opens the authorization URL and waits for the user to login and
+ copy and paste the redirect URL into standard input or starts a server to
+ listen for the redirect URL if the TEST flag is enabled.
  
  - Parameters:
    - authorizationURL: The authorization URL.
@@ -31,7 +31,9 @@ import FoundationNetworking
          `show_dialog` query parameter of the authorization URL is `false` and
          the user has previously logged in, then they will be immediately
          redirected to the redirect URI as if `accept` was passed in for this
-         parameter.
+         parameter, meaning that passing in `cancel` will have no effect.
+         Therefore, if you want to guarantee that the cancel button is clicked,
+         you must set the `show_dialog` query parameter to `true`.
  
  - Returns: The redirect URI with the query, which is used for requesting access
  and refresh tokens.
@@ -41,12 +43,6 @@ public func openAuthorizationURLAndWaitForRedirect(
     button: HeadlessBrowserAuthorizer.Button = .accept
 ) -> URL? {
     
-    
-    DistributedLock.redirectListener.lock()
-    defer {
-        DistributedLock.redirectListener.unlock()
-    }
-
     let runLoop = CFRunLoopGetCurrent()
     
     var redirectURIWithQuery: URL? = nil
@@ -67,7 +63,7 @@ public func openAuthorizationURLAndWaitForRedirect(
         "\(authorizationURL)"
     )
     headlessBrowser.loadAuthorizationURL(authorizationURL)
-    CFRunLoopRunInMode(.defaultMode, 60, false)
+    CFRunLoopRunInMode(.defaultMode, 60, false)  // 60 second timeout
     if let redirectURIWithQuery = redirectURIWithQuery {
         return redirectURIWithQuery
     }

@@ -59,6 +59,8 @@ public struct DistributedLock {
         return ProcessInfo.processInfo.environment["SPOTIFY_LOCK_DIRECTORY"]
     }()
 
+    // MARK: - Locks -
+    
     public static let general = Self(name: "general")
     public static let player = Self(name: "player")
     public static let library = Self(name: "library")
@@ -99,7 +101,7 @@ public struct DistributedLock {
     
     // MARK: - Locking
 
-    /// Polls the lock at an interval of 0.25 seconds until it is aquired.
+    /// Polls the lock at an interval of 0.25 seconds until it is acquired.
     public func lock() {
         self.queue.sync {
             guard let lock = self._lock else {
@@ -112,7 +114,7 @@ public struct DistributedLock {
             while !lock.try() {
                 usleep(250_000)  // 0.25 seconds
             }
-            print("aquired \(self.name) distributed lock")
+            print("acquired \(self.name) distributed lock")
         }
     }
     

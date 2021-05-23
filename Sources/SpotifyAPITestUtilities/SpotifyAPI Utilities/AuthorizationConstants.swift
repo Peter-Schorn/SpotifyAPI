@@ -98,6 +98,11 @@ public let spotifyCredentials: SpotifyCredentials = {
 /// ```
 public let localHostURL = URL(string: "http://localhost:8080")!
 
+/// The "sp_dc" cookie value, which is used by `HeadlessBrowserAuthorizer` to
+/// authorize the application. Retrieved from the "SPOTIFY_DC" environment
+/// variable.
+public let spotifyDCCookieValue = ProcessInfo.processInfo
+        .environment["SPOTIFY_DC"]
 
 private func retrieveURLFromEnvironment(
     for name: String
@@ -153,7 +158,7 @@ public let clientCredentialsFlowTokensURL: URL = {
 
     if !__clientCredentialsFlowTokensURL__.isEmpty {
         guard let url = URL(
-                string: __clientCredentialsFlowTokensURL__
+            string: __clientCredentialsFlowTokensURL__
         ) else {
             fatalError(
                 "could not convert to URL: " +

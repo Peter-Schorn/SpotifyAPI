@@ -50,8 +50,7 @@ public class HeadlessBrowserAuthorizer: NSObject {
     /// cookie can be created from it. Else, `false`.
     func configureCookies() -> Bool {
         
-        guard let spDcCookieValue = ProcessInfo.processInfo
-                .environment["SPOTIFY_DC"] else {
+        guard let spotifyDCCookieValue = spotifyDCCookieValue else {
             print("could not find 'SPOTIFY_DC' in environment variables")
             return false
         }
@@ -60,7 +59,7 @@ public class HeadlessBrowserAuthorizer: NSObject {
             properties: [
                 .version: 1,
                 .name: "sp_dc",
-                .value: spDcCookieValue,
+                .value: spotifyDCCookieValue,
                 // the real cookie expires in a year
                 .expires: Date.distantFuture,
                 .discard: false,
@@ -91,7 +90,7 @@ public class HeadlessBrowserAuthorizer: NSObject {
         self.setCookieDispatchGroup.notify(queue: .main) {
             let request = URLRequest(url: url)
             self.webView.load(request)
-            print("loadAuthorizationURL: did load")
+            print("HeadlessBrowserAuthorizer.loadAuthorizationURL: did load")
         }
     }
     
