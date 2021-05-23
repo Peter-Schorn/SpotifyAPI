@@ -38,7 +38,7 @@
       },
       {
         "key" : "SPOTIFY_CLIENT_CREDENTIALS_FLOW_TOKENS_URL",
-        "value" : "http:\/\/127.0.0.1:7000\/client-credentials-tokens"
+        "value" : "http:\/\/127.0.0.1:7000\/client-credentials-flow\/retrieve-tokens"
       }
     ],
     "targetForVariableExpansion" : {

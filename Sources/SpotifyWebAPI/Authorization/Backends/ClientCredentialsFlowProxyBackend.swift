@@ -21,7 +21,8 @@ import OpenCombineFoundation
  `self.makeClientCredentialsTokensRequest()` for more information.
 
  Instead of creating your own server, you can use [SpotifyAPIServer][2] with
- this type by assigning the /client-credentials-tokens endpoint to `tokensURL`.
+ this type by assigning the /client-credentials-flow/retrieve-tokens endpoint to
+ `tokensURL`.
 
  In contrast with `ClientCredentialsFlowClientBackend`, which can be used if you
  are communicating directly with Spotify, this type does not send the
@@ -44,12 +45,12 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      "grant_type" with the value set to "client_credentials" in
      x-www-form-urlencoded format.
      
-     The [/client-credentials-tokens][1] endpoint of SpotifyAPIServer can be
-     used for this URL.
+     The [/client-credentials-flow/retrieve-tokens][1] endpoint of
+     SpotifyAPIServer can be used for this URL.
 
      See `self.makeClientCredentialsTokensRequest()` for more information.
      
-     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
+     [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
     public let tokensURL: URL
 
@@ -85,7 +86,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      and client secret.
 
      Instead of creating your own server, you can use [SpotifyAPIServer][2] with
-     this type by assigning the /client-credentials-tokens endpoint to `tokensURL`.
+     this type by assigning the /client-credentials-flow/retrieve-tokens
+     endpoint to `tokensURL`.
 
      - Parameters:
        - tokensURL: The URL to your custom backend server that accepts a post
@@ -100,7 +102,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
              `SpotifyAuthenticationError`. This will be done elsewhere.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
-     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
+     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
     public init(
         tokensURL: URL,
@@ -146,11 +148,11 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     The [/client-credentials-tokens][2] endpoint of SpotifyAPIServer can be
-     used for this URL.
+     The [/client-credentials-flow/retrieve-tokens][2] endpoint of
+     SpotifyAPIServer can be used for this URL.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
-     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-tokens
+     [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
