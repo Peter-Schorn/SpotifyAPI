@@ -126,7 +126,7 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
 //                            print("finished refreshing tokens i: \(i); j: \(j)")
                             XCTAssertFalse(
                                 Self.spotify.authorizationManager.accessTokenIsExpired(
-                                    tolerance: 120
+                                    tolerance: 0
                                 )
                             )
                             internalQueue.sync {

@@ -22,12 +22,16 @@ import OpenCombineFoundation
  client secret, which prevents it from being exposed in your frontend app. This
  is the key reason for using a backend server.
  
+ See also [SpotifyAPIServer][2], a backend server that can handle authorization
+ process.
+ 
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	
@@ -150,12 +154,16 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
  prevents it from being exposed in your frontend app. This is the key reason for
  using a backend server.
  
+ See also [SpotifyAPIServer][2], a backend server that can handle authorization
+ process.
+
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     
@@ -280,12 +288,16 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
  retrieve the authorization information from Spotify on your behalf, thereby
  preventing these sensitive credentials from being exposed in your frontend app.
  
+ See also [SpotifyAPIServer][2], a backend server that can handle authorization
+ process.
+
  Furthermore, after your backend server retrieves the authorization information
  from Spotify, it could encrypt it before sending it back to your app. Your app
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     

@@ -30,16 +30,22 @@ import OpenCombineFoundation
    in x-www-form-urlencoded format and must return the authorization
    information. See `self.refreshTokens(refreshToken:)` for more information.
 
+ Instead of creating your own server, you can use [SpotifyAPIServer][2] with
+ this type by assigning the /authorization-code-flow/retrieve-tokens endpoint to
+ `tokensURL` and the /authorization-code-flow/refresh-tokens endpoint to
+ `tokenRefreshURL`.
+
  In contrast with `AuthorizationCodeFlowClientBackend`, which can be used if you
  are communicating directly with Spotify, this type does not send the
  `clientId`, or `clientSecret` in network requests because these values should
  be securely stored on your backend server.
 
- This conforms to the ["Token Swap and Refresh"][2] standard used in the Spotify
+ This conforms to the ["Token Swap and Refresh"][3] standard used in the Spotify
  iOS SDK.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
- [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
+ [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
+ [3]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
  */
 public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 
@@ -116,22 +122,23 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      This type requires a custom backend server that can store your client
      secret and redirect URI. It conforms to the ["Token Swap and Refresh"][2]
      standard used in the Spotify iOS SDK.
+     
+     Instead of creating your own server, you can use [SpotifyAPIServer][3] with
+     this type by assigning the /authorization-code-flow/retrieve-tokens
+     endpoint to `tokensURL` and the /authorization-code-flow/refresh-tokens
+     endpoint to `tokenRefreshURL`.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
-             application][3].
+             application][4].
        - tokensURL: The URL to a server that accepts a post request with the
              authorization code in the body in "x-www-form-urlencoded" format
-             and which must return the authorization information. The
-             [/authorization-code-flow/retrieve-tokens][4] endpoint of
-             SpotifyAPIServer can be used for this URL. See
+             and which must return the authorization information. See
              `self.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
              for more information.
        - tokenRefreshURL: The URL to a server that accepts a post request with
              the refresh token in the body in "x-www-form-urlencoded" format and
-             which must return the new authorization information. The
-             [/authorization-code-flow/refresh-tokens][5] endpoint of
-             SpotifyAPIServer can be used for this URL. See
+             which must return the new authorization information. See
              `self.refreshTokens(refreshToken:)` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
@@ -141,9 +148,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
-     [3]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
-     [4]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowretrieve-tokens
-     [5]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flowrefresh-tokens
+     [3]: https://github.com/Peter-Schorn/SpotifyAPIServer
+     [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
 	public init(
         clientId: String,

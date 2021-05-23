@@ -20,12 +20,16 @@ import OpenCombineFoundation
  for the authorization information from Spotify. See
  `self.makeClientCredentialsTokensRequest()` for more information.
 
+ Instead of creating your own server, you can use [SpotifyAPIServer][2] with
+ this type by assigning the /client-credentials-tokens endpoint to `tokensURL`.
+
  In contrast with `ClientCredentialsFlowClientBackend`, which can be used if you
  are communicating directly with Spotify, this type does not send the
  `clientId`, or `clientSecret` in network requests because these values should
  be securely stored on your backend server.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
 
@@ -77,14 +81,18 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      Creates an instance that manages the authorization process for the [Client
      Credentials Flow][1] by communicating with a custom backend server.
 
+     This type requires a custom backend server that can store your client id
+     and client secret.
+
+     Instead of creating your own server, you can use [SpotifyAPIServer][2] with
+     this type by assigning the /client-credentials-tokens endpoint to `tokensURL`.
+
      - Parameters:
        - tokensURL: The URL to your custom backend server that accepts a post
              request for the authorization information. The body will contain a
              key called "grant_type" with the value set to "client_credentials"
-             in x-www-form-urlencoded format. The
-             [/client-credentials-tokens][2] endpoint of SpotifyAPIServer can be
-             used for this URL. See `self.makeClientCredentialsTokensRequest()`
-             for more information.
+             in x-www-form-urlencoded format. See
+             `self.makeClientCredentialsTokensRequest()` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers. Do not use this function to decode the
