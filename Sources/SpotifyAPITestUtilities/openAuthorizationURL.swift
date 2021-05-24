@@ -85,8 +85,7 @@ public func openAuthorizationURLAndWaitForRedirect(
  and refresh tokens.
  */
 public func openAuthorizationURLAndWaitForRedirect(
-    _ authorizationURL: URL,
-    button: HeadlessBrowserAuthorizer.Button = .accept
+    _ authorizationURL: URL
 ) -> URL? {
  
     return openAuthorizationURLAndWaitForRedirectNonHeadless(authorizationURL)
