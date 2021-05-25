@@ -32,6 +32,8 @@ public protocol SpotifyAPITests: SpotifyAPITestCase {
 /// created by other clients.
 public protocol _InternalSpotifyAuthorizationManager: SpotifyAuthorizationManager, Equatable {
 
+    var _accessToken: String? { get set }
+
     /**
      Sets the expiration date of the access token to the specified date.
      **Only use for testing purposes**.
@@ -52,6 +54,7 @@ public protocol _InternalSpotifyScopeAuthorizationManager:
     _InternalSpotifyAuthorizationManager
 
 {
+    var _refreshToken: String? { get set }
     
     /// Blocks the thread until the application has been authorized and the
     /// refresh and access tokens have been retrieved. Returns early if the
@@ -66,8 +69,6 @@ public protocol _InternalSpotifyScopeAuthorizationManager:
 
 public protocol _AuthorizationCodeFlowManagerProtocol: _InternalSpotifyScopeAuthorizationManager {
     
-    var _refreshToken: String? { get set }
-
     func makeAuthorizationURL(
         redirectURI: URL,
         showDialog: Bool,

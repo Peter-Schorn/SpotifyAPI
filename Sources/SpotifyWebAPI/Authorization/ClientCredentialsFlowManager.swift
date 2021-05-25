@@ -35,7 +35,7 @@ import Logging
  **If you do not have a custom backend server, then you are encouraged to use**
  **the concrete subclass of this class,** `ClientCredentialsFlowManager`
  **instead**. It inherits from
-`ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`. This
+ `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`. This
  class will store your client id and client secret locally.
 
  # Authorization
@@ -102,14 +102,12 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      */
     public var backend: Backend
 
-    /// The Spotify authorization scopes. **Always** an empty set
-    /// because the client credentials flow does not support
-    /// authorization scopes.
+    /// The Spotify authorization scopes. **Always** an empty set because the
+    /// client credentials flow does not support authorization scopes.
     public let scopes: Set<Scope> = []
     
     /**
-     The access token used in all of the requests
-     to the Spotify web API.
+     The access token used in all of the requests to the Spotify web API.
      
      # Thread Safety
      
@@ -126,11 +124,11 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     /**
      The expiration date of the access token.
     
-     You are encouraged to use `accessTokenIsExpired(tolerance:)`
-     to check if the token is expired.
-     
+     You are encouraged to use `accessTokenIsExpired(tolerance:)` to check if
+     the token is expired.
+
      # Thread Safety
-     
+
      Access to this property is synchronized; therefore, it is always
      thread-safe.
      */
@@ -147,15 +145,14 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      **You are discouraged from subscribing to this publisher directly.**
      
      Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
-     publisher. This allows you to be notified of changes even
-     when you create a new instance of this class and assign it to the
-     `authorizationManager` instance property of `SpotifyAPI`.
-     
-     Emits after the following events occur:
-     * After an access token is retrieved using the `authorize()` method.
-     * After a new access token is retrieved using
-       `refreshTokens(onlyIfExpired:tolerance:)`.
-     
+     publisher. This allows you to be notified of changes even when you create a
+     new instance of this class and assign it to the `authorizationManager`
+     instance property of `SpotifyAPI`.
+
+     Emits after the following events occur: * After an access token is
+     retrieved using the `authorize()` method. * After a new access token is
+     retrieved using   `refreshTokens(onlyIfExpired:tolerance:)`.
+
      See also `didDeauthorize`, which emits after `deauthorize()` is called.
      Subscribe to that publisher in order to remove the authorization
      information from persistent storage when it emits.
@@ -173,11 +170,10 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      
      Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
      publisher. This allows you to be notified even when you create a new
-     instance of this class and assign it to the `authorizationManager`
-     instance property of `SpotifyAPI`.
-     occurrences
-     `deauthorize()` sets the access token and expiration date to `nil`.
-     
+     instance of this class and assign it to the `authorizationManager` instance
+     property of `SpotifyAPI`. occurrences `deauthorize()` sets the access token
+     and expiration date to `nil`.
+
      Subscribe to this publisher in order to remove the authorization
      information from persistent storage when it emits.
      
@@ -195,11 +191,10 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     )
 
     /**
-     The request to refresh the access token is stored in this
-     property so that if multiple asynchronous requests are made
-     to refresh the access token, then only one actual network
-     request is made. Once this publisher finishes, it is set to
-     `nil`.
+     The request to refresh the access token is stored in this property so that
+     if multiple asynchronous requests are made to refresh the access token,
+     then only one actual network request is made. Once this publisher finishes,
+     it is set to `nil`.
      */
     private var refreshTokensPublisher: AnyPublisher<Void, Error>? = nil
     
@@ -387,14 +382,13 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         return self.updateAuthInfoQueue.sync {
             // print("ClientCredentialsFlowBackendManager.description: INSIDE queue")
             let expirationDateString = self._expirationDate?
-                .description(with: .current)
-                ?? "nil"
+                .description(with: .current) ?? "nil"
         
             return """
                 ClientCredentialsFlowBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
+                    access token: \(self._accessToken.quotedOrNil())
                     expiration date: \(expirationDateString)
-                    backend: \(self.backend)
+                    backend: \("\(self.backend)".indented(tabEquivalents: 1))
                 )
                 """
         
@@ -856,12 +850,11 @@ public final class ClientCredentialsFlowManager:
     public override var description: String {
         return self.updateAuthInfoQueue.sync {
             let expirationDateString = self._expirationDate?
-                .description(with: .current)
-                ?? "nil"
+                .description(with: .current) ?? "nil"
         
             return """
                 ClientCredentialsFlowManager(
-                    access token: "\(self._accessToken ?? "nil")"
+                    access token: \(self._accessToken.quotedOrNil())
                     expiration date: \(expirationDateString)
                     clientId: "\(self.clientId)"
                     clientSecret: "\(self.clientSecret)"

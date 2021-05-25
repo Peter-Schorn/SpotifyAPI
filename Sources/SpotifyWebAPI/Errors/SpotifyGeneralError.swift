@@ -183,8 +183,8 @@ extension SpotifyGeneralError: CustomStringConvertible {
                     """
             case .topLevelKeyNotFound(let key, let dict):
                 // Prevent the description of `dict` from containing
-                // `AnyHashable("value")` for each key. Instead, it will just be
-                // `"value"`.
+                // `AnyHashable("value")` for each key by transforming the top
+                // level keys to `String`. Instead, it will just be `"value"`.
                 let topLevelStringDict: [String: Any] = dict.reduce(
                     into: [:]
                 ) { dict, item in

@@ -61,7 +61,7 @@ open class SpotifyAPIClientCredentialsFlowProxyTests:
                 VaporServerError.decodeFromNetworkResponse(data:response:)
 
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
         
     }
@@ -118,7 +118,7 @@ open class SpotifyAPIAuthorizationCodeFlowProxyTests:
                 VaporServerError.decodeFromNetworkResponse(data:response:)
 
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
 
     }
@@ -173,7 +173,7 @@ open class SpotifyAPIAuthorizationCodeFlowPKCEProxyTests:
                     VaporServerError.decodeFromNetworkResponse(data:response:)
 
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
 
     }

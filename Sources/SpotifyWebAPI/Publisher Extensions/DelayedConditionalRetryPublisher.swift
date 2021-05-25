@@ -163,7 +163,7 @@ extension Publisher {
                 #if DEBUG
                 DebugHooks.receiveRateLimitedError.send(rateLimitedError)
                 #endif
-    //            Swift.print("retryOnRateLimitdError: \(rateLimitedError)")
+    //            Swift.print("retryOnRateLimitedError: \(rateLimitedError)")
                 let secondsDelay = (rateLimitedError.retryAfter ?? 3) + 1
                 
                 switch additionalRetries {

@@ -114,7 +114,7 @@ open class SpotifyAPIAuthorizationCodeFlowTests:
             Self.spotify = decoded
         
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
         
     }
@@ -168,7 +168,7 @@ open class SpotifyAPIAuthorizationCodeFlowPKCETests:
             Self.spotify = decoded
         
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
         
     }

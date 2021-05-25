@@ -79,10 +79,9 @@ extension AuthInfo: Codable {
             forKey: .scopes
         ) ?? []
         
-        // If the json data was retrieved directly from the Spotify API,
-        // then the expiration date will be an integer representing
-        // the number of seconds after the current date
-        // that the access token expires.
+        // If the JSON data was retrieved directly from the Spotify web API,
+        // then the expiration date will be an integer representing the number
+        // of seconds after the current date that the access token expires.
         if let expirationDate = try container
                 .decodeDateFromExpiresInSecondsIfPresent(
             forKey: .expiresInSeconds
@@ -91,13 +90,12 @@ extension AuthInfo: Codable {
         }
 
         /*
-         If the json data was retrieved from elsewhere,
-         such as persistent storage, then the expiration date
-         will be stored in ISO 8601 format as
+         If the JSON data was retrieved from elsewhere, such as persistent
+         storage, then the expiration date will be stored in ISO 8601 format as
          Coordinated Universal Time (UTC) with a zero offset:
-         "YYYY-MM-DD'T'HH:mm:SSZ". this is how Spotify formats timestamps,
-         so the expiration date is formatted this way for consistency.
-         see https://developer.spotify.com/documentation/web-api/#timestamps
+         "YYYY-MM-DD'T'HH:mm:SSZ". This is how Spotify formats timestamps, so
+         the expiration date is formatted this way for consistency. See
+         https://developer.spotify.com/documentation/web-api/#timestamps
          */
         else {
             self.expirationDate = try container.decodeSpotifyTimestampIfPresent(
@@ -149,17 +147,14 @@ extension AuthInfo: CustomStringConvertible {
     public var description: String {
         
         let expirationDateString = expirationDate?
-                .description(with: .current)
-                ?? "nil"
-        
-        let scopeString = "\(self.scopes.map(\.rawValue))"
+                .description(with: .current) ?? "nil"
         
         return """
             AuthInfo(
-                access token: "\(accessToken ?? "nil")"
-                scopes: \(scopeString)
+                access token: \(self.accessToken.quotedOrNil())
+                scopes: \(self.scopes.map(\.rawValue))
                 expiration date: \(expirationDateString)
-                refresh token: "\(refreshToken ?? "nil")"
+                refresh token: \(self.refreshToken.quotedOrNil())
             )
             """
     }

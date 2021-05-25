@@ -218,9 +218,9 @@ extension SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest),
         ("testInvalidCode", testInvalidCode),
         ("testInvalidCredentials", testInvalidCredentials),
         ("testInvalidRedirectURI", testInvalidRedirectURI),
@@ -228,6 +228,7 @@ extension SpotifyAPIAuthorizationCodeFlowClientAuthorizationTests {
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
         ("testRefreshWithInvalidRefreshToken", testRefreshWithInvalidRefreshToken),
     ]
 }
@@ -253,6 +254,8 @@ extension SpotifyAPIAuthorizationCodeFlowErrorTests {
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testMakeRequestWithInvalidAccessToken", testMakeRequestWithInvalidAccessToken),
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage),
@@ -279,7 +282,6 @@ extension SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests = [
         ("testInsufficientScope2", testInsufficientScope2),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -354,9 +356,9 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest),
         ("testInvalidCode", testInvalidCode),
         ("testInvalidCodeVerifier", testInvalidCodeVerifier),
         ("testInvalidCredentials", testInvalidCredentials),
@@ -365,6 +367,7 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEClientAuthorizationTests {
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
         ("testRefreshWithInvalidRefreshToken", testRefreshWithInvalidRefreshToken),
     ]
 }
@@ -399,7 +402,6 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests = [
         ("testInsufficientScope2", testInsufficientScope2),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -501,15 +503,16 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEProxyAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest),
         ("testInvalidCode", testInvalidCode),
         ("testInvalidCodeVerifier", testInvalidCodeVerifier),
         ("testInvalidState1", testInvalidState1),
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
         ("testRefreshWithInvalidRefreshToken", testRefreshWithInvalidRefreshToken),
     ]
 }
@@ -525,6 +528,8 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests {
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testMakeRequestWithInvalidAccessToken", testMakeRequestWithInvalidAccessToken),
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage),
@@ -551,7 +556,6 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEProxyInsufficientScopeTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowPKCEProxyInsufficientScopeTests = [
         ("testInsufficientScope2", testInsufficientScope2),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -703,14 +707,15 @@ extension SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIAuthorizationCodeFlowProxyAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
+        ("testDenyAuthorizationRequest", testDenyAuthorizationRequest),
         ("testInvalidCode", testInvalidCode),
         ("testInvalidState1", testInvalidState1),
         ("testInvalidState2", testInvalidState2),
         ("testInvalidState3", testInvalidState3),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
         ("testRefreshWithInvalidRefreshToken", testRefreshWithInvalidRefreshToken),
     ]
 }
@@ -735,7 +740,6 @@ extension SpotifyAPIAuthorizationCodeFlowProxyInsufficientScopeTests {
     static let __allTests__SpotifyAPIAuthorizationCodeFlowProxyInsufficientScopeTests = [
         ("testInsufficientScope2", testInsufficientScope2),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -860,11 +864,11 @@ extension SpotifyAPIClientCredentialsFlowClientAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIClientCredentialsFlowClientAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testInvalidCredentials", testInvalidCredentials),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
         ("testRefreshTokensWithInvalidCredentials", testRefreshTokensWithInvalidCredentials),
     ]
 }
@@ -889,6 +893,8 @@ extension SpotifyAPIClientCredentialsFlowErrorTests {
         ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyErrorFromInvalidAlbumURI", testDecodeSpotifyErrorFromInvalidAlbumURI),
         ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testMakeRequestWithInvalidAccessToken", testMakeRequestWithInvalidAccessToken),
+        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
     ]
@@ -900,15 +906,6 @@ extension SpotifyAPIClientCredentialsFlowFollowTests {
     // to regenerate.
     static let __allTests__SpotifyAPIClientCredentialsFlowFollowTests = [
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),
-    ]
-}
-
-extension SpotifyAPIClientCredentialsFlowInsufficientScopeTests {
-    // DO NOT MODIFY: This is autogenerated, use:
-    //   `swift test --generate-linuxmain`
-    // to regenerate.
-    static let __allTests__SpotifyAPIClientCredentialsFlowInsufficientScopeTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -956,10 +953,10 @@ extension SpotifyAPIClientCredentialsFlowProxyAuthorizationTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__SpotifyAPIClientCredentialsFlowProxyAuthorizationTests = [
-        ("testCodingSpotifyAPI", testCodingSpotifyAPI),
         ("testConvenienceInitializer", testConvenienceInitializer),
         ("testDeauthorizeReauthorize", testDeauthorizeReauthorize),
         ("testReassigningAuthorizationManager", testReassigningAuthorizationManager),
+        ("testRefreshTokens", testRefreshTokens),
     ]
 }
 
@@ -969,15 +966,6 @@ extension SpotifyAPIClientCredentialsFlowProxyFollowTests {
     // to regenerate.
     static let __allTests__SpotifyAPIClientCredentialsFlowProxyFollowTests = [
         ("testUsersFollowPlaylist", testUsersFollowPlaylist),
-    ]
-}
-
-extension SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests {
-    // DO NOT MODIFY: This is autogenerated, use:
-    //   `swift test --generate-linuxmain`
-    // to regenerate.
-    static let __allTests__SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
     ]
 }
 
@@ -1135,13 +1123,11 @@ public func __allTests() -> [XCTestCaseEntry] {
         testCase(SpotifyAPIClientCredentialsFlowEpisodeTests.__allTests__SpotifyAPIClientCredentialsFlowEpisodeTests),
         testCase(SpotifyAPIClientCredentialsFlowErrorTests.__allTests__SpotifyAPIClientCredentialsFlowErrorTests),
         testCase(SpotifyAPIClientCredentialsFlowFollowTests.__allTests__SpotifyAPIClientCredentialsFlowFollowTests),
-        testCase(SpotifyAPIClientCredentialsFlowInsufficientScopeTests.__allTests__SpotifyAPIClientCredentialsFlowInsufficientScopeTests),
         testCase(SpotifyAPIClientCredentialsFlowMarketTests.__allTests__SpotifyAPIClientCredentialsFlowMarketTests),
         testCase(SpotifyAPIClientCredentialsFlowPlaylistsTests.__allTests__SpotifyAPIClientCredentialsFlowPlaylistsTests),
         testCase(SpotifyAPIClientCredentialsFlowProxyArtistTests.__allTests__SpotifyAPIClientCredentialsFlowProxyArtistTests),
         testCase(SpotifyAPIClientCredentialsFlowProxyAuthorizationTests.__allTests__SpotifyAPIClientCredentialsFlowProxyAuthorizationTests),
         testCase(SpotifyAPIClientCredentialsFlowProxyFollowTests.__allTests__SpotifyAPIClientCredentialsFlowProxyFollowTests),
-        testCase(SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests.__allTests__SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests),
         testCase(SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests.__allTests__SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests),
         testCase(SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests.__allTests__SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests),
         testCase(SpotifyAPIClientCredentialsFlowSearchTests.__allTests__SpotifyAPIClientCredentialsFlowSearchTests),

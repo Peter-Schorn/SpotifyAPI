@@ -220,18 +220,15 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowPKCEBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
-                    .description(with: .current)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map(\.rawValue)
+                    .description(with: .current) ?? "nil"
             
             return """
                 AuthorizationCodeFlowPKCEBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
+                    access token: \(self._accessToken.quotedOrNil())
+                    scopes: \(self._scopes.map(\.rawValue))
                     expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
-                    backend: "\(self.backend)"
+                    refresh token: \(self._refreshToken.quotedOrNil())
+                    backend: \("\(self.backend)".indented(tabEquivalents: 1))
                 )
                 """
         }
@@ -262,9 +259,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      (percent-encoded or not).
 
      You can use `String.randomURLSafe(length:using:)` or
-     `String.randomURLSafe(length:)` to generate the code verifier. You can Use
-     the `String.makeCodeChallenge(codeVerifier:)` instance method to create the
-     code challenge from the code verifier. For example:
+     `String.randomURLSafe(length:)` to generate the code verifier. You can use
+     the `String.makeCodeChallenge(codeVerifier:)` method to create the code
+     challenge from the code verifier. For example:
      
      ```
      let codeVerifier = String.randomURLSafe(length: 128)
@@ -765,17 +762,14 @@ public final class AuthorizationCodeFlowPKCEManager:
         return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
-                    .description(with: .current)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map(\.rawValue)
+                    .description(with: .current) ?? "nil"
             
             return """
                 AuthorizationCodeFlowPKCEManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
+                    access token: \(self._accessToken.quotedOrNil())
+                    scopes: \(self._scopes.map(\.rawValue))
                     expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
+                    refresh token: \(self._refreshToken.quotedOrNil())
                     clientId: "\(self.clientId)"
                 
                 )

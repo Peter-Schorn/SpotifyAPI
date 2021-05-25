@@ -6,84 +6,16 @@ import Combine
 import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
-
-
 #endif
 import SpotifyAPITestUtilities
 import SpotifyExampleContent
 @testable import SpotifyWebAPI
 
 
-protocol SpotifyAPIInsufficientScopeTests: SpotifyAPITests { }
+protocol SpotifyAPIInsufficientScopeTests: SpotifyAPITests where
+    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager { }
 
 extension SpotifyAPIInsufficientScopeTests {
-    
-    func makeRequestWithoutAuthorization() {
-
-        func receiveCompletion(
-            _ completion: Subscribers.Completion<Error>
-        ) {
-            guard case .failure(let error) = completion else {
-                XCTFail("should've finished with error")
-                return
-            }
-            guard let spotifyLocalError = error as? SpotifyGeneralError else {
-                XCTFail("should've received SpotifyGeneralError: \(error)")
-                return
-            }
-            switch spotifyLocalError {
-                case .unauthorized(_):
-                    break
-                default:
-                    XCTFail(
-                        "should've received unauthorized error: " +
-                        "\(spotifyLocalError)"
-                    )
-            }
-        }
-
-        Self.spotify.authorizationManager.deauthorize()
-        XCTAssertEqual(
-            Self.spotify.authorizationManager.scopes , []
-        )
-        XCTAssertFalse(
-            Self.spotify.authorizationManager.isAuthorized(for: [])
-        )
-        let randomScope = Scope.allCases.randomElement()!
-        XCTAssertFalse(
-            Self.spotify.authorizationManager.isAuthorized(
-                for: [randomScope]
-            ),
-            "should not be authorized for \(randomScope.rawValue): " +
-            "\(Self.spotify.authorizationManager)"
-        )
-        
-        let expectation = XCTestExpectation(
-            description: "requestWithoutAuthorization"
-        )
-        
-        Self.spotify.show(URIs.Shows.samHarris)
-            .sink(
-                receiveCompletion: { completion in
-                    receiveCompletion(completion)
-                    expectation.fulfill()
-                },
-                receiveValue: { show in
-                    XCTFail("should not receive value: \(show)")
-                }
-
-            )
-            .store(in: &Self.cancellables)
-        
-        self.wait(for: [expectation], timeout: 120)
-        
-    }
-
-}
-
-extension SpotifyAPIInsufficientScopeTests where
-    AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
-{
     
     /// Make a request to a method that will fail before
     /// any network request is made because the required
@@ -110,7 +42,9 @@ extension SpotifyAPIInsufficientScopeTests where
                     )
                     XCTAssertEqual(authorizedScopes, insufficientScopes)
                 default:
-                    XCTFail("unexpected error: \(localError)")
+                    XCTFail(
+                        "should've received SpotifyGeneralError.insufficientScope: \(error)"
+                    )
             }
         }
 
@@ -375,31 +309,15 @@ extension SpotifyAPIInsufficientScopeTests where
 
 // MARK: - Client -
 
-final class SpotifyAPIClientCredentialsFlowInsufficientScopeTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIInsufficientScopeTests
-{
-
-    static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization)
-    ]
-    
-    func testMakeRequestWithoutAuthorization() {
-        makeRequestWithoutAuthorization()
-    }
-    
-}
-
 final class SpotifyAPIAuthorizationCodeFlowInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIInsufficientScopeTests
 {
 
     static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
         ("testInsufficientScope2", testInsufficientScope2)
     ]
 
-    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
     func testInsufficientScopeLocal() { insufficientScopeLocal() }
     func testInsufficientScope2() { insufficientScope2() }
     
@@ -410,12 +328,10 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests:
 {
 
     static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
         ("testInsufficientScope2", testInsufficientScope2)
     ]
-
-    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
+    
     func testInsufficientScopeLocal() { insufficientScopeLocal() }
     func testInsufficientScope2() { insufficientScope2() }
     
@@ -423,31 +339,15 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEInsufficientScopeTests:
 
 // MARK: - Proxy -
 
-final class SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests:
-    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIInsufficientScopeTests
-{
-
-    static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization)
-    ]
-    
-    func testMakeRequestWithoutAuthorization() {
-        makeRequestWithoutAuthorization()
-    }
-    
-}
-
 final class SpotifyAPIAuthorizationCodeFlowProxyInsufficientScopeTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIInsufficientScopeTests
 {
 
     static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
         ("testInsufficientScope2", testInsufficientScope2)
     ]
-
-    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
+    
     func testInsufficientScopeLocal() { insufficientScopeLocal() }
     func testInsufficientScope2() { insufficientScope2() }
     
@@ -458,12 +358,10 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyInsufficientScopeTests:
 {
 
     static let allTests = [
-        ("testMakeRequestWithoutAuthorization", testMakeRequestWithoutAuthorization),
         ("testInsufficientScopeLocal", testInsufficientScopeLocal),
         ("testInsufficientScope2", testInsufficientScope2)
     ]
-
-    func testMakeRequestWithoutAuthorization() { makeRequestWithoutAuthorization() }
+    
     func testInsufficientScopeLocal() { insufficientScopeLocal() }
     func testInsufficientScope2() { insufficientScope2() }
     

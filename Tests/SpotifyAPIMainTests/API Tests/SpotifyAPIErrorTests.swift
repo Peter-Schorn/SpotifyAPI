@@ -19,11 +19,129 @@ protocol SpotifyAPIErrorTests: SpotifyAPITests { }
 
 extension SpotifyAPIErrorTests {
     
+    /// Make a request without authorizing beforehand.
+    func makeRequestWithoutAuthorization() {
+        
+        func receiveCompletion(
+            _ completion: Subscribers.Completion<Error>
+        ) {
+            guard case .failure(let error) = completion else {
+                XCTFail("should've finished with error")
+                return
+            }
+            guard let spotifyLocalError = error as? SpotifyGeneralError else {
+                XCTFail("should've received SpotifyGeneralError: \(error)")
+                return
+            }
+            switch spotifyLocalError {
+                case .unauthorized(_):
+                    break
+                default:
+                    XCTFail(
+                        "should've received unauthorized error: " +
+                        "\(spotifyLocalError)"
+                    )
+            }
+        }
+        
+        Self.spotify.authorizationManager.deauthorize()
+        XCTAssertEqual(
+            Self.spotify.authorizationManager.scopes , []
+        )
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(for: [])
+        )
+        let randomScope = Scope.allCases.randomElement()!
+        XCTAssertFalse(
+            Self.spotify.authorizationManager.isAuthorized(
+                for: [randomScope]
+            ),
+            "should not be authorized for \(randomScope.rawValue): " +
+            "\(Self.spotify.authorizationManager)"
+        )
+        
+        let expectation = XCTestExpectation(
+            description: "requestWithoutAuthorization"
+        )
+        
+        Self.spotify.show(URIs.Shows.samHarris)
+            .sink(
+                receiveCompletion: { completion in
+                    receiveCompletion(completion)
+                    expectation.fulfill()
+                },
+                receiveValue: { show in
+                    XCTFail("should not receive value: \(show)")
+                }
+                
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+        
+        Self.spotify.authorizationManager.waitUntilAuthorized()
+
+    }
+    
+    /// Make a request with an invalid access token.
+    func makeRequestWithInvalidAccessToken() {
+        
+        let accessToken = Self.spotify.authorizationManager._accessToken
+        defer {
+            Self.spotify.authorizationManager._accessToken = accessToken
+        }
+        
+        Self.spotify.authorizationManager._accessToken = "invalidToken"
+        
+        let expectation = XCTestExpectation(
+            description: "makeRequestWithInvalidAccessToken"
+        )
+        
+        let artist = URIs.Artists.crumb
+        
+        Self.spotify.networkAdaptor =
+                URLSession.shared.noCacheNetworkAdaptor(request:)
+
+        Self.spotify.artist(artist)
+            .sink(
+                receiveCompletion: { completion in
+                    defer { expectation.fulfill() }
+                    guard case .failure(let error) = completion else {
+                        XCTFail("should not finished normally")
+                        return
+                    }
+                    guard let spotifyError = error as? SpotifyError else {
+                        XCTFail("should've received SpotifyError: \(error)")
+                        return
+                    }
+                    XCTAssertEqual(spotifyError.message, "Invalid access token")
+                    XCTAssertEqual(spotifyError.statusCode, 401)
+                },
+                receiveValue: { artist in
+                    XCTFail(
+                        """
+                        Should not receive value after making a request with \
+                        an invalid access token.
+                        value: \(artist)
+                        authorizationManager: \(Self.spotify.authorizationManager)
+                        """
+                    )
+                }
+            )
+            .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+
+        Self.spotify.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
+
+    }
+    
     func autoRetryOnRateLimitedErrorConcurrent() {
         
         DistributedLock.rateLimitedError.lock()
         defer {
             DistributedLock.rateLimitedError.unlock()
+            
         }
 
         Self.spotify.networkAdaptor = URLSession.shared
@@ -73,7 +191,7 @@ extension SpotifyAPIErrorTests {
                     receiveCompletion: { completion in
                         switch completion {
                             case .failure(let error):
-                                XCTFail("\(i): unexpected error: \(error)")
+                                XCTFail("\(i): should not receive error: \(error)")
                                 receivedErrors += 1
                             case .finished:
                                 successfulCompletions += 1
@@ -156,7 +274,7 @@ extension SpotifyAPIErrorTests {
                         receiveCompletion: { completion in
                             switch completion {
                                 case .failure(let error):
-                                    XCTFail("\(i): unexpected error: \(error)")
+                                    XCTFail("\(i): should not receive error: \(error)")
                                     receivedErrors += 1
                                 case .finished:
                                     successfulCompletions += 1
@@ -364,7 +482,7 @@ extension SpotifyAPIErrorTests {
                                 encodeDecode(spotifyError, areEqual: ==)
                             }
                             else {
-                                XCTFail("unexpected error: \(receivedError)")
+                                XCTFail("should've received SpotifyError: \(receivedError)")
                             }
                     }
                     expectation.fulfill()
@@ -412,7 +530,7 @@ extension SpotifyAPIErrorTests {
                                 encodeDecode(spotifyError, areEqual: ==)
                             }
                             else {
-                                XCTFail("unexpected error: \(receivedError)")
+                                XCTFail("should've received SpotifyError: \(receivedError)")
                             }
                     }
                     expectation.fulfill()
@@ -469,7 +587,9 @@ extension SpotifyAPIErrorTests {
                 }
                 guard case .httpError(let data, let response) =
                         error as? SpotifyGeneralError else {
-                    XCTFail("unexpected error: \(error)")
+                    XCTFail(
+                        "should've received SpotifyGeneralError.httpError: \(error)"
+                    )
                     return
                 }
                 XCTAssertEqual(response.statusCode, 400)
@@ -508,7 +628,7 @@ extension SpotifyAPIErrorTests {
                     return
                 }
                 guard let spotifyError = error as? SpotifyError else {
-                    XCTFail("unexpected error: \(error)")
+                    XCTFail("should've received SpotifyError: \(error)")
                     return
                 }
                 XCTAssertEqual(spotifyError, sentError)
@@ -741,6 +861,14 @@ final class SpotifyAPIClientCredentialsFlowErrorTests:
 
     static let allTests = [
         (
+            "testMakeRequestWithoutAuthorization",
+            testMakeRequestWithoutAuthorization
+        ),
+        (
+            "makeRequestWithInvalidAccessToken",
+            makeRequestWithInvalidAccessToken
+        ),
+        (
             "testAutoRetryOnRateLimitedErrorConcurrent",
             testAutoRetryOnRateLimitedErrorConcurrent
         ),
@@ -759,6 +887,12 @@ final class SpotifyAPIClientCredentialsFlowErrorTests:
         
     ]
 
+    func testMakeRequestWithoutAuthorization() {
+        makeRequestWithoutAuthorization()
+    }
+    func testMakeRequestWithInvalidAccessToken() {
+        makeRequestWithInvalidAccessToken()
+    }
     func testAutoRetryOnRateLimitedErrorConcurrent() {
         autoRetryOnRateLimitedErrorConcurrent()
     }
@@ -805,6 +939,13 @@ final class SpotifyAPIAuthorizationCodeFlowErrorTests:
         ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
     ]
 
+    
+    func testMakeRequestWithoutAuthorization() {
+        makeRequestWithoutAuthorization()
+    }
+    func testMakeRequestWithInvalidAccessToken() {
+        makeRequestWithInvalidAccessToken()
+    }
     func testAutoRetryOnRateLimitedErrorConcurrent() {
         autoRetryOnRateLimitedErrorConcurrent()
     }
@@ -852,6 +993,12 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests:
         ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
     ]
 
+    func testMakeRequestWithoutAuthorization() {
+        makeRequestWithoutAuthorization()
+    }
+    func testMakeRequestWithInvalidAccessToken() {
+        makeRequestWithInvalidAccessToken()
+    }
     func testAutoRetryOnRateLimitedErrorConcurrent() {
         autoRetryOnRateLimitedErrorConcurrent()
     }

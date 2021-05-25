@@ -1581,22 +1581,28 @@ extension SpotifyAPIPlaylistsTests where
     }
     
     func _setup() {
-//        XCTAssertEqual(
-//            Self.spotify.authorizationManager.scopes,
-//            Scope.playlistScopes
-//        )
-//        XCTAssertTrue(
-//            Self.spotify.authorizationManager.isAuthorized(
-//                for: Scope.playlistScopes
-//            )
-//        )
-//        // the scopes that we shouldn't be authorized for
-//        let otherScopes = Scope.allCases.subtracting(Scope.playlistScopes)
-//        XCTAssertFalse(
-//            Self.spotify.authorizationManager.isAuthorized(
-//                for: otherScopes
-//            )
-//        )
+        // XCTAssertEqual(
+        //     Self.spotify.authorizationManager.scopes,
+        //     Scope.playlistScopes,
+        //     "authorization manager should only have playlist scopes: " +
+        //     "\(Self.spotify.authorizationManager)"
+        // )
+        // XCTAssertTrue(
+        //     Self.spotify.authorizationManager.isAuthorized(
+        //         for: Scope.playlistScopes
+        //     ),
+        //     "should only be authorized for playlist scopes: " +
+        //     "\(Self.spotify.authorizationManager)"
+        // )
+        // // the scopes that we shouldn't be authorized for
+        // let otherScopes = Scope.allCases.subtracting(Scope.playlistScopes)
+        // XCTAssertFalse(
+        //     Self.spotify.authorizationManager.isAuthorized(
+        //         for: otherScopes
+        //     ),
+        //     "authorization manager should only be authorized for playlist scopes, " +
+        //     "not \(otherScopes.map(\.rawValue)): \(Self.spotify.authorizationManager)"
+        // )
     }
 
 }

@@ -216,18 +216,15 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
-                    .description(with: .current)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map(\.rawValue)
+                    .description(with: .current) ?? "nil"
             
             return """
                 AuthorizationCodeFlowBackendManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
+                    access token: \(self._accessToken.quotedOrNil())
+                    scopes: \(self._scopes.map(\.rawValue))
                     expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
-                    backend: "\(self.backend)"
+                    refresh token: \(self._refreshToken.quotedOrNil())
+                    backend: \("\(self.backend)".indented(tabEquivalents: 1))
                 )
                 """
         }
@@ -736,17 +733,14 @@ public final class AuthorizationCodeFlowManager:
         return self.updateAuthInfoQueue.sync {
             // print("AuthorizationCodeFlowBackendManager.description INSIDE queue")
             let expirationDateString = self._expirationDate?
-                    .description(with: .current)
-                    ?? "nil"
-            
-            let scopeString = self._scopes.map(\.rawValue)
+                    .description(with: .current) ?? "nil"
             
             return """
                 AuthorizationCodeFlowManager(
-                    access token: "\(self._accessToken ?? "nil")"
-                    scopes: \(scopeString)
+                    access token: \(self._accessToken.quotedOrNil())
+                    scopes: \(self._scopes.map(\.rawValue))
                     expiration date: \(expirationDateString)
-                    refresh token: "\(self._refreshToken ?? "nil")"
+                    refresh token: \(self._refreshToken.quotedOrNil())
                     clientId: "\(self.clientId)"
                     clientSecret: "\(self.clientSecret)"
                 

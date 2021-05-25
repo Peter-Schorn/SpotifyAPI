@@ -260,6 +260,23 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
 }
 
+extension SpotifyAPI: CustomStringConvertible {
+    
+    public var description: String {
+        
+        let authManagerDescription = "\(self.authorizationManager)"
+                .indented(tabEquivalents: 1)
+        
+        return """
+            \(Self.self)(
+                authorizationManager: \(authManagerDescription)
+            )
+            """
+        
+    }
+
+}
+
 private extension SpotifyAPI {
     
     private func configureDidChangeSubscriptions() {

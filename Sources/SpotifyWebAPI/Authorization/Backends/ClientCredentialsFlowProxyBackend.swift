@@ -192,6 +192,18 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
 
 }
 
+extension ClientCredentialsFlowProxyBackend: CustomStringConvertible {
+    
+    public var description: String {
+        return """
+            ClientCredentialsFlowProxyBackend(
+                tokensURL: "\(self.tokensURL)"
+            )
+            """
+    }
+    
+}
+
 extension ClientCredentialsFlowProxyBackend: Hashable {
     
     public static func == (lhs: Self, rhs: Self) -> Bool {

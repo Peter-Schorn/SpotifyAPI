@@ -124,10 +124,19 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
                         receiveValue: {
                             Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()
 //                            print("finished refreshing tokens i: \(i); j: \(j)")
+                            
+                            // the access token, which lasts for an hour, should've
+                            // just been refreshed
                             XCTAssertFalse(
                                 Self.spotify.authorizationManager.accessTokenIsExpired(
-                                    tolerance: 0
-                                )
+                                    tolerance: 3_300  // 55 minutes
+                                ),
+                                "access token was expired after just refreshing it"
+                            )
+                            XCTAssert(
+                                Self.spotify.authorizationManager.isAuthorized(for: []),
+                                "`isAuthorized` returned false after access " +
+                                "token was just refreshed"
                             )
                             internalQueue.sync {
                                 Self.spotify.assertNotOnUpdateAuthInfoDispatchQueue()

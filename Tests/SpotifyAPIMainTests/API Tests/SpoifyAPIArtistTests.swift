@@ -6,8 +6,6 @@ import Combine
 import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
-
-
 #endif
 @testable import SpotifyWebAPI
 import SpotifyAPITestUtilities
@@ -665,17 +663,22 @@ extension SpotifyAPIArtistTests where
     }
 
     func _setup() {
-//        XCTAssertEqual(
-//            Self.spotify.authorizationManager.scopes ?? [], []
-//        )
-//        XCTAssertTrue(
-//            Self.spotify.authorizationManager.isAuthorized(for: [])
-//        )
-//        XCTAssertFalse(
-//            Self.spotify.authorizationManager.isAuthorized(
-//                for: [Scope.allCases.randomElement()!]
-//            )
-//        )
+        // XCTAssertEqual(
+        //     Self.spotify.authorizationManager.scopes, [],
+        //     "authorizationManager should contain zero scopes: " +
+        //     "\(Self.spotify.authorizationManager)"
+        // )
+        // XCTAssertTrue(
+        //     Self.spotify.authorizationManager.isAuthorized(for: []),
+        //     "should be authorized for zero scopes: " +
+        //     "\(Self.spotify.authorizationManager)"
+        // )
+        // let randomScope = Scope.allCases.randomElement()!
+        // XCTAssertFalse(
+        //     Self.spotify.authorizationManager.isAuthorized(for: [randomScope]),
+        //     "should not be authorized for \(randomScope.rawValue): " +
+        //     "\(Self.spotify.authorizationManager)"
+        // )
     }
     
 }

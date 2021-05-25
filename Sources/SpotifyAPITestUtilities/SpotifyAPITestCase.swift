@@ -25,7 +25,7 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
                 try? failingTestsString.append(to: logFile)
             }
             
-            print("\(failingTestsString)")
+            print(failingTestsString)
         }
 
     }

@@ -258,7 +258,7 @@ public enum Scope: String, Codable, Hashable {
     case userTopRead = "user-top-read"
     
     /**
-     Read access to a user’s playback position in a content.
+     Read access to a user’s playback position in an episodes.
      
      Required in order to retrieve the `ResumePoint` from the episode objects
      returned by the following endpoints:

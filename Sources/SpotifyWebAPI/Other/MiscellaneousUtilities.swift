@@ -129,67 +129,6 @@ public extension Collection where Index == Int {
 
 }
 
-// extension DispatchQueue {
-//     
-//     #if canImport(Combine)
-//     static func combineGlobal(
-//         qos: DispatchQoS.QoSClass = .default
-//     ) -> DispatchQueue {
-//         return DispatchQueue.global(qos: qos)
-//     }
-//     #else
-//     static func combineGlobal(
-//         qos: DispatchQoS.QoSClass = .default
-//     ) -> DispatchQueue.OCombine {
-//         return DispatchQueue.OCombine(.global(qos: qos))
-//     }
-//     #endif
-//     
-//     #if canImport(Combine)
-//     static func combine(label: String) -> DispatchQueue {
-//         return DispatchQueue(label: label)
-//     }
-//     #else
-//     static func combine(label: String) -> DispatchQueue.OCombine {
-//         return DispatchQueue.OCombine(.init(label: label))
-//     }
-//     #endif
-//     
-//     #if canImport(Combine)
-//     var queue: DispatchQueue { self }
-//     #endif
-// 
-// }
-// 
-// #if !canImport(Combine)
-// extension DispatchQueue.OCombine {
-//     
-//     @inlinable @inline(__always)
-//     func sync<T>(execute block: () throws -> T) rethrows -> T {
-//         return try self.queue.sync(execute: block)
-//     }
-//     
-//     @inlinable @inline(__always)
-//     func async(execute block: @escaping () -> Void) {
-//         self.queue.async(execute: block)
-//     }
-//     
-// }
-// 
-// extension DispatchPredicate {
-// 
-//     static func notOnQueue(_ queue: DispatchQueue.OCombine) -> Self {
-//         return Self.notOnQueue(queue.queue)
-//     }
-//     
-//     static func onQueue(_ queue: DispatchQueue.OCombine) -> Self {
-//         return Self.onQueue(queue.queue)
-//     }
-// 
-// }
-// #endif
-
-// MARK: - Optional Extensions -
 
 /**
  Returns a new dictionary in which the key-value pairs for which the values are
@@ -216,3 +155,105 @@ public func urlQueryDictionary(
     return unwrapped.mapValues { "\($0)" }
 }
 
+extension Optional where Wrapped == String {
+    
+    /// Returns the wrapped value enclosed in double quotes or the string "nil"
+    /// if this instance is `nil`.
+    func quotedOrNil() -> String {
+        if let wrapped = self {
+            return #""\#(wrapped)""#
+        }
+        return "nil"
+    }
+    
+}
+
+extension String {
+    
+    /**
+     Adds an indent to each line in this string **except the first line**.
+    
+     - Parameter tabEquivalents: The number of tab equivalents by which to
+           indent each line. Each tab equivalent is actually represented as
+           four spaces instead of the tab character.
+    
+     */
+    func indented(tabEquivalents: Int) -> Self {
+        
+        let leadingSpaces = String(repeating: " ", count: tabEquivalents * 4)
+        
+        var firstLine = true
+        return self
+            .split(separator: "\n")
+            .map { line in
+                if firstLine {
+                    firstLine = false
+                    return String(line)
+                }
+                return leadingSpaces + line
+            }
+            .joined(separator: "\n")
+        
+    }
+
+}
+
+// extension DispatchQueue {
+//
+//     #if canImport(Combine)
+//     static func combineGlobal(
+//         qos: DispatchQoS.QoSClass = .default
+//     ) -> DispatchQueue {
+//         return DispatchQueue.global(qos: qos)
+//     }
+//     #else
+//     static func combineGlobal(
+//         qos: DispatchQoS.QoSClass = .default
+//     ) -> DispatchQueue.OCombine {
+//         return DispatchQueue.OCombine(.global(qos: qos))
+//     }
+//     #endif
+//
+//     #if canImport(Combine)
+//     static func combine(label: String) -> DispatchQueue {
+//         return DispatchQueue(label: label)
+//     }
+//     #else
+//     static func combine(label: String) -> DispatchQueue.OCombine {
+//         return DispatchQueue.OCombine(.init(label: label))
+//     }
+//     #endif
+//
+//     #if canImport(Combine)
+//     var queue: DispatchQueue { self }
+//     #endif
+//
+// }
+//
+// #if !canImport(Combine)
+// extension DispatchQueue.OCombine {
+//
+//     @inlinable @inline(__always)
+//     func sync<T>(execute block: () throws -> T) rethrows -> T {
+//         return try self.queue.sync(execute: block)
+//     }
+//
+//     @inlinable @inline(__always)
+//     func async(execute block: @escaping () -> Void) {
+//         self.queue.async(execute: block)
+//     }
+//
+// }
+//
+// extension DispatchPredicate {
+//
+//     static func notOnQueue(_ queue: DispatchQueue.OCombine) -> Self {
+//         return Self.notOnQueue(queue.queue)
+//     }
+//
+//     static func onQueue(_ queue: DispatchQueue.OCombine) -> Self {
+//         return Self.onQueue(queue.queue)
+//     }
+//
+// }
+// #endif
