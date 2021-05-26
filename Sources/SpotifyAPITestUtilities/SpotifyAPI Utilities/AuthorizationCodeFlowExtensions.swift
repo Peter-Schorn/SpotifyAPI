@@ -58,8 +58,9 @@ public extension AuthorizationCodeFlowBackendManager {
             return Empty().eraseToAnyPublisher()
         }
         
-        let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
-//        let state = "~" + String.randomURLSafe(length: 125)
+        let state = Bool.random() ? String.randomURLSafe(
+            length: Int.random(in: 32...128)
+        ) : nil
         
         guard let authorizationURL = self.makeAuthorizationURL(
             redirectURI: localHostURL,

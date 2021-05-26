@@ -228,7 +228,7 @@ extension VaporServerError {
         data: Data, response: HTTPURLResponse
     ) -> Error? {
         
-        guard response.statusCode == 400 else {
+        guard (400..<500).contains(response.statusCode) else {
             return nil
         }
         

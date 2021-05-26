@@ -331,11 +331,13 @@ extension SpotifyAPIRefreshTokensConcurrentTests {
     }
   
     func _setUp() {
+        self.continueAfterFailure = false
         Self.spotify.authorizationManager.waitUntilAuthorized()
     }
 
     func _tearDown() {
         Self.spotify.authorizationManager.deauthorize()
+        self.continueAfterFailure = true
     }
 
  }

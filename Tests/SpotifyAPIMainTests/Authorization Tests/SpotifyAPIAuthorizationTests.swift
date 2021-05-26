@@ -61,7 +61,7 @@ extension SpotifyAPIAuthorizationTests {
 
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 3))
 
-        let authorizationManagerDidChangExpectation = XCTestExpectation(
+        let authorizationManagerDidChangeExpectation = XCTestExpectation(
             description: "authorizationManagerDidChange"
         )
 
@@ -74,7 +74,7 @@ extension SpotifyAPIAuthorizationTests {
             .sink(receiveValue: {
                 didChangeCount += 1
                 internalQueue.asyncAfter(deadline: .now() + 2) {
-                    authorizationManagerDidChangExpectation.fulfill()
+                    authorizationManagerDidChangeExpectation.fulfill()
                 }
             })
             .store(in: &cancellables)
@@ -120,7 +120,7 @@ extension SpotifyAPIAuthorizationTests {
         self.wait(for: [refreshTokensExpectation], timeout: 60)
         
         self.wait(
-            for: [authorizationManagerDidChangExpectation],
+            for: [authorizationManagerDidChangeExpectation],
             timeout: 10
         )
         internalQueue.sync {

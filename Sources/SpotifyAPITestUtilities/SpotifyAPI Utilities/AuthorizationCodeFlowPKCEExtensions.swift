@@ -57,9 +57,13 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
             return Empty().eraseToAnyPublisher()
         }
         
-        let codeVerifier = String.randomURLSafe(length: 128)
+        let codeVerifier = String.randomURLSafe(
+            length: Int.random(in: 43...128)
+        )
         let codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
-        let state = Bool.random() ? String.randomURLSafe(length: 128) : nil
+        let state = Bool.random() ? String.randomURLSafe(
+            length: Int.random(in: 32...128)
+        ) : nil
         
         guard let authorizationURL = self.makeAuthorizationURL(
             redirectURI: localHostURL,

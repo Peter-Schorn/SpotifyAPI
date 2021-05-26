@@ -1,7 +1,6 @@
-import Foundation
 #if canImport(WebKit)
+import Foundation
 import WebKit
-#endif
 
 /// Can open an authorization URL and click the accept or cancel dialog and
 /// then return the redirect URI with the query.
@@ -12,8 +11,6 @@ public class HeadlessBrowserAuthorizer: NSObject {
         case accept
         case cancel
     }
-    
-    #if canImport(WebKit)
     
     public let webView = WKWebView()
     
@@ -94,11 +91,7 @@ public class HeadlessBrowserAuthorizer: NSObject {
         }
     }
     
-    #endif
-
 }
-
-#if canImport(WebKit)
 
 extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
     
@@ -204,31 +197,5 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
     }
     
 }
-
-// MARK: - HTTP Cookie Extensions -
-
-//extension HTTPCookie {
-//
-//    func archivedData() throws -> Data? {
-//        guard let properties = self.properties else {
-//            return nil
-//        }
-//        return try NSKeyedArchiver.archivedData(
-//            withRootObject: properties,
-//            requiringSecureCoding: false
-//        )
-//    }
-//
-//    convenience init?(archivedData: Data) throws {
-//        guard let properties = try NSKeyedUnarchiver
-//                .unarchiveTopLevelObjectWithData(archivedData)
-//                as? [HTTPCookiePropertyKey : Any] else {
-//            return nil
-//        }
-//        self.init(properties: properties)
-//    }
-//
-//
-//}
 
 #endif

@@ -84,7 +84,10 @@ extension SpotifyAPIAuthorizationCodeFlowPKCEAuthorizationTests {
             
             switch error {
                 case let vaporServerError as VaporServerError:
-                    XCTAssertEqual(vaporServerError.reason, "Bad Request")
+                    XCTAssertEqual(
+                        vaporServerError.reason,
+                        "could not decrypt refresh token"
+                    )
                     XCTAssertEqual(vaporServerError.error, true)
                     if Self.spotify.authorizationManager is
                             AuthorizationCodeFlowPKCEManager {
