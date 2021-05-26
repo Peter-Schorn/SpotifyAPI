@@ -141,7 +141,7 @@ jobs:
         -derivedDataPath "$PWD/.derivedData" \
         -scheme "SpotifyAPI-Package" \
         -destination "${{ matrix.platform }}" \
-        test
+        test \
         -only-testing "SpotifyAPIMainTests/AuthorizationScopesTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthInfoTests" \
         -only-testing "SpotifyAPIMainTests/CodingAuthorizationCodeFlowManagerTests" \
