@@ -58,7 +58,7 @@ open class SpotifyAPIClientCredentialsFlowTests:
             Self.spotify = decoded
         
         } catch {
-            XCTFail("\(error)")
+            fatalError("\(error)")
         }
         
     }

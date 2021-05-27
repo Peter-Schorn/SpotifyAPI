@@ -104,7 +104,7 @@ public extension SpotifyAPI {
            for each of the categories that were requested from the `search`
            endpoint. If no results were found for a category, then the `items`
            property of the property's paging object will be empty; the property
-           itself will only be nil if the category was not requested in the
+           itself will only be `nil` if the category was not requested in the
            search. The simplified versions of all these objects will be
            returned.
      

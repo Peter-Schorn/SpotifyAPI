@@ -76,10 +76,10 @@ extension Publishers {
 //                            )
 //                        }
                         
-                        // using a Result.Publisher along with
-                        // the delay operator leads to data race
-                        // issues that sometimes cause the completion
-                        // event to be sent before the value.
+                        // using a Result.Publisher along with the delay
+                        // operator leads to data race issues that sometimes
+                        // cause the completion event to be sent before the
+                        // value.
                         
                         return Future<Void, Failure> { promise in
                             

@@ -74,8 +74,8 @@ public extension Publisher where Output: PagingObjectProtocol {
      and then requests additional pages *concurrently*. This method has better
      performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
      wait for the previous page to be received before requesting the next page.
-     **However, the order in which the pages are received unpredictable.**
-     If you need to wait all pages to be received before processing them, then
+     **However, the order in which the pages are received is unpredictable.** If
+     you need to wait for all pages to be received before processing them, then
      always use this method.
      
      See [Working with Paginated Results][1].
@@ -120,7 +120,7 @@ public extension Publisher where Output: PagingObjectProtocol {
      This method is particularly useful in combination with
      `Publisher.extendPagesConcurrently(_:maxExtraPages:)`, which delivers pages
      in an unpredictable order. It waits for all pages to be delivered and then
-     sorts them and returns just the items in the pages.
+     sorts them by their offset and returns just the items in the pages.
 
      See [Working with Paginated Results][1].
 

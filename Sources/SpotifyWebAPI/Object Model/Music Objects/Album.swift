@@ -13,11 +13,11 @@ public struct Album: Hashable {
     /**
      The tracks of the album.
      
-     For certain endpoints, this property may be nil, especially if it is nested
-     inside a much larger object. For example, it will be `nil` if retrieved
-     from the search endpoint or if nested inside a `Track`. When this property
-     is `nil`, use `albumTracks(_:market:limit:offset:)` instead, passing in the
-     URI of this album.
+     For certain endpoints, this property may be `nil`, especially if it is
+     nested inside a much larger object. For example, it will be `nil` if
+     retrieved from the search endpoint or if nested inside a `Track`. When this
+     property is `nil`, use `albumTracks(_:market:limit:offset:)` instead,
+     passing in the URI of this album.
      */
     public let tracks: PagingObject<Track>?
     

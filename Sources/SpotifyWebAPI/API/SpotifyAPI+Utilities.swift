@@ -148,9 +148,9 @@ public extension SpotifyAPI {
      and then requests additional pages *concurrently*. This method has better
      performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
      wait for the previous page to be received before requesting the next page.
-     **However, the order in which the pages are received is**
-     **unpredictable.** If you need to wait all pages to be received before
-     processing them, then always use this method.
+     **However, the order in which the pages are received is unpredictable.** If
+     you need to wait for all pages to be received before processing them, then
+     always use this method.
      
      See [Working with Paginated Results][1].
 

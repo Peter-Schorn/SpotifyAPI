@@ -442,7 +442,6 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `playlistItems(_:limit:offset:market:)`
      * `playlist(_:market:)`
      * `filteredPlaylist(_:fields:additionalTypes:market:)`
      * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
@@ -472,13 +471,13 @@ public extension SpotifyAPI {
              Use with `limit` to get the next set of tracks.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
              string "from_token". For tracks, Provide this parameter if you want
-             to apply [Track Relinking][5]. For episodes, if the access token
+             to apply [Track Relinking][3]. For episodes, if the access token
              was granted on behalf of a user (i.e., if you authorized your
              application using the authorization code flow or the authorization
              code flow with proof key for code exchange), the country associated
              with the user account will take priority over this parameter. Users
              can view the country that is associated with their account in the
-             [account settings][6]. **Note: If neither market or user country**
+             [account settings][4]. **Note: If neither market or user country**
              **are provided, the episodes are considered unavailable for the**
              **client and** `nil` **will will be returned at the corresponding**
              **positions for each episode. Therefore, if you authorized your**
