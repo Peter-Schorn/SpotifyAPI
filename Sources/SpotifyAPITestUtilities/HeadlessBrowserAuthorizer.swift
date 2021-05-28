@@ -20,6 +20,9 @@ public class HeadlessBrowserAuthorizer: NSObject {
     public let redirectURI: URL
     public let receiveRedirectURIWithQuery: (URL) -> Void
     
+    var authorizationURL: URL? = nil
+    var retries = 4
+
     /// Ensures the cookie is set before loading the authorization page.
     public let setCookieDispatchGroup = DispatchGroup()
     
@@ -83,12 +86,20 @@ public class HeadlessBrowserAuthorizer: NSObject {
     
     public func loadAuthorizationURL(_ url: URL) {
         
+        self.authorizationURL = url
+
         // ensure the cookie is set before loading the authorization URL
         self.setCookieDispatchGroup.notify(queue: .main) {
             let request = URLRequest(url: url)
             self.webView.load(request)
             print("HeadlessBrowserAuthorizer.loadAuthorizationURL: did load")
         }
+    }
+    
+    func reloadDelay() -> Double {
+        // retries = 3, 2, 1, 0
+        return Double(4 - self.retries)
+        // delay = 1, 2, 3, 4
     }
     
 }
@@ -100,9 +111,13 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         didFinish navigation: WKNavigation!
     ) {
         
-        print("--- did finish navigation ---")
-        print("url: \(webView.url?.absoluteString ?? "nil")")
-        
+        print(
+            """
+            --- did finish navigation ---
+            url: \(webView.url?.absoluteString ?? "nil")
+            """
+        )
+
         let clickCancelButtonScript = """
             document.getElementById("auth-cancel").click()
             """
@@ -114,9 +129,22 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         let script = self.button == .accept ? clickAcceptButtonScript :
             clickCancelButtonScript
         
-        webView.evaluateJavaScript(script) { result, error in
+        print("webView.evaluateJavaScript")
+        
+        webView.evaluateJavaScript(
+            script
+        ) { result, error in
             if let error = error {
                 print("error clicking \(self.button.rawValue) button: \(error)")
+                if self.retries > 0 {
+                    self.retries -= 1
+                    DispatchQueue.main.asyncAfter(
+                        deadline: .now() + self.reloadDelay()
+                    ) {
+                        print("will reload web page; retries: \(self.retries)")
+                        webView.reload()
+                    }
+                }
             }
             else if let result = result {
                 print("click \(self.button.rawValue) button result: \(result)")
@@ -146,8 +174,9 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
             .removingQueryItems()
             .removingTrailingSlashInPath()
         
+        print("baseURL: \(baseURL)")
+        
         if baseURL == self.redirectURI {
-//            print("redirectURIWithQuery: \(url)")
             self.didReceiveRedirect = true
             self.receiveRedirectURIWithQuery(url)
             decisionHandler(.cancel, .init())
@@ -164,35 +193,59 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        
+    
         let statusCode = (navigationResponse.response as! HTTPURLResponse)
             .statusCode
-        
+    
         let url = navigationResponse.response.url?.absoluteString ?? "nil"
-        print("navigationResponse: \(url)")
-        
-        if statusCode != 200 {
-            print("unexpected status code: \(statusCode)")
-            if (500..<600).contains(statusCode) {
-                print("reloading page")
-                webView.reloadFromOrigin()
-            }
-        }
-        
+        print(
+            """
+            navigationResponse: \(url)
+            status code: \(statusCode)
+            """
+        )
+    
         decisionHandler(.allow)
-        
+    
     }
     
     // MARK: - Failures -
     
-    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    public func webView(
+        _ webView: WKWebView,
+        didFail navigation: WKNavigation!,
+        withError error: Error
+    ) {
         print("didFail navigation: error: \(error)")
+        if let authorizationURL = self.authorizationURL, self.retries > 0 {
+            self.retries -= 1
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + self.reloadDelay()
+            ) {
+                print("will loadAuthorizationURL again")
+                self.loadAuthorizationURL(authorizationURL)
+            }
+        }
     }
     
     
-    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    public func webView(
+        _ webView: WKWebView,
+        didFailProvisionalNavigation navigation: WKNavigation!,
+        withError error: Error
+    ) {
         if !self.didReceiveRedirect {
             print("didFailProvisionalNavigation: error: \(error)")
+            if let authorizationURL = self.authorizationURL, self.retries > 0 {
+                self.retries -= 1
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + self.reloadDelay()
+                ) {
+                    print("will loadAuthorizationURL again")
+                    self.loadAuthorizationURL(authorizationURL)
+                }
+            }
+            
         }
     }
     
