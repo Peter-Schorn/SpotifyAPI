@@ -1,5 +1,6 @@
 #if canImport(WebKit)
 import Foundation
+import SpotifyWebAPI
 import WebKit
 
 /// Can open an authorization URL and click the accept or cancel dialog and
@@ -12,7 +13,7 @@ public class HeadlessBrowserAuthorizer: NSObject {
         case cancel
     }
     
-    public let webView = WKWebView()
+    public let webView: WKWebView
     
     public var didReceiveRedirect = false
     
@@ -34,12 +35,16 @@ public class HeadlessBrowserAuthorizer: NSObject {
         receiveRedirectURIWithQuery: @escaping (URL) -> Void
     ) {
         
+        let configuration = WKWebViewConfiguration()
+        configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+        self.webView = WKWebView(frame: .zero, configuration: configuration)
+
         self.button = button
         self.redirectURI = redirectURI
         self.receiveRedirectURIWithQuery = receiveRedirectURIWithQuery
         super.init()
         self.webView.navigationDelegate = self
-     
+
         if !self.configureCookies() {
             return nil
         }
@@ -50,16 +55,16 @@ public class HeadlessBrowserAuthorizer: NSObject {
     /// cookie can be created from it. Else, `false`.
     func configureCookies() -> Bool {
         
-        guard let spotifyDCCookieValue = spotifyDCCookieValue else {
+        guard let spotifyDCCookie = spotifyDCCookieValue else {
             print("could not find 'SPOTIFY_DC' in environment variables")
             return false
         }
-        
+
         guard let cookie = HTTPCookie(
             properties: [
                 .version: 1,
                 .name: "sp_dc",
-                .value: spotifyDCCookieValue,
+                .value: spotifyDCCookie,
                 // the real cookie expires in a year
                 .expires: Date.distantFuture,
                 .discard: false,
@@ -72,12 +77,20 @@ public class HeadlessBrowserAuthorizer: NSObject {
             return false
         }
         
-        let wkCookieJar = WKWebsiteDataStore.default().httpCookieStore
+        let wkCookieJar = self.webView.configuration.websiteDataStore
+            .httpCookieStore
 
         self.setCookieDispatchGroup.enter()
         wkCookieJar.setCookie(cookie) {
             print("wkCookieJar did set cookie: \(cookie.name)")
-            self.setCookieDispatchGroup.leave()
+            wkCookieJar.getAllCookies { cookies in
+                print("\n--- webViewCookieJar has \(cookies.count) cookies ---")
+                for cookie in cookies {
+                    print(cookie.name)
+                }
+                print("--------------------------------------\n")
+                self.setCookieDispatchGroup.leave()
+            }
         }
 
         return true
@@ -92,7 +105,9 @@ public class HeadlessBrowserAuthorizer: NSObject {
         self.setCookieDispatchGroup.notify(queue: .main) {
             let request = URLRequest(url: url)
             self.webView.load(request)
-            print("HeadlessBrowserAuthorizer.loadAuthorizationURL: did load")
+            print(
+                "HeadlessBrowserAuthorizer.loadAuthorizationURL: did load \(url)"
+            )
         }
     }
     
@@ -106,18 +121,36 @@ public class HeadlessBrowserAuthorizer: NSObject {
 
 extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
     
+    // MARK: - Did Finish Navigation -
+
     public func webView(
         _ webView: WKWebView,
         didFinish navigation: WKNavigation!
     ) {
         
-        print(
-            """
-            --- did finish navigation ---
-            url: \(webView.url?.absoluteString ?? "nil")
-            """
-        )
+        print("--- did finish navigation ---")
 
+        guard let url = webView.url else {
+            print(
+                "returning early from webView(_:didFinish:) because " +
+                "webView.url was nil"
+            )
+            return
+        }
+
+        print("url: \(url)")
+        
+        guard
+            // The authorization URL should look something like this, although
+            // it may contain a different country code:
+            // https://accounts.spotify.com/en/authorize
+            url.host == Endpoints.accountsBase,
+            url.pathComponents.last == "authorize"
+        else {
+            print("will not evaluate JavaScript for URL \(url)")
+            return
+        }
+        
         let clickCancelButtonScript = """
             document.getElementById("auth-cancel").click()
             """
@@ -129,7 +162,7 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         let script = self.button == .accept ? clickAcceptButtonScript :
             clickCancelButtonScript
         
-        print("webView.evaluateJavaScript")
+        print("webView.evaluateJavaScript: \(script)")
         
         webView.evaluateJavaScript(
             script
