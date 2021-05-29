@@ -515,9 +515,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF"></a>
-                    <a name="//apple_ref/swift/Method/base64URLEncodedString()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedStringSSyF">base64URLEncodedString()</a>
+                    <a name="/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedString7optionsSSSo27NSDataBase64EncodingOptionsV_tF"></a>
+                    <a name="//apple_ref/swift/Method/base64URLEncodedString(options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedString7optionsSSSo27NSDataBase64EncodingOptionsV_tF">base64URLEncodedString(options:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -525,8 +525,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Converts <code>self</code> to a Base-64 URL-encoded string. The <code>=</code> padding character
-will be removed.</p>
+                        <p>Converts <code>self</code> to a Base-64 URL-encoded string.</p>
+
+<p>See also <code>Data(base64URLEncoded:options)</code>.</p>
 
 <p>Equivalent to</p>
 <pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">base64EncodedString</span><span class="p">()</span>
@@ -540,9 +541,93 @@ will be removed.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">base64URLEncodedString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">base64URLEncodedString</span><span class="p">(</span>
+    <span class="nv">options</span><span class="p">:</span> <span class="kt">Data</span><span class="o">.</span><span class="kt">Base64EncodingOptions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encoding options.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Foundation4DataV13SpotifyWebAPIE16base64URLEncoded7optionsACSgSS_So27NSDataBase64DecodingOptionsVtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(base64URLEncoded:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Foundation4DataV13SpotifyWebAPIE16base64URLEncoded7optionsACSgSS_So27NSDataBase64DecodingOptionsVtcfc">init(base64URLEncoded:<wbr>options:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an instance from a Base-64 URL-encoded string.</p>
+
+<p>See also <code><a href="../Extensions/Data.html#/s:10Foundation4DataV13SpotifyWebAPIE22base64URLEncodedString7optionsSSSo27NSDataBase64EncodingOptionsV_tF">Data.base64URLEncodedString(options:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">?(</span>
+    <span class="n">base64URLEncoded</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">options</span><span class="p">:</span> <span class="kt">Data</span><span class="o">.</span><span class="kt">Base64DecodingOptions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Base-64 URL-encoded string.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The decoding options.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -552,7 +637,7 @@ will be removed.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-25)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-05-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
