@@ -145,6 +145,13 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
     UIApplication.shared.open(authorizationURL)
+    #else
+    do {
+        try openURLWithPython3(authorizationURL)
+    
+    } catch {
+        print("couldn't open \(authorizationURL) with python3: \(error)")
+    }
     #endif
     print(
         """
@@ -212,5 +219,15 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
     return URL(string: redirectURIWithQueryString.strip())
     
     #endif
+
+}
+
+/// Opens a URL in the default browser using python3 via a shell script.
+public func openURLWithPython3(_ url: URL) throws {
+
+    let task = Process()
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
+    task.arguments = ["-m", "webbrowser", "-t", url.absoluteString]
+    try task.run()
 
 }
