@@ -201,6 +201,10 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      }
      ```
      
+     Any error that your backend server receives from the Spotify web API, along
+     with the headers and status code, should be forwarded directly to the
+     client, as this library already knows how to decode these errors.
+     
      After the response is retrieved from the server, `self.decodeServerError`
      is called in order to decode any custom error objects that your server
      might return.
@@ -295,6 +299,10 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
          "expires_in": 3600
      }
      ```
+     
+     Any error that your backend server receives from the Spotify web API, along
+     with the headers and status code, should be forwarded directly to the
+     client, as this library already knows how to decode these errors.
      
      After the response is retrieved from the server, `self.decodeServerError`
      is called in order to decode any custom error objects that your server
