@@ -342,5 +342,11 @@ extension Track: ApproximatelyEquatable {
                 self.album.isApproximatelyEqual(to: other.album)
         
     }
+    
+    public static let someStaticProperty = Self(
+        name: "Echoes",
+        isLocal: false,
+        isExplicit: false
+    )
 
 }

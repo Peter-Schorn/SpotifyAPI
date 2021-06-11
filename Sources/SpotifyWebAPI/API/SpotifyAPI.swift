@@ -44,8 +44,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      It is this property that you should encode to data using a `JSONEncoder` in
      order to save it to persistent storage. This prevents the user from having
-     to login again every time the app is quit and relaunched. See this
-     [article][1] for more information.
+     to login again every time the app is quit and relaunched. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+     information.
 
      Assigning a new authorization manager to this property causes
      `authorizationManagerDidChange` to emit a signal.
@@ -88,7 +89,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      A publisher that emits whenever the authorization information changes.
      
      Subscribe to this subject in order to update the persistent storage of the
-     authorization information. See this [article][1] for more information.
+     authorization information. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+     information.
 
      Emits after any of the following events occur:
 
@@ -97,11 +100,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      * After you assign a new authorization manager to the `authorizationManager`
        property of this class.
      
-     This publisher subscribes to the `didChange` publisher of
-     `authorizationManager` and emits whenever it emits.
+     This publisher subscribes to the ``SpotifyAuthorizationManager/didChange``
+     publisher of ``SpotifyAPI/authorizationManager`` and emits whenever it
+     emits.
      
-     See also `authorizationManagerDidDeauthorize`, a publisher that emits after
-     `authorizationManager.deauthorize()` is called.
+     See also ``authorizationManagerDidDeauthorize``, a publisher that emits after
+     ``SpotifyAuthorizationManager/deauthorize()`` is called.
      
      # Thread Safety
      

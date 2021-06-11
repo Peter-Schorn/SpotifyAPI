@@ -1,7 +1,7 @@
 import Foundation
 import SpotifyWebAPI
 
-public extension PagingObject where Item == PlaylistItemContainer<Track> {
+public extension PlaylistTracks {
     
     /// Sample data for testing purposes.
     static let thisIsJimiHendrix = Bundle.module.decodeJSON(
@@ -36,7 +36,7 @@ public extension PagingObject where Item == PlaylistItemContainer<Track> {
 }
 
 
-public extension PagingObject where Item == PlaylistItemContainer<PlaylistItem> {
+public extension PlaylistItems {
     
     
     /// Sample data for testing purposes.

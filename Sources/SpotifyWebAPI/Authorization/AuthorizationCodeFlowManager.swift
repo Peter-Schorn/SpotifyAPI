@@ -13,14 +13,12 @@ import FoundationNetworking
 #endif
 
 /**
- Manages the authorization process for the [Authorization Code Flow][1].
+ Manages the authorization process.
  
  For applications where it is unsafe to store your client secret, consider
  using `AuthorizationCodeFlowPKCEBackendManager`, which manages the
  [Authorization Code Flow with Proof Key for Code Exchange][2]; it provides
  an additional layer of security.
- 
- # Backend
  
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information and refreshing the access token from
@@ -37,8 +35,6 @@ import FoundationNetworking
  `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`. This
  class will store your client id and client secret locally.
 
- # Authorization
- 
  The first step in the authorization code flow is to make the
  authorization URL using
  `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.

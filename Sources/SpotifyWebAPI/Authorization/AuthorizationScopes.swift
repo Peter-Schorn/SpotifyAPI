@@ -4,51 +4,10 @@ import Logging
 
 /**
  The Spotify authorization scopes.
+ 
  Read more at the [Spotify API Reference][1].
 
- Images
-  - ugc-image-upload: Write access to user-provided images.
-
- Playback
-  - user-read-playback-state: Read access to a user’s player state.
-  - user-modify-playback-state: Write access to a user’s playback state.
-  - user-read-currently-playing: Read access to a user’s currently
-        playing content.
-
- Spotify Connect
-  - streaming: Control playback of a Spotify track.
-  - app-remote-control: Remote control playback of Spotify.
-
- Users
-  - user-read-email: Read access to user’s email address.
-  - user-read-private: Read access to user’s subscription details
-        (type of user account).
-
- Playlists
-  - playlist-read-collaborative: Include collaborative playlists
-        when requesting a user's playlists.
-  - playlist-modify-public: Write access to a user's public playlists.
-  - playlist-read-private: Read access to a user's private playlists.
-  - playlist-modify-private: Write access to a user's private playlists.
-
- Library
-  - user-library-modify: Write/delete access to a user's "Your Music" library.
-  - user-library-read: Read access to a user's "Your Music" library.
- 
- Listening History:
-  - user-top-read: Read access to a user's top artists and tracks.
-  - user-read-playback-position: Read access to a user’s
-        playback position in a content.
-  - user-read-recently-played: Read access to a user’s recently played tracks.
-
- Follow
-  - user-follow-read: Read access to the list of artists and
-        other users that the user follows.
-  - user-follow-modify: Write/delete access to the list of artists and
-        other users that the user follows.
-
  [1]: https://developer.spotify.com/documentation/general/guides/scopes/
- - Tag: Scopes
  */
 public enum Scope: String, Codable, Hashable {
     
@@ -82,17 +41,17 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.addToQueue(_:deviceId:)`
-     * `SpotifyAPI.skipToNext(deviceId:)`
-     * `SpotifyAPI.skipToPrevious(deviceId:)`
-     * `SpotifyAPI.pausePlayback(deviceId:)`
-     * `SpotifyAPI.resumePlayback(deviceId:)`
-     * `SpotifyAPI.play(_:deviceId:)`
-     * `SpotifyAPI.seekToPosition(_:deviceId:)`
-     * `SpotifyAPI.setRepeatMode(to:deviceId:)`
-     * `SpotifyAPI.setVolume(to:deviceId:)`
-     * `SpotifyAPI.setShuffle(to:deviceId:)`
-     * `SpotifyAPI.transferPlayback(to:play:)`
+     - ``SpotifyAPI/addToQueue(_:deviceId:)``
+     - ``SpotifyAPI/skipToNext(deviceId:)``
+     - ``SpotifyAPI/skipToPrevious(deviceId:)``
+     - ``SpotifyAPI/pausePlayback(deviceId:)``
+     - ``SpotifyAPI/resumePlayback(deviceId:)``
+     - ``SpotifyAPI/play(_:deviceId:)``
+     - ``SpotifyAPI/seekToPosition(_:deviceId:)``
+     - ``SpotifyAPI/setRepeatMode(to:deviceId:)``
+     - ``SpotifyAPI/setVolume(to:deviceId:)``
+     - ``SpotifyAPI/setShuffle(to:deviceId:)``
+     - ``SpotifyAPI/transferPlayback(to:play:)``
      
      */
     case userModifyPlaybackState = "user-modify-playback-state"

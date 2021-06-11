@@ -514,11 +514,11 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `playlistTracks(_:limit:offset:market:)`
-     * `playlist(_:market:)`
-     * `filteredPlaylist(_:fields:additionalTypes:market:)`
-     * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
-     * `playlistImage(_:)`
+     * ``playlistTracks(_:limit:offset:market:)``
+     * ``playlist(_:market:)``
+     * ``filteredPlaylist(_:filters:additionalTypes:market:)``
+     * ``filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)``
+     * ``playlistImage(_:)``
      
      No scopes are required for this endpoint. Tracks from both Public
      and Private playlists belonging to any user can be retrieved.
