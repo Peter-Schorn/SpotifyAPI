@@ -770,7 +770,7 @@ public extension SpotifyAPI where
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - uris: An Array of URIs for tracks/episodes. A maximum of 100 items can
+       - uris: An array of URIs for tracks/episodes. A maximum of 100 items can
              be added in one request.
        - position: *Optional*. The position to insert the items. A zero-based
              index. If `nil`, the items will be appended to the playlist.

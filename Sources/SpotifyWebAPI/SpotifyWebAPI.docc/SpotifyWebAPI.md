@@ -31,7 +31,6 @@ When creating an application that uses this library, you will probably want to *
 - <doc:Saving-the-Authorization-Information-to-Persistent-Storage>
 - <doc:Using-the-Player-Endpoints>
 - <doc:Working-with-Paginated-Results>
-- <doc:Using-a-Backend-Server-to-Retrieve-the-Authorization-Information>
 - <doc:Debugging>
 - <doc:Running-the-Unit-Tests>
 
@@ -43,10 +42,14 @@ When creating an application that uses this library, you will probably want to *
 
 - ``AuthorizationCodeFlowPKCEManager``
 - <doc:Authorizing-with-the-Authorization-Code-Flow-with-Proof-Key-for-Code-Exchange>
+
 - ``AuthorizationCodeFlowManager``
 - <doc:Authorizing-with-the-Authorization-Code-Flow>
+
 - ``ClientCredentialsFlowManager``
 - <doc:Authorizing-with-the-Client-Credentials-Flow>
+
+- ``Scope``
 
 - <doc:Additional-Authorization-Methods>
 
@@ -59,6 +62,13 @@ When creating an application that uses this library, you will probably want to *
 - ``SpotifyAuthenticationError``
 - ``SpotifyAuthorizationError``
 - ``SpotifyDecodingError``
+
+### Object Model
+
+- <doc:Media-Objects>
+- <doc:Playlist-Objects>
+- <doc:Player-Objects>
+- <doc:Audio-Analysis-Objects>
 
 [1]: https://developer.spotify.com/documentation/web-api/reference/
 [2]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp

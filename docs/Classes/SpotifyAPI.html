@@ -17,7 +17,7 @@
     <a title="SpotifyAPI Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -200,7 +200,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Music%20Objects.html">Music Objects</a>
+            <a href="../Media%20Objects.html">Media Objects</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/Album.html">Album</a>
@@ -210,6 +210,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Track.html">Track</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show.html">Show</a>
               </li>
             </ul>
           </li>
@@ -227,6 +233,24 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
               </li>
             </ul>
           </li>
@@ -257,22 +281,6 @@
               <li class="nav-group-task">
                 <a href="../Enums/RepeatMode.html">RepeatMode</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Podcast%20Objects.html">Podcast Objects</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Structs/Episode.html">Episode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Show.html">Show</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Post%20Request%20Objects.html">Post Request Objects</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
@@ -283,19 +291,7 @@
                 <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/TimeReference.html">TimeReference</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
               </li>
             </ul>
           </li>
@@ -385,7 +381,7 @@
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/URIsContainer.html">URIsContainer</a>
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
             </ul>
           </li>
@@ -461,9 +457,6 @@
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/AttributeRange.html">AttributeRange</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -471,9 +464,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
               </li>
             </ul>
           </li>
@@ -522,8 +512,8 @@ doesn&rsquo;t support them.</p>
 
 <p><code><a href="../Classes/AuthorizationCodeFlowBackendManager.html">AuthorizationCodeFlowBackendManager</a></code> and
 <code><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></code> conform to
-<code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>. <code><a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a></code> is
-not a conforming type because it does not support authorization scopes.</p>
+<code><a href="../Authorization.html#/s:13SpotifyWebAPI0A25ScopeAuthorizationManagerP">SpotifyScopeAuthorizationManager</a></code>. <code><a href="../Classes/ClientCredentialsFlowBackendManager.html">ClientCredentialsFlowBackendManager</a></code>
+is not a conforming type because it does not support authorization scopes.</p>
 
 <p>All of the endpoints are documented at the the <a href="https://developer.spotify.com/documentation/web-api/reference/">web API reference</a>.</p>
 
@@ -558,8 +548,9 @@ authorization information.</p>
 
 <p>It is this property that you should encode to data using a <code>JSONEncoder</code> in
 order to save it to persistent storage. This prevents the user from having
-to login again every time the app is quit and relaunched. See this
-<a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+to login again every time the app is quit and relaunched. See
+<a href="doc:Saving-the-Authorization-Information-to-Persistent-Storage">doc:Saving-the-Authorization-Information-to-Persistent-Storage</a> for more
+information.</p>
 
 <p>Assigning a new authorization manager to this property causes
 <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C29authorizationManagerDidChange7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidChange</a></code> to emit a signal.</p>
@@ -632,7 +623,9 @@ requests.</p>
                         <p>A publisher that emits whenever the authorization information changes.</p>
 
 <p>Subscribe to this subject in order to update the persistent storage of the
-authorization information. See this <a href="https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.">article</a> for more information.</p>
+authorization information. See
+<a href="doc:Saving-the-Authorization-Information-to-Persistent-Storage">doc:Saving-the-Authorization-Information-to-Persistent-Storage</a> for more
+information.</p>
 
 <p>Emits after any of the following events occur:</p>
 
@@ -643,11 +636,12 @@ authorization information. See this <a href="https://github.com/Peter-Schorn/Spo
 property of this class.</li>
 </ul>
 
-<p>This publisher subscribes to the <code>didChange</code> publisher of
-<code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C20authorizationManagerxvp">authorizationManager</a></code> and emits whenever it emits.</p>
+<p>This publisher subscribes to the <code>SpotifyAuthorizationManager/didChange</code>
+publisher of <code>SpotifyAPI/authorizationManager</code> and emits whenever it
+emits.</p>
 
 <p>See also <code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C34authorizationManagerDidDeauthorize7Combine18PassthroughSubjectCyyts5NeverOGvp">authorizationManagerDidDeauthorize</a></code>, a publisher that emits after
-<code>authorizationManager.deauthorize()</code> is called.</p>
+<code>SpotifyAuthorizationManager/deauthorize()</code> is called.</p>
 <h1 id='thread-safety' class='heading'>Thread Safety</h1>
 
 <p>No guarantees are made about which thread this publisher will emit on.</p>
@@ -3316,7 +3310,7 @@ can view the country that is associated with their account in the
 <ul>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C14playlistTracks_5limit6offset6market7Combine12AnyPublisherVyAA12PagingObjectVyAA21PlaylistItemContainerVyAA5TrackVGGs5Error_pGAA0A14URIConvertible_p_SiSgAVSSSgtF">playlistTracks(_:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C8playlist_6market7Combine12AnyPublisherVyAA8PlaylistVyAA12PagingObjectVyAA0I13ItemContainerVyAA0iL0OGGGs5Error_pGAA0A14URIConvertible_p_SSSgtF">playlist(_:market:)</a></code></li>
-<li><code>filteredPlaylist(_:fields:additionalTypes:market:)</code></li>
+<li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C16filteredPlaylist_7filters15additionalTypes6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSSSgtF">filteredPlaylist(_:filters:additionalTypes:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0C21filteredPlaylistItems_7filters15additionalTypes5limit6offset6market7Combine12AnyPublisherVy10Foundation4DataV4data_So17NSHTTPURLResponseC8responsets5Error_pGAA0A14URIConvertible_p_SSSayAA10IDCategoryOGSiSgAZSSSgtF">filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)</a></code></li>
 <li><code><a href="../Classes/SpotifyAPI.html#/s:13SpotifyWebAPI0aC0CA2A0A25ScopeAuthorizationManagerRzrlE13playlistImagey7Combine12AnyPublisherVySayAA0aH0VGs5Error_pGAA0A14URIConvertible_pF">playlistImage(_:)</a></code></li>
 </ul>
@@ -8091,7 +8085,7 @@ private playlists (including collaborative playlists) requires the
                               </td>
                               <td>
                                 <div>
-                                  <p>An Array of URIs for tracks/episodes. A maximum of 100 items can
+                                  <p>An array of URIs for tracks/episodes. A maximum of 100 items can
 be added in one request.</p>
                                 </div>
                               </td>
@@ -8819,7 +8813,7 @@ properties will be <code>nil</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-10)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

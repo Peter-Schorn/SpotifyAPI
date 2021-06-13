@@ -17,7 +17,7 @@
     <a title="AuthorizationCodeFlowBackendManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SpotifyWebAPI Docs</a> (100% documented)</p>
+        <p><a href="../index.html">SpotifyWebAPI Docs</a> (99% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -200,7 +200,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Music%20Objects.html">Music Objects</a>
+            <a href="../Media%20Objects.html">Media Objects</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/Album.html">Album</a>
@@ -210,6 +210,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Track.html">Track</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Episode.html">Episode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Show.html">Show</a>
               </li>
             </ul>
           </li>
@@ -227,6 +233,24 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PlaylistItemsReference.html">PlaylistItemsReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsContainer.html">URIsContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
               </li>
             </ul>
           </li>
@@ -257,22 +281,6 @@
               <li class="nav-group-task">
                 <a href="../Enums/RepeatMode.html">RepeatMode</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Podcast%20Objects.html">Podcast Objects</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Structs/Episode.html">Episode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Show.html">Show</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Post%20Request%20Objects.html">Post Request Objects</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/PlaybackRequest.html">PlaybackRequest</a>
               </li>
@@ -283,19 +291,7 @@
                 <a href="../Structs/PlaybackRequest/Offset.html">– Offset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/PlaylistDetails.html">PlaylistDetails</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/ReorderPlaylistItems.html">ReorderPlaylistItems</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/TimeReference.html">TimeReference</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIWithPositions.html">URIWithPositions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIsWithPositionsContainer.html">URIsWithPositionsContainer</a>
               </li>
             </ul>
           </li>
@@ -385,7 +381,7 @@
                 <a href="../Structs/TrackAttributes.html">TrackAttributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/URIsContainer.html">URIsContainer</a>
+                <a href="../Structs/AttributeRange.html">AttributeRange</a>
               </li>
             </ul>
           </li>
@@ -461,9 +457,6 @@
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/AttributeRange.html">AttributeRange</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/SpotifyAPILogHandler.html">SpotifyAPILogHandler</a>
               </li>
               <li class="nav-group-task">
@@ -471,9 +464,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SpotifyIdentifier.html">SpotifyIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/URIsDictWithInsertionIndex.html">URIsDictWithInsertionIndex</a>
               </li>
             </ul>
           </li>
@@ -511,13 +501,12 @@
 
                 </div>
               </div>
-            <p>Manages the authorization process for the <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow">Authorization Code Flow</a>.</p>
+            <p>Manages the authorization process.</p>
 
 <p>For applications where it is unsafe to store your client secret, consider
 using <code><a href="../Classes/AuthorizationCodeFlowPKCEBackendManager.html">AuthorizationCodeFlowPKCEBackendManager</a></code>, which manages the
 <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce">Authorization Code Flow with Proof Key for Code Exchange</a>; it provides
 an additional layer of security.</p>
-<h1 id='backend' class='heading'>Backend</h1>
 
 <p>This class is generic over a backend. The backend handles the process of
 requesting the authorization information and refreshing the access token from
@@ -533,7 +522,6 @@ your frontend app. See <code><a href="../Protocols/AuthorizationCodeFlowBackend.
 <strong>instead</strong>. It inherits from
 <code>AuthorizationCodeFlowBackendManager&lt;AuthorizationCodeFlowClientBackend&gt;</code>. This
 class will store your client id and client secret locally.</p>
-<h1 id='authorization' class='heading'>Authorization</h1>
 
 <p>The first step in the authorization code flow is to make the
 authorization URL using
@@ -1130,7 +1118,7 @@ has no effect if <code>onlyIfExpired</code> is <code>false</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-10)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

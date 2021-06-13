@@ -18,7 +18,7 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
+     * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
      
      */
     case ugcImageUpload = "ugc-image-upload"
@@ -30,8 +30,8 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.availableDevices()`
-     * `SpotifyAPI.currentPlayback(market:)`
+     * ``SpotifyAPI/availableDevices()``
+     * ``SpotifyAPI/currentPlayback(market:)``
      
      */
     case userReadPlaybackState = "user-read-playback-state"
@@ -89,7 +89,7 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user’s email address.
      
-     Required for the `SpotifyAPI.currentUserProfile()` endpoint in order to
+     Required for the ``SpotifyAPI/currentUserProfile()`` endpoint in order to
      retrieve the `email` property of the returned `SpotifyUser`.
      */
     case userReadEmail = "user-read-email"
@@ -100,8 +100,8 @@ public enum Scope: String, Codable, Hashable {
      May be required for the following endpoints, depending on the parameters
      specified and data desired in the response:
      
-     * `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)`
-     * `SpotifyAPI.currentUserProfile()`
+     * ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``
+     * ``SpotifyAPI/currentUserProfile()``
      
      */
     case userReadPrivate = "user-read-private"
@@ -114,8 +114,8 @@ public enum Scope: String, Codable, Hashable {
      Required for the following endpoints when targeting a *collaborative*
      playlist:
      
-     * `SpotifyAPI.currentUserPlaylists(limit:offset:)`
-     * `SpotifyAPI.userPlaylists(for:limit:offset:)`
+     * ``SpotifyAPI/currentUserPlaylists(limit:offset:)``
+     * ``SpotifyAPI/userPlaylists(for:limit:offset:)``
      */
     case playlistReadCollaborative = "playlist-read-collaborative"
     
@@ -124,16 +124,16 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints when targeting a *public* playlist:
      
-     * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
-     * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
-     * `SpotifyAPI.addToPlaylist(_:uris:position:)`
-     * `SpotifyAPI.changePlaylistDetails(_:to:)`
-     * `SpotifyAPI.createPlaylist(for:_:)`
-     * `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
-     * `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
-     * `SpotifyAPI.reorderPlaylistItems(_:body:)`
-     * `SpotifyAPI.replaceAllPlaylistItems(_:with:)`
-     * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
+     * ``SpotifyAPI/followPlaylistForCurrentUser(_:publicly:)``
+     * ``SpotifyAPI/unfollowPlaylistForCurrentUser(_:)``
+     * ``SpotifyAPI/addToPlaylist(_:uris:position:)``
+     * ``SpotifyAPI/changePlaylistDetails(_:to:)``
+     * ``SpotifyAPI/createPlaylist(for:_:)``
+     * ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
+     * ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``
+     * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
+     * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
+     * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
      
      */
     case playlistModifyPublic = "playlist-modify-public"
@@ -143,9 +143,9 @@ public enum Scope: String, Codable, Hashable {
  
      Required for the following endpoints when targeting a *private* playlist:
      
-     * `SpotifyAPI.usersFollowPlaylist(_:userURIs:)`
-     * `SpotifyAPI.currentUserPlaylists(limit:offset:)`
-     * `SpotifyAPI.userPlaylists(for:limit:offset:)`
+     * ``SpotifyAPI/usersFollowPlaylist(_:userURIs:)``
+     * ``SpotifyAPI/currentUserPlaylists(limit:offset:)``
+     * ``SpotifyAPI/userPlaylists(for:limit:offset:)``
      
      */
     case playlistReadPrivate = "playlist-read-private"
@@ -155,16 +155,16 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints when targeting a *private* playlist:
      
-     * `SpotifyAPI.followPlaylistForCurrentUser(_:publicly:)`
-     * `SpotifyAPI.unfollowPlaylistForCurrentUser(_:)`
-     * `SpotifyAPI.addToPlaylist(_:uris:position:)`
-     * `SpotifyAPI.changePlaylistDetails(_:to:)`
-     * `SpotifyAPI.createPlaylist(for:_:)`
-     * `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
-     * `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
-     * `SpotifyAPI.reorderPlaylistItems(_:body:)`
-     * `SpotifyAPI.replaceAllPlaylistItems(_:with:)`
-     * `SpotifyAPI.uploadPlaylistImage(_:imageData:)`
+     * ``SpotifyAPI/followPlaylistForCurrentUser(_:publicly:)``
+     * ``SpotifyAPI/unfollowPlaylistForCurrentUser(_:)``
+     * ``SpotifyAPI/addToPlaylist(_:uris:position:)``
+     * ``SpotifyAPI/changePlaylistDetails(_:to:)``
+     * ``SpotifyAPI/createPlaylist(for:_:)``
+     * ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
+     * ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``
+     * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
+     * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
+     * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
      
      */
     case playlistModifyPrivate = "playlist-modify-private"
@@ -176,14 +176,14 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.saveAlbumsForCurrentUser(_:)`
-     * `SpotifyAPI.saveTracksForCurrentUser(_:)`
-     * `SpotifyAPI.saveEpisodesForCurrentUser(_:)`
-     * `SpotifyAPI.saveShowsForCurrentUser(_:)`
-     * `SpotifyAPI.removeSavedAlbumsForCurrentUser(_:)`
-     * `SpotifyAPI.removeSavedTracksForCurrentUser(_:)`
-     * `SpotifyAPI.removeSavedEpisodesForCurrentUser(_:)`
-     * `SpotifyAPI.removeSavedShowsForCurrentUser(_:market:)`
+     * ``SpotifyAPI/saveAlbumsForCurrentUser(_:)``
+     * ``SpotifyAPI/saveTracksForCurrentUser(_:)``
+     * ``SpotifyAPI/saveEpisodesForCurrentUser(_:)``
+     * ``SpotifyAPI/saveShowsForCurrentUser(_:)``
+     * ``SpotifyAPI/removeSavedAlbumsForCurrentUser(_:)``
+     * ``SpotifyAPI/removeSavedTracksForCurrentUser(_:)``
+     * ``SpotifyAPI/removeSavedEpisodesForCurrentUser(_:)``
+     * ``SpotifyAPI/removeSavedShowsForCurrentUser(_:market:)``
      */
     case userLibraryModify = "user-library-modify"
     
@@ -192,14 +192,14 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
 
-     * `SpotifyAPI.currentUserSavedAlbums(limit:offset:market:)`
-     * `SpotifyAPI.currentUserSavedTracks(limit:offset:market:)`
-     * `SpotifyAPI.currentUserSavedEpisodes(limit:offset:market:)`
-     * `SpotifyAPI.currentUserSavedShows(limit:offset:market:)`
-     * `SpotifyAPI.currentUserSavedAlbumsContains(_:)`
-     * `SpotifyAPI.currentUserSavedTracksContains(_:)`
-     * `SpotifyAPI.currentUserSavedEpisodesContains(_:)`
-     * `SpotifyAPI.currentUserSavedShowsContains(_:)`
+     * ``SpotifyAPI/currentUserSavedAlbums(limit:offset:market:)``
+     * ``SpotifyAPI/currentUserSavedTracks(limit:offset:market:)``
+     * ``SpotifyAPI/currentUserSavedEpisodes(limit:offset:market:)``
+     * ``SpotifyAPI/currentUserSavedShows(limit:offset:market:)``
+     * ``SpotifyAPI/currentUserSavedAlbumsContains(_:)``
+     * ``SpotifyAPI/currentUserSavedTracksContains(_:)``
+     * ``SpotifyAPI/currentUserSavedEpisodesContains(_:)``
+     * ``SpotifyAPI/currentUserSavedShowsContains(_:)``
      */
     case userLibraryRead = "user-library-read"
     
@@ -210,8 +210,8 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.currentUserTopArtists(_:offset:limit:)`
-     * `SpotifyAPI.currentUserTopTracks(_:offset:limit:)`
+     * ``SpotifyAPI/currentUserTopArtists(_:offset:limit:)``
+     * ``SpotifyAPI/currentUserTopTracks(_:offset:limit:)``
      
      */
     case userTopRead = "user-top-read"
@@ -222,11 +222,11 @@ public enum Scope: String, Codable, Hashable {
      Required in order to retrieve the `ResumePoint` from the episode objects
      returned by the following endpoints:
      
-     * `SpotifyAPI.episode(_:market:)`
-     * `SpotifyAPI.episodes(_:market:)`
-     * `SpotifyAPI.show(_:market:)`
-     * `SpotifyAPI.shows(_:market:)`
-     * `SpotifyAPI.showEpisodes(_:market:offset:limit:)`
+     * ``SpotifyAPI/episode(_:market:)``
+     * ``SpotifyAPI/episodes(_:market:)``
+     * ``SpotifyAPI/show(_:market:)``
+     * ``SpotifyAPI/shows(_:market:)``
+     * ``SpotifyAPI/showEpisodes(_:market:offset:limit:)``
      
      */
     case userReadPlaybackPosition = "user-read-playback-position"
@@ -236,7 +236,7 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoint:
      
-     * `SpotifyAPI.recentlyPlayed(_:limit:)`
+     * ``SpotifyAPI/recentlyPlayed(_:limit:)``
      
      */
     case userReadRecentlyPlayed = "user-read-recently-played"
@@ -248,9 +248,9 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.currentUserFollowsArtists(_:)`
-     * `SpotifyAPI.currentUserFollowsUsers(_:)`
-     * `SpotifyAPI.currentUserFollowedArtists(after:limit:)`
+     * ``SpotifyAPI/currentUserFollowsArtists(_:)``
+     * ``SpotifyAPI/currentUserFollowsUsers(_:)``
+     * ``SpotifyAPI/currentUserFollowedArtists(after:limit:)``
      
      */
     case userFollowRead = "user-follow-read"
@@ -261,10 +261,10 @@ public enum Scope: String, Codable, Hashable {
      
      Required for the following endpoints:
      
-     * `SpotifyAPI.followArtistsForCurrentUser(_:)`
-     * `SpotifyAPI.unfollowArtistsForCurrentUser(_:)`
-     * `SpotifyAPI.followUsersForCurrentUser(_:)`
-     * `SpotifyAPI.unfollowUsersForCurrentUser(_:)`
+     * ``SpotifyAPI/followArtistsForCurrentUser(_:)``
+     * ``SpotifyAPI/unfollowArtistsForCurrentUser(_:)``
+     * ``SpotifyAPI/followUsersForCurrentUser(_:)``
+     * ``SpotifyAPI/unfollowUsersForCurrentUser(_:)``
      
      */
     case userFollowModify = "user-follow-modify"
@@ -310,7 +310,7 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used for the scope
      query parameter of a Spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>` from
+     This is the opposite of ``Scope/makeSet(_:)``, which makes `Set<Scope>` from
      a string of (usually space-separated) scopes.
     
      - Parameter scopes: A variadic array of Spotify authorization scopes.
@@ -328,7 +328,7 @@ public extension Scope {
      Creates a space-separated string of scopes, which can be used for the scope
      query parameter of a Spotify endpoint.
     
-     This is the opposite of `Scope.makeSet(_:)`, which makes `Set<Scope>` from
+     This is the opposite of ``Scope/makeSet(_:)``, which makes `Set<Scope>` from
      a string of (usually space-separated) scopes.
     
      - Parameter scopes: A set of Spotify authorization scopes.
@@ -348,7 +348,7 @@ public extension Scope {
      If any of the scopes in the string do not match the raw value of any of the
      cases, then they are ignored.
     
-     This is the opposite of `Scope.makeString(_:)`, which creates a
+     This is the opposite of ``Scope/makeString(_:)``, which creates a
      space-separated string of scopes from `Set<Scope>`.
     
      - Parameter string: A string containing Spotify authorization scopes.

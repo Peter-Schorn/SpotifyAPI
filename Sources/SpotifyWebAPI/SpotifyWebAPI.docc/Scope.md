@@ -1,9 +1,5 @@
 # ``SpotifyWebAPI/Scope``
 
-The Spotify authorization scopes.
-
-Read more at the [Spotify API Reference][1].
-
 ## Topics
 
 ### Images
