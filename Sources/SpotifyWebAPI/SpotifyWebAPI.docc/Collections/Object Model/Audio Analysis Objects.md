@@ -1,13 +1,13 @@
 # Audio Analysis Objects
 
-Objects relating to audio analysis.
+Objects that relate to audio analysis.
 
 ## Topics
 
 ### Audio Analysis Objects
 
-- AudioAnalysis
-- AudioFeatures
-- Section
-- Segment
-- SpotifyTimeInterval
+- ``AudioAnalysis``
+- ``AudioFeatures``
+- ``Section``
+- ``Segment``
+- ``SpotifyTimeInterval``

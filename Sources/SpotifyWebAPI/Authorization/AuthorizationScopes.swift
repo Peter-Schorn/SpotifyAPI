@@ -348,7 +348,7 @@ public extension Scope {
      If any of the scopes in the string do not match the raw value of any of the
      cases, then they are ignored.
     
-     This is the opposite of ``Scope/makeString(_:)``, which creates a
+     This is the opposite of `Scope.makeString(_:)`, which creates a
      space-separated string of scopes from `Set<Scope>`.
     
      - Parameter string: A string containing Spotify authorization scopes.

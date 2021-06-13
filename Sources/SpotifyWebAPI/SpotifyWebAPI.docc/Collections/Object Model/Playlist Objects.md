@@ -10,6 +10,8 @@ Objects that relate to Spotify playlists.
 - ``PlaylistItem``
 - ``PlaylistItemContainer``
 - ``PlaylistItemsReference``
+- ``PlaylistItems``
+- ``PlaylistTracks``
 
 ### Modifying Playlists
 

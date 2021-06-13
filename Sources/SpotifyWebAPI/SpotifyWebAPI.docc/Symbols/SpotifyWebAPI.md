@@ -69,6 +69,7 @@ When creating an application that uses this library, you will probably want to *
 - <doc:Playlist-Objects>
 - <doc:Player-Objects>
 - <doc:Audio-Analysis-Objects>
+- <doc:Other-Objects>
 
 [1]: https://developer.spotify.com/documentation/web-api/reference/
 [2]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp

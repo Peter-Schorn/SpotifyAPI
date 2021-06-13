@@ -6,8 +6,16 @@ Objects that represent Spotify content items.
 
 ### Media Objects
 
+- ``Track``
 - ``Album``
 - ``Artist``
-- ``Track``
 - ``Episode``
 - ``Show``
+
+### Music Library
+
+- ``SavedItem``
+- ``SavedTrack``
+- ``SavedAlbum``
+- ``SavedEpisode``
+- ``SavedShow``
