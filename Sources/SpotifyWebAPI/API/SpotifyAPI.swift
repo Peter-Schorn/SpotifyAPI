@@ -19,16 +19,16 @@ import FoundationNetworking
 
  The methods that require authorization scopes and/or an access token that was
  issued on behalf of a user are declared in conditional conformances where
- `AuthorizationManager` conforms to `SpotifyScopeAuthorizationManager`. This
+ `AuthorizationManager` conforms to ``SpotifyScopeAuthorizationManager``. This
  protocol requires conforming types to support authorization scopes. This
  strategy provides a compile-time guarantee that you cannot call methods that
  require authorization scopes if you are using an authorization manager that
  doesn't support them.
 
- `AuthorizationCodeFlowBackendManager` and
- `AuthorizationCodeFlowPKCEBackendManager` conform to
- `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowBackendManager` is
- not a conforming type because it does not support authorization scopes.
+ ``AuthorizationCodeFlowBackendManager`` and
+ ``AuthorizationCodeFlowPKCEBackendManager`` conform to
+ ``SpotifyScopeAuthorizationManager``. ``ClientCredentialsFlowBackendManager``
+ is not a conforming type because it does not support authorization scopes.
 
  All of the endpoints are documented at the the [web API reference][1].
  

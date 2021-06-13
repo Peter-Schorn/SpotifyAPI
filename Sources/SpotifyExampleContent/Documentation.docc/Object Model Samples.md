@@ -4,9 +4,31 @@ Sample versions of some of the objects in the object model.
 
 ## Overview
 
-Each of the sample objects are defined as static properties of type `Self` on the types listed below.
+Each of the sample objects are defined as static properties of type `Self` on the types listed below. For example, `Track` has a static property called `because` which contains the song "Because" by The Beatles. 
 
-## Track
+These sample data are particularly useful in SwiftUI previews:
+
+```swift
+struct TrackView_Previews: PreviewProvider {
+    
+    static let tracks: [Track] = [
+        .because, .comeTogether, .faces,
+        .illWind, .odeToViceroy, .reckoner,
+        .theEnd, .time
+    ]
+
+    static var previews: some View {
+        List(tracks, id: \.id) { track in
+            TrackView(track: track)
+        }
+        .environmentObject(Spotify())
+    }
+}
+```
+
+## Sample Objects
+
+### Track
 
 * `because`
 * `comeTogether`
@@ -17,7 +39,7 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `theEnd`
 * `time`
 
-## Album
+### Album
 
 * `abbeyRoad`
 * `darkSideOfTheMoon`
@@ -26,7 +48,7 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `meddle`
 * `skiptracing`
 
-## Artist
+### Artist
 
 * `crumb`
 * `levitationRoom`
@@ -35,7 +57,7 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `skinshape`
 * `theBeatles`
 
-## Episode
+### Episode
 
 * `seanCarroll111`
 * `seanCarroll112`
@@ -43,17 +65,17 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `samHarris214`
 * `samHarris215`
 
-## Show
+### Show
 
 * `seanCarroll`
 * `samHarris`
 * `joeRogan`
 
-## SpotifyUser
+### SpotifyUser
 
 * `sampleCurrentUserProfile`
 
-## PlaylistItem
+### PlaylistItem
 
 * `samHarris216`
 * `samHarris217`
@@ -63,7 +85,7 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `echoesAcousticVersion`
 * `killshot`
 
-## PlaylistTracks
+### PlaylistTracks
 
 * `thisIsJimiHendrix`
 * `thisIsPinkFloyd`
@@ -71,16 +93,16 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `thisIsSpoon`
 * `bluesClassics`
 
-## PlaylistItems
+### PlaylistItems
 
 * `thisIsStevieRayVaughan`
 
-## Playlist<PlaylistItems>
+### Playlist<PlaylistItems>
 
 * `episodesAndLocalTracks`
 * `crumb`
 
-## Playlist<PlaylistItemsReference>
+### Playlist<PlaylistItemsReference>
 
 * `lucyInTheSkyWithDiamonds`
 * `thisIsMFDoom`
@@ -92,44 +114,44 @@ Each of the sample objects are defined as static properties of type `Self` on th
 * `thisIsMildHighClub`
 * `menITrust`
 
-## PagingObject<Playlist<PlaylistItemsReference>>
+### PagingObject<Playlist<PlaylistItemsReference>>
 
 * `sampleCategoryPlaylists`
 
-## FeaturedPlaylists
+### FeaturedPlaylists
 
 * `sampleFeaturedPlaylists`
 
-## SearchResult
+### SearchResult
 
 * `queryCrumb`
 
 
-## SpotifyCategory
+### SpotifyCategory
 
 * `sampleCategories`
 
-## PagingObject<Track>
+### PagingObject<Track>
 
 * `jinxTracks`
 
-## PagingObject<SavedAlbum>
+### PagingObject<SavedAlbum>
 
 * `sampleCurrentUserSavedAlbums`
 
-## AudioAnalysis
+### AudioAnalysis
 
 * `anyColourYouLike`
 
-## AudioFeatures
+### AudioFeatures
 
 * `fearless`
 
-## CursorPagingObject<PlayHistory>
+### CursorPagingObject<PlayHistory>
 
 * `sampleRecentlyPlayed`
 
-## CurrentlyPlayingContext
+### CurrentlyPlayingContext
 
 * `sampleCurrentPlayback`
 

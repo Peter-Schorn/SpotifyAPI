@@ -89,6 +89,7 @@
 
 ### Player
 
+- <doc:Using-the-Player-Endpoints>
 - ``availableDevices()``
 - ``currentPlayback(market:)``
 - ``recentlyPlayed(_:limit:)``
