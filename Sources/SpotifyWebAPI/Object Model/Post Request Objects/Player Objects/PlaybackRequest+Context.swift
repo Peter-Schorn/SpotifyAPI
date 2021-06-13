@@ -39,7 +39,6 @@ public extension PlaybackRequest {
 
 extension PlaybackRequest.Context: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -71,7 +70,6 @@ extension PlaybackRequest.Context: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -96,7 +94,6 @@ extension PlaybackRequest.Context: Codable {
 
 extension PlaybackRequest.Context: Hashable {
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         switch self {
             case .contextURI(let context):
@@ -106,7 +103,6 @@ extension PlaybackRequest.Context: Hashable {
         }
     }
     
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
             case (.contextURI(let lhsContext), .contextURI(let rhsContext)):

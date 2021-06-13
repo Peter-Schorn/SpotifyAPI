@@ -41,7 +41,6 @@ public struct SpotifyAuthorizationError: LocalizedError, Codable, Hashable {
         return error == "access_denied"
     }
     
-    /// :nodoc:
     public var errorDescription: String? {
         return error
     }

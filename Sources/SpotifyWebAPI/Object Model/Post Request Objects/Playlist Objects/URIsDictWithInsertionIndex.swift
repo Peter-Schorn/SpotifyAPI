@@ -47,7 +47,6 @@ public struct URIsDictWithInsertionIndex {
 
 extension URIsDictWithInsertionIndex: Codable {
 
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -61,7 +60,6 @@ extension URIsDictWithInsertionIndex: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -82,13 +80,11 @@ extension URIsDictWithInsertionIndex: Codable {
 
 extension URIsDictWithInsertionIndex: Hashable {
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(position)
         hasher.combine(uris.map(\.uri))
     }
     
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.position == rhs.position &&
                 lhs.uris.map(\.uri) == rhs.uris.map(\.uri)

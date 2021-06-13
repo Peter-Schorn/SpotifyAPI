@@ -169,7 +169,6 @@ public struct PlaybackRequest: Hashable {
 
 extension PlaybackRequest: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -184,7 +183,6 @@ extension PlaybackRequest: Codable {
         
     }
  
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         try self.context.encode(to: encoder)

@@ -273,7 +273,6 @@ public struct Album: Hashable {
 
 extension Album: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -346,7 +345,6 @@ extension Album: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

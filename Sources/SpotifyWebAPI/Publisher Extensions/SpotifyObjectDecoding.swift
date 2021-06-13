@@ -15,11 +15,10 @@ import FoundationNetworking
 /**
  Logs messages related to the decoding of data.
  
- Set the `logLevel` to `trace` to print the raw data received from each request
- to the Spotify web API to the standard output.
+ Set the `logLevel` to `trace` to log the raw data received from each request
+ to the Spotify web API.
 
- Set the `logLevel` to `warning` to print various warning and error messages to
- the standard output.
+ Set the `logLevel` to `warning` to log various warning and error messages.
  */
 public var spotifyDecodeLogger = Logger(
     label: "spotifyDecode", level: .critical

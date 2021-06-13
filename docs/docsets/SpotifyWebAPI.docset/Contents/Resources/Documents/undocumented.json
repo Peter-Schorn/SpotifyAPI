@@ -1,38 +1,24 @@
 {
   "warnings": [
     {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Music Objects/Track.swift",
-      "line": 346,
-      "symbol": "Track.someStaticProperty",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
-      "line": 43,
-      "symbol": "SpotifyAPILogHandler.logLevel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
-      "line": 45,
-      "symbol": "SpotifyAPILogHandler.metadata",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
-      "line": 65,
-      "symbol": "SpotifyAPILogHandler.subscript(metadataKey:)",
-      "symbol_kind": "source.lang.swift.decl.function.subscript",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Other/LogHandler.swift",
-      "line": 74,
-      "symbol": "SpotifyAPILogHandler.log(level:message:metadata:source:file:function:line:)",
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/ClientCredentialsFlowManager.swift",
+      "line": 328,
+      "symbol": "ClientCredentialsFlowBackendManager.hash(into:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Authorization/ClientCredentialsFlowManager.swift",
+      "line": 337,
+      "symbol": "ClientCredentialsFlowBackendManager.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Authorization Objects/AuthInfo.swift",
+      "line": 130,
+      "symbol": "AuthInfo.CodingKeys",
+      "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     }
   ],

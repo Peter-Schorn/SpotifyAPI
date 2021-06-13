@@ -159,7 +159,6 @@ extension CurrentlyPlayingContext: Codable {
     // https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
     private typealias DisallowsObject = [String: [String: Bool?]]
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -240,7 +239,6 @@ extension CurrentlyPlayingContext: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

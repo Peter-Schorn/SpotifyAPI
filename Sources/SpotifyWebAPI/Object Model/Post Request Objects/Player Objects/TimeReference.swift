@@ -85,7 +85,6 @@ public enum TimeReference: Codable, Hashable {
         return [name: milliseconds]
     }
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -115,7 +114,6 @@ public enum TimeReference: Codable, Hashable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

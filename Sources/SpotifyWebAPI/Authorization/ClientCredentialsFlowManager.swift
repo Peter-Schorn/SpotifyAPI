@@ -291,7 +291,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
 
     // MARK: - Codable, Hashable, CustomStringConvertible
 
-    /// :nodoc:
     public required init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -306,7 +305,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         self._expirationDate = codingWrapper.expirationDate
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         let codingWrapper = self.updateAuthInfoQueue.sync {
@@ -376,7 +374,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         }
     }
  
-    // :nodoc:
     public var description: String {
         // print("ClientCredentialsFlowBackendManager.description: WAITING for queue")
         return self.updateAuthInfoQueue.sync {
@@ -846,7 +843,7 @@ public final class ClientCredentialsFlowManager:
         
     }
 
-    /// :nodoc:
+    /// A textual representation of this instance.
     public override var description: String {
         return self.updateAuthInfoQueue.sync {
             let expirationDateString = self._expirationDate?

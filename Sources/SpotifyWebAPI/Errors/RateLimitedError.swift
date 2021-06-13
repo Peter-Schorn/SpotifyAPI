@@ -21,7 +21,6 @@ public struct RateLimitedError: LocalizedError, Codable, Hashable {
     /// The number of seconds you must wait before you try the request again.
     public let retryAfter: Int?
     
-    /// :nodoc:
     public var errorDescription: String? {
         var description = "You have made too many requests (rate limiting error)."
         if let seconds = retryAfter {

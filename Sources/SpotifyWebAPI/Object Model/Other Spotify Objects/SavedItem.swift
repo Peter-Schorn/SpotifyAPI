@@ -73,7 +73,6 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
 
 extension SavedItem: Codable {
 
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -118,7 +117,6 @@ extension SavedItem: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

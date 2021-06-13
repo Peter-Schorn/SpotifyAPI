@@ -181,22 +181,18 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
     
     // MARK: - Codable, Hashable, CustomStringConvertible
     
-    /// :nodoc:
     public required override init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
-    /// :nodoc:
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
     }
     
-    /// :nodoc:
     public override func hash(into hasher: inout Hasher) {
         super.hash(into: &hasher)
     }
     
-    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowBackendManager,
         rhs: AuthorizationCodeFlowBackendManager
@@ -206,7 +202,6 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
         
     }
     
-    /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {
@@ -722,8 +717,7 @@ public final class AuthorizationCodeFlowManager:
         self._scopes = scopes
     }
 
-    
-    /// :nodoc:
+    /// A textual representation of this instance.
     public override var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {

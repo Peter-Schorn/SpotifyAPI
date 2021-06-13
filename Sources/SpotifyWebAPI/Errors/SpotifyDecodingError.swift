@@ -226,7 +226,6 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             """
     }
     
-    /// :nodoc:
     public var description: String {
         
         let dataString = self.rawData.flatMap {
@@ -237,7 +236,6 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         
     }
     
-    /// :nodoc:
     public var errorDescription: String? {
         return """
             The data from Spotify could not be decoded into the expected format.

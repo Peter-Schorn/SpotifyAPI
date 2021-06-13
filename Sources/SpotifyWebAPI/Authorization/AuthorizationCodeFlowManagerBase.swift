@@ -205,7 +205,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     // MARK: - Codable, Hashable -
     
-    /// :nodoc:
     init(from decoder: Decoder) throws {
         
         let codingWrapper = try AuthInfo(from: decoder)
@@ -224,7 +223,6 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
         
     }
     
-    /// :nodoc:
     func encode(to encoder: Encoder) throws {
         let codingWrapper = self.updateAuthInfoQueue.sync {
             return AuthInfo(

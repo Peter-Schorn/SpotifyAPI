@@ -189,22 +189,18 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     
     // MARK: - Codable, Hashable, CustomStringConvertible
     
-    /// :nodoc:
     public override required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
-    /// :nodoc:
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
     }
     
-    /// :nodoc:
     public override func hash(into hasher: inout Hasher) {
         super.hash(into: &hasher)
     }
 
-    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowPKCEBackendManager,
         rhs: AuthorizationCodeFlowPKCEBackendManager
@@ -214,7 +210,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         
     }
 
-    /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowPKCEBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {
@@ -756,7 +751,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         self._scopes = scopes
     }
 
-    /// :nodoc:
+    /// A textual representation of this instance.
     public override var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {

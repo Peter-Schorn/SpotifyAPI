@@ -1,12 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/pschorn/Swift/Libraries/SpotifyAPI/Sources/SpotifyWebAPI/Object Model/Music Objects/Track.swift",
-      "line": 346,
-      "symbol": "Track.someStaticProperty",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/pschorn/Swift/Libraries/SpotifyAPI"
 }

@@ -217,7 +217,6 @@ extension PagingObject: Codable {
 
 extension PagingObject: Hashable {
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(href)
         hasher.combine(items)
@@ -228,7 +227,6 @@ extension PagingObject: Hashable {
         hasher.combine(total)
     }
     
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.href == rhs.href &&
                 lhs.items == rhs.items &&

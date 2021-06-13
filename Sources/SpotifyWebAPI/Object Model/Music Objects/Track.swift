@@ -343,10 +343,4 @@ extension Track: ApproximatelyEquatable {
         
     }
     
-    public static let someStaticProperty = Self(
-        name: "Echoes",
-        isLocal: false,
-        isExplicit: false
-    )
-
 }

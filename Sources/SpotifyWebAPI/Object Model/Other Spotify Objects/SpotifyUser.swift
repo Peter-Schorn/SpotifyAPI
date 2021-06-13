@@ -334,8 +334,7 @@ extension SpotifyUser: Codable {
         
         case explicitContent = "explicit_content"
         
-        /// :nodoc:
-        public enum ExplicitContent: String, CodingKey {
+        enum ExplicitContent: String, CodingKey {
             case disallowsExplicitContent = "filter_enabled"
             case explicitContentSettingIsLocked = "filter_locked"
         }

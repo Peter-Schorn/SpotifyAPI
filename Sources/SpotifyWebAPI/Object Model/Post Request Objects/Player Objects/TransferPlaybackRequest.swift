@@ -11,7 +11,6 @@ struct TransferPlaybackRequest: Codable, Hashable {
     /// not provided, then keep the current playback state.
     let play: Bool
     
-    /// :nodoc:
     enum CodingKeys: String, CodingKey {
         case deviceIds = "device_ids"
         case play
