@@ -2,7 +2,7 @@ import sys, os, re
 
 use_test = sys.argv[1].lower()
 
-project_directory = os.path.dirname(__file__)
+project_directory = os.getcwd()
 
 # ensure the working directory is the SpotifyAPI package
 package_file = os.path.join(project_directory, "Package.swift")
