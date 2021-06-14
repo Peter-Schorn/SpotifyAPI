@@ -2,7 +2,7 @@ import Foundation
 
 /**
  A Spotify URI and its positions in a collection (usually a playlist). Used in
- the body of `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+ the body of ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``.
  
  For example, this may represent all of the positions in a playlist of a
  specific track. The positions of the URI is necessary in case the collection

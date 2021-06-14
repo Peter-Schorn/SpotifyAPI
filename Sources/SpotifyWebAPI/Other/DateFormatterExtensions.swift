@@ -47,7 +47,7 @@ public extension DateFormatter {
     
     /**
      The format used by the
-     `SpotifyAPI.featuredPlaylists(locale:country:timestamp:limit:offset:)`
+     ``SpotifyAPI/featuredPlaylists(locale:country:timestamp:limit:offset:)``
      endpoint.
      
      ```

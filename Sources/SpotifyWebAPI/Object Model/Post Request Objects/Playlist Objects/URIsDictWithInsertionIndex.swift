@@ -3,7 +3,7 @@ import Foundation
 /**
  Contains an array of URIs and (optionally) the position to insert them
  in a playlist. Used in the body of
-`SpotifyAPI.addToPlaylist(_:uris:position:)`.
+ ``SpotifyAPI/addToPlaylist(_:uris:position:)``.
  
  For example:
  ```

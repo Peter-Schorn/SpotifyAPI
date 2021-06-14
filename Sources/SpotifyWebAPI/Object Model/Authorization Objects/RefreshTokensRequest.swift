@@ -10,7 +10,7 @@ import Foundation
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
-       network request using `self.formURLEncoded`.
+       network request using ``formURLEncoded()``.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
@@ -32,7 +32,7 @@ public struct RefreshTokensRequest: Hashable {
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
-           network request using `self.formURLEncoded`.
+           network request using ``formURLEncoded()``.
      
      
      - Parameter refreshToken: The refresh token.

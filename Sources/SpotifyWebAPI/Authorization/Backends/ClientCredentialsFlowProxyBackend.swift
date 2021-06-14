@@ -16,16 +16,16 @@ import OpenCombineFoundation
  Communicates with a backend server that you setup in order to retrieve the
  authorization information using the [Client Credentials Flow][1].
  
- The server must have an endpoint (`tokensURL`) that accepts a post request
+ The server must have an endpoint (``tokensURL``) that accepts a post request
  for the authorization information from Spotify. See
- `self.makeClientCredentialsTokensRequest()` for more information.
+ ``makeClientCredentialsTokensRequest()`` for more information.
 
  Instead of creating your own server, you can use [SpotifyAPIServer][2] with
  this type by assigning the /client-credentials-flow/retrieve-tokens endpoint to
- `tokensURL`.
+ ``tokensURL``.
 
- In contrast with `ClientCredentialsFlowClientBackend`, which can be used if you
- are communicating directly with Spotify, this type does not send the
+ In contrast with ``ClientCredentialsFlowClientBackend``, which can be used if
+ you are communicating directly with Spotify, this type does not send the
  `clientId`, or `clientSecret` in network requests because these values should
  be securely stored on your backend server.
 
@@ -48,7 +48,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      The [/client-credentials-flow/retrieve-tokens][1] endpoint of
      SpotifyAPIServer can be used for this URL.
 
-     See `self.makeClientCredentialsTokensRequest()` for more information.
+     See ``makeClientCredentialsTokensRequest()`` for more information.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
@@ -59,14 +59,14 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      type, which will then be thrown to downstream subscribers.
      
      After the response from your server is received following a call to
-     `self.makeClientCredentialsTokensRequest()`, this function is called with
-     the raw data and response metadata from the server. If you return an error
-     from this function, then this error will be thrown to downstream
-     subscribers. If you return `nil`, then the response from the server will be
-     passed through unmodified to downstream subscribers.
+     ``makeClientCredentialsTokensRequest()``, this function is called with the
+     raw data and response metadata from the server. If you return an error from
+     this function, then this error will be thrown to downstream subscribers. If
+     you return `nil`, then the response from the server will be passed through
+     unmodified to downstream subscribers.
      
      - Important: Do not use this function to decode the documented error
-           objects produced by Spotify, such as `SpotifyAuthenticationError`.
+           objects produced by Spotify, such as ``SpotifyAuthenticationError``.
            This will be done elsewhere. Only use this function to decode error
            objects produced by your custom backend server.
      
@@ -87,19 +87,19 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
 
      Instead of creating your own server, you can use [SpotifyAPIServer][2] with
      this type by assigning the /client-credentials-flow/retrieve-tokens
-     endpoint to `tokensURL`.
+     endpoint to ``tokensURL``.
 
      - Parameters:
        - tokensURL: The URL to your custom backend server that accepts a post
              request for the authorization information. The body will contain a
              key called "grant_type" with the value set to "client_credentials"
              in x-www-form-urlencoded format. See
-             `self.makeClientCredentialsTokensRequest()` for more information.
+             ``makeClientCredentialsTokensRequest()`` for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers. Do not use this function to decode the
              documented error objects produced by Spotify, such as
-             `SpotifyAuthenticationError`. This will be done elsewhere.
+             ``SpotifyAuthenticationError``. This will be done elsewhere.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
@@ -115,23 +115,24 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
     /**
      Makes a request for the authorization information.
 
-     This method is called by either the `authorize()` or
-     `refreshTokens(onlyIfExpired:tolerance:)` methods of
-     `ClientCredentialsFlowBackendManager`. The client credentials flow does not
-     provide a refresh token, so in both cases, the same network request should
-     be made.
+     This method is called by either the
+     ``ClientCredentialsFlowBackendManager/authorize()`` or
+     ``ClientCredentialsFlowBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     methods of ``ClientCredentialsFlowBackendManager``. The client credentials
+     flow does not provide a refresh token, so in both cases, the same network
+     request should be made.
 
-     This method makes a post request to `self.tokensURL`. The headers will
-     contain the "Content-Type: application/x-www-form-urlencoded" header and
-     the body will contain a key called "grant_type" with the value set to
+     This method makes a post request to ``tokensURL``. The headers will contain
+     the "Content-Type: application/x-www-form-urlencoded" header and the body
+     will contain a key called "grant_type" with the value set to
      "client_credentials" in x-www-form-urlencoded format. For example:
-     "grant_type=client_credentials". See `ClientCredentialsTokensRequest`,
+     "grant_type=client_credentials". See ``ClientCredentialsTokensRequest``,
      which is used to encode this data.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
-     can be decoded from the "expires_in" JSON key) properties must be
-     non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken`` and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties must be non-`nil`. For example:
 
      ```
      {
@@ -145,9 +146,9 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      with the headers and status code, should be forwarded directly to the
      client, as this library already knows how to decode these errors.
 
-     After the response is retrieved from the server, `self.decodeServerError`
-     is called in order to decode any custom error objects that your server
-     might return.
+     After the response is retrieved from the server, ``decodeServerError`` is
+     called in order to decode any custom error objects that your server might
+     return.
 
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].

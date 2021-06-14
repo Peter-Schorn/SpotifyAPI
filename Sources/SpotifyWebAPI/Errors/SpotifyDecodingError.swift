@@ -87,9 +87,9 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /**
      Creates a new decoding error.
      
-     As soon as this instance is created, `rawData` and `debugErrorDescription`
-     will be written to a folder at the path specified by `Self.dataDumpFolder`,
-     if it is non-`nil`, using `writeToFolder(_:)`.
+     As soon as this instance is created, ``rawData`` and
+     ``debugErrorDescription`` will be written to a folder at the path specified
+     by ``dataDumpFolder``, if it is non-`nil`, using ``writeToFolder(_:)``.
      
      - Parameters:
        - url: The URL that was used to make the request for the data.

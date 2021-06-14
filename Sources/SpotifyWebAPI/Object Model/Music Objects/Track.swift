@@ -85,7 +85,7 @@ public struct Track: Hashable {
     /**
      A link to the Spotify web API endpoint providing the full track object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track` as the
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `Track` as the
      response type to retrieve the results.
      */
     public let href: URL?
@@ -165,7 +165,7 @@ public struct Track: Hashable {
      The object type. Usually `track`, but may be `episode` if this was
      retrieved from a playlist.
      
-     See also `SpotifyAPI.playlistTracks(_:limit:offset:market:)`.
+     See also ``SpotifyAPI/playlistTracks(_:limit:offset:market:)``.
      */
     public let type: IDCategory
     

@@ -18,12 +18,13 @@ import OpenCombineFoundation
  Code Flow with Proof Key for Code Exchange][1].
 
  If you are communicating with a custom backend server, then use
- `AuthorizationCodeFlowPKCEProxyBackend` instead, which does not send the
+ ``AuthorizationCodeFlowPKCEProxyBackend`` instead, which does not send the
  `clientId` in network requests because this value should be securely stored on
  your backend server.
 
  Usually you should not need to create instances of this type directly.
- `AuthorizationCodeFlowPKCEManager` uses this type internally by inheriting from
+ ``AuthorizationCodeFlowPKCEManager`` uses this type internally by inheriting
+ from
  `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
@@ -48,8 +49,8 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
      communicating *directly* with the Spotify web API.
      
      Usually you should not need to create instances of this type directly.
-     `AuthorizationCodeFlowPKCEManager` uses this type internally by inheriting
-     from
+     ``AuthorizationCodeFlowPKCEManager`` uses this type internally by
+     inheriting from
      `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
 
      - Parameters:
@@ -65,18 +66,20 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validating the `redirectURIWithQuery`,
-     `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
-     calls this method in order to retrieve the authorization information.
+     After validating the `redirectURIWithQuery`, the
+     ``AuthorizationCodeFlowPKCEBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager`` calls this method in
+     order to retrieve the authorization information.
 
      If the `redirectURIWithQuery` contains an error parameter or the value for
      the state parameter doesn't match the value passed in as an argument to the
      above method, then an error will be thrown *before* this method is called.
 
      This method returns the authorization information as JSON data that can be
-     decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
-     `expirationDate` (which can be decoded from the "expires_in" JSON key)
-     properties should be non-`nil`. For example:
+     decoded into ``AuthInfo``. The ``AuthInfo/accessToken``,
+     ``AuthInfo/refreshToken``, and ``AuthInfo/expirationDate`` (which can be
+     decoded from the "expires_in" JSON key) properties should be non-`nil`. For
+     example:
      
      ```
      {
@@ -146,13 +149,15 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
      Refreshes an access token using the refresh token.
 
      Access tokens expire after an hour, after which they must be refreshed
-     using this method. This method will be called by
-     `AuthorizationCodeFlowPKCEBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
+     using this method. This method will be called by the
+     ``AuthorizationCodeFlowPKCEBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager``.
 
      This method returns the authorization information as JSON data that can be
-     decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
-     `expirationDate` (which can be decoded from the "expires_in" JSON key)
-     properties should be non-`nil`. For example:
+     decoded into ``AuthInfo``. The ``AuthInfo/accessToken``,
+     ``AuthInfo/refreshToken``, and ``AuthInfo/expirationDate`` (which can be
+     decoded from the "expires_in" JSON key) properties should be non-`nil`. For
+     example:
 
      ```
      {

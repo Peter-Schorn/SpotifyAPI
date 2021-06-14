@@ -14,10 +14,11 @@ public extension SpotifyAPI {
     /**
      Get an episode.
 
-     See also `episodes(_:market:)` (gets multiple episodes).
+     See also ``episodes(_:market:)`` (gets multiple episodes).
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope. Otherwise, no scopes are required.
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      
@@ -37,7 +38,7 @@ public extension SpotifyAPI {
              **"non existing id". Therefore, if you authorized your**
              **application using the client credentials flow, you must provide**
              **a value for this parameter.**
-     - Returns: The full version of an `Episode` object.
+     - Returns: The full version of an ``Episode`` object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-episode
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -70,10 +71,10 @@ public extension SpotifyAPI {
     /**
      Get multiple episodes.
      
-     See also `episode(_:market:)` (gets a single episode).
+     See also ``episode(_:market:)`` (gets a single episode).
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope. Otherwise, no scopes are
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
      required.
      
      Read more at the [Spotify web API reference][1].

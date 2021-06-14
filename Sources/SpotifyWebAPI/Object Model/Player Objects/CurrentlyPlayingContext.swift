@@ -17,12 +17,12 @@ public struct CurrentlyPlayingContext: Hashable {
     /**
      The device that the content is or was playing on.
      
-     The information returned by `SpotifyAPI.currentPlayback(market:)` is for
+     The information returned by ``SpotifyAPI/currentPlayback(market:)`` is for
      the last known state, which means an inactive device could be returned if
      it was the last one to execute playback.
      
-     Use `SpotifyAPI.availableDevices()` to get the current user's available and
-     active devices.
+     Use ``SpotifyAPI/availableDevices()`` to get the current user's available
+     and active devices.
      */
     public let device: Device
     
@@ -304,7 +304,7 @@ extension CurrentlyPlayingContext: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
 
-     `CurrentlyPlayingContext.timestamp` is compared using
+     ``CurrentlyPlayingContext/timestamp`` is compared using
      `timeIntervalSince1970`, so it is considered a floating point property for
      the purposes of this method.
      

@@ -17,9 +17,8 @@ extension SpotifyAPI {
     // MARK: Wrappers
     
     /*
-     All requests to endpoints other than those for authorizing
-     the app and retrieving/refreshing the tokens call through
-     to these methods.
+     All requests to endpoints other than those for authorizing the app and
+     retrieving/refreshing the tokens call through to these methods.
      */
     
     /**
@@ -43,7 +42,7 @@ extension SpotifyAPI {
              is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and returns a
-             dictionary of headers. See the `Headers` enum, which contains
+             dictionary of headers. See the ``Headers`` enum, which contains
              convenience methods for making headers.
        - bodyData: The body of the request as `Data`.
        - requiredScopes: The scopes required for this endpoint.
@@ -63,22 +62,20 @@ extension SpotifyAPI {
         )
         
         /*
-         It's more informative for the client to notifiy them that
-         they haven't retrieved an access token for their application
-         before throwing other errors, so that's why this check is
-         performed first.
-         
-         Additionally, all other errors usually indicate a bug with
-         this library.
-         
-         If an access token hasn't been retrieved, then a refresh
-         token hasn't been retrieved either, and, without this check,
-         `authorizationManager.refreshTokens` would throw an error
-         indicating that a refresh token hasn't been retrieved,
-         instead of an error indicating that an access token hasn't
-         been retrieved. This would make it harder for the client to
-         understand that they probably haven't authorized their
-         application yet.
+         It's more informative for the client to notify them that they haven't
+         retrieved an access token for their application before throwing other
+         errors, so that's why this check is performed first.
+
+         Additionally, all other errors usually indicate a bug with this
+         library.
+
+         If an access token hasn't been retrieved, then a refresh token hasn't
+         been retrieved either, and, without this check,
+         `authorizationManager.refreshTokens` would throw an error indicating
+         that a refresh token hasn't been retrieved, instead of an error
+         indicating that an access token hasn't been retrieved. This would make
+         it harder for the client to understand that they probably haven't
+         authorized their application yet.
          */
         if self.authorizationManager.accessToken == nil {
             self.logger.warning("unauthorized: no access token")
@@ -174,7 +171,7 @@ extension SpotifyAPI {
      request is made.
      
      If you are making a get request, use
-     `self.getRequest(path:queryItems:requiredScopes:responseType:)`
+     `self.getRequest(path:queryItems:requiredScopes:)`
      instead, which is a thin wrapper that calls though to this method.
      
      The base URL that the path and query items are appended to is
@@ -196,7 +193,7 @@ extension SpotifyAPI {
              is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and returns a
-             dictionary of headers. See the `Headers` enum, which contains
+             dictionary of headers. See the ``Headers`` enum, which contains
              convenience methods for making headers.
        - bodyData: The body of the request as `Data`.
        - requiredScopes: The scopes required for this endpoint.
@@ -240,7 +237,7 @@ extension SpotifyAPI {
      if the body cannot be encoded into `Data` using a `JSONEncoder`.
 
      If you are making a get request, use
-     `self.getRequest(path:queryItems:requiredScopes:responseType:)` instead,
+     `self.getRequest(path:queryItems:requiredScopes:)` instead,
      which is a thin wrapper that calls though to this method.
 
      The base URL that the path and query items are appended to is
@@ -262,7 +259,7 @@ extension SpotifyAPI {
              is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and returns a
-             dictionary of headers. See the `Headers` enum, which contains
+             dictionary of headers. See the ``Headers`` enum, which contains
              convenience methods for making headers.
        - body: The body of the request as a type that conforms to `Encodable`.
        - requiredScopes: The scopes required for this endpoint.

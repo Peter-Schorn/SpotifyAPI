@@ -5,7 +5,8 @@ import Foundation
  of the playlist that the items associated with the URIs (usually
  tracks/episodes) are contained in.
 
- Used in the body of `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+ Used in the body of
+ ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``.
 
  This is used for removing specific occurrences of items from a playlist. The
  positions of the URIs are necessary in case the playlist has duplicate items.
@@ -46,7 +47,7 @@ public struct URIsWithPositionsContainer: Codable, Hashable {
              time you retrieved it.
        - urisWithPositions: A collection of URIs along with their positions in
              a playlist. The
-             `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`
+             ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``
               endpoint accepts a maximum of 100 items.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
@@ -115,11 +116,12 @@ public extension URIsWithPositionsContainer {
     
     /**
      Creates an array of `Self`, each element of which can be used in a request
-     to `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+     to ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``.
      
-     `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)` accepts a maximum
-     of 100 unique items. Use this method when you need to remove more than 100
-     unique items from a playlist by making a separate request for each element.
+     ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)`` accepts a
+     maximum of 100 unique items. Use this method when you need to remove more
+     than 100 unique items from a playlist by making a separate request for each
+     element.
      
      - Parameter urisWithSinglePosition: An array of tuples, each of which
            contain a URI and a *single* position in a playlist. Unlike

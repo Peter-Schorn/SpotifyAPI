@@ -3,7 +3,7 @@ import Foundation
 /**
  A request to play Spotify content for a user.
  
- Used in the body of `SpotifyAPI.play(_:deviceId:)`.
+ Used in the body of ``SpotifyAPI/play(_:deviceId:)``.
  
  See also [Playback Request Examples][1].
 

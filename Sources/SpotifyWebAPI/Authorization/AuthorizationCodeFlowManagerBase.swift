@@ -131,20 +131,24 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      
      **You are discouraged from subscribing to this publisher directly.**
      
-     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
-     publisher. This allows you to be notified of changes even when you create a
-     new instance of this class and assign it to the `authorizationManager`
-     instance property of `SpotifyAPI`.
+     Instead, subscribe to the ``SpotifyAPI/authorizationManagerDidChange``
+     publisher of ``SpotifyAPI``. This allows you to be notified of changes even
+     when you create a new instance of this class and assign it to the
+     ``SpotifyAPI/authorizationManager`` instance property of `SpotifyAPI`.
      
      Emits after the following events occur:
      * After the access and refresh tokens are retrieved using
-       `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`
+       ``AuthorizationCodeFlowBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:state:)``
        or
-       `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
+       ``AuthorizationCodeFlowPKCEBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
      * After the access token (and possibly the refresh token as well) is
-       refreshed using `refreshTokens(onlyIfExpired:tolerance:)`.
+       refreshed using
+     ``AuthorizationCodeFlowBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     or
+     ``AuthorizationCodeFlowPKCEBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     .
      
-     See also `didDeauthorize`, which emits after `deauthorize()` is called.
+     See also ``didDeauthorize``, which emits after ``deauthorize()`` is called.
      Subscribe to that publisher in order to remove the authorization
      information from persistent storage when it emits.
      
@@ -159,18 +163,18 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      
      **You are discouraged from subscribing to this publisher directly.**
      
-     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
-     publisher. This allows you to be notified even when you create a new
-     instance of this class and assign it to the `authorizationManager` instance
-     property of `SpotifyAPI`.
+     Instead, subscribe to the ``SpotifyAPI/authorizationManagerDidDeauthorize``
+     publisher of ``SpotifyAPI``. This allows you to be notified even when you
+     create a new instance of this class and assign it to the
+     ``SpotifyAPI/authorizationManager`` instance property of ``SpotifyAPI``.
      
-     `deauthorize()` sets the access token, expiration date, refresh token,
-     and scopes to `nil`.
+     ``deauthorize()`` sets the ``accessToken``, ``expirationDate``,
+     ``refreshToken``, and ``scopes`` to `nil`.
      
      Subscribe to this publisher in order to remove the authorization
      information from persistent storage when it emits.
      
-     See also `didChange`.
+     See also ``didChange``.
      
      # Thread Safety
      
@@ -292,9 +296,9 @@ public extension AuthorizationCodeFlowManagerBase {
      If this instance is stored in persistent storage, consider removing it
      after calling this method.
 
-     Calling this method causes `didDeauthorize` to emit a signal, which will
-     also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to emit a
-     signal.
+     Calling this method causes ``didDeauthorize`` to emit a signal, which will
+     also cause the ``SpotifyAPI/authorizationManagerDidDeauthorize`` publisher
+     of ``SpotifyAPI`` to emit a signal.
      
      # Thread Safety
      

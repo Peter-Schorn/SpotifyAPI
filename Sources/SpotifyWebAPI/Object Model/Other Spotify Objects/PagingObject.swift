@@ -18,8 +18,8 @@ import Logging
  
  See [Working with Paginated Results][2].
 
- See also `SpotifyAPI.extendPages(_:maxExtraPages:)`,
- `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`, and the combine
+ See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``,
+ ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``, and the combine
  operators of the same names.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
@@ -31,8 +31,8 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      A link to the Spotify web API endpoint returning the full result of the
      request in this `PagingObject`.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject`—NOT the type of `Item`—to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in the type of
+     this `PagingObject`—NOT the type of `Item`—to retrieve the results.
      */
     public let href: URL
     
@@ -55,8 +55,8 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      The URL (href) to the next page of items or `nil` if none in this
      `PagingObject`.
     
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject`—NOT the type of `Item`—to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in the type of
+     this `PagingObject`—NOT the type of `Item`—to retrieve the results.
      
      See [Working with Paginated Results][1].
      
@@ -68,8 +68,8 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      The URL (href) to the previous page of items or `nil` if none in this
      `PagingObject`.
     
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in the type of this
-     `PagingObject`—NOT the type of `Item`—to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in the type of
+     this `PagingObject`—NOT the type of `Item`—to retrieve the results.
      
      See [Working with Paginated Results][1].
      

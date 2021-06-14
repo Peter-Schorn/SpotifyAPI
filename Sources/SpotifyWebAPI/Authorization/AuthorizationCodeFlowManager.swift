@@ -13,48 +13,52 @@ import FoundationNetworking
 #endif
 
 /**
- Manages the authorization process.
+ Manages the authorization process for the [Authorization Code Flow][1].
  
  For applications where it is unsafe to store your client secret, consider
- using `AuthorizationCodeFlowPKCEBackendManager`, which manages the
+ using ``AuthorizationCodeFlowPKCEBackendManager``, which manages the
  [Authorization Code Flow with Proof Key for Code Exchange][2]; it provides
  an additional layer of security.
  
+ # Backend
+ 
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information and refreshing the access token from
- Spotify. It may do so directly (see `AuthorizationCodeFlowClientBackend`), or
+ Spotify. It may do so directly (see ``AuthorizationCodeFlowClientBackend``), or
  it may communicate with a custom backend server that you configure (see
- `AuthorizationCodeFlowProxyBackend`). This backend server can safely store your
- client secret and retrieve the authorization information from Spotify on your
- behalf, thereby preventing these sensitive credentials from being exposed in
- your frontend app. See `AuthorizationCodeFlowBackend` for more information.
+ ``AuthorizationCodeFlowProxyBackend``). This backend server can safely store
+ your client secret and retrieve the authorization information from Spotify on
+ your behalf, thereby preventing these sensitive credentials from being exposed
+ in your frontend app. See ``AuthorizationCodeFlowBackend`` for more
+ information.
 
  **If you do not have a custom backend server, then you are encouraged use the**
- **concrete subclass of this class,** `AuthorizationCodeFlowManager`
+ **concrete subclass of this class,** ``AuthorizationCodeFlowManager``
  **instead**. It inherits from
  `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`. This
  class will store your client id and client secret locally.
 
+ # Authorization
+ 
  The first step in the authorization code flow is to make the
  authorization URL using
- `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
- Open this URL in a browser/webview to allow the user to login
- to their Spotify account and authorize your application.
+ ``makeAuthorizationURL(redirectURI:showDialog:state:scopes:)``.
+ Open this URL in a browser/webview to allow the user to login to their Spotify
+ account and authorize your application.
  
  After they either authorize or deny authorization for your application,
  Spotify will redirect to the redirect URI specified in the authorization
  URL with query parameters appended to it. Pass this URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to request
+ ``requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`` to request
  the refresh and access tokens. After that, you can begin making requests
  to the Spotify API. The access token will be refreshed for you automatically
  when needed.
  
- Use `isAuthorized(for:)` to check if your application is authorized for the
+ Use ``isAuthorized(for:)`` to check if your application is authorized for the
  specified scopes.
 
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
- immutable.
+ Use ``deauthorize()`` to set the ``accessToken``, ``refreshToken``, ``expirationDate``,
+ and ``scopes`` to `nil`.
 
  # Persistent Storage
  
@@ -321,9 +325,9 @@ public extension AuthorizationCodeFlowBackendManager {
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
 
-     If the request for the access and refresh tokens succeeds, `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the request for the access and refresh tokens succeeds,
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Warning
      
@@ -438,9 +442,9 @@ public extension AuthorizationCodeFlowBackendManager {
      **You shouldn't need to call this method**. It gets called automatically
      each time you make a request to the Spotify API.
 
-     If the access and/or refresh tokens are refreshed, then `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the access and/or refresh tokens are refreshed, then
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Thread Safety
      
@@ -574,8 +578,8 @@ public extension AuthorizationCodeFlowBackendManager {
  The first step in the authorization code flow is to make the
  authorization URL using
  `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
- Open this URL in a browser/webview to allow the user to login
- to their Spotify account and authorize your application.
+ Open this URL in a browser/webview to allow the user to login to their Spotify
+ account and authorize your application.
  
  After they either authorize or deny authorization for your application,
  Spotify will redirect to the redirect URI specified in the authorization
@@ -717,7 +721,6 @@ public final class AuthorizationCodeFlowManager:
         self._scopes = scopes
     }
 
-    /// A textual representation of this instance.
     public override var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {

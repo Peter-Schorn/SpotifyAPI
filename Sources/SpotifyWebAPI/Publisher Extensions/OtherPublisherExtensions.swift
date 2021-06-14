@@ -16,7 +16,7 @@ public extension Publisher where Output: Paginated {
     /**
      Retrieves additional pages of results from a `Paginated` type.
      
-     See also `SpotifyAPI.extendPages(_:maxExtraPages:)`.
+     See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``.
      
      Compare with `Publisher.extendPagesConcurrently(_:maxExtraPages:)`.
 
@@ -66,13 +66,13 @@ public extension Publisher where Output: PagingObjectProtocol {
     /**
      Retrieves additional pages of results from a paging object *concurrently*.
 
-     See also `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
+     See also ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``.
 
      Compare with `Publisher.extendPages(_:maxExtraPages:)`.
 
      This method immediately republishes the page of results that were passed in
      and then requests additional pages *concurrently*. This method has better
-     performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
+     performance than ``SpotifyAPI/extendPages(_:maxExtraPages:)``, which must
      wait for the previous page to be received before requesting the next page.
      **However, the order in which the pages are received is unpredictable.** If
      you need to wait for all pages to be received before processing them, then

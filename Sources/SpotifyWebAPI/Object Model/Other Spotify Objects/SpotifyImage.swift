@@ -31,7 +31,7 @@ import Foundation
  Includes the URL to the image and its height and width.
  
   - Warning: If this image belongs to a playlist, then the URL is temporary and
-         will expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
+         will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)`` to
          retrieve the image for a playlist.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
@@ -51,11 +51,11 @@ public struct SpotifyImage: Codable, Hashable {
     /**
      The source URL of the image.
      
-     Consider using `self.load()` to load the image from this URL.
+     Consider using ``load()`` to load the image from this URL.
      
      - Warning: If this image belongs to a playlist, then it is temporary and
-           will expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
-           retrieve the image for a playlist.
+           will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)``
+           to retrieve the image for a playlist.
      */
     public let url: URL
 
@@ -85,11 +85,11 @@ public extension SpotifyImage {
     
     #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
     /**
-     Loads the image from `self.url`.
+     Loads the image from ``url``.
      
      This method will **always** use `URLSessionDataTask`. If you want to use
      your own network client, then do so directly by making a GET request to
-     `self.url`.
+     ``url``.
      
      - Throws: If the data cannot be converted to `Image`, or if some other
            network error occurs.

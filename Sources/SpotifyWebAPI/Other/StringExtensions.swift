@@ -86,7 +86,8 @@ public extension String {
      
      * `String.urlSafeCharacters`
      * `String.randomURLSafe(length:)`
-     * `makeCodeChallenge()`  - makes the code challenge from the code verifier
+     * `String.makeCodeChallenge(codeVerifier:)` - makes the code challenge from
+       the code verifier
      
      - Parameters:
        - length: The length of the string. The code verifier must between 43 and
@@ -121,7 +122,8 @@ public extension String {
      * `String.urlSafeCharacters`
      * `String.randomURLSafe(length:using:)` - allows you to specify the random
        number generator to use.
-     * `makeCodeChallenge()` - makes the code challenge from the code verifier
+     * `String.makeCodeChallenge(codeVerifier:)` - makes the code challenge from
+       the code verifier
      
      - Parameter length: The length of the string. The code verifier must be
            between 43 and 128 characters in length, inclusive.

@@ -5,10 +5,10 @@ import Foundation
  is used to request a refresh and access token for the [Authorization Code Flow
  with Proof Key for Code Exchange][1].
 
- When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend` and
+ When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend`` and
  which communicates with a custom backend server, use this type in the body of
  the network request made in the
- `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+ ``AuthorizationCodeFlowPKCEBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
  method.
 
  In contrast with `PKCETokensRequest`, which should be used if you are
@@ -17,7 +17,7 @@ import Foundation
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
-       network request using `self.formURLEncoded`.
+       network request using ``formURLEncoded()``.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -38,9 +38,9 @@ public struct ProxyPKCETokensRequest: Hashable {
      The redirect URI. This is sent in the request for validation only. There
      will be no further redirection to this location.
      
-     Can be `nil` if this value is already stored on your backend server.
-     `AuthorizationCodeFlowPKCEProxyBackend.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
-     *will* set this value.
+     Can be `nil` if this value is already stored on your backend server. The
+     ``AuthorizationCodeFlowPKCEProxyBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
+     method of ``AuthorizationCodeFlowPKCEProxyBackend`` *will* set this value.
      
      If not `nil`, then this must be the same URI provided when creating the
      authorization URL that was used to request the authorization code (as
@@ -65,7 +65,7 @@ public struct ProxyPKCETokensRequest: Hashable {
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
-           network request using `self.formURLEncoded`.
+           network request using ``formURLEncoded()``.
      
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
@@ -75,12 +75,13 @@ public struct ProxyPKCETokensRequest: Hashable {
        - redirectURI: The redirect URI. This is sent in the request for
              validation only. There will be no further redirection to this
              location. Can be `nil` if this value is already stored on your
-             backend server.
-             `AuthorizationCodeFlowPKCEProxyBackend.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
-             *will* set this value. If not `nil`, then this must be the same URI
-             provided when creating the authorization URL that was used to
-             request the authorization code (as opposed to any of your
-             whitelisted redirect URIs).
+             backend server. The
+             ``AuthorizationCodeFlowPKCEProxyBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
+             method of ``AuthorizationCodeFlowPKCEProxyBackend`` *will* set this
+             value. If not `nil`, then this must be the same URI provided when
+             creating the authorization URL that was used to request the
+             authorization code (as opposed to any of your whitelisted redirect
+             URIs).
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      */

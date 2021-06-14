@@ -26,7 +26,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
      The user’s most recent position in the episode.
     
      Non-`nil` only if the application has been authorized for the
-     `userReadPlaybackPosition` scope.
+     ``Scope/userReadPlaybackPosition`` scope.
      */
     public let resumePoint: ResumePoint?
     
@@ -57,7 +57,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /**
      A link to the Spotify web API endpoint providing the full episode object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Episode` as the
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `Episode` as the
      response type to retrieve the results.
      */
     public let href: URL
@@ -105,7 +105,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
        - description: A description of the episode.
        - resumePoint: The user’s most recent position in the episode. Set if the
              supplied access token is a user token and has the
-             `userReadPlaybackPosition` scope.
+             ``Scope/userReadPlaybackPosition`` scope.
        - durationMS: The episode length in milliseconds.
        - isExplicit: Whether or not the episode has explicit content.
        - releaseDate: The date the episode was first released.
@@ -347,7 +347,7 @@ extension Episode: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
      
-     `Episode.releaseDate` is compared using `timeIntervalSince1970`, so it
+     ``Episode/releaseDate`` is compared using `timeIntervalSince1970`, so it
      is considered a floating point property for the purposes of this method.
      
      - Parameter other: Another instance of `Self`.

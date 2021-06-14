@@ -14,8 +14,8 @@ import FoundationNetworking
 import Logging
 
 /**
- Manages the authorization process for the
- [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the [Authorization Code Flow with Proof
+ Key for Code Exchange][1] (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
@@ -270,7 +270,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
      appended to it. Pass that URL into
-     `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
+     ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
      to complete the authorization process.
 
      # Warning
@@ -353,9 +353,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      downstream subscribers. Use the `accessWasDenied` boolean property of this
      error to check if the user denied your app's authorization request.
 
-     If the request for the access and refresh tokens succeeds, `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the request for the access and refresh tokens succeeds,
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Warning
      
@@ -484,9 +484,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      **You shouldn't need to call this method**. It gets called automatically
      each time you make a request to the Spotify API.
      
-     If the access and/or refresh tokens are refreshed, then `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the access and/or refresh tokens are refreshed, then
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Thread Safety
      
@@ -611,8 +611,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
 // MARK: - Authorization Code Flow PKCE Manager -
 
 /**
- Manages the authorization process for the
- [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the [Authorization Code Flow with Proof
+ Key for Code Exchange][1] (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an

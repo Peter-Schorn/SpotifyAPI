@@ -20,25 +20,25 @@ import OpenCombineFoundation
  
  This server must have the following endpoints:
  
- * `tokensURL`: Accepts a post request with the authorization code and coder
+ * ``tokensURL``: Accepts a post request with the authorization code and coder
    verifier in the body in x-www-form-urlencoded format and must return the
    authorization information. See
-   `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+   ``requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
    for more information.
  
- * `tokenRefreshURL`: Accepts a post request with the refresh token in the body
-   in x-www-form-urlencoded format and which must return the authorization
-   information. See `self.refreshTokens(refreshToken:)` for more information.
+ * ``tokenRefreshURL``: Accepts a post request with the refresh token in the
+   body in x-www-form-urlencoded format and which must return the authorization
+   information. See ``refreshTokens(refreshToken:)`` for more information.
 
  Instead of creating your own server, you can use [SpotifyAPIServer][2] with
  this type by assigning the /authorization-code-flow-pkce/retrieve-tokens
- endpoint to `tokensURL` and the /authorization-code-flow-pkce/refresh-tokens
- endpoint to `tokenRefreshURL`.
+ endpoint to ``tokensURL`` and the /authorization-code-flow-pkce/refresh-tokens
+ endpoint to ``tokenRefreshURL``.
 
- In contrast with `AuthorizationCodeFlowPKCEClientBackend`, which can be used if
- you are communicating directly with Spotify, this type does not send the
- `clientSecret` in network requests because this value should be securely
- stored on your backend server.
+ In contrast with ``AuthorizationCodeFlowPKCEClientBackend``, which can be used
+ if you are communicating directly with Spotify, this type does not send the
+ `clientSecret` in network requests because this value should be securely stored
+ on your backend server.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
@@ -65,7 +65,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      The [/authorization-code-flow-pkce/retrieve-tokens][1] endpoint of
      SpotifyAPIServer can be used for this URL.
 
-     See `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+     See ``requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
      for more information.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkceretrieve-tokens
@@ -80,7 +80,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      The [/authorization-code-flow-pkce/refresh-tokens][1] endpoint of
      SpotifyAPIServer can be used for this URL.
 
-     See `self.refreshTokens(refreshToken:)` for more information.
+     See ``refreshTokens(refreshToken:)`` for more information.
      
      [1]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-authorization-code-flow-pkcerefresh-tokens
      */
@@ -91,15 +91,15 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      type, which will then be thrown to downstream subscribers.
      
      After the response from your server is received following a call to
-     `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)` or
-     `self.refreshTokens(refreshToken:)`, this function is called
-     with the raw data and response metadata from the server. If you return an
-     error from this function, then this error will be thrown to downstream
-     subscribers. If you return `nil`, then the response from the server will be
-     passed through unmodified to downstream subscribers.
+     ``requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
+     or ``refreshTokens(refreshToken:)``, this function is called with the raw
+     data and response metadata from the server. If you return an error from
+     this function, then this error will be thrown to downstream subscribers. If
+     you return `nil`, then the response from the server will be passed through
+     unmodified to downstream subscribers.
      
      - Important: Do not use this function to decode the documented error
-           objects produced by Spotify, such as `SpotifyAuthenticationError`.
+           objects produced by Spotify, such as ``SpotifyAuthenticationError``.
            This will be done elsewhere. Only use this function to decode error
            objects produced by your custom backend server.
      
@@ -121,8 +121,9 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
 
      Instead of creating your own server, you can use [SpotifyAPIServer][2] with
      this type by assigning the /authorization-code-flow-pkce/retrieve-tokens
-     endpoint to `tokensURL` and the
-     /authorization-code-flow-pkce/refresh-tokens endpoint to `tokenRefreshURL`.
+     endpoint to ``tokensURL`` and the
+     /authorization-code-flow-pkce/refresh-tokens endpoint to
+     ``tokenRefreshURL``.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -131,18 +132,18 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
              request with the authorization code and coder verifier in the body
              in "x-www-form-urlencoded" format and which must return the
              authorization information. See
-             `self.requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+             ``requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
              for more information.
        - tokenRefreshURL: The URL to your custom backend server that accepts a
              post request with the refresh token in the body in
              "x-www-form-urlencoded" format and which must return the
-             authorization information. See `self.refreshTokens(refreshToken:)`
+             authorization information. See ``refreshTokens(refreshToken:)``
              for more information.
        - decodeServerError: A hook for decoding an error produced by your
              backend server into an error type, which will then be thrown to
              downstream subscribers. Do not use this function to decode the
              documented error objects produced by Spotify, such as
-             `SpotifyAuthenticationError`. This will be done elsewhere.
+             ``SpotifyAuthenticationError``. This will be done elsewhere.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
@@ -163,15 +164,16 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
     /**
      Exchanges an authorization code for the access and refresh tokens.
      
-     After validating the `redirectURIWithQuery`,
-     `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
-     calls this method in order to retrieve the authorization information.
+     After validating the `redirectURIWithQuery`, the
+     ``AuthorizationCodeFlowPKCEBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager`` calls this method in
+     order to retrieve the authorization information.
      
      If the `redirectURIWithQuery` contains an error parameter or the value for
      the state parameter doesn't match the value passed in as an argument to the
      above method, then an error will be thrown *before* this method is called.
 
-     This method makes a post request to `self.tokensURL`. The headers will
+     This method makes a post request to ``tokensURL``. The headers will
      contain the "Content-Type: application/x-www-form-urlencoded" header and
      the body will contain the following in x-www-form-urlencoded format:
      
@@ -182,12 +184,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      
      For example: "grant_type=authorization_code&code=asd...xbdjc
      &code_verifier=ahdbx...redbtcd&redirect_uri=http://localhost:8080". See
-     `ProxyPKCETokensRequest`, which is used to encode this data.
+     ``ProxyPKCETokensRequest``, which is used to encode this data.
      
-     The endpoint at `self.tokensURL` must return the authorization information
-     as JSON data that can be decoded into `AuthInfo`. The `accessToken`,
-     `refreshToken`, and `expirationDate` (which can be decoded from the
-     "expires_in" JSON key) properties must be non-`nil`. For example:
+     The endpoint at ``tokensURL`` must return the authorization information as
+     JSON data that can be decoded into ``AuthInfo``. The
+     ``AuthInfo/accessToken``, ``AuthInfo/refreshToken``, and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties must be non-`nil`. For example:
      
      ```
      {
@@ -203,9 +206,9 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      with the headers and status code, should be forwarded directly to the
      client, as this library already knows how to decode these errors.
      
-     After the response is retrieved from the server, `self.decodeServerError`
-     is called in order to decode any custom error objects that your server
-     might return.
+     After the response is retrieved from the server, ``decodeServerError`` is
+     called in order to decode any custom error objects that your server might
+     return.
 
      Read about the underlying request that must be made to Spotify by your
      server in order to retrieve this data [here][1].
@@ -275,12 +278,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      Refreshes an access token using the refresh token.
 
      Access tokens expire after an hour, after which they must be refreshed
-     using this method. This method will be called by
-     `AuthorizationCodeFlowPKCEBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
+     using this method. This method will be called by the
+     ``AuthorizationCodeFlowPKCEBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager``.
 
-     This method makes a post request to `self.tokenRefreshURL`. The headers
-     will contain the "Content-Type: application/x-www-form-urlencoded" header
-     and the body will contain the following in x-www-form-urlencoded format:
+     This method makes a post request to ``tokenRefreshURL``. The headers will
+     contain the "Content-Type: application/x-www-form-urlencoded" header and
+     the body will contain the following in x-www-form-urlencoded format:
      
      * "method": set to "PKCE"
      * "grant_type": set to "refresh_token"
@@ -288,12 +292,13 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      
      For example:
      "method=PKCE&grant_type=refresh_token&refresh_token=djsnd...dnvnbfr". See
-     `ProxyPKCERefreshTokensRequest`, which is used to encode this data.
+     ``ProxyPKCERefreshTokensRequest``, which is used to encode this data.
 
-     The endpoint at `self.tokenRefreshURL` must return the authorization
-     information as JSON data that can be decoded into `AuthInfo`. The
-     `accessToken`, `refreshToken`, and `expirationDate` (which can be decoded
-     from the "expires_in" JSON key) properties must be non-`nil`. For example:
+     The endpoint at ``tokenRefreshURL`` must return the authorization
+     information as JSON data that can be decoded into ``AuthInfo``. The
+     ``AuthInfo/accessToken``, ``AuthInfo/refreshToken``, and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties must be non-`nil`. For example:
 
      ```
      {
@@ -309,9 +314,9 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      with the headers and status code, should be forwarded directly to the
      client, as this library already knows how to decode these errors.
 
-     After the response is retrieved from the server, `self.decodeServerError`
-     is called in order to decode any custom error objects that your server
-     might return.
+     After the response is retrieved from the server, ``decodeServerError`` is
+     called in order to decode any custom error objects that your server might
+     return.
 
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].

@@ -16,7 +16,8 @@ public extension SpotifyAPI {
      shows or episodes that match a keyword string.
 
      No scopes are required for this endpoint—unless the `market` parameter is
-     set to "from_token", in which case the `userReadPrivate` scope is required.
+     set to "from_token", in which case the ``Scope/userReadPrivate`` scope is
+     required.
 
      # Keyword matching
 
@@ -69,7 +70,9 @@ public extension SpotifyAPI {
              automatically.
        - categories: *Required*. An array of id categories. Only results that
              match the specified categories will be returned. Valid types:
-             `album`, `artist`, `playlist`, `track`, `show`, `episode`.
+             ``IDCategory/album``, ``IDCategory/artist``,
+             ``IDCategory/playlist``, ``IDCategory/track``, ``IDCategory/show``,
+             ``IDCategory/episode``.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
              string "from_token". If a country code is specified, only content
              that is playable in that market is returned. **Note:** Playlist
@@ -90,8 +93,8 @@ public extension SpotifyAPI {
        - limit: *Optional*. Maximum number of results to return. Default: 20;
              Minimum: 1; Maximum: 50. **Note:** The limit is applied within each
              type, not on the total response. For example, if the limit value is
-             3 and the types are `artist` and `album`, the response contains up
-             to 3 artists and 3 albums.
+             3 and the types are ``IDCategory/artist`` and ``IDCategory/album``,
+             the response contains up to 3 artists and 3 albums.
        - offset: *Optional*. The index of the first result to return. Default: 0
              (the first result). Maximum offset (including limit): 2,000. Use
              with `limit` to get the next page of search results.
@@ -99,14 +102,16 @@ public extension SpotifyAPI {
              specified, the response will include any relevant audio content
              that is hosted externally. By default external content is filtered
              out from responses.
-     - Returns: A `SearchResult`. The `albums`, `artist`, `playlists`, `tracks`,
-           `shows`, and `episodes` properties of this struct will be non-`nil`
-           for each of the categories that were requested from the `search`
-           endpoint. If no results were found for a category, then the `items`
-           property of the property's paging object will be empty; the property
-           itself will only be `nil` if the category was not requested in the
-           search. The simplified versions of all these objects will be
-           returned.
+     - Returns: A ``SearchResult``. The ``SearchResult/albums``,
+           ``SearchResult/artists``, ``SearchResult/playlists``,
+           ``SearchResult/tracks``, ``SearchResult/shows``, and
+           ``SearchResult/episodes`` properties of this struct will be non-`nil`
+           for each of the categories that were requested from the search
+           endpoint. If no results were found for a category, then the
+           ``PagingObject/items`` property of the property's paging object will
+           be empty; the property itself will only be `nil` if the category was
+           not requested in the search. The simplified versions of all these
+           objects will be returned.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

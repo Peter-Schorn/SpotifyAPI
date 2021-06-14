@@ -2,8 +2,8 @@ import Foundation
 
 
 /**
- Used in the `SpotifyAPI.reorderPlaylistItems(_:body:)` request to
- reorder a playlist's items.
+ Used in the ``SpotifyAPI/reorderPlaylistItems(_:body:)`` request to reorder a
+ playlist's items.
  
  Read more at the [Spotify web API reference][1].
  

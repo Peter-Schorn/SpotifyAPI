@@ -25,7 +25,7 @@ public extension SpotifyAPI {
 
      Always prefer using a different method whenever possible because this
      method adds the additional complexity of determining the appropriate
-     `ResponseType`.
+     `responseType`.
      
      - Parameters:
        - href: The full URL to a Spotify web API endpoint.
@@ -50,23 +50,23 @@ public extension SpotifyAPI {
     }
 
     /**
-     Retrieves additional pages of results from a `Paginated` type.
+     Retrieves additional pages of results from a ``Paginated`` type.
 
      This method is also available as a combine operator of the same name for
-     all publishers where `Output`: `Paginated`.
+     all publishers where `Output`: ``Paginated``.
 
-     Compare with `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
+     Compare with ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``.
 
-     Each time an additional page is received, its `next` property is used to
-     retrieve the next page of results, and so on, until `next` is `nil` or
-     `maxExtraPages` is reached. This means that the next page will not be
-     requested until the previous one is received and that the pages will always
-     be returned in order.
+     Each time an additional page is received, its ``PagingObject/next``
+     property is used to retrieve the next page of results, and so on, until
+     ``PagingObject/next`` is `nil` or `maxExtraPages` is reached. This means
+     that the next page will not be requested until the previous one is received
+     and that the pages will always be returned in order.
 
      See [Working with Paginated Results][1].
 
      - Parameters:
-       - page: A `Paginated` type; that is, a type that contains a link for
+       - page: A ``Paginated`` type; that is, a type that contains a link for
              retrieving the next page of results.
        - maxExtraPages: The maximum number of additional pages to retrieve. For
              example, to just get the next page, use `1`. Leave as `nil`
@@ -142,11 +142,11 @@ public extension SpotifyAPI {
      This method is also available as a combine operator of the same name for
      all publishers where the output is a paging object.
 
-     Compare with `SpotifyAPI.extendPages(_:maxExtraPages:)`.
+     Compare with ``SpotifyAPI/extendPages(_:maxExtraPages:)``.
 
      This method immediately republishes the page of results that were passed in
      and then requests additional pages *concurrently*. This method has better
-     performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
+     performance than ``SpotifyAPI/extendPages(_:maxExtraPages:)``, which must
      wait for the previous page to be received before requesting the next page.
      **However, the order in which the pages are received is unpredictable.** If
      you need to wait for all pages to be received before processing them, then

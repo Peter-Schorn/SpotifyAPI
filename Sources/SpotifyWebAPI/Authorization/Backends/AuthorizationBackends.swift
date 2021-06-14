@@ -16,12 +16,12 @@ import OpenCombineFoundation
  refreshing the access token using the [Authorization Code Flow][1].
 
  Conforming types may communicate directly with the Spotify web API (see
- `AuthorizationCodeFlowClientBackend`), or they may communicate with a custom
- backend server that you setup (see `AuthorizationCodeFlowProxyBackend`) which
+ ``AuthorizationCodeFlowClientBackend``), or they may communicate with a custom
+ backend server that you setup (see ``AuthorizationCodeFlowProxyBackend``) which
  itself communicates with the Spotify web API. This server can safely store your
  client secret, which prevents it from being exposed in your frontend app. This
  is the key reason for using a backend server.
- 
+
  See also [SpotifyAPIServer][2], a backend server that can handle authorization
  process.
  
@@ -38,8 +38,9 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
     /**
      The client id that you received when you [registered your application][1].
      
-     This is used to construct the authorization URL in
-     `AuthorizationCodeFlowBackendManager.makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
+     This is used to construct the authorization URL in the
+     ``AuthorizationCodeFlowBackendManager/makeAuthorizationURL(redirectURI:showDialog:state:scopes:)``
+     method of ``AuthorizationCodeFlowBackendManager``.
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -48,8 +49,10 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validating the `redirectURIWithQuery`,
-     `AuthorizationCodeFlowBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
+     After validating `redirectURIWithQuery`,
+     the
+     ``AuthorizationCodeFlowBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:state:)``
+     method of ``AuthorizationCodeFlowBackendManager``
      calls this method in order to retrieve the authorization information.
 
      If the `redirectURIWithQuery` contains an error parameter or the value for
@@ -57,9 +60,10 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      above method, then an error will be thrown *before* this method is called.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
-     `expirationDate` (which can be decoded from the "expires_in" JSON key)
-     properties must be non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken``,
+     ``AuthInfo/refreshToken``, and ``AuthInfo/expirationDate`` (which can be
+     decoded from the "expires_in" JSON key) properties must be non-`nil`. For
+     example:
 
      ```
      {
@@ -72,7 +76,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      ```
 
      If Spotify returns one of the documented error objects, such as
-     `SpotifyAuthenticationError`, do not decode the data into one of these
+     ``SpotifyAuthenticationError``, do not decode the data into one of these
      types yourself; this will be done by the caller. If you are communicating
      with a custom backend server and it returns its own error response, decode
      it into a custom error type and throw it as an error to downstream
@@ -81,7 +85,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     See also `TokensRequest` and `ProxyTokensRequest`.
+     See also ``TokensRequest`` and ``ProxyTokensRequest``.
      
      - Parameters:
        - code: The authorization code, which will also be present in
@@ -101,13 +105,14 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      Refreshes an access token using the refresh token.
 
      Access tokens expire after an hour, after which they must be refreshed
-     using this method. This method will be called by
-     `AuthorizationCodeFlowBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
+     using this method. This method will be called by the
+     ``AuthorizationCodeFlowBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     method of ``AuthorizationCodeFlowBackendManager``.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
-     can be decoded from the "expires_in" JSON key) properties must be
-     non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken`` and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties must be non-`nil`. For example:
 
      ```
      {
@@ -119,7 +124,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      ```
 
      If Spotify returns one of the documented error objects, such as
-     `SpotifyAuthenticationError`, do not decode the data into one of these
+     ``SpotifyAuthenticationError``, do not decode the data into one of these
      types yourself; this will be done by the caller. If you are communicating
      with a custom backend server and it returns its own error response, decode
      it into a custom error type and throw it as an error to downstream
@@ -128,7 +133,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     See also `RefreshTokensRequest`.
+     See also ``RefreshTokensRequest``.
 
      - Parameter refreshToken: The refresh token, which can be exchanged for
            a new access token.
@@ -147,9 +152,9 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
  for Code Exchange][1].
 
  Conforming types may communicate directly with the Spotify web API (see
- `AuthorizationCodeFlowPKCEClientBackend`), or they may communicate with a
+ ``AuthorizationCodeFlowPKCEClientBackend``), or they may communicate with a
  custom backend server that you setup (see
- `AuthorizationCodeFlowPKCEProxyBackend`) which itself communicates with the
+ ``AuthorizationCodeFlowPKCEProxyBackend``) which itself communicates with the
  Spotify web API. This server can safely store your client secret, which
  prevents it from being exposed in your frontend app. This is the key reason for
  using a backend server.
@@ -170,8 +175,9 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     /**
      The client id that you received when you [registered your application][1].
      
-     This is used to construct the authorization URL in
-     `AuthorizationCodeFlowPKCEBackendManager.makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`.
+     This is used to construct the authorization URL in the
+     ``AuthorizationCodeFlowPKCEBackendManager/makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager``.
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -180,18 +186,20 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     /**
      Exchanges an authorization code for the access and refresh tokens.
 
-     After validating the `redirectURIWithQuery`,
-     `AuthorizationCodeFlowPKCEBackendManager.requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
-     calls this method in order to retrieve the authorization information.
+     After validating the `redirectURIWithQuery`, the
+     ``AuthorizationCodeFlowPKCEBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager`` calls this method in
+     order to retrieve the authorization information.
 
      If the `redirectURIWithQuery` contains an error parameter or the value for
      the state parameter doesn't match the value passed in as an argument to the
      above method, then an error will be thrown *before* this method is called.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
-     `expirationDate` (which can be decoded from the "expires_in" JSON key)
-     properties must be non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken``,
+     ``AuthInfo/refreshToken``, and ``AuthInfo/expirationDate`` (which can be
+     decoded from the "expires_in" JSON key) properties must be non-`nil`. For
+     example:
 
      ```
      {
@@ -204,7 +212,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      ```
 
      If Spotify returns one of the documented error objects, such as
-     `SpotifyAuthenticationError`, do not decode the data into one of these
+     ``SpotifyAuthenticationError``, do not decode the data into one of these
      types yourself; this will be done by the caller. If you are communicating
      with a custom backend server and it returns its own error response, decode
      it into a custom error type and throw it as an error to downstream
@@ -213,7 +221,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     See also `PKCETokensRequest` and `ProxyPKCETokensRequest`.
+     See also ``PKCETokensRequest`` and ``ProxyPKCETokensRequest``.
 
      - Parameters:
        - code: The authorization code, which will also be present in
@@ -236,13 +244,15 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      Refreshes an access token using the refresh token.
 
      Access tokens expire after an hour, after which they must be refreshed
-     using this method. This method will be called by
-     `AuthorizationCodeFlowPKCEBackendManager.refreshTokens(onlyIfExpired:tolerance:)`.
+     using this method. This method will be called by the
+     ``AuthorizationCodeFlowPKCEBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     method of ``AuthorizationCodeFlowPKCEBackendManager``.
 
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken`, `refreshToken`, and
-     `expirationDate` (which can be decoded from the "expires_in" JSON key)
-     properties must be non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken``,
+     ``AuthInfo/refreshToken``, and ``AuthInfo/expirationDate`` (which can be
+     decoded from the "expires_in" JSON key) properties must be non-`nil`. For
+     example:
 
      ```
      {
@@ -255,7 +265,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      ```
 
      If Spotify returns one of the documented error objects, such as
-     `SpotifyAuthenticationError`, do not decode the data into one of these
+     ``SpotifyAuthenticationError``, do not decode the data into one of these
      types yourself; this will be done by the caller. If you are communicating
      with a custom backend server and it returns its own error response, decode
      it into a custom error type and throw it as an error to downstream
@@ -264,7 +274,8 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     See also `PKCERefreshTokensRequest` and `ProxyPKCERefreshTokensRequest`.
+     See also ``PKCERefreshTokensRequest`` and
+     ``ProxyPKCERefreshTokensRequest``.
 
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
@@ -282,11 +293,12 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
  using the [Client Credentials Flow][1].
 
  Conforming types may communicate directly with the Spotify web API (see
- `ClientCredentialsFlowClientBackend`), or it they may communicate with a custom
- backend server that you configure (see `ClientCredentialsFlowProxyBackend`).
- This backend server can safely store your client id and client secret and
- retrieve the authorization information from Spotify on your behalf, thereby
- preventing these sensitive credentials from being exposed in your frontend app.
+ ``ClientCredentialsFlowClientBackend``), or it they may communicate with a
+ custom backend server that you configure (see
+ ``ClientCredentialsFlowProxyBackend``). This backend server can safely store
+ your client id and client secret and retrieve the authorization information
+ from Spotify on your behalf, thereby preventing these sensitive credentials
+ from being exposed in your frontend app.
  
  See also [SpotifyAPIServer][2], a backend server that can handle authorization
  process.
@@ -304,16 +316,17 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
     /**
      Makes a request for the authorization information.
      
-     This method is called by either the `authorize()` or
-     `refreshTokens(onlyIfExpired:tolerance:)` methods of
-     `ClientCredentialsFlowBackendManager`. The client credentials flow does not
-     provide a refresh token, so in both cases, the same network request should
-     be made.
+     This method is called by either the
+     ``ClientCredentialsFlowBackendManager/authorize()`` or
+     ``ClientCredentialsFlowBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     methods of ``ClientCredentialsFlowBackendManager``. The client credentials
+     flow does not provide a refresh token, so in both cases, the same network
+     request should be made.
      
      This method must return the authorization information as JSON data that can
-     be decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which
-     can be decoded from the "expires_in" JSON key) properties must be
-     non-`nil`. For example:
+     be decoded into ``AuthInfo``. The ``AuthInfo/accessToken`` and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties must be non-`nil`. For example:
      
      ```
      {
@@ -324,7 +337,7 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
      ```
      
      If Spotify returns one of the documented error objects, such as
-     `SpotifyAuthenticationError`, do not decode the data into one of these
+     ``SpotifyAuthenticationError``, do not decode the data into one of these
      types yourself; this will be done by the caller. If you are communicating
      with a custom backend server and it returns its own error response, decode
      it into a custom error type and throw it as an error to downstream
@@ -333,7 +346,7 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
      Read about the underlying request that must be made to Spotify in order to
      retrieve this data [here][1].
      
-     See also `ClientCredentialsTokensRequest`.
+     See also ``ClientCredentialsTokensRequest``.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
      */

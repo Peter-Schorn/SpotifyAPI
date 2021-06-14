@@ -2,7 +2,7 @@ import Foundation
 
 /**
  The response from the [search][1] endpoint:
- `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)`.
+ ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``.
 
  The search endpoint has a `categories` parameter, which specifies which objects
  will be returned in the response. Valid categories are:

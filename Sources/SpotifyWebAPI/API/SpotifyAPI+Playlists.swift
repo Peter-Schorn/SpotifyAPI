@@ -131,11 +131,11 @@ public extension SpotifyAPI {
 
      See also:
      
-     * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
-     * `playlist(_:market:)`
-     * `playlistItems(_:limit:offset:market:)`
-     * `playlistTracks(_:limit:offset:market:)`
-     * `playlistImage(_:)`
+     * ``filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)``
+     * ``playlist(_:market:)``
+     * ``playlistItems(_:limit:offset:market:)``
+     * ``playlistTracks(_:limit:offset:market:)``
+     * ``playlistImage(_:)``
      
      No scopes are required for this endpoint. Both Public and Private playlists
      belonging to any user can be retrieved.
@@ -144,12 +144,12 @@ public extension SpotifyAPI {
      response into this [online JSON viewer][2].
 
      You are also encouraged to assign a folder to
-     `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is
-     initialized to—so that the data will be written to a folder when the
-     decoding fails. You can then upload this file to the JSON viewer. Set the
-     `logLevel` of `spotifyDecodeLogger` to `trace` to print the raw data of all
-     requests to the standard output.
+     ``SpotifyDecodingError/dataDumpFolder``—or assign a value to the
+     environment variable "SPOTIFY_DATA_DUMP_FOLDER", which is what
+     ``SpotifyDecodingError/dataDumpFolder`` is initialized to—so that the data
+     will be written to a folder when the decoding fails. You can then upload
+     this file to the JSON viewer. Set the `logLevel` of ``spotifyDecodeLogger``
+     to `trace` to print the raw data of all requests to the standard output.
 
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
@@ -172,13 +172,14 @@ public extension SpotifyAPI {
              excluded by prefixing them with an exclamation mark, for example:
              "tracks.items(track(name,href,album(!name,href)))".
        - additionalTypes: *Required*. An array of id categories. Valid types are
-             `track` and `episode`. If you provide `[]` or `[.track]`, then both
-             tracks and episodes will be returned in the `Track` format. In this
-             case, trying to decode episodes into `PlaylistItem` or `Episode`
-             will always fail. Instead, both tracks and episodes must be decoded
-             into `Track`. If you expect the the playlist to have both tracks
-             and episodes, then use `[.episode]` or `[.track, .episode]` and
-             decode the tracks and episodes into `PlaylistItem`.
+             ``IDCategory/track`` and ``IDCategory/episode``. If you provide
+             `[]` or `[.track]`, then both tracks and episodes will be returned
+             in the ``Track`` format. In this case, trying to decode episodes
+             into ``PlaylistItem`` or ``Episode`` will always fail. Instead,
+             both tracks and episodes must be decoded into ``Track``. If you
+             expect the the playlist to have both tracks and episodes, then use
+             `[.episode]` or `[.track, .episode]` and decode the tracks and
+             episodes into ``PlaylistItem``.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the
              string "from_token". For tracks, Provide this parameter if you want
              to apply [Track Relinking][5]. For episodes, if the access token
@@ -245,11 +246,11 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `playlistItems(_:limit:offset:market:)`
-     * `playlistTracks(_:limit:offset:market:)`
-     * `filteredPlaylist(_:fields:additionalTypes:market:)`
-     * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
-     * `playlistImage(_:)`
+     * ``playlistItems(_:limit:offset:market:)``
+     * ``playlistTracks(_:limit:offset:market:)``
+     * ``filteredPlaylist(_:filters:additionalTypes:market:)``
+     * ``filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)``
+     * ``playlistImage(_:)``
      
      In contrast to the above methods, additional data about the playlist itself will
      be retrieved, including its name and any images associated with it.
@@ -326,27 +327,27 @@ public extension SpotifyAPI {
      Makes a request to the "/playlists/{playlistId}/tracks" endpoint and allows
      you to specify fields to filter the query.
 
-     Unlike, `filteredPlaylist(_:filters:additionalTypes:market:)`, this
+     Unlike, ``filteredPlaylist(_:filters:additionalTypes:market:)``, this
      endpoint allows you to request different pages of results.
      
      See also:
      
-     * `filteredPlaylist(_:filters:additionalTypes:market:)`
-     * `playlist(_:market:)`
-     * `playlistItems(_:limit:offset:market:)`
-     * `playlistTracks(_:limit:offset:market:)`
-     * `playlistImage(_:)`
+     * ``filteredPlaylist(_:filters:additionalTypes:market:)``
+     * ``playlist(_:market:)``
+     * ``playlistItems(_:limit:offset:market:)``
+     * ``playlistTracks(_:limit:offset:market:)``
+     * ``playlistImage(_:)``
      
      No scopes are required for this endpoint. Both Public and Private playlists
      belonging to any user can be retrieved.
      
      You are also encouraged to assign a folder to
-     `SpotifyDecodingError.dataDumpFolder`—or assign a value to the environment
-     variable "SPOTIFY_DATA_DUMP_FOLDER", which is what `dataDumpFolder` is
-     initialized to—so that the data will be written to a folder when the
-     decoding fails. You can then upload this file to the JSON viewer. Set the
-     `logLevel` of `spotifyDecodeLogger` to `trace` to print the raw data of all
-     requests to the standard output.
+     ``SpotifyDecodingError/dataDumpFolder``—or assign a value to the
+     environment variable "SPOTIFY_DATA_DUMP_FOLDER", which is what
+     ``SpotifyDecodingError/dataDumpFolder`` is initialized to—so that the data
+     will be written to a folder when the decoding fails. You can then upload
+     this file to the JSON viewer. Set the `logLevel` of ``spotifyDecodeLogger``
+     to `trace` to print the raw data of all requests to the standard output.
      
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
@@ -369,13 +370,14 @@ public extension SpotifyAPI {
              excluded by prefixing them with an exclamation mark, for example:
              "tracks.items(track(name,href,album(!name,href)))".
        - additionalTypes: *Required*. An array of id categories. Valid types are
-             `track` and `episode`. If you provide `[]` or `[.track]`, then both
-             tracks and episodes will be returned in the `Track` format. In this
-             case, trying to decode episodes into `PlaylistItem` or `Episode`
-             will always fail. Instead, both tracks and episodes must be decoded
-             into `Track`. If you expect the the playlist to have both tracks
-             and episodes, then use `[.episode]` or `[.track, .episode]` and
-             decode the tracks and episodes into `PlaylistItem`.
+             ``IDCategory/track`` and ``IDCategory/episode``. If you provide
+             `[]` or `[.track]`, then both tracks and episodes will be returned
+             in the ``Track`` format. In this case, trying to decode episodes
+             into ``PlaylistItem`` or ``Episode`` will always fail. Instead,
+             both tracks and episodes must be decoded into ``Track``. If you
+             expect the the playlist to have both tracks and episodes, then use
+             `[.episode]` or `[.track, .episode]` and decode the tracks and
+             episodes into ``PlaylistItem``.
        - limit: *Optional*. The maximum number of items to return.
              Default: 100; minimum: 1; maximum: 100.
        - offset: *Optional*. The index of the first item to return.
@@ -429,23 +431,21 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get all of the episodes and tracks in a playlist in `Track` format.
+     Get all of the episodes and tracks in a playlist in ``Track`` format.
      
-     # Warning
-     
-     **This endpoint does NOT return only the tracks in a playlist.** Instead,
-     it returns both the tracks and episodes in `Track` format. You are
-     discouraged from using this endpoint unless you are certain that the
+     > Warning: **This endpoint does NOT return only the tracks in a playlist.**
+     Instead, it returns both the tracks and episodes in ``Track`` format. You
+     are discouraged from using this endpoint unless you are certain that the
      playlist only contains tracks. If unsure, use
-     `playlistItems(_:limit:offset:market:)` instead. Use the `type` property of
-     `Track` to check if it is actually a track.
+     ``playlistItems(_:limit:offset:market:)`` instead. Use the ``Track/type``
+     property of ``Track`` to check if it is actually a track.
      
      See also:
      
-     * `playlist(_:market:)`
-     * `filteredPlaylist(_:fields:additionalTypes:market:)`
-     * `filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)`
-     * `playlistImage(_:)`
+     * ``playlist(_:market:)``
+     * ``filteredPlaylist(_:fields:additionalTypes:market:)``
+     * ``filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)``
+     * ``playlistImage(_:)``
      
      No scopes are required for this endpoint. Tracks from both Public and
      Private playlists belonging to any user can be retrieved.
@@ -585,15 +585,16 @@ public extension SpotifyAPI {
      Get a list of the playlists for a user, including those that
      they are following.
      
-     See also `currentUserPlaylists(limit:offset:)`.
+     See also ``currentUserPlaylists(limit:offset:)``.
      
      No scopes are required for retrieving the public playlists of any user.
      Private playlists are only retrievable for the current user and requires
-     the `playlistReadPrivate` scope to have been authorized by the user. Note
-     that this scope alone will not return collaborative playlists, even though
-     they are always private. Collaborative playlists are only retrievable for
-     the current user and requires the `playlistReadCollaborative` scope to have
-     been authorized by the user. See also [Working with Playlists][1].
+     the ``Scope/playlistReadPrivate`` scope to have been authorized by the
+     user. Note that this scope alone will not return collaborative playlists,
+     even though they are always private. Collaborative playlists are only
+     retrievable for the current user and requires the
+     ``Scope/playlistReadCollaborative`` scope to have been authorized by the
+     user. See also [Working with Playlists][1].
      
      # Returns:
      ```
@@ -602,10 +603,10 @@ public extension SpotifyAPI {
      
      The simplified versions of the playlists will be returned.
      
-     A `PlaylistItemsReference` simply contains a link to all of the
+     A ``PlaylistItemsReference`` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. To get all of the
      tracks and episodes in each playlist, you can use
-     `playlistItems(_:limit:offset:market:)`, passing in the URI of each of the
+     ``playlistItems(_:limit:offset:market:)``, passing in the URI of each of the
      playlists. To get all of the URIs, use:
      ```
      let uris: [String] = playlists.items.map(\.uri)
@@ -664,14 +665,14 @@ public extension SpotifyAPI where
      Get a list of the current user's playlists, including those that they are
      following.
 
-     See also `userPlaylists(for:limit:offset:)`.
+     See also ``userPlaylists(for:limit:offset:)``.
 
      No scopes are required for retrieving the user's public playlists. However,
      the access token must have been issued on behalf of a user. Requires the
-     `playlistReadPrivate` scope for retrieving private playlists. The
-     `playlistReadCollaborative` scope is required to retrieve collaborative
-     playlists, even though these are also always private. See also [Working
-     with Playlists][1].
+     ``Scope/playlistReadPrivate`` scope for retrieving private playlists. The
+     ``Scope/playlistReadCollaborative`` scope is required to retrieve
+     collaborative playlists, even though these are also always private. See
+     also [Working with Playlists][1].
 
      # Returns:
      ```
@@ -680,11 +681,11 @@ public extension SpotifyAPI where
      
      The simplified versions of the playlists will be returned.
      
-     A `PlaylistItemsReference` simply contains a link to all of the
+     A ``PlaylistItemsReference`` simply contains a link to all of the
      tracks/episodes and the total number in the playlist. To get all of the
      tracks and episodes in each playlist, you can use
-     `playlistItems(_:limit:offset:market:)`, passing in the URI of each of the
-     playlists. To get all of the URIs, use:
+     ``playlistItems(_:limit:offset:market:)``, passing in the URI of each of
+     the playlists. To get all of the URIs, use:
      ```
      let uris: [String] = playlists.items.map(\.uri)
      ```
@@ -721,7 +722,7 @@ public extension SpotifyAPI where
     /**
      Get the current images associated with a specific playlist.
      
-     See also `playlist(_:market:)`.
+     See also ``playlist(_:market:)``.
      
      No scopes are required for this endpoint; the access token must have been
      issued on behalf of *a* user, but not necessarily the owner of this
@@ -762,9 +763,9 @@ public extension SpotifyAPI where
      Add tracks/episodes to one of the current user's playlists.
      
      Adding items to the current user’s public playlists requires authorization
-     of the `playlistModifyPublic` scope; adding items to the current user’s
-     private playlists (including collaborative playlists) requires the
-     `playlistModifyPrivate` scope.
+     of the ``Scope/playlistModifyPublic`` scope; adding items to the current
+     user’s private playlists (including collaborative playlists) requires the
+     ``Scope/playlistModifyPrivate`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -810,8 +811,8 @@ public extension SpotifyAPI where
      Create a playlist for the current user.
      
      Creating a public playlist for a user requires authorization of the
-     `playlistModifyPublic` scope; creating a private playlist requires the
-     `playlistModifyPrivate` scope.
+     ``Scope/playlistModifyPublic`` scope; creating a private playlist requires
+     the ``Scope/playlistModifyPrivate`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -856,44 +857,53 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
-     * `removeAllOccurrencesFromPlaylist(_:uris:)`
-     * `replaceAllPlaylistItems(_:with:)`
+     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
+     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``replaceAllPlaylistItems(_:with:)``
 
      Reordering items in the current user’s public playlists requires
-     authorization of the `playlistModifyPublic` scope; reordering items
+     authorization of the ``Scope/playlistModifyPublic`` scope; reordering items
      in the current user’s private playlists (including collaborative playlists)
-     requires the `playlistModifyPrivate` scope.
+     requires the ``Scope/playlistModifyPrivate`` scope.
      
      The body of the request contains the following properties:
      
-     * rangeStart: The position of the first item to be reordered.
-     * rangeLength: The amount of items to be reordered. Defaults to 1.
-       The range of items to be reordered begins from the `rangeStart` position
-       (inclusive), and includes the `rangeLength` subsequent items.
-       For example, if `rangeLength` is 1, then the item at index `rangeStart`
-       will be inserted before the item at index `insertBefore`.
-     * insertBefore: The position where the items should be inserted.
-     * snapshotId: *Optional*. The version identifier for the current playlist.
+     * ``ReorderPlaylistItems/rangeStart``: The position of the first item to be
+       reordered.
+     * ``ReorderPlaylistItems/rangeLength``: The amount of items to be
+       reordered. Defaults to 1. The range of items to be reordered begins from
+       the ``ReorderPlaylistItems/rangeStart`` position (inclusive), and
+       includes the ``ReorderPlaylistItems/rangeLength`` subsequent items. For
+       example, if ``ReorderPlaylistItems/rangeLength`` is 1, then the item at
+       index ``ReorderPlaylistItems/rangeStart`` will be inserted before the
+       item at index ``ReorderPlaylistItems/insertBefore``.
+     * ``ReorderPlaylistItems/insertBefore``: The position where the items
+       should be inserted.
+     * ``ReorderPlaylistItems/snapshotId``: *Optional*. The version identifier
+       for the current playlist.
      
      # Examples:
      
      To reorder the first item to the last position in a playlist with 10 items,
-     set `rangeStart` to 0, set `rangeLength` to 1 (default) and `insertBefore`
-     to 10.
+     set ``ReorderPlaylistItems/rangeStart`` to 0, set
+     ``ReorderPlaylistItems/rangeLength`` to 1 (default) and
+     ``ReorderPlaylistItems/insertBefore`` to 10.
      
      To reorder the last item in a playlist with 10 items to the start of the
-     playlist, set `rangeStart` to 9, set `rangeLength` to 1 (default) and set
-     `insertBefore` to 0.
+     playlist, set ``ReorderPlaylistItems/rangeStart`` to 9, set
+     ``ReorderPlaylistItems/rangeLength`` to 1 (default) and set
+     ``ReorderPlaylistItems/insertBefore`` to 0.
 
      To move the items at index 9-10 to the start of the playlist, set
-     `rangeStart` to 9, set `rangeLength` to 2, and set `insertBefore` to 0.
+     ``ReorderPlaylistItems/rangeStart`` to 9, set
+     ``ReorderPlaylistItems/rangeLength`` to 2, and set
+     ``ReorderPlaylistItems/insertBefore`` to 0.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - body: An instance of `ReorderPlaylistItems.` See above.
+       - body: An instance of ``ReorderPlaylistItems``. See above.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
            the current version of the playlist. Every time the playlist changes,
            a new snapshot id is generated. You can use this value to efficiently
@@ -930,14 +940,14 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
-     * `removeAllOccurrencesFromPlaylist(_:uris:)`
-     * `reorderPlaylistItems(_:body:)`
+     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
+     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``reorderPlaylistItems(_:body:)``
      
      Setting items in the current user’s public playlists requires authorization
-     of the `playlistModifyPublic` scope; setting items in the current user’s
-     private playlists (including collaborative playlists) requires the
-     `playlistModifyPrivate` scope.
+     of the ``Scope/playlistModifyPublic`` scope; setting items in the current
+     user’s private playlists (including collaborative playlists) requires the
+     ``Scope/playlistModifyPrivate`` scope.
      
      **If a single URI is invalid, then the entire request will fail and the**
      **playlist will not be modified.**
@@ -980,8 +990,8 @@ public extension SpotifyAPI where
      Change the details of a playlist.
      
      Changing a public playlist for a user requires authorization of the
-     `playlistModifyPublic` scope; changing a private playlist requires the
-     `playlistModifyPrivate` scope.
+     ``Scope/playlistModifyPublic`` scope; changing a private playlist requires
+     the ``Scope/playlistModifyPrivate`` scope.
      
      The details of the playlist that can be changed are:
      
@@ -1038,9 +1048,10 @@ public extension SpotifyAPI where
     /**
      Upload an image for a playlist.
      
-     This endpoint requires the `ugcImageUpload` scope. In addition, the
-     `playlistModifyPublic` scope is required for public playlists, and the
-     `playlistModifyPrivate` scope is required for private playlists.
+     This endpoint requires the ``Scope/ugcImageUpload`` scope. In addition, the
+     ``Scope/playlistModifyPublic`` scope is required for public playlists, and
+     the ``Scope/playlistModifyPrivate`` scope is required for private
+     playlists.
 
      To convert a `UIImage` to base64-encoded jpeg data, use:
      ```
@@ -1128,13 +1139,13 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)`
-     * `replaceAllPlaylistItems(_:with:)`
-     * `reorderPlaylistItems(_:body:)`
+     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
+     * ``replaceAllPlaylistItems(_:with:)``
+     * ``reorderPlaylistItems(_:body:)``
      
      Removing items from a user’s public playlist requires authorization of the
-     `playlistModifyPublic` scope; removing items from a private playlist
-     requires the `playlistModifyPrivate` scope.
+     ``Scope/playlistModifyPublic`` scope; removing items from a private
+     playlist requires the ``Scope/playlistModifyPrivate`` scope.
      
      **If a single URI is invalid, then the entire request will fail and the**
      **playlist will not be modified.** Trying to remove an item that is not
@@ -1182,13 +1193,13 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `removeAllOccurrencesFromPlaylist(_:uris:)`
-     * `replaceAllPlaylistItems(_:with:)`
-     * `reorderPlaylistItems(_:body:)`
+     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``replaceAllPlaylistItems(_:with:)``
+     * ``reorderPlaylistItems(_:body:)``
      
      Removing items from a user’s public playlist requires authorization of the
-     `playlistModifyPublic` scope; removing items from a private playlist
-     requires the `playlistModifyPrivate` scope.
+     ``Scope/playlistModifyPublic`` scope; removing items from a private
+     playlist requires the ``Scope/playlistModifyPrivate`` scope.
      
      **If a single URI is invalid or if a given item is not found at a given**
      **position, the entire request will fail and no edits will take place.**

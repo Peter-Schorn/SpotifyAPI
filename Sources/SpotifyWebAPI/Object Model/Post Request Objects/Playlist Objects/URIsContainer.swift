@@ -4,7 +4,7 @@ import Foundation
 /**
  Contains an array of URIs and, optionally, the [snapshot id][1] of a playlist.
  Used in the body of
- `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`.
+ ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``.
 
  Compare with `URIsWithPositionsContainer`.
 
@@ -29,7 +29,8 @@ public struct URIsContainer {
     
      - Parameters:
        - items: An array of track/episode URIs.
-             The `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
+             The
+             ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
              endpoint accepts a maximum of 100 items.
        - snapshotId: The [snapshot id][1] of a playlist. If `nil`, the most
              recent version of the playlist is targeted. This is an identifier

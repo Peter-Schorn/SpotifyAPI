@@ -4,7 +4,7 @@ import Foundation
  A Spotify [resume point object][1]. Represents the user’s most recent position
  in an episode.
 
- Retrieving this object requires the `userReadPlaybackPosition` scope.
+ Retrieving this object requires the ``Scope/userReadPlaybackPosition`` scope.
 
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-resumepointobject
  */

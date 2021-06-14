@@ -144,16 +144,17 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      
      **You are discouraged from subscribing to this publisher directly.**
      
-     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidChange`
-     publisher. This allows you to be notified of changes even when you create a
-     new instance of this class and assign it to the `authorizationManager`
-     instance property of `SpotifyAPI`.
+     Instead, subscribe to the ``SpotifyAPI/authorizationManagerDidChange``
+     publisher of ``SpotifyAPI``. This allows you to be notified of changes even
+     when you create a new instance of this class and assign it to the
+     ``SpotifyAPI/authorizationManager`` instance property of ``SpotifyAPI``.
 
-     Emits after the following events occur: * After an access token is
-     retrieved using the `authorize()` method. * After a new access token is
-     retrieved using   `refreshTokens(onlyIfExpired:tolerance:)`.
+     Emits after the following events occur:
+     * After an access token is retrieved using the ``authorize()`` method.
+     * After a new access token is retrieved using
+       ``refreshTokens(onlyIfExpired:tolerance:)``.
 
-     See also `didDeauthorize`, which emits after `deauthorize()` is called.
+     See also ``didDeauthorize``, which emits after ``deauthorize()`` is called.
      Subscribe to that publisher in order to remove the authorization
      information from persistent storage when it emits.
      
@@ -164,20 +165,20 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     public let didChange = PassthroughSubject<Void, Never>()
     
     /**
-     A publisher that emits after `deauthorize()` is called.
+     A publisher that emits after ``deauthorize()`` is called.
      
      **You are discouraged from subscribing to this publisher directly.**
      
-     Instead, subscribe to the `SpotifyAPI.authorizationManagerDidDeauthorize`
-     publisher. This allows you to be notified even when you create a new
-     instance of this class and assign it to the `authorizationManager` instance
-     property of `SpotifyAPI`. occurrences `deauthorize()` sets the access token
-     and expiration date to `nil`.
+     Instead, subscribe to the ``SpotifyAPI/authorizationManagerDidDeauthorize``
+     publisher of ``SpotifyAPI``. This allows you to be notified even when you
+     create a new instance of this class and assign it to the
+     ``SpotifyAPI/authorizationManager`` instance property of ``SpotifyAPI``.
+     ``deauthorize()`` sets the access token and expiration date to `nil`.
 
      Subscribe to this publisher in order to remove the authorization
      information from persistent storage when it emits.
      
-     See also `didChange`.
+     See also ``didChange``.
      
      # Thread Safety
      
@@ -399,8 +400,7 @@ public extension ClientCredentialsFlowBackendManager {
     // MARK: - Authorization
     
     /**
-     Sets `accessToken` and `expirationDate` to `nil`. Does not change
-     `clientId` or `clientSecret`, which are immutable.
+     Sets ``accessToken`` and ``expirationDate`` to `nil`.
 
      After calling this method, you must authorize your application again before
      accessing any of the Spotify web API endpoints.
@@ -408,9 +408,9 @@ public extension ClientCredentialsFlowBackendManager {
      If this instance is stored in persistent storage, consider removing it
      after calling this method.
 
-     Calling this method causes `didDeauthorize` to emit a signal, which will
-     also cause `SpotifyAPI.authorizationManagerDidDeauthorize` to emit a
-     signal.
+     Calling this method causes ``didDeauthorize`` to emit a signal, which will
+     also cause the ``SpotifyAPI/authorizationManagerDidDeauthorize`` publisher
+     of ``SpotifyAPI`` to emit a signal.
      
      # Thread Safety
      
@@ -477,12 +477,12 @@ public extension ClientCredentialsFlowBackendManager {
      Authorizes the application for the [Client Credentials Flow][1].
      
      This is the only method you need to call to authorize your application.
-     After this publisher finished normally, you can begin making requests to
+     After this publisher finishes normally, you can begin making requests to
      the Spotify web API. The access token will be automatically refreshed for
      you.
 
-     If the authorization request succeeds, then `self.didChange` will emit a
-     signal, causing `SpotifyAPI.authorizationManagerDidChange` to emit a
+     If the authorization request succeeds, then ``didChange`` will emit a
+     signal, causing ``SpotifyAPI/authorizationManagerDidChange`` to emit a
      signal.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
@@ -543,8 +543,8 @@ public extension ClientCredentialsFlowBackendManager {
      calling this method and passing in `false` for `onlyIfExpired` is
      equivalent to calling `authorize`.
 
-     If a new access token is successfully retrieved, then `self.didChange` will
-     emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange` to
+     If a new access token is successfully retrieved, then ``didChange`` will
+     emit a signal, which causes ``SpotifyAPI/authorizationManagerDidChange`` to
      emit a signal.
      
      # Thread Safety

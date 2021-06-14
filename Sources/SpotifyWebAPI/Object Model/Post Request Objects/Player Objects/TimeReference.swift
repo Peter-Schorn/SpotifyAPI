@@ -4,7 +4,7 @@ import Foundation
 /// Represents a period before or after a specified date. Dates are converted to
 /// millisecond-precision timestamp strings.
 ///
-/// Used in the body of `SpotifyAPI.recentlyPlayed(_:limit:)`.
+/// Used in the body of ``SpotifyAPI/recentlyPlayed(_:limit:)``.
 public enum TimeReference: Codable, Hashable {
     
     /**
@@ -16,7 +16,7 @@ public enum TimeReference: Codable, Hashable {
      order to reference the page of results that chronologically precede the
      current page.
      
-     See also `Self.before(_ date: Date)`.
+     See also ``before(_:)-swift.type.method``.
      */
     case before(String)
     
@@ -29,7 +29,7 @@ public enum TimeReference: Codable, Hashable {
      order to reference the page of results that chronologically succeed the
      current page.
      
-     See also `Self.after(_ date: Date)`.
+     See also ``after(_:)-swift.type.method``.
      */
     case after(String)
     
@@ -37,7 +37,7 @@ public enum TimeReference: Codable, Hashable {
      A period before a specified date. It will be converted to a
      millisecond-precision timestamp string rounded to the nearest integer.
 
-     See also `Self.before(String)`.
+     See also ``before(_:)-swift.enum.case``.
 
      - Parameter date: A date.
      */
@@ -49,7 +49,7 @@ public enum TimeReference: Codable, Hashable {
      A period before a specified date. It will be converted to a
      millisecond-precision timestamp string rounded to the nearest integer.
     
-     See also `Self.after(String)`.
+     See also ``after(_:)-swift.enum.case``.
 
      - Parameter date: A date.
      */

@@ -4,7 +4,7 @@ import Foundation
  A [cursor-based paging object][1].
  
  See [get current user's recently played tracks][2] and
- `SpotifyAPI.recentlyPlayed(_:limit:)`.
+ ``SpotifyAPI/recentlyPlayed(_:limit:)``.
  
  See also [Working with Paginated Results][1].
  
@@ -19,7 +19,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /**
      A link to the Web API endpoint returning the full result of the request.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL
     
@@ -33,7 +33,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /**
      The URL to the next page of items, or `nil` if none.
     
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      
      See also [Working with Paginated Results][1].
      

@@ -16,7 +16,7 @@ public struct SpotifyContext: Hashable {
     /**
      A link to an endpoint providing further details about the context.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL?
     

@@ -2,7 +2,7 @@ import Foundation
 
 /**
  A [Recommendations Response Object][1]. Returned by
- `SpotifyAPI.recommendations(_:limit:market:)`. See also `RecommendationSeed`.
+ ``SpotifyAPI/recommendations(_:limit:market:)``. See also `RecommendationSeed`.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
  */
@@ -46,7 +46,7 @@ public struct RecommendationsResponse: Codable, Hashable {
     
     /**
      A [Recommendations Response Object][1]. Returned by
-     `SpotifyAPI.recommendations(_:limit:market:)`. See also
+     ``SpotifyAPI/recommendations(_:limit:market:)``. See also
      `RecommendationSeed`.
      
      - Parameters:

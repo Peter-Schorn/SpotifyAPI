@@ -16,7 +16,7 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
     
-     See also `artists(_:)` (gets multiple artists).
+     See also ``artists(_:)`` (gets multiple artists).
 
      Read more at the [Spotify web API reference][1].
     
@@ -53,7 +53,7 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
 
-     See also `artist(_:)` (gets a single artist).
+     See also ``artist(_:)`` (gets a single artist).
 
      Read more at the [Spotify web API reference][1].
      
@@ -109,8 +109,8 @@ public extension SpotifyAPI {
     /**
      Get an artist's albums.
      
-     See also `album(_:market:)` (gets a single album) and
-     `albums(_:market:)` (gets multiple albums).
+     See also ``album(_:market:)`` (gets a single album) and
+     ``albums(_:market:)`` (gets multiple albums).
      
      No scopes are required for this endpoint.
      
@@ -118,9 +118,10 @@ public extension SpotifyAPI {
 
      - Parameters:
        - artist: The URI of an artist.
-       - groups: *Optional*. The types of albums to return.
-             Possible values are `album`, `single`, `appearsOn`, and
-             `compilation`. If `nil`, then all types will be returned.
+       - groups: *Optional*. The types of albums to return. Possible values are
+             ``AlbumType/album``, ``AlbumType/single``, ``AlbumType/appearsOn``,
+             and ``AlbumType/compilation``. If `nil`, then all types will be
+             returned.
        - country: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
              string "from_token". Supply this parameter to limit the response to
              one particular geographical market. For example, for albums

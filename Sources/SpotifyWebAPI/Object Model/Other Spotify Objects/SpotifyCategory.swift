@@ -18,7 +18,7 @@ public struct SpotifyCategory: Codable, Hashable {
     /**
      A link to the Spotify web API endpoint providing the full category object.
 
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `SpotifyCategory`
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `SpotifyCategory`
      as the response type to retrieve the results.
      */
     public let href: URL

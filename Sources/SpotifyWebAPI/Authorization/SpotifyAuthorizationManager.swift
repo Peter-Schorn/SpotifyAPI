@@ -55,7 +55,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      Subscribe to this publisher in order to remove the authorization
      information from persistent storage when it emits.
      
-     See also `didChange`.
+     See also ``didChange``.
      */
     var didDeauthorize: PassthroughSubject<Void, Never> { get }
     
@@ -71,7 +71,10 @@ public protocol SpotifyAuthorizationManager: Codable {
 
     /**
      Refreshes the access token.
-     
+
+     **You shouldn't need to call this method**. It gets called automatically by
+     ``SpotifyAPI`` each time you make a request to the Spotify API.
+
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
        - tolerance: The tolerance in seconds to use when determining if the

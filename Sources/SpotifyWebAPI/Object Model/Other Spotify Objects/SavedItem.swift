@@ -182,7 +182,7 @@ extension SavedItem: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
 
-     `SavedItem.addedAt` is compared using `timeIntervalSince1970`, so it is
+     ``SavedItem/addedAt`` is compared using `timeIntervalSince1970`, so it is
      considered a floating point property for the purposes of this method.
 
      - Parameter other: Another instance of `Self`.

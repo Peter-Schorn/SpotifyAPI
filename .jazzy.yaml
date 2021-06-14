@@ -142,4 +142,5 @@ custom_categories:
     - RecommendationsResponse
     - TrackAttributes
     - AttributeRange
+    - SpotifyCategory
     
