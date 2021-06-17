@@ -73,7 +73,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      Refreshes the access token.
 
      **You shouldn't need to call this method**. It gets called automatically by
-     ``SpotifyAPI`` each time you make a request to the Spotify API.
+     ``SpotifyAPI`` each time you make a request to the Spotify web API.
 
      - Parameters:
        - onlyIfExpired: Only refresh the token if it is expired.
