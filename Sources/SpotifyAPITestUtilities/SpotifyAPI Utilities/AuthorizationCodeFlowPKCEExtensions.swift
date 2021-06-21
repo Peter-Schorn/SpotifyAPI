@@ -43,12 +43,13 @@ public extension SpotifyAPI where
 
 public extension AuthorizationCodeFlowPKCEBackendManager {
     
-    
-    /// Authorizes the application. You should probably use
-    /// `authorizeAndWaitForTokens(scopes:showDialog:)` instead, which blocks
-    /// the thread until the application is authorized.
-    ///
-    /// Returns early if the application is already authorized.
+    /**
+     Authorizes the application.
+     
+     You should probably use ``authorizeAndWaitForTokens(scopes:showDialog:)``
+     instead, which blocks the thread until the application is authorized.
+     Returns early if the application is already authorized.
+     */
     func testAuthorize(
         scopes: Set<Scope> = Scope.allCases
     ) -> AnyPublisher<Void, Error> {

@@ -8,8 +8,9 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /// The name of the playlist.
     public let name: String
     
-    /// The items in this `Playlist`. Consult the documentation for the specific
-    /// endpoint that this playlist was retrieved from for more information.
+    /// The items in this ``Playlist``. Consult the documentation for the
+    /// specific endpoint that this playlist was retrieved from for more
+    /// information.
     public let items: Items
     
     /// The user who owns the playlist.
@@ -103,7 +104,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      */
     public let images: [SpotifyImage]
     
-    /// The object type. Always `playlist`.
+    /// The object type. Always ``IDCategory/playlist``.
     public let type: IDCategory
 
     /**

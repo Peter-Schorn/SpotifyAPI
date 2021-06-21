@@ -4,7 +4,7 @@ import Foundation
 /**
  The Spotify [authentication error object][1].
 
- Do not confuse this with `SpotifyAuthorizationError`.
+ Do not confuse this with ``SpotifyAuthorizationError``.
 
  Used whenever there are errors related to authentication or authorization, such
  as retrieving an access token or refreshing an access token.
@@ -14,10 +14,10 @@ import Foundation
  
  See also:
  
- * `SpotifyError`
- * `SpotifyPlayerError`
- * `RateLimitedError`
- * `SpotifyGeneralError`
+ * ``SpotifyError``
+ * ``SpotifyPlayerError``
+ * ``RateLimitedError``
+ * ``SpotifyGeneralError``
  
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
  [2]: https://tools.ietf.org/html/rfc6749

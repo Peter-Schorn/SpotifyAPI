@@ -3,8 +3,8 @@ import Foundation
 /**
  Too Many Requests - [Rate limiting][1] has been applied.
 
- The `retryAfter` property specifies the number of seconds you must wait before
- you try the request again.
+ The ``retryAfter`` property specifies the number of seconds you must wait
+ before you try the request again.
 
  Rate limiting is applied as per application based on Client ID, and regardless
  of the number of users who use the application simultaneously.

@@ -11,7 +11,7 @@ import Foundation
  ``AuthorizationCodeFlowPKCEBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
  method.
 
- In contrast with `PKCETokensRequest`, which should be used if you are
+ In contrast with ``PKCETokensRequest``, which should be used if you are
  communicating directly with Spotify, this type does not contain the `clientId`
  because this value should be securely stored on your backend server.
 
@@ -52,13 +52,13 @@ public struct ProxyPKCETokensRequest: Hashable {
      Creates an instance that is used to retrieve the authorization information
      using the [Authorization Code Flow with Proof Key for Code Exchange][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates with a custom backend server, use this type in the
      body of the network request made in the
-     `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+     ``AuthorizationCodeFlowPKCEBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
      method.
 
-     In contrast with `PKCETokensRequest`, which should be used if you are
+     In contrast with ``PKCETokensRequest``, which should be used if you are
      communicating directly with Spotify, this type does not contain the
      `clientId` because this value should be securely stored on your backend
      server.

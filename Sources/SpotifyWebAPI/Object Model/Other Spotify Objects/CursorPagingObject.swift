@@ -23,7 +23,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
      */
     public let href: URL
     
-    /// An array of the requested data in this `CursorPagingObject`.
+    /// An array of the requested data in this ``CursorPagingObject``.
     public let items: [Item]
      
     /// The maximum number of items in the response (as set in the query or by
@@ -51,12 +51,12 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
      Creates a [cursor-based paging object][1].
      
      See [get current user's recently played tracks][2]
-     and `recentlyPlayed(_:limit:)`.
+     and ``SpotifyAPI/recentlyPlayed(_:limit:)``.
      
      - Parameters:
        - href: A link to the Web API endpoint returning the full result of the
              request.
-       - items: An array of the requested data in this `CursorPagingObject`.
+       - items: An array of the requested data in this ``CursorPagingObject``.
        - limit: The maximum number of items in the response.
        - next: The URL to the next page of items, or `nil` if none.
        - cursors: Used to find the next and previous items.

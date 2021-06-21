@@ -10,19 +10,6 @@ import Foundation
  ```
  "track" is the id category.
  
- The id categories are:
- 
- * `artist`
- * `album`
- * `track`
- * `playlist`
- * `show`
- * `episode`
- * `local`
- * `user`
- * `genre`
- * `unknown`
- 
  Read more at the [Spotify web API reference][1].
  
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -67,16 +54,16 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      
      The id categories:
      
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `unknown`
+     * ``artist``
+     * ``album``
+     * ``track``
+     * ``playlist``
+     * ``show``
+     * ``episode``
+     * ``local``
+     * ``user``
+     * ``genre``
+     * ``unknown``
      
      - Parameter rawValue: The raw value for an id category. **It is**
            **case-insensitive**.

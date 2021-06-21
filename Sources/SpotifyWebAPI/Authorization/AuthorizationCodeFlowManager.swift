@@ -35,8 +35,8 @@ import FoundationNetworking
  **If you do not have a custom backend server, then you are encouraged use the**
  **concrete subclass of this class,** ``AuthorizationCodeFlowManager``
  **instead**. It inherits from
- `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`. This
- class will store your client id and client secret locally.
+ ``AuthorizationCodeFlowBackendManager``<``AuthorizationCodeFlowClientBackend``>.
+ This class will store your client id and client secret locally.
 
  # Authorization
  
@@ -54,12 +54,15 @@ import FoundationNetworking
  to the Spotify API. The access token will be refreshed for you automatically
  when needed.
  
- Use ``isAuthorized(for:)`` to check if your application is authorized for the
- specified scopes.
-
- Use ``deauthorize()`` to set the ``accessToken``, ``refreshToken``, ``expirationDate``,
- and ``scopes`` to `nil`.
-
+ Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your
+ application is authorized for the specified scopes.
+ 
+ Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the
+ ``AuthorizationCodeFlowManagerBase/accessToken``,
+ ``AuthorizationCodeFlowManagerBase/refreshToken``,
+ ``AuthorizationCodeFlowManagerBase/expirationDate``, and
+ ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`.
+ 
  # Persistent Storage
  
  Note that this type conforms to `Codable`. It is this type that you should
@@ -102,9 +105,9 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      Creates an authorization manager for the [Authorization Code Flow][1].
      
      **If you do not have a custom backend server, then you are encouraged to**
-     **use the concrete subclass of this class,** `AuthorizationCodeFlowManager`
-     **instead**. It inherits from
-     `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`.
+     **use the concrete subclass of this class,**
+     ``AuthorizationCodeFlowManager`` **instead**. It inherits from
+     ``AuthorizationCodeFlowBackendManager``<``AuthorizationCodeFlowClientBackend``>.
      This class will store your client id and client secret locally.
 
      Note that this type conforms to `Codable`. It is this type that you should
@@ -116,10 +119,10 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
        - backend: A type that handles the process of requesting the
              authorization information and refreshing the access token from
              Spotify. It may do so directly (see
-             `AuthorizationCodeFlowClientBackend`), or it may communicate with a
-             custom backend server that you configure (see
-             `AuthorizationCodeFlowProxyBackend`). See
-             `AuthorizationCodeFlowBackend` for more information.
+             ``AuthorizationCodeFlowClientBackend``), or it may communicate with
+             a custom backend server that you configure (see
+             ``AuthorizationCodeFlowProxyBackend``). See
+             ``AuthorizationCodeFlowBackend`` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
@@ -133,12 +136,12 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(backend:)`.
+     ``init(backend:)``.
      
      **If you do not have a custom backend server, then you are encouraged to**
-     **use the concrete subclass of this class,** `AuthorizationCodeFlowManager`
-     **instead**. It inherits from
-     `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>`.
+     **use the concrete subclass of this class,**
+     ``AuthorizationCodeFlowManager`` **instead**. It inherits from
+     ``AuthorizationCodeFlowBackendManager``<``AuthorizationCodeFlowClientBackend``>.
      This class will store your client id and client secret locally.
     
      You are discouraged from individually saving the properties of this
@@ -152,18 +155,19 @@ public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowB
        - backend: A type that handles the process of requesting the
              authorization information and refreshing the access token from
              Spotify. It may do so directly (see
-             `AuthorizationCodeFlowClientBackend`), or it may communicate with a
-             custom backend server that you configure (see
-             `AuthorizationCodeFlowProxyBackend`). See
-             `AuthorizationCodeFlowBackend` for more information.
+             ``AuthorizationCodeFlowClientBackend``), or it may communicate with
+             a custom backend server that you configure (see
+             ``AuthorizationCodeFlowProxyBackend``). See
+             ``AuthorizationCodeFlowBackend`` for more information.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
        - refreshToken: The refresh token. If `nil` (not recommended), then it
              will not be possible to automatically refresh the access token when
              it expires; instead, you will have to go through the authorization
              process again, as described in the README in the root directory of
-             this package. Use `accessTokenIsExpired(tolerance:)` to check if
-             the access token is expired.
+             this package. Use
+             ``AuthorizationCodeFlowManagerBase/accessTokenIsExpired(tolerance:)``
+             to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
@@ -242,7 +246,7 @@ public extension AuthorizationCodeFlowBackendManager {
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
      appended to it. Pass that URL into
-     `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to complete
+     ``requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`` to complete
      the authorization process.
      
      # Warning
@@ -266,7 +270,7 @@ public extension AuthorizationCodeFlowBackendManager {
              redirected and will have to approve the app again.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
-             `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)`,
+             ``requestAccessAndRefreshTokens(redirectURIWithQuery:state:)``,
              **otherwise an error will be thrown.** The state can be useful for
              correlating requests and responses. Because your redirect URI can
              be guessed, using a state value can increase your assurance that an
@@ -313,7 +317,7 @@ public extension AuthorizationCodeFlowBackendManager {
      The second and final step in the [Authorization Code Flow][1].
      
      After you open the URL from
-     `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)` and the user
+     ``makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`` and the user
      either authorizes or denies authorization for your app, Spotify will
      redirect to the redirect URI you specified with query parameters appended
      to it. Pass this URL into this method to request access and refresh tokens.
@@ -321,8 +325,9 @@ public extension AuthorizationCodeFlowBackendManager {
      access user data.
 
      If the user denied your app's authorization request or the request failed
-     for some other reason, then `SpotifyAuthorizationError` will be thrown to
-     downstream subscribers. Use the `accessWasDenied` boolean property of this
+     for some other reason, then ``SpotifyAuthorizationError`` will be thrown to
+     downstream subscribers. Use the
+     ``SpotifyAuthorizationError/accessWasDenied`` boolean property of this
      error to check if the user denied your app's authorization request.
 
      If the request for the access and refresh tokens succeeds,
@@ -460,9 +465,9 @@ public extension AuthorizationCodeFlowBackendManager {
        - tolerance: The tolerance in seconds to use when determining if the
              token is expired. Defaults to 120, meaning that a new token will be
              retrieved if the current one has expired or will expire in the next
-             two minutes. The token is considered expired if `expirationDate` -
-             `tolerance` is equal to or before the current date. This parameter
-             has no effect if `onlyIfExpired` is `false`.
+             two minutes. The token is considered expired if ``expirationDate``
+             - `tolerance` is equal to or before the current date. This
+             parameter has no effect if `onlyIfExpired` is `false`.
      */
     func refreshTokens(
         onlyIfExpired: Bool,
@@ -563,38 +568,42 @@ public extension AuthorizationCodeFlowBackendManager {
  Manages the authorization process for the [Authorization Code Flow][1].
  
  For applications where it is unsafe to store your client secret, consider
- using `AuthorizationCodeFlowPKCEManager`, which manages the
+ using ``AuthorizationCodeFlowPKCEManager``, which manages the
  [Authorization Code Flow with Proof Key for Code Exchange][2]; it provides
  an additional layer of security.
  
  This class stores the client id and client secret locally. Consider using
- `AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowProxyBackend>`, which
- allows you to setup a custom backend server that can store these sensitive
- credentials and which communicates with Spotify on your behalf in order to
- retrieve the authorization information.
+ ``AuthorizationCodeFlowBackendManager``<``AuthorizationCodeFlowProxyBackend``>,
+ which allows you to setup a custom backend server that can store these
+ sensitive credentials and which communicates with Spotify on your behalf in
+ order to retrieve the authorization information.
  
  # Authorization
  
- The first step in the authorization code flow is to make the
- authorization URL using
- `makeAuthorizationURL(redirectURI:showDialog:state:scopes:)`.
+ The first step in the authorization code flow is to make the authorization URL
+ using
+ ``AuthorizationCodeFlowBackendManager/makeAuthorizationURL(redirectURI:showDialog:state:scopes:)``.
  Open this URL in a browser/webview to allow the user to login to their Spotify
  account and authorize your application.
  
- After they either authorize or deny authorization for your application,
- Spotify will redirect to the redirect URI specified in the authorization
- URL with query parameters appended to it. Pass this URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:state:)` to request
- the refresh and access tokens. After that, you can begin making requests
- to the Spotify API. The access token will be refreshed for you automatically
- when needed.
+ After they either authorize or deny authorization for your application, Spotify
+ will redirect to the redirect URI specified in the authorization URL with query
+ parameters appended to it. Pass this URL into
+ ``AuthorizationCodeFlowBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:state:)``
+ to request the refresh and access tokens. After that, you can begin making
+ requests to the Spotify API. The access token will be refreshed for you
+ automatically when needed.
  
- Use `isAuthorized(for:)` to check if your application is authorized for the
- specified scopes.
+ Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your
+ application is authorized for the specified scopes.
  
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
- immutable.
+ Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the
+ ``AuthorizationCodeFlowManagerBase/accessToken``,
+ ``AuthorizationCodeFlowManagerBase/refreshToken``,
+ ``AuthorizationCodeFlowManagerBase/expirationDate``, and
+ ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`. Does not change
+ ``AuthorizationCodeFlowManager/clientId`` or
+ ``AuthorizationCodeFlowManager/clientSecret``, which are immutable.
  
  # Persistent Storage
  
@@ -670,7 +679,7 @@ public final class AuthorizationCodeFlowManager:
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:)`.
+     ``init(clientId:clientSecret:)``.
     
      You are discouraged from individually saving the properties of this
      instance to persistent storage and then retrieving them later and passing
@@ -694,8 +703,9 @@ public final class AuthorizationCodeFlowManager:
              will not be possible to automatically refresh the access token when
              it expires; instead, you will have to go through the authorization
              process again, as described in the README in the root directory of
-             this package. Use `accessTokenIsExpired(tolerance:)` to check if
-             the access token is expired.
+             this package. Use
+             ``AuthorizationCodeFlowManagerBase/accessTokenIsExpired(tolerance:)``
+             to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow

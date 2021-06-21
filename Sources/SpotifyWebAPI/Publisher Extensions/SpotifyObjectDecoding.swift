@@ -40,10 +40,10 @@ public var spotifyDecodeLogger = Logger(
  If the status code of the http response is in the 4xx or 5xx range, then tries
  to decode the data into one of the following objects:
  
- * `SpotifyAuthenticationError`
- * `SpotifyError`
- * `SpotifyPlayerError`
- * `RateLimitedError`
+ * ``SpotifyAuthenticationError``
+ * ``SpotifyError``
+ * ``SpotifyPlayerError``
+ * ``RateLimitedError``
  
  If the data cannot be decoded into one of these errors then
  ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is returned.
@@ -150,10 +150,10 @@ public func decodeSpotifyErrors(
  * ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
  
  If a successful status code is returned, then tries to decode the data into
- `responseType`. If that fails, then `SpotifyDecodingError` is thrown as a last
- resort.
+ `responseType`. If that fails, then ``SpotifyDecodingError`` is thrown as a
+ last resort.
  
- - Note: `SpotifyDecodingError` represents the error encountered when decoding
+ - Note: ``SpotifyDecodingError`` represents the error encountered when decoding
        the `responseType`, not the error objects.
  
  - Parameters:
@@ -230,18 +230,18 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      the data into one of the following objects and throws it as an error
      to downstream subscribers:
 
-     * `SpotifyAuthenticationError`
-     * `SpotifyError`
-     * `SpotifyPlayerError`
-     * `RateLimitedError`
+     * ``SpotifyAuthenticationError``
+     * ``SpotifyError``
+     * ``SpotifyPlayerError``
+     * ``RateLimitedError``
      
      If the data cannot be decoded into one of these errors, then
      ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is thrown
      as an error to downstream subscribers.
      
      Automatically retries the request up to three times, depending on the
-     error received. Retries upon receiving a `RateLimitedError`. If a
-     `SpotifyError`, `SpotifyPlayerError`, or ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
+     error received. Retries upon receiving a ``RateLimitedError``. If a
+     ``SpotifyError``, ``SpotifyPlayerError``, or ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
      is received, then retries if the status code is 500, 502, 503, or 504.
 
      */
@@ -271,7 +271,7 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      
      If the status code of the http response is in the 4xx or 5xx range,
      then the data will be decoded into one of the [errors][1] returned by
-     Spotify via `decodeSpotifyErrors(data:httpURLResponse:)`:
+     Spotify via ``decodeSpotifyErrors(data:httpURLResponse:)``:
      
      * ``SpotifyAuthenticationError``
      * ``SpotifyError``
@@ -280,15 +280,16 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      * ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
      
      If a successful status code is returned, then tries to decode the data into
-     `responseType`. If that fails, then `SpotifyDecodingError` is thrown as a last
-     resort.
+     `responseType`. If that fails, then ``SpotifyDecodingError`` is thrown as a
+     last resort.
      
-     Automatically retries the request up to three times, depending on the
-     error received. Retries upon receiving a `RateLimitedError`. If a
-     `SpotifyError`, `SpotifyPlayerError`, or ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
-     is received, then retries if the status code is 500, 502, 503, or 504.
+     Automatically retries the request up to three times, depending on the error
+     received. Retries upon receiving a ``RateLimitedError``. If a
+     ``SpotifyError``, ``SpotifyPlayerError``, or
+     ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is
+     received, then retries if the status code is 500, 502, 503, or 504.
      
-     - Note: `SpotifyDecodingError` represents the error encountered when
+     - Note: ``SpotifyDecodingError`` represents the error encountered when
            decoding the `responseType`, not the error objects.
 
      - Parameter responseType: The json response that you are expecting from the
@@ -324,7 +325,7 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
 
      If the status code of the http response is in the 4xx or 5xx range, then
      the data will be decoded into one of the [errors][1] returned by Spotify
-     via `decodeSpotifyErrors(data:httpURLResponse:)`:
+     via ``decodeSpotifyErrors(data:httpURLResponse:)``:
      
      * ``SpotifyAuthenticationError``
      * ``SpotifyError``
@@ -333,16 +334,16 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      * ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)``
      
      If a successful status code is returned, then tries to decode the data into
-     `responseType`. If that fails, then `SpotifyDecodingError` is thrown as a
+     `responseType`. If that fails, then ``SpotifyDecodingError`` is thrown as a
      last resort.
 
      Automatically retries the request up to three times, depending on the error
-     received. Retries upon receiving a `RateLimitedError`. If a `SpotifyError`,
-     `SpotifyPlayerError`, or
+     received. Retries upon receiving a ``RateLimitedError``. If a
+     ``SpotifyError``, ``SpotifyPlayerError``, or
      ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is
      received, then retries if the status code is 500, 502, 503, or 504.
      
-     - Note: `SpotifyDecodingError` represents the error encountered when
+     - Note: ``SpotifyDecodingError`` represents the error encountered when
            decoding the `responseType`, not the error objects.
 
      - Parameter responseType: The json response that you are expecting from the

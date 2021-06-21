@@ -98,7 +98,7 @@ public let spotifyCredentials: SpotifyCredentials = {
 /// ```
 public let localHostURL = URL(string: "http://localhost:8080")!
 
-/// The "sp_dc" cookie value, which is used by `HeadlessBrowserAuthorizer` to
+/// The "sp_dc" cookie value, which is used by ``HeadlessBrowserAuthorizer`` to
 /// authorize the application. Retrieved from the "SPOTIFY_DC" environment
 /// variable.
 public let spotifyDCCookieValue = ProcessInfo.processInfo

@@ -5,8 +5,8 @@ import Foundation
  Flow][1].
 
  This type should be used in the body of the network request made in the
- `makeClientCredentialsTokensRequest()` method of your type that conforms to
- `ClientCredentialsFlowBackend`.
+ ``ClientCredentialsFlowBackend/makeClientCredentialsTokensRequest()`` method of
+ your type that conforms to ``ClientCredentialsFlowBackend``.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -23,8 +23,9 @@ public struct ClientCredentialsTokensRequest: Hashable {
      Creates an instance of this type, which is used to request the
      authorization information for the [Client Credentials Flow][1].
      
-     This type should be used by the `makeClientCredentialsTokensRequest()`
-     method of your type that conforms to `ClientCredentialsFlowBackend`.
+     This type should be used by the
+     ``ClientCredentialsFlowBackend/makeClientCredentialsTokensRequest()``
+     method of your type that conforms to ``ClientCredentialsFlowBackend``.
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a

@@ -125,16 +125,16 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     
      The id category must be one of the following:
      
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `unknown`
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/unknown``
      
      - Parameters:
        - id: A Spotify id.
@@ -158,21 +158,21 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      The id category must be one of the following, or an error will be thrown:
      
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `unknown`
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/unknown``
      
      - Parameters:
        - uri: A Spotify URI.
        - categories: If not `nil`, throw an error if the id category of the URI
-         does not match one of these id categories. See `IDCategory` for more
+         does not match one of these id categories. See ``IDCategory`` for more
          information. The default is `nil`.
      - Throws: If `categories` is not `nil` and the id category of the URI
            does not match one the required categories or if an id or id category
@@ -250,15 +250,16 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
      The id category must be one of the following:
      
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/unknown``
      
      - Parameter url: A URL that, when opened, displays the content in the web
            player.

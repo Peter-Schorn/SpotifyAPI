@@ -10,8 +10,8 @@ public struct Followers: Hashable {
      followers; `nil` if not available. **Please note that this will always**
      **be set to** `nil`, as the web API does not support it at the moment.
      
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `Followers` as
-     the response type to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Followers``
+     as the response type to retrieve the results.
      */
     public let href: URL?
 

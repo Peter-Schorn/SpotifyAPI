@@ -26,7 +26,8 @@ public struct CurrentlyPlayingContext: Hashable {
      */
     public let device: Device
     
-    /// The repeat mode of the player. Either `off`, `track`, or `context`.
+    /// The repeat mode of the player. Either ``RepeatMode/off``,
+    /// ``RepeatMode/track``, or ``RepeatMode/context``.
     public let repeatState: RepeatMode
     
     /// `true` if shuffle mode is on; else, `false`.
@@ -60,9 +61,9 @@ public struct CurrentlyPlayingContext: Hashable {
      The full version of a track or episode. Represents the content that is, or
      was most recently, playing.
 
-     Use `isPlaying` to check if the content is currently playing.
+     Use ``isPlaying`` to check if the content is currently playing.
 
-     Although the type is `PlaylistItem`, this does not necessarily mean that
+     Although the type is ``PlaylistItem``, this does not necessarily mean that
      the item is playing in the context of a playlist. Can be `nil`. For
      example, If the user has a private session enabled, then this will be
      `nil`.
@@ -70,12 +71,12 @@ public struct CurrentlyPlayingContext: Hashable {
     public let item: PlaylistItem?
     
     /**
-     The id category of `item`—the content that is, or was most recently,
+     The id category of ``item``—the content that is, or was most recently,
      playing.
     
      For example, if a track is currently playing, then this property will be
-     `track`; if an episode is currently playing then this property will be
-     `episode`. Can also be `unknown`.
+     ``IDCategory/track``; if an episode is currently playing then this property
+     will be ``IDCategory/episode``. Can also be ``IDCategory/unknown``.
      */
     public let itemType: IDCategory
     
@@ -108,7 +109,7 @@ public struct CurrentlyPlayingContext: Hashable {
        - isPlaying: `true` if content is currently playing. Else, `false`.
        - item:  The full version of a track or episode. Represents the content
              that is, or was most recently, playing.
-       - itemType: The object type of `item`—the content that is, or was most
+       - itemType: The object type of ``item``—the content that is, or was most
              recently, playing.
        - allowedActions: The playback actions that are allowed within the given
              context.

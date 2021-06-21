@@ -2,7 +2,7 @@ import Foundation
 
 /**
  Represents a range for a track attribute. Has a minimum, target (ideal), and
- maximum value. See `TrackAttributes` and the endpoint for [getting
+ maximum value. See ``TrackAttributes`` and the endpoint for [getting
  recommendations based on seeds][1].
 
  Note that all of the properties are mutable.
@@ -48,7 +48,7 @@ public struct AttributeRange<Value: Numeric & Codable & Hashable &
     
     /**
      Creates a dictionary in which the keys are the provided attribute name
-     prefixed with `min`, `target` and `max`, and the values are the values for
+     prefixed with "min", "target" and "max", and the values are the values for
      these properties converted to a string. Properties that are `nil` will not
      appear in the dictionary.
      

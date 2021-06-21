@@ -8,8 +8,8 @@ import Foundation
  var uri: String { get }
  ```
  
- `SpotifyIdentifier`, `String`, `SubString`, and some of the objects returned by
- the Spotify web API are conforming types. Usually, you should not need to
+ ``SpotifyIdentifier``, `String`, `SubString`, and some of the objects returned
+ by the Spotify web API are conforming types. Usually, you should not need to
  conform additional types to this protocol.
  
  A Spotify URI has the following format:
@@ -19,16 +19,16 @@ import Foundation
  
  The id category must be one of the following:
  
- * `artist`
- * `album`
- * `track`
- * `playlist`
- * `show`
- * `episode`
- * `local`
- * `user`
- * `genre`
- * `unknown`
+ * ``IDCategory/artist``
+ * ``IDCategory/album``
+ * ``IDCategory/track``
+ * ``IDCategory/playlist``
+ * ``IDCategory/show``
+ * ``IDCategory/episode``
+ * ``IDCategory/local``
+ * ``IDCategory/user``
+ * ``IDCategory/genre``
+ * ``IDCategory/unknown``
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  */

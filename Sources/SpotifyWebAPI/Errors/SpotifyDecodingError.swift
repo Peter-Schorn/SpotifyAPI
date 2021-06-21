@@ -4,9 +4,9 @@ import Foundation
  The data from the Spotify web API could not be decoded into any of the
  expected types.
 
- Assign a folder URL to the static var `dataDumpFolder` to write the json
+ Assign a folder URL to the static var ``dataDumpFolder`` to write the json
  response from the Spotify web API to disk when instances of this error are
- created. See `writeToFolder(_:)`. This is intended for debugging purposes.
+ created. See ``writeToFolder(_:)``. This is intended for debugging purposes.
  It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER" environment
  variable, if it exists. You can change this if necessary.
 
@@ -15,21 +15,21 @@ import Foundation
  
  Do not `dump` this error; instead, use its string representation for
  debugging (e.g., print it to the standard output, use string interpolation
- or use `String(describing:)`). Use `localizedDescription` for displaying
+ or use `String(describing:)`). Use ``localizedDescription`` for displaying
  the error to the end user.
  */
 public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     
     /**
-     The folder to write the json response (`rawData`) from the Spotify web API
-     to when instances of this error are created. This is intended for debugging
-     purposes.
+     The folder to write the json response (``rawData``) from the Spotify web
+     API to when instances of this error are created. This is intended for
+     debugging purposes.
 
      It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER"
      environment variable, if it exists. You can change this if necessary.
 
-     The name of the folder will be `expectedResponseType` with the current date
-     appended to it.
+     The name of the folder will be ``expectedResponseType`` with the current
+     date appended to it.
 
      You are encouraged to upload the data to this [online JSON viewer][1].
      
@@ -54,8 +54,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      The raw data returned by the server. You should almost always be able to
      decode this into a string.
 
-     This property, along with `debugErrorDescription`, is written to a file
-     when you call `writeToFolder(_:)`.
+     This property, along with ``debugErrorDescription``, is written to a file
+     when you call ``writeToFolder(_:)``.
      */
     public let rawData: Data?
     
@@ -66,8 +66,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /// The http status code.
     public let statusCode: Int?
     
-    /// The underlying error encountered when trying to decode `rawData` into
-    /// `expectedResponseType`. Usually [DecodingError][1].
+    /// The underlying error encountered when trying to decode ``rawData`` into
+    /// ``expectedResponseType``. Usually [DecodingError][1].
     ///
     /// [1]: https://developer.apple.com/documentation/swift/decodingerror
     public let underlyingError: Error?
@@ -130,15 +130,15 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     }
     
     /**
-     Writes `rawData` and `debugErrorDescription` to a sub-folder within the
+     Writes ``rawData`` and ``debugErrorDescription`` to a sub-folder within the
      specified folder.
 
-     The name of the sub-folder will be `expectedResponseType` with the current
+     The name of the sub-folder will be ``expectedResponseType`` with the current
      date appended to it.
 
-     If `dataDumpFolder` is non-`nil`, then this method is called by
-     `init(rawData:responseType:statusCode:underlyingError:)`, passing in
-     `dataDumpFolder`.
+     If ``dataDumpFolder`` is non-`nil`, then this method is called by
+     ``init(url:rawData:responseType:statusCode:underlyingError:)``, passing in
+     ``dataDumpFolder``.
      
      You are encouraged to upload the data to this [online JSON viewer][1].
      
@@ -189,8 +189,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     /**
      Debug information that is useful in diagnosing the cause of this error.
     
-     This property, along with `rawData`, is written to a file when you call
-     `writeToFolder(_:)`.
+     This property, along with ``rawData``, is written to a file when you call
+     ``writeToFolder(_:)``.
      */
     public var debugErrorDescription: String {
        

@@ -15,7 +15,7 @@ public struct PlaylistItemsReference: Codable, Hashable {
      tracks/episodes.
      
      Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results,
-     passing in `PlaylistItems` as the response type. Alternatively, use
+     passing in ``PlaylistItems`` as the response type. Alternatively, use
      ``SpotifyAPI/playlistItems(_:limit:offset:market:)``, passing in the URI of
      this playlist.
      */

@@ -90,7 +90,8 @@ public enum Scope: String, Codable, Hashable {
      Read access to a user’s email address.
      
      Required for the ``SpotifyAPI/currentUserProfile()`` endpoint in order to
-     retrieve the `email` property of the returned `SpotifyUser`.
+     retrieve the ``SpotifyUser/email`` property of the returned
+     ``SpotifyUser``.
      */
     case userReadEmail = "user-read-email"
     
@@ -219,7 +220,7 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user’s playback position in an episodes.
      
-     Required in order to retrieve the `ResumePoint` from the episode objects
+     Required in order to retrieve the ``ResumePoint`` from the episode objects
      returned by the following endpoints:
      
      * ``SpotifyAPI/episode(_:market:)``

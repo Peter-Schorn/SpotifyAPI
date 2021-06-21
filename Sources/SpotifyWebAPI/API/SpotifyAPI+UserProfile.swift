@@ -72,7 +72,7 @@ public extension SpotifyAPI where
 
      The ``SpotifyUser/allowsExplicitContent``,
      ``SpotifyUser/explicitContentSettingIsLocked``, ``SpotifyUser/country``,
-     and ``SpotifyUser/product`` properties of ``SpotifyUser/SpotifyUser``
+     and ``SpotifyUser/product`` properties of ``SpotifyUser``
      require the ``Scope/userReadPrivate`` scope.
 
      The ``SpotifyUser/email`` property of ``SpotifyUser`` requires the

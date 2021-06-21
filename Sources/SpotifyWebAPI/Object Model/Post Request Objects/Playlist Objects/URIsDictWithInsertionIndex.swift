@@ -24,8 +24,8 @@ public struct URIsDictWithInsertionIndex {
     /// An array of track/episode URIs that will be added to a playlist.
     public var uris: [SpotifyURIConvertible]
     
-    /// The zero-indexed position at which to insert `uris` in a playlist. If
-    /// `nil`, then the `uris` will be appended to the playlist.
+    /// The zero-indexed position at which to insert ``uris`` in a playlist. If
+    /// `nil`, then the ``uris`` will be appended to the playlist.
     public var position: Int?
     
     /**

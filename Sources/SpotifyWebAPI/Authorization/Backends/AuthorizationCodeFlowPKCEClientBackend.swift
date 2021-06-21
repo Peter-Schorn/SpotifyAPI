@@ -25,7 +25,7 @@ import OpenCombineFoundation
  Usually you should not need to create instances of this type directly.
  ``AuthorizationCodeFlowPKCEManager`` uses this type internally by inheriting
  from
- `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+ ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -51,7 +51,7 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
      Usually you should not need to create instances of this type directly.
      ``AuthorizationCodeFlowPKCEManager`` uses this type internally by
      inheriting from
-     `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+     ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your

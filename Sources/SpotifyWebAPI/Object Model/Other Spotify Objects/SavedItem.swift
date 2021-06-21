@@ -7,11 +7,11 @@ import Foundation
  This is used when retrieving content from a user's library. It contains just
  three properties:
   
- * `addedAt`: The date the item was added.
- * `item`: The item that was saved.
- * `type`: `track` if this is a saved track object,
-   `album` if this is a saved album object, or
-   `show` if this is a saved show object.
+ * ``addedAt``: The date the item was added.
+ * ``item``: The item that was saved.
+ * ``type``: ``IDCategory/track`` if this is a saved track object,
+   ``IDCategory/album`` if this is a saved album object, or ``IDCategory/show``
+   if this is a saved show object.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
  [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
@@ -23,16 +23,17 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     /// The date the item was added.
     public let addedAt: Date
     
-    /// The item that was saved in this `SavedItem`. Either a track, album,
+    /// The item that was saved in this ``SavedItem``. Either a track, album,
     /// episode, or show.
     ///
-    /// See also `type`.
+    /// See also ``type``.
     public let item: Item
     
     /**
-     `track` if this is a [saved track object][1], `album` if this is a [saved
-     album object][2], `episode` if this is a [saved episode object][3], or
-     `show` if this is a [saved show object][4].
+     ``IDCategory/track`` if this is a [saved track object][1],
+     ``IDCategory/album`` if this is a [saved album object][2],
+     ``IDCategory/episode`` if this is a [saved episode object][3], or
+     ``IDCategory/show`` if this is a [saved show object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject
@@ -44,15 +45,17 @@ public struct SavedItem<Item: Codable & Hashable>: Hashable {
     /**
      Creates a Saved Item object.
      
-     The type of `Item` should only be `Track`, `Album`, or `Show`, and this
-     should match `type`.
+     The type of `Item` should only be ``Track``, ``Album``, or ``Show``, and
+     this should match ``type``.
      
      - Parameters:
        - addedAt: The date the item was added.
-       - item: The item that was saved in this `SavedItem`.
-       - type: `track` if this is a [saved track object][1], `album` if this is
-             a [saved album object][2], `episode` if this is a [saved episode
-             object][3], or `show` if this is a [saved show object][4].
+       - item: The item that was saved in this ``SavedItem``.
+       - type: ``IDCategory/track`` if this is a [saved track object][1],
+             ``IDCategory/album`` if this is a [saved album object][2],
+             ``IDCategory/episode`` if this is a [saved episode
+              object][3], or ``IDCategory/show`` if this is a [saved show
+              object][4].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-savedtrackobject
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-savedalbumobject

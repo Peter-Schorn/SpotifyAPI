@@ -6,16 +6,16 @@ import Foundation
  
  See also:
  
- * `SpotifyError`
- * `SpotifyAuthenticationError`
- * `RateLimitedError`
+ * ``SpotifyError``
+ * ``SpotifyAuthenticationError``
+ * ``RateLimitedError``
  
- It is almost the same as `SpotifyError`, except it also has a `reason`
+ It is almost the same as ``SpotifyError``, except it also has a ``reason``
  property:
  
- * `message`: A short description of the cause of the error.
- * `reason`: One of the [player error reasons][2] presented below.
- * `statusCode`: The HTTP status code that is also returned in the response
+ * ``message``: A short description of the cause of the error.
+ * ``reason``: One of the [player error reasons][2] presented below.
+ * ``statusCode``: The HTTP status code that is also returned in the response
    header.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
@@ -30,34 +30,42 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
     /**
      A [player error reason][1].
      
-     * `noPreviousTrack`: The command requires a previous track, but there is none in
+     * ``ErrorReason/noPreviousTrack``: The command requires a previous track,
+       but there is none in   the context.
+     * ``ErrorReason/noNextTrack``: The command requires a next track, but there
+       is none in the   context.
+     * ``ErrorReason/noSpecificTrack``: The requested track does not exist.
+     * ``ErrorReason/alreadyPaused``: The command requires playback to not be
+       paused.
+     * ``ErrorReason/notPaused``: The command requires playback to be paused.
+     * ``ErrorReason/notPlayingLocally``: The command requires playback on the
+       local device.
+     * ``ErrorReason/notPlayingTrack``: The command requires that a track is
+       currently playing.
+     * ``ErrorReason/notPlayingContext``: The command requires that a context is
+       currently playing.
+     * ``ErrorReason/endlessContext``: The shuffle command cannot be applied on
+       an endless context.
+     * ``ErrorReason/contextDisallow``: The command could not be performed on
        the context.
-     * `noNextTrack`: The command requires a next track, but there is none in the
-       context.
-     * `noSpecificTrack`: The requested track does not exist.
-     * `alreadyPaused`: The command requires playback to not be paused.
-     * `notPaused`: The command requires playback to be paused.
-     * `notPlayingLocally`: The command requires playback on the local device.
-     * `notPlayingTrack`: The command requires that a track is currently playing.
-     * `notPlayingContext`: The command requires that a context is currently
-       playing.
-     * `endlessContext`: The shuffle command cannot be applied on an endless
-       context.
-     * `contextDisallow`: The command could not be performed on the context.
-     * `alreadyPlaying`: The track should not be restarted if the same track and
-       context is already playing, and there is a resume point.
-     * `rateLimited`: The user is rate limited due to too frequent track play,
-       also known as cat-on-the-keyboard spamming.
-     * `remoteControlDisallow`: The context cannot be remote-controlled.
-     * `deviceNotControllable`: Not possible to remote control the device.
-     * `volumeControlDisallow`: Not possible to remote control the device’s
-       volume.
-     * `noActiveDevice`: Requires an active device and the user has none.
-     * `premiumRequired`: The request is prohibited for non-premium users.
-     * `unknown`: Certain actions are restricted because of unknown reasons.
-       Unfortunately, there is a bug at the moment with the Spotify web API
-       in which this error reason is returned for many requests instead
-       of one of the more specific errors above.
+     * ``ErrorReason/alreadyPlaying``: The track should not be restarted if the
+       same track and context is already playing, and there is a resume point.
+     * ``ErrorReason/rateLimited``: The user is rate limited due to too frequent
+       track play, also known as cat-on-the-keyboard spamming.
+     * ``ErrorReason/remoteControlDisallow``: The context cannot be
+       remote-controlled.
+     * ``ErrorReason/deviceNotControllable``: Not possible to remote control the
+       device.
+     * ``ErrorReason/volumeControlDisallow``: Not possible to remote control the
+       device’s volume.
+     * ``ErrorReason/noActiveDevice``: Requires an active device and the user
+       has none.
+     * ``ErrorReason/premiumRequired``: The request is prohibited for
+       non-premium users.
+     * ``ErrorReason/unknown``: Certain actions are restricted because of
+       unknown reasons. Unfortunately, there is a bug at the moment with the
+       Spotify web API in which this error reason is returned for many requests
+       instead of one of the more specific errors above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */

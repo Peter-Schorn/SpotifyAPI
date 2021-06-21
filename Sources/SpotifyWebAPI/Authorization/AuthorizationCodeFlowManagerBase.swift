@@ -15,18 +15,17 @@ import Logging
 
 /**
  The base class for functionality shared between
- `AuthorizationCodeFlowBackendManager` and
-`AuthorizationCodeFlowPKCEBackendManager`.
+ ``AuthorizationCodeFlowBackendManager`` and
+``AuthorizationCodeFlowPKCEBackendManager``.
 
  You cannot—and should not—create an instance of this class. Instead, you create
  an instance of one of the sub-classes above.
 
- Use `isAuthorized(for:)` to check if your application is authorized for the
+ Use ``isAuthorized(for:)`` to check if your application is authorized for the
  specified scopes.
 
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
- immutable.
+ Use ``deauthorize()`` to set the ``accessToken``, ``refreshToken``,
+ ``expirationDate``, and ``scopes`` to `nil`.
  
  */
 public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
@@ -53,8 +52,8 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      backend server that you configure This backend server can safely store your
      client id and client secret and retrieve the authorization information from
      Spotify on your behalf, thereby preventing these sensitive credentials from
-     being exposed in your frontend app. See `AuthorizationCodeFlowBackend` and
-     `AuthorizationCodeFlowPKCEBackend` for more information.
+     being exposed in your frontend app. See ``AuthorizationCodeFlowBackend``
+     and ``AuthorizationCodeFlowPKCEBackend`` for more information.
      
      - Warning: Do not mutate this property when a request to retrieve
            authorization information is in progress. Doing so is *not* thread
@@ -94,8 +93,9 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     /**
      The expiration date of the access token.
-          You are encouraged to use `accessTokenIsExpired(tolerance:)` to check
-     if the token is expired.
+          
+     You are encouraged to use ``accessTokenIsExpired(tolerance:)`` to check if
+     the token is expired.
 
      # Thread Safety
 
@@ -111,8 +111,9 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     
     /**
      The scopes that have been authorized for the access token.
-          You are encouraged to use `isAuthorized(for:)` to check which scopes
-     the access token is authorized for.
+     
+     You are encouraged to use ``isAuthorized(for:)`` to check which scopes the
+     access token is authorized for.
 
      # Thread Safety
 
@@ -134,7 +135,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      Instead, subscribe to the ``SpotifyAPI/authorizationManagerDidChange``
      publisher of ``SpotifyAPI``. This allows you to be notified of changes even
      when you create a new instance of this class and assign it to the
-     ``SpotifyAPI/authorizationManager`` instance property of `SpotifyAPI`.
+     ``SpotifyAPI/authorizationManager`` instance property of ``SpotifyAPI``.
      
      Emits after the following events occur:
      * After the access and refresh tokens are retrieved using
@@ -159,7 +160,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     public let didChange = PassthroughSubject<Void, Never>()
     
     /**
-     A publisher that emits after `deauthorize()` is called.
+     A publisher that emits after ``deauthorize()`` is called.
      
      **You are discouraged from subscribing to this publisher directly.**
      
@@ -262,11 +263,11 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      Returns a copy of self.
      
      Copies the following properties:
-     * `backend`
-     * `accessToken`
-     * `refreshToken`
-     * `expirationDate`
-     * `scopes`
+     * ``backend``
+     * ``accessToken``
+     * ``refreshToken``
+     * ``expirationDate``
+     * ``scopes``
      */
     public func makeCopy() -> Self {
         let copy = Self(
@@ -287,8 +288,8 @@ public extension AuthorizationCodeFlowManagerBase {
     // MARK: - Authorization -
     
     /**
-     Sets `accessToken`, `refreshToken`, `expirationDate`, and `scopes` to
-     `nil`. Does not change `clientId` or `clientSecret`, which are immutable.
+     Sets ``accessToken``, ``refreshToken``, ``expirationDate``, and ``scopes`` to
+     `nil`.
 
      After calling this method, you must authorize your application again before
      accessing any of the Spotify web API endpoints.
@@ -319,15 +320,15 @@ public extension AuthorizationCodeFlowManagerBase {
     /**
      Determines whether the access token is expired within the given tolerance.
      
-     See also `isAuthorized(for:)`.
+     See also ``isAuthorized(for:)``.
      
      The access token is refreshed automatically when necessary before each
      request to the Spotify web API is made. Therefore, **you should never**
      **need to call this method directly.**
      
      - Parameter tolerance: The tolerance in seconds. Default 120.
-     - Returns: `true` if `expirationDate` - `tolerance` is equal to or before
-           the current date or if `accessToken` is `nil`. Else, `false`.
+     - Returns: `true` if ``expirationDate`` - `tolerance` is equal to or before
+           the current date or if ``accessToken`` is `nil`. Else, `false`.
      
      # Thread Safety
      
@@ -340,11 +341,11 @@ public extension AuthorizationCodeFlowManagerBase {
     }
     
     /**
-     Returns `true` if `accessToken` is not `nil` and the application is
+     Returns `true` if ``accessToken`` is not `nil` and the application is
      authorized for the specified scopes, else `false`.
      
      - Parameter scopes: A set of [Spotify Authorization Scopes][1]. Use an
-           empty set (default) to check if an `accessToken` has been retrieved
+           empty set (default) to check if an ``accessToken`` has been retrieved
            for the application, which is still required for all endpoints, even
            those that do not require scopes.
      
@@ -382,7 +383,7 @@ extension AuthorizationCodeFlowManagerBase {
     }
     
     /// This method should **ALWAYS** be called within
-    /// `updateAuthInfoDispatchQueue`, or the thread-safety guarantees
+    /// ``updateAuthInfoDispatchQueue``, or the thread-safety guarantees
     /// of this class will be violated.
     func accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
         if (self._accessToken == nil) != (self._expirationDate == nil) {

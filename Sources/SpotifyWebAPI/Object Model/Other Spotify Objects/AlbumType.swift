@@ -1,16 +1,6 @@
 import Foundation
 
-/**
- An album type.
- 
- One of the following:
- 
- * `album`
- * `single`
- * `appearsOn`
- * `compilation`
- 
- */
+/// An album type.
 public enum AlbumType: String, CaseIterable, Codable, Hashable {
     
     /// An album.

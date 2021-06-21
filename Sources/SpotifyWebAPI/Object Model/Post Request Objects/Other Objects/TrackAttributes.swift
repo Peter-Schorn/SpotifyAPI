@@ -7,8 +7,8 @@ import Foundation
  recommendations based on seeds][2].
 
  For most of the attributes, a minimum, target (ideal), and maximum value can be
- provided. This is represented by `AttributeRange`. The target value should not
- be smaller than the minimum or larger than the maximum.
+ provided. This is represented by ``AttributeRange``. The target value should
+ not be smaller than the minimum or larger than the maximum.
 
  **The total number of seed artists, seed tracks, and seed genres must add up**
  **to 5 or less.**
@@ -132,8 +132,8 @@ public struct TrackAttributes: Hashable {
      expected to find relinked tracks with popularities that do not match min,
      max, and target popularities. These relinked tracks are accurate
      replacements for unplayable tracks with the expected popularity scores.
-     Original, non-relinked tracks are available via the `linkedFrom` attribute
-     of the [relinked track response][1].
+     Original, non-relinked tracks are available via the ``Track/linkedFrom``
+     attribute of the [relinked track response][1].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      */
@@ -183,13 +183,13 @@ public struct TrackAttributes: Hashable {
      recommendations based on seeds][2].
      
      For most of the attributes, a minimum, target (ideal), and maximum value
-     can be provided. This is represented by `AttributeRange`. The target value
-     should not be smaller than the minimum or larger than the maximum.
+     can be provided. This is represented by ``AttributeRange``. The target
+     value should not be smaller than the minimum or larger than the maximum.
      
      **The total number of seed artists, seed tracks, and seed genres must add**
      **up to 5 or less.**
      
-     When using `AttributeRange`, consider taking advantage of Swift's ability
+     When using ``AttributeRange``, consider taking advantage of Swift's ability
      to infer the contextual type of a method. For example:
      ```
      let trackAttributes = TrackAttributes(
@@ -250,7 +250,8 @@ public struct TrackAttributes: Hashable {
              not match min, max, and target popularities. These relinked tracks
              are accurate replacements for unplayable tracks with the expected
              popularity scores. Original, non-relinked tracks are available via
-             the `linkedFrom` attribute of the [relinked track response][4].
+             the ``Track/linkedFrom`` attribute of the [relinked track
+             response][4].
        - speechiness: Speechiness detects the presence of spoken words in a
              track. A range from 0 to 1, inclusive. The more exclusively
              speech-like the recording (e.g. talk show, audio book, poetry), the

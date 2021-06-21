@@ -6,14 +6,14 @@ import Foundation
 
  See also:
  
- * `SpotifyPlayerError`
- * `SpotifyAuthenticationError`
- * `RateLimitedError`
+ * ``SpotifyPlayerError``
+ * ``SpotifyAuthenticationError``
+ * ``RateLimitedError``
  
  It has two properties:
  
- * `message`: A short description of the cause of the error.
- * `statusCode`: The HTTP status code that is also returned in the response
+ * ``message``: A short description of the cause of the error.
+ * ``statusCode``: The HTTP status code that is also returned in the response
    header.
  
  The [status Codes][2]:

@@ -24,24 +24,24 @@ public struct Segment: Hashable {
     /**
      The onset loudness of the segment in decibels (dB).
      
-     Combined with `loudnessMax` and `loudnessMaxTime`, these components can be
-     used to describe the “attack” of the segment.
+     Combined with ``loudnessMax`` and ``loudnessMaxTime``, these components can
+     be used to describe the “attack” of the segment.
      */
     public let loudnessStart: Double
     
     /**
      The peak loudness of the segment in decibels (dB).
      
-     Combined with `loudnessStart` and `loudnessMaxTime`, these components can
-     be used to describe the “attack” of the segment.
+     Combined with ``loudnessStart`` and ``loudnessMaxTime``, these components
+     can be used to describe the “attack” of the segment.
      */
     public let loudnessMax: Double
     
     /**
      The segment-relative offset of the segment peak loudness in seconds.
      
-     Combined with `loudnessStart` and `loudnessMax`, these components can be
-     used to describe the “attack” of the segment.
+     Combined with ``loudnessStart`` and ``loudnessMax``, these components can
+     be used to describe the “attack” of the segment.
      */
     public let loudnessMaxTime: Double
     

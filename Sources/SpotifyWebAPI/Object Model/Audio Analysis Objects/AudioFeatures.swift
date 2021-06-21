@@ -136,7 +136,7 @@ public struct AudioFeatures: Codable, Hashable {
     /**
      An href to the full audio analysis of this track.
 
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `AudioAnalysis`
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``AudioAnalysis``
      as the response type to retrieve the results. This is equivalent to using
      ``SpotifyAPI/trackAudioAnalysis(_:)``, passing in the URI of this track.
      */
@@ -230,7 +230,7 @@ public struct AudioFeatures: Codable, Hashable {
        - id: The Spotify ID for the track.
        - trackHref: A link to the Web API endpoint providing full details of the
              track. Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in
-             `Track` as the response type to retrieve the results.
+             ``Track`` as the response type to retrieve the results.
        - analysisURL: An HTTP URL to access the full audio analysis of this
              track. An access token is required to access this data.
        - durationMS: The duration of the track in milliseconds.

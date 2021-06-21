@@ -12,9 +12,9 @@ public enum TimeReference: Codable, Hashable {
      
      The `String` value must be a unix timestamp in milliseconds, *rounded to*
      *the nearest integer*. For example: "1616355451022". This can be retrieved
-     from the `before` property of a `SpotifyCursor`, if it is non-`nil`, in
-     order to reference the page of results that chronologically precede the
-     current page.
+     from the ``SpotifyCursor/before`` property of a ``SpotifyCursor``, if it is
+     non-`nil`, in order to reference the page of results that chronologically
+     precede the current page.
      
      See also ``before(_:)-swift.type.method``.
      */
@@ -25,9 +25,9 @@ public enum TimeReference: Codable, Hashable {
      
      The `String` value must be a unix timestamp in milliseconds, *rounded to*
      *the nearest integer*. For example: "1616373716005". This can be retrieved
-     from the `after` property of a `SpotifyCursor`, if it is non-`nil`, in
-     order to reference the page of results that chronologically succeed the
-     current page.
+     from the ``SpotifyCursor/after`` property of a ``SpotifyCursor``, if it is
+     non-`nil`, in order to reference the page of results that chronologically
+     succeed the current page.
      
      See also ``after(_:)-swift.type.method``.
      */

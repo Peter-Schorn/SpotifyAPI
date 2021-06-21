@@ -25,28 +25,28 @@ import Logging
  
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information from Spotify. It may do so directly
- (see `ClientCredentialsFlowClientBackend`), or it may communicate with a custom
- backend server that you configure (see `ClientCredentialsFlowProxyBackend`).
- This backend server can safely store your client id and client secret and
- retrieve the authorization information from Spotify on your behalf, thereby
- preventing these sensitive credentials from being exposed in your frontend app.
- See `ClientCredentialsFlowBackend` for more information.
+ (see ``ClientCredentialsFlowClientBackend``), or it may communicate with a
+ custom backend server that you configure (see
+ ``ClientCredentialsFlowProxyBackend``). This backend server can safely store
+ your client id and client secret and retrieve the authorization information
+ from Spotify on your behalf, thereby preventing these sensitive credentials
+ from being exposed in your frontend app. See ``ClientCredentialsFlowBackend``
+ for more information.
  
  **If you do not have a custom backend server, then you are encouraged to use**
- **the concrete subclass of this class,** `ClientCredentialsFlowManager`
+ **the concrete subclass of this class,** ``ClientCredentialsFlowManager``
  **instead**. It inherits from
- `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`. This
+ ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>. This
  class will store your client id and client secret locally.
 
  # Authorization
 
- The only method you must call to authorize your application is `authorize()`.
+ The only method you must call to authorize your application is ``authorize()``.
  After that, you may begin making requests to the Spotify web API. The access
  token will be refreshed for you automatically when needed.
 
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
- immutable.
+ Use ``deauthorize()`` to set the ``accessToken`` and ``expirationDate`` to
+ `nil`.
  
  # Persistent Storage
 
@@ -88,13 +88,13 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      
      The backend handles the process of requesting the authorization information
      from Spotify. It may do so directly (see
-     `ClientCredentialsFlowClientBackend`), or it may communicate with a custom
-     backend server that you configure (see
-     `ClientCredentialsFlowProxyBackend`). This backend server can safely store
-     your client id and client secret and retrieve the authorization information
-     from Spotify on your behalf, thereby preventing these sensitive credentials
-     from being exposed in your frontend app. See `ClientCredentialsFlowBackend`
-     for more information.
+     ``ClientCredentialsFlowClientBackend``), or it may communicate with a
+     custom backend server that you configure (see
+     ``ClientCredentialsFlowProxyBackend``). This backend server can safely
+     store your client id and client secret and retrieve the authorization
+     information from Spotify on your behalf, thereby preventing these sensitive
+     credentials from being exposed in your frontend app. See
+     ``ClientCredentialsFlowBackend`` for more information.
      
      - Warning: Do not mutate this property when a request to retrieve
            authorization information is in progress. Doing so is *not* thread
@@ -124,7 +124,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     /**
      The expiration date of the access token.
     
-     You are encouraged to use `accessTokenIsExpired(tolerance:)` to check if
+     You are encouraged to use ``accessTokenIsExpired(tolerance:)`` to check if
      the token is expired.
 
      # Thread Safety
@@ -213,9 +213,9 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      [authorization scopes][2] cannot be accessed.
      
      **If you do not have a custom backend server, then you are encouraged to**
-     **use the concrete subclass of this class,** `ClientCredentialsFlowManager`
+     **use the concrete subclass of this class,** ``ClientCredentialsFlowManager``
      **instead**. It inherits from
-     `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+     ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
      This class will store your client id and client secret locally.
 
      Note that this type conforms to `Codable`. It is this type that you should
@@ -226,10 +226,10 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information from Spotify. It may do so directly (see
-             `ClientCredentialsFlowClientBackend`), or it may communicate with a
-             custom backend server that you configure (see
-             `ClientCredentialsFlowProxyBackend`). See
-             `ClientCredentialsFlowBackend` for more information.
+             ``ClientCredentialsFlowClientBackend``), or it may communicate with
+             a custom backend server that you configure (see
+             ``ClientCredentialsFlowProxyBackend``). See
+             ``ClientCredentialsFlowBackend`` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
@@ -250,12 +250,12 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
 
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(backend:)`.
+     ``init(backend:)``.
      
      **If you do not have a custom backend server, then you are encouraged to**
-     **use the concrete subclass of this class,** `ClientCredentialsFlowManager`
+     **use the concrete subclass of this class,** ``ClientCredentialsFlowManager``
      **instead**. It inherits from
-     `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+     ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
      This class will store your client id and client secret locally.
     
      You are discouraged from individually saving the properties of this
@@ -268,10 +268,10 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information from Spotify. It may do so directly (see
-             `ClientCredentialsFlowClientBackend`), or it may communicate with a
-             custom backend server that you configure (see
-             `ClientCredentialsFlowProxyBackend`). See
-             `ClientCredentialsFlowBackend` for more information.
+             ``ClientCredentialsFlowClientBackend``), or it may communicate with
+             a custom backend server that you configure (see
+             ``ClientCredentialsFlowProxyBackend``). See
+             ``ClientCredentialsFlowBackend`` for more information.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
      
@@ -360,9 +360,9 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      Returns a copy of self.
      
      Copies the following properties:
-     * `backend`
-     * `accessToken`
-     * `expirationDate`
+     * ``backend``
+     * ``accessToken``
+     * ``expirationDate``
      */
     public func makeCopy() -> ClientCredentialsFlowBackendManager<Backend> {
         let copy = ClientCredentialsFlowBackendManager(
@@ -430,7 +430,7 @@ public extension ClientCredentialsFlowBackendManager {
     /**
      Determines whether the access token is expired within the given tolerance.
 
-     See also `isAuthorized(for:)`.
+     See also ``isAuthorized(for:)``.
 
      The access token is refreshed automatically when necessary before each
      request to the Spotify web API is made. Therefore, **you should never**
@@ -438,8 +438,8 @@ public extension ClientCredentialsFlowBackendManager {
      
      - Parameter tolerance: The tolerance in seconds.
            Default 120.
-     - Returns: `true` if `expirationDate` - `tolerance` is
-           equal to or before the current date or if `accessToken`
+     - Returns: `true` if ``expirationDate`` - `tolerance` is
+           equal to or before the current date or if ``accessToken``
            is `nil`. Else, `false`.
      
      # Thread Safety
@@ -453,7 +453,7 @@ public extension ClientCredentialsFlowBackendManager {
     }
     
     /**
-     Returns `true` if `accessToken` is not `nil` and the set of scopes is
+     Returns `true` if ``accessToken`` is not `nil` and the set of scopes is
      empty.
      
      - Parameter scopes: A set of [Spotify Authorization Scopes][1]. This must be
@@ -541,7 +541,7 @@ public extension ClientCredentialsFlowBackendManager {
      
      The [Client Credentials Flow][1] does not provide a refresh token, so
      calling this method and passing in `false` for `onlyIfExpired` is
-     equivalent to calling `authorize`.
+     equivalent to calling ``authorize()``.
 
      If a new access token is successfully retrieved, then ``didChange`` will
      emit a signal, which causes ``SpotifyAPI/authorizationManagerDidChange`` to
@@ -562,9 +562,9 @@ public extension ClientCredentialsFlowBackendManager {
        - tolerance: The tolerance in seconds to use when determining if the
              token is expired. Defaults to 120, meaning that a new token will be
              retrieved if the current one has expired or will expire in the next
-             two minutes. The token is considered expired if `expirationDate` -
-             `tolerance` is equal to or before the current date. This parameter
-             has no effect if `onlyIfExpired` is `false`.
+             two minutes. The token is considered expired if ``expirationDate``
+             - `tolerance` is equal to or before the current date. This
+             parameter has no effect if `onlyIfExpired` is `false`.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      */
@@ -643,7 +643,7 @@ private extension ClientCredentialsFlowBackendManager {
     }
     
     /// This method should **ALWAYS** be called within
-    /// `updateAuthInfoDispatchQueue`.
+    /// ``updateAuthInfoDispatchQueue``.
     func accessTokenIsExpiredNOTThreadSafe(tolerance: Double = 120) -> Bool {
         if (self._accessToken == nil) != (self._expirationDate == nil) {
             let expirationDateString = self._expirationDate?
@@ -705,20 +705,22 @@ extension ClientCredentialsFlowBackendManager {
  required.
 
  This class stores the client id and client secret locally. Consider using
- `ClientCredentialsFlowBackendManager<ClientCredentialsFlowProxyBackend>`, which
- allows you to setup a custom backend server that can store these sensitive
- credentials and which communicates with Spotify on your behalf in order to
- retrieve the authorization information.
+ ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowProxyBackend``>,
+ which allows you to setup a custom backend server that can store these
+ sensitive credentials and which communicates with Spotify on your behalf in
+ order to retrieve the authorization information.
 
  # Authorization
 
- The only method you must call to authorize your application is `authorize()`.
- After that, you may begin making requests to the Spotify web API. The access
- token will be refreshed for you automatically when needed.
+ The only method you must call to authorize your application is
+ ``ClientCredentialsFlowBackendManager/authorize()``. After that, you may begin
+ making requests to the Spotify web API. The access token will be refreshed for
+ you automatically when needed.
  
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`, which are
- immutable.
+ Use ``ClientCredentialsFlowBackendManager/deauthorize()`` to set the
+ ``ClientCredentialsFlowBackendManager/accessToken`` and
+ ``ClientCredentialsFlowBackendManager/expirationDate`` to `nil`. Does not
+ change ``clientId`` or ``clientSecret``, which are immutable.
 
  # Persistent Storage
 
@@ -797,7 +799,7 @@ public final class ClientCredentialsFlowManager:
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:clientSecret:)`.
+     ``init(clientId:clientSecret:)``.
     
      Remember, with this authorization flow, only endpoints that do not access
      user information can be accessed. This means that endpoints that require

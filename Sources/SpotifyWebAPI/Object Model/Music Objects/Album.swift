@@ -15,9 +15,10 @@ public struct Album: Hashable {
      
      For certain endpoints, this property may be `nil`, especially if it is
      nested inside a much larger object. For example, it will be `nil` if
-     retrieved from the search endpoint or if nested inside a `Track`. When this
-     property is `nil`, use `albumTracks(_:market:limit:offset:)` instead,
-     passing in the URI of this album.
+     retrieved from the search endpoint or if nested inside a ``Track``. When
+     this property is `nil`, use
+     ``SpotifyAPI/albumTracks(_:market:limit:offset:)`` instead, passing in the
+     URI of this album.
      */
     public let tracks: PagingObject<Track>?
     
@@ -27,7 +28,8 @@ public struct Album: Hashable {
     /// about the artist.
     public let artists: [Artist]?
     
-    /// The date the album was first released. See also `releaseDatePrecision`.
+    /// The date the album was first released. See also
+    /// ``releaseDatePrecision``.
     public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the album.
@@ -72,8 +74,8 @@ public struct Album: Hashable {
     /**
      A link to the Spotify web API endpoint providing the full album object.
      
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `Album` as the
-     response type to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Album`` as
+     the response type to retrieve the results.
      */
     public let href: URL?
 
@@ -106,18 +108,19 @@ public struct Album: Hashable {
      */
     public let externalIds: [String: String]?
     
-    /// The type of the album: one of `album`, `single`, or `compilation`. See
-    /// also `albumGroup`.
+    /// The type of the album: one of ``AlbumType/album``, ``AlbumType/single``,
+    /// or ``AlbumType/compilation``. See also ``albumGroup``.
     public let albumType: AlbumType?
 
     /**
      This property is present when getting an artist’s albums.
      
-     See also `albumType`.
+     Possible values are ``AlbumType/album``, ``AlbumType/single``,
+     ``AlbumType/compilation``, and ``AlbumType/appearsOn``. Compared to
+     ``albumType`` this field represents the relationship between the artist and
+     the album.
      
-     Possible values are `album`, `single`, `compilation`, and `appearsOn`.
-     Compared to `albumType` this field represents the relationship between the
-     artist and the album.
+     See also ``albumType``.
      */
     public let albumGroup: AlbumType?
     /**
@@ -134,7 +137,7 @@ public struct Album: Hashable {
     /// An array of copyright objects.
     public let copyrights: [SpotifyCopyright]?
 
-    /// The precision with which `releaseDate` is known: "year", "month", or
+    /// The precision with which ``releaseDate`` is known: "year", "month", or
     /// "day".
     public let releaseDatePrecision: String?
 
@@ -159,7 +162,7 @@ public struct Album: Hashable {
      */
     public let restrictions: [String: String]?
     
-    /// The object type. Always `album`.
+    /// The object type. Always ``IDCategory/album``.
     public let type: IDCategory
     
     /**
@@ -190,18 +193,19 @@ public struct Album: Hashable {
                - "ean": [International Article Number][6]
                - "upc": [Universal Product Code][7]
              - value: An external identifier for the object.
-       - albumType: The type of the album: one of `album`, `single`, or
-             `compilation`.
+       - albumType: The type of the album: one of ``AlbumType/album``,
+             ``AlbumType/single``, or ``AlbumType/compilation``.
        - albumGroup: This field is present when getting an artist’s albums.
-             Possible values are `album`, `single`, `compilation`, and
-             `appearsOn`. Compared to `albumType` this field represents the
-             relationship between the artist and the album.
+             Possible values are ``AlbumType/album``, ``AlbumType/single``,
+             ``AlbumType/compilation``, and ``AlbumType/appearsOn``. Compared to
+             ``albumType`` this field represents the relationship between the
+             artist and the album.
        - availableMarkets: The markets in which the album is available: [ISO
              3166-1 alpha-2 country codes][8]. Note that an album is considered
              available in a market when at least 1 of its tracks is available in
              that market.
        - copyrights: An array of copyright objects.
-       - releaseDatePrecision: The precision with which `releaseDate` is known:
+       - releaseDatePrecision: The precision with which ``releaseDate`` is known:
              "year", "month", or "day".
        - restrictions: Part of the response when a content restriction, such as
              [Track Relinking][9], is applied. Else, `nil`. The key will be

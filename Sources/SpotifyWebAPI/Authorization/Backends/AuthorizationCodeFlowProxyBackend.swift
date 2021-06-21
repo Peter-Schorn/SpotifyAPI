@@ -290,7 +290,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      ``RefreshTokensRequest``, which is used to encode this data.
      
      The endpoint at ``tokenRefreshURL`` must return the authorization
-     information as JSON data that can be decoded into ``AuthInfo`. The
+     information as JSON data that can be decoded into ``AuthInfo``. The
      ``AuthInfo/accessToken`` and ``AuthInfo/expirationDate`` (which can be
      decoded from the "expires_in" JSON key) properties must be non-`nil`. For
      example:

@@ -10,12 +10,13 @@ import Foundation
  implies that Spotify should always return a new refresh token in addition to an
  access token.
 
- When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend` and
+ When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend`` and
  which communicates *directly* with Spotify, use this type in the body of the
- network request made in the `refreshTokens(refreshToken:)` method.
+ network request made in the
+ ``AuthorizationCodeFlowPKCEBackend/refreshTokens(refreshToken:)`` method.
 
- When using a custom backend server, use `ProxyPKCERefreshTokensRequest`
- instead, which does not contain the `clientId`, as this property should be
+ When using a custom backend server, use ``ProxyPKCERefreshTokensRequest``
+ instead, which does not contain the ``clientId``, as this property should be
  stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
@@ -43,12 +44,13 @@ public struct PKCERefreshTokensRequest: Hashable {
      Creates an instance which refreshes the access token using the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates *directly* with Spotify, use this type in the body
-     of the network request made in the `refreshTokens(refreshToken:)` method.
+     of the network request made in the
+     ``AuthorizationCodeFlowPKCEBackend/refreshTokens(refreshToken:)`` method.
 
-     When using a custom backend server, use `ProxyPKCERefreshTokensRequest`
-     instead, which does not contain the `clientId`, as this property should be
+     When using a custom backend server, use ``ProxyPKCERefreshTokensRequest``
+     instead, which does not contain the ``clientId``, as this property should be
      stored on the server.
 
      - Important: Although this type conforms to `Codable`, it should actually

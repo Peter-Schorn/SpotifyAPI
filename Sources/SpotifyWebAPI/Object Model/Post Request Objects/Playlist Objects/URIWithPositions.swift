@@ -8,7 +8,7 @@ import Foundation
  specific track. The positions of the URI is necessary in case the collection
  has duplicate items.
  
- See also `URIWithPositionsContainer`.
+ See also ``URIsWithPositionsContainer``.
  */
 public struct URIWithPositions {
     
@@ -16,11 +16,12 @@ public struct URIWithPositions {
     public var uri: SpotifyURIConvertible
     
     /**
-     The zero-indexed positions of the item corresponding to `uri` in a
+     The zero-indexed positions of the item corresponding to ``uri`` in a
      collection (usually a playlist).
 
-     For example, if the track/episode corresponding to `uri` appears in the
-     first and third position of a playlist, then `positions` would be `[0, 2]`.
+     For example, if the track/episode corresponding to ``uri`` appears in the
+     first and third position of a playlist, then ``positions`` would be `[0,
+     2]`.
      */
     public var positions: [Int]
     

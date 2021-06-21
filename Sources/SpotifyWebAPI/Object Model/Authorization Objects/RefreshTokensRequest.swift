@@ -5,8 +5,8 @@ import Foundation
  token using the refresh token. Spotify may also return a new refresh token.
  
  This type should be used in the body of the network request made in the
- `refreshTokens(refreshToken:)` method of your type that conforms to
- `AuthorizationCodeFlowBackend`.
+ ``AuthorizationCodeFlowBackend/refreshTokens(refreshToken:)`` method of your
+ type that conforms to ``AuthorizationCodeFlowBackend``.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -27,8 +27,8 @@ public struct RefreshTokensRequest: Hashable {
      [Authorization Code Flow][1].
      
      This type should be used in the body of the network request made in the
-     `refreshTokens(refreshToken:)` method of your type that conforms to
-     `AuthorizationCodeFlowBackend`.
+     ``AuthorizationCodeFlowBackend/refreshTokens(refreshToken:)`` method of
+     your type that conforms to ``AuthorizationCodeFlowBackend``.
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a

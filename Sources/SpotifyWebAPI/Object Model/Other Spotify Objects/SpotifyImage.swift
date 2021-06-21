@@ -129,13 +129,15 @@ public extension SpotifyImage {
 public extension Sequence where Element == SpotifyImage {
     
     /**
-     Returns the largest image in this sequence of `SpotifyImage`, or `nil` if
+     Returns the largest image in this sequence of ``SpotifyImage``, or `nil` if
      the sequence is empty.
     
-     When determining the largest image, Images with `nil` for `height` and/or
-     `width` are considered to have a `height` and/or `width` of 0.
+     When determining the largest image, Images with `nil` for
+     ``SpotifyImage/height`` and/or ``SpotifyImage/width`` are considered to
+     have a ``SpotifyImage/height`` and/or ``SpotifyImage/width`` of 0.
      
-     The largest image is calculated based on `height` * `width`.
+     The largest image is calculated based on ``SpotifyImage/height`` *
+     ``SpotifyImage/width``.
      */
     var largest: SpotifyImage? {
         

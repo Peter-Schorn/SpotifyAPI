@@ -92,11 +92,11 @@ private extension SpotifyAPI {
     }
     
     /**
-     Ensure that `additionalTypes` only contains `track` or `episode`.
-     Else, throw an error. If `additionalTypes` is empty, then return
-     `nil` so that when it is converted to a query parameter using
-     `commaSeparatedString()`, `nil` is returned instead of an empty string.
-     If the value for the "additional_types" query parameter is an empty
+     Ensure that `additionalTypes` only contains ``IDCategory/track`` or
+     ``IDCategory/episode``. Else, throw an error. If `additionalTypes` is
+     empty, then return `nil` so that when it is converted to a query parameter
+     using `commaSeparatedString()`, `nil` is returned instead of an empty
+     string. If the value for the "additional_types" query parameter is an empty
      string, then Spotify will return a "Bad search type field" error.
      */
     func validateAdditionalTypes(
@@ -443,7 +443,7 @@ public extension SpotifyAPI {
      See also:
      
      * ``playlist(_:market:)``
-     * ``filteredPlaylist(_:fields:additionalTypes:market:)``
+     * ``filteredPlaylist(_:filters:additionalTypes:market:)``
      * ``filteredPlaylistItems(_:filters:additionalTypes:limit:offset:market:)``
      * ``playlistImage(_:)``
      
@@ -857,8 +857,8 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
-     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
+     * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
      * ``replaceAllPlaylistItems(_:with:)``
 
      Reordering items in the current user’s public playlists requires
@@ -940,8 +940,8 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
-     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
+     * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
      * ``reorderPlaylistItems(_:body:)``
      
      Setting items in the current user’s public playlists requires authorization
@@ -1139,7 +1139,7 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:urisWithPositions:)``
+     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``replaceAllPlaylistItems(_:with:)``
      * ``reorderPlaylistItems(_:body:)``
      
@@ -1193,7 +1193,7 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeAllOccurrencesFromPlaylist(_:uris:)``
+     * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
      * ``replaceAllPlaylistItems(_:with:)``
      * ``reorderPlaylistItems(_:body:)``
      

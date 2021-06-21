@@ -7,53 +7,56 @@ import Foundation
  The search endpoint has a `categories` parameter, which specifies which objects
  will be returned in the response. Valid categories are:
  
- * `album`
- * `artist`
- * `playlist`
- * `track`
- * `show`
- * `episode`
+ * ``IDCategory/album``
+ * ``IDCategory/artist``
+ * ``IDCategory/playlist``
+ * ``IDCategory/track``
+ * ``IDCategory/show``
+ * ``IDCategory/episode``
  
- The corresponding `albums`, `artist`, `playlists`, `tracks`, `shows`, and
- `episodes` properties of this struct will be non-`nil` for each of the
- categories that were requested from the `search` endpoint.
+ The corresponding ``albums``, ``artists``, ``playlists``, ``tracks``,
+ ``shows``, and ``episodes`` properties of this struct will be non-`nil` for
+ each of the categories that were requested from the
+ ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``
+ endpoint.
 
- If no results were found for a category, then the `items` property of the
- property's paging object will be empty; the property itself will only be `nil`
- if it was not requested in the search.
+ If no results were found for a category, then the ``PagingObject/items``
+ property of the property's paging object will be empty; the property itself
+ will only be `nil` if it was not requested in the search.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
  */
 public struct SearchResult: Hashable {
     
-    /// A `PagingObject` containing full `Artist` objects.
+    /// A ``PagingObject`` containing full ``Artist`` objects.
     public let artists: PagingObject<Artist>?
 
-    /// A `PagingObject` containing simplified `Album` objects.
+    /// A ``PagingObject`` containing simplified ``Album`` objects.
     public let albums: PagingObject<Album>?
 
-    /// A `PagingObject` containing full `Track` objects.
+    /// A ``PagingObject`` containing full ``Track`` objects.
     public let tracks: PagingObject<Track>?
     
-    /// A `PagingObject` containing simplified `Playlist` objects.
+    /// A ``PagingObject`` containing simplified ``Playlist`` objects.
     public let playlists: PagingObject<Playlist<PlaylistItemsReference>>?
     
-    /// A `PagingObject` containing simplified `Episode` objects.
+    /// A ``PagingObject`` containing simplified ``Episode`` objects.
     public let episodes: PagingObject<Episode?>?
     
-    /// A `PagingObject` containing simplified `Show` objects.
+    /// A ``PagingObject`` containing simplified ``Show`` objects.
     public let shows: PagingObject<Show?>?
     
     /**
      Creates the response from the [search][1] endpoint.
      
      - Parameters:
-       - artists: A `PagingObject` containing full `Artist` objects.
-       - albums: A `PagingObject` containing simplified `Album` objects.
-       - tracks: A `PagingObject` containing full `Track` objects.
-       - playlists: A `PagingObject` containing simplified `Playlist` objects.
-       - episodes: A `PagingObject` containing simplified `Episode` objects.
-       - shows: A `PagingObject` containing simplified `Show` objects.
+       - artists: A ``PagingObject`` containing full ``Artist`` objects.
+       - albums: A ``PagingObject`` containing simplified ``Album`` objects.
+       - tracks: A ``PagingObject`` containing full ``Track`` objects.
+       - playlists: A ``PagingObject`` containing simplified ``Playlist``
+         objects.
+       - episodes: A ``PagingObject`` containing simplified ``Episode`` objects.
+       - shows: A ``PagingObject`` containing simplified ``Show`` objects.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
      */

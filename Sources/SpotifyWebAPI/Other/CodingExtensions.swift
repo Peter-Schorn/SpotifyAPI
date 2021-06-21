@@ -96,7 +96,7 @@ public extension KeyedDecodingContainer {
         
     }
     
-    /// See `decodeSpotifyDate(forKey:)`.
+    /// See ``decodeSpotifyDate(forKey:)``.
     func decodeSpotifyDateIfPresent(
         forKey key: Key
     ) throws -> Date? {

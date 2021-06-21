@@ -23,7 +23,7 @@ import OpenCombineFoundation
  
  Usually you should not need to create instances of this type directly.
  ``ClientCredentialsFlowManager`` uses this type internally by inheriting from
- `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+ ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  */
@@ -60,7 +60,7 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
      Usually you should not need to create instances of this type directly.
      ``ClientCredentialsFlowManager`` uses this type internally by inheriting
      from
-     `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+     ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your

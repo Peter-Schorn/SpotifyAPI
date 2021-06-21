@@ -16,11 +16,11 @@ import Foundation
  
  Includes the following properties:
  
- * `accessToken`: used in all of the requests to the Spotify web API for
+ * ``accessToken``: used in all of the requests to the Spotify web API for
    authorization.
- * `refreshToken`: Used to refresh the access token.
- * `expirationDate`: The expiration date of the access token.
- * `scopes`: The scopes that have been authorized for the access token.
+ * ``refreshToken``: Used to refresh the access token.
+ * ``expirationDate``: The expiration date of the access token.
+ * ``scopes``: The scopes that have been authorized for the access token.
  
  */
 public struct AuthInfo: Hashable {

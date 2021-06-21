@@ -10,11 +10,11 @@ import FoundationNetworking
  
  See also:
  
- * `SpotifyAuthorizationError`
- * `SpotifyAuthenticationError`
- * `SpotifyError`
- * `SpotifyPlayerError`
- * `RateLimitedError`
+ * ``SpotifyAuthorizationError``
+ * ``SpotifyAuthenticationError``
+ * ``SpotifyError``
+ * ``SpotifyPlayerError``
+ * ``RateLimitedError``
 
  */
 public enum SpotifyGeneralError {
@@ -23,7 +23,7 @@ public enum SpotifyGeneralError {
      You have tried to access an endpoint before authorizing your app or the
      access token needed to be refreshed but the refresh token was `nil`.
      
-     See also `insufficientScope(requiredScopes:authorizedScopes:)`.
+     See also ``insufficientScope(requiredScopes:authorizedScopes:)``.
      */
     case unauthorized(String)
     
@@ -75,7 +75,7 @@ public enum SpotifyGeneralError {
      For example, if you pass a track URI to the endpoint for retrieving an
      artist, you will get this error.
      
-     See also `IDCategory`.
+     See also ``IDCategory``.
      */
     case invalidIdCategory(
         expected: [IDCategory], received: [IDCategory]
@@ -100,8 +100,8 @@ public enum SpotifyGeneralError {
     /**
      The http request returned a response with a status code in the 4xx (client
      error) or 5xx (server error) range, and the response body could not be
-     decoded into any of the other errors types (`SpotifyAuthenticationError`,
-     `SpotifyError`, `SpotifyPlayerError`).
+     decoded into any of the other errors types (``SpotifyAuthenticationError``,
+     ``SpotifyError``, ``SpotifyPlayerError``).
      
      Contains the body data and http response metadata from the server.
      */

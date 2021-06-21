@@ -14,7 +14,7 @@ import FoundationNetworking
 public extension Publisher where Output: Paginated {
    
     /**
-     Retrieves additional pages of results from a `Paginated` type.
+     Retrieves additional pages of results from a ``Paginated`` type.
      
      See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``.
      
@@ -29,7 +29,7 @@ public extension Publisher where Output: Paginated {
      See [Working with Paginated Results][1].
 
      - Parameters:
-       - spotify: An instance of `SpotifyAPI`, which is required for
+       - spotify: An instance of ``SpotifyAPI``, which is required for
              accessing the access token required to make requests to the Spotify
              web API. The access token will also be refreshed if needed.
        - maxExtraPages: The maximum number of additional pages to retrieve. For
@@ -83,7 +83,7 @@ public extension Publisher where Output: PagingObjectProtocol {
      See also `Publisher.collectAndSortByOffset()`.
      
      - Parameters:
-       - spotify: An instance of `SpotifyAPI`, which is required for
+       - spotify: An instance of ``SpotifyAPI``, which is required for
              accessing the access token required to make requests to the Spotify
              web API. The access token will also be refreshed if needed.
        - maxExtraPages: The maximum number of additional pages to retrieve. For

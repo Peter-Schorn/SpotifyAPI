@@ -2,7 +2,8 @@ import Foundation
 
 /**
  Contains details about a playlist. Used in the body of
- `changePlaylistDetails(_:to:)` and `createPlaylist(for:_:)`.
+ ``SpotifyAPI/changePlaylistDetails(_:to:)`` and
+ ``SpotifyAPI/createPlaylist(for:_:)``.
  
  If you are changing the details of an existing playlist, then the
  value of each non-`nil` property will be used to update the details

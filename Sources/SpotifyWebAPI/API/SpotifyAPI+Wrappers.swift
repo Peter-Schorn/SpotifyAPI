@@ -171,8 +171,8 @@ extension SpotifyAPI {
      request is made.
      
      If you are making a get request, use
-     `self.getRequest(path:queryItems:requiredScopes:)`
-     instead, which is a thin wrapper that calls though to this method.
+     ``getRequest(path:queryItems:requiredScopes:)`` instead, which is a thin
+     wrapper that calls though to this method.
      
      The base URL that the path and query items are appended to is
      ```
@@ -233,7 +233,7 @@ extension SpotifyAPI {
      request is made.
 
      Use
-     `apiRequest(path:queryItems:httpMethod:makeHeaders:bodyData:requiredScopes:)`
+     ``apiRequest(path:queryItems:httpMethod:makeHeaders:bodyData:requiredScopes:)``
      if the body cannot be encoded into `Data` using a `JSONEncoder`.
 
      If you are making a get request, use

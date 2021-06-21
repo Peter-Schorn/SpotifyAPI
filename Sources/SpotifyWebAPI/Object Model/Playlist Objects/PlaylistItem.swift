@@ -17,13 +17,13 @@ import Foundation
  */
 public enum PlaylistItem: Hashable {
     
-    /// A track in this `PlaylistItem`.
+    /// A track in this ``PlaylistItem``.
     case track(Track)
     
-    /// An episode in this `PlaylistItem`.
+    /// An episode in this ``PlaylistItem``.
     case episode(Episode)
     
-    /// The name of this `PlaylistItem`.
+    /// The name of this ``PlaylistItem``.
     @inlinable
     public var name: String {
         switch self {
@@ -34,7 +34,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The [Spotify URI][1] for this `PlaylistItem`.
+    /// The [Spotify URI][1] for this ``PlaylistItem``.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     @inlinable
@@ -47,7 +47,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The [Spotify ID] for this `PlaylistItem`.
+    /// The [Spotify ID] for this ``PlaylistItem``.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     @inlinable
@@ -60,7 +60,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The length, in milliseconds, of this `PlaylistItem`.
+    /// The length, in milliseconds, of this ``PlaylistItem``.
     @inlinable
     public var durationMS: Int? {
         switch self {
@@ -71,7 +71,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// Whether or not this `PlaylistItem` has explicit content. `false` if
+    /// Whether or not this ``PlaylistItem`` has explicit content. `false` if
     /// unknown.
     @inlinable
     public var isExplicit: Bool {
@@ -83,7 +83,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// If `true`, this `PlaylistItem` is playable in the given market.
+    /// If `true`, this ``PlaylistItem`` is playable in the given market.
     /// Otherwise, `false`.
     @inlinable
     public var isPlayable: Bool? {
@@ -97,7 +97,7 @@ public enum PlaylistItem: Hashable {
     
     /**
      A link to the Spotify web API endpoint providing the full version of this
-     `PlaylistItem`.
+     ``PlaylistItem``.
 
      Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the full results.
      */
@@ -112,7 +112,7 @@ public enum PlaylistItem: Hashable {
     }
     
     /**
-     Known [external urls][1] for this `PlaylistItem`.
+     Known [external urls][1] for this ``PlaylistItem``.
 
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
            for the object.
@@ -131,7 +131,8 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The underlying type of this `PlaylistItem`. Either `track` or `episode`.
+    /// The underlying type of this ``PlaylistItem``. Either
+    /// ``IDCategory/track`` or ``IDCategory/episode``.
     @inlinable
     public var type: IDCategory {
         switch self {

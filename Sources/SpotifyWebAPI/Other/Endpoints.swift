@@ -48,7 +48,7 @@ public enum Endpoints {
     /**
      The path for requesting and refreshing tokens.
     
-     See also `getTokens`.
+     See also ``getTokens``.
      ```
      "/api/token"
      ```
@@ -78,7 +78,7 @@ public enum Endpoints {
      ```
      "https://api.spotify.com/v1"
      ```
-     Do not forget to add a leading `/` to the path component.
+     Do not forget to add a leading "/" to the path component.
      
      - Parameters:
        - path: A path to append to the URL.

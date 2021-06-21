@@ -79,7 +79,7 @@ public struct PlaybackRequest: Hashable {
     /**
      Creates a request to play Spotify content for a user.
      
-     See also `init(_:positionMS:)`—a convenience initializer that makes a
+     See also ``init(_:positionMS:)``—a convenience initializer that makes a
      request to play a single track/episode.
      
      See also [Playback Request Examples][1].
@@ -128,7 +128,7 @@ public struct PlaybackRequest: Hashable {
      A convenience initializer that makes a request to play a single
      track/episode.
      
-     See also `init(context:offset:positionMS:)`.
+     See also ``init(context:offset:positionMS:)``.
      
      Equivalent to
      ```

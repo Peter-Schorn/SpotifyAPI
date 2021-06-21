@@ -3,7 +3,7 @@ import Foundation
 /**
  A Spotify [Cursor][1] object.
  
- Used to find the next or previous set of items in a `CursorPagingObject`.
+ Used to find the next or previous set of items in a ``CursorPagingObject``.
  
  See [get current user's recently played tracks][2] and
  ``SpotifyAPI/recentlyPlayed(_:limit:)``.
@@ -40,7 +40,7 @@ public struct SpotifyCursor: Codable, Hashable {
     /**
      Creates a [Spotify Cursor][1] object.
      
-     Used to find the next or previous set of items in a `CursorPagingObject`.
+     Used to find the next or previous set of items in a ``CursorPagingObject``.
      
      - Parameters:
        - before: The key to the item before the current item.

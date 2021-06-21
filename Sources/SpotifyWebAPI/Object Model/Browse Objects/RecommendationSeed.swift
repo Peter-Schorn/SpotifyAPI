@@ -4,7 +4,7 @@ import Foundation
 /**
  A [Recommendation Seed Object][1]. Part of the response returned by
  ``SpotifyAPI/recommendations(_:limit:market:)``. See also
- `RecommendationsResponse`.
+ ``RecommendationsResponse``.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
  */
@@ -34,13 +34,14 @@ public struct RecommendationSeed: Codable, Hashable {
     /// The number of recommended tracks available for this seed.
     public let initialPoolSize: Int
     
-    /// The entity type of this seed. Either `artist`, `track` or `genre`.
+    /// The entity type of this seed. Either ``IDCategory/artist``,
+    /// ``IDCategory/track`` or ``IDCategory/genre``.
     public let type: IDCategory
     
     /**
      Creates a [Recommendation Seed Object][1]. Returned by
      ``SpotifyAPI/recommendations(_:limit:market:)``. See also
-     `RecommendationsResponse`.
+     ``RecommendationsResponse``.
      
      - Parameters:
        - afterFilteringSize: The number of tracks available after the minimum
@@ -55,8 +56,8 @@ public struct RecommendationSeed: Codable, Hashable {
        - id: The artist, track, or genre id used to select this seed.
        - initialPoolSize: The number of recommended tracks available for this
              seed.
-       - type: The entity type of this seed. Either `artist`, `track` or
-             `genre`.
+       - type: The entity type of this seed. Either ``IDCategory/artist``,
+             ``IDCategory/track`` or ``IDCategory/genre``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */

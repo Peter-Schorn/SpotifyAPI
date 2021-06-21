@@ -5,12 +5,13 @@ import Foundation
  is used to request a refresh and access token for the [Authorization Code
  Flow][1].
  
- When creating a type that conforms to `AuthorizationCodeFlowBackend` and which
- communicates with a custom backend server, use this type in the body of the
- network request made in the
- `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+ When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
+ which communicates with a custom backend server, use this type in the body of
+ the network request made in the
+ ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+ method.
  
- In contrast with `TokensRequest`, which should be used if you are communicating
+ In contrast with ``TokensRequest``, which should be used if you are communicating
  directly with Spotify, this type does not contain the `clientId`, or
  `clientSecret` because these values should be securely stored on your backend
  server.
@@ -53,12 +54,13 @@ public struct ProxyTokensRequest: Hashable {
      Creates an instance which is used to request the authorization information
      using the [Authorization Code Flow][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowBackend` and
+     When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
      which communicates with a custom backend server, use this type in the body
      of the network request made in the
-     `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+     ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+     method.
 
-     In contrast with `TokensRequest`, which should be used if you are
+     In contrast with ``TokensRequest``, which should be used if you are
      communicating directly with Spotify, this type does not contain the
      `clientId`, or `clientSecret` because these values should be securely
      stored on your backend server.

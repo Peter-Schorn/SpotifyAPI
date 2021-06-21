@@ -30,7 +30,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     /**
      A link to the Spotify web API endpoint for this user.
      
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `SpotifyUser`
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``SpotifyUser``
      as the response type to retrieve the results.
      */
     public let href: URL
@@ -104,7 +104,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     */
     public let externalURLs: [String: URL]?
     
-    /// The object type. Always `user`.
+    /// The object type. Always ``IDCategory/user``.
     public let type: IDCategory
     
     /**

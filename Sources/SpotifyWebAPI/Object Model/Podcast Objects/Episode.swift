@@ -38,7 +38,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
 
     /// The date the episode was first released.
     ///
-    /// See also `releaseDatePrecision`.
+    /// See also ``releaseDatePrecision``.
     public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the episode.
@@ -57,8 +57,8 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /**
      A link to the Spotify web API endpoint providing the full episode object.
      
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in `Episode` as the
-     response type to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Episode`` as
+     the response type to retrieve the results.
      */
     public let href: URL
        
@@ -87,11 +87,11 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
     public let languages: [String]
     
-    /// The precision with which `releaseDate` is known: "year", "month", or
+    /// The precision with which ``releaseDate`` is known: "year", "month", or
     /// "day".
     public let releaseDatePrecision: String?
  
-    /// The object type. Always `episode`.
+    /// The object type. Always ``IDCategory/episode``.
     public let type: IDCategory
  
     /**
@@ -124,8 +124,8 @@ public struct Episode: Hashable, SpotifyURIConvertible {
              Spotify's CDN (content delivery network). Else, `false`.
        - languages: A list of the languages used in the episode, identified by
              their [ISO 639][4] code.
-       - releaseDatePrecision: The precision with which `releaseDate` is known:
-             "year", "month", or "day".
+       - releaseDatePrecision: The precision with which ``releaseDate`` is
+             known: "year", "month", or "day".
      
      [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

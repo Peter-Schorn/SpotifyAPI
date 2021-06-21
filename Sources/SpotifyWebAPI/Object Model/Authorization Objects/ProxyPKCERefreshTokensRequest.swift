@@ -10,13 +10,15 @@ import Foundation
  implies that Spotify should always return a new refresh token in addition to an
  access token.
  
- When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend` and
+ When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend`` and
  which communicates with a custom backend server, use this type in the body of
- the network request made in the `refreshTokens(refreshToken:)` method.
+ the network request made in the
+ ``AuthorizationCodeFlowPKCEBackend/refreshTokens(refreshToken:)`` method.
  
- In contrast with `PKCERefreshTokensRequest`, which should be used if you are
- communicating directly with Spotify, this type does not contain the `clientId`
- because this value should be securely stored on your backend server.
+ In contrast with ``PKCERefreshTokensRequest``, which should be used if you are
+ communicating directly with Spotify, this type does not contain the
+ `clientId` because this value should be securely stored on your backend
+ server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
@@ -27,7 +29,7 @@ import Foundation
 public struct ProxyPKCERefreshTokensRequest: Hashable {
     
     /// Always set to "PKCE". Disambiguates this type from
-    /// `RefreshTokensRequest` when represented as data, which would otherwise
+    /// ``RefreshTokensRequest`` when represented as data, which would otherwise
     /// have all of the same fields.
     public let method = "PKCE"
     
@@ -41,12 +43,12 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
      Creates an instance which refreshes the access token using the
      [Authorization Code Flow with Proof Key for Code Exchange][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates with a custom backend server, use this type in the
-     body of the network request made in the `refreshTokens(refreshToken:)`
-     method.
+     body of the network request made in the
+     ``AuthorizationCodeFlowPKCEBackend/refreshTokens(refreshToken:)`` method.
 
-     In contrast with `PKCERefreshTokensRequest`, which should be used if you
+     In contrast with ``PKCERefreshTokensRequest``, which should be used if you
      are communicating directly with Spotify, this type does not contain the
      `clientId` because this value should be securely stored on your backend
      server.

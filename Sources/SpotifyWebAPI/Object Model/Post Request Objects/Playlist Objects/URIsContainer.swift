@@ -6,7 +6,7 @@ import Foundation
  Used in the body of
  ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``.
 
- Compare with `URIsWithPositionsContainer`.
+ Compare with ``URIsWithPositionsContainer``.
 
  Read more at the [Spotify web API reference][2].
  
