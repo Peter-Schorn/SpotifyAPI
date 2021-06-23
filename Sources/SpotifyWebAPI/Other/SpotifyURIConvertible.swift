@@ -28,6 +28,7 @@ import Foundation
  * ``IDCategory/local``
  * ``IDCategory/user``
  * ``IDCategory/genre``
+ * ``IDCategory/ad``
  * ``IDCategory/unknown``
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids

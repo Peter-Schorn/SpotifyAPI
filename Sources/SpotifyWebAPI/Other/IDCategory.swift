@@ -46,6 +46,9 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     /// A genre.
     case genre
     
+    /// An ad.
+    case ad
+    
     /// Unknown. This should be rare.
     case unknown
  

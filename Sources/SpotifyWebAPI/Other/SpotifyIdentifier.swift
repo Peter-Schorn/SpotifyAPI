@@ -134,6 +134,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/ad``
      * ``IDCategory/unknown``
      
      - Parameters:
@@ -157,7 +158,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
      
      The id category must be one of the following, or an error will be thrown:
-     
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``
@@ -167,6 +167,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/ad``
      * ``IDCategory/unknown``
      
      - Parameters:
@@ -249,7 +250,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
 
      The id category must be one of the following:
-     
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``
@@ -259,6 +259,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/ad``
      * ``IDCategory/unknown``
      
      - Parameter url: A URL that, when opened, displays the content in the web

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 6-23-2021
+
+### Added
+
+* Added `ad` to `IDCategory`. This can be returned for `CurrentlyPlayingContext.itemType`, which indicates the user is currently listening to an ad.
+
 ## [2.0.0] - 5-29-2021
 
 ### Proxy Server
