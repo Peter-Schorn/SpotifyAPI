@@ -21,6 +21,7 @@ import Foundation
  * `local`
  * `user`
  * `genre`
+ * `ad`
  * `unknown`
  
  Read more at the [Spotify web API reference][1].
@@ -59,6 +60,9 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     /// A genre.
     case genre
     
+    /// An ad.
+    case ad
+    
     /// Unknown. This should be rare.
     case unknown
  
@@ -76,6 +80,7 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      * `local`
      * `user`
      * `genre`
+     * `ad`
      * `unknown`
      
      - Parameter rawValue: The raw value for an id category. **It is**

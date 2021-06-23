@@ -61,11 +61,11 @@ public struct CurrentlyPlayingContext: Hashable {
      was most recently, playing.
 
      Use `isPlaying` to check if the content is currently playing.
-
+     
      Although the type is `PlaylistItem`, this does not necessarily mean that
      the item is playing in the context of a playlist. Can be `nil`. For
-     example, If the user has a private session enabled, then this will be
-     `nil`.
+     example, If the user has a private session enabled or an ad is playing,
+     then this will be `nil`.
      */
     public let item: PlaylistItem?
     
@@ -73,9 +73,8 @@ public struct CurrentlyPlayingContext: Hashable {
      The id category of `item`—the content that is, or was most recently,
      playing.
     
-     For example, if a track is currently playing, then this property will be
-     `track`; if an episode is currently playing then this property will be
-     `episode`. Can also be `unknown`.
+     One of `track`, `episode`, `ad` or `unknown`. If the type is `ad`,
+     then `item` will be `nil`.
      */
     public let itemType: IDCategory
     

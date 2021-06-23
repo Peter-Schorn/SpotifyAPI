@@ -134,6 +134,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `local`
      * `user`
      * `genre`
+     * `ad`
      * `unknown`
      
      - Parameters:
@@ -167,6 +168,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `local`
      * `user`
      * `genre`
+     * `ad`
      * `unknown`
      
      - Parameters:
@@ -259,6 +261,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `local`
      * `user`
      * `genre`
+     * `ad`
+     * `unknown`
      
      - Parameter url: A URL that, when opened, displays the content in the web
            player.
