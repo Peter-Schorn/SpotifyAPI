@@ -15,12 +15,14 @@ See this [example iOS app][2] and this [example command-line app][3].
 
 To get started, go to the [Spotify Developer Dashboard][4] and create an app. You will receive a client id and client secret. Then, click on "edit settings" and add a redirect URI. Usually, this should be a custom URL scheme that redirects to a location in your app. **DO NOT add a forward-slash to the end of the redirect URI**.
 
-The next step is authorizing your app. *All* requests to the Spotify web API—whether they require [authorization scopes][5] or not—require authorization This library supports three authorization methods:
+The next step is authorizing your app. *All* requests to the Spotify web API—whether they require [authorization scopes][5] or not—require authorization. This library supports three authorization methods:
 
 * **<doc:Authorizing-with-the-Authorization-Code-Flow-with-Proof-Key-for-Code-Exchange>**: This is the best option for mobile and desktop applications where it is unsafe to store your client secret. It provides an additional layer of security compared to the Authorization Code Flow. Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app. Read more at the [Spotify web API reference][6].
 
 * **<doc:Authorizing-with-the-Authorization-Code-Flow>**: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.  Read more at the [Spotify web API reference][7].
 * **<doc:Authorizing-with-the-Client-Credentials-Flow>**: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5] or an access token that was issued on behalf of a user. The advantage of this method is that it does not require any user interaction. Read more at the [Spotify web API reference][8].
+
+See also <doc:Additional-Authorization-Methods>.
 
 When creating an application that uses this library, you will probably want to **save the authorization information to persistent storage** so that the user does not have to login again every time the application is quit and re-launched. See <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for a guide on how to do this.
 
@@ -70,6 +72,11 @@ When creating an application that uses this library, you will probably want to *
 - <doc:Player-Objects>
 - <doc:Audio-Analysis-Objects>
 - <doc:Other-Objects>
+
+### Spotify Identifiers
+
+- ``SpotifyIdentifier``
+- ``IDCategory``
 
 [1]: https://developer.spotify.com/documentation/web-api/reference/
 [2]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp

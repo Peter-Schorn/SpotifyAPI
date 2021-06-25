@@ -24,3 +24,4 @@ Other objects in the object model.
 - ``RecommendationsResponse``
 - ``TrackAttributes``
 - ``AttributeRange``
+- ``SpotifyCategory``
