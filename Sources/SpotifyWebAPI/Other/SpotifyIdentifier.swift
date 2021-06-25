@@ -7,7 +7,7 @@ import Logging
  such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method that accepts a
- `SpotifyURIConvertible` type.
+ ``SpotifyURIConvertible`` type.
 
  This struct provides a convenient way to convert between the different formats,
  which include the id, the URI, and the URL.

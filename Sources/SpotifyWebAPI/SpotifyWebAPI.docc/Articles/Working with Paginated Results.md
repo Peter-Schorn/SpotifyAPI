@@ -12,7 +12,7 @@ This library provides several convenience methods for requesting additional page
 
 **`Publisher.extendPages(_:maxExtraPages:)` and ``SpotifyAPI/extendPages(_:maxExtraPages:)``** 
 
-This publisher extension can be chained with any publisher that returns a `PagingObject` or a  ` CursorPagingObject`.  It uses the `next` property of the paging object sent from the upstream publisher to request the next page of results. Each time an additional page is received, its `next` property is used to retrieve the next page of results, and so on, until `next` is `nil` or `maxExtraPages` is reached. This means that the next page will not be requested until the previous one is received and that the pages will always be returned in order.
+This publisher extension can be chained with any publisher that returns a ``PagingObject`` or a  ``CursorPagingObject``.  It uses the `next` property of the paging object sent from the upstream publisher to request the next page of results. Each time an additional page is received, its `next` property is used to retrieve the next page of results, and so on, until `next` is `nil` or `maxExtraPages` is reached. This means that the next page will not be requested until the previous one is received and that the pages will always be returned in order.
 
 In this example, a request is made for an artist's albums. 10 albums per page and two additional pages, for a total of three pages, are requested:
 

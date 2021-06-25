@@ -14,7 +14,7 @@ To debug errors related to the decoding of data from the Spotify web API, assign
 
 This library has various loggers that can be used to aid in debugging. By default the `logLevel` of all the loggers is set to critical; no messages are logged at a critical level. In other words, this means that all logging will be disabled by default. All loggers are public and you can set their log level to whatever you want.
 
-In order to use your own logging backend, create a type that conforms to `LogHandler` and call [`LoggingSystem.bootstrap(_:)`](https://apple.github.io/swift-log/docs/current/Logging/Enums/LoggingSystem.html#/s:7Logging0A6SystemO9bootstrapyyAA10LogHandler_pSScFZ). Alternatively, call [`SpotifyAPILogHandler.bootstrap()`](https://peter-schorn.github.io/SpotifyAPI/Structs/SpotifyAPILogHandler.html#/s:13SpotifyWebAPI0A13APILogHandlerV9bootstrapyyFZ) in order to configure this type as the logging backend. See [swift-log](https://github.com/apple/swift-log#on-the-implementation-of-a-logging-backend-a-loghandler), the logging API that this package uses, for more information. 
+In order to use your own logging backend, create a type that conforms to `LogHandler` and call [`LoggingSystem.bootstrap(_:)`](https://apple.github.io/swift-log/docs/current/Logging/Enums/LoggingSystem.html#/s:7Logging0A6SystemO9bootstrapyyAA10LogHandler_pSScFZ). Alternatively, call ``SpotifyAPILogHandler``.``SpotifyAPILogHandler/bootstrap()`` in order to configure this type as the logging backend. See [swift-log](https://github.com/apple/swift-log#on-the-implementation-of-a-logging-backend-a-loghandler), the logging API that this package uses, for more information. 
 
 Call ``SpotifyAPI/setupDebugging()`` to set the log level of most of the loggers to `trace`.
 
@@ -59,15 +59,15 @@ Set the `logLevel` to `warning` to print various warning and error messages to t
 
 #### AuthorizationCodeFlowBackendManager.logger
 
-Logs messages related to the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow), such as when `deauthorize()`  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
+Logs messages related to the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
 
 #### AuthorizationCodeFlowPKCEBackendManager.logger
 
-Logs messages related to the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce), such as when `deauthorize()`  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
+Logs messages related to the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
 
 #### ClientCredentialsFlowBackendManager.logger
 
-Logs messages related to the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow), such as when `deauthorize()`  is called, and when an access token is retrieved.
+Logs messages related to the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, and when an access token is retrieved.
 
 #### AuthorizationCodeFlowManagerBase.baseLogger
 
