@@ -158,6 +158,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
      
      The id category must be one of the following, or an error will be thrown:
+     
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``

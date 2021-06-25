@@ -74,8 +74,9 @@ public struct CurrentlyPlayingContext: Hashable {
      The id category of ``item``—the content that is, or was most recently,
      playing.
     
-     One of `track`, `episode`, `ad` or `unknown`. If the type is `ad`,
-     then `item` will be `nil`.
+     One of ``IDCategory/track``, ``IDCategory/episode``, ``IDCategory/ad`` or
+     ``IDCategory/unknown``. If the type is ``IDCategory/ad``, then ``item``
+     will be `nil`.
      */
     public let itemType: IDCategory
     

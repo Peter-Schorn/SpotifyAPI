@@ -66,6 +66,7 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      * ``local``
      * ``user``
      * ``genre``
+     * ``ad``
      * ``unknown``
      
      - Parameter rawValue: The raw value for an id category. **It is**
