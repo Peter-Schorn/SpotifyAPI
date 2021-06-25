@@ -31,7 +31,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 
 ## Supported Platforms
 
-* Swift 5.3+ (for Swift 5.1 and 5.2 support, use the [`swift-5-1`](https://github.com/Peter-Schorn/SpotifyAPI/tree/swift-5-1) branch)
+* Swift 5.3+ (for Swift 5.1 and 5.2 support and support for older platforms, use the [`swift-5-1`](https://github.com/Peter-Schorn/SpotifyAPI/tree/swift-5-1) branch)
 * iOS 13+
 * macOS 10.15+
 * tvOS 13+
