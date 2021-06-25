@@ -19,7 +19,6 @@ public enum Scope: String, Codable, Hashable {
      Required for the following endpoints:
      
      * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
-     
      */
     case ugcImageUpload = "ugc-image-upload"
     
@@ -32,7 +31,6 @@ public enum Scope: String, Codable, Hashable {
      
      * ``SpotifyAPI/availableDevices()``
      * ``SpotifyAPI/currentPlayback(market:)``
-     
      */
     case userReadPlaybackState = "user-read-playback-state"
     
@@ -52,7 +50,6 @@ public enum Scope: String, Codable, Hashable {
      - ``SpotifyAPI/setVolume(to:deviceId:)``
      - ``SpotifyAPI/setShuffle(to:deviceId:)``
      - ``SpotifyAPI/transferPlayback(to:play:)``
-     
      */
     case userModifyPlaybackState = "user-modify-playback-state"
     
@@ -103,7 +100,6 @@ public enum Scope: String, Codable, Hashable {
      
      * ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``
      * ``SpotifyAPI/currentUserProfile()``
-     
      */
     case userReadPrivate = "user-read-private"
     
@@ -135,7 +131,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
      * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
      * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
-     
      */
     case playlistModifyPublic = "playlist-modify-public"
 
@@ -147,7 +142,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/usersFollowPlaylist(_:userURIs:)``
      * ``SpotifyAPI/currentUserPlaylists(limit:offset:)``
      * ``SpotifyAPI/userPlaylists(for:limit:offset:)``
-     
      */
     case playlistReadPrivate = "playlist-read-private"
     
@@ -166,7 +160,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
      * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
      * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
-     
      */
     case playlistModifyPrivate = "playlist-modify-private"
 
@@ -213,7 +206,6 @@ public enum Scope: String, Codable, Hashable {
      
      * ``SpotifyAPI/currentUserTopArtists(_:offset:limit:)``
      * ``SpotifyAPI/currentUserTopTracks(_:offset:limit:)``
-     
      */
     case userTopRead = "user-top-read"
     
@@ -228,7 +220,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/show(_:market:)``
      * ``SpotifyAPI/shows(_:market:)``
      * ``SpotifyAPI/showEpisodes(_:market:offset:limit:)``
-     
      */
     case userReadPlaybackPosition = "user-read-playback-position"
     
@@ -238,7 +229,6 @@ public enum Scope: String, Codable, Hashable {
      Required for the following endpoint:
      
      * ``SpotifyAPI/recentlyPlayed(_:limit:)``
-     
      */
     case userReadRecentlyPlayed = "user-read-recently-played"
     
@@ -252,7 +242,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/currentUserFollowsArtists(_:)``
      * ``SpotifyAPI/currentUserFollowsUsers(_:)``
      * ``SpotifyAPI/currentUserFollowedArtists(after:limit:)``
-     
      */
     case userFollowRead = "user-follow-read"
     
@@ -266,7 +255,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/unfollowArtistsForCurrentUser(_:)``
      * ``SpotifyAPI/followUsersForCurrentUser(_:)``
      * ``SpotifyAPI/unfollowUsersForCurrentUser(_:)``
-     
      */
     case userFollowModify = "user-follow-modify"
     

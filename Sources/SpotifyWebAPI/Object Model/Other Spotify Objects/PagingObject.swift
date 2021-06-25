@@ -16,14 +16,13 @@ import Logging
  along with other properties like ``previous``, ``next`` and ``limit`` that can
  be useful in future calls.
  
- See [Working with Paginated Results][2].
+ See <doc:Working-with-Paginated-Results>.
 
  See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``,
  ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``, and the combine
  operators of the same names.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
- [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
  */
 public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
     
@@ -58,9 +57,7 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in the type of
      this ``PagingObject``—NOT the type of `Item`—to retrieve the results.
      
-     See [Working with Paginated Results][1].
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     See <doc:Working-with-Paginated-Results>.
      */
     public let next: URL?
     
@@ -71,9 +68,7 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in the type of
      this ``PagingObject``—NOT the type of `Item`—to retrieve the results.
      
-     See [Working with Paginated Results][1].
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     See <doc:Working-with-Paginated-Results>.
      */
     public let previous: URL?
 

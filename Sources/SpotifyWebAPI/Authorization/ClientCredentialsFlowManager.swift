@@ -52,11 +52,12 @@ import Logging
 
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][3] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
- [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
     SpotifyAuthorizationManager,
@@ -220,7 +221,8 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][4] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
@@ -234,7 +236,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
-     [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(backend: Backend) {
@@ -262,7 +263,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      instance to persistent storage and then retrieving them later and passing
      them into this initializer. Instead, encode this entire instance to data
      using a `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
@@ -276,7 +277,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -726,11 +727,12 @@ extension ClientCredentialsFlowBackendManager {
 
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][3] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
- [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class ClientCredentialsFlowManager:
     ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>
@@ -768,7 +770,8 @@ public final class ClientCredentialsFlowManager:
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][4] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
@@ -780,7 +783,6 @@ public final class ClientCredentialsFlowManager:
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
-     [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(
@@ -809,7 +811,7 @@ public final class ClientCredentialsFlowManager:
      instance to persistent storage and then retrieving them later and passing
      them into this initializer. Instead, encode this entire instance to data
      using a `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      To get a client id and client secret, go to the [Spotify Developer
@@ -825,7 +827,7 @@ public final class ClientCredentialsFlowManager:
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */

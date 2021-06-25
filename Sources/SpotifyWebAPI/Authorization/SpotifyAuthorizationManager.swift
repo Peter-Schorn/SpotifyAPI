@@ -20,10 +20,10 @@ import Logging
 
  Note that this protocol inherits from `Codable`. It is this type that you
  should encode to data using a `JSONEncoder` in order to save it to persistent
- storage. See this [article][2] for more information.
+ storage. See <doc:Saving-the-Authorization-Information-to-Persistent-Storage>
+ for more information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/
- [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public protocol SpotifyAuthorizationManager: Codable {
     

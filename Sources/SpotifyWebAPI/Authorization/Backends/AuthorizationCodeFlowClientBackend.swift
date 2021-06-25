@@ -116,7 +116,6 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
        - redirectURIWithQuery: The URL that spotify redirected to after the user
              logged in to their Spotify account, with query parameters appended
              to it.
-     
      */
     public func requestAccessAndRefreshTokens(
         code: String,

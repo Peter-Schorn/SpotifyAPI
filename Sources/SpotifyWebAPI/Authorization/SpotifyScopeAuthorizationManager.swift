@@ -8,6 +8,5 @@ import Foundation
  ``AuthorizationCodeFlowPKCEBackendManager`` conform to this protocol.
  ``ClientCredentialsFlowBackendManager`` is not a conforming type because it
  does not support authorization scopes.
- 
  */
 public protocol SpotifyScopeAuthorizationManager: SpotifyAuthorizationManager { }

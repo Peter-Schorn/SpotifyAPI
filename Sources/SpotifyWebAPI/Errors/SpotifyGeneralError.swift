@@ -15,7 +15,6 @@ import FoundationNetworking
  * ``SpotifyError``
  * ``SpotifyPlayerError``
  * ``RateLimitedError``
-
  */
 public enum SpotifyGeneralError {
     

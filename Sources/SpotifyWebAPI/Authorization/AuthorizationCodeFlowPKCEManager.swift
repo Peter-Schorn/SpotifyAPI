@@ -64,12 +64,13 @@ import Logging
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][4] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://tools.ietf.org/html/rfc7636
- [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeFlowPKCEBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
@@ -112,7 +113,8 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][2] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
@@ -125,7 +127,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
              ``AuthorizationCodeFlowPKCEBackend`` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(backend: Backend) {
         super.init(backend: backend)
@@ -149,7 +150,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      instance to persistent storage and then retrieving them later and passing
      them into this initializer. Instead, encode this entire instance to data
      using a `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
@@ -172,7 +173,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public convenience init(
 		backend: Backend,
@@ -655,12 +655,13 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][4] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://tools.ietf.org/html/rfc7636
- [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class AuthorizationCodeFlowPKCEManager:
     AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>
@@ -685,7 +686,8 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][3] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
 
      - Parameters:
@@ -694,7 +696,6 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
-     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(clientId: String) {
@@ -718,12 +719,12 @@ public final class AuthorizationCodeFlowPKCEManager:
      to persistent storage and then retrieving them later and passing them into
      this initializer. Instead, encode this entire instance to data using a
      `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
 
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app. see the README in the root
-     directory of this package for more information.
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][3] and create an app. see the README in the root directory of
+     this package for more information.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -740,7 +741,6 @@ public final class AuthorizationCodeFlowPKCEManager:
        - scopes: The scopes that have been authorized for the access token.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */

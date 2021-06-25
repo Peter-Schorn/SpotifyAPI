@@ -22,15 +22,14 @@ public extension SpotifyAPI where
      You can use this endpoint to determine which devices are currently active
      by checking each device's ``Device/isActive`` property.
      
-     See also [Using the Player Endpoints][1].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
-     - Returns: An array of [device objects][3].
+     - Returns: An array of [device objects][2].
      
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-users-available-devices
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-users-available-devices
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
         
@@ -81,8 +80,8 @@ public extension SpotifyAPI where
            [Track Relinking][3].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback
-     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     func currentPlayback(
         market: String? = nil
@@ -176,9 +175,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - uri: The URI for either a track or an episode.
@@ -190,8 +189,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-to-queue
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-to-queue
      */
     func addToQueue(
         _ uri: SpotifyURIConvertible,
@@ -230,9 +228,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -243,8 +241,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-next-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-next-track
      */
     func skipToNext(
         deviceId: String? = nil
@@ -279,9 +276,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -292,8 +289,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-previous-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-previous-track
      */
     func skipToPrevious(
         deviceId: String? = nil
@@ -332,9 +328,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -345,8 +341,7 @@ public extension SpotifyAPI where
                non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-pause-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-pause-a-users-playback
      */
     func pausePlayback(
         deviceId: String? = nil
@@ -389,9 +384,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameter deviceId: The id of the device to target. See
            ``availableDevices()``. It is highly recommended that you leave this
@@ -401,8 +396,7 @@ public extension SpotifyAPI where
            on a non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     func resumePlayback(
         deviceId: String? = nil
@@ -435,7 +429,9 @@ public extension SpotifyAPI where
      
      The `playbackRequest` has the following parameters:
      
-     * context: The context in which to play the content. One of the following:
+     * context: The context in which to play the content.
+       One of the following:
+     
        * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
          play the content. Must be in one of the following categories:
          * Album
@@ -468,9 +464,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -483,8 +479,7 @@ public extension SpotifyAPI where
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     func play(
         _ playbackRequest: PlaybackRequest,
@@ -520,9 +515,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - positionMS: The position in milliseconds to seek to. Must be a positive
@@ -536,8 +531,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-seek-to-position-in-currently-playing-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-seek-to-position-in-currently-playing-track
      */
     func seekToPosition(
         _ positionMS: Int,
@@ -577,9 +571,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - repeatMode: Either ``RepeatMode/track``, ``RepeatMode/context`` or
@@ -594,8 +588,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-repeat-mode-on-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-repeat-mode-on-users-playback
      */
     func setRepeatMode(
         to repeatMode: RepeatMode,
@@ -637,9 +630,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
@@ -651,8 +644,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-volume-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-volume-for-users-playback
      */
     func setVolume(
         to percent: Int,
@@ -691,9 +683,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
@@ -705,8 +697,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-toggle-shuffle-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-toggle-shuffle-for-users-playback
      */
     func setShuffle(
         to mode: Bool,
@@ -750,9 +741,9 @@ public extension SpotifyAPI where
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to. Must be one
@@ -764,8 +755,7 @@ public extension SpotifyAPI where
              for completion) *before* transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-transfer-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-transfer-a-users-playback
      */
     func transferPlayback(
         to deviceId: String,

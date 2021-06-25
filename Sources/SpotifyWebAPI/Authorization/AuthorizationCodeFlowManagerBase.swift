@@ -26,7 +26,6 @@ import Logging
 
  Use ``deauthorize()`` to set the ``accessToken``, ``refreshToken``,
  ``expirationDate``, and ``scopes`` to `nil`.
- 
  */
 public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     

@@ -50,8 +50,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      Assigning a new authorization manager to this property causes
      ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public var authorizationManager: AuthorizationManager {
         didSet {
@@ -83,7 +81,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      No guarantees are made about which thread this function will be called on.
      Therefore, do not mutate this property while a network request is being
      made.
-     
      */
     public var networkAdaptor:
         (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
@@ -113,8 +110,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
     
@@ -162,7 +157,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      
      Also logs a message in the didSet observer of
      ``SpotifyAPI/authorizationManager``.
-     
      */
     public var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
@@ -188,7 +182,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
                process for your application and contains all the authorization
                information. It is this property that you should encode to data
                using a `JSONEncoder` in order to save it to persistent storage.
-               See this [article][2] for more information.
+               See
+               <doc:Saving-the-Authorization-Information-to-Persistent-Storage>
+               for more information.
          - networkAdaptor: A function that gets called every time this class—and
                only this class—needs to make a network request. The
                ``SpotifyAPI/authorizationManager`` will **NOT** use this
@@ -200,7 +196,6 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
                be used for the network requests.
      
      [1]: https://developer.spotify.com/dashboard/login
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(
         authorizationManager: AuthorizationManager,

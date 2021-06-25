@@ -38,7 +38,6 @@ public struct CurrentlyPlayingContext: Hashable {
      
      Can be `nil`. For example, If the user has a private session enabled, then
      this will be `nil`.
-     
      */
     public let context: SpotifyContext?
     

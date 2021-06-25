@@ -26,7 +26,7 @@ public extension Publisher where Output: Paginated {
      requested until the previous one is received and that the pages will always
      be returned in order.
      
-     See [Working with Paginated Results][1].
+     See <doc:Working-with-Paginated-Results>.
 
      - Parameters:
        - spotify: An instance of ``SpotifyAPI``, which is required for
@@ -38,8 +38,6 @@ public extension Publisher where Output: Paginated {
      - Returns: A publisher that immediately republishes the page received from
            the upstream publisher, as well as additional pages that are returned
            by the Spotify web API.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
     func extendPages<AuthorizationManager: SpotifyAuthorizationManager>(
         _ spotify: SpotifyAPI<AuthorizationManager>,
@@ -78,7 +76,7 @@ public extension Publisher where Output: PagingObjectProtocol {
      you need to wait for all pages to be received before processing them, then
      always use this method.
      
-     See [Working with Paginated Results][1].
+     See <doc:Working-with-Paginated-Results>.
 
      See also `Publisher.collectAndSortByOffset()`.
      
@@ -92,8 +90,6 @@ public extension Publisher where Output: PagingObjectProtocol {
      - Returns: A publisher that immediately republishes the page received from
            the upstream publisher, as well as additional pages that are returned
            by the Spotify web API.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
     func extendPagesConcurrently<AuthorizationManager: SpotifyAuthorizationManager>(
         _ spotify: SpotifyAPI<AuthorizationManager>,
@@ -122,9 +118,7 @@ public extension Publisher where Output: PagingObjectProtocol {
      in an unpredictable order. It waits for all pages to be delivered and then
      sorts them by their offset and returns just the items in the pages.
 
-     See [Working with Paginated Results][1].
-
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     See <doc:Working-with-Paginated-Results>.
      */
     func collectAndSortByOffset() -> AnyPublisher<[Output.Item], Failure> {
         
