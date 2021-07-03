@@ -12,7 +12,7 @@
 * Supports three different authorization methods
 * Automatically refreshes the access token when necessary
 
-Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
+Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17]. Check out the beta documentation [here](https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI).
 
 ## Table of Contents
 
