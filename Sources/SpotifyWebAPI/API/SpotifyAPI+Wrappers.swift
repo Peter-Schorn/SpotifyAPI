@@ -39,8 +39,6 @@ extension SpotifyAPI {
      
      - Parameters:
        - url: The full URL to a Spotify endpoint.
-       - queryItems: The URL query items. Each value in the the dictionary that
-             is NOT `nil` will be added to the query string.
        - httpMethod: The http method.
        - makeHeaders: A function that accepts an access token and returns a
              dictionary of headers. See the `Headers` enum, which contains
@@ -51,7 +49,6 @@ extension SpotifyAPI {
      */
     func apiRequest(
         url: URL,
-        queryItems: [String: LosslessStringConvertible?],
         httpMethod: String,
         makeHeaders: @escaping (_ accessToken: String) -> [String: String],
         bodyData: Data?,
@@ -63,7 +60,7 @@ extension SpotifyAPI {
         )
         
         /*
-         It's more informative for the client to notifiy them that
+         It's more informative for the client to notify them that
          they haven't retrieved an access token for their application
          before throwing other errors, so that's why this check is
          performed first.
@@ -217,7 +214,6 @@ extension SpotifyAPI {
         
         return self.apiRequest(
             url: endpoint,
-            queryItems: queryItems,
             httpMethod: httpMethod,
             makeHeaders: makeHeaders,
             bodyData: bodyData,

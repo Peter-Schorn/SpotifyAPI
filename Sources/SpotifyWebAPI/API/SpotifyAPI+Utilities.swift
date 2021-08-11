@@ -39,7 +39,6 @@ public extension SpotifyAPI {
         
         return self.apiRequest(
             url: href,
-            queryItems: [:],
             httpMethod: "GET",
             makeHeaders: Headers.bearerAuthorization(_:),
             bodyData: nil,
