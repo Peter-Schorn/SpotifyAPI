@@ -29,7 +29,7 @@ public enum Endpoints {
      "api.spotify.com"
      ```
      */
-    public static let apiBase = "api.spotify.com"
+    public static var apiBase = "api.spotify.com"
     
     /// The api version 1.
     /// ```
