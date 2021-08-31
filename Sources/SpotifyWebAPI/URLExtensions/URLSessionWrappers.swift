@@ -27,7 +27,7 @@ extension URLSession {
 
      - Parameter request: The request to send.
      */
-    static func defaultNetworkAdaptor(
+    public static func defaultNetworkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
@@ -38,7 +38,7 @@ extension URLSession {
     /// This property exists so that it can be replaced with a different
     /// networking client during testing. Other than in the test targets, it
     /// will not be modified.
-    static var _defaultNetworkAdaptor: (
+    public static var _defaultNetworkAdaptor: (
         URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
         
