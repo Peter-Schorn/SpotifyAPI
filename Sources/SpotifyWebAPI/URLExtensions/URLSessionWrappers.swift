@@ -38,7 +38,7 @@ extension URLSession {
     /// This property exists so that it can be replaced with a different
     /// networking client during testing. Other than in the test targets, it
     /// will not be modified.
-    public static var _defaultNetworkAdaptor: (
+    static var _defaultNetworkAdaptor: (
         URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> = { request in
         
