@@ -27,7 +27,7 @@ extension URLSession {
 
      - Parameter request: The request to send.
      */
-    static func defaultNetworkAdaptor(
+    public static func defaultNetworkAdaptor(
         request: URLRequest
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         
