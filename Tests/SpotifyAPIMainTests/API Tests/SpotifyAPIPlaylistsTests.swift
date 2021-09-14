@@ -372,8 +372,9 @@ extension SpotifyAPIPlaylistsTests {
                 encodeDecode(whenIGetHome)
                 XCTAssertFalse(whenIGetHome.isLocal)
                 XCTAssertEqual(whenIGetHome.name, "When I Get Home")
-                XCTAssertEqual(whenIGetHome.uri, "spotify:track:5azJUob8ahbXB3M9YFwTpd")
-                XCTAssertEqual(whenIGetHome.id, "5azJUob8ahbXB3M9YFwTpd")
+                // https://open.spotify.com/track/5azJUob8ahbXB3M9YFwTpd?si=6604a2e6dcbc40b1
+                XCTAssertEqual(whenIGetHome.uri, "spotify:track:0iKuMGAjLp9RcYiyzkdruH")
+                XCTAssertEqual(whenIGetHome.id, "0iKuMGAjLp9RcYiyzkdruH")
                 XCTAssertEqual(whenIGetHome.artists?.first?.name, "Post Animal")
                 XCTAssertEqual(
                     whenIGetHome.artists?.first?.uri,
@@ -382,7 +383,7 @@ extension SpotifyAPIPlaylistsTests {
                 XCTAssertEqual(whenIGetHome.album?.name, "The Garden Series")
                 XCTAssertEqual(
                     whenIGetHome.album?.uri,
-                    "spotify:album:5YAqGppPM8omUZKyiT0FRi"
+                    "spotify:album:5p3dhXhw62KlVkf0oPfq1G"
                 )
                 if let releaseDate = whenIGetHome.album?.releaseDate {
                     XCTAssertEqual(

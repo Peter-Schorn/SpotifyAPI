@@ -34,7 +34,7 @@ public struct SpotifyContext: Hashable {
     
     /**
      The object type of the item's context. Valid values are `album`, `artist`,
-     and `playlist`.
+     `playlist`, and `show`.
     
      For example, if `type` is `playlist`, then the current track/episode is
      playing in the context of a playlist.
