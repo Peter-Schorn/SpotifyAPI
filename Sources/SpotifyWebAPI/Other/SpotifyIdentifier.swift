@@ -291,7 +291,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
                 errorMessage = """
                     id category must be one of the following: \
                     \(IDCategory.allCases.map(\.rawValue)), \
-                    but received '\(pathComponents[1])'"
+                    but received '\(pathComponents[1])'
                     """
                 break parseURL
             }

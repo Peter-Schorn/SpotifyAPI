@@ -28,7 +28,7 @@ public struct DistributedLock {
         
         print("RELEASING ALL LOCKS")
         
-        for lock in Self.allLocks {
+        for (index, lock) in Self.allLocks.enumerated() {
             guard let path = lock.path else {
                 continue
             }
@@ -36,6 +36,7 @@ public struct DistributedLock {
                 if FileManager.default.fileExists(atPath: path) {
                     try FileManager.default.removeItem(atPath: path)
                 }
+                Self.allLocks.remove(at: index)
 
             } catch {
                 print(

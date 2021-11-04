@@ -487,7 +487,7 @@ public extension SpotifyAPI where
             path: "/me/player/play",
             queryItems: ["device_id": deviceId],
             httpMethod: "PUT",
-            makeHeaders: Headers.bearerAuthorization(_:),
+            makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
             body: playbackRequest,
             requiredScopes: [.userModifyPlaybackState]
         )
@@ -766,7 +766,7 @@ public extension SpotifyAPI where
             path: "/me/player",
             queryItems: [:],
             httpMethod: "PUT",
-            makeHeaders: Headers.bearerAuthorization(_:),
+            makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
             body: body,
             requiredScopes: [.userModifyPlaybackState]
         )

@@ -525,7 +525,7 @@ public extension ClientCredentialsFlowBackendManager {
                     Self.logger.trace(
                         """
                         refreshTokensPublisher received completion; \
-                        setting to nil"
+                        setting to nil
                         """
                     )
                     self.refreshTokensPublisher = nil
