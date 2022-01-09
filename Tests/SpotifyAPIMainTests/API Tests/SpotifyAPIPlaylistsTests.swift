@@ -293,13 +293,13 @@ extension SpotifyAPIPlaylistsTests {
                     print("[\(playlist.name)]")
                 }
                 let playlist = playlists.first(where: { playlist in
-                    playlist.name.strip() == "Kpop" &&
-                            playlist.uri == "spotify:playlist:7p0mfgdBNyKWugXrO04WhI" &&
-                            playlist.id == "7p0mfgdBNyKWugXrO04WhI"
+                    playlist.name.strip() == "Oldies" &&
+                            playlist.uri == "spotify:playlist:1fXqbjcbxhpHRnk42cydau" &&
+                            playlist.id == "1fXqbjcbxhpHRnk42cydau"
                 })
 
                 XCTAssertNotNil(
-                    playlist, "Should've found April's Kpop playlist"
+                    playlist, "Should've found April's Oldies playlist"
                 )
 
             }
@@ -341,8 +341,8 @@ extension SpotifyAPIPlaylistsTests {
                 encodeDecode(partIII)
                 XCTAssertFalse(partIII.isLocal)
                 XCTAssertEqual(partIII.name, "Part III")
-                XCTAssertEqual(partIII.uri, "spotify:track:4HDLmWf73mge8isanCASnU")
-                XCTAssertEqual(partIII.id, "4HDLmWf73mge8isanCASnU")
+                XCTAssertEqual(partIII.uri, "spotify:track:49ztutPq82dK8AYDO2OkN7")
+                XCTAssertEqual(partIII.id, "49ztutPq82dK8AYDO2OkN7")
                 XCTAssertEqual(partIII.artists?.first?.name, "Crumb")
                 XCTAssertEqual(
                     partIII.artists?.first?.uri,
@@ -350,7 +350,7 @@ extension SpotifyAPIPlaylistsTests {
                 )
 
                 XCTAssertEqual(partIII.album?.name, "Jinx")
-                XCTAssertEqual(partIII.album?.uri, "spotify:album:3vukTUpiENDHDoYTVrwqtz")
+                XCTAssertEqual(partIII.album?.uri, "spotify:album:6DxidEI7EhF8md8ev83iNY")
                 if let releaseDate = partIII.album?.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
@@ -372,8 +372,8 @@ extension SpotifyAPIPlaylistsTests {
                 encodeDecode(whenIGetHome)
                 XCTAssertFalse(whenIGetHome.isLocal)
                 XCTAssertEqual(whenIGetHome.name, "When I Get Home")
-                XCTAssertEqual(whenIGetHome.uri, "spotify:track:5azJUob8ahbXB3M9YFwTpd")
-                XCTAssertEqual(whenIGetHome.id, "5azJUob8ahbXB3M9YFwTpd")
+                XCTAssertEqual(whenIGetHome.uri, "spotify:track:0iKuMGAjLp9RcYiyzkdruH")
+                XCTAssertEqual(whenIGetHome.id, "0iKuMGAjLp9RcYiyzkdruH")
                 XCTAssertEqual(whenIGetHome.artists?.first?.name, "Post Animal")
                 XCTAssertEqual(
                     whenIGetHome.artists?.first?.uri,
@@ -382,7 +382,7 @@ extension SpotifyAPIPlaylistsTests {
                 XCTAssertEqual(whenIGetHome.album?.name, "The Garden Series")
                 XCTAssertEqual(
                     whenIGetHome.album?.uri,
-                    "spotify:album:5YAqGppPM8omUZKyiT0FRi"
+                    "spotify:album:5p3dhXhw62KlVkf0oPfq1G"
                 )
                 if let releaseDate = whenIGetHome.album?.releaseDate {
                     XCTAssertEqual(

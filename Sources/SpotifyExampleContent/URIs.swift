@@ -100,8 +100,8 @@ public enum URIs {
     /// A namespace of track URIs.
     public enum Tracks: String, SpotifyURIConvertibleEnum {
         case locket = "spotify:track:0bxcUgWlOURkU6lZt4zog0"
-        case jinx = "spotify:track:7qAy6TR1MrSeUV8OpMlNS1"
-        case plants = "spotify:track:2cOzI3LOIkRIKEidcGZ1Bc"
+        case jinx = "spotify:track:3t5htCiGucfhAQjm88U3K9"
+        case plants = "spotify:track:0vMr3GXZJi1IIIWE8bBJuZ"
         case faces = "spotify:track:1u7LOyLuApChbPeqMfXFKC"
         case partIII = "spotify:track:4HDLmWf73mge8isanCASnU"
 
@@ -129,7 +129,7 @@ public enum URIs {
         
         case odeToViceroy = "spotify:track:601KiLiZtBJRTXBrTjeieP"
         case saladDays = "spotify:track:4keAoywVf4jxRvXU7ON0hV"
-        case blueBoy = "spotify:track:1CKm95B5JmaSCnZLquInM4"
+        case blueBoy = "spotify:track:6drC7tBnx8AiYfTfBmDPVO"
         
         case reckoner = "spotify:track:02ppMPbg1OtEdHgoPqoqju"
         case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"

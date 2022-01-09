@@ -210,7 +210,7 @@ extension SpotifyAPILibraryTests where
             .eraseToAnyPublisher()
         
         publisher
-            .receiveOnMain(delay: 1)
+            .receiveOnMain(delay: 3)
             .flatMap {
                 Self.spotify.currentUserSavedTracks(
                     limit: 50, offset: 0, market: "US"
