@@ -41,7 +41,7 @@ public extension SpotifyAPI where
 public extension ClientCredentialsFlowBackendManager {
     
     
-    /// Calls `authorizationManager.authorize()` and blocks until the publisher
+    /// Calls ``authorize()`` and blocks until the publisher
     /// finishes. Returns early if the application is already authorized.
     func waitUntilAuthorized() {
         

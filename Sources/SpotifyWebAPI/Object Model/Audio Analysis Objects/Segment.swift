@@ -24,24 +24,24 @@ public struct Segment: Hashable {
     /**
      The onset loudness of the segment in decibels (dB).
      
-     Combined with `loudnessMax` and `loudnessMaxTime`, these components can be
-     used to describe the “attack” of the segment.
+     Combined with ``loudnessMax`` and ``loudnessMaxTime``, these components can
+     be used to describe the “attack” of the segment.
      */
     public let loudnessStart: Double
     
     /**
      The peak loudness of the segment in decibels (dB).
      
-     Combined with `loudnessStart` and `loudnessMaxTime`, these components can
-     be used to describe the “attack” of the segment.
+     Combined with ``loudnessStart`` and ``loudnessMaxTime``, these components
+     can be used to describe the “attack” of the segment.
      */
     public let loudnessMax: Double
     
     /**
      The segment-relative offset of the segment peak loudness in seconds.
      
-     Combined with `loudnessStart` and `loudnessMax`, these components can be
-     used to describe the “attack” of the segment.
+     Combined with ``loudnessStart`` and ``loudnessMax``, these components can
+     be used to describe the “attack” of the segment.
      */
     public let loudnessMaxTime: Double
     
@@ -68,8 +68,8 @@ public struct Segment: Hashable {
     
     /// The offset loudness of the segment in decibels (dB).
     ///
-    /// This value should be equivalent to the `loudnessStart` of the following
-    /// segment.
+    /// This value should be equivalent to the ``loudnessStart`` of the
+    /// following segment.
     public let loudnessEnd: Double
 
     /**
@@ -82,14 +82,14 @@ public struct Segment: Hashable {
              segmentation. Segments of the song which are difficult to logically
              segment (e.g: noise) may correspond to low values in this field.
        - loudnessStart: The onset loudness of the segment in decibels (dB).
-             Combined with `loudnessMax` and `loudnessMaxTime`, these components
-             can be used to describe the “attack” of the segment.
+             Combined with ``loudnessMax`` and ``loudnessMaxTime``, these
+             components can be used to describe the “attack” of the segment.
        - loudnessMax: The peak loudness of the segment in decibels (dB).
-             Combined with `loudnessStart` and `loudnessMaxTime`, these
+             Combined with ``loudnessStart`` and ``loudnessMaxTime``, these
              components can be used to describe the “attack” of the segment.
        - loudnessMaxTime: The segment-relative offset of the segment peak
-             loudness in seconds. Combined with `loudnessStart` and
-             `loudnessMax`, these components can be used to describe the
+             loudness in seconds. Combined with ``loudnessStart`` and
+             ``loudnessMax``, these components can be used to describe the
              “attack” of the segment.
        - pitches: A “chroma” vector representing the pitch content of the
              segment, corresponding to the 12 pitch classes C, C#, D to B, with
@@ -101,8 +101,8 @@ public struct Segment: Hashable {
              Timbre vectors are best used in comparison with each other. More
              details about how to interpret this vector can be found [here][3].
        - loudnessEnd: The offset loudness of the segment in decibels (dB). This
-             value should be equivalent to the `loudnessStart` of the following
-             segment.
+             value should be equivalent to the ``loudnessStart`` of the
+             following segment.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object
      [2]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#pitch

@@ -15,15 +15,17 @@ public extension SpotifyAPI {
     /**
      Get the *public* profile information for a user.
      
-     See also `currentUserProfile()`.
+     See also ``currentUserProfile()``.
      
      No scopes are required for this endpoint.
      
-     The `country`, `email`, `product`, `allowsExplicitContent`, and
-     `explicitContentSettingIsLocked` properties of `SpotifyUser` will always be
-     `nil` even if the URI of the current user is provided and the application
-     is authorized for the `userReadPrivate` and `userReadEmail` scopes. You
-     must use `currentUserProfile()` to retrieve these properties.
+     The ``SpotifyUser/country``, ``SpotifyUser/email``,
+     ``SpotifyUser/product``, ``SpotifyUser/allowsExplicitContent``, and
+     ``SpotifyUser/explicitContentSettingIsLocked`` properties of
+     ``SpotifyUser`` will always be `nil` even if the URI of the current user is
+     provided and the application is authorized for the
+     ``Scope/userReadPrivate`` and ``Scope/userReadEmail`` scopes. You must use
+     ``currentUserProfile()`` to retrieve these properties.
      
      Read more at the [Spotify web API reference][1].
      
@@ -64,15 +66,17 @@ public extension SpotifyAPI where
     /**
      Get the profile of the current user.
      
-     See also `userProfile(_:)`.
+     See also ``userProfile(_:)``.
      
      The access token must have been issued on behalf of a user.
 
-     The `allowsExplicitContent`, `explicitContentSettingIsLocked`, `country`,
-     and `product` properties of `SpotifyUser` require the `userReadPrivate`
-     scope.
+     The ``SpotifyUser/allowsExplicitContent``,
+     ``SpotifyUser/explicitContentSettingIsLocked``, ``SpotifyUser/country``,
+     and ``SpotifyUser/product`` properties of ``SpotifyUser``
+     require the ``Scope/userReadPrivate`` scope.
 
-     `SpotifyUser.email` requires the `userReadEmail` scope.
+     The ``SpotifyUser/email`` property of ``SpotifyUser`` requires the
+     ``Scope/userReadEmail`` scope.
 
      If the application is not authorized for these scopes, then these
      properties will be `nil`.

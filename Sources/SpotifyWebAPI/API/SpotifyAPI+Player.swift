@@ -17,20 +17,19 @@ public extension SpotifyAPI where
      
      Note that an available device is not the same as an active device.
      
-     This endpoint requires the `userReadPlaybackState` scope.
+     This endpoint requires the ``Scope/userReadPlaybackState`` scope.
 
      You can use this endpoint to determine which devices are currently active
-     by checking each device's `isActive` property.
+     by checking each device's ``Device/isActive`` property.
      
-     See also [Using the Player Endpoints][1].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
-     - Returns: An array of [device objects][3].
+     - Returns: An array of [device objects][2].
      
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-users-available-devices
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-users-available-devices
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
         
@@ -56,9 +55,9 @@ public extension SpotifyAPI where
      Get information about the user's current playback, including the currently
      playing track or episode, progress, and active device.
      
-     See also `availableDevices()` and `recentlyPlayed(_:limit:)`.
+     See also ``availableDevices()`` and ``recentlyPlayed(_:limit:)``.
      
-     This endpoint requires the `userReadPlaybackState` scope.
+     This endpoint requires the ``Scope/userReadPlaybackState`` scope.
      
      The notable details that are returned are:
      
@@ -70,9 +69,9 @@ public extension SpotifyAPI where
      The information returned is for the last known state, which means an
      inactive device could be returned if it was the last one to execute
      playback. When no available devices are found, `nil` is returned. Always
-     use `availableDevices()` instead if you just need to get the available and
-     active devices. Note that an available device is not the same as an active
-     device.
+     use ``availableDevices()`` instead if you just need to get the available
+     and active devices. Note that an available device is not the same as an
+     active device.
      
      Read more at the [Spotify web API reference][1].
      
@@ -81,8 +80,8 @@ public extension SpotifyAPI where
            [Track Relinking][3].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback
-     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     func currentPlayback(
         market: String? = nil
@@ -103,9 +102,9 @@ public extension SpotifyAPI where
     /**
      Get the current user's recently played tracks.
      
-     See also `availableDevices()` and `currentPlayback()`.
+     See also ``availableDevices()`` and ``currentPlayback(market:)``.
      
-     This endpoint requires the `userReadRecentlyPlayed` scope.
+     This endpoint requires the ``Scope/userReadRecentlyPlayed`` scope.
      
      **Currently doesn’t support podcast episodes.**
      
@@ -129,14 +128,16 @@ public extension SpotifyAPI where
        - timeReference: *Optional*. A reference to a period of time before or
              after a specified date. For example, `.before(Date())` refers to
              the period of time before the current date. This is used to filter
-             the response. See `SpotifyCursor.before` and `SpotifyCursor.after`
-             (which is part of the returned `CursorPagingObject`). Dates will be
+             the response. See the ``SpotifyCursor/before`` and
+             ``SpotifyCursor/after`` properties of ``SpotifyCursor`` (which is
+             part of the returned ``CursorPagingObject``). Dates will be
              converted to millisecond-precision timestamps. Only results that
              are within the specified time period will be returned. If `nil`,
              the most recently played tracks will be returned.
        - limit: *Optional*. The maximum number of items to return. Default: 20;
              Minimum: 1; Maximum: 50.
-     - Returns: An array of simplified tracks wrapped in a `CursorPagingObject`.
+     - Returns: An array of simplified tracks wrapped in a
+           ``CursorPagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
      */
@@ -162,33 +163,33 @@ public extension SpotifyAPI where
     /**
      Add a track or episode to the user's playback queue.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - uri: The URI for either a track or an episode.
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to add to the queue for a non-active
-             device, call `transferPlayback(to:play:)` first.
+             device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-to-queue
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-to-queue
      */
     func addToQueue(
         _ uri: SpotifyURIConvertible,
@@ -215,32 +216,32 @@ public extension SpotifyAPI where
     /**
      Skip the user's playback to the next track/episode.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`.It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to skip to the next item on a
-             non-active device, call `transferPlayback(to:play:)` first.
+             non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-next-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-next-track
      */
     func skipToNext(
         deviceId: String? = nil
@@ -263,32 +264,32 @@ public extension SpotifyAPI where
     /**
      Skip the user's playback to the previous track/episode.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to skip to the previous item on a
-             non-active device, call `transferPlayback(to:play:)` first.
+             non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-previous-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-previous-track
      */
     func skipToPrevious(
         deviceId: String? = nil
@@ -312,35 +313,35 @@ public extension SpotifyAPI where
     /**
      Pause the user's current playback.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
      **If playback is already paused, then you will get a 403 "Player command**
      **failed: Restriction violated" error.**
      
-     When performing an action that is restricted, a `SpotifyPlayerError`
+     When performing an action that is restricted, a ``SpotifyPlayerError``
      will be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-               is highly recommended that you leave this as `nil` (default) to
-               target the active device. If you provide the id of a device that
-               is not active, you may get a 403 "Player command failed:
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+               It is highly recommended that you leave this as `nil` (default)
+               to target the active device. If you provide the id of a device
+               that is not active, you may get a 403 "Player command failed:
                Restriction violated" error. If you want to pause playback on a
-               non-active device, call `transferPlayback(to:play:)` first.
+               non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-pause-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-pause-a-users-playback
      */
     func pausePlayback(
         deviceId: String? = nil
@@ -365,37 +366,37 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `play(_:deviceId:)` - play specific content
-     * `transferPlayback(to:play:)` - transfer playback to a different device
+     * ``play(_:deviceId:)`` - play specific content
+     * ``transferPlayback(to:play:)`` - transfer playback to a different device
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
      **If content is already playing, then you will get a 403 “Player command**
      **failed: Restriction violated” error.**
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameter deviceId: The id of the device to target. See
-           `availableDevices()`. It is highly recommended that you leave this as
-           `nil` (default) to target the active device. If you provide the id of
-           a device that is not active, you may get a 403 "Player command
+           ``availableDevices()``. It is highly recommended that you leave this
+           as `nil` (default) to target the active device. If you provide the id
+           of a device that is not active, you may get a 403 "Player command
            failed: Restriction violated" error. If you want to resume playback
-           on a non-active device, call `transferPlayback(to:play:)` first.
+           on a non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     func resumePlayback(
         deviceId: String? = nil
@@ -420,15 +421,17 @@ public extension SpotifyAPI where
      
      See also:
      
-     * `resumePlayback(deviceId:)` - resume the user's current playback
-     * `transferPlayback(to:play:)` - transfer the user's playback to a
+     * ``resumePlayback(deviceId:)`` - resume the user's current playback
+     * ``transferPlayback(to:play:)`` - transfer the user's playback to a
        different device
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
      The `playbackRequest` has the following parameters:
      
-     * context: The context in which to play the content. One of the following:
+     * context: The context in which to play the content.
+       One of the following:
+     
        * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to
          play the content. Must be in one of the following categories:
          * Album
@@ -451,21 +454,22 @@ public extension SpotifyAPI where
        beginning. Passing in a position that is greater than the length of the
        track/episode will cause the player to start playing the next item.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - deviceId: The id of the device to target. See `availableDevices()`.
+       - deviceId: The id of the device to target. See ``availableDevices()``.
              **Unlike other player endpoints, you can provide the id of a**
              **non-active device, which will cause the given content to be**
              **played on that device**. Leave as `nil` to target the active
@@ -475,8 +479,7 @@ public extension SpotifyAPI where
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     func play(
         _ playbackRequest: PlaybackRequest,
@@ -500,35 +503,35 @@ public extension SpotifyAPI where
     /**
      Seek to position in the currently playing track/episode.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - positionMS: The position in milliseconds to seek to. Must be a positive
              number. Passing in a position that is greater than the length of
              the track will cause the player to start playing the next song.
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to seek to a position on a non-active
-             device, call `transferPlayback(to:play:)` first.
+             device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-seek-to-position-in-currently-playing-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-seek-to-position-in-currently-playing-track
      */
     func seekToPosition(
         _ positionMS: Int,
@@ -556,35 +559,36 @@ public extension SpotifyAPI where
     /**
      Set the repeat mode for the user's playback.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
-       - repeatMode: Either `track`, `context` or `off`. track will repeat the
-             current track. context will repeat the current context. `off` will
-             turn repeat off.
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - repeatMode: Either ``RepeatMode/track``, ``RepeatMode/context`` or
+             ``RepeatMode/off``. ``RepeatMode/track`` will repeat the current
+             track. ``RepeatMode/context`` will repeat the current context.
+             ``RepeatMode/off`` will turn repeat off.
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to set the repeat mode on a non-active
-             device, call `transferPlayback(to:play:)` first.
+             device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-repeat-mode-on-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-repeat-mode-on-users-playback
      */
     func setRepeatMode(
         to repeatMode: RepeatMode,
@@ -612,35 +616,35 @@ public extension SpotifyAPI where
     /**
      Set the volume for the user's playback.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
      **You can not set the volume for the Spotify iOS app.**
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to set the volume on a non-active
-             device, call `transferPlayback(to:play:)` first.
+             device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-volume-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-volume-for-users-playback
      */
     func setVolume(
         to percent: Int,
@@ -667,33 +671,33 @@ public extension SpotifyAPI where
     /**
      Set the shuffle mode for the user's playback.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
-       - deviceId: The id of the device to target. See `availableDevices()`. It
-             is highly recommended that you leave this as `nil` (default) to
+       - deviceId: The id of the device to target. See ``availableDevices()``.
+             It is highly recommended that you leave this as `nil` (default) to
              target the active device. If you provide the id of a device that is
              not active, you may get a 403 "Player command failed: Restriction
              violated" error. If you want to set the shuffle mode on a
-             non-active device, call `transferPlayback(to:play:)` first.
+             non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-toggle-shuffle-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-toggle-shuffle-for-users-playback
      */
     func setShuffle(
         to mode: Bool,
@@ -723,35 +727,35 @@ public extension SpotifyAPI where
      After you transfer playback to a different device, that device will be
      considered active.
      
-     See also `resumePlayback(_:deviceId:)` and `play(_:deviceId:)`.
+     See also ``resumePlayback(deviceId:)`` and ``play(_:deviceId:)``.
      
-     This endpoint requires the `userModifyPlaybackState` scope.
+     This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
      
-     When performing an action that is restricted, a `SpotifyPlayerError` will
+     When performing an action that is restricted, a ``SpotifyPlayerError`` will
      be returned. It contains the following properties:
      
-     * `message`: A short description of the cause of the error.
-     * `reason`: A [player error reason][1], modeled by
-       `SpotifyPlayerError.ErrorReason`.
-     * `statusCode`: The HTTP status code that is also returned in the response
-       header.
+     * ``SpotifyPlayerError/message``: A short description of the cause of the
+       error.
+     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
+     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
+       returned in the response header.
      
-     See also [Using the Player Endpoints][2].
+     See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][3].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to. Must be one
-             of the devices returned by `availableDevices()`.
+             of the devices returned by ``availableDevices()``.
        - play: If `true`, ensure playback happens on the new device. If `false`,
              keep the current playback state. Note that a value of `false` will
              **NOT** pause playback. To ensure that playback is paused on the
-             new device you should call `pausePlayback(deviceId:)` (and wait for
-             completion) *before* transferring playback to the new device.
+             new device you should call ``pausePlayback(deviceId:)`` (and wait
+             for completion) *before* transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-transfer-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-transfer-a-users-playback
      */
     func transferPlayback(
         to deviceId: String,

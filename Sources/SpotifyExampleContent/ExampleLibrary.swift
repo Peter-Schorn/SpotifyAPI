@@ -2,7 +2,7 @@ import Foundation
 import SpotifyWebAPI
 
 
-public extension PagingObject where Item == SavedItem<Album> {
+public extension PagingObject where Item == SavedAlbum {
     
     /// Sample data for testing purposes.
     static let sampleCurrentUserSavedAlbums = Bundle.module.decodeJSON(

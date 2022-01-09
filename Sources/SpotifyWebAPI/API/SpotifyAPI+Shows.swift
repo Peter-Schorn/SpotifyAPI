@@ -16,12 +16,13 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `shows(_:market:)` - gets multiple shows
-     * `showEpisodes(_:market:offset:limit:)` - gets all of the episodes for a
+     * ``shows(_:market:)`` - gets multiple shows
+     * ``showEpisodes(_:market:offset:limit:)`` - gets all of the episodes for a
        show
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope. Otherwise, no scopes are required.
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      
@@ -77,12 +78,13 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `show(_:market:)` - gets a single show
-     * `showEpisodes(_:market:offset:limit:)` - gets all of the episodes for a
+     * ``show(_:market:)`` - gets a single show
+     * ``showEpisodes(_:market:offset:limit:)`` - gets all of the episodes for a
        show
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope. Otherwise, no scopes are required.
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      
@@ -164,11 +166,12 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `shows(_:market:)` - gets multiple shows
-     * `show(_:market:)` - gets a single show
+     * ``shows(_:market:)`` - gets multiple shows
+     * ``show(_:market:)`` - gets a single show
      
      Reading the user’s resume points on episode objects requires the
-     `userReadPlaybackPosition` scope. Otherwise, no scopes are required.
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
+     required.
      
      Read more at the [Spotify web API reference][1].
      

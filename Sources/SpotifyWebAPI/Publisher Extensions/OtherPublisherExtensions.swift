@@ -14,9 +14,9 @@ import FoundationNetworking
 public extension Publisher where Output: Paginated {
    
     /**
-     Retrieves additional pages of results from a `Paginated` type.
+     Retrieves additional pages of results from a ``Paginated`` type.
      
-     See also `SpotifyAPI.extendPages(_:maxExtraPages:)`.
+     See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``.
      
      Compare with `Publisher.extendPagesConcurrently(_:maxExtraPages:)`.
 
@@ -26,10 +26,10 @@ public extension Publisher where Output: Paginated {
      requested until the previous one is received and that the pages will always
      be returned in order.
      
-     See [Working with Paginated Results][1].
+     See <doc:Working-with-Paginated-Results>.
 
      - Parameters:
-       - spotify: An instance of `SpotifyAPI`, which is required for
+       - spotify: An instance of ``SpotifyAPI``, which is required for
              accessing the access token required to make requests to the Spotify
              web API. The access token will also be refreshed if needed.
        - maxExtraPages: The maximum number of additional pages to retrieve. For
@@ -38,8 +38,6 @@ public extension Publisher where Output: Paginated {
      - Returns: A publisher that immediately republishes the page received from
            the upstream publisher, as well as additional pages that are returned
            by the Spotify web API.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
     func extendPages<AuthorizationManager: SpotifyAuthorizationManager>(
         _ spotify: SpotifyAPI<AuthorizationManager>,
@@ -66,24 +64,24 @@ public extension Publisher where Output: PagingObjectProtocol {
     /**
      Retrieves additional pages of results from a paging object *concurrently*.
 
-     See also `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)`.
+     See also ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``.
 
      Compare with `Publisher.extendPages(_:maxExtraPages:)`.
 
      This method immediately republishes the page of results that were passed in
      and then requests additional pages *concurrently*. This method has better
-     performance than `SpotifyAPI.extendPages(_:maxExtraPages:)`, which must
+     performance than ``SpotifyAPI/extendPages(_:maxExtraPages:)``, which must
      wait for the previous page to be received before requesting the next page.
      **However, the order in which the pages are received is unpredictable.** If
      you need to wait for all pages to be received before processing them, then
      always use this method.
      
-     See [Working with Paginated Results][1].
+     See <doc:Working-with-Paginated-Results>.
 
      See also `Publisher.collectAndSortByOffset()`.
      
      - Parameters:
-       - spotify: An instance of `SpotifyAPI`, which is required for
+       - spotify: An instance of ``SpotifyAPI``, which is required for
              accessing the access token required to make requests to the Spotify
              web API. The access token will also be refreshed if needed.
        - maxExtraPages: The maximum number of additional pages to retrieve. For
@@ -92,8 +90,6 @@ public extension Publisher where Output: PagingObjectProtocol {
      - Returns: A publisher that immediately republishes the page received from
            the upstream publisher, as well as additional pages that are returned
            by the Spotify web API.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
      */
     func extendPagesConcurrently<AuthorizationManager: SpotifyAuthorizationManager>(
         _ spotify: SpotifyAPI<AuthorizationManager>,
@@ -122,9 +118,7 @@ public extension Publisher where Output: PagingObjectProtocol {
      in an unpredictable order. It waits for all pages to be delivered and then
      sorts them by their offset and returns just the items in the pages.
 
-     See [Working with Paginated Results][1].
-
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     See <doc:Working-with-Paginated-Results>.
      */
     func collectAndSortByOffset() -> AnyPublisher<[Output.Item], Failure> {
         

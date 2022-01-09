@@ -3,11 +3,11 @@ import Foundation
 /**
  A request to play Spotify content for a user.
  
- Used in the body of `SpotifyAPI.play(_:deviceId:)`.
+ Used in the body of ``SpotifyAPI/play(_:deviceId:)``.
  
- See also [Playback Request Examples][1].
+ See also <doc:Using-the-Player-Endpoints#Playback-Request-Examples>.
 
- Read more at the [Spotify web API reference][2].
+ Read more at the [Spotify web API reference][1].
  
  * context: The context in which to play the content. One of the following:
    * `contextURI(SpotifyURIConvertible)`: A URI for the context in which to play
@@ -31,8 +31,7 @@ import Foundation
    position that is greater than the length of the track/episode will cause the
    player to start playing the next item.
  
- [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
- [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
  */
 public struct PlaybackRequest: Hashable {
     
@@ -79,12 +78,12 @@ public struct PlaybackRequest: Hashable {
     /**
      Creates a request to play Spotify content for a user.
      
-     See also `init(_:positionMS:)`—a convenience initializer that makes a
+     See also ``init(_:positionMS:)``—a convenience initializer that makes a
      request to play a single track/episode.
      
-     See also [Playback Request Examples][1].
+     See also <doc:Using-the-Player-Endpoints#Playback-Request-Examples>.
 
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
 
      - Parameters:
        - context: The context in which to play the content. One of the
@@ -111,8 +110,7 @@ public struct PlaybackRequest: Hashable {
              the track/episode will cause the player to start playing the next
              item.
      
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     public init(
         context: Context,
@@ -128,7 +126,7 @@ public struct PlaybackRequest: Hashable {
      A convenience initializer that makes a request to play a single
      track/episode.
      
-     See also `init(context:offset:positionMS:)`.
+     See also ``init(context:offset:positionMS:)``.
      
      Equivalent to
      ```
@@ -139,9 +137,9 @@ public struct PlaybackRequest: Hashable {
      )
      ```
      
-     See also [Playback Request Examples][1].
+     See also <doc:Using-the-Player-Endpoints#Playback-Request-Examples>.
 
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - uri: A track or episode URI.
@@ -151,8 +149,7 @@ public struct PlaybackRequest: Hashable {
              the track/episode will cause the player to start playing the next
              item.
      
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints#playback-request-examples
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
      */
     public init(
         _ uri: SpotifyURIConvertible,
@@ -169,7 +166,6 @@ public struct PlaybackRequest: Hashable {
 
 extension PlaybackRequest: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -184,7 +180,6 @@ extension PlaybackRequest: Codable {
         
     }
  
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         try self.context.encode(to: encoder)

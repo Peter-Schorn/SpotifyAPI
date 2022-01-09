@@ -17,16 +17,17 @@ public struct CurrentlyPlayingContext: Hashable {
     /**
      The device that the content is or was playing on.
      
-     The information returned by `SpotifyAPI.currentPlayback(market:)` is for
+     The information returned by ``SpotifyAPI/currentPlayback(market:)`` is for
      the last known state, which means an inactive device could be returned if
      it was the last one to execute playback.
      
-     Use `SpotifyAPI.availableDevices()` to get the current user's available and
-     active devices.
+     Use ``SpotifyAPI/availableDevices()`` to get the current user's available
+     and active devices.
      */
     public let device: Device
     
-    /// The repeat mode of the player. Either `off`, `track`, or `context`.
+    /// The repeat mode of the player. Either ``RepeatMode/off``,
+    /// ``RepeatMode/track``, or ``RepeatMode/context``.
     public let repeatState: RepeatMode
     
     /// `true` if shuffle mode is on; else, `false`.
@@ -59,21 +60,22 @@ public struct CurrentlyPlayingContext: Hashable {
      The full version of a track or episode. Represents the content that is, or
      was most recently, playing.
 
-     Use `isPlaying` to check if the content is currently playing.
-     
-     Although the type is `PlaylistItem`, this does not necessarily mean that
+     Use ``isPlaying`` to check if the content is currently playing.
+
+     Although the type is ``PlaylistItem``, this does not necessarily mean that
      the item is playing in the context of a playlist. Can be `nil`. For
-     example, If the user has a private session enabled or an ad is playing,
+     example, if the user has a private session enabled or an ad is playing,
      then this will be `nil`.
      */
     public let item: PlaylistItem?
     
     /**
-     The id category of `item`—the content that is, or was most recently,
+     The id category of ``item``—the content that is, or was most recently,
      playing.
     
-     One of `track`, `episode`, `ad` or `unknown`. If the type is `ad`,
-     then `item` will be `nil`.
+     One of ``IDCategory/track``, ``IDCategory/episode``, ``IDCategory/ad`` or
+     ``IDCategory/unknown``. If the type is ``IDCategory/ad``, then ``item``
+     will be `nil`.
      */
     public let itemType: IDCategory
     
@@ -106,7 +108,7 @@ public struct CurrentlyPlayingContext: Hashable {
        - isPlaying: `true` if content is currently playing. Else, `false`.
        - item:  The full version of a track or episode. Represents the content
              that is, or was most recently, playing.
-       - itemType: The object type of `item`—the content that is, or was most
+       - itemType: The object type of ``item``—the content that is, or was most
              recently, playing.
        - allowedActions: The playback actions that are allowed within the given
              context.
@@ -157,7 +159,6 @@ extension CurrentlyPlayingContext: Codable {
     // https://forums.swift.org/t/rfc-can-this-codable-bug-still-be-fixed/18501/2
     private typealias DisallowsObject = [String: [String: Bool?]]
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -238,7 +239,6 @@ extension CurrentlyPlayingContext: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -304,7 +304,7 @@ extension CurrentlyPlayingContext: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
 
-     `CurrentlyPlayingContext.timestamp` is compared using
+     ``CurrentlyPlayingContext/timestamp`` is compared using
      `timeIntervalSince1970`, so it is considered a floating point property for
      the purposes of this method.
      

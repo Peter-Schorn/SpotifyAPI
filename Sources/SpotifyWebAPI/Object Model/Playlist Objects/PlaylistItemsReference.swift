@@ -14,9 +14,9 @@ public struct PlaylistItemsReference: Codable, Hashable {
      A link to the Spotify web API endpoint providing the full list of
      tracks/episodes.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results,
-     passing in `PlaylistItems` as the response type. Alternatively, use
-     `SpotifyAPI.playlistItems(_:limit:offset:market:)`, passing in the URI of
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results,
+     passing in ``PlaylistItems`` as the response type. Alternatively, use
+     ``SpotifyAPI/playlistItems(_:limit:offset:market:)``, passing in the URI of
      this playlist.
      */
     public let href: URL?

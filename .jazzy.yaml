@@ -75,11 +75,13 @@ custom_categories:
     - Paginated
     - SpotifyURIConvertible
 
-  - name: Music Objects
+  - name: Media Objects
     children:
     - Album
     - Artist
     - Track
+    - Episode
+    - Show
     
   - name: Playlist Objects
     children:
@@ -87,6 +89,12 @@ custom_categories:
     - PlaylistItem
     - PlaylistItemContainer
     - PlaylistItemsReference
+    - PlaylistDetails
+    - ReorderPlaylistItems
+    - URIWithPositions
+    - URIsWithPositionsContainer
+    - URIsContainer
+    - URIsDictWithInsertionIndex
       
   - name: Player Objects
     children:
@@ -98,20 +106,8 @@ custom_categories:
     - PlayHistory
     - ResumePoint
     - RepeatMode
-    
-  - name: Podcast Objects
-    children:
-    - Episode
-    - Show
-    
-  - name: Post Request Objects
-    children:
     - PlaybackRequest
-    - PlaylistDetails
-    - ReorderPlaylistItems
     - TimeReference
-    - URIWithPositions
-    - URIsWithPositionsContainer
     
   - name: Audio Analysis Objects
     children:
@@ -145,5 +141,6 @@ custom_categories:
     - RecommendationSeed
     - RecommendationsResponse
     - TrackAttributes
-    - URIsContainer
+    - AttributeRange
+    - SpotifyCategory
     

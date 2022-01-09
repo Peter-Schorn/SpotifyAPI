@@ -5,19 +5,20 @@ import Foundation
  is used to request a refresh and access token for the [Authorization Code
  Flow][1].
  
- When creating a type that conforms to `AuthorizationCodeFlowBackend` and which
- communicates with a custom backend server, use this type in the body of the
- network request made in the
- `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+ When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
+ which communicates with a custom backend server, use this type in the body of
+ the network request made in the
+ ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+ method.
  
- In contrast with `TokensRequest`, which should be used if you are communicating
+ In contrast with ``TokensRequest``, which should be used if you are communicating
  directly with Spotify, this type does not contain the `clientId`, or
  `clientSecret` because these values should be securely stored on your backend
  server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
-       network request using `self.formURLEncoded`.
+       network request using ``formURLEncoded()``.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
@@ -34,11 +35,12 @@ public struct ProxyTokensRequest: Hashable {
      The redirect URI. This is sent in the request for validation only. There
      will be no further redirection to this location.
 
-     Can be `nil` if this value is already stored on your backend server.
-     `AuthorizationCodeFlowProxyBackend.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
-     *will* set this value. The [Spotify iOS SDK][1] will *not* set this value
-     (see "tokenSwap" URL, which Spotify will make a request to with data that
-     can be decoded into this type).
+     Can be `nil` if this value is already stored on your backend server. The
+     ``AuthorizationCodeFlowProxyBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+     method of ``AuthorizationCodeFlowProxyBackend`` *will* set this value. The
+     [Spotify iOS SDK][1] will *not* set this value (see "tokenSwap" URL, which
+     Spotify will make a request to with data that can be decoded into this
+     type).
 
      If not `nil`, then this must be the same URI provided when creating the
      authorization URL that was used to request the authorization code (as
@@ -52,19 +54,20 @@ public struct ProxyTokensRequest: Hashable {
      Creates an instance which is used to request the authorization information
      using the [Authorization Code Flow][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowBackend` and
+     When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
      which communicates with a custom backend server, use this type in the body
      of the network request made in the
-     `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+     ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+     method.
 
-     In contrast with `TokensRequest`, which should be used if you are
+     In contrast with ``TokensRequest``, which should be used if you are
      communicating directly with Spotify, this type does not contain the
      `clientId`, or `clientSecret` because these values should be securely
      stored on your backend server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
-           network request using `self.formURLEncoded`.
+           network request using ``formURLEncoded()``.
      
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
@@ -72,14 +75,15 @@ public struct ProxyTokensRequest: Hashable {
        - redirectURI: The redirect URI. This is sent in the request for
              validation only. There will be no further redirection to this
              location. Can be `nil` if this value is already stored on your
-             backend server.
-             `AuthorizationCodeFlowProxyBackend.requestAccessAndRefreshTokens(code:redirectURIWithQuery:)`
-             *will* set this value. The [Spotify iOS SDK][2] will *not* set this
-             value (see "tokenSwap" URL, which Spotify will make a request to
-             with data that can be decoded into this type). If not `nil`, then
-             this must be the same URI provided when creating the authorization
-             URL that was used to request the authorization code (as opposed to
-             any of your whitelisted redirect URIs).
+             backend server. The
+             ``AuthorizationCodeFlowProxyBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+             method of ``AuthorizationCodeFlowProxyBackend`` *will* set this
+             value. The [Spotify iOS SDK][2] will *not* set this value (see
+             "tokenSwap" URL, which Spotify will make a request to with data
+             that can be decoded into this type). If not `nil`, then this must
+             be the same URI provided when creating the authorization URL that
+             was used to request the authorization code (as opposed to any of
+             your whitelisted redirect URIs).
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
      [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/

@@ -4,7 +4,7 @@ public extension PlaybackRequest {
     
     /**
      Indicates where in the context playback should start. See
-     `PlaybackRequest`.
+     ``PlaybackRequest``.
      
      One of the following:
      
@@ -26,7 +26,6 @@ public extension PlaybackRequest {
 
 extension PlaybackRequest.Offset: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
@@ -57,7 +56,6 @@ extension PlaybackRequest.Offset: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(
@@ -81,7 +79,6 @@ extension PlaybackRequest.Offset: Codable {
 
 extension PlaybackRequest.Offset: Hashable {
     
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
             case (.position(let lhsIndex), .position(let rhsIndex)):
@@ -93,7 +90,6 @@ extension PlaybackRequest.Offset: Hashable {
         }
     }
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         switch self {
             case .position(let index):

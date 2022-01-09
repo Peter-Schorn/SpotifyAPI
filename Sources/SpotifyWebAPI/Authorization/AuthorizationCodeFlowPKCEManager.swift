@@ -14,8 +14,8 @@ import FoundationNetworking
 import Logging
 
 /**
- Manages the authorization process for the
- [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the [Authorization Code Flow with Proof
+ Key for Code Exchange][1] (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
@@ -26,50 +26,51 @@ import Logging
  
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information and refreshing the access token from
- Spotify. It may do so directly (see `AuthorizationCodeFlowPKCEClientBackend`),
- or it may communicate with a custom backend server that you configure (see
- `AuthorizationCodeFlowPKCEProxyBackend`). This backend server can safely store
- your client secret and retrieve the authorization information from Spotify on
- your behalf, thereby preventing these sensitive credentials from being exposed
- in your frontend app. See `AuthorizationCodeFlowPKCEBackend` for more
- information.
+ Spotify. It may do so directly (see
+ ``AuthorizationCodeFlowPKCEClientBackend``), or it may communicate with a
+ custom backend server that you configure (see
+ ``AuthorizationCodeFlowPKCEProxyBackend``). This backend server can safely
+ store your client secret and retrieve the authorization information from
+ Spotify on your behalf, thereby preventing these sensitive credentials from
+ being exposed in your frontend app. See ``AuthorizationCodeFlowPKCEBackend``
+ for more information.
 
  **If you do not have a custom backend server, then you are encouraged use the**
- **concrete subclass of this class,** `AuthorizationCodeFlowPKCEManager`
+ **concrete subclass of this class,** ``AuthorizationCodeFlowPKCEManager``
  **instead**. It inherits from
- `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+ ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
  This class will store your client id locally.
 
  # Authorization
  
  The first step in the authorization process is to create the authorization URL
- using `makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`. It
+ using ``makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)``. It
  displays a permissions dialog to the user. Open the URL in a browser/webview so
  that the user can login to their Spotify account and authorize your app.
  
  After the user either authorizes or denies authorization for your application,
  Spotify will redirect to `redirectURI` with query parameters appended to it.
  Pass that URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)` to
+ ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`` to
  complete the authorization process.
 
- Use `isAuthorized(for:)` to check if your application is authorized
+ Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your application is authorized
  for the specified scopes.
  
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
- which are immutable.
+ Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the ``AuthorizationCodeFlowManagerBase/accessToken``, ``AuthorizationCodeFlowManagerBase/refreshToken``, ``AuthorizationCodeFlowManagerBase/expirationDate``,
+ and ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`.
 
  # Persistant Storage
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][4] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://tools.ietf.org/html/rfc7636
- [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeFlowPKCEBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
@@ -105,27 +106,27 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
 
      **If you do not have a custom backend server, then you are encouraged to**
      **use the concrete subclass of this class,**
-     `AuthorizationCodeFlowPKCEManager` **instead**. It inherits from
-     `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+     ``AuthorizationCodeFlowPKCEManager`` **instead**. It inherits from
+     ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
      This class will store your client id and client secret locally.
 
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][2] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information and refreshing the access token from
              Spotify. It may do so directly (see
-             `AuthorizationCodeFlowPKCEClientBackend`), or it may communicate
+             ``AuthorizationCodeFlowPKCEClientBackend``), or it may communicate
              with a custom backend server that you configure (see
-             `AuthorizationCodeFlowPKCEProxyBackend`). See
-             `AuthorizationCodeFlowPKCEBackend` for more information.
+             ``AuthorizationCodeFlowPKCEProxyBackend``). See
+             ``AuthorizationCodeFlowPKCEBackend`` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public required init(backend: Backend) {
         super.init(backend: backend)
@@ -137,41 +138,41 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(backend:)`.
+     ``init(backend:)``.
     
      **If you do not have a custom backend server, then you are encouraged to**
      **use the concrete subclass of this class,**
-     `AuthorizationCodeFlowPKCEManager` **instead**. It inherits from
-     `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>`.
+     ``AuthorizationCodeFlowPKCEManager`` **instead**. It inherits from
+     ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
      This class will store your client id and client secret locally.
 
      You are discouraged from individually saving the properties of this
      instance to persistent storage and then retrieving them later and passing
      them into this initializer. Instead, encode this entire instance to data
      using a `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information and refreshing the access token from
              Spotify. It may do so directly (see
-             `AuthorizationCodeFlowPKCEClientBackend`), or it may communicate
+             ``AuthorizationCodeFlowPKCEClientBackend``), or it may communicate
              with a custom backend server that you configure (see
-             `AuthorizationCodeFlowPKCEProxyBackend`). See
-             `AuthorizationCodeFlowPKCEBackend` for more information.
+             ``AuthorizationCodeFlowPKCEProxyBackend``). See
+             ``AuthorizationCodeFlowPKCEBackend`` for more information.
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
        - refreshToken: The refresh token. If `nil` (not recommended), then it
              will not be possible to automatically refresh the access token when
              it expires; instead, you will have to go through the authorization
              process again, as described in the README in the root directory of
-             this package. Use `accessTokenIsExpired(tolerance:)` to check if
-             the access token is expired.
+             this package. Use
+             ``AuthorizationCodeFlowManagerBase/accessTokenIsExpired(tolerance:)``
+             to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public convenience init(
 		backend: Backend,
@@ -189,22 +190,18 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     
     // MARK: - Codable, Hashable, CustomStringConvertible
     
-    /// :nodoc:
     public override required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
     
-    /// :nodoc:
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
     }
     
-    /// :nodoc:
     public override func hash(into hasher: inout Hasher) {
         super.hash(into: &hasher)
     }
 
-    /// :nodoc:
     public static func == (
         lhs: AuthorizationCodeFlowPKCEBackendManager,
         rhs: AuthorizationCodeFlowPKCEBackendManager
@@ -214,7 +211,6 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
         
     }
 
-    /// :nodoc:
     public var description: String {
         // print("AuthorizationCodeFlowPKCEBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {
@@ -275,7 +271,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      After the user either authorizes or denies authorization for your
      application, Spotify will redirect to `redirectURI` with query parameters
      appended to it. Pass that URL into
-     `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`
+     ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
      to complete the authorization process.
 
      # Warning
@@ -295,7 +291,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
        - codeChallenge: The code challenge. See above.
        - state: Optional, but strongly recommended. **If you provide a value**
              **for this parameter, you must pass the same value to**
-             `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`,
+             ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``,
              **otherwise an error will be thrown.** The state can be useful for
              correlating requests and responses. Because your redirect URI can
              be guessed, using a state value can increase your assurance that an
@@ -346,21 +342,22 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      [Authorization Code Flow with Proof Key for Code Exchange][1].
 
      After you open the URL from
-     `makeAuthorizationURL(redirectURI:scopes:showDialog:state:)` and the user
-     either authorizes or denies authorization for your app, Spotify will
+     ``makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`` and the
+     user either authorizes or denies authorization for your app, Spotify will
      redirect to the redirect URI you specified with query parameters appended
      to it. Pass this URL into this method to request access and refresh tokens.
      The access token is required for all endpoints, even those that do not
      access user data.
 
      If the user denied your app's authorization request or the request failed
-     for some other reason, then `SpotifyAuthorizationError` will be thrown to
-     downstream subscribers. Use the `accessWasDenied` boolean property of this
+     for some other reason, then ``SpotifyAuthorizationError`` will be thrown to
+     downstream subscribers. Use the
+     ``SpotifyAuthorizationError/accessWasDenied`` boolean property of this
      error to check if the user denied your app's authorization request.
 
-     If the request for the access and refresh tokens succeeds, `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the request for the access and refresh tokens succeeds,
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Warning
      
@@ -489,9 +486,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      **You shouldn't need to call this method**. It gets called automatically
      each time you make a request to the Spotify API.
      
-     If the access and/or refresh tokens are refreshed, then `self.didChange`
-     will emit a signal, which causes `SpotifyAPI.authorizationManagerDidChange`
-     to emit a signal.
+     If the access and/or refresh tokens are refreshed, then
+     ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
+     causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
      # Thread Safety
      
@@ -507,7 +504,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
        - tolerance: The tolerance in seconds to use when determining if the
              token is expired. Defaults to 120, meaning that a new token will be
              retrieved if the current one has expired or will expire in the next
-             two minutes. The token is considered expired if `expirationDate` -
+             two minutes. The token is considered expired if ``expirationDate`` -
              `tolerance` is equal to or before the current date. This parameter
              has no effect if `onlyIfExpired` is `false`.
      */
@@ -616,8 +613,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
 // MARK: - Authorization Code Flow PKCE Manager -
 
 /**
- Manages the authorization process for the
- [Authorization Code Flow with Proof Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the [Authorization Code Flow with Proof
+ Key for Code Exchange][1] (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
@@ -625,7 +622,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  further information about this flow, see [IETF RFC-7636][3].
  
  This class stores the client id locally. Consider using
- `AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEProxyBackend>`,
+ ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEProxyBackend``>,
  which allows you to setup a custom backend server that can store these
  sensitive credentials and which communicates with Spotify on your behalf in
  order to retrieve the authorization information.
@@ -633,33 +630,38 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  # Authorization
  
  The first step in the authorization process is to create the authorization URL
- using `makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`. It
- displays a permissions dialog to the user. Open the URL in a browser/webview so
- that the user can login to their Spotify account and authorize your app.
- 
+ using
+ ``AuthorizationCodeFlowPKCEBackendManager/makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)``.
+ It displays a permissions dialog to the user. Open the URL in a browser/webview
+ so that the user can login to their Spotify account and authorize your app.
+
  After the user either authorizes or denies authorization for your application,
  Spotify will redirect to `redirectURI` with query parameters appended to it.
  Pass that URL into
- `requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)` to
- complete the authorization process.
+ ``AuthorizationCodeFlowPKCEBackendManager/requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
+ to complete the authorization process.
+
+ Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your
+ application is authorized for the specified scopes.
  
- Use `isAuthorized(for:)` to check if your application is authorized
- for the specified scopes.
- 
- Use `deauthorize()` to set the `accessToken`, `refreshToken`, `expirationDate`,
- and `scopes` to `nil`. Does not change `clientId` or `clientSecret`,
- which are immutable.
+ Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the
+ ``AuthorizationCodeFlowManagerBase/accessToken``,
+ ``AuthorizationCodeFlowManagerBase/refreshToken``,
+ ``AuthorizationCodeFlowManagerBase/expirationDate``, and
+ ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`. Does not change
+ ``clientId``, which is immutable.
  
  # Persistant Storage
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
- information to persistent storage. See this [article][4] for more information.
+ information to persistent storage. See
+ <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+ information.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  [3]: https://tools.ietf.org/html/rfc7636
- [4]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
  */
 public final class AuthorizationCodeFlowPKCEManager:
     AuthorizationCodeFlowPKCEBackendManager<AuthorizationCodeFlowPKCEClientBackend>
@@ -684,7 +686,8 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      Note that this type conforms to `Codable`. It is this type that you should
      encode to data using a `JSONEncoder` in order to save the authorization
-     information to persistent storage. See this [article][3] for more
+     information to persistent storage. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
 
      - Parameters:
@@ -693,7 +696,6 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
      [2]: https://developer.spotify.com/dashboard/login
-     [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public convenience init(clientId: String) {
@@ -711,18 +713,18 @@ public final class AuthorizationCodeFlowPKCEManager:
 
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
-     `init(clientId:)`.
+     ``init(clientId:)``.
 
      You are discouraged from individually saving the properties of this instance
      to persistent storage and then retrieving them later and passing them into
      this initializer. Instead, encode this entire instance to data using a
      `JSONEncoder` and then decode the data from storage later. See
-     [Saving authorization information to persistent storage][2] for more
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
 
-     To get a client id and client secret, go to the
-     [Spotify Developer Dashboard][3] and create an app. see the README in the root
-     directory of this package for more information.
+     To get a client id and client secret, go to the [Spotify Developer
+     Dashboard][3] and create an app. see the README in the root directory of
+     this package for more information.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -733,12 +735,12 @@ public final class AuthorizationCodeFlowPKCEManager:
              will not be possible to automatically refresh the access token when
              it expires; instead, you will have to go through the authorization
              process again, as described in the README in the root directory of
-             this package. Use `accessTokenIsExpired(tolerance:)` to check if
-             the access token is expired.
+             this package. Use
+             ``AuthorizationCodeFlowManagerBase/accessTokenIsExpired(tolerance:)``
+             to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -756,7 +758,7 @@ public final class AuthorizationCodeFlowPKCEManager:
         self._scopes = scopes
     }
 
-    /// :nodoc:
+    /// A textual representation of this instance.
     public override var description: String {
         // print("AuthorizationCodeFlowBackendManager.description WAITING for queue")
         return self.updateAuthInfoQueue.sync {

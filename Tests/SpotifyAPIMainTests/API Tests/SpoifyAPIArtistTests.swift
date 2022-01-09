@@ -101,11 +101,18 @@ extension SpotifyAPIArtistTests {
         XCTAssertEqual(albums.offset, 0)
         XCTAssertNil(albums.next)
         XCTAssertNil(albums.previous)
-        XCTAssertEqual(
-            albums.href,
-            URL(string: "https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B" +
-            "/albums?offset=0&limit=35&include_groups=album,single," +
-            "compilation,appears_on&market=US")!
+        
+        let expectedAlbumsHREF = """
+            https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B\
+            /albums?offset=0&limit=35&include_groups=album,single,\
+            compilation,appears_on&market=US
+            """
+        XCTAssert(
+            albums.href.absoluteString.starts(
+                with: expectedAlbumsHREF
+            ),
+            "\(albums.href.absoluteString) does not start with " +
+            "\(expectedAlbumsHREF)"
         )
         
         for album in albums.items {
@@ -245,15 +252,15 @@ extension SpotifyAPIArtistTests {
                 let album = reversedAlbums[0]
                 XCTAssertEqual(
                     album.name,
-                    "The Piper At The Gates Of Dawn [2011 - Remaster] (2011 Remastered Version)"
+                    "Amsterdamse Bos, Free Concert, Live, 26 June 1971"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:0Fke5eiQ6lszQHlwiFygqn")
-                XCTAssertEqual(album.id, "0Fke5eiQ6lszQHlwiFygqn")
+                XCTAssertEqual(album.uri, "spotify:album:1sPI5BOZZ13HhW7anvGgXS")
+                XCTAssertEqual(album.id, "1sPI5BOZZ13HhW7anvGgXS")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -76032000,
+                        46760400,
                         accuracy: 43_200   // 12 hours
                     )
                 }
@@ -264,14 +271,17 @@ extension SpotifyAPIArtistTests {
             }
             do {
                 let album = reversedAlbums[1]
-                XCTAssertEqual(album.name, "The Piper at the Gates of Dawn")
-                XCTAssertEqual(album.uri, "spotify:album:2Se4ZylF9NkFGD92yv1aZC")
-                XCTAssertEqual(album.id, "2Se4ZylF9NkFGD92yv1aZC")
+                XCTAssertEqual(
+                    album.name,
+                    "Amsterdamse Bos Free Concert 26 June 1971 (Live)"
+                )
+                XCTAssertEqual(album.uri, "spotify:album:2Va7XE8c1UJlx3zkSEY9cN")
+                XCTAssertEqual(album.id, "2Va7XE8c1UJlx3zkSEY9cN")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -76032000,
+                        46760400,
                         accuracy: 43_200   // 12 hours
                     )
                 }
@@ -281,19 +291,18 @@ extension SpotifyAPIArtistTests {
                 
             }
             do {
-                // should be "A Saucerful Of Secrets (2011 Remastered Version)"
                 let album = reversedAlbums[2]
                 XCTAssertEqual(
                     album.name,
-                    "A Saucerful Of Secrets (2011 Remastered Version)"
+                    "Live In Montreux 18 & 19 Sept 1971"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:5rwuexO7oiRJKqzZrd1upQ")
-                XCTAssertEqual(album.id, "5rwuexO7oiRJKqzZrd1upQ")
+                XCTAssertEqual(album.uri, "spotify:album:3lpzmu5Vbx2AatfLZNZMgA")
+                XCTAssertEqual(album.id, "3lpzmu5Vbx2AatfLZNZMgA")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -47674800,
+                        54018000,
                         accuracy: 43_200
                     )
                 }
@@ -304,13 +313,16 @@ extension SpotifyAPIArtistTests {
             do {
                 // should be "A Saucerful of Secrets""
                 let album = reversedAlbums[3]
-                XCTAssertEqual(album.name, "A Saucerful of Secrets")
-                XCTAssertEqual(album.uri, "spotify:album:2vnJKtGjZXRUg0mYPZ3HGH")
+                XCTAssertEqual(
+                    album.name,
+                    "Live In Montreux 18 & 19 Sept 1971"
+                )
+                XCTAssertEqual(album.uri, "spotify:album:5BZ1cbpJFcrcTGpbhUzTg4")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        -47588400,
+                        54104400,
                         accuracy: 43_200
                     )
                 }
@@ -421,40 +433,43 @@ extension SpotifyAPIArtistTests {
             for album in albums.items {
                 encodeDecode(album)
                 XCTAssertEqual(album.albumGroup, .single)
-                XCTAssertEqual(album.artists?.first?.name, "Led Zeppelin")
+                XCTAssertEqual(album.artists?.first?.name, "Radiohead")
                 XCTAssertEqual(
                     album.artists?.first?.uri,
-                    "spotify:artist:36QJpDe2go2KgaRleHCDTp"
+                    "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"
                 )
                 
                 // these albums are not singles
                 XCTAssertNotEqual(
-                    album.uri, "spotify:album:1J8QW9qsMLx3staWaHpQmU"
+                    album.uri, URIs.Albums.inRainbows.uri
                 )
                 XCTAssertNotEqual(
-                    album.id, "1J8QW9qsMLx3staWaHpQmU"
+                    album.id, "3gBVdu4a1MMJVMy6vwPEb8"
                 )
                 XCTAssertNotEqual(
-                    album.uri, "spotify:album:6VH2op0GKIl3WNTbZmmcmI"
+                    album.uri, "spotify:album:6ofEQubaL265rIW6WnCU8y"
                 )
                 
             }
             let reversedAlbums = Array(albums.items.reversed())
             guard reversedAlbums.count >= 3 else {
-                XCTFail("Led Zeppelin should have at least 3 singles")
+                XCTFail(
+                    "Radiohead should have at least 3 singles " +
+                    "(got \(reversedAlbums.count))"
+                )
                 return
             }
             do {
                 let album = reversedAlbums[0]
                 XCTAssertEqual(
-                    album.name, "Black Dog (Basic Track With Guitar Overdubs)"
+                    album.name, "Drill EP"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:2eQNcZeVzL0g0GJ0NsLlH0")
+                XCTAssertEqual(album.uri, "spotify:album:2EUUCdjvEujOc0E3X6yAEr")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        60480000,
+                        705042000,
                         accuracy: 43_200  // 12 hours
                     )
                 }
@@ -465,14 +480,14 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[1]
                 XCTAssertEqual(
-                    album.name, "Rock and Roll (Alternate Mix)"
+                    album.name, "Creep"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:0G41K3cto53eBIEW9MhO2K")
+                XCTAssertEqual(album.uri, "spotify:album:3RQlNKc08ikcuFmbg0luEw")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        67500000,
+                        717051600,
                         accuracy: 43_200  // 12 hours
                     )
                 }
@@ -483,14 +498,14 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[2]
                 XCTAssertEqual(
-                    album.name, "Houses of the Holy (Rough Mix with Overdubs)"
+                    album.name, "Anyone Can Play Guitar"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:3ZuGyUoJcVvHCePD1DJnvE")
+                XCTAssertEqual(album.uri, "spotify:album:37v03kt4FbojREz2VOg4BN")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        1421820000,
+                        727941600,
                         accuracy: 43_200  // 12 hours
                     )
                 }
@@ -525,7 +540,7 @@ extension SpotifyAPIArtistTests {
         Self.spotify.authorizationManager.setExpirationDate(to: Date())
 
         Self.spotify.artistAlbums(
-            URIs.Artists.ledZeppelin,
+            URIs.Artists.radiohead,
             groups: [.single],
             country: "US",
             limit: 50
@@ -676,7 +691,7 @@ extension SpotifyAPIArtistTests where
         // let randomScope = Scope.allCases.randomElement()!
         // XCTAssertFalse(
         //     Self.spotify.authorizationManager.isAuthorized(for: [randomScope]),
-        //     "should not be authorized for \(randomScope.rawValue): " +
+        //     "sh ould not be authorized for \(randomScope.rawValue): " +
         //     "\(Self.spotify.authorizationManager)"
         // )
     }

@@ -14,8 +14,8 @@ public extension SpotifyAPI {
     /**
      Get an album.
      
-     See also `artistAlbums(_:groups:country:limit:offset:)` and
-     `albums(_:market:)` (gets multiple albums).
+     See also ``artistAlbums(_:groups:country:limit:offset:)`` and
+     ``albums(_:market:)`` (gets multiple albums).
      
      No scopes are required for this endpoint.
      
@@ -60,8 +60,8 @@ public extension SpotifyAPI {
     /**
      Get multiple albums.
      
-     See also `artistAlbums(_:groups:country:limit:offset:)` and
-     `album(_:market:)` (gets a single album).
+     See also ``artistAlbums(_:groups:country:limit:offset:)`` and
+     ``album(_:market:)`` (gets a single album).
      
      No scopes are required for this endpoint.
      

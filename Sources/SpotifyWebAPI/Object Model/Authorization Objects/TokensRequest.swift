@@ -5,18 +5,19 @@ import Foundation
  is used to request a refresh and access token for the [Authorization Code
  Flow][1].
  
- When creating a type that conforms to `AuthorizationCodeFlowBackend` and which
- communicates *directly* with Spotify, use this type in the body of the network
- request made in the
- `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+ When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
+ which communicates *directly* with Spotify, use this type in the body of the
+ network request made in the
+ ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+ method.
  
- When using a custom backend server, use `ProxyTokensRequest` instead, which
- does not contain the `clientId`, or `clientSecret`, as these properties should
- be stored on the server.
+ When using a custom backend server, use ``ProxyTokensRequest`` instead, which
+ does not contain the ``clientId``, or ``clientSecret``, as these properties
+ should be stored on the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
-       network request using `self.formURLEncoded`.
+       network request using ``formURLEncoded()``.
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
  */
@@ -58,18 +59,19 @@ public struct TokensRequest: Hashable {
      Creates an instance that is used to retrieve the authorization information
      using the [Authorization Code Flow][1].
 
-     When creating a type that conforms to `AuthorizationCodeFlowBackend` and
+     When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
      which communicates *directly* with Spotify, use this type in the body of
      the network request made in the
-     `requestAccessAndRefreshTokens(code:redirectURIWithQuery:)` method.
+     ``AuthorizationCodeFlowBackend/requestAccessAndRefreshTokens(code:redirectURIWithQuery:)``
+     method.
 
-     When using a custom backend server, use `ProxyTokensRequest` instead, which
-     does not contain the `clientId`, or `clientSecret`, as these properties
-     should be stored on the server.
+     When using a custom backend server, use ``ProxyTokensRequest`` instead,
+     which does not contain the ``clientId``, or ``clientSecret``, as these
+     properties should be stored on the server.
      
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
-           network request using `self.formURLEncoded`.
+           network request using ``formURLEncoded()``.
      
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the

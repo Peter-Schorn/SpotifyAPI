@@ -7,7 +7,7 @@ import Logging
  such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method that accepts a
- `SpotifyURIConvertible` type.
+ ``SpotifyURIConvertible`` type.
 
  This struct provides a convenient way to convert between the different formats,
  which include the id, the URI, and the URL.
@@ -125,6 +125,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     
      The id category must be one of the following:
      
+<<<<<<< HEAD
      * `artist`
      * `album`
      * `track`
@@ -136,6 +137,19 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `genre`
      * `ad`
      * `unknown`
+=======
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/ad``
+     * ``IDCategory/unknown``
+>>>>>>> swift-5-5
      
      - Parameters:
        - id: A Spotify id.
@@ -159,6 +173,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      The id category must be one of the following, or an error will be thrown:
      
+<<<<<<< HEAD
      * `artist`
      * `album`
      * `track`
@@ -170,11 +185,24 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `genre`
      * `ad`
      * `unknown`
+=======
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/ad``
+     * ``IDCategory/unknown``
+>>>>>>> swift-5-5
      
      - Parameters:
        - uri: A Spotify URI.
        - categories: If not `nil`, throw an error if the id category of the URI
-         does not match one of these id categories. See `IDCategory` for more
+         does not match one of these id categories. See ``IDCategory`` for more
          information. The default is `nil`.
      - Throws: If `categories` is not `nil` and the id category of the URI
            does not match one the required categories or if an id or id category
@@ -251,6 +279,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
 
      The id category must be one of the following:
+<<<<<<< HEAD
      
      * `artist`
      * `album`
@@ -263,6 +292,19 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * `genre`
      * `ad`
      * `unknown`
+=======
+     * ``IDCategory/artist``
+     * ``IDCategory/album``
+     * ``IDCategory/track``
+     * ``IDCategory/playlist``
+     * ``IDCategory/show``
+     * ``IDCategory/episode``
+     * ``IDCategory/local``
+     * ``IDCategory/user``
+     * ``IDCategory/genre``
+     * ``IDCategory/ad``
+     * ``IDCategory/unknown``
+>>>>>>> swift-5-5
      
      - Parameter url: A URL that, when opened, displays the content in the web
            player.

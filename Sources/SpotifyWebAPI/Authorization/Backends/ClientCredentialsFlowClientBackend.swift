@@ -17,13 +17,13 @@ import OpenCombineFoundation
  authorization information using the [Client Credentials Flow][1].
  
  If you are communicating with a custom backend server, then use
- `ClientCredentialsFlowProxyBackend` instead, which does not send the `clientId`
- and `clientSecret` in network requests because these values should be securely
- stored on your backend server.
+ ``ClientCredentialsFlowProxyBackend`` instead, which does not send the
+ `clientId` and `clientSecret` in network requests because these values should
+ be securely stored on your backend server.
  
  Usually you should not need to create instances of this type directly.
- `ClientCredentialsFlowManager` uses this type internally by inheriting from
- `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+ ``ClientCredentialsFlowManager`` uses this type internally by inheriting from
+ ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
  */
@@ -58,8 +58,9 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
      Credentials Flow][1] by communicating *directly* with the Spotify web API.
      
      Usually you should not need to create instances of this type directly.
-     `ClientCredentialsFlowManager` uses this type internally by inheriting from
-     `ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>`.
+     ``ClientCredentialsFlowManager`` uses this type internally by inheriting
+     from
+     ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -82,16 +83,17 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
     /**
      Makes a request for the authorization information.
 
-     This method is called by either the `authorize()` or
-     `refreshTokens(onlyIfExpired:tolerance:)` methods of
-     `ClientCredentialsFlowBackendManager`. The client credentials flow does not
-     provide a refresh token, so in both cases, the same network request is
-     made.
+     This method is called by either the
+     ``ClientCredentialsFlowBackendManager/authorize()`` or
+     ``ClientCredentialsFlowBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
+     methods of ``ClientCredentialsFlowBackendManager``. The client credentials
+     flow does not provide a refresh token, so in both cases, the same network
+     request is made.
 
      This method returns the authorization information as JSON data that can be
-     decoded into `AuthInfo`. The `accessToken` and `expirationDate` (which can
-     be decoded from the "expires_in" JSON key) properties should be non-`nil`.
-     For example:
+     decoded into ``AuthInfo``. The ``AuthInfo/accessToken`` and
+     ``AuthInfo/expirationDate`` (which can be decoded from the "expires_in"
+     JSON key) properties should be non-`nil`. For example:
      
      ```
      {

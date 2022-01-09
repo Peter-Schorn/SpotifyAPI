@@ -23,7 +23,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
     /**
      A link to the Spotify web API endpoint providing the full track object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL
     
@@ -37,7 +37,7 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     public let id: String
     
-    /// The object type. Always `track`.
+    /// The object type. Always ``IDCategory/track``.
     public let type: IDCategory
     
     /**

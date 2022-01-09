@@ -3,17 +3,17 @@ import Foundation
 
 /**
  The [tunable track attributes][1] used in the
- `SpotifyAPI.recommendations(_:limit:market:)` endpoint for [getting
+ ``SpotifyAPI/recommendations(_:limit:market:)`` endpoint for [getting
  recommendations based on seeds][2].
 
  For most of the attributes, a minimum, target (ideal), and maximum value can be
- provided. This is represented by `AttributeRange`. The target value should not
- be smaller than the minimum or larger than the maximum.
+ provided. This is represented by ``AttributeRange``. The target value should
+ not be smaller than the minimum or larger than the maximum.
 
  **The total number of seed artists, seed tracks, and seed genres must add up**
  **to 5 or less.**
 
- Use `SpotifyAPI.recommendationGenres()` to retrieve the available seed genres.
+ Use ``SpotifyAPI/recommendationGenres()`` to retrieve the available seed genres.
 
  Note that all of the properties are mutable.
  
@@ -41,7 +41,7 @@ public struct TrackAttributes: Hashable {
     /**
      An array of genres.
     
-     Use `SpotifyAPI.recommendationGenres()` to retrieve the available genres.
+     Use ``SpotifyAPI/recommendationGenres()`` to retrieve the available genres.
     
      The total number of seed artists, seed tracks, and seed genres must add up
      to 5 or less.
@@ -132,8 +132,8 @@ public struct TrackAttributes: Hashable {
      expected to find relinked tracks with popularities that do not match min,
      max, and target popularities. These relinked tracks are accurate
      replacements for unplayable tracks with the expected popularity scores.
-     Original, non-relinked tracks are available via the `linkedFrom` attribute
-     of the [relinked track response][1].
+     Original, non-relinked tracks are available via the ``Track/linkedFrom``
+     attribute of the [relinked track response][1].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      */
@@ -183,13 +183,13 @@ public struct TrackAttributes: Hashable {
      recommendations based on seeds][2].
      
      For most of the attributes, a minimum, target (ideal), and maximum value
-     can be provided. This is represented by `AttributeRange`. The target value
-     should not be smaller than the minimum or larger than the maximum.
+     can be provided. This is represented by ``AttributeRange``. The target
+     value should not be smaller than the minimum or larger than the maximum.
      
      **The total number of seed artists, seed tracks, and seed genres must add**
      **up to 5 or less.**
      
-     When using `AttributeRange`, consider taking advantage of Swift's ability
+     When using ``AttributeRange``, consider taking advantage of Swift's ability
      to infer the contextual type of a method. For example:
      ```
      let trackAttributes = TrackAttributes(
@@ -203,8 +203,8 @@ public struct TrackAttributes: Hashable {
      - Parameters:
        - seedArtists: An array of artists URIs.
        - seedGenres: An array of artists genres. Use
-             `SpotifyAPI.recommendationGenres()` to retrieve the available seed
-              genres.
+             ``SpotifyAPI/recommendationGenres()`` to retrieve the available
+             seed  genres.
        - seedTracks: An array of track URIs.
        - acousticness: A confidence measure from 0.0 to 1.0 of whether the track
              is acoustic. 1.0 represents high confidence the track is acoustic.
@@ -250,7 +250,8 @@ public struct TrackAttributes: Hashable {
              not match min, max, and target popularities. These relinked tracks
              are accurate replacements for unplayable tracks with the expected
              popularity scores. Original, non-relinked tracks are available via
-             the `linkedFrom` attribute of the [relinked track response][4].
+             the ``Track/linkedFrom`` attribute of the [relinked track
+             response][4].
        - speechiness: Speechiness detects the presence of spoken words in a
              track. A range from 0 to 1, inclusive. The more exclusively
              speech-like the recording (e.g. talk show, audio book, poetry), the
@@ -316,13 +317,14 @@ public struct TrackAttributes: Hashable {
 
     /**
      Creates the query dictionary that is ultimately used in the [endpoint to
-     request track attributes][1]: `SpotifyAPI.recommendations(_:limit:market:)`
+     request track attributes][1]:
+     ``SpotifyAPI/recommendations(_:limit:market:)``
      
      You shouldn't need to call this directly. It is called by
-     `SpotifyAPI.recommendations(_:limit:market:)`.
+     ``SpotifyAPI/recommendations(_:limit:market:)``.
      
-     See also `AttributeRange.queryDictionary(attributeName:)`, which is called
-     on each property of this type to create the dictionary.
+     See also ``AttributeRange/queryDictionary(attributeName:)``, which is
+     called on each property of this type to create the dictionary.
      
      - Throws: If an id could not be parsed from any of the artist or track
            URIs, or if these URIs do not match the artist and track categories,

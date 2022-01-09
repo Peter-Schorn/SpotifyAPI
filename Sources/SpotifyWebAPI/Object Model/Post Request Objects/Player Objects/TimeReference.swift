@@ -4,7 +4,7 @@ import Foundation
 /// Represents a period before or after a specified date. Dates are converted to
 /// millisecond-precision timestamp strings.
 ///
-/// Used in the body of `SpotifyAPI.recentlyPlayed(_:limit:)`.
+/// Used in the body of ``SpotifyAPI/recentlyPlayed(_:limit:)``.
 public enum TimeReference: Codable, Hashable {
     
     /**
@@ -12,11 +12,11 @@ public enum TimeReference: Codable, Hashable {
      
      The `String` value must be a unix timestamp in milliseconds, *rounded to*
      *the nearest integer*. For example: "1616355451022". This can be retrieved
-     from the `before` property of a `SpotifyCursor`, if it is non-`nil`, in
-     order to reference the page of results that chronologically precede the
-     current page.
+     from the ``SpotifyCursor/before`` property of a ``SpotifyCursor``, if it is
+     non-`nil`, in order to reference the page of results that chronologically
+     precede the current page.
      
-     See also `Self.before(_ date: Date)`.
+     See also ``before(_:)-swift.type.method``.
      */
     case before(String)
     
@@ -25,11 +25,11 @@ public enum TimeReference: Codable, Hashable {
      
      The `String` value must be a unix timestamp in milliseconds, *rounded to*
      *the nearest integer*. For example: "1616373716005". This can be retrieved
-     from the `after` property of a `SpotifyCursor`, if it is non-`nil`, in
-     order to reference the page of results that chronologically succeed the
-     current page.
+     from the ``SpotifyCursor/after`` property of a ``SpotifyCursor``, if it is
+     non-`nil`, in order to reference the page of results that chronologically
+     succeed the current page.
      
-     See also `Self.after(_ date: Date)`.
+     See also ``after(_:)-swift.type.method``.
      */
     case after(String)
     
@@ -37,7 +37,7 @@ public enum TimeReference: Codable, Hashable {
      A period before a specified date. It will be converted to a
      millisecond-precision timestamp string rounded to the nearest integer.
 
-     See also `Self.before(String)`.
+     See also ``before(_:)-swift.enum.case``.
 
      - Parameter date: A date.
      */
@@ -49,7 +49,7 @@ public enum TimeReference: Codable, Hashable {
      A period before a specified date. It will be converted to a
      millisecond-precision timestamp string rounded to the nearest integer.
     
-     See also `Self.after(String)`.
+     See also ``after(_:)-swift.enum.case``.
 
      - Parameter date: A date.
      */
@@ -85,7 +85,6 @@ public enum TimeReference: Codable, Hashable {
         return [name: milliseconds]
     }
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -115,7 +114,6 @@ public enum TimeReference: Codable, Hashable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)

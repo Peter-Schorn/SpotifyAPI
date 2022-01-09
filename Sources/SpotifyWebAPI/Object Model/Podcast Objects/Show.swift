@@ -19,7 +19,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
      
      Only available for the full version.
      
-     See also `totalEpisodes`.
+     See also ``totalEpisodes``.
      */
     public let episodes: PagingObject<Episode>?
     
@@ -53,7 +53,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /**
      A link to the Spotify web API endpoint providing the full show object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Show` as the
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Show`` as the
      response type to retrieve the results.
      */
     public let href: URL
@@ -89,7 +89,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /// The publisher of the show.
     public let publisher: String
     
-    /// The object type. Always `show`.
+    /// The object type. Always ``IDCategory/show``.
     public let type: IDCategory
     
     /**

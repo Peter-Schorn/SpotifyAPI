@@ -8,8 +8,9 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /// The name of the playlist.
     public let name: String
     
-    /// The items in this `Playlist`. Consult the documentation for the specific
-    /// endpoint that this playlist was retrieved from for more information.
+    /// The items in this ``Playlist``. Consult the documentation for the
+    /// specific endpoint that this playlist was retrieved from for more
+    /// information.
     public let items: Items
     
     /// The user who owns the playlist.
@@ -72,7 +73,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      A link to the Spotify web API endpoint providing full details of the
      playlist.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL
     
@@ -96,14 +97,14 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      user.
      
      - Warning: The urls of these images, if returned, are temporary and will
-           expire in less than a day. Use `SpotifyAPI.playlistImage(_:)` to
+           expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)`` to
            retrieve the image for a playlist.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      */
     public let images: [SpotifyImage]
     
-    /// The object type. Always `playlist`.
+    /// The object type. Always ``IDCategory/playlist``.
     public let type: IDCategory
 
     /**

@@ -19,16 +19,16 @@ import FoundationNetworking
 
  The methods that require authorization scopes and/or an access token that was
  issued on behalf of a user are declared in conditional conformances where
- `AuthorizationManager` conforms to `SpotifyScopeAuthorizationManager`. This
+ `AuthorizationManager` conforms to ``SpotifyScopeAuthorizationManager``. This
  protocol requires conforming types to support authorization scopes. This
  strategy provides a compile-time guarantee that you cannot call methods that
  require authorization scopes if you are using an authorization manager that
  doesn't support them.
 
- `AuthorizationCodeFlowBackendManager` and
- `AuthorizationCodeFlowPKCEBackendManager` conform to
- `SpotifyScopeAuthorizationManager`. `ClientCredentialsFlowBackendManager` is
- not a conforming type because it does not support authorization scopes.
+ ``AuthorizationCodeFlowBackendManager`` and
+ ``AuthorizationCodeFlowPKCEBackendManager`` conform to
+ ``SpotifyScopeAuthorizationManager``. ``ClientCredentialsFlowBackendManager``
+ is not a conforming type because it does not support authorization scopes.
 
  All of the endpoints are documented at the the [web API reference][1].
  
@@ -44,13 +44,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      It is this property that you should encode to data using a `JSONEncoder` in
      order to save it to persistent storage. This prevents the user from having
-     to login again every time the app is quit and relaunched. See this
-     [article][1] for more information.
+     to login again every time the app is quit and relaunched. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+     information.
 
      Assigning a new authorization manager to this property causes
-     `authorizationManagerDidChange` to emit a signal.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+     ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      */
     public var authorizationManager: AuthorizationManager {
         didSet {
@@ -74,12 +73,14 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     
      Use this function if you need to use a custom networking client. The `url`
      and `httpMethod` properties of the `URLRequest` parameter are guaranteed to
-     be non-`nil`. No guarantees are made about which thread this function will
-     be called on. By default, `URLSession` will be used for the network
+     be non-`nil`. By default, `URLSession` will be used for the network
      requests.
 
-     - Warning: Do not mutate this property while a network request is being
-           made.
+     # Thread Safety
+     
+     No guarantees are made about which thread this function will be called on.
+     Therefore, do not mutate this property while a network request is being
+     made.
      */
     public var networkAdaptor:
         (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
@@ -88,43 +89,45 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      A publisher that emits whenever the authorization information changes.
      
      Subscribe to this subject in order to update the persistent storage of the
-     authorization information. See this [article][1] for more information.
+     authorization information. See
+     <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
+     information.
 
      Emits after any of the following events occur:
 
      * After the access and/or refresh tokens are retrieved.
      * After the access token (and possibly the refresh token) is refreshed.
-     * After you assign a new authorization manager to the `authorizationManager`
-       property of this class.
+     * After you assign a new authorization manager to the
+       ``SpotifyAPI/authorizationManager`` property of this class.
      
-     This publisher subscribes to the `didChange` publisher of
-     `authorizationManager` and emits whenever it emits.
+     This publisher subscribes to the ``SpotifyAuthorizationManager/didChange``
+     publisher of ``SpotifyAPI/authorizationManager`` and emits whenever it
+     emits.
      
-     See also `authorizationManagerDidDeauthorize`, a publisher that emits after
-     `authorizationManager.deauthorize()` is called.
+     See also ``SpotifyAPI/authorizationManagerDidDeauthorize``, a publisher
+     that emits after ``SpotifyAuthorizationManager/deauthorize()`` is called.
      
      # Thread Safety
      
      No guarantees are made about which thread this publisher will emit on.
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public let authorizationManagerDidChange = PassthroughSubject<Void, Never>()
     
     /**
-     A publisher that emits after `authorizationManager.deauthorize()` is
-     called.
+     A publisher that emits after the
+     ``SpotifyAuthorizationManager/deauthorize()`` method of
+     ``authorizationManager`` is called.
      
-     `authorizationManager.deauthorize()` sets the authorization information to
-     `nil`.
+     ``SpotifyAuthorizationManager/deauthorize()`` sets the authorization
+     information to `nil`.
      
      Subscribe to this publisher in order to remove the authorization
      information from persistent storage when it emits.
 
-     This publisher subscribes to the `didDeauthorize` publisher of
-     `authorizationManager` and emits whenever it emits.
+     This publisher subscribes to the ``SpotifyAuthorizationManager/didDeauthorize`` publisher of
+     ``SpotifyAPI/authorizationManager`` and emits whenever it emits.
 
-     See also `authorizationManagerDidChange`.
+     See also ``SpotifyAPI/authorizationManagerDidChange``.
      
      # Thread Safety
      
@@ -145,13 +148,15 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      
      Logs a message when the any of the following publishers emit a signal:
      
-     * `authorizationManagerDidChange`
-     * `authorizationManagerDidDeauthorize`
-     * `authorizationManager.didChange`
-     * `authorizationManager.didDeauthorize`
+     * ``SpotifyAPI/authorizationManagerDidChange``
+     * ``SpotifyAPI/authorizationManagerDidDeauthorize``
+     * The ``SpotifyAuthorizationManager/didChange`` publisher of
+       ``authorizationManager``
+     * The ``SpotifyAuthorizationManager/didDeauthorize`` publisher of
+       ``authorizationManager``
      
-     Also logs a message in the didSet observer of `authorizationManager`.
-     
+     Also logs a message in the didSet observer of
+     ``SpotifyAPI/authorizationManager``.
      */
     public var authDidChangeLogger = Logger(
         label: "authDidChange", level: .critical
@@ -164,7 +169,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     // MARK: - Initializers -
 
     /**
-     Creates an instance of `SpotifyAPI`, which contains all the methods for
+     Creates an instance of ``SpotifyAPI``, which contains all the methods for
      making requests to the Spotify web API.
 
      To get a client id and client secret, go to the [Spotify Developer
@@ -173,22 +178,24 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      
      - Parameters:
          - authorizationManager: An instance of a type that conforms to
-               `SpotifyAuthorizationManager`. It Manages the authorization
+               ``SpotifyAuthorizationManager``. It Manages the authorization
                process for your application and contains all the authorization
                information. It is this property that you should encode to data
                using a `JSONEncoder` in order to save it to persistent storage.
-               See this [article][2] for more information.
+               See
+               <doc:Saving-the-Authorization-Information-to-Persistent-Storage>
+               for more information.
          - networkAdaptor: A function that gets called every time this class—and
                only this class—needs to make a network request. The
-               `authorizationManager` will **NOT** use this function. Use this
-               function if you need to use a custom networking client. The `url`
-               and `httpMethod` properties of the `URLRequest` parameter are
-               guaranteed to be non-`nil`. No guarantees are made about which
-               thread this function will be called on. The default is `nil`, in
-               which case `URLSession` will be used for the network requests.
+               ``SpotifyAPI/authorizationManager`` will **NOT** use this
+               function. Use this function if you need to use a custom
+               networking client. The `url` and `httpMethod` properties of the
+               `URLRequest` parameter are guaranteed to be non-`nil`. No
+               guarantees are made about which thread this function will be
+               called on. The default is `nil`, in which case `URLSession` will
+               be used for the network requests.
      
      [1]: https://developer.spotify.com/dashboard/login
-     [2]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
      */
     public init(
         authorizationManager: AuthorizationManager,
@@ -215,7 +222,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     /**
      Creates a new instance by decoding from the given decoder.
 
-     `authorizationManager` is the **only** property that is decoded.
+     ``SpotifyAPI/authorizationManager`` is the **only** property that is
+     decoded.
 
      This initializer throws an error if reading from the decoder fails, or if
      the data read is corrupted or otherwise invalid.
@@ -237,7 +245,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     /**
      Encodes this value into the given encoder.
 
-     `authorizationManager` is the **only** property that is encoded.
+     ``SpotifyAPI/authorizationManager`` is the **only** property that is
+     encoded.
 
      If the value fails to encode anything, `encoder` will encode an empty keyed
      container in its place.

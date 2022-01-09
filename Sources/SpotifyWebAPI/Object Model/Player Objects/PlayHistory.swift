@@ -45,7 +45,6 @@ public struct PlayHistory: Hashable {
 
 extension PlayHistory: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -59,7 +58,6 @@ extension PlayHistory: Codable {
 
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -92,8 +90,8 @@ extension PlayHistory: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
 
-     `PlayHistory.playedAt` is compared using `timeIntervalSince1970`, so it is
-     considered a floating point property for the purposes of this method.
+     ``PlayHistory/playedAt`` is compared using `timeIntervalSince1970`, so it
+     is considered a floating point property for the purposes of this method.
      
      - Parameter other: Another instance of `Self`.
      */

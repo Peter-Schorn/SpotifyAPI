@@ -17,11 +17,7 @@ private extension SpotifyAPI where
      active device if one exists. Else, plays content on the first available
      device.
      
-     See [Using the Player Endpoints][1].
-
      - Parameter playbackRequest: A request to play content.
-
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints
      */
     func getAvailableDeviceThenPlay(
         _ playbackRequest: PlaybackRequest

@@ -63,11 +63,11 @@ public extension Scope {
     /**
      All the scopes that are related to playlists
      
-     * `playlistReadCollaborative`
-     * `playlistModifyPublic`
-     * `playlistReadPrivate`
-     * `playlistModifyPrivate`
-     * `ugcImageUpload` (required for uploading an image to a playlist)
+     * ``Scope/playlistReadCollaborative``
+     * ``Scope/playlistModifyPublic``
+     * ``Scope/playlistReadPrivate``
+     * ``Scope/playlistModifyPrivate``
+     * ``Scope/ugcImageUpload`` (required for uploading an image to a playlist)
      */
     static let playlistScopes: Set<Scope> = [
         .playlistReadCollaborative,

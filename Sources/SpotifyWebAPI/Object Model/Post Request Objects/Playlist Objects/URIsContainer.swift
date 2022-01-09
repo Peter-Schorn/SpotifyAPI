@@ -4,9 +4,9 @@ import Foundation
 /**
  Contains an array of URIs and, optionally, the [snapshot id][1] of a playlist.
  Used in the body of
- `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`.
+ ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``.
 
- Compare with `URIsWithPositionsContainer`.
+ Compare with ``URIsWithPositionsContainer``.
 
  Read more at the [Spotify web API reference][2].
  
@@ -29,7 +29,8 @@ public struct URIsContainer {
     
      - Parameters:
        - items: An array of track/episode URIs.
-             The `SpotifyAPI.removeAllOccurrencesFromPlaylist(_:of:snapshotId:)`
+             The
+             ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
              endpoint accepts a maximum of 100 items.
        - snapshotId: The [snapshot id][1] of a playlist. If `nil`, the most
              recent version of the playlist is targeted. This is an identifier
@@ -52,7 +53,6 @@ public struct URIsContainer {
 
 extension URIsContainer: Codable {
 
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -70,7 +70,6 @@ extension URIsContainer: Codable {
 
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -93,13 +92,11 @@ extension URIsContainer: Codable {
 
 extension URIsContainer: Hashable {
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(snapshotId)
         hasher.combine(items.map(\.uri))
     }
     
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.snapshotId == rhs.snapshotId &&
                 lhs.items.lazy.map(\.uri) == rhs.items.lazy.map(\.uri)

@@ -2,13 +2,13 @@ import sys, os, re
 
 use_test = sys.argv[1].lower()
 
-project_directory = os.path.dirname(__file__)
+project_directory = os.getcwd()
 
 # ensure the working directory is the SpotifyAPI package
 package_file = os.path.join(project_directory, "Package.swift")
 if not os.path.exists(package_file):
     print(
-        "Expected to find Package.swift file in the working direcory. "
+        "Expected to find Package.swift file in the working directory. "
         "The working directory must be the root directory of the SpotifyAPI "
         f"package: {project_directory}"
     )
@@ -24,16 +24,23 @@ elif use_test == "false":
 else:
     exit("first argument must be either 'true' or 'false'")
 
-print(f"will replace {flags[0]} with {flags[1]} in {project_directory}")
+print(f"will replace `{flags[0]}` with `{flags[1]}` in {project_directory}")
 
 sources_directory = os.path.join(project_directory, "Sources")
 tests_directory = os.path.join(project_directory, "Tests")
 
-# the full paths to all of the swift source code files
-# in the Sources and Tests directory, and the package.swift file
+# the full paths to all of the swift source code files in the Sources and Tests
+# directory, and the package.swift file
 swift_files: [str] = []
 
 swift_files.append(package_file)
+
+# find all Package@swift-x.x.swift files
+
+for file in os.listdir(project_directory):
+    if file.startswith("Package@swift-"):
+        full_path = os.path.join(project_directory, file)
+        swift_files.append(full_path)
 
 # search for all swift source code files
 for directory in (sources_directory, tests_directory):
@@ -44,7 +51,7 @@ for directory in (sources_directory, tests_directory):
             full_path = os.path.join(root, file)
             swift_files.append(full_path)
 
-pattern = rf"^(\s*){flags[0]}\s*$"
+pattern = rf"^(\s*){flags[0]}"
 replacement = rf"\1{flags[1]}"
 
 for file in swift_files:

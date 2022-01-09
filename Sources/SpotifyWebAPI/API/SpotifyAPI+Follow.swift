@@ -94,13 +94,15 @@ public extension SpotifyAPI {
      Check to see if one or more Spotify users are following a specified
      playlist.
 
-     See also `currentUserFollowsArtists(_:)` and `currentUserFollowsUsers(_:)`.
+     See also ``currentUserFollowsArtists(_:)`` and
+     ``currentUserFollowsUsers(_:)``.
      
      Following a playlist can be done publicly or privately. Checking if a user
      publicly follows a playlist doesn’t require any scopes; if the user is
      publicly following the playlist, this endpoint returns `true`. Checking if
      the user is privately following a playlist is only possible for the current
-     user when that user has granted access to the `playlistReadPrivate` scope.
+     user when that user has granted access to the ``Scope/playlistReadPrivate``
+     scope.
 
      If the user has created the playlist themself (or you created it for them)
      and it shows up in their Spotify client, then that also means that they are
@@ -167,9 +169,9 @@ public extension SpotifyAPI where
     /**
      Get the current user’s followed artists.
      
-     See also `SpotifyAPI.currentUserFollowsArtists(_:)`.
+     See also ``currentUserFollowsArtists(_:)``.
      
-     This endpoint requires the `userFollowRead` scope.
+     This endpoint requires the ``Scope/userFollowRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -179,7 +181,7 @@ public extension SpotifyAPI where
              after this artist.
        - limit: *Optional*. The maximum number of items to return. Default: 20;
              Minimum: 1; Maximum: 50.
-     - Returns: An array of artist objects wrapped in a `CursorPagingObject`.
+     - Returns: An array of artist objects wrapped in a ``CursorPagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-followed
      */
@@ -226,9 +228,9 @@ public extension SpotifyAPI where
     /**
      Check if the current user follows the specified artists.
      
-     See also `SpotifyAPI.currentUserFollowedArtists(after:limit:)`.
+     See also ``SpotifyAPI/currentUserFollowedArtists(after:limit:)``.
      
-     This endpoint requires the `userFollowRead` scope.
+     This endpoint requires the ``Scope/userFollowRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -254,10 +256,10 @@ public extension SpotifyAPI where
     /**
      Add the current user as a follower of one or more artists.
      
-     See also `followUsersForCurrentUser(_:)` and
-     `followPlaylistForCurrentUser(_:publicly:)`.
+     See also ``followUsersForCurrentUser(_:)`` and
+     ``followPlaylistForCurrentUser(_:publicly:)``.
      
-     This endpoint requires the `userFollowModify` scope.
+     This endpoint requires the ``Scope/userFollowModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -279,10 +281,10 @@ public extension SpotifyAPI where
     /**
      Unfollow one or more artists for the current user.
 
-     See also `unfollowUsersForCurrentUser(_:)` and
-     `unfollowPlaylistForCurrentUser(_:)`.
+     See also ``unfollowUsersForCurrentUser(_:)`` and
+     ``unfollowPlaylistForCurrentUser(_:)``.
      
-     This endpoint requires the `userFollowModify` scope.
+     This endpoint requires the ``Scope/userFollowModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -304,10 +306,10 @@ public extension SpotifyAPI where
     /**
      Check if the current user follows the specified users.
      
-     See also `currentUserFollowsArtists(_:)` and
-     `usersFollowPlaylist(_:userURIs:)`.
+     See also ``currentUserFollowsArtists(_:)`` and
+     ``usersFollowPlaylist(_:userURIs:)``.
      
-     This endpoint requires the `userFollowRead` scope.
+     This endpoint requires the ``Scope/userFollowRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -333,10 +335,10 @@ public extension SpotifyAPI where
     /**
      Add the current user as a follower of one or more users.
      
-     See also `followArtistsForCurrentUser(_:)` and
-     `followPlaylistForCurrentUser(_:publicly:)`.
+     See also ``followArtistsForCurrentUser(_:)`` and
+     ``followPlaylistForCurrentUser(_:publicly:)``.
      
-     This endpoint requires the `userFollowModify` scope.
+     This endpoint requires the ``Scope/userFollowModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -358,10 +360,10 @@ public extension SpotifyAPI where
     /**
      Unfollow one or more users for the current user.
 
-     See also `unfollowArtistsForCurrentUser(_:)` and
-     `unfollowPlaylistForCurrentUser(_:)`.
+     See also ``unfollowArtistsForCurrentUser(_:)`` and
+     ``unfollowPlaylistForCurrentUser(_:)``.
      
-     This endpoint requires the `userFollowModify` scope.
+     This endpoint requires the ``Scope/userFollowModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -383,12 +385,12 @@ public extension SpotifyAPI where
     /**
      Follow a playlist for the current user.
 
-     See also `followArtistsForCurrentUser(_:)` and
-     `followUsersForCurrentUser(_:)`.
+     See also ``followArtistsForCurrentUser(_:)`` and
+     ``followUsersForCurrentUser(_:)``.
 
      Following a playlist publicly requires authorization of the
-     `playlistModifyPublic` scope; following it privately requires the
-     `playlistModifyPrivate` scope.
+     ``Scope/playlistModifyPublic`` scope; following it privately requires the
+     ``Scope/playlistModifyPrivate`` scope.
 
      Note that the scopes you provide relate only to whether the current user is
      following the playlist publicly or privately (i.e. showing others what they
@@ -403,7 +405,7 @@ public extension SpotifyAPI where
        - publicly: *Optional*. Defaults to `true`. If `true`, the playlist
              will be included in the user’s public playlists, if `false`, it
              will remain private. To be able to follow playlists privately, the
-             user must have granted the `playlistModifyPrivate` scope.
+             user must have granted the ``Scope/playlistModifyPrivate`` scope.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-follow-playlist
@@ -440,16 +442,16 @@ public extension SpotifyAPI where
     /**
      Unfollow a playlist for the current user.
 
-     See also `unfollowArtistsForCurrentUser(_:)` and
-     `unfollowUsersForCurrentUser(_:)`.
+     See also ``unfollowArtistsForCurrentUser(_:)`` and
+     ``unfollowUsersForCurrentUser(_:)``.
 
      Spotify has no concept of deleting playlists. When a user deletes a
      playlist in their Spotify client, they are actually just unfollowing it.
      The playlist can always be retrieved again given a valid URI.
 
      Unfollowing a publicly followed playlist for a user requires authorization
-     of the `playlistModifyPublic` scope; unfollowing a privately followed
-     playlist requires the `playlistModifyPrivate` scope.
+     of the ``Scope/playlistModifyPublic`` scope; unfollowing a privately
+     followed playlist requires the ``Scope/playlistModifyPrivate`` scope.
 
      Note that the scopes you provide relate only to whether the current user is
      following the playlist publicly or privately (i.e. showing others what they

@@ -16,9 +16,9 @@ public extension SpotifyAPI where
     /**
      Get the current user's top artists, calculated based on affinity.
      
-     See also `currentUserTopTracks(_:offset:limit:)`.
+     See also ``currentUserTopTracks(_:offset:limit:)``.
      
-     This endpoint requires the `userTopRead` scope.
+     This endpoint requires the ``Scope/userTopRead`` scope.
 
      Affinity is a measure of the expected preference a user has for a
      particular artist. It is based on user behavior, including play history,
@@ -26,19 +26,20 @@ public extension SpotifyAPI where
      infrequent users of Spotify may not have sufficient play history to
      generate a full affinity data set. As a user’s behavior is likely to shift
      over time, this preference data is available over three time spans. See
-     `timeRange` in the query parameter table for more information. For each
-     time range, the top 50 artists are available for each user. In the future,
-     it is likely that this restriction will be relaxed. This data is typically
-     updated once each day for each user.
+     `timeRange` below for more information. For each time range, the top 50
+     artists are available for each user. In the future, it is likely that this
+     restriction will be relaxed. This data is typically updated once each day
+     for each user.
      
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - timeRange: *Optional*. Over what time frame the affinities are
-             computed. Valid values: `longTerm` (calculated from several years
-             of data and including all new data as it becomes available),
-             `mediumTerm` (approximately last 6 months), and `shortTerm`
-             (approximately last 4 weeks). Default: `mediumTerm`.
+             computed. Valid values: ``TimeRange/longTerm`` (calculated from
+             several years of data and including all new data as it becomes
+             available), ``TimeRange/mediumTerm`` (approximately last 6 months),
+             and ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
+             ``TimeRange/mediumTerm``.
        - offset: *Optional*. The index of the first artist to return. Default:
              0. Use with limit to get the next set of artists.
        - limit: *Optional*. The number of artists to return. Default: 20;
@@ -70,9 +71,9 @@ public extension SpotifyAPI where
     /**
      Get the current user's top tracks, calculated based on affinity.
 
-     See also `currentUserTopArtists(_:offset:limit:)`.
+     See also ``currentUserTopArtists(_:offset:limit:)``.
 
-     This endpoint requires the `userTopRead` scope.
+     This endpoint requires the ``Scope/userTopRead`` scope.
 
      Affinity is a measure of the expected preference a user has for a
      particular track. It is based on user behavior, including play history, but
@@ -89,10 +90,11 @@ public extension SpotifyAPI where
      
      - Parameters:
        - timeRange: *Optional*. Over what time frame the affinities are
-             computed. Valid values: `longTerm` (calculated from several years
-             of data and including all new data as it becomes available),
-             `mediumTerm` (approximately last 6 months), and `shortTerm`
-             (approximately last 4 weeks). Default: `mediumTerm`.
+             computed. Valid values: ``TimeRange/longTerm`` (calculated from
+             several years of data and including all new data as it becomes
+             available), ``TimeRange/mediumTerm`` (approximately last 6 months),
+             and ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
+             ``TimeRange/mediumTerm``.
        - offset: *Optional*. The index of the first track to return. Default: 0.
              Use with limit to get the next set of tracks.
        - limit: *Optional*. The number of tracks to return. Default: 20;

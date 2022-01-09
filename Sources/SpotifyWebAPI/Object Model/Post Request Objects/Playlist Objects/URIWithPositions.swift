@@ -2,13 +2,13 @@ import Foundation
 
 /**
  A Spotify URI and its positions in a collection (usually a playlist). Used in
- the body of `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)`.
+ the body of ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``.
  
  For example, this may represent all of the positions in a playlist of a
  specific track. The positions of the URI is necessary in case the collection
  has duplicate items.
  
- See also `URIWithPositionsContainer`.
+ See also ``URIsWithPositionsContainer``.
  */
 public struct URIWithPositions {
     
@@ -16,11 +16,12 @@ public struct URIWithPositions {
     public var uri: SpotifyURIConvertible
     
     /**
-     The zero-indexed positions of the item corresponding to `uri` in a
+     The zero-indexed positions of the item corresponding to ``uri`` in a
      collection (usually a playlist).
 
-     For example, if the track/episode corresponding to `uri` appears in the
-     first and third position of a playlist, then `positions` would be `[0, 2]`.
+     For example, if the track/episode corresponding to ``uri`` appears in the
+     first and third position of a playlist, then ``positions`` would be `[0,
+     2]`.
      */
     public var positions: [Int]
     
@@ -45,7 +46,6 @@ public struct URIWithPositions {
 
 extension URIWithPositions: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -57,7 +57,6 @@ extension URIWithPositions: Codable {
         )
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -77,13 +76,11 @@ extension URIWithPositions: Codable {
 
 extension URIWithPositions: Hashable {
     
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.uri.uri)
         hasher.combine(self.positions)
     }
         
-    /// :nodoc:
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.uri.uri == rhs.uri.uri &&
                 lhs.positions == rhs.positions

@@ -128,9 +128,9 @@ public extension SpotifyAPI where
     /**
      Get the saved albums for the current user.
      
-     See also `currentUserSavedAlbumsContains(_:)`.
+     See also ``currentUserSavedAlbumsContains(_:)``.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      To get just the albums, use:
      ```
@@ -147,8 +147,8 @@ public extension SpotifyAPI where
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
              string "from_token". Provide this parameter if you want to apply
              [Track Relinking][3].
-     - Returns: An array of the full versions of `Album` objects wrapped in a
-           `SavedItem` object, wrapped in a `PagingObject`.
+     - Returns: An array of the full versions of ``Album`` objects wrapped in a
+           ``SavedItem`` object, wrapped in a ``PagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -176,9 +176,9 @@ public extension SpotifyAPI where
     /**
      Get the saved tracks for the current user.
      
-     See also `currentUserSavedTracksContains(_:)`.
+     See also ``currentUserSavedTracksContains(_:)``.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      To get just the tracks, use:
      ```
@@ -195,8 +195,8 @@ public extension SpotifyAPI where
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
              string "from_token". Provide this parameter if you want to apply
              [Track Relinking][3].
-     - Returns: An array of the full versions of `Track` objects wrapped in a
-           `SavedItem` object, wrapped in a `PagingObject`.
+     - Returns: An array of the full versions of ``Track`` objects wrapped in a
+           ``SavedItem`` object, wrapped in a ``PagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -226,9 +226,9 @@ public extension SpotifyAPI where
      
      **This API endpoint is in beta and could change without warning.**
 
-     See also `currentUserSavedEpisodesContains(_:)`.
+     See also ``currentUserSavedEpisodesContains(_:)``.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      To get just the episodes, use:
      ```
@@ -244,8 +244,8 @@ public extension SpotifyAPI where
              Default: 0. Use with `limit` to get the next set of episodes.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token".
-     - Returns: An array of the full versions of `Show` objects wrapped in
-           a `SavedItem` object, wrapped in a `PagingObject`.
+     - Returns: An array of the full versions of ``Show`` objects wrapped in
+           a ``SavedItem`` object, wrapped in a ``PagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -272,9 +272,9 @@ public extension SpotifyAPI where
     /**
      Get the saved shows for the current user.
      
-     See also `currentUserSavedShowsContains(_:)`.
+     See also ``currentUserSavedShowsContains(_:)``.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      To get just the shows, use:
      ```
@@ -290,8 +290,8 @@ public extension SpotifyAPI where
              Default: 0. Use with `limit` to get the next set of shows.
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
              the string "from_token".
-     - Returns: An array of the full versions of `Show` objects wrapped in
-           a `SavedItem` object, wrapped in a `PagingObject`.
+     - Returns: An array of the full versions of ``Show`` objects wrapped in
+           a ``SavedItem`` object, wrapped in a ``PagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-shows
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -319,7 +319,7 @@ public extension SpotifyAPI where
      Check if one or more albums is saved in the current user's
      "Your Music" library.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -349,7 +349,7 @@ public extension SpotifyAPI where
      Check if one or more tracks is saved in the current user's
      "Your Music" library.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -381,7 +381,7 @@ public extension SpotifyAPI where
      
      **This API endpoint is in beta and could change without warning.**
 
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -411,7 +411,7 @@ public extension SpotifyAPI where
      Check if one or more shows is saved in the current user's
      "Your Music" library.
      
-     This endpoint requires the `userLibraryRead` scope.
+     This endpoint requires the ``Scope/userLibraryRead`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -440,7 +440,7 @@ public extension SpotifyAPI where
     /**
      Save albums for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -464,7 +464,7 @@ public extension SpotifyAPI where
     /**
      Save tracks for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -490,11 +490,11 @@ public extension SpotifyAPI where
      
      **This API endpoint is in beta and could change without warning.**
 
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
-     - Parameter uris: An array of episdoe URIs. Maximum: 50.
+     - Parameter uris: An array of episode URIs. Maximum: 50.
            Duplicates will be ignored. A single invalid URI causes
            the entire request to fail. Passing in an empty array will
            prevent a network request from being made.
@@ -514,7 +514,7 @@ public extension SpotifyAPI where
     /**
      Save shows for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -538,7 +538,7 @@ public extension SpotifyAPI where
     /**
      Remove saved albums for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -565,7 +565,7 @@ public extension SpotifyAPI where
     /**
      Remove saved tracks for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -592,7 +592,7 @@ public extension SpotifyAPI where
     /**
      Remove saved episodes for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      
@@ -622,7 +622,7 @@ public extension SpotifyAPI where
     /**
      Remove saved shows for the current user.
      
-     This endpoint requires the `userLibraryModify` scope.
+     This endpoint requires the ``Scope/userLibraryModify`` scope.
      
      Read more at the [Spotify web API reference][1].
      

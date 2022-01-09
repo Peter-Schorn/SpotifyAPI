@@ -2,7 +2,7 @@ import Foundation
 
 /**
  A [Recommendations Response Object][1]. Returned by
- `SpotifyAPI.recommendations(_:limit:market:)`. See also `RecommendationSeed`.
+ ``SpotifyAPI/recommendations(_:limit:market:)``. See also ``RecommendationSeed``.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
  */
@@ -11,12 +11,12 @@ public struct RecommendationsResponse: Codable, Hashable {
     /**
      An array of [recommendation seed objects][1].
 
-     Consider using the `seedArtists`, `seedTracks`, or `seedGenres`
+     Consider using the ``seedArtists``, ``seedTracks``, or ``seedGenres``
      computed properties, which are backed by this property.
       
-     The seeds will be returned based on the `seedArtists`, `seedTracks`, and
-     `seedGenres` parameters of `TrackAttributes`, *in that order*. They will
-     then be ordered by the order of each artist, track, and genre URI/id
+     The seeds will be returned based on the ``seedArtists``, ``seedTracks``,
+     and ``seedGenres`` parameters of ``TrackAttributes``, *in that order*. They
+     will then be ordered by the order of each artist, track, and genre URI/id
      that was provided.
      
      Usually, there will be one seed object for each artist, track, and genre.
@@ -46,8 +46,8 @@ public struct RecommendationsResponse: Codable, Hashable {
     
     /**
      A [Recommendations Response Object][1]. Returned by
-     `SpotifyAPI.recommendations(_:limit:market:)`. See also
-     `RecommendationSeed`.
+     ``SpotifyAPI/recommendations(_:limit:market:)``. See also
+     ``RecommendationSeed``.
      
      - Parameters:
        - seeds: An array of [recommendation seed objects][2].

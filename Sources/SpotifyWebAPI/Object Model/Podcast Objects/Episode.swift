@@ -26,7 +26,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
      The user’s most recent position in the episode.
     
      Non-`nil` only if the application has been authorized for the
-     `userReadPlaybackPosition` scope.
+     ``Scope/userReadPlaybackPosition`` scope.
      */
     public let resumePoint: ResumePoint?
     
@@ -38,7 +38,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
 
     /// The date the episode was first released.
     ///
-    /// See also `releaseDatePrecision`.
+    /// See also ``releaseDatePrecision``.
     public let releaseDate: Date?
     
     /// The [Spotify URI][1] for the episode.
@@ -57,8 +57,8 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /**
      A link to the Spotify web API endpoint providing the full episode object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Episode` as the
-     response type to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Episode`` as
+     the response type to retrieve the results.
      */
     public let href: URL
        
@@ -87,11 +87,11 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
     public let languages: [String]
     
-    /// The precision with which `releaseDate` is known: "year", "month", or
+    /// The precision with which ``releaseDate`` is known: "year", "month", or
     /// "day".
     public let releaseDatePrecision: String?
  
-    /// The object type. Always `episode`.
+    /// The object type. Always ``IDCategory/episode``.
     public let type: IDCategory
  
     /**
@@ -105,7 +105,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
        - description: A description of the episode.
        - resumePoint: The user’s most recent position in the episode. Set if the
              supplied access token is a user token and has the
-             `userReadPlaybackPosition` scope.
+             ``Scope/userReadPlaybackPosition`` scope.
        - durationMS: The episode length in milliseconds.
        - isExplicit: Whether or not the episode has explicit content.
        - releaseDate: The date the episode was first released.
@@ -124,8 +124,8 @@ public struct Episode: Hashable, SpotifyURIConvertible {
              Spotify's CDN (content delivery network). Else, `false`.
        - languages: A list of the languages used in the episode, identified by
              their [ISO 639][4] code.
-       - releaseDatePrecision: The precision with which `releaseDate` is known:
-             "year", "month", or "day".
+       - releaseDatePrecision: The precision with which ``releaseDate`` is
+             known: "year", "month", or "day".
      
      [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -175,7 +175,6 @@ public struct Episode: Hashable, SpotifyURIConvertible {
 
 extension Episode: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -242,7 +241,6 @@ extension Episode: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -349,7 +347,7 @@ extension Episode: ApproximatelyEquatable {
      0.001 and all other properties are equal by the `==` operator. Else,
      returns `false`.
      
-     `Episode.releaseDate` is compared using `timeIntervalSince1970`, so it
+     ``Episode/releaseDate`` is compared using `timeIntervalSince1970`, so it
      is considered a floating point property for the purposes of this method.
      
      - Parameter other: Another instance of `Self`.

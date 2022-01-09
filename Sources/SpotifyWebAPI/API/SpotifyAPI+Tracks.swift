@@ -14,7 +14,7 @@ public extension SpotifyAPI {
     /**
      Get a Track.
      
-     See also `tracks(_:market:)` - gets multiple tracks
+     See also ``tracks(_:market:)`` - gets multiple tracks
      
      No scopes are required for this endpoint.
      
@@ -58,7 +58,7 @@ public extension SpotifyAPI {
     /**
      Get multiple Tracks.
      
-     See also `track(_:market:)` - gets a single track
+     See also ``track(_:market:)`` - gets a single track
      
      No scopes are required for this endpoint.
      
@@ -71,7 +71,7 @@ public extension SpotifyAPI {
        - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or the
              string "from_token". Provide this parameter if you want to apply
              [Track Relinking][2].
-     - Returns: The full versions of up to 50 `Track` objects. Tracks are
+     - Returns: The full versions of up to 50 ``Track`` objects. Tracks are
            returned in the order requested. If a track is not found, `nil` is
            returned in the appropriate position. Duplicate tracks URIs in the
            request will result in duplicate tracks in the response.
@@ -138,8 +138,8 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `trackAudioFeatures(_:)` - gets the audio features for a single track
-     * `tracksAudioFeatures(_:)` - gets the audio features for multiple tracks
+     * ``trackAudioFeatures(_:)`` - gets the audio features for a single track
+     * ``tracksAudioFeatures(_:)`` - gets the audio features for multiple tracks
      
      No scopes are required for this endpoint.
      
@@ -177,8 +177,8 @@ public extension SpotifyAPI {
 
      See also:
      
-     * `tracksAudioFeatures(_:)` - gets the audio features for multiple tracks
-     * `trackAudioAnalysis(_:)` - gets audio analysis for a track
+     * ``tracksAudioFeatures(_:)`` - gets the audio features for multiple tracks
+     * ``trackAudioAnalysis(_:)`` - gets audio analysis for a track
      
      No scopes are required for this endpoint.
      
@@ -216,8 +216,8 @@ public extension SpotifyAPI {
      
      See also:
      
-     * `trackAudioFeatures(_:)` - gets the audio features for a single track
-     * `trackAudioAnalysis(_:)` - gets audio analysis for a track.
+     * ``trackAudioFeatures(_:)`` - gets the audio features for a single track
+     * ``trackAudioAnalysis(_:)`` - gets audio analysis for a track.
      
      No scopes are required for this endpoint.
      

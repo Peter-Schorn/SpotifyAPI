@@ -14,7 +14,7 @@ public extension SpotifyAPI {
     /**
      Get a Spotify Category.
 
-     Use `categories(country:locale:limit:offset:)` to get an array of
+     Use ``categories(country:locale:limit:offset:)`` to get an array of
      categories.
 
      No scopes are required for this endpoint.
@@ -62,8 +62,8 @@ public extension SpotifyAPI {
      Get a list of categories used to tag items in Spotify (on, for example, the
      Spotify player’s "Browse" tab).
 
-     See also `category(_:country:locale:)` (gets a single category based on an
-     id).
+     See also ``category(_:country:locale:)`` (gets a single category based on
+     an id).
      
      No scopes are required for this endpoint.
      
@@ -308,7 +308,7 @@ public extension SpotifyAPI {
      For artists and tracks that are very new or obscure there might not be
      enough data to generate a list of tracks.
 
-     Use `SpotifyAPI.recommendationGenres()` to get the available seed genres.
+     Use ``SpotifyAPI/recommendationGenres()`` to get the available seed genres.
 
      Read more at the [Spotify web API reference][1].
      
@@ -325,7 +325,7 @@ public extension SpotifyAPI {
              [Track Relinking][4]. Because minimum, maximum, and target values
              are applied to pools before relinking, the generated results may
              not precisely match the filters applied. Original, non-relinked
-             tracks are available via the `linkedFrom` attribute of the
+             tracks are available via the ``Track/linkedFrom`` attribute of the
              [relinked track response][5].
      - Returns: Recommendation seeds and an array of tracks.
      
@@ -367,8 +367,9 @@ public extension SpotifyAPI {
 
      No scopes are required for this endpoint.
      
-     These values can be used in the `seedGenres` property of `TrackAttributes`
-     when using the `recommendations(_:limit:market:)` endpoint.
+     These values can be used in the ``TrackAttributes/seedGenres`` property of
+     ``TrackAttributes`` when using the ``recommendations(_:limit:market:)``
+     endpoint.
      
      Read more at the [Spotify web API reference][2].
      

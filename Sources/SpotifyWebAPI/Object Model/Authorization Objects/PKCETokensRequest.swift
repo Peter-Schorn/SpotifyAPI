@@ -5,19 +5,19 @@ import Foundation
  is used to request a refresh and access token for the [Authorization Code Flow
  with Proof Key for Code Exchange][1].
 
- When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend` and
+ When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend`` and
  which communicates *directly* with Spotify, use this type in the body of the
  network request made in the
- `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+ ``AuthorizationCodeFlowPKCEBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
  method.
  
- When using a custom backend server, use `ProxyPKCETokensRequest` instead,
- which does not contain the `clientId` because this value should be stored on
+ When using a custom backend server, use ``ProxyPKCETokensRequest`` instead,
+ which does not contain the ``clientId`` because this value should be stored on
  the server.
 
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
-       network request using `self.formURLEncoded`.
+       network request using ``formURLEncoded()``.
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -55,19 +55,19 @@ public struct PKCETokensRequest: Hashable {
      Creates an instance of this type, which is used to refresh the access token
      for the [Authorization Code Flow with Proof Key for Code Exchange][1].
      
-     When creating a type that conforms to `AuthorizationCodeFlowPKCEBackend`
+     When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates *directly* with Spotify, use this type in the body
      of the network request made in the
-     `requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)`
+     ``AuthorizationCodeFlowPKCEBackend/requestAccessAndRefreshTokens(code:codeVerifier:redirectURIWithQuery:)``
      method.
 
-     When using a custom backend server, use `ProxyPKCETokensRequest` instead,
-     which does not contain the `clientId` because this value should be stored
+     When using a custom backend server, use ``ProxyPKCETokensRequest`` instead,
+     which does not contain the ``clientId`` because this value should be stored
      on the server.
 
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
-           network request using `self.formURLEncoded`.
+           network request using ``formURLEncoded()``.
      
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the

@@ -4,13 +4,12 @@ import Foundation
  A [cursor-based paging object][1].
  
  See [get current user's recently played tracks][2] and
- `SpotifyAPI.recentlyPlayed(_:limit:)`.
+ ``SpotifyAPI/recentlyPlayed(_:limit:)``.
  
- See also [Working with Paginated Results][1].
+ See also <doc:Working-with-Paginated-Results>.
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
  [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
- [3]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Codable, Hashable
@@ -19,11 +18,11 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /**
      A link to the Web API endpoint returning the full result of the request.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL
     
-    /// An array of the requested data in this `CursorPagingObject`.
+    /// An array of the requested data in this ``CursorPagingObject``.
     public let items: [Item]
      
     /// The maximum number of items in the response (as set in the query or by
@@ -33,11 +32,9 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /**
      The URL to the next page of items, or `nil` if none.
     
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      
-     See also [Working with Paginated Results][1].
-     
-     [1]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results
+     See also <doc:Working-with-Paginated-Results>.
      */
     public let next: URL?
     
@@ -51,12 +48,12 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
      Creates a [cursor-based paging object][1].
      
      See [get current user's recently played tracks][2]
-     and `recentlyPlayed(_:limit:)`.
+     and ``SpotifyAPI/recentlyPlayed(_:limit:)``.
      
      - Parameters:
        - href: A link to the Web API endpoint returning the full result of the
              request.
-       - items: An array of the requested data in this `CursorPagingObject`.
+       - items: An array of the requested data in this ``CursorPagingObject``.
        - limit: The maximum number of items in the response.
        - next: The URL to the next page of items, or `nil` if none.
        - cursors: Used to find the next and previous items.

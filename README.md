@@ -12,7 +12,11 @@
 * Supports three different authorization methods
 * Automatically refreshes the access token when necessary
 
+<<<<<<< HEAD
 Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17]. Check out the beta documentation [here](https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI).
+=======
+Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17]. Check out the beta documentation [here](https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI)
+>>>>>>> swift-5-5
 
 ## Table of Contents
 
@@ -31,7 +35,7 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 
 ## Supported Platforms
 
-* Swift 5.3+ (for Swift 5.1 and 5.2 support, use the [`swift-5-1`](https://github.com/Peter-Schorn/SpotifyAPI/tree/swift-5-1) branch)
+* Swift 5.3+ (for Swift 5.1 and 5.2 support and support for older platforms, use the [`swift-5-1`](https://github.com/Peter-Schorn/SpotifyAPI/tree/swift-5-1) branch)
 * iOS 13+
 * macOS 10.15+
 * tvOS 13+

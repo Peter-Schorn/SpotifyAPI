@@ -8,25 +8,25 @@ enum AuthorizationManagerLoggers {
      authorization managers.
      */
 
-    /// Publicly exposed via `AuthorizationCodeFlowManagerBase.baseLogger`.
+    /// Publicly exposed via ``AuthorizationCodeFlowManagerBase/baseLogger``.
     static var authorizationCodeFlowManagerBaseLogger = Logger(
         label: "AuthorizationCodeFlowManagerBase",
         level: .critical
     )
 
-    /// Publicly exposed via `AuthorizationCodeFlowBackendManager.logger`
+    /// Publicly exposed via ``AuthorizationCodeFlowBackendManager/logger``
     static var authorizationCodeFlowManagerLogger = Logger(
         label: "AuthorizationCodeFlowManager",
         level: .critical
     )
     
-    /// Publicly exposed via `AuthorizationCodeFlowPKCEBackendManager.logger`
+    /// Publicly exposed via ``AuthorizationCodeFlowPKCEBackendManager/logger``
     static var authorizationCodeFlowPKCEManagerLogger = Logger(
         label: "AuthorizationCodeFlowPKCEManager",
         level: .critical
     )
     
-    /// Publicly exposed via `ClientCredentialsFlowBackendManager.logger`.
+    /// Publicly exposed via ``ClientCredentialsFlowBackendManager/logger``.
     static var clientCredentialsFlowManagerLogger = Logger(
         label: "ClientCredentialsFlowManager",
         level: .critical

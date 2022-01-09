@@ -34,12 +34,12 @@ extension Numeric where Magnitude: FloatingPoint {
      Mathematical Properties:
      ------------------------
 
-     - `isApproximatelyEqual(to:relativeTolerance:norm:)` is _reflexive_ for
+     - ``isApproximatelyEqual(to:relativeTolerance:norm:)`` is _reflexive_ for
        non-exceptional values (such as NaN).
 
-     - `isApproximatelyEqual(to:relativeTolerance:norm:)` is _symmetric_.
+     - ``isApproximatelyEqual(to:relativeTolerance:norm:)`` is _symmetric_.
 
-     - `isApproximatelyEqual(to:relativeTolerance:norm:)` is __not__
+     - ``isApproximatelyEqual(to:relativeTolerance:norm:)`` is __not__
        _transitive_. Because of this, approximately equality is __not an__
        __equivalence relation__, even when restricted to non-exceptional values.
 
@@ -47,13 +47,13 @@ extension Numeric where Magnitude: FloatingPoint {
        `a` is _convex_. (Under the assumption that the `.magnitude` property
        implements a valid norm.)
 
-     - `isApproximatelyEqual(to:relativeTolerance:norm:)` is _scale invariant_,
+     - ``isApproximatelyEqual(to:relativeTolerance:norm:)`` is _scale invariant_,
        so long as no underflow or overflow has occurred, and no exceptional
        value is produced by the scaling.
 
      See Also:
      -------
-     - `isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:norm:])`
+     - ``isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:norm:])``
 
      - Parameters:
 
@@ -102,13 +102,13 @@ extension Numeric where Magnitude: FloatingPoint {
      Mathematical Properties:
      ------------------------
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)``
        is _reflexive_ for non-exceptional values (such as NaN).
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)``
        is _symmetric_.
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)``
        is __not__ _transitive_. Because of this, approximately equality is
        __not an equivalence relation__, even when restricted to non-exceptional
        values.
@@ -119,7 +119,7 @@ extension Numeric where Magnitude: FloatingPoint {
 
      See Also:
      -------
-     - `isApproximatelyEqual(to:[relativeTolerance:])`
+     - ``isApproximatelyEqual(to:[relativeTolerance:])``
 
      - Parameters:
 
@@ -172,13 +172,13 @@ extension AdditiveArithmetic {
      Mathematical Properties:
      ------------------------
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)``
        is _reflexive_ for non-exceptional values (such as NaN).
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)``
        is _symmetric_.
 
-     - `isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)`
+     - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:norm:)``
        is __not__ _transitive_. Because of this, approximately equality is
        __not an equivalence relation__, even when restricted to non-exceptional
        values.
@@ -189,8 +189,8 @@ extension AdditiveArithmetic {
 
      See Also:
      -------
-     - `isApproximatelyEqual(to:[relativeTolerance:norm:])`
-     - `isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:])`
+     - ``isApproximatelyEqual(to:[relativeTolerance:norm:])``
+     - ``isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:])``
 
      - Parameters:
 

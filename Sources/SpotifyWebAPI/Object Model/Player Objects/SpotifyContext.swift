@@ -16,7 +16,7 @@ public struct SpotifyContext: Hashable {
     /**
      A link to an endpoint providing further details about the context.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)` to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)`` to retrieve the results.
      */
     public let href: URL?
     
@@ -33,11 +33,12 @@ public struct SpotifyContext: Hashable {
     public let externalURLs: [String: URL]?
     
     /**
-     The object type of the item's context. Valid values are `album`, `artist`,
-     `playlist`, and `show`.
+     The object type of the item's context. Valid values are
+     ``IDCategory/album``, ``IDCategory/artist``, ``IDCategory/playlist``, and 
+     ``IDCategory/show``.
     
-     For example, if `type` is `playlist`, then the current track/episode is
-     playing in the context of a playlist.
+     For example, if ``type`` is ``IDCategory/playlist``, then the current
+     track/episode is playing in the context of a playlist.
      */
     public let type: IDCategory
     
@@ -49,8 +50,9 @@ public struct SpotifyContext: Hashable {
        - href: A link to an endpoint providing further details about the
              context.
        - externalURLs: Known [external urls][1] for the context.
-       - type: The object type of the item's context. Valid values are `album`,
-             `artist`, and `playlist`.
+       - type: The object type of the item's context. Valid values are
+             ``IDCategory/album``, ``IDCategory/artist``, and
+             ``IDCategory/playlist``.
      */
     public init(
         uri: String,

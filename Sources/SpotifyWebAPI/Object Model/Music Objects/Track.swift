@@ -76,7 +76,7 @@ public struct Track: Hashable {
      Part of the response when [Track Relinking][1] is applied. Else, `nil`. If
      `true`, the track is playable in the given market. Otherwise, `false`.
     
-     See also `restrictions`.
+     See also ``restrictions``.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -85,8 +85,8 @@ public struct Track: Hashable {
     /**
      A link to the Spotify web API endpoint providing the full track object.
      
-     Use `SpotifyAPI.getFromHref(_:responseType:)`, passing in `Track` as the
-     response type to retrieve the results.
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Track`` as
+     the response type to retrieve the results.
      */
     public let href: URL?
 
@@ -118,9 +118,9 @@ public struct Track: Hashable {
      their [ISO 3166-1 alpha-2 code][1].
     
      If a market parameter was supplied in the request that returned this track,
-     then this property will be `nil` and `isPlayable` will be non-`nil`.
+     then this property will be `nil` and ``isPlayable`` will be non-`nil`.
     
-     See also `restrictions` and the [Track Relinking Guide][2].
+     See also ``restrictions`` and the [Track Relinking Guide][2].
      
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
@@ -162,10 +162,10 @@ public struct Track: Hashable {
     public let discNumber: Int?
 
     /**
-     The object type. Usually `track`, but may be `episode` if this was
-     retrieved from a playlist.
+     The object type. Usually ``IDCategory/track``, but may be
+     ``IDCategory/episode`` if this was retrieved from a playlist.
      
-     See also `SpotifyAPI.playlistTracks(_:limit:offset:market:)`.
+     See also ``SpotifyAPI/playlistTracks(_:limit:offset:market:)``.
      */
     public let type: IDCategory
     
@@ -218,8 +218,9 @@ public struct Track: Hashable {
              from.
        - discNumber: The disc number (usually 1 unless the album consists of
              more than one disc).
-       - type: The object type. Usually `track`, but may be `episode` if
-             this was retrieved from a playlist. The default is `track`.
+       - type: The object type. Usually ``IDCategory/track``, but may be
+             ``IDCategory/episode`` if this was retrieved from a playlist. The
+             default is ``IDCategory/track``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -342,5 +343,5 @@ extension Track: ApproximatelyEquatable {
                 self.album.isApproximatelyEqual(to: other.album)
         
     }
-
+    
 }

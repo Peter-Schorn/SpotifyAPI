@@ -9,7 +9,7 @@ public enum Headers {
      except for those involved in retrieving refresh and/or access tokens and
      authorizing your application.
      
-     See also `bearerAuthorizationAndContentTypeJSON`.
+     See also ``bearerAuthorizationAndContentTypeJSON(_:)``.
      
      ```
      ["Authorization": "Bearer \(accessToken)"]
@@ -27,7 +27,7 @@ public enum Headers {
      The JSON Content-Type header. This tells the server that the body of the
      request is JSON.
      
-      See also `bearerAuthorizationAndContentTypeJSON(_:)`.
+      See also ``bearerAuthorizationAndContentTypeJSON(_:)``.
      
      ```
      ["Content-Type": "application/json"]

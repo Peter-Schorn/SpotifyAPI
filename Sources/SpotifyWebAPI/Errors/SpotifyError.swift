@@ -6,14 +6,14 @@ import Foundation
 
  See also:
  
- * `SpotifyPlayerError`
- * `SpotifyAuthenticationError`
- * `RateLimitedError`
+ * ``SpotifyPlayerError``
+ * ``SpotifyAuthenticationError``
+ * ``RateLimitedError``
  
  It has two properties:
  
- * `message`: A short description of the cause of the error.
- * `statusCode`: The HTTP status code that is also returned in the response
+ * ``message``: A short description of the cause of the error.
+ * ``statusCode``: The HTTP status code that is also returned in the response
    header.
  
  The [status Codes][2]:
@@ -71,7 +71,6 @@ public struct SpotifyError: LocalizedError, Hashable {
      */
     public let statusCode: Int
     
-    /// :nodoc:
     public var errorDescription: String? {
         "\(message) (status code: \(statusCode))"
     }
@@ -80,7 +79,6 @@ public struct SpotifyError: LocalizedError, Hashable {
 
 extension SpotifyError: Codable {
     
-    /// :nodoc:
     public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(
@@ -99,7 +97,6 @@ extension SpotifyError: Codable {
         
     }
     
-    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(
             keyedBy: CodingKeys.self

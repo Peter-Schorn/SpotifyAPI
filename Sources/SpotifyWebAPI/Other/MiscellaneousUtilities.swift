@@ -176,7 +176,6 @@ extension String {
      - Parameter tabEquivalents: The number of tab equivalents by which to
            indent each line. Each tab equivalent is actually represented as
            four spaces instead of the tab character.
-    
      */
     func indented(tabEquivalents: Int) -> Self {
         
