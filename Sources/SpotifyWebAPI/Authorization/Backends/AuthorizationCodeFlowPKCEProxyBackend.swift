@@ -15,8 +15,8 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
- authorization information and refresh the access token using the [Authorization
- Code Flow with Proof Key for Code Exchange][1].
+ authorization information and refresh the access token using the Authorization
+ Code Flow with Proof Key for Code Exchange.
  
  This server must have the following endpoints:
  
@@ -40,6 +40,9 @@ import OpenCombineFoundation
  `clientSecret` in network requests because this value should be securely stored
  on your backend server.
 
+ Read more about the [Authorization Code Flow with Proof Key for Code
+ Exchange][1].
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
@@ -51,8 +54,10 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
     )
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String
@@ -103,7 +108,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
            This will be done elsewhere. Only use this function to decode error
            objects produced by your custom backend server.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the

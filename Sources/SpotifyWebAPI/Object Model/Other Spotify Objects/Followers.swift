@@ -19,8 +19,10 @@ public struct Followers: Hashable {
     public let total: Int
     
     /**
-     Creates a Spotify [followers object][1].
+     Creates a Spotify followers object.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - href: A link to the Spotify web API endpoint providing full details of
              the followers; `nil` if not available. **Please note that this**

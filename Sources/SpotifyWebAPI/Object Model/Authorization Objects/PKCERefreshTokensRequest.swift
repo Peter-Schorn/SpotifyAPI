@@ -34,15 +34,17 @@ public struct PKCERefreshTokensRequest: Hashable {
     public let refreshToken: String
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String
     
     /**
      Creates an instance which refreshes the access token using the
-     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     Authorization Code Flow with Proof Key for Code Exchange.
 
      When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates *directly* with Spotify, use this type in the body
@@ -56,6 +58,9 @@ public struct PKCERefreshTokensRequest: Hashable {
      - Important: Although this type conforms to `Codable`, it should actually
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
+
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
 
      - Parameters:
        - refreshToken: The refresh token.

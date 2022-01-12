@@ -12,11 +12,7 @@
 * Supports three different authorization methods
 * Automatically refreshes the access token when necessary
 
-<<<<<<< HEAD
-Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17]. Check out the beta documentation [here](https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI).
-=======
-Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17]. Check out the beta documentation [here](https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI)
->>>>>>> swift-5-5
+Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
 
 ## Table of Contents
 
@@ -284,7 +280,7 @@ spotify.search(query: "Pink Floyd", categories: [.track])
 
 This authorization process is implemented in this [example command-line app][23]. The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
 
-[1]: https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html
+[1]: https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI
 [2]: https://developer.spotify.com/dashboard/login
 
 [3]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow

@@ -28,7 +28,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
     public let message: String
 
     /**
-     A [player error reason][1].
+     A player error reason.
      
      * ``ErrorReason/noPreviousTrack``: The command requires a previous track,
        but there is none in   the context.
@@ -67,6 +67,8 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        Spotify web API in which this error reason is returned for many requests
        instead of one of the more specific errors above.
      
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */
     public let reason: ErrorReason
@@ -102,8 +104,10 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
     }
     
     /**
-     A [player error reason][1].
+     A player error reason.
      
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */
     public enum ErrorReason: String, Codable, Hashable, CaseIterable {

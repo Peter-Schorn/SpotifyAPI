@@ -59,7 +59,7 @@ Set the `logLevel` to `warning` to print various warning and error messages to t
 
 #### AuthorizationCodeFlowBackendManager.logger
 
-Logs messages related to the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
+Logs messages related to the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
 
 #### AuthorizationCodeFlowPKCEBackendManager.logger
 
@@ -83,11 +83,11 @@ Logs messages related to retrieving the authorization information for the [Clien
 
 #### AuthorizationCodeFlowClientBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow).
+Logs messages related to retrieving the authorization information for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/).
 
 #### AuthorizationCodeFlowProxyBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow).
+Logs messages related to retrieving the authorization information for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/).
 
 #### AuthorizationCodeFlowPKCEClientBackend.logger
 

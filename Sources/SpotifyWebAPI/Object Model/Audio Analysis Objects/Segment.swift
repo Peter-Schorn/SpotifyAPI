@@ -1,8 +1,10 @@
 import Foundation
 
 /**
- A [segment][1] of a track with a roughly consistent sound.
+ A segment of a track with a roughly consistent sound.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#segment-object
  */
 public struct Segment: Hashable {
@@ -73,8 +75,10 @@ public struct Segment: Hashable {
     public let loudnessEnd: Double
 
     /**
-     Creates a [segment][1] of a track.
+     Creates a segment of a track.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - start: The starting point (in seconds) of the segment.
        - duration: The duration (in seconds) of the segment.

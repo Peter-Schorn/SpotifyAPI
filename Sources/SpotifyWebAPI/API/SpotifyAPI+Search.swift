@@ -19,7 +19,7 @@ public extension SpotifyAPI {
      set to "from_token", in which case the ``Scope/userReadPrivate`` scope is
      required.
 
-     # Keyword matching
+     **Keyword matching**
 
      Matching of search keywords is not case-sensitive. Operators, however,
      should be specified in uppercase. Unless surrounded by double quotation
@@ -32,7 +32,7 @@ public extension SpotifyAPI {
      any part of the playlist’s name or description. Only popular public
      playlists are returned.
 
-     # Operator
+     **Operator**
 
      The operator NOT can be used to exclude results.
 
@@ -45,7 +45,7 @@ public extension SpotifyAPI {
      **Note:** Operators must be specified in uppercase. Otherwise, they are
      handled as normal keywords to be matched.
 
-     # Field filters
+     **Field filters**
 
      By default, results are returned when a match is found in any field of the
      target object type. Searches can be made more specific by specifying an
@@ -113,7 +113,7 @@ public extension SpotifyAPI {
            not requested in the search. The simplified versions of all these
            objects will be returned.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-search
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */
@@ -141,19 +141,41 @@ public extension SpotifyAPI {
             let requiredScopes: Set<Scope> = market == "from_token" ?
                     [.userReadPrivate] : []
             
-            return self.getRequest(
-                path: "/search",
-                queryItems: [
+            func makeQueryItems(
+                offset: Int?
+            ) -> [String : LosslessStringConvertible?] {
+                return [
                     "q": query,
                     "type": categories.commaSeparatedString(),
                     "market": market,
                     "limit": limit,
                     "offset": offset,
                     "include_external": includeExternal
-                ],
+                ]
+            }
+
+            return self.getRequest(
+                path: "/search",
+                queryItems: makeQueryItems(offset: offset),
                 requiredScopes: requiredScopes
             )
             .decodeSpotifyObject(SearchResult.self)
+            .map { searchResult -> SearchResult in
+                
+                var copy = searchResult
+                
+                let offset = offset ?? 0
+                let limit = limit ?? 20
+                let nextOffset = offset + limit
+
+                let next = Endpoints.apiEndpoint(
+                    "/search",
+                    queryItems: makeQueryItems(offset: nextOffset)
+                )
+                copy.next = next
+                return copy
+            }
+            .eraseToAnyPublisher()
         
         } catch {
             return error.anyFailingPublisher()

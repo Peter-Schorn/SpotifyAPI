@@ -25,7 +25,7 @@ public extension SpotifyAPI {
 
      Always prefer using a different method whenever possible because this
      method adds the additional complexity of determining the appropriate
-     `responseType`.
+     `ResponseType`.
      
      - Parameters:
        - href: The full URL to a Spotify web API endpoint.

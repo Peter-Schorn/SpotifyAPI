@@ -76,7 +76,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      be non-`nil`. By default, `URLSession` will be used for the network
      requests.
 
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this function will be called on.
      Therefore, do not mutate this property while a network request is being
@@ -107,7 +107,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      See also ``SpotifyAPI/authorizationManagerDidDeauthorize``, a publisher
      that emits after ``SpotifyAuthorizationManager/deauthorize()`` is called.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */
@@ -129,7 +129,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
 
      See also ``SpotifyAPI/authorizationManagerDidChange``.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */

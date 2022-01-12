@@ -41,7 +41,7 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
 
     /**
      Creates an instance which refreshes the access token using the
-     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     Authorization Code Flow with Proof Key for Code Exchange.
 
      When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates with a custom backend server, use this type in the
@@ -57,6 +57,9 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
      
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
+
      - Parameter refreshToken: The refresh token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce

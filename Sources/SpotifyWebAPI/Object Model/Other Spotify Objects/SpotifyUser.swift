@@ -1,12 +1,14 @@
 import Foundation
 
 /**
- A [Spotify user][1].
+ A Spotify user.
  
  Can represent both the public and private version. When the public version is
  returned, properties that are only available in the private version will be
  `nil`.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
  */
 public struct SpotifyUser: SpotifyURIConvertible, Hashable {
@@ -61,9 +63,11 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     public let followers: Followers?
     
     /**
-     The country of the user, as set in the user’s account profile. An [ISO
-     3166-1 alpha-2 country code][1].
+     The country of the user, as set in the user’s account profile. An ISO
+     3166-1 alpha-2 country code.
     
+     Read about [ISO 3166-1 alpha-2 codes][1].
+
      This property is only available for the *current* user and requires the
      ``Scope/userReadPrivate`` scope. Otherwise, it will be `nil`.
      
@@ -93,11 +97,13 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     public let product: String?
     
     /**
-    Known [external urls][1] for this user.
+    Known external urls for this user.
 
     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
           for the object.
     - value: An external, public URL to the object.
+
+     Read more at the [Spotify web API reference][1].
 
     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -108,8 +114,10 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     public let type: IDCategory
     
     /**
-     Creates a [Spotify user][1].
+     Creates a Spotify user.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - displayName: The name displayed on the user’s profile.
        - uri: The [Spotify URI][2] for this user.

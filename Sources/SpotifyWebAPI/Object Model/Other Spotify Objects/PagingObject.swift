@@ -9,7 +9,7 @@ import OpenCombineFoundation
 import Logging
 
 /**
- A Spotify [paging object][1].
+ A Spotify paging object.
  
  The offset-based paging object is a container for a set of objects. It contains
  a property called ``items`` (whose value is an array of the requested objects)
@@ -22,6 +22,8 @@ import Logging
  ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``, and the combine
  operators of the same names.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
  */
 public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
@@ -86,13 +88,15 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
     public let total: Int
     
     /**
-     Creates a Spotify [paging object][1].
+     Creates a Spotify paging object.
      
      The offset-based paging object is a container for a set of objects. It
      contains a key called items (whose value is an array of the requested
      objects) along with other keys like previous, next and limit that can be
      useful in future calls.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - href: A link to the Spotify web API endpoint returning the full result
              of the request.

@@ -1,8 +1,8 @@
 import Foundation
 
 /**
- Used to request the authorization information for the [Client Credentials
- Flow][1].
+ Used to request the authorization information for the Client Credentials
+ Flow.
 
  This type should be used in the body of the network request made in the
  ``ClientCredentialsFlowBackend/makeClientCredentialsTokensRequest()`` method of
@@ -12,7 +12,9 @@ import Foundation
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  */
 public struct ClientCredentialsTokensRequest: Hashable {
     
@@ -21,7 +23,7 @@ public struct ClientCredentialsTokensRequest: Hashable {
 
     /**
      Creates an instance of this type, which is used to request the
-     authorization information for the [Client Credentials Flow][1].
+     authorization information for the Client Credentials Flow.
      
      This type should be used by the
      ``ClientCredentialsFlowBackend/makeClientCredentialsTokensRequest()``
@@ -31,7 +33,9 @@ public struct ClientCredentialsTokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     Read more about the [Client Credentials Flow][1].
+
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      */
     public init() { }
 

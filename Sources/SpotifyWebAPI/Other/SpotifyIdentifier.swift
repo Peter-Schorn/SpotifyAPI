@@ -4,7 +4,9 @@ import Logging
 
 /**
  Encapsulates the various formats that Spotify uses to uniquely identify content
- such as artists, tracks, and playlists. See [Spotify URIs and ids][1].
+ such as artists, tracks, and playlists.
+ 
+ See [Spotify URIs and ids][1].
 
  You can pass an instance of this struct into any method that accepts a
  ``SpotifyURIConvertible`` type.
@@ -120,24 +122,12 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     // MARK: Initializers
     
     /**
-     Creates an instance from an id and an id category. See [Spotify URIs and
-     ids][1].
+     Creates an instance from an id and an id category.
+     
+     See [Spotify URIs and ids][1].
     
      The id category must be one of the following:
      
-<<<<<<< HEAD
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `ad`
-     * `unknown`
-=======
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``
@@ -149,7 +139,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/genre``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
->>>>>>> swift-5-5
      
      - Parameters:
        - id: A Spotify id.
@@ -163,7 +152,9 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     }
 
     /**
-     Creates an instance from a URI. See [Spotify URIs and ids][1].
+     Creates an instance from a URI.
+     
+     See [Spotify URIs and ids][1].
     
      Uses the following [regular expression][2] to parse the id and id
      categories, *in that order*:
@@ -173,19 +164,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      The id category must be one of the following, or an error will be thrown:
      
-<<<<<<< HEAD
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `ad`
-     * `unknown`
-=======
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``
@@ -197,7 +175,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/genre``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
->>>>>>> swift-5-5
      
      - Parameters:
        - uri: A Spotify URI.
@@ -266,8 +243,9 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
     }
     
     /**
-     Creates an instance from a Spotify URL to the content. See [Spotify URIs
-     and ids][1].
+     Creates an instance from a Spotify URL to the content.
+     
+     See [Spotify URIs and ids][1].
     
      The first path component must be the id category. The second path component
      must be the id of the content. All additional path components and/or query
@@ -279,20 +257,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
 
      The id category must be one of the following:
-<<<<<<< HEAD
-     
-     * `artist`
-     * `album`
-     * `track`
-     * `playlist`
-     * `show`
-     * `episode`
-     * `local`
-     * `user`
-     * `genre`
-     * `ad`
-     * `unknown`
-=======
+
      * ``IDCategory/artist``
      * ``IDCategory/album``
      * ``IDCategory/track``
@@ -304,7 +269,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/genre``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
->>>>>>> swift-5-5
      
      - Parameter url: A URL that, when opened, displays the content in the web
            player.

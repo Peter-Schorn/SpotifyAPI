@@ -28,7 +28,7 @@ public extension SpotifyAPI where
      
      - Returns: An array of [device objects][2].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-users-available-devices
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
@@ -79,7 +79,7 @@ public extension SpotifyAPI where
            the string "from_token". Provide this parameter if you want to apply
            [Track Relinking][3].
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -139,7 +139,7 @@ public extension SpotifyAPI where
      - Returns: An array of simplified tracks wrapped in a
            ``CursorPagingObject``.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
      */
     func recentlyPlayed(
         _ timeReference: TimeReference? = nil,
@@ -189,7 +189,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-to-queue
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/add-to-queue
      */
     func addToQueue(
         _ uri: SpotifyURIConvertible,
@@ -241,7 +241,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-next-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track
      */
     func skipToNext(
         deviceId: String? = nil
@@ -289,7 +289,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-skip-users-playback-to-previous-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-previous-track
      */
     func skipToPrevious(
         deviceId: String? = nil
@@ -341,7 +341,7 @@ public extension SpotifyAPI where
                non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-pause-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
      */
     func pausePlayback(
         deviceId: String? = nil
@@ -396,7 +396,7 @@ public extension SpotifyAPI where
            on a non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     func resumePlayback(
         deviceId: String? = nil
@@ -479,7 +479,7 @@ public extension SpotifyAPI where
        - playbackRequest: A request to play content for the user. See above.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     func play(
         _ playbackRequest: PlaybackRequest,
@@ -531,7 +531,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-seek-to-position-in-currently-playing-track
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/seek-to-position-in-currently-playing-track
      */
     func seekToPosition(
         _ positionMS: Int,
@@ -588,7 +588,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-repeat-mode-on-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-repeat-mode-on-users-playback
      */
     func setRepeatMode(
         to repeatMode: RepeatMode,
@@ -644,7 +644,7 @@ public extension SpotifyAPI where
              device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-set-volume-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-volume-for-users-playback
      */
     func setVolume(
         to percent: Int,
@@ -697,7 +697,7 @@ public extension SpotifyAPI where
              non-active device, call ``transferPlayback(to:play:)`` first.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-toggle-shuffle-for-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/toggle-shuffle-for-users-playback
      */
     func setShuffle(
         to mode: Bool,
@@ -755,7 +755,7 @@ public extension SpotifyAPI where
              for completion) *before* transferring playback to the new device.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-transfer-a-users-playback
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/transfer-a-users-playback
      */
     func transferPlayback(
         to deviceId: String,

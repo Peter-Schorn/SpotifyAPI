@@ -54,7 +54,7 @@ public struct AudioAnalysis: Codable, Hashable {
     public let segments: [Segment]
     
     /**
-     Creates a new [Audio Analysis][1] object.
+     Creates a new Audio Analysis object.
      
      Describes a tracks structure and musical content, including rhythm, pitch,
      and timbre.
@@ -66,6 +66,8 @@ public struct AudioAnalysis: Codable, Hashable {
      speculative. There may not be sufficient data in the audio to compute the
      attribute with high certainty.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - bars: The time intervals of the bars throughout the track. A bar (or
              measure) is a segment of time defined as a given number of beats.

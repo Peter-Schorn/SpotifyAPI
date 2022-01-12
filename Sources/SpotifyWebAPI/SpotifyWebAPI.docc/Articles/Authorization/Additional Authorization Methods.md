@@ -8,9 +8,9 @@ Authorizing with Spotify directly via your frontend app exposes your client secr
 
 Listed below are protocols for each [authorization flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-flows) that enable you to customize how you retrieve the authorization information from Spotify, as well as concrete implementations of each protocol—one that communicates with Spotify directly (suffixed with "client") and one that communicates with a backend server (suffixed with "proxy"). For additional customization, you can create your own conforming types.
 
-* **``AuthorizationCodeFlowBackend``**: Used by ``AuthorizationCodeFlowBackendManager`` to retrieve the authorization information and refresh the access token for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow). Conforming types: ``AuthorizationCodeFlowClientBackend`` and ``AuthorizationCodeFlowProxyBackend``.
+* **``AuthorizationCodeFlowBackend``**: Used by ``AuthorizationCodeFlowBackendManager`` to retrieve the authorization information and refresh the access token for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/). Conforming types: ``AuthorizationCodeFlowClientBackend`` and ``AuthorizationCodeFlowProxyBackend``.
 
-* **``AuthorizationCodeFlowPKCEBackend``**: Used by ``AuthorizationCodeFlowPKCEBackendManager`` to retrieve the authorization information and refresh the access token for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow). Conforming types: ``AuthorizationCodeFlowPKCEClientBackend`` and ``AuthorizationCodeFlowPKCEProxyBackend``.
+* **``AuthorizationCodeFlowPKCEBackend``**: Used by ``AuthorizationCodeFlowPKCEBackendManager`` to retrieve the authorization information and refresh the access token for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/). Conforming types: ``AuthorizationCodeFlowPKCEClientBackend`` and ``AuthorizationCodeFlowPKCEProxyBackend``.
 
 * **``ClientCredentialsFlowBackend``**: Used by ``ClientCredentialsFlowBackendManager`` to retrieve the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow). Conforming types: ``ClientCredentialsFlowClientBackend`` and ``ClientCredentialsFlowProxyBackend``.
 
@@ -20,7 +20,7 @@ Instead of creating your own backend server, you can use [SpotifyAPIServer](http
 
 ## Creating Your Own Backend Server
 
-Each of the above protocols describes the functionality that your server must support. Each protocol has a conforming type suffixed with "proxy" which can make the requests to your server for you. For example, if you want to setup a server that can handle the authorization process for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow), then your frontend app should communicate with the server by either creating a custom type that conforms to ``AuthorizationCodeFlowBackend`` or by using ``AuthorizationCodeFlowProxyBackend``. You can then create an instance of ``SpotifyAPI`` as follows:
+Each of the above protocols describes the functionality that your server must support. Each protocol has a conforming type suffixed with "proxy" which can make the requests to your server for you. For example, if you want to setup a server that can handle the authorization process for the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/), then your frontend app should communicate with the server by either creating a custom type that conforms to ``AuthorizationCodeFlowBackend`` or by using ``AuthorizationCodeFlowProxyBackend``. You can then create an instance of ``SpotifyAPI`` as follows:
 
 ```swift
 let spotifyAPI = SpotifyAPI(

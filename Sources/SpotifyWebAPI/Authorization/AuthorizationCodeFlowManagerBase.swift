@@ -63,7 +63,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     /**
      The access token used in all of the requests to the Spotify web API.
 
-     # Thread Safety
+     **Thread Safety**
 
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -78,7 +78,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
     /**
      Used to refresh the access token.
 
-     # Thread Safety
+     **Thread Safety**
 
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -96,7 +96,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      You are encouraged to use ``accessTokenIsExpired(tolerance:)`` to check if
      the token is expired.
 
-     # Thread Safety
+     **Thread Safety**
 
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -114,7 +114,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      You are encouraged to use ``isAuthorized(for:)`` to check which scopes the
      access token is authorized for.
 
-     # Thread Safety
+     **Thread Safety**
 
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -148,11 +148,11 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      ``AuthorizationCodeFlowPKCEBackendManager/refreshTokens(onlyIfExpired:tolerance:)``
      .
      
-     See also ``didDeauthorize``, which emits after ``deauthorize()`` is called.
-     Subscribe to that publisher in order to remove the authorization
-     information from persistent storage when it emits.
+     See also ``AuthorizationCodeFlowManagerBase/didDeauthorize``, which emits
+     after ``deauthorize()`` is called. Subscribe to that publisher in order to
+     remove the authorization information from persistent storage when it emits.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */
@@ -176,7 +176,7 @@ public class AuthorizationCodeFlowManagerBase<Backend: Codable & Hashable> {
      
      See also ``didChange``.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */
@@ -296,11 +296,12 @@ public extension AuthorizationCodeFlowManagerBase {
      If this instance is stored in persistent storage, consider removing it
      after calling this method.
 
-     Calling this method causes ``didDeauthorize`` to emit a signal, which will
-     also cause the ``SpotifyAPI/authorizationManagerDidDeauthorize`` publisher
-     of ``SpotifyAPI`` to emit a signal.
+     Calling this method causes
+     ``AuthorizationCodeFlowManagerBase/didDeauthorize`` to emit a signal, which
+     will also cause the ``SpotifyAPI/authorizationManagerDidDeauthorize``
+     publisher of ``SpotifyAPI`` to emit a signal.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      */
@@ -329,7 +330,7 @@ public extension AuthorizationCodeFlowManagerBase {
      - Returns: `true` if ``expirationDate`` - `tolerance` is equal to or before
            the current date or if ``accessToken`` is `nil`. Else, `false`.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      */
@@ -348,7 +349,7 @@ public extension AuthorizationCodeFlowManagerBase {
            for the application, which is still required for all endpoints, even
            those that do not require scopes.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      

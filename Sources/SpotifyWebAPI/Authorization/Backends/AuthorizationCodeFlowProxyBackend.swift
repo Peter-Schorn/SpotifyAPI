@@ -15,8 +15,8 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
- authorization information and refresh the access token using the [Authorization
- Code Flow][1].
+ authorization information and refresh the access token using the Authorization
+ Code Flow.
 
  This server must have the following endpoints:
  
@@ -42,8 +42,10 @@ import OpenCombineFoundation
 
  This conforms to the ["Token Swap and Refresh"][3] standard used in the Spotify
  iOS SDK.
+ 
+ Read more about the [Authorization Code Flow][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  [3]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
  */
@@ -55,8 +57,10 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
     )
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
 	public let clientId: String
@@ -107,7 +111,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
            This will be done elsewhere. Only use this function to decode error
            objects produced by your custom backend server.
      
-     # Thread Safety
+     **Thread Safety**
 
      No guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the
@@ -117,7 +121,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
 
     /**
      Creates an instance that manages the authorization process for the
-     [Authorization Code Flow][1] by communicating with a custom backend server.
+     Authorization Code Flow by communicating with a custom backend server.
      
      This type requires a custom backend server that can store your client
      secret and redirect URI. It conforms to the ["Token Swap and Refresh"][2]
@@ -146,7 +150,9 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
              documented error objects produced by Spotify, such as
              ``SpotifyAuthenticationError``. This will be done elsewhere.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     Read more about the [Authorization Code Flow][1]
+
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
      [3]: https://github.com/Peter-Schorn/SpotifyAPIServer
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app

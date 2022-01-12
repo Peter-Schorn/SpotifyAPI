@@ -13,7 +13,7 @@ import OpenCombineFoundation
 
 /**
  A type that handles the process of requesting the authorization information and
- refreshing the access token using the [Authorization Code Flow][1].
+ refreshing the access token using the Authorization Code Flow.
 
  Conforming types may communicate directly with the Spotify web API (see
  ``AuthorizationCodeFlowClientBackend``), or they may communicate with a custom
@@ -30,18 +30,22 @@ import OpenCombineFoundation
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ Read more about the [Authorization Code Flow][1].
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 	
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
      This is used to construct the authorization URL in the
      ``AuthorizationCodeFlowBackendManager/makeAuthorizationURL(redirectURI:showDialog:state:scopes:)``
      method of ``AuthorizationCodeFlowBackendManager``.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     var clientId: String { get }
@@ -148,8 +152,8 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
 
 /**
  A type that handles the process of requesting the authorization information and
- refreshing the access token using the [Authorization Code Flow with Proof Key
- for Code Exchange][1].
+ refreshing the access token using the Authorization Code Flow with Proof Key
+ for Code Exchange.
 
  Conforming types may communicate directly with the Spotify web API (see
  ``AuthorizationCodeFlowPKCEClientBackend``), or they may communicate with a
@@ -167,18 +171,23 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
+ Read more about the
+ [Authorization Code Flow with Proof Key for Code Exchange][1].
+ 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
      This is used to construct the authorization URL in the
      ``AuthorizationCodeFlowPKCEBackendManager/makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)``
      method of ``AuthorizationCodeFlowPKCEBackendManager``.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     var clientId: String { get }
@@ -290,7 +299,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
 
 /**
  A type that handles the process of requesting the authorization information
- using the [Client Credentials Flow][1].
+ using the Client Credentials Flow.
 
  Conforming types may communicate directly with the Spotify web API (see
  ``ClientCredentialsFlowClientBackend``), or it they may communicate with a
@@ -308,7 +317,9 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
  could then decrypt this information when it receives it, providing an
  additional layer of security.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1].
+ 
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public protocol ClientCredentialsFlowBackend: Codable, Hashable {

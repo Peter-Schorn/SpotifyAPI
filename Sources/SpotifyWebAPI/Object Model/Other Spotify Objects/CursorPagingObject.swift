@@ -1,15 +1,17 @@
 import Foundation
 
 /**
- A [cursor-based paging object][1].
+ A cursor-based paging object.
  
  See [get current user's recently played tracks][2] and
  ``SpotifyAPI/recentlyPlayed(_:limit:)``.
  
  See also <doc:Working-with-Paginated-Results>.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Codable, Hashable
@@ -45,11 +47,13 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     public let total: Int?
     
     /**
-     Creates a [cursor-based paging object][1].
+     Creates a cursor-based paging object.
      
      See [get current user's recently played tracks][2]
      and ``SpotifyAPI/recentlyPlayed(_:limit:)``.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - href: A link to the Web API endpoint returning the full result of the
              request.
@@ -60,7 +64,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
        - total: The maximum number of items available to return.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
      */
     public init(
         href: URL,

@@ -2,8 +2,8 @@ import Foundation
 
 /**
  After the user has authorized your app and a code has been provided, this type
- is used to request a refresh and access token for the [Authorization Code
- Flow][1].
+ is used to request a refresh and access token for the Authorization Code
+ Flow.
  
  When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
  which communicates with a custom backend server, use this type in the body of
@@ -20,7 +20,9 @@ import Foundation
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ Read more about the [Authorization Code Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct ProxyTokensRequest: Hashable {
 	
@@ -52,7 +54,7 @@ public struct ProxyTokensRequest: Hashable {
 
     /**
      Creates an instance which is used to request the authorization information
-     using the [Authorization Code Flow][1].
+     using the Authorization Code Flow.
 
      When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
      which communicates with a custom backend server, use this type in the body
@@ -69,6 +71,8 @@ public struct ProxyTokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
      
+     Read more about the [Authorization Code Flow][1].
+
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
              redirect URI.
@@ -85,7 +89,7 @@ public struct ProxyTokensRequest: Hashable {
              was used to request the authorization code (as opposed to any of
              your whitelisted redirect URIs).
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/ios/guides/token-swap-and-refresh/
      */
     public init(code: String, redirectURI: URL?) {

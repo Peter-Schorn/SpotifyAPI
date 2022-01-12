@@ -12,7 +12,7 @@ import Foundation
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct RefreshTokensRequest: Hashable {
     
@@ -24,7 +24,7 @@ public struct RefreshTokensRequest: Hashable {
     
     /**
      Creates an instance which refreshes the access token using the
-     [Authorization Code Flow][1].
+     Authorization Code Flow.
      
      This type should be used in the body of the network request made in the
      ``AuthorizationCodeFlowBackend/refreshTokens(refreshToken:)`` method of
@@ -34,10 +34,11 @@ public struct RefreshTokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
      
-     
+     Read more about the [Authorization Code Flow][1].
+
      - Parameter refreshToken: The refresh token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     public init(refreshToken: String) {
         self.refreshToken = refreshToken

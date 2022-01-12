@@ -36,7 +36,7 @@ public extension SpotifyAPI {
              default language (American English).
      - Returns: A category object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-category
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-category
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: http://en.wikipedia.org/wiki/ISO_639-1
      */
@@ -92,7 +92,7 @@ public extension SpotifyAPI {
              Default: 0. Use with limit to get the next set of categories.
      - Returns: An array of [category][4] objects wrapped in a paging object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-categories
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: http://en.wikipedia.org/wiki/ISO_639-1
      [4]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
@@ -145,7 +145,7 @@ public extension SpotifyAPI {
      - Returns: An array of simplified playlist objects wrapped in a paging
            object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-categories-playlists
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-categories-playlists
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func categoryPlaylists(
@@ -219,7 +219,7 @@ public extension SpotifyAPI {
            Morning", or "Editors's picks", localized based on the locale,
            country, and timestamp parameters.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-featured-playlists
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: http://en.wikipedia.org/wiki/ISO_639-1
      */
@@ -272,7 +272,7 @@ public extension SpotifyAPI {
            Morning", or "Editors's picks", localized based on the locale,
            country, and timestamp parameters.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-new-releases
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-new-releases
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func newAlbumReleases(
@@ -329,7 +329,7 @@ public extension SpotifyAPI {
              [relinked track response][5].
      - Returns: Recommendation seeds and an array of tracks.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
      [3]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide
@@ -363,7 +363,7 @@ public extension SpotifyAPI {
     }
     
     /**
-     Retrieve a list of available genres seeds for [recommendations][1].
+     Retrieve a list of available genres seeds for recommendations.
 
      No scopes are required for this endpoint.
      
@@ -375,8 +375,8 @@ public extension SpotifyAPI {
      
      - Returns: An array of genres ids.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendation-genres
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendation-genres
      */
     func recommendationGenres() -> AnyPublisher<[String], Error> {
         

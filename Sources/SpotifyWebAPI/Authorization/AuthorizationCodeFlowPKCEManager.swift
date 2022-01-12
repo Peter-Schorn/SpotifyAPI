@@ -14,15 +14,15 @@ import FoundationNetworking
 import Logging
 
 /**
- Manages the authorization process for the [Authorization Code Flow with Proof
- Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the Authorization Code Flow with Proof
+ Key for Code Exchange (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
  additional layer of security compared to the [Authorization Code Flow][2]. For
  further information about this flow, see [IETF RFC-7636][3].
  
- # Backend
+ **Backend**
  
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information and refreshing the access token from
@@ -41,7 +41,7 @@ import Logging
  ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
  This class will store your client id locally.
 
- # Authorization
+ **Authorization**
  
  The first step in the authorization process is to create the authorization URL
  using ``makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)``. It
@@ -54,13 +54,16 @@ import Logging
  ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)`` to
  complete the authorization process.
 
- Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your application is authorized
- for the specified scopes.
+ Use ``AuthorizationCodeFlowManagerBase/isAuthorized(for:)`` to check if your
+ application is authorized for the specified scopes.
  
- Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the ``AuthorizationCodeFlowManagerBase/accessToken``, ``AuthorizationCodeFlowManagerBase/refreshToken``, ``AuthorizationCodeFlowManagerBase/expirationDate``,
- and ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`.
+ Use ``AuthorizationCodeFlowManagerBase/deauthorize()`` to set the
+ ``AuthorizationCodeFlowManagerBase/accessToken``,
+ ``AuthorizationCodeFlowManagerBase/refreshToken``,
+ ``AuthorizationCodeFlowManagerBase/expirationDate``, and
+ ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`.
 
- # Persistant Storage
+ **Persistant Storage**
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
@@ -68,8 +71,11 @@ import Logging
  <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
  information.
  
+ Read more about the [Authorization Code Flow with Proof Key for Code
+ Exchange][1].
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [3]: https://tools.ietf.org/html/rfc7636
  */
 public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeFlowPKCEBackend>:
@@ -82,7 +88,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     /**
      The logger for this class.
      
-     # Note
+     **Note**
      
      This is a computed property which will provide access to the same
      underlying logger for all concrete specializations of this type.
@@ -101,8 +107,8 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     // MARK: - Initializers
 
     /**
-     Creates an authorization manager for the [Authorization Code Flow with
-     Proof Key for Code Exchange][1].
+     Creates an authorization manager for the Authorization Code Flow with
+     Proof Key for Code Exchange.
 
      **If you do not have a custom backend server, then you are encouraged to**
      **use the concrete subclass of this class,**
@@ -117,6 +123,9 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
+
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information and refreshing the access token from
@@ -133,8 +142,8 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
     }
     
     /**
-     Creates an authorization manager for the [Authorization Code Flow with
-     Proof Key for Code Exchange][1].
+     Creates an authorization manager for the Authorization Code Flow with
+     Proof Key for Code Exchange.
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
@@ -152,6 +161,9 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
      using a `JSONEncoder` and then decode the data from storage later. See
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
+     
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
      
      - Parameters:
        - backend: A type that handles the process of requesting the
@@ -236,8 +248,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
     // MARK: - Authorization
     
     /**
-     The first step in the authorization process for the [Authorization Code
-     Flow with Proof Key for Code Exchange][1].
+     The first step in the authorization process for the Authorization Code
+     Flow with Proof Key for Code Exchange.
 
      Creates the URL that is used to request authorization for your app. It
      displays a permissions dialog to the user. Open the URL in a
@@ -274,12 +286,15 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      ``requestAccessAndRefreshTokens(redirectURIWithQuery:codeVerifier:state:)``
      to complete the authorization process.
 
-     # Warning
+     **Warning**
 
      **DO NOT add a forward-slash to the end of the redirect URI**.
 
      All of these values will be automatically percent-encoded. Therefore, do
      not percent-encode them yourself before passing them into this method.
+
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
 
      - Parameters:
        - redirectURI: The location that Spotify will redirect to after the user
@@ -339,7 +354,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
     
     /**
      The second and final step in the authorization process for the
-     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     Authorization Code Flow with Proof Key for Code Exchange.
 
      After you open the URL from
      ``makeAuthorizationURL(redirectURI:codeChallenge:state:scopes:)`` and the
@@ -359,10 +374,13 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
      causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
-     # Warning
+     **Warning**
      
      All of these values will be automatically percent-encoded. Therefore, do
      not percent-encode them yourself before passing them into this method.
+
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
 
      - Parameters:
        - redirectURIWithQuery: The redirect URI with query parameters appended
@@ -490,7 +508,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      ``AuthorizationCodeFlowManagerBase/didChange`` will emit a signal, which
      causes ``SpotifyAPI/authorizationManagerDidChange`` to emit a signal.
      
-     # Thread Safety
+     **Thread Safety**
      
      Calling this method is thread-safe. If a network request to refresh the
      tokens is already in progress, additional calls will return a reference to
@@ -504,9 +522,9 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
        - tolerance: The tolerance in seconds to use when determining if the
              token is expired. Defaults to 120, meaning that a new token will be
              retrieved if the current one has expired or will expire in the next
-             two minutes. The token is considered expired if ``expirationDate`` -
-             `tolerance` is equal to or before the current date. This parameter
-             has no effect if `onlyIfExpired` is `false`.
+             two minutes. The token is considered expired if ``AuthorizationCodeFlowManagerBase/expirationDate``
+             - `tolerance` is equal to or before the current date. This
+             parameter has no effect if `onlyIfExpired` is `false`.
      */
     func refreshTokens(
         onlyIfExpired: Bool,
@@ -559,12 +577,12 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
                         Self.logger.trace("received authInfo:\n\(authInfo)")
                         
                         /*
-                         Unlike the Authorization Code Flow, a refresh token that
-                         has been obtained using the Authorization Code Flow with
-                         Proof Key for Code Exchange can be exchanged for an
-                         access token only once, after which it becomes invalid.
-                         This implies that Spotify should always return a new
-                         refresh token in addition to an access token.
+                         Unlike the Authorization Code Flow, a refresh token
+                         that has been obtained using the Authorization Code
+                         Flow with Proof Key for Code Exchange can be exchanged
+                         for an access token only once, after which it becomes
+                         invalid. This implies that Spotify should always return
+                         a new refresh token in addition to an access token.
                          */
                         if authInfo.accessToken == nil ||
                                 authInfo.refreshToken == nil ||
@@ -613,8 +631,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
 // MARK: - Authorization Code Flow PKCE Manager -
 
 /**
- Manages the authorization process for the [Authorization Code Flow with Proof
- Key for Code Exchange][1] (PKCE).
+ Manages the authorization process for the Authorization Code Flow with Proof
+ Key for Code Exchange (PKCE).
  
  The authorization code flow with PKCE is the best option for mobile and desktop
  applications where it is unsafe to store your client secret. It provides an
@@ -627,7 +645,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  sensitive credentials and which communicates with Spotify on your behalf in
  order to retrieve the authorization information.
 
- # Authorization
+ **Authorization**
  
  The first step in the authorization process is to create the authorization URL
  using
@@ -651,7 +669,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  ``AuthorizationCodeFlowManagerBase/scopes`` to `nil`. Does not change
  ``clientId``, which is immutable.
  
- # Persistant Storage
+ **Persistant Storage**
  
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
@@ -659,8 +677,11 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
  information.
  
+ Read more about the [Authorization Code Flow with Proof Key for Code
+ Exchange][1].
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [3]: https://tools.ietf.org/html/rfc7636
  */
 public final class AuthorizationCodeFlowPKCEManager:
@@ -668,8 +689,10 @@ public final class AuthorizationCodeFlowPKCEManager:
 {
 
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public var clientId: String {
@@ -678,7 +701,7 @@ public final class AuthorizationCodeFlowPKCEManager:
 
     /**
      Creates an authorization manager for the
-     [Authorization Code Flow with Proof Key for Code Exchange][1].
+     Authorization Code Flow with Proof Key for Code Exchange.
 
      To get a client id and client secret, go to the [Spotify Developer
      Dashboard][2] and create an app. see the README in the root directory of
@@ -689,6 +712,9 @@ public final class AuthorizationCodeFlowPKCEManager:
      information to persistent storage. See
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
+
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -708,23 +734,26 @@ public final class AuthorizationCodeFlowPKCEManager:
     }
 
     /**
-     Creates an authorization manager for the [Authorization Code Flow with
-     Proof Key for Code Exchange][1].
+     Creates an authorization manager for the Authorization Code Flow with
+     Proof Key for Code Exchange.
 
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
      ``init(clientId:)``.
 
-     You are discouraged from individually saving the properties of this instance
-     to persistent storage and then retrieving them later and passing them into
-     this initializer. Instead, encode this entire instance to data using a
-     `JSONEncoder` and then decode the data from storage later. See
+     You are discouraged from individually saving the properties of this
+     instance to persistent storage and then retrieving them later and passing
+     them into this initializer. Instead, encode this entire instance to data
+     using a `JSONEncoder` and then decode the data from storage later. See
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
 
      To get a client id and client secret, go to the [Spotify Developer
      Dashboard][3] and create an app. see the README in the root directory of
      this package for more information.
+
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
 
      - Parameters:
        - clientId: The client id that you received when you [registered your

@@ -13,7 +13,7 @@ import FoundationNetworking
 import Logging
 
 /**
- Manages the authorization process for the [Client Credentials Flow][1].
+ Manages the authorization process for the Client Credentials Flow.
  
  The Client Credentials flow is used in server-to-server authentication. Only
  endpoints that do not access user information can be accessed. This means that
@@ -21,7 +21,7 @@ import Logging
  advantage of this authorization process is that no user interaction is
  required.
  
- # Backend
+ **Backend**
  
  This class is generic over a backend. The backend handles the process of
  requesting the authorization information from Spotify. It may do so directly
@@ -39,7 +39,7 @@ import Logging
  ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>. This
  class will store your client id and client secret locally.
 
- # Authorization
+ **Authorization**
 
  The only method you must call to authorize your application is ``authorize()``.
  After that, you may begin making requests to the Spotify web API. The access
@@ -48,7 +48,7 @@ import Logging
  Use ``deauthorize()`` to set the ``accessToken`` and ``expirationDate`` to
  `nil`.
  
- # Persistent Storage
+ **Persistent Storage**
 
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
@@ -56,7 +56,9 @@ import Logging
  <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
  information.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
  */
 public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
@@ -67,7 +69,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     /**
      The logger for this class.
      
-     # Note
+     **Note**
      
      This is a computed property which will provide access to the same
      underlying logger for all concrete specializations of this type.
@@ -110,7 +112,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     /**
      The access token used in all of the requests to the Spotify web API.
      
-     # Thread Safety
+     **Thread Safety**
      
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -128,7 +130,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      You are encouraged to use ``accessTokenIsExpired(tolerance:)`` to check if
      the token is expired.
 
-     # Thread Safety
+     **Thread Safety**
 
      Access to this property is synchronized; therefore, it is always
      thread-safe.
@@ -159,7 +161,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      Subscribe to that publisher in order to remove the authorization
      information from persistent storage when it emits.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */
@@ -181,7 +183,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      
      See also ``didChange``.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this publisher will emit on.
      */
@@ -207,7 +209,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     // MARK: - Initializers
 
     /**
-     Creates an authorization manager for the [Client Credentials Flow][1].
+     Creates an authorization manager for the Client Credentials Flow.
      
      Remember, with this authorization flow, only endpoints that do not access
      user information can be accessed. This means that endpoints that require
@@ -225,6 +227,8 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
+     Read more about the [Client Credentials Flow][1].
+
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information from Spotify. It may do so directly (see
@@ -233,7 +237,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
              ``ClientCredentialsFlowProxyBackend``). See
              ``ClientCredentialsFlowBackend`` for more information.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
@@ -243,7 +247,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
     }
     
     /**
-     Creates an authorization manager for the [Client Credentials Flow][1].
+     Creates an authorization manager for the Client Credentials Flow.
      
      Remember, with this authorization flow, only endpoints that do not access
      user information can be accessed. This means that endpoints that require
@@ -266,6 +270,8 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
+     Read more about the [Client Credentials Flow][1].
+     
      - Parameters:
        - backend: A type that handles the process of requesting the
              authorization information from Spotify. It may do so directly (see
@@ -276,7 +282,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
@@ -413,7 +419,7 @@ public extension ClientCredentialsFlowBackendManager {
      also cause the ``SpotifyAPI/authorizationManagerDidDeauthorize`` publisher
      of ``SpotifyAPI`` to emit a signal.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      */
@@ -443,7 +449,7 @@ public extension ClientCredentialsFlowBackendManager {
            equal to or before the current date or if ``accessToken``
            is `nil`. Else, `false`.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      */
@@ -462,7 +468,7 @@ public extension ClientCredentialsFlowBackendManager {
            credentials flow does not support authorization scopes; it only
            supports endpoints that do not access user data.
      
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      
@@ -475,7 +481,7 @@ public extension ClientCredentialsFlowBackendManager {
     }
     
     /**
-     Authorizes the application for the [Client Credentials Flow][1].
+     Authorizes the application for the Client Credentials Flow.
      
      This is the only method you need to call to authorize your application.
      After this publisher finishes normally, you can begin making requests to
@@ -486,7 +492,9 @@ public extension ClientCredentialsFlowBackendManager {
      signal, causing ``SpotifyAPI/authorizationManagerDidChange`` to emit a
      signal.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     Read more about the [Client Credentials Flow][1].
+
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
@@ -548,7 +556,7 @@ public extension ClientCredentialsFlowBackendManager {
      emit a signal, which causes ``SpotifyAPI/authorizationManagerDidChange`` to
      emit a signal.
      
-     # Thread Safety
+     **Thread Safety**
      
      Calling this method is thread-safe. If a network request to refresh the
      tokens is already in progress, additional calls will return a reference to
@@ -567,7 +575,7 @@ public extension ClientCredentialsFlowBackendManager {
              - `tolerance` is equal to or before the current date. This
              parameter has no effect if `onlyIfExpired` is `false`.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      */
     func refreshTokens(
         onlyIfExpired: Bool,
@@ -697,7 +705,7 @@ extension ClientCredentialsFlowBackendManager {
 // MARK: - ClientCredentialsFlowManager -
 
 /**
- Manages the authorization process for the [Client Credentials Flow][1].
+ Manages the authorization process for the Client Credentials Flow.
 
  The Client Credentials flow is used in server-to-server authentication. Only
  endpoints that do not access user information can be accessed. This means that
@@ -711,7 +719,7 @@ extension ClientCredentialsFlowBackendManager {
  sensitive credentials and which communicates with Spotify on your behalf in
  order to retrieve the authorization information.
 
- # Authorization
+ **Authorization**
 
  The only method you must call to authorize your application is
  ``ClientCredentialsFlowBackendManager/authorize()``. After that, you may begin
@@ -723,7 +731,7 @@ extension ClientCredentialsFlowBackendManager {
  ``ClientCredentialsFlowBackendManager/expirationDate`` to `nil`. Does not
  change ``clientId`` or ``clientSecret``, which are immutable.
 
- # Persistent Storage
+ **Persistent Storage**
 
  Note that this type conforms to `Codable`. It is this type that you should
  encode to data using a `JSONEncoder` in order to save the authorization
@@ -731,7 +739,9 @@ extension ClientCredentialsFlowBackendManager {
  <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
  information.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  [2]: https://developer.spotify.com/documentation/general/guides/scopes/
  */
 public final class ClientCredentialsFlowManager:
@@ -739,8 +749,10 @@ public final class ClientCredentialsFlowManager:
 {
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public var clientId: String {
@@ -748,9 +760,11 @@ public final class ClientCredentialsFlowManager:
     }
     
     /**
-     The client secret that you received when you [registered your
-     application][1].
+     The client secret that you received when you registered your
+     application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public var clientSecret: String {
@@ -758,7 +772,7 @@ public final class ClientCredentialsFlowManager:
     }
     
     /**
-     Creates an authorization manager for the [Client Credentials Flow][1].
+     Creates an authorization manager for the Client Credentials Flow.
 
      Remember, with this authorization flow, only endpoints that do not access
      user information can be accessed. This means that endpoints that require
@@ -774,13 +788,15 @@ public final class ClientCredentialsFlowManager:
      <doc:Saving-the-Authorization-Information-to-Persistent-Storage> for more
      information.
      
+     Read more about the [Client Credentials Flow][1].
+
      - Parameters:
        - clientId: The client id that you received when you [registered your
              application][5].
        - clientSecret: The client secret that you received when you [registered
              your application][5].
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
@@ -797,7 +813,7 @@ public final class ClientCredentialsFlowManager:
     }
     
     /**
-     Creates an authorization manager for the [Client Credentials Flow][1].
+     Creates an authorization manager for the Client Credentials Flow.
      
      **In general, only use this initializer if you have retrieved the**
      **authorization information from an external source.** Otherwise, use
@@ -818,6 +834,8 @@ public final class ClientCredentialsFlowManager:
      Dashboard][3] and create an app. see the README in the root directory of
      this package for more information.
      
+     Read more about the [Client Credentials Flow][1].
+
      - Parameters:
        - clientId: The client id that you received when you [registered your
              application][4].
@@ -826,7 +844,7 @@ public final class ClientCredentialsFlowManager:
        - accessToken: The access token.
        - expirationDate: The expiration date of the access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://developer.spotify.com/documentation/general/guides/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app

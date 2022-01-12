@@ -33,10 +33,12 @@ public struct PlaylistItemContainer<Item>: Hashable where
     public let addedBy: SpotifyUser?
     
     /**
-     Whether or not the item is from a [local file][1].
+     Whether or not the item is from a local file.
      
      When this is `true`, expect many of the other properties to be `nil`.
     
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
      */
     public let isLocal: Bool?

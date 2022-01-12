@@ -1,8 +1,10 @@
 import Foundation
 
 /**
- A Spotify [category][1] object.
+ A Spotify category object.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
  */
 public struct SpotifyCategory: Codable, Hashable {
@@ -27,8 +29,10 @@ public struct SpotifyCategory: Codable, Hashable {
     public let icons: [SpotifyImage]
 
     /**
-     Creates a Spotify [category][1] object.
+     Creates a Spotify category object.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - name: The name of the category.
        - id: The [ID][2] of the category.

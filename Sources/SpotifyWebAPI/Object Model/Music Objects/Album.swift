@@ -80,11 +80,13 @@ public struct Album: Hashable {
     public let href: URL?
 
     /**
-     Known [external urls][1] for this artist.
+     Known external urls for this artist.
 
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
            for the object.
      - value: An external, public URL to the object.
+
+     Read more at the [Spotify web API reference][1].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -124,12 +126,14 @@ public struct Album: Hashable {
      */
     public let albumGroup: AlbumType?
     /**
-     The markets in which the album is available: [ISO 3166-1 alpha-2 country
-     codes][1].
+     The markets in which the album is available: ISO 3166-1 alpha-2 country
+     codes.
 
      Note that an album is considered available in a market when at least 1 of
      its tracks is available in that market.
-     
+
+     Read about [ISO 3166-1 alpha-2 country codes][1].
+
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     public let availableMarkets: [String]?
@@ -142,8 +146,8 @@ public struct Album: Hashable {
     public let releaseDatePrecision: String?
 
     /**
-     Part of the response when a content restriction, such as [Track
-     Relinking][1], is applied. Else, `nil`.
+     Part of the response when a content restriction, such as Track
+     Relinking, is applied. Else, `nil`.
      
      The key will be "reason", and the value will be one of the
      following:
@@ -157,6 +161,8 @@ public struct Album: Hashable {
      
      See [AlbumRestrictionObject][2], which this property is decoded from.
      
+     Read about [Track Relinking][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-albumrestrictionobject
      */
@@ -166,8 +172,10 @@ public struct Album: Hashable {
     public let type: IDCategory
     
     /**
-     Creates a Spotify [album][1].
+     Creates a Spotify album.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - name: The name of the album.
        - tracks: The tracks of the album.

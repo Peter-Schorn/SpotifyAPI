@@ -14,7 +14,7 @@ import OpenCombineFoundation
 
 /**
  Communicates with a backend server that you setup in order to retrieve the
- authorization information using the [Client Credentials Flow][1].
+ authorization information using the Client Credentials Flow.
  
  The server must have an endpoint (``tokensURL``) that accepts a post request
  for the authorization information from Spotify. See
@@ -29,7 +29,9 @@ import OpenCombineFoundation
  `clientId`, or `clientSecret` in network requests because these values should
  be securely stored on your backend server.
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
@@ -70,7 +72,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
            This will be done elsewhere. Only use this function to decode error
            objects produced by your custom backend server.
      
-     # Thread Safety
+     **Thread Safety**
      
      No guarantees are made about which thread this function will be called on.
      Do not mutate this property while a request is being made for the
@@ -79,8 +81,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
     public var decodeServerError: ((Data, HTTPURLResponse) -> Error?)?
 
     /**
-     Creates an instance that manages the authorization process for the [Client
-     Credentials Flow][1] by communicating with a custom backend server.
+     Creates an instance that manages the authorization process for the Client
+     Credentials Flow by communicating with a custom backend server.
 
      This type requires a custom backend server that can store your client id
      and client secret.
@@ -88,6 +90,8 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      Instead of creating your own server, you can use [SpotifyAPIServer][2] with
      this type by assigning the /client-credentials-flow/retrieve-tokens
      endpoint to ``tokensURL``.
+
+     Read more about the [Client Credentials Flow][1].
 
      - Parameters:
        - tokensURL: The URL to your custom backend server that accepts a post
@@ -101,7 +105,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
              documented error objects produced by Spotify, such as
              ``SpotifyAuthenticationError``. This will be done elsewhere.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
     public init(

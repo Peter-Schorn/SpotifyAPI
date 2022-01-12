@@ -1,8 +1,10 @@
 import Foundation
 
 /**
- A Spotify [play history object][1].
+ A Spotify play history object.
  
+ Read more at the [Spotify web API reference][1].
+
  Contains information about a recently played track, including the time it was
  played, and the context it was played in.
  
@@ -21,7 +23,9 @@ public struct PlayHistory: Hashable {
     public let context: SpotifyContext?
     
     /**
-     A Spotify [play history object][1].
+     A Spotify play history object.
+     
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - track: The track that the user listened to (simplified version).

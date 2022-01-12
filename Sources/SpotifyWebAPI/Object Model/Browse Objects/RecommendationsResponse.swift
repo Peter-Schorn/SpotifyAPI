@@ -9,7 +9,7 @@ import Foundation
 public struct RecommendationsResponse: Codable, Hashable {
 
     /**
-     An array of [recommendation seed objects][1].
+     An array of recommendation seed objects.
 
      Consider using the ``seedArtists``, ``seedTracks``, or ``seedGenres``
      computed properties, which are backed by this property.
@@ -21,6 +21,8 @@ public struct RecommendationsResponse: Codable, Hashable {
      
      Usually, there will be one seed object for each artist, track, and genre.
      
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */
     public let seeds: [RecommendationSeed]

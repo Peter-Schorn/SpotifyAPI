@@ -2,7 +2,7 @@ import Foundation
 
 
 /**
- The [Regular Error Object][1] returned by the Spotify web API.
+ The Regular Error Object returned by the Spotify web API.
 
  See also:
  
@@ -35,7 +35,7 @@ import Foundation
    request due to a temporary condition which will be alleviated after some
    delay. You can choose to resend the request again.
  
- 
+ Read more at the [Spotify web API reference][1].
  
  [1]: https://developer.spotify.com/documentation/web-api/#regular-error-object
  [2]: https://developer.spotify.com/documentation/web-api/#response-status-codes

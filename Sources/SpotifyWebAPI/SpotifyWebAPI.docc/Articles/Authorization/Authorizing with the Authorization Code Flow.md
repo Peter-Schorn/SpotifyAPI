@@ -77,5 +77,5 @@ This authorization process is fully implemented in this [example app][3]. Read m
 [1]: https://developer.spotify.com/dashboard/login
 [2]: https://developer.spotify.com/documentation/general/guides/scopes/
 [3]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
-[4]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+[4]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 

@@ -7,7 +7,7 @@ import Foundation
  
  Returned by the endpoint for a [list of featured playlists][1].
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-featured-playlists
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
  */
 public struct FeaturedPlaylists: Codable, Hashable {
     
@@ -28,7 +28,7 @@ public struct FeaturedPlaylists: Codable, Hashable {
              Morning", or "Editor's picks".
        - playlists: The featured playlists.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-featured-playlists
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
      */
     public init(
         message: String? = nil,

@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Too Many Requests - [Rate limiting][1] has been applied.
+ Too Many Requests - Rate limiting has been applied.
 
  The ``retryAfter`` property specifies the number of seconds you must wait
  before you try the request again.
@@ -13,7 +13,9 @@ import Foundation
  one request. For example: If you often request single tracks, albums, or
  artists, use endpoints such as Get Several Tracks, Get Several Albums or Get
  Several Artists, instead.
- 
+
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/#rate-limiting
  */
 public struct RateLimitedError: LocalizedError, Codable, Hashable {

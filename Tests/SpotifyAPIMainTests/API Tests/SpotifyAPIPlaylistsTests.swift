@@ -372,10 +372,6 @@ extension SpotifyAPIPlaylistsTests {
                 encodeDecode(whenIGetHome)
                 XCTAssertFalse(whenIGetHome.isLocal)
                 XCTAssertEqual(whenIGetHome.name, "When I Get Home")
-<<<<<<< HEAD
-                // https://open.spotify.com/track/5azJUob8ahbXB3M9YFwTpd?si=6604a2e6dcbc40b1
-=======
->>>>>>> swift-5-5
                 XCTAssertEqual(whenIGetHome.uri, "spotify:track:0iKuMGAjLp9RcYiyzkdruH")
                 XCTAssertEqual(whenIGetHome.id, "0iKuMGAjLp9RcYiyzkdruH")
                 XCTAssertEqual(whenIGetHome.artists?.first?.name, "Post Animal")

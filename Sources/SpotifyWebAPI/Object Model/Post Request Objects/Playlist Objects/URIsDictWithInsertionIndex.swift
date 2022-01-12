@@ -17,7 +17,7 @@ import Foundation
  }
  ```
 
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-add-tracks-to-playlist
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/add-tracks-to-playlist
  */
 public struct URIsDictWithInsertionIndex {
     

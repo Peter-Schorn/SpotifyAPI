@@ -14,8 +14,8 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
- authorization information and refresh the access token using the [Authorization
- Code Flow with Proof Key for Code Exchange][1].
+ authorization information and refresh the access token using the Authorization
+ Code Flow with Proof Key for Code Exchange.
 
  If you are communicating with a custom backend server, then use
  ``AuthorizationCodeFlowPKCEProxyBackend`` instead, which does not send the
@@ -27,6 +27,9 @@ import OpenCombineFoundation
  from
  ``AuthorizationCodeFlowPKCEBackendManager``<``AuthorizationCodeFlowPKCEClientBackend``>.
  
+ Read more about the [Authorization Code Flow with Proof Key for Code
+ Exchange][1].
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
 public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
@@ -37,8 +40,10 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
     )
 
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String

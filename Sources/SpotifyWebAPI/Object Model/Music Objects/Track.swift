@@ -97,11 +97,13 @@ public struct Track: Hashable {
     public let previewURL: URL?
     
     /**
-     Known [external urls][1] for this track.
+     Known external urls for this track.
 
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
             for the object.
      - value: An external, public URL to the object.
+
+     Read more at the [Spotify web API reference][1].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -115,13 +117,15 @@ public struct Track: Hashable {
     
     /**
      A list of the countries in which the track can be played, identified by
-     their [ISO 3166-1 alpha-2 code][1].
+     their ISO 3166-1 alpha-2 code.
     
      If a market parameter was supplied in the request that returned this track,
      then this property will be `nil` and ``isPlayable`` will be non-`nil`.
     
      See also ``restrictions`` and the [Track Relinking Guide][2].
      
+     Read about [ISO 3166-1 alpha-2 codes][1].
+
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -137,8 +141,8 @@ public struct Track: Hashable {
     public let linkedFrom: TrackLink?
     
     /**
-     Part of the response when a content restriction, such as [Track
-     Relinking][1], is applied.
+     Part of the response when a content restriction, such as Track
+     Relinking, is applied.
      
      The key will be "reason", and the value will be one of the
      following:
@@ -152,6 +156,8 @@ public struct Track: Hashable {
      
      See [TrackRestrictionObject][2], which this property is decoded from.
      
+     Read about [Track Relinking][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject
      */
@@ -170,8 +176,10 @@ public struct Track: Hashable {
     public let type: IDCategory
     
     /**
-     Creates a [Spotify track][1].
+     Creates a Spotify track.
      
+     Read about [Track Relinking][1].
+
      - Parameters:
        - name: The name of the track.
        - album: The album on which the track appears.

@@ -2,15 +2,17 @@ import Foundation
 
 /**
  Represents a range for a track attribute. Has a minimum, target (ideal), and
- maximum value. See ``TrackAttributes`` and the endpoint for [getting
- recommendations based on seeds][1].
+ maximum value. See ``TrackAttributes`` and the endpoint for getting
+ recommendations based on seeds.
 
  Note that all of the properties are mutable.
 
  The target value should not be smaller than the minimum or larger than the
  maximum.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
+ Read more at the [Spotify web API reference][1].
+
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
  */
 public struct AttributeRange<Value: Numeric & Codable & Hashable &
         LosslessStringConvertible>: Codable, Hashable {

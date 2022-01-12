@@ -44,7 +44,7 @@ public extension SpotifyAPI {
              **parameter.**
      - Returns: The full version of a show object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-show
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-show
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */
@@ -114,7 +114,7 @@ public extension SpotifyAPI {
            **one of the URIs is invalid, then the entire request will fail**
            **with a 400 "invalid id" error.**
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-shows
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-shows
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */
@@ -198,7 +198,7 @@ public extension SpotifyAPI {
      - Returns: The simplified versions of episode objects wrapped in a paging
              object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-shows-episodes
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */

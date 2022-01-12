@@ -23,7 +23,7 @@ public extension SpotifyAPI {
      - Parameter uri: The URI for the artist.
      - Returns: The full version of an [artist][2].
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artist
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
      */
     func artist(
@@ -65,7 +65,7 @@ public extension SpotifyAPI {
            returned in the corresponding position. Duplicate artists in the
            request will result in duplicate artists in the response.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-artists
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-artists
      [2]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
      */
     func artists(
@@ -134,7 +134,7 @@ public extension SpotifyAPI {
              Use with `limit` to get the next set of albums.
      - Returns: An array of simplified album objects wrapped in a paging object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artists-albums
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func artistAlbums(
@@ -182,7 +182,7 @@ public extension SpotifyAPI {
              string "from_token".
      - Returns: The full versions of up to ten tracks.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artists-top-tracks
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-top-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func artistTopTracks(
@@ -228,7 +228,7 @@ public extension SpotifyAPI {
      - Parameter artist: The URI of an artist.
      - Returns: The full versions of up to 20 artists.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artists-related-artists
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-related-artists
      */
     func relatedArtists(
         _ artist: SpotifyURIConvertible

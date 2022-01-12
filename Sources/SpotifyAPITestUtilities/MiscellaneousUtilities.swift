@@ -61,7 +61,7 @@ public func assertUserIsPeter(
 public extension Scope {
     
     /**
-     All the scopes that are related to playlists
+     All the scopes that are related to playlists.
      
      * ``Scope/playlistReadCollaborative``
      * ``Scope/playlistModifyPublic``

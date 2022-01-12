@@ -2,7 +2,9 @@ import Foundation
 import Logging
 
 /**
- The logging backend for this library. See [swift-log][1].
+ The logging backend for this library.
+ 
+ See [swift-log][1].
  
  [1]: https://github.com/apple/swift-log
  */
@@ -21,7 +23,7 @@ public struct SpotifyAPILogHandler: LogHandler {
      This method should only be called once. Calling it additional times is
      safe, but has no effect.
 
-     # Thread Safety
+     **Thread Safety**
      
      This method is thread-safe.
      */

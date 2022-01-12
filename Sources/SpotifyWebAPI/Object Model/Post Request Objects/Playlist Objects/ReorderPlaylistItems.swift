@@ -18,7 +18,7 @@ import Foundation
  * insertBefore: The position where the items should be inserted.
  * snapshotId: *Optional*. The version identifier for the current playlist.
  
- # Examples:
+ **Examples:**
  
  To reorder the first item to the last position in a playlist with 10 items, set
  ``rangeStart`` to 0, set ``rangeLength`` to 1 (default) and ``insertBefore`` to
@@ -31,7 +31,7 @@ import Foundation
  To move the items at index 9-10 to the start of the playlist, set
  ``rangeStart`` to 9, set ``rangeLength`` to 2, and set ``insertBefore`` to 0.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks
  */
 public struct ReorderPlaylistItems: Hashable {
     
@@ -47,7 +47,7 @@ public struct ReorderPlaylistItems: Hashable {
      For example, if ``rangeLength`` is 1, then the item at index ``rangeStart``
      will be inserted before the item at index ``insertBefore``.
 
-     # Example:
+     **Example:**
      
      To move the items at index 9-10 to the start of the playlist, set
      ``rangeStart`` to 9, set ``rangeLength`` to 2, and set ``insertBefore`` to
@@ -61,7 +61,7 @@ public struct ReorderPlaylistItems: Hashable {
      To reorder the items to the end of the playlist, simply set
      ``insertBefore`` to the position after the last item.
 
-     # Examples:
+     **Examples:**
 
      To reorder the first item to the last position in a playlist with 10 items,
      set ``rangeStart`` to 0, set ``rangeLength`` to 1 (default) and
@@ -114,7 +114,7 @@ public struct ReorderPlaylistItems: Hashable {
        - snapshotId: *Optional*. The version identifier for the current
              playlist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks
      */
     public init(
         rangeStart: Int,

@@ -2,8 +2,10 @@ import Foundation
 import Logging
 
 /**
- The [context][1] of the currently playing track/episode.
+ The context of the currently playing track/episode.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject
  */
 public struct CurrentlyPlayingContext: Hashable {

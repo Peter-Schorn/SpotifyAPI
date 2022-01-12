@@ -2,8 +2,8 @@ import Foundation
 
 /**
  After the user has authorized your app and a code has been provided, this type
- is used to request a refresh and access token for the [Authorization Code Flow
- with Proof Key for Code Exchange][1].
+ is used to request a refresh and access token for the Authorization Code Flow
+ with Proof Key for Code Exchange.
 
  When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend`` and
  which communicates with a custom backend server, use this type in the body of
@@ -18,6 +18,9 @@ import Foundation
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
+
+ Read more about the [Authorization Code Flow with Proof Key for Code
+ Exchange][1].
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
  */
@@ -50,7 +53,7 @@ public struct ProxyPKCETokensRequest: Hashable {
     
     /**
      Creates an instance that is used to retrieve the authorization information
-     using the [Authorization Code Flow with Proof Key for Code Exchange][1].
+     using the Authorization Code Flow with Proof Key for Code Exchange.
 
      When creating a type that conforms to ``AuthorizationCodeFlowPKCEBackend``
      and which communicates with a custom backend server, use this type in the
@@ -67,6 +70,9 @@ public struct ProxyPKCETokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
      
+     Read more about the [Authorization Code Flow with Proof Key for Code
+     Exchange][1].
+
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
              redirect URI.

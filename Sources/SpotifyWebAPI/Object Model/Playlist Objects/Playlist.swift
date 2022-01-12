@@ -48,17 +48,19 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      see [Remove Tracks from a Playlist][2].
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
      */
     public let snapshotId: String
     
     /**
-     Known [external urls][1] for this playlist.
+     Known external urls for this playlist.
      
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
            for the object.
      - value: An external, public URL to the object.
-     
+
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
@@ -108,8 +110,10 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     public let type: IDCategory
 
     /**
-     Creates a Spotify [playlist][1].
+     Creates a Spotify playlist.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - name: The name of the playlist.
        - items: The items in the playlist.
@@ -143,7 +147,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
      [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     [4]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-remove-tracks-playlist
+     [4]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
      [5]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [6]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */

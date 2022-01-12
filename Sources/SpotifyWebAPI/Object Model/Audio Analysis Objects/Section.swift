@@ -93,7 +93,7 @@ public struct Section: Hashable {
     public let timeSignatureConfidence: Double
     
     /**
-     Creates a [Section][1] object.
+     Creates a Section object.
      
      Sections are defined by large variations in rhythm or timbre, e.g. chorus,
      verse, bridge, guitar solo, etc.
@@ -101,6 +101,8 @@ public struct Section: Hashable {
      Each section contains its own descriptions of tempo, key, mode, time
      signature, and loudness.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - start: The starting point (in seconds) of the section.
        - duration: The duration (in seconds) of the section.

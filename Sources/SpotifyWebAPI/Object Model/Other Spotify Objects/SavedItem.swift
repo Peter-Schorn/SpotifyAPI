@@ -1,12 +1,15 @@
 import Foundation
 
 /**
- A [saved track object][1], [saved album object][2], [saved episode object][3],
- or [saved show object][4].
+ A saved track object, saved album object, saved episode object,
+ or saved show object.
  
  This is used when retrieving content from a user's library. It contains just
  three properties:
-  
+ 
+ Read more about [saved track objects][1], [saved album objects][2],
+ [saved episode objects][3], and [saved show objects][4].
+
  * ``addedAt``: The date the item was added.
  * ``item``: The item that was saved.
  * ``type``: ``IDCategory/track`` if this is a saved track object,

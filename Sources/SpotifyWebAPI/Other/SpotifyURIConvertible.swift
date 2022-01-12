@@ -1,7 +1,9 @@
 import Foundation
 
 /**
- A type that can convert itself to a [Spotify URI][1].
+ A type that can convert itself to a Spotify URI.
+
+ Read more about [Spotify URIs][1].
 
  The only requirement is
  ```
@@ -19,19 +21,6 @@ import Foundation
  
  The id category must be one of the following:
  
-<<<<<<< HEAD
- * `artist`
- * `album`
- * `track`
- * `playlist`
- * `show`
- * `episode`
- * `local`
- * `user`
- * `genre`
- * `ad`
- * `unknown`
-=======
  * ``IDCategory/artist``
  * ``IDCategory/album``
  * ``IDCategory/track``
@@ -43,7 +32,6 @@ import Foundation
  * ``IDCategory/genre``
  * ``IDCategory/ad``
  * ``IDCategory/unknown``
->>>>>>> swift-5-5
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  */

@@ -1,8 +1,10 @@
 import Foundation
 
 /**
- A Spotify [podcast show][1].
+ A Spotify podcast show.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-showobject
  */
 public struct Show: Hashable, SpotifyURIConvertible {
@@ -59,11 +61,13 @@ public struct Show: Hashable, SpotifyURIConvertible {
     public let href: URL
        
     /**
-     Known [external urls][1] for this episode.
-
+     Known external urls for this episode.
+     
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
            for the object.
      - value: An external, public URL to the object.
+
+     Read more at the [Spotify web API reference][1].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
@@ -93,8 +97,10 @@ public struct Show: Hashable, SpotifyURIConvertible {
     public let type: IDCategory
     
     /**
-     Creates a Spotify [podcast show][1].
-     
+     Creates a Spotify podcast show.
+
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - name: The name of the show.
        - description: A description of the show.

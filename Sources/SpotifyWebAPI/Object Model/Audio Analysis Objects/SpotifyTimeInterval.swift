@@ -22,12 +22,14 @@ public struct SpotifyTimeInterval: Codable, Hashable {
     public let confidence: Double
     
     /**
-     Creates a Spotify [Time Interval][1].
+     Creates a Spotify Time Interval.
      
      This is a generic object used to represent various time intervals within
      Audio Analysis. For information about Bars, Beats, Tatums, Sections, and
      Segments are determined, please see [Rhythm][2].
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - start: The starting point (in seconds) of the time interval.
        - duration: The duration (in seconds) of the time interval.

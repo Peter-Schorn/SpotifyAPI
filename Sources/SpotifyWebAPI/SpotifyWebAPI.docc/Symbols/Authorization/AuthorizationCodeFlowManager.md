@@ -18,19 +18,19 @@
 - ``clientId``
 - ``clientSecret``
 
-- ``scopes``
-- ``accessToken``
-- ``refreshToken``
-- ``expirationDate``
-- ``backend``
+- ``AuthorizationCodeFlowManagerBase/scopes``
+- ``AuthorizationCodeFlowManagerBase/accessToken``
+- ``AuthorizationCodeFlowManagerBase/refreshToken``
+- ``AuthorizationCodeFlowManagerBase/expirationDate``
+- ``AuthorizationCodeFlowManagerBase/backend``
 
 ### Subscribing to Changes
 
-- ``didChange``
-- ``didDeauthorize``
+- ``AuthorizationCodeFlowManagerBase/didChange``
+- ``AuthorizationCodeFlowManagerBase/didDeauthorize``
 
 ### Logging
 
-- ``logger``
-- ``baseLogger``
+- ``AuthorizationCodeFlowBackendManager/logger``
+- ``AuthorizationCodeFlowManagerBase/baseLogger``
 

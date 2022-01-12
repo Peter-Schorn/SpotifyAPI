@@ -84,5 +84,5 @@ When creating an application that uses this library, you will probably want to *
 [4]: https://developer.spotify.com/dashboard/login
 [5]: https://developer.spotify.com/documentation/general/guides/scopes/
 [6]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
-[7]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-[8]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+[7]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+[8]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/

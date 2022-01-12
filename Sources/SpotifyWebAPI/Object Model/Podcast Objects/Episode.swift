@@ -2,8 +2,10 @@ import Foundation
 
 
 /**
- A Spotify [podcast episode][1].
+ A Spotify podcast episode.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
  */
 public struct Episode: Hashable, SpotifyURIConvertible {
@@ -66,12 +68,14 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     public let isPlayable: Bool
 
     /**
-     Known [external urls][1] for this episode.
+     Known external urls for this episode.
 
      - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
            for the object.
      - value: An external, public URL to the object.
 
+     Read more at the [Spotify web API reference][1].
+     
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
@@ -95,8 +99,10 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     public let type: IDCategory
  
     /**
-     Creates a Spotify [podcast episode][1].
+     Creates a Spotify podcast episode.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - name: The name of the episode.
        - show: The show on which the episode belongs.
@@ -127,7 +133,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
        - releaseDatePrecision: The precision with which ``releaseDate`` is
              known: "year", "month", or "day".
      
-     [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
      [4]: https://en.wikipedia.org/wiki/ISO_639

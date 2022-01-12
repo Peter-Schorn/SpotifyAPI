@@ -14,8 +14,8 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
- authorization information and refresh the access token using the [Authorization
- Code Flow][1].
+ authorization information and refresh the access token using the Authorization
+ Code Flow.
 
  If you are communicating with a custom backend server, then use
  ``AuthorizationCodeFlowProxyBackend`` instead, which does not send the
@@ -26,7 +26,9 @@ import OpenCombineFoundation
  ``AuthorizationCodeFlowManager`` uses this type internally by inheriting from
  ``AuthorizationCodeFlowBackendManager``<``AuthorizationCodeFlowClientBackend``>.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ Read more about the [Authorization Code Flow][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
 
@@ -36,15 +38,17 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
     )
 
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
     
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String
 	
     /**
-     The client secret that you received when you [registered your
-     application][1].
+     The client secret that you received when you registered your
+     application.
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -70,7 +74,7 @@ public struct AuthorizationCodeFlowClientBackend: AuthorizationCodeFlowBackend {
        - clientSecret: The client secret that you received when you [registered
              your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
 	public init(clientId: String, clientSecret: String) {

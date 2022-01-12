@@ -46,6 +46,6 @@ spotify.search(query: "Pink Floyd", categories: [.track])
 This authorization process is implemented in this [example command-line app][3]. Read more at the [Spotify web API reference][2].
 
 [1]: https://developer.spotify.com/documentation/general/guides/scopes/
-[2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+[2]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
 [3]: https://github.com/Peter-Schorn/SpotifyAPIExamples
 [4]: https://developer.spotify.com/documentation/web-api/reference/

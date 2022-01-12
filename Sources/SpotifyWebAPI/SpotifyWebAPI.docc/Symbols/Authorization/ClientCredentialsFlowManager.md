@@ -6,7 +6,6 @@
 
 - ``init(clientId:clientSecret:)``
 - ``init(clientId:clientSecret:accessToken:expirationDate:)``
-- ``init(backend:accessToken:expirationDate:)``
 
 ### Authorization
 
@@ -16,16 +15,15 @@
 
 - ``clientId``
 - ``clientSecret``
-- ``accessToken``
-- ``expirationDate``
-- ``scopes``
-- ``backend``
+- ``ClientCredentialsFlowBackendManager/accessToken``
+- ``ClientCredentialsFlowBackendManager/expirationDate``
+- ``ClientCredentialsFlowBackendManager/scopes``
 
 ### Subscribing to Changes
 
-- ``didChange``
-- ``didDeauthorize``
+- ``ClientCredentialsFlowBackendManager/didChange``
+- ``ClientCredentialsFlowBackendManager/didDeauthorize``
 
 ### Logging
 
-- ``logger``
+- ``ClientCredentialsFlowBackendManager/logger``

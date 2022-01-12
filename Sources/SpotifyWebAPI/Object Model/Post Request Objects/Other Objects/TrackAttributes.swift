@@ -2,9 +2,9 @@ import Foundation
 
 
 /**
- The [tunable track attributes][1] used in the
- ``SpotifyAPI/recommendations(_:limit:market:)`` endpoint for [getting
- recommendations based on seeds][2].
+ The tunable track attributes used in the
+ ``SpotifyAPI/recommendations(_:limit:market:)`` endpoint for getting
+ recommendations based on seeds.
 
  For most of the attributes, a minimum, target (ideal), and maximum value can be
  provided. This is represented by ``AttributeRange``. The target value should
@@ -17,8 +17,11 @@ import Foundation
 
  Note that all of the properties are mutable.
  
+ Read about [tunable track attributes][1] and the endpoint for [getting
+ recommendations based on seeds][2].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
+ [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
  */
 public struct TrackAttributes: Hashable {
 
@@ -179,8 +182,8 @@ public struct TrackAttributes: Hashable {
     public var valence: AttributeRange<Double>?
 
     /**
-     Creates the [tunable track attributes][1] used in the endpoint for [getting
-     recommendations based on seeds][2].
+     Creates the tunable track attributes used in the endpoint for getting
+     recommendations based on seeds.
      
      For most of the attributes, a minimum, target (ideal), and maximum value
      can be provided. This is represented by ``AttributeRange``. The target
@@ -199,6 +202,9 @@ public struct TrackAttributes: Hashable {
          valence: .init(target: 0.3)
      )
      ```
+     
+     Read about [tunable track attributes][1] and the endpoint for [getting
+     recommendations based on seeds][2].
      
      - Parameters:
        - seedArtists: An array of artists URIs.
@@ -273,7 +279,7 @@ public struct TrackAttributes: Hashable {
              sound more negative (e.g. sad, depressed, angry).
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recommendations
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
      [3]: https://en.wikipedia.org/wiki/Pitch_class
      [4]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
      */

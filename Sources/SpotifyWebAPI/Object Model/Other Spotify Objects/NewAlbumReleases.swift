@@ -8,7 +8,7 @@ import Foundation
  
  Returned by the endpoint for a [list of new album releases][1].
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-new-releases
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-new-releases
  */
 public struct NewAlbumReleases: Codable, Hashable {
     
@@ -33,7 +33,7 @@ public struct NewAlbumReleases: Codable, Hashable {
              "Good Morning", or "Editors's picks"
        - albums: The new album releases.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-new-releases
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-new-releases
      */
     public init(
         message: String? = nil,

@@ -14,7 +14,7 @@ import OpenCombineFoundation
 
 /**
  Communicates *directly* with the Spotify web API in order to retrieve the
- authorization information using the [Client Credentials Flow][1].
+ authorization information using the Client Credentials Flow.
  
  If you are communicating with a custom backend server, then use
  ``ClientCredentialsFlowProxyBackend`` instead, which does not send the
@@ -25,7 +25,9 @@ import OpenCombineFoundation
  ``ClientCredentialsFlowManager`` uses this type internally by inheriting from
  ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+ Read more about the [Client Credentials Flow][1]
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
  */
 public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
 
@@ -35,16 +37,20 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
     )
 
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
+     
+     Read more about [registering your application][1].
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String
     
     /**
-     The client secret that you received when you [registered your
-     application][1].
+     The client secret that you received when you registered your
+     application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientSecret: String
@@ -54,13 +60,15 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
     private let basicBase64EncodedCredentialsHeader: [String: String]
 
     /**
-     Creates an instance that manages the authorization process for the [Client
-     Credentials Flow][1] by communicating *directly* with the Spotify web API.
+     Creates an instance that manages the authorization process for the Client
+     Credentials Flow by communicating *directly* with the Spotify web API.
      
      Usually you should not need to create instances of this type directly.
      ``ClientCredentialsFlowManager`` uses this type internally by inheriting
      from
      ``ClientCredentialsFlowBackendManager``<``ClientCredentialsFlowClientBackend``>.
+
+     Read more about the [Client Credentials Flow][1]
 
      - Parameters:
        - clientId: The client id that you received when you [registered your
@@ -68,7 +76,7 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
        - clientSecret: The client secret that you received when you [registered
              your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(clientId: String, clientSecret: String) {

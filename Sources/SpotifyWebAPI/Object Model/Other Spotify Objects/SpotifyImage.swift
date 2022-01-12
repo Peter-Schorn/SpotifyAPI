@@ -26,7 +26,7 @@ import Foundation
 
 
 /**
- A Spotify [image][1] object.
+ A Spotify image object.
 
  Includes the URL to the image and its height and width.
  
@@ -34,6 +34,8 @@ import Foundation
          will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)`` to
          retrieve the image for a playlist.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
  */
 public struct SpotifyImage: Codable, Hashable {
@@ -60,8 +62,10 @@ public struct SpotifyImage: Codable, Hashable {
     public let url: URL
 
     /**
-     Creates a Spotify [image][1] object.
+     Creates a Spotify image object.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - height: The image height in pixels.
        - width: The image width in pixels.

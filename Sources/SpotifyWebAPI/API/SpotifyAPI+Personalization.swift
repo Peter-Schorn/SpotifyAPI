@@ -47,7 +47,7 @@ public extension SpotifyAPI where
      - Returns: An array of the full versions of artist objects wrapped in a
            paging object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
      */
     func currentUserTopArtists(
         _ timeRange: TimeRange? = nil,
@@ -102,7 +102,7 @@ public extension SpotifyAPI where
      - Returns: An array of the full versions of track objects wrapped in a
            paging object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
      */
     func currentUserTopTracks(
         _ timeRange: TimeRange? = nil,

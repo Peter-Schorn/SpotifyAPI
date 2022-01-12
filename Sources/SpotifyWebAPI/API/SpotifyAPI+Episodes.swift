@@ -40,7 +40,7 @@ public extension SpotifyAPI {
              **a value for this parameter.**
      - Returns: The full version of an ``Episode`` object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-episode
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-episode
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      */
@@ -107,7 +107,7 @@ public extension SpotifyAPI {
            **URIs is invalid, then the entire request will fail with a 400**
            **"invalid id" error.**
 
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-episodes
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-episodes
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
      [4]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject

@@ -31,7 +31,7 @@ import Foundation
    position that is greater than the length of the track/episode will cause the
    player to start playing the next item.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
  */
 public struct PlaybackRequest: Hashable {
     
@@ -110,7 +110,7 @@ public struct PlaybackRequest: Hashable {
              the track/episode will cause the player to start playing the next
              item.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     public init(
         context: Context,
@@ -149,7 +149,7 @@ public struct PlaybackRequest: Hashable {
              the track/episode will cause the player to start playing the next
              item.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     public init(
         _ uri: SpotifyURIConvertible,

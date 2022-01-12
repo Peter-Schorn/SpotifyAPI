@@ -1,8 +1,10 @@
 import Foundation
 
 /**
- The [audio features][1] of a track.
+ The audio features of a track.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject
  */
 public struct AudioFeatures: Codable, Hashable {
@@ -170,8 +172,10 @@ public struct AudioFeatures: Codable, Hashable {
     }
     
     /**
-     Creates a new [Audio Features][1] object.
+     Creates a new Audio Features object.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - key: The estimated overall key of the track.
              Integers map to pitches using standard [Pitch Class notation][2].

@@ -28,7 +28,7 @@ public extension SpotifyAPI {
              [Track Relinking][3].
      - Returns: The full version of an [Album][4].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-album
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-album
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
@@ -79,7 +79,7 @@ public extension SpotifyAPI {
            `nil` is returned in the corresponding position. Duplicate albums in
            the request will result in duplicate albums in the response.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-albums
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
@@ -143,7 +143,7 @@ public extension SpotifyAPI {
      - Returns: An array of simplified [track][4] objects, wrapped in a [paging
              object][5].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-albums-tracks
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-albums-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [4]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject

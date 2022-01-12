@@ -2,8 +2,8 @@ import Foundation
 
 /**
  After the user has authorized your app and a code has been provided, this type
- is used to request a refresh and access token for the [Authorization Code
- Flow][1].
+ is used to request a refresh and access token for the Authorization Code
+ Flow.
  
  When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
  which communicates *directly* with Spotify, use this type in the body of the
@@ -18,8 +18,10 @@ import Foundation
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
+ 
+ Read more about the [Authorization Code Flow][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct TokensRequest: Hashable {
     
@@ -41,15 +43,19 @@ public struct TokensRequest: Hashable {
     public let redirectURI: URL
     
     /**
-     The client id that you received when you [registered your application][1].
+     The client id that you received when you registered your application.
      
+     Read more about [registering your application][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public let clientId: String
     
     /**
-     The client secret that you received when you [registered your
-     application][1].
+     The client secret that you received when you registered your
+     application.
+     
+     Read more about [registering your application][1].
      
      [1]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -57,7 +63,7 @@ public struct TokensRequest: Hashable {
 
     /**
      Creates an instance that is used to retrieve the authorization information
-     using the [Authorization Code Flow][1].
+     using the Authorization Code Flow.
 
      When creating a type that conforms to ``AuthorizationCodeFlowBackend`` and
      which communicates *directly* with Spotify, use this type in the body of
@@ -73,6 +79,8 @@ public struct TokensRequest: Hashable {
            be encoded in x-www-form-urlencoded format when sent in the body of a
            network request using ``formURLEncoded()``.
      
+     Read more about the [Authorization Code Flow][1].
+
      - Parameters:
        - code: The authorization code. Retrieved from the query string of the
              redirect URI.
@@ -86,7 +94,7 @@ public struct TokensRequest: Hashable {
        - clientSecret: The client secret that you received when you [registered
              your application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(

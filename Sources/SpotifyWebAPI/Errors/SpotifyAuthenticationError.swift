@@ -2,7 +2,7 @@ import Foundation
 
 
 /**
- The Spotify [authentication error object][1].
+ The Spotify authentication error object.
 
  Do not confuse this with ``SpotifyAuthorizationError``.
 
@@ -19,25 +19,31 @@ import Foundation
  * ``RateLimitedError``
  * ``SpotifyGeneralError``
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/#authentication-error-object
  [2]: https://tools.ietf.org/html/rfc6749
  */
 public struct SpotifyAuthenticationError: LocalizedError, Hashable {
     
     /**
-     A high level description of the error as specified in [RFC 6749 Section
-     5.2][1].
+     A high level description of the error as specified in RFC 6749 Section
+     5.2.
     
+     Read the [RFC][1].
+
      [1]: https://tools.ietf.org/html/rfc6749#section-5.2
      */
     public let error: String
     
     /**
-     A more detailed description of the error as specified in [RFC 6749 Section
-     4.1.2.1][1].
+     A more detailed description of the error as specified in RFC 6749 Section
+     4.1.2.1.
      
      May be `nil` in rare cases.
      
+     Read the [RFC][1].
+
      [1]: https://tools.ietf.org/html/rfc6749#section-4.1.2.1
      */
     public let errorDescription: String?
