@@ -1,7 +1,9 @@
 import Foundation
 
-/// A Spotify [track][1].
+/// A Spotify track.
 ///
+/// Read more at the [Spotify web API reference][1].
+/// 
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
 public struct Track: Hashable {
 
@@ -73,11 +75,13 @@ public struct Track: Hashable {
     public let isExplicit: Bool
     
     /**
-     Part of the response when [Track Relinking][1] is applied. Else, `nil`. If
+     Part of the response when Track Relinking is applied. Else, `nil`. If
      `true`, the track is playable in the given market. Otherwise, `false`.
     
      See also ``restrictions``.
      
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public let isPlayable: Bool?
@@ -132,10 +136,12 @@ public struct Track: Hashable {
     public let availableMarkets: [String]?
 
     /**
-     Part of the response when [Track Relinking][1] is applied, and the
+     Part of the response when Track Relinking is applied, and the
      requested track has been replaced with different track. The track link
      contains information about the originally requested track.
     
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public let linkedFrom: TrackLink?

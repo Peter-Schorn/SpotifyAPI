@@ -82,7 +82,7 @@ When creating an application that uses this library, you will probably want to *
 [2]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp
 [3]: https://github.com/Peter-Schorn/SpotifyAPIExamples
 [4]: https://developer.spotify.com/dashboard/login
-[5]: https://developer.spotify.com/documentation/general/guides/scopes/
-[6]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+[5]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+[6]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 [7]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 [8]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/

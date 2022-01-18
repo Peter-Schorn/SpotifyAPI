@@ -283,23 +283,23 @@ This authorization process is implemented in this [example command-line app][23]
 [1]: https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI
 [2]: https://developer.spotify.com/dashboard/login
 
-[3]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
-[4]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
-[5]: https://developer.spotify.com/documentation/general/guides/scopes/
-[6]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC04makeD3URL11redirectURI10showDialog5state6scopes10Foundation0I0VSgAK_SbSSSgShyAA5ScopeOGtF
-[7]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowManager.html#/s:13SpotifyWebAPI28AuthorizationCodeFlowManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_SSSgtF
+[3]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+[4]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
+[5]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+[6]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowbackendmanager/makeauthorizationurl(redirecturi:showdialog:state:scopes:)
+[7]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowbackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:state:)
 
-[8]: https://peter-schorn.github.io/SpotifyAPI/Classes/SpotifyAPI.html
+[8]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/spotifyapi
 [12]: https://developer.spotify.com/documentation/web-api/reference/
-[13]: https://peter-schorn.github.io/SpotifyAPI/Classes/ClientCredentialsFlowManager.html#/s:13SpotifyWebAPI28ClientCredentialsFlowManagerC9authorize7Combine12AnyPublisherVyyts5Error_pGyF
+[13]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/clientcredentialsflowbackendmanager/authorize()
 [14]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp
-[15]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+[15]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 [16]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
 [17]: https://github.com/Peter-Schorn/SpotifyAPI/wiki
 [18]: https://tonyxu-io.github.io/pkce-generator/
 [19]: https://tools.ietf.org/html/rfc4648#section-5
-[20]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC04makeD3URL11redirectURI13codeChallenge5state6scopes10Foundation0I0VSgAK_S2SSgShyAA5ScopeOGtF
-[21]: https://peter-schorn.github.io/SpotifyAPI/Classes/AuthorizationCodeFlowPKCEManager.html#/s:13SpotifyWebAPI32AuthorizationCodeFlowPKCEManagerC29requestAccessAndRefreshTokens20redirectURIWithQuery12codeVerifier5state7Combine12AnyPublisherVyyts5Error_pG10Foundation3URLV_S2SSgtF
+[20]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/makeauthorizationurl(redirecturi:codechallenge:state:scopes:)
+[21]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:codeverifier:state:)
 
 [22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
 [23]: https://github.com/Peter-Schorn/SpotifyAPIExamples

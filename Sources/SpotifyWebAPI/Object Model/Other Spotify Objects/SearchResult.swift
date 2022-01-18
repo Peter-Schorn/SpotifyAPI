@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The response from the [search][1] endpoint:
+ The response from the search endpoint:
  ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``.
 
  The search endpoint has a `categories` parameter, which specifies which objects
@@ -24,6 +24,8 @@ import Foundation
  property of the property's paging object will be empty; the property itself
  will only be `nil` if it was not requested in the search.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
  */
 public struct SearchResult: Hashable, Paginated {

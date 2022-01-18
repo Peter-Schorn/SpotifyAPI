@@ -105,5 +105,5 @@ Read more at the [Spotify web API reference][5].
 [1]: https://tools.ietf.org/html/rfc4648#section-5
 [2]: https://tonyxu-io.github.io/pkce-generator/
 [3]: https://developer.spotify.com/dashboard/login
-[4]: https://developer.spotify.com/documentation/general/guides/scopes/
-[5]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+[4]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+[5]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/

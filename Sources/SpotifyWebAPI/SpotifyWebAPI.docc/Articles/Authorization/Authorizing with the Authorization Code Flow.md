@@ -75,7 +75,7 @@ spotify.currentUserPlaylists()
 This authorization process is fully implemented in this [example app][3]. Read more at the [Spotify web API reference][4].
 
 [1]: https://developer.spotify.com/dashboard/login
-[2]: https://developer.spotify.com/documentation/general/guides/scopes/
+[2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 [3]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
 [4]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 

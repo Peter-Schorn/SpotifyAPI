@@ -1,11 +1,13 @@
 import Foundation
 
 /**
- [Sections][1] are defined by large variations in rhythm or timbre, e.g. chorus,
+ Sections are defined by large variations in rhythm or timbre, e.g. chorus,
  verse, bridge, guitar solo, etc.
 
  Each section contains its own descriptions of tempo, key, mode, time signature,
  and loudness.
+ 
+ Read more at the [Spotify web API reference][1].
  
  [1]: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#section-object
  */

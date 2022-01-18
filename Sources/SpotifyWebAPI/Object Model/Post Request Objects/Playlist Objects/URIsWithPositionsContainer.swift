@@ -1,8 +1,8 @@
 import Foundation
 
 /**
- A container that holds ``URIWithPositions`` and, optionally, the [snapshot
- id][1] of the playlist that the items associated with the URIs (usually
+ A container that holds ``URIWithPositions`` and, optionally, the snapshot
+ id of the playlist that the items associated with the URIs (usually
  tracks/episodes) are contained in.
 
  Used in the body of
@@ -13,7 +13,8 @@ import Foundation
 
  Compare with ``URIsContainer``.
  
- Read more at the [Spotify web API reference][2].
+ Read more about [snapshot Ids][1]. Read more at the [Spotify web API
+ reference][2].
  
  [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
  [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist

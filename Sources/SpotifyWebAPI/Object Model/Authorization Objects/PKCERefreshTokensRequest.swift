@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Used during the [Authorization Code Flow with Proof Key for Code Exchange][1]
+ Used during the Authorization Code Flow with Proof Key for Code Exchange
  to retrieve a new access token and refresh token using the refresh token.
 
  Unlike the Authorization Code Flow, a refresh token that has been obtained
@@ -22,8 +22,10 @@ import Foundation
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
+
+ Read more at the [Spotify web API reference][1].
  
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct PKCERefreshTokensRequest: Hashable {
     
@@ -67,7 +69,7 @@ public struct PKCERefreshTokensRequest: Hashable {
        - clientId: The client id that you received when you [registered your
              application][2].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(refreshToken: String, clientId: String) {

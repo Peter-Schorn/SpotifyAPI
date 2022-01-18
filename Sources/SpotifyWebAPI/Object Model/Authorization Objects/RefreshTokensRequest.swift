@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Used during the [Authorization Code Flow][1] to retrieve a new access
+ Used during the Authorization Code Flow to retrieve a new access
  token using the refresh token. Spotify may also return a new refresh token.
  
  This type should be used in the body of the network request made in the
@@ -11,6 +11,8 @@ import Foundation
  - Important: Although this type conforms to `Codable`, it should actually be
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
+
+ Read more at the [Spotify web API reference][1].
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */

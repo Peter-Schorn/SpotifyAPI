@@ -1,6 +1,8 @@
 import Foundation
 
-/// A Spotify [playlist][1].
+/// A Spotify playlist.
+///
+/// Read more at the [Spotify web API reference][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
 public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashable {

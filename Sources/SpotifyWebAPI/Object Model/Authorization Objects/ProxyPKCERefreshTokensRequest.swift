@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Used during the [Authorization Code Flow with Proof Key for Code Exchange][1]
+ Used during the Authorization Code Flow with Proof Key for Code Exchange
  to retrieve a new access token and refresh token using the refresh token.
 
  Unlike the Authorization Code Flow, a refresh token that has been obtained
@@ -24,7 +24,9 @@ import Foundation
        encoded in x-www-form-urlencoded format when sent in the body of a
        network request using ``formURLEncoded()``.
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ Read more at the [Spotify web API reference][1].
+
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct ProxyPKCERefreshTokensRequest: Hashable {
     
@@ -62,7 +64,7 @@ public struct ProxyPKCERefreshTokensRequest: Hashable {
 
      - Parameter refreshToken: The refresh token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     public init(refreshToken: String) {
         self.refreshToken = refreshToken

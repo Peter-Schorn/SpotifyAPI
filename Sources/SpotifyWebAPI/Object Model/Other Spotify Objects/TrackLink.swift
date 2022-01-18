@@ -1,8 +1,11 @@
 import Foundation
 
 
-/// A Spotify [track link][1] object.
+/// A Spotify track link object.
+///
 /// See also the [Track relinking Guide][2].
+///
+/// Read more at the [Spotify web API reference][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
 /// [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/

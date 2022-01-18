@@ -353,7 +353,7 @@ public extension AuthorizationCodeFlowManagerBase {
      
      This method is thread-safe.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoQueue.sync {

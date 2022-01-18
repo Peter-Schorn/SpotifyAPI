@@ -2,13 +2,14 @@ import Foundation
 
 
 /**
- Contains an array of URIs and, optionally, the [snapshot id][1] of a playlist.
+ Contains an array of URIs and, optionally, the snapshot id of a playlist.
  Used in the body of
  ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``.
 
  Compare with ``URIsWithPositionsContainer``.
 
- Read more at the [Spotify web API reference][2].
+ Read more about [snapshot Ids][1]. Read more at the [Spotify web API
+ reference][2].
  
  [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
  [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
@@ -73,7 +74,7 @@ extension URIsContainer: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(self.snapshotId, forKey: .snapshotId)
+        try container.encodeIfPresent(self.snapshotId, forKey: .snapshotId)
         
         let urisDictionaries = self.items.map { uri in
             ["uri": uri.uri]

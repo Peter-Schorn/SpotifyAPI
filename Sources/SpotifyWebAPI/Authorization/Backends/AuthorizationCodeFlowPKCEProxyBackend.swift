@@ -43,7 +43,7 @@ import OpenCombineFoundation
  Read more about the [Authorization Code Flow with Proof Key for Code
  Exchange][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
  */
 public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBackend {
@@ -150,7 +150,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
              documented error objects produced by Spotify, such as
              ``SpotifyAuthenticationError``. This will be done elsewhere.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://github.com/Peter-Schorn/SpotifyAPIServer
      [3]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */

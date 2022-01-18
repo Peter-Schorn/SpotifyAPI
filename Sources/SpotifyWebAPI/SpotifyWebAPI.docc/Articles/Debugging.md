@@ -63,11 +63,11 @@ Logs messages related to the [Authorization Code Flow](https://developer.spotify
 
 #### AuthorizationCodeFlowPKCEBackendManager.logger
 
-Logs messages related to the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
+Logs messages related to the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, when the access and refresh tokens are retrieved, and when the tokens are refreshed.
 
 #### ClientCredentialsFlowBackendManager.logger
 
-Logs messages related to the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, and when an access token is retrieved.
+Logs messages related to the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/), such as when ``AuthorizationCodeFlowManagerBase/deauthorize()``  is called, and when an access token is retrieved.
 
 #### AuthorizationCodeFlowManagerBase.baseLogger
 
@@ -75,11 +75,11 @@ Logs messages related to the Authorization Code Flow and the Authorization Code 
 
 #### ClientCredentialsFlowClientBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow).
+Logs messages related to retrieving the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/).
 
 #### ClientCredentialsFlowProxyBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow).
+Logs messages related to retrieving the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/).
 
 #### AuthorizationCodeFlowClientBackend.logger
 
@@ -91,11 +91,11 @@ Logs messages related to retrieving the authorization information for the [Autho
 
 #### AuthorizationCodeFlowPKCEClientBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce).
+Logs messages related to retrieving the authorization information for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/).
 
 #### AuthorizationCodeFlowPKCEProxyBackend.logger
 
-Logs messages related to retrieving the authorization information for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce).
+Logs messages related to retrieving the authorization information for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/).
 
 #### CurrentlyPlayingContext.logger
 

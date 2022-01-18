@@ -12,7 +12,7 @@ Listed below are protocols for each [authorization flow](https://developer.spoti
 
 * **``AuthorizationCodeFlowPKCEBackend``**: Used by ``AuthorizationCodeFlowPKCEBackendManager`` to retrieve the authorization information and refresh the access token for the [Authorization Code Flow with Proof Key for Code Exchange](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/). Conforming types: ``AuthorizationCodeFlowPKCEClientBackend`` and ``AuthorizationCodeFlowPKCEProxyBackend``.
 
-* **``ClientCredentialsFlowBackend``**: Used by ``ClientCredentialsFlowBackendManager`` to retrieve the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow). Conforming types: ``ClientCredentialsFlowClientBackend`` and ``ClientCredentialsFlowProxyBackend``.
+* **``ClientCredentialsFlowBackend``**: Used by ``ClientCredentialsFlowBackendManager`` to retrieve the authorization information for the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/). Conforming types: ``ClientCredentialsFlowClientBackend`` and ``ClientCredentialsFlowProxyBackend``.
 
 ## SpotifyAPIServer
 

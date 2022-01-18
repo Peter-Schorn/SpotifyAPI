@@ -1,6 +1,8 @@
 import Foundation
 
-/// A Spotify [artist][1].
+/// A Spotify artist.
+///
+/// Read more at the [Spotify web API reference][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
 public struct Artist: Hashable {

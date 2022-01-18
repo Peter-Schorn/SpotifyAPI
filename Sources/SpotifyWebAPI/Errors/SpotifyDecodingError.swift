@@ -73,10 +73,12 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     public let underlyingError: Error?
     
     /**
-     If the underlying error is a [DecodingError][1], then this will be the
+     If the underlying error is a DecodingError, then this will be the
      coding path formatted as if you were accessing nested properties from a
      Swift type; for example, “items[27].track.album.release_date”.
     
+     Read more at the [Spotify web API reference][1].
+
      [1]: https://developer.apple.com/documentation/swift/decodingerror
      */
     public var prettyCodingPath: String? {

@@ -1,6 +1,8 @@
 import Foundation
 
-/// A Spotify [album][1].
+/// A Spotify album.
+///
+/// Read more at the [Spotify web API reference][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
 public struct Album: Hashable {

@@ -115,7 +115,7 @@ extension PlaylistItemContainer: Codable {
         try container.encodeSpotifyTimestampIfPresent(
             self.addedAt, forKey: .addedAt
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.addedBy, forKey: .addedBy
         )
         try container.encodeIfPresent(

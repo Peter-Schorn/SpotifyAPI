@@ -7,7 +7,7 @@ import Logging
  
  Read more at the [Spotify API Reference][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
  */
 public enum Scope: String, Codable, Hashable {
     
@@ -307,7 +307,7 @@ public extension Scope {
     
      See the [Spotify API Reference][1].
     
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     static func makeString(_ scopes: Scope...) -> String {
         return makeString(Set(scopes))
@@ -324,7 +324,7 @@ public extension Scope {
     
      See the [Spotify API Reference][1].
     
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     static func makeString(_ scopes: Set<Scope>) -> String {
         return scopes.map(\.rawValue).joined(separator: " ")
@@ -344,7 +344,7 @@ public extension Scope {
     
      See the [Spotify API Reference][1].
     
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     static func makeSet(_ string: String) -> Set<Scope> {
         

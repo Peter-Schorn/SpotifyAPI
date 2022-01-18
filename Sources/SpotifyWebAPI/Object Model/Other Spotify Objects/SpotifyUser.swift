@@ -306,7 +306,7 @@ extension SpotifyUser: Codable {
                 forKey: .disallowsExplicitContent
             )
             
-            try explicitContentContainer.encode(
+            try explicitContentContainer.encodeIfPresent(
                 self.explicitContentSettingIsLocked,
                 forKey: .explicitContentSettingIsLocked
             )

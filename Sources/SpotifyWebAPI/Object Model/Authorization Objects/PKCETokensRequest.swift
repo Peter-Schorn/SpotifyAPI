@@ -22,7 +22,7 @@ import Foundation
  Read more about the [Authorization Code Flow with Proof Key for Code
  Exchange][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct PKCETokensRequest: Hashable {
     
@@ -90,7 +90,7 @@ public struct PKCETokensRequest: Hashable {
        - codeVerifier: The code verifier that you generated when creating the
              authorization URL.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
     public init(

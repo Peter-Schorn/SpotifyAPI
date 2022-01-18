@@ -1,6 +1,8 @@
 import Foundation
 
-/// A Spotify [followers object][1].
+/// A Spotify followers object.
+///
+/// Read more at the [Spotify web API reference][1].
 ///
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
 public struct Followers: Hashable {

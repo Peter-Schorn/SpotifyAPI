@@ -9,7 +9,7 @@ import OpenCombineFoundation
 import Logging
 
 /**
- A type that can manage the [authorization process][1] for the Spotify web API.
+ A type that can manage the authorization process for the Spotify web API.
  It also contains all the authorization information.
 
  It provides an access token, the scopes that have been authorized for the
@@ -23,6 +23,8 @@ import Logging
  storage. See <doc:Saving-the-Authorization-Information-to-Persistent-Storage>
  for more information.
  
+ Read more at the [Spotify web API reference][1].
+
  [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/
  */
 public protocol SpotifyAuthorizationManager: Codable {
@@ -94,7 +96,7 @@ public protocol SpotifyAuthorizationManager: Codable {
      
      - Parameter scopes: A set of [Spotify Authorization Scopes][1].
      
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     func isAuthorized(for scopes: Set<Scope>) -> Bool
     

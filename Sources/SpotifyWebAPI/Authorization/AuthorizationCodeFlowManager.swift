@@ -74,7 +74,7 @@ import FoundationNetworking
  Read more about the [Authorization Code Flow][1].
  
  [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public class AuthorizationCodeFlowBackendManager<Backend: AuthorizationCodeFlowBackend>:
     AuthorizationCodeFlowManagerBase<Backend>,
@@ -294,7 +294,7 @@ public extension AuthorizationCodeFlowBackendManager {
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
-     [3]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [3]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      
      - Tag: makeAuthorizationURL
      */
@@ -627,7 +627,7 @@ public extension AuthorizationCodeFlowBackendManager {
  Read more about the [Authorization Code Flow][1].
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
- [2]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public final class AuthorizationCodeFlowManager:
     AuthorizationCodeFlowBackendManager<AuthorizationCodeFlowClientBackend>

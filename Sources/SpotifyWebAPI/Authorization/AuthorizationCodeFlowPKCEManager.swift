@@ -74,7 +74,7 @@ import Logging
  Read more about the [Authorization Code Flow with Proof Key for Code
  Exchange][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [3]: https://tools.ietf.org/html/rfc7636
  */
@@ -135,7 +135,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
              ``AuthorizationCodeFlowPKCEProxyBackend``). See
              ``AuthorizationCodeFlowPKCEBackend`` for more information.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     public required init(backend: Backend) {
         super.init(backend: backend)
@@ -184,7 +184,7 @@ public class AuthorizationCodeFlowPKCEBackendManager<Backend: AuthorizationCodeF
              to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     public convenience init(
 		backend: Backend,
@@ -320,11 +320,11 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      - Returns: The URL that must be opened to authorize your app. May return
            `nil` if the URL could not be created.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://tools.ietf.org/html/rfc4648#section-5
      [3]: https://tonyxu-io.github.io/pkce-generator/
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
-     [5]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [5]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      
      - Tag: PKCEmakeAuthorizationURL
      */
@@ -403,7 +403,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
              new value for this parameter in preparation for the next
              authorization process.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 
      - Tag: PKCErequestAccessAndRefreshTokens-redirectURIWithQuery
      */
@@ -680,7 +680,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
  Read more about the [Authorization Code Flow with Proof Key for Code
  Exchange][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [2]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  [3]: https://tools.ietf.org/html/rfc7636
  */
@@ -720,7 +720,7 @@ public final class AuthorizationCodeFlowPKCEManager:
        - clientId: The client id that you received when you [registered your
              application][4].
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [2]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -769,7 +769,7 @@ public final class AuthorizationCodeFlowPKCEManager:
              to check if the access token is expired.
        - scopes: The scopes that have been authorized for the access token.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */

@@ -59,7 +59,7 @@ import Logging
  Read more about the [Client Credentials Flow][1].
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
- [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
  */
 public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
     SpotifyAuthorizationManager,
@@ -238,7 +238,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
              ``ClientCredentialsFlowBackend`` for more information.
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
-     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -283,7 +283,7 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
-     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -472,7 +472,7 @@ public extension ClientCredentialsFlowBackendManager {
      
      This method is thread-safe.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      */
     func isAuthorized(for scopes: Set<Scope> = []) -> Bool {
         return self.updateAuthInfoQueue.sync {
@@ -742,7 +742,7 @@ extension ClientCredentialsFlowBackendManager {
  Read more about the [Client Credentials Flow][1].
 
  [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
- [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+ [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
  */
 public final class ClientCredentialsFlowManager:
     ClientCredentialsFlowBackendManager<ClientCredentialsFlowClientBackend>
@@ -797,7 +797,7 @@ public final class ClientCredentialsFlowManager:
              your application][5].
 
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
-     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [5]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */
@@ -845,7 +845,7 @@ public final class ClientCredentialsFlowManager:
        - expirationDate: The expiration date of the access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
-     [2]: https://developer.spotify.com/documentation/general/guides/scopes/
+     [2]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
      [3]: https://developer.spotify.com/dashboard/login
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
      */

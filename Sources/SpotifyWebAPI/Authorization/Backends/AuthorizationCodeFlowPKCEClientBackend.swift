@@ -30,7 +30,7 @@ import OpenCombineFoundation
  Read more about the [Authorization Code Flow with Proof Key for Code
  Exchange][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEBackend {
     

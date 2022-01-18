@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- The Spotify [player error object][1]. This is returned when making requests
+ The Spotify player error object. This is returned when making requests
  related to the player endpoints.
  
  See also:
@@ -14,13 +14,11 @@ import Foundation
  property:
  
  * ``message``: A short description of the cause of the error.
- * ``reason``: One of the [player error reasons][2] presented below.
- * ``statusCode``: The HTTP status code that is also returned in the response
-   header.
+ * ``reason``: A player error reason.
+ * ``statusCode``: The [HTTP status code][1] that is also returned in the
+   response header.
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
- [3]: https://developer.spotify.com/documentation/web-api/#response-status-codes
+ [1]: https://developer.spotify.com/documentation/web-api/#response-status-codes
  */
 public struct SpotifyPlayerError: LocalizedError, Hashable {
     

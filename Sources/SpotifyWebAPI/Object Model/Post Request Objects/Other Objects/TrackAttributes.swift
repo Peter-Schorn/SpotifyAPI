@@ -322,8 +322,8 @@ public struct TrackAttributes: Hashable {
     }
 
     /**
-     Creates the query dictionary that is ultimately used in the [endpoint to
-     request track attributes][1]:
+     Creates the query dictionary that is ultimately used in the endpoint to
+     request track attributes:
      ``SpotifyAPI/recommendations(_:limit:market:)``
      
      You shouldn't need to call this directly. It is called by
@@ -332,6 +332,8 @@ public struct TrackAttributes: Hashable {
      See also ``AttributeRange/queryDictionary(attributeName:)``, which is
      called on each property of this type to create the dictionary.
      
+     Read more at the [Spotify web API reference][1].
+
      - Throws: If an id could not be parsed from any of the artist or track
            URIs, or if these URIs do not match the artist and track categories,
            respectively.

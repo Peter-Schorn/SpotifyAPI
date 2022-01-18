@@ -1,7 +1,9 @@
 import Foundation
 
-/// A Spotify [copyright object][1].
+/// A Spotify copyright object.
 ///
+/// Read more at the [Spotify web API reference][1].
+/// 
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-copyrightobject
 public struct SpotifyCopyright: Codable, Hashable {
     

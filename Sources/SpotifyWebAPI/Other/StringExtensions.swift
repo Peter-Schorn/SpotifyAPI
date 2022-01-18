@@ -68,7 +68,7 @@ public extension String {
      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
      ```
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     static let urlSafeCharacters = """
         abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-
@@ -94,7 +94,7 @@ public extension String {
              128 characters in length, inclusive.
        - randomNumberGenerator: The random number generator to use.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     static func randomURLSafe<Generator: RandomNumberGenerator>(
         length: Int,
@@ -128,7 +128,7 @@ public extension String {
      - Parameter length: The length of the string. The code verifier must be
            between 43 and 128 characters in length, inclusive.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     static func randomURLSafe(length: Int) -> String {
         var generator = SystemRandomNumberGenerator()
@@ -160,7 +160,7 @@ public extension String {
      - Parameter codeVerifier: The code verifier.
      - Returns: The code challenge.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow-with-proof-key-for-code-exchange-pkce
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
      */
     static func makeCodeChallenge(codeVerifier: String) -> String {
         

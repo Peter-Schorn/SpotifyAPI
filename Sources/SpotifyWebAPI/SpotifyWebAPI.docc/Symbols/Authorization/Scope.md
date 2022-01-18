@@ -45,4 +45,4 @@
 - ``userFollowRead``
 - ``userFollowModify``
 
-[1]: https://developer.spotify.com/documentation/general/guides/scopes/
+[1]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/

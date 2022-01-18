@@ -1,7 +1,9 @@
 import Foundation
 
-/// The [types of devices][1] that Spotify content can be played on.
+/// The types of devices that Spotify content can be played on.
 ///
+/// Read more at the [Spotify web API reference][1].
+/// 
 /// [1]: https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/#device-types
 public enum DeviceType: String, Codable, Hashable, CaseIterable {
     
