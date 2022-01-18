@@ -70,8 +70,8 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Remove LinuxMain
-    - run: rm Tests/LinuxMain.swift
-    - if: matrix.image == "swift:5.5"
+      run: rm Tests/LinuxMain.swift
+      if: matrix.image == "swift:5.5"
     
     - name: Build ${{ matrix.image }}
       run: |
