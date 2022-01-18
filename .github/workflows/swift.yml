@@ -71,7 +71,7 @@ jobs:
     
     - name: Remove LinuxMain
       run: rm Tests/LinuxMain.swift
-      if: matrix.image == "swift:5.5"
+      if: matrix.image == 'swift:5.5'
     
     - name: Build ${{ matrix.image }}
       run: |
