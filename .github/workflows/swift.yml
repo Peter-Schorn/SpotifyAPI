@@ -68,9 +68,11 @@ jobs:
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
+    
     - name: Remove LinuxMain
-    - if: matrix.image == "swift:5.5"
     - run: rm Tests/LinuxMain.swift
+    - if: matrix.image == "swift:5.5"
+    
     - name: Build ${{ matrix.image }}
       run: |
         apt-get update && apt-get install -y python3
