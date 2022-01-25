@@ -47,7 +47,7 @@ public enum PlaylistItem: Hashable {
         }
     }
     
-    /// The [Spotify ID] for this ``PlaylistItem``.
+    /// The [Spotify ID][1] for this ``PlaylistItem``.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     @inlinable
