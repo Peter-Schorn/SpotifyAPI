@@ -117,10 +117,10 @@ extension AuthInfo: Codable {
             self.refreshToken, forKey: .refreshToken
         )
         try container.encodeSpotifyScopesIfPresent(
-            scopes, forKey: .scopes
+            self.scopes, forKey: .scopes
         )
         try container.encodeSpotifyTimestampIfPresent(
-            expirationDate, forKey: .expirationDate
+            self.expirationDate, forKey: .expirationDate
         )
         
     }

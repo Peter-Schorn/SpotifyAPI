@@ -3,7 +3,8 @@ import Foundation
 private extension KeyedDecodingContainer {
     
     func decodeSpotifyDateFromString(
-        _ dateString: String
+        _ dateString: String,
+        key: Key
     ) throws -> Date {
         
         if let longDate = DateFormatter.spotifyAlbumLong
@@ -28,11 +29,10 @@ private extension KeyedDecodingContainer {
                 "YYYY"
                 """
             
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: self.codingPath,
-                    debugDescription: errorMessage
-                )
+            throw DecodingError.dataCorruptedError(
+                forKey: key,
+                in: self,
+                debugDescription: errorMessage
             )
         }
         
@@ -43,7 +43,7 @@ private extension KeyedDecodingContainer {
         key: Key
     ) throws -> Date {
         
-        if let date = SpotifyTimestampFormatter().date(
+        if let date = SpotifyTimestampFormatter.shared.date(
             from: dateString
         ) {
             return date
@@ -55,11 +55,10 @@ private extension KeyedDecodingContainer {
                 for key \(key). It must be in ISO 8601 format.
                 """
             
-            throw DecodingError.dataCorrupted(
-                DecodingError.Context(
-                    codingPath: self.codingPath,
-                    debugDescription: errorMessage
-                )
+            throw DecodingError.dataCorruptedError(
+                forKey: key,
+                in: self,
+                debugDescription: errorMessage
             )
             
         }
@@ -91,12 +90,25 @@ public extension KeyedDecodingContainer {
         
         let dateString = try self.decode(String.self, forKey: key)
         return try self.decodeSpotifyDateFromString(
-            dateString
+            dateString, key: key
         )
         
     }
     
-    /// See ``decodeSpotifyDate(forKey:)``.
+    /**
+     Decodes a Date from a date-string with one of
+     the following formats:
+    
+     - "YYYY-MM-DD"
+     - "YYYY-MM"
+     - "YYYY"
+    
+     - Parameter key: The key that is associated with a date string in one of
+           the above formats.
+     - Throws: If the value cannot be decoded into a string.
+     - Returns: The decoded Date, or `nil` if no date-string is present for the
+           given key, **or if the format of the date-string is invalid**.
+     */
     func decodeSpotifyDateIfPresent(
         forKey key: Key
     ) throws -> Date? {
@@ -108,8 +120,8 @@ public extension KeyedDecodingContainer {
             return nil
         }
         
-        return try self.decodeSpotifyDateFromString(
-            dateString
+        return try? self.decodeSpotifyDateFromString(
+            dateString, key: key
         )
 
     }
@@ -216,11 +228,12 @@ public extension KeyedEncodingContainer {
     // MARK: - Spotify Dates -
     
     /**
-     Encodes a Sate to a date-string in one of the following formats, depending
+     Encodes a Date to a date-string in one of the following formats, depending
      on the `datePrecision`.
 
-     The expected values for `datePrecision` are:
-     
+     The date will be encoded into a date-string using a format based on the
+     value of `datePrecision`:
+
      * "YYYY-MM-DD" if `datePrecision` == "day"
      * "YYYY-MM" if `datePrecision` == "month"
      * "YYYY" if `datePrecision` == "year" or == `nil`.
@@ -255,7 +268,26 @@ public extension KeyedEncodingContainer {
         
     }
     
-    /// See `encodeSpotifyDate(_:datePrecision:forKey:)`.
+    /**
+     Encodes a Date to a date-string in one of the following formats, depending
+     on the `datePrecision`.
+
+     If `date` is `nil`, then doesn't encode anything.
+
+     The date will be encoded into a date-string using a format based on the
+     value of `datePrecision`:
+
+     * "YYYY-MM-DD" if `datePrecision` == "day"
+     * "YYYY-MM" if `datePrecision` == "month"
+     * "YYYY" if `datePrecision` == "year" or == `nil`.
+     
+     - Parameters:
+       - date: A Date.
+       - datePrecision: One of the above-mentioned values.
+       - key: A key to associate the Date with.
+     - Throws: If the date string could not be encoded into the container for
+           the given key.
+     */
     mutating func encodeSpotifyDateIfPresent(
         _ date: Date?,
         datePrecision: String?,
@@ -275,7 +307,7 @@ public extension KeyedEncodingContainer {
         forKey key: Key
     ) throws {
         
-        let dateString = SpotifyTimestampFormatter().string(
+        let dateString = SpotifyTimestampFormatter.shared.string(
             from: date
         )
         try self.encode(dateString, forKey: key)

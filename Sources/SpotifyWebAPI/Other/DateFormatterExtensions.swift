@@ -63,9 +63,16 @@ public extension DateFormatter {
     
 }
 
-/// A formatter that converts between dates and Spotify timestamp strings.
+/**
+ A formatter that converts between dates and Spotify timestamp strings.
+ 
+ Use the ``SpotifyTimestampFormatter/shared`` instance whenever possible.
+ */
 public struct SpotifyTimestampFormatter  {
     
+    /// A shared instance of `Self`.
+    public static let shared = Self()
+
     public static let secondsFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]
