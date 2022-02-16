@@ -492,9 +492,9 @@ public extension ClientCredentialsFlowBackendManager {
      signal, causing ``SpotifyAPI/authorizationManagerDidChange`` to emit a
      signal.
      
-     Read more about the [Client Credentials Flow][1].
+     Read more at the [Spotify web API reference][1].
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/#request-authorization
      */
     func authorize() -> AnyPublisher<Void, Error> {
         
@@ -560,7 +560,7 @@ public extension ClientCredentialsFlowBackendManager {
      
      Calling this method is thread-safe. If a network request to refresh the
      tokens is already in progress, additional calls will return a reference to
-     the same publisher as a class instance.
+     the same publisher.
 
      **However**, No guarantees are made about the thread that the publisher
      returned by this method will emit on.

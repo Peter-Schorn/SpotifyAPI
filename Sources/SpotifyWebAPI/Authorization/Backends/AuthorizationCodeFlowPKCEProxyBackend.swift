@@ -227,7 +227,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
              logged in to their Spotify account, with query parameters appended
              to it.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20your%20app%20exchanges%20the%20code%20for%20an%20access%20token
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
      */
     public func requestAccessAndRefreshTokens(
         code: String,
@@ -329,7 +329,7 @@ public struct AuthorizationCodeFlowPKCEProxyBackend: AuthorizationCodeFlowPKCEBa
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=6.%20requesting%20a%20refreshed%20access%20token
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
     public func refreshTokens(
         refreshToken: String

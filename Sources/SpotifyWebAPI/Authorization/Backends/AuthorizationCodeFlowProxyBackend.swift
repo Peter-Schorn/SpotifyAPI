@@ -227,7 +227,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
              logged in to their Spotify account, with query parameters appended
              to it.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=2.%20have%20your%20application%20request%20refresh%20and%20access%20tokens%3B%20spotify%20returns%20access%20and%20refresh%20tokens
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
      */
 	public func requestAccessAndRefreshTokens(
         code: String,
@@ -328,7 +328,7 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
              logged in to their Spotify account, with query parameters appended
              to it.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20requesting%20a%20refreshed%20access%20token%3B%20spotify%20returns%20a%20new%20access%20token%20to%20your%20app
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
 	public func refreshTokens(
         refreshToken: String

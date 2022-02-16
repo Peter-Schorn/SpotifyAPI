@@ -98,7 +98,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
              logged in to their Spotify account, with query parameters appended
              to it.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=2.%20have%20your%20application%20request%20refresh%20and%20access%20tokens%3B%20spotify%20returns%20access%20and%20refresh%20tokens
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
      */
 	func requestAccessAndRefreshTokens(
         code: String,
@@ -142,7 +142,7 @@ public protocol AuthorizationCodeFlowBackend: Codable, Hashable {
      - Parameter refreshToken: The refresh token, which can be exchanged for
            a new access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20requesting%20a%20refreshed%20access%20token%3B%20spotify%20returns%20a%20new%20access%20token%20to%20your%20app
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
     func refreshTokens(
         refreshToken: String
@@ -241,7 +241,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
              logged in to their Spotify account, with query parameters appended
              to it.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=4.%20your%20app%20exchanges%20the%20code%20for%20an%20access%20token
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
      */
     func requestAccessAndRefreshTokens(
         code: String,
@@ -289,7 +289,7 @@ public protocol AuthorizationCodeFlowPKCEBackend: Codable, Hashable {
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=6.%20requesting%20a%20refreshed%20access%20token
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
 	func refreshTokens(
         refreshToken: String
@@ -359,7 +359,7 @@ public protocol ClientCredentialsFlowBackend: Codable, Hashable {
      
      See also ``ClientCredentialsTokensRequest``.
 
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/#request-authorization
      */
     func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>

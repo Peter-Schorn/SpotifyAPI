@@ -160,7 +160,7 @@ public struct ClientCredentialsFlowProxyBackend: ClientCredentialsFlowBackend {
      The [/client-credentials-flow/retrieve-tokens][2] endpoint of
      SpotifyAPIServer can be used for this URL.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/#:~:text=the%20request%20is%20sent%20to%20the%20%2Fapi%2Ftoken%20endpoint%20of%20the%20accounts%20service%3A
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/#request-authorization
      [2]: https://github.com/Peter-Schorn/SpotifyAPIServer#post-client-credentials-flowretrieve-tokens
      */
     public func makeClientCredentialsTokensRequest(

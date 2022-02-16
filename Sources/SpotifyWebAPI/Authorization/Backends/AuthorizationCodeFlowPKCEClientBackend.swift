@@ -96,6 +96,9 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
      }
      ```
      
+     Read about the underlying request that is made to Spotify in order to
+     retrieve this data [here][1].
+
      - Parameters:
        - code: The authorization code, which will also be present in
              `redirectURIWithQuery`.
@@ -104,6 +107,8 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
        - redirectURIWithQuery: The URL that spotify redirected to after the user
              logged in to their Spotify account, with query parameters appended
              to it.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
      */
     public func requestAccessAndRefreshTokens(
         code: String,
@@ -174,8 +179,13 @@ public struct AuthorizationCodeFlowPKCEClientBackend: AuthorizationCodeFlowPKCEB
      }
      ```
      
+     Read about the underlying request that is made to Spotify in order to
+     retrieve this data [here][1].
+     
      - Parameter refreshToken: The refresh token, which can be exchanged for a
            new access token.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
     public func refreshTokens(
         refreshToken: String

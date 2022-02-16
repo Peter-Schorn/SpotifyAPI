@@ -25,7 +25,7 @@ import Logging
  
  Read more at the [Spotify web API reference][1].
 
- [1]: https://developer.spotify.com/documentation/general/guides/authorization-guide/
+ [1]: https://developer.spotify.com/documentation/general/guides/authorization/
  */
 public protocol SpotifyAuthorizationManager: Codable {
     

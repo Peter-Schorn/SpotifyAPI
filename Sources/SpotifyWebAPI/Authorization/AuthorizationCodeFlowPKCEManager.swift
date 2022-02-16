@@ -293,8 +293,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      All of these values will be automatically percent-encoded. Therefore, do
      not percent-encode them yourself before passing them into this method.
 
-     Read more about the [Authorization Code Flow with Proof Key for Code
-     Exchange][1].
+     Read more at the [Spotify web API reference][1].
 
      - Parameters:
        - redirectURI: The location that Spotify will redirect to after the user
@@ -320,7 +319,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      - Returns: The URL that must be opened to authorize your app. May return
            `nil` if the URL could not be created.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-user-authorization
      [2]: https://tools.ietf.org/html/rfc4648#section-5
      [3]: https://tonyxu-io.github.io/pkce-generator/
      [4]: https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app
@@ -379,8 +378,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      All of these values will be automatically percent-encoded. Therefore, do
      not percent-encode them yourself before passing them into this method.
 
-     Read more about the [Authorization Code Flow with Proof Key for Code
-     Exchange][1].
+     Read more at the [Spotify web API reference][1].
 
      - Parameters:
        - redirectURIWithQuery: The redirect URI with query parameters appended
@@ -403,7 +401,7 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
              new value for this parameter in preparation for the next
              authorization process.
      
-     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-access-token
 
      - Tag: PKCErequestAccessAndRefreshTokens-redirectURIWithQuery
      */
@@ -512,11 +510,13 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
      
      Calling this method is thread-safe. If a network request to refresh the
      tokens is already in progress, additional calls will return a reference to
-     the same publisher as a class instance.
+     the same publisher.
 
      **However**, no guarantees are made about the thread that the publisher
      returned by this method will emit on.
      
+     Read more at the [Spotify web API reference][1].
+
      - Parameters:
        - onlyIfExpired: Only refresh the access token if it is expired.
        - tolerance: The tolerance in seconds to use when determining if the
@@ -525,6 +525,8 @@ public extension AuthorizationCodeFlowPKCEBackendManager {
              two minutes. The token is considered expired if ``AuthorizationCodeFlowManagerBase/expirationDate``
              - `tolerance` is equal to or before the current date. This
              parameter has no effect if `onlyIfExpired` is `false`.
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */
     func refreshTokens(
         onlyIfExpired: Bool,

@@ -110,6 +110,11 @@ public struct ClientCredentialsFlowClientBackend: ClientCredentialsFlowBackend {
          "expires_in": 3600,
      }
      ```
+     
+     Read about the underlying request that is made to Spotify in order to
+     retrieve this data [here][1].
+     
+     [1]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/#request-authorization
      */
     public func makeClientCredentialsTokensRequest(
     ) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
