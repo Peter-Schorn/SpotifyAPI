@@ -8,8 +8,6 @@ import SpotifyAPITestUtilities
 /// without errors.
 final class ExampleContentTests: SpotifyAPITestCase {
     
-    var sink = ""
-    
     static let allTests = [
         ("testAlbums", testAlbums),
         ("testArtists", testArtists),

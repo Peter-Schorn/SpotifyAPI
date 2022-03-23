@@ -85,8 +85,6 @@ public protocol _AuthorizationCodeFlowManagerProtocol: _InternalSpotifyScopeAuth
 
 public protocol _AuthorizationCodeFlowPKCEManagerProtocol: _InternalSpotifyScopeAuthorizationManager {
     
-    var _refreshToken: String? { get set }
-
     func makeAuthorizationURL(
         redirectURI: URL,
         codeChallenge: String,
@@ -104,8 +102,6 @@ public protocol _AuthorizationCodeFlowPKCEManagerProtocol: _InternalSpotifyScope
 
 public protocol _ClientCredentialsFlowManagerProtocol: _InternalSpotifyAuthorizationManager {
     
-    var _accessToken: String? { get set }
-
     func authorize() -> AnyPublisher<Void, Error>
 
 }

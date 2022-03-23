@@ -28,9 +28,6 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
      It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER"
      environment variable, if it exists. You can change this if necessary.
 
-     The name of the folder will be ``expectedResponseType`` with the current
-     date appended to it.
-
      You are encouraged to upload the data to this [online JSON viewer][1].
      
      [1]: https://jsoneditoronline.org
@@ -73,9 +70,10 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
     public let underlyingError: Error?
     
     /**
-     If the underlying error is a DecodingError, then this will be the
-     coding path formatted as if you were accessing nested properties from a
-     Swift type; for example, “items[27].track.album.release_date”.
+     If the underlying error is a DecodingError, then this will be the coding
+     path at which a decoding error was encountered formatted as if you were
+     accessing nested properties from a Swift type; for example:
+     “items[27].track.album.release_date”.
     
      Read more at the [Spotify web API reference][1].
 
@@ -119,12 +117,16 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             do {
                 let subFolder = try self.writeToFolder(folder)
                 let folderString = subFolder.path
-                print("SpotifyDecodingError: saved data to '\(folderString)'")
+                spotifyDecodeLogger.trace(
+                    "SpotifyDecodingError: saved data to '\(folderString)'"
+                )
                 
             } catch {
-                print(
-                    "SpotifyDecodingError: couldn't write data " +
-                    "to folder: '\(folder)':\n\(error)"
+                spotifyDecodeLogger.error(
+                    """
+                    SpotifyDecodingError: couldn't write data \
+                    to folder: '\(folder)':\n\(error)"
+                    """
                 )
             }
         }

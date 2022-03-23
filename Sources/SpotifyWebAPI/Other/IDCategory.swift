@@ -51,6 +51,15 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     
     /// Unknown. This should be rare.
     case unknown
+
+    /**
+     A collection.
+     
+     When the user is playing their saved tracks (labeled as "Liked Songs" in
+     the native Spotify clients), ``SpotifyContext``.``SpotifyContext/type``
+     will be equal to this value.
+     */
+    case collection
  
     /**
      Creates a new instance with the specified raw value.
@@ -68,6 +77,7 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      * ``genre``
      * ``ad``
      * ``unknown``
+     * ``collection``
      
      - Parameter rawValue: The raw value for an id category. **It is**
            **case-insensitive**.

@@ -32,6 +32,7 @@ import Foundation
  * ``IDCategory/genre``
  * ``IDCategory/ad``
  * ``IDCategory/unknown``
+ * ``IDCategory/collection``
 
  [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
  */

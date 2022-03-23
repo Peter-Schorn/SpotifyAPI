@@ -36,11 +36,14 @@ public struct SpotifyContext: Hashable {
     
     /**
      The object type of the item's context. Valid values are
-     ``IDCategory/album``, ``IDCategory/artist``, ``IDCategory/playlist``, and 
-     ``IDCategory/show``.
+     ``IDCategory/album``, ``IDCategory/artist``, ``IDCategory/playlist``,
+     ``IDCategory/show``, ``IDCategory/ad``, and ``IDCategory/collection``.
     
      For example, if ``type`` is ``IDCategory/playlist``, then the current
      track/episode is playing in the context of a playlist.
+     
+     If ``type`` is ``IDCategory/collection``, then the user is playing their
+     saved tracks (labeled as "Liked Songs" in the native Spotify clients).
      */
     public let type: IDCategory
     
@@ -77,6 +80,21 @@ extension SpotifyContext: Codable {
         case href
         case externalURLs = "external_urls"
         case type
+    }
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.uri = try container.decode(String.self, forKey: .uri)
+        self.href = try container.decodeIfPresent(URL.self, forKey: .href)
+        self.externalURLs = try container.decodeIfPresent(
+            [String: URL].self, forKey: .externalURLs
+        )
+        
+        let typeString = try container.decode(String.self, forKey: .type)
+        self.type = IDCategory(rawValue: typeString) ?? .unknown
+
     }
 
 }

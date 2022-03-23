@@ -124,7 +124,7 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
 }
 
 /// The base class for **all** test cases in this package. Overrides
-/// `record(_:)` to record issues and`setUp()` to install a test observer.
+/// `record(_:)` to record issues and `setUp()` to install a test observer.
 open class SpotifyAPITestCase: XCTestCase {
     
     public static var failingTests: [String] = []
