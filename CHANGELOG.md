@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 6-11-2022
+
+* Fixed Bug with decoding playback when context is saved tracks ("liked songs")
+* Added `collection` to `IDCategory`.
+* `SpotifyContext.type` is decoded to `unknown` if the string in the JSON payload does not match any of the `IDCategory` raw values.
+* Updated URLs
+
 ## [2.0.3] - 2-7-2022
 
 * When decoding calendar dates for `Album.releaseDate` or  `Episode.releaseDate`, if the format of the date-string is invalid, then these properties will be set to `nil` instead of the decoder throwing an error.
