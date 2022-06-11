@@ -115,7 +115,7 @@ jobs:
         RepeatModeTests\
         "
 
-  test_linux:
+  test_linux_old:
     strategy:
       max-parallel: 1
       fail-fast: false
