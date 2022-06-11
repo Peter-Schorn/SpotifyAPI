@@ -62,21 +62,86 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-          image: ["swift:5.3", "swift:5.4", "swift:5.5"]
+          image: ["swift:5.4", "swift:5.5"]
 
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
     
-    - name: Remove LinuxMain
-      run: rm Tests/LinuxMain.swift
-      if: matrix.image == 'swift:5.5'
+    - name: Build ${{ matrix.image }}
+      run: |
+        apt-get update && apt-get install -y python3
+        python3 enable_testing.py true
+        swift build --build-tests
+
+    - name: Run tests ${{ matrix.image }}
+      run: |
+        swift test --filter "\
+        AuthorizationScopesTests|\
+        CodingAuthInfoTests|\
+        CodingAuthorizationCodeFlowManagerTests|\
+        CodingAuthorizationCodeFlowPKCEManagerTests|\
+        CodingClientCredentialsFlowManagerTests|\
+        CodingCurrentlyPlayingContextTests|\
+        CodingPlaybackRequestTests|\
+        CodingSpotifyUserTests|\
+        CodingTimeReferenceTests|\
+        CodingTrackAttributesTests|\
+        CursorPagingObjectPlayHistoryCodingTests|\
+        ExampleContentTests|\
+        SpotifyAPIClientCredentialsFlowAlbumsTests|\
+        SpotifyAPIClientCredentialsFlowArtistTests|\
+        SpotifyAPIClientCredentialsFlowBrowseTests|\
+        SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowEpisodeTests|\
+        SpotifyAPIClientCredentialsFlowErrorTests|\
+        SpotifyAPIClientCredentialsFlowFollowTests|\
+        SpotifyAPIClientCredentialsFlowProxyFollowTests|\
+        SpotifyAPIClientCredentialsFlowInsufficientScopeTests|\
+        SpotifyAPIClientCredentialsFlowMarketTests|\
+        SpotifyAPIClientCredentialsFlowPlaylistsTests|\
+        SpotifyAPIClientCredentialsFlowProxyArtistTests|\
+        SpotifyAPIClientCredentialsFlowProxyAuthorizationTests|\
+        SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests|\
+        SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests|\
+        SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
+        SpotifyAPIClientCredentialsFlowSearchTests|\
+        SpotifyAPIClientCredentialsFlowShowTests|\
+        SpotifyAPIClientCredentialsFlowTrackTests|\
+        SpotifyAPIClientCredentialsFlowUserProfileTests|\
+        SpotifyIdentifierTests|\
+        SpotifyPlayerErrorCodingTests|\
+        RepeatModeTests\
+        "
+
+  test_linux:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+          image: ["swift:5.3"]
+
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    steps:
+    - uses: actions/checkout@v2
     
     - name: Build ${{ matrix.image }}
       run: |
         apt-get update && apt-get install -y python3
         python3 enable_testing.py true
+        
+        touch Tests/LinuxMain.swift
+        echo 'import XCTest
+
+        import SpotifyAPIMainTests
+        
+        var tests = [XCTestCaseEntry]()
+        tests += SpotifyAPIMainTests.__allTests()
+        
+        XCTMain(tests)' >> Tests/LinuxMain.swift
+
         swift build --build-tests
     - name: Run tests ${{ matrix.image }}
       run: |
