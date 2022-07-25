@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [2.1.1] - 7-25-2022
 
-Fixed bugs with retrieving additional pages of results when using `SpotifyAPI.currentUserFollowedArtists`, `SpotifyAPI.categories`, and`SpotifyAPI.categoryPlaylists`
+* Fixed bugs with retrieving additional pages of results when using `SpotifyAPI.currentUserFollowedArtists`, `SpotifyAPI.categories`, and`SpotifyAPI.categoryPlaylists`.
 
 ## [2.1.0] - 6-11-2022
 
