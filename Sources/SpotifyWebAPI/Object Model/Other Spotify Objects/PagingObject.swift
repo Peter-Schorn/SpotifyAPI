@@ -201,7 +201,7 @@ extension PagingObject {
 
 extension PagingObject: Codable {
     
-    private enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case href
         case items
         case limit
@@ -210,7 +210,101 @@ extension PagingObject: Codable {
         case offset
         case total
     }
-    
+
+    private static func makeContainer(
+        from decoder: Decoder
+    ) throws -> KeyedDecodingContainer<CodingKeys> {
+        
+        let container: KeyedDecodingContainer<PagingObject<Item>.CodingKeys>
+//
+        let topContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+
+        switch Item.self {
+            case is SpotifyCategory.Type:
+                if let categoryContainer = try? topContainer.nestedContainer(
+                    keyedBy: CodingKeys.self,
+                    forKey: .init("categories")
+                ) {
+                    container = categoryContainer
+                }
+                else {
+                    container = try decoder.container(keyedBy: CodingKeys.self)
+                }
+            case is Playlist<PlaylistItemsReference>.Type:
+                if let playlistsContainer = try? topContainer.nestedContainer(
+                    keyedBy: CodingKeys.self,
+                    forKey: .init("playlists")
+                ) {
+                    container = playlistsContainer
+                }
+                else {
+                    container = try decoder.container(keyedBy: CodingKeys.self)
+                }
+            default:
+                container = try decoder.container(keyedBy: CodingKeys.self)
+        }
+
+        return container
+        
+    }
+
+    public init(from decoder: Decoder) throws {
+        
+        let container = try Self.makeContainer(from: decoder)
+        
+        self.href = try container.decode(
+            URL.self, forKey: .href
+        )
+        self.items = try container.decode(
+            [Item].self, forKey: .items
+        )
+        self.limit = try container.decode(
+            Int.self, forKey: .limit
+        )
+        self.next = try container.decodeIfPresent(
+            URL.self, forKey: .next
+        )
+        self.previous = try container.decodeIfPresent(
+            URL.self, forKey: .previous
+        )
+        self.offset = try container.decode(
+            Int.self, forKey: .offset
+        )
+        self.total = try container.decode(
+            Int.self, forKey: .total
+        )
+
+
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(
+            self.href, forKey: .href
+        )
+        try container.encode(
+            self.items, forKey: .items
+        )
+        try container.encode(
+            self.limit, forKey: .limit
+        )
+        try container.encodeIfPresent(
+            self.next, forKey: .next
+        )
+        try container.encodeIfPresent(
+            self.previous, forKey: .previous
+        )
+        try container.encode(
+            self.offset, forKey: .offset
+        )
+        try container.encode(
+            self.total, forKey: .total
+        )
+        
+    }
+
 }
 
 // MARK: - Hashable -

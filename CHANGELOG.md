@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 7-25-2022
+
+Fixed bugs with retrieving additional pages of results when using `SpotifyAPI.currentUserFollowedArtists`, `SpotifyAPI.categories`, and`SpotifyAPI.categoryPlaylists`
+
 ## [2.1.0] - 6-11-2022
 
 * Fixed Bug with decoding playback when context is saved tracks ("liked songs")

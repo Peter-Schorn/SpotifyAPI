@@ -207,17 +207,7 @@ public extension SpotifyAPI where
                 ],
                 requiredScopes: [.userFollowRead]
             )
-            .decodeSpotifyObject([String: CursorPagingObject<Artist>].self)
-            .tryMap { dict -> CursorPagingObject<Artist> in
-                let key = "artists"
-                if let artists = dict[key] {
-                    return artists
-                }
-                throw SpotifyGeneralError.topLevelKeyNotFound(
-                    key: key, dict: dict
-                )
-            }
-            .eraseToAnyPublisher()
+            .decodeSpotifyObject(CursorPagingObject<Artist>.self)
             
         } catch {
             return error.anyFailingPublisher()

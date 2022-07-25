@@ -63,7 +63,7 @@ public func openAuthorizationURLAndWaitForRedirect(
         "\(authorizationURL)"
     )
     headlessBrowser.loadAuthorizationURL(authorizationURL)
-    CFRunLoopRunInMode(.defaultMode, 60, false)  // 60 second timeout
+    CFRunLoopRunInMode(.defaultMode, 30, false)  // 30 second timeout
     if let redirectURIWithQuery = redirectURIWithQuery {
         return redirectURIWithQuery
     }

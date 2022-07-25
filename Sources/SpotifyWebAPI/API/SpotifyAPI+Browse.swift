@@ -114,17 +114,8 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject([String: PagingObject<SpotifyCategory>].self)
-        .tryMap { dict in
-            if let categories = dict["categories"] {
-                return categories
-            }
-            throw SpotifyGeneralError.topLevelKeyNotFound(
-                key: "categories", dict: dict
-            )
-        }
-        .eraseToAnyPublisher()
-
+        .decodeSpotifyObject(PagingObject<SpotifyCategory>.self)
+        
     }
  
     /**
@@ -164,19 +155,8 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(
-            [String: PagingObject<Playlist<PlaylistItemsReference>>].self
-        )
-        .tryMap { dict in
-            if let playlists = dict["playlists"] {
-                return playlists
-            }
-            throw SpotifyGeneralError.topLevelKeyNotFound(
-                key: "playlists", dict: dict
-            )
-        }
-        .eraseToAnyPublisher()
-
+        .decodeSpotifyObject(PagingObject<Playlist<PlaylistItemsReference>>.self)
+        
     }
 
     /**

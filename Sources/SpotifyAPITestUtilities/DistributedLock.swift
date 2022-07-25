@@ -22,21 +22,24 @@ public struct DistributedLock {
     /// Releases all distributed locks by deleting the files that they are
     /// associated with.
     public static func releaseAllLocks() {
+        
         if Self.allLocks.isEmpty {
             return
         }
         
         print("RELEASING ALL LOCKS")
         
-        for (index, lock) in Self.allLocks.enumerated() {
+        for lock in Self.allLocks {
+            
             guard let path = lock.path else {
                 continue
             }
+            
             do {
                 if FileManager.default.fileExists(atPath: path) {
                     try FileManager.default.removeItem(atPath: path)
                 }
-                Self.allLocks.remove(at: index)
+                Self.allLocks.removeAll(where: { $0.name == lock.name })
 
             } catch {
                 print(
@@ -50,6 +53,7 @@ public struct DistributedLock {
                     """
                 )
             }
+            
         }
         
     }

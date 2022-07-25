@@ -62,9 +62,9 @@ extension SpotifyAPIBrowseTests {
         
         func receiveCategories(_ categories: PagingObject<SpotifyCategory>) {
             encodeDecode(categories, areEqual: ==)
-            XCTAssertEqual(categories.limit, 10)
+            XCTAssertEqual(categories.limit, 50)
             XCTAssertEqual(categories.offset, 5)
-            XCTAssertLessThanOrEqual(categories.items.count, 10)
+            XCTAssertLessThanOrEqual(categories.items.count, 50)
             XCTAssertNotNil(categories.previous)
             if categories.total > categories.items.count + categories.offset {
                 XCTAssertNotNil(categories.next)
@@ -73,12 +73,14 @@ extension SpotifyAPIBrowseTests {
             dump(categories)
         }
         
-        let expectation = XCTestExpectation(description: "testCategories")
+        let expectation = XCTestExpectation(
+            description: "testCategories"
+        )
 
         Self.spotify.categories(
             country: "US",
             locale: "es_MX",
-            limit: 10,
+            limit: 50,
             offset: 5
         )
         .XCTAssertNoFailure()
@@ -89,9 +91,42 @@ extension SpotifyAPIBrowseTests {
         .store(in: &Self.cancellables)
         
         self.wait(for: [expectation], timeout: 120)
+        
+        
 
     }
     
+    func categoriesPages() {
+        
+        func receiveCategories(_ categories: PagingObject<SpotifyCategory>) {
+            encodeDecode(categories, areEqual: ==)
+            let page = categories.offset / categories.limit
+            print("\n\(page). categories:")
+            dump(categories)
+        }
+        
+        let expectation = XCTestExpectation(
+            description: "testCategoriesPages"
+        )
+
+        Self.spotify.categories(
+            country: "US",
+            locale: "es_US",
+            limit: 5
+        )
+        .XCTAssertNoFailure()
+        .extendPages(Self.spotify)
+        .XCTAssertNoFailure("after `extendPages`:")
+        .sink(
+            receiveCompletion: { _ in expectation.fulfill() },
+            receiveValue: receiveCategories(_:)
+        )
+        .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+
+    }
+
     func categoryPlaylists() {
         
         func receiveCategoryPlaylists(
@@ -109,14 +144,18 @@ extension SpotifyAPIBrowseTests {
             dump(playlists)
         }
         
+        print("-----------------------------------\n")
+
         let expectation = XCTestExpectation(
             description: "testCategoryPlaylists"
         )
         
         Self.spotify.categoryPlaylists(
-            "rock", country: "US", limit: 15, offset: 2
+            "rock", country: "US", limit: 4, offset: 2
         )
         .XCTAssertNoFailure()
+        .extendPages(Self.spotify)
+        .XCTAssertNoFailure("after `extendPages`:")
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: receiveCategoryPlaylists(_:)
@@ -369,6 +408,7 @@ final class SpotifyAPIClientCredentialsFlowBrowseTests:
     
     func testCategory() { category() }
     func testCategories() { categories() }
+    func testCategoriesPages() { categoriesPages() }
     func testCategoryPlaylists() { categoryPlaylists() }
     func testFeaturedPlaylists() { featuredPlaylists() }
     func testNewAlbumReleases() { newAlbumReleases() }
@@ -391,6 +431,7 @@ final class SpotifyAPIAuthorizationCodeFlowBrowseTests:
     
     func testCategory() { category() }
     func testCategories() { categories() }
+    func testCategoriesPages() { categoriesPages() }
     func testCategoryPlaylists() { categoryPlaylists() }
     func testFeaturedPlaylists() { featuredPlaylists() }
     func testNewAlbumReleases() { newAlbumReleases() }
@@ -414,6 +455,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEBrowseTests:
     
     func testCategory() { category() }
     func testCategories() { categories() }
+    func testCategoriesPages() { categoriesPages() }
     func testCategoryPlaylists() { categoryPlaylists() }
     func testFeaturedPlaylists() { featuredPlaylists() }
     func testNewAlbumReleases() { newAlbumReleases() }

@@ -197,6 +197,27 @@ extension String {
 
 }
 
+struct AnyCodingKey: Hashable, CodingKey {
+    
+    var stringValue: String
+    var intValue: Int?
+
+    init(_ stringValue: String) {
+        self.init(stringValue: stringValue)
+    }
+
+    init(stringValue: String) {
+        self.stringValue = stringValue
+        self.intValue = nil
+    }
+    
+    init(intValue: Int) {
+        self.stringValue = ""
+        self.intValue = intValue
+    }
+
+}
+
 // extension DispatchQueue {
 //
 //     #if canImport(Combine)

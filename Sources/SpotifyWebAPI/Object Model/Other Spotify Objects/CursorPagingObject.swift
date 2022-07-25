@@ -14,7 +14,7 @@ import Foundation
  [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
-    Paginated, Codable, Hashable
+    Paginated, Hashable
 {
     
     /**
@@ -93,6 +93,95 @@ extension CursorPagingObject: ApproximatelyEquatable where Item: ApproximatelyEq
                 self.cursors == other.cursors &&
                 self.total == other.total &&
                 self.items.isApproximatelyEqual(to: other.items)
+    }
+
+}
+
+extension CursorPagingObject: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case href
+        case items
+        case limit
+        case next
+        case cursors
+        case total
+    }
+
+    private static func makeContainer(
+        from decoder: Decoder
+    ) throws -> KeyedDecodingContainer<CodingKeys> {
+        
+        let container: KeyedDecodingContainer<CursorPagingObject<Item>.CodingKeys>
+
+        switch Item.self {
+            case is Artist.Type:
+                let topContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+                if let artistContainer = try? topContainer.nestedContainer(
+                    keyedBy: CodingKeys.self,
+                    forKey: .init("artists")
+                ) {
+                    container = artistContainer
+                }
+                else {
+                    container = try decoder.container(keyedBy: CodingKeys.self)
+                }
+            default:
+                container = try decoder.container(keyedBy: CodingKeys.self)
+        }
+        
+        return container
+    }
+
+    public init(from decoder: Decoder) throws {
+        
+        let container = try Self.makeContainer(from: decoder)
+        
+        self.href = try container.decode(
+            URL.self, forKey: .href
+        )
+        self.items = try container.decode(
+            [Item].self, forKey: .items
+        )
+        self.limit = try container.decode(
+            Int.self, forKey: .limit
+        )
+        self.next = try container.decodeIfPresent(
+            URL.self, forKey: .next
+        )
+        self.cursors = try container.decodeIfPresent(
+            SpotifyCursor.self, forKey: .cursors
+        )
+        self.total = try container.decodeIfPresent(
+            Int.self, forKey: .total
+        )
+
+
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(
+            self.href, forKey: .href
+        )
+        try container.encode(
+            self.items, forKey: .items
+        )
+        try container.encode(
+            self.limit, forKey: .limit
+        )
+        try container.encodeIfPresent(
+            self.next, forKey: .next
+        )
+        try container.encodeIfPresent(
+            self.cursors, forKey: .cursors
+        )
+        try container.encodeIfPresent(
+            self.total, forKey: .total
+        )
+        
     }
 
 }
