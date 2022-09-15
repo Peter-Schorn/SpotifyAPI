@@ -62,7 +62,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-          image: ["swift:5.4", "swift:5.5"]
+          image: ["swift:5.4", "swift:5.5", "swift:5.6", "swift:5.7"]
 
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
@@ -131,21 +131,11 @@ jobs:
       run: |
         apt-get update && apt-get install -y python3
         python3 enable_testing.py true
-        
-        touch Tests/LinuxMain.swift
-        echo 'import XCTest
-
-        import SpotifyAPIMainTests
-        
-        var tests = [XCTestCaseEntry]()
-        tests += SpotifyAPIMainTests.__allTests()
-        
-        XCTMain(tests)' >> Tests/LinuxMain.swift
-
         swift build --build-tests
+        
     - name: Run tests ${{ matrix.image }}
       run: |
-        swift test --filter "\
+        swift test --enable-test-discovery --filter "\
         AuthorizationScopesTests|\
         CodingAuthInfoTests|\
         CodingAuthorizationCodeFlowManagerTests|\
