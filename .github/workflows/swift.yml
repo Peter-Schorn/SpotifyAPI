@@ -131,6 +131,16 @@ jobs:
       run: |
         apt-get update && apt-get install -y python3
         python3 enable_testing.py true
+        
+        touch Tests/LinuxMain.swift
+        echo 'import XCTest
+        import SpotifyAPIMainTests
+        
+        var tests = [XCTestCaseEntry]()
+        tests += SpotifyAPIMainTests.__allTests()
+        
+        XCTMain(tests)' >> Tests/LinuxMain.swift
+        
         swift build --build-tests
         
     - name: Run tests ${{ matrix.image }}
