@@ -125,7 +125,6 @@ extension AuthInfo: Codable {
         
     }
     
-    /// :nodoc:
     public enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case refreshToken = "refresh_token"

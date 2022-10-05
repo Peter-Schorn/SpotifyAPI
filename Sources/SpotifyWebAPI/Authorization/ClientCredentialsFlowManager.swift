@@ -332,7 +332,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         
     }
  
-    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         self.updateAuthInfoQueue.sync {
             hasher.combine(self.backend)
@@ -341,7 +340,6 @@ public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowB
         }
     }
     
-    /// :nodoc:
     public static func == (
         lhs: ClientCredentialsFlowBackendManager,
         rhs: ClientCredentialsFlowBackendManager

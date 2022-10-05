@@ -12,7 +12,7 @@
 * Supports three different authorization methods
 * Automatically refreshes the access token when necessary
 
-Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23]. Additional Information is available on the [wiki page][17].
+Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23].
 
 ## Table of Contents
 
@@ -22,12 +22,11 @@ Read the full [documentation][1] and check out [this example iOS app][14] and th
 * **[Authorizing with the Authorization Code Flow with Proof Key for Code Exchange](#authorizing-with-the-authorization-code-flow-with-proof-key-for-code-exchange)**
 * **[Authorizing with the Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**  
 * **[Authorizing with the Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**
-* **[Saving Authorization Information to Persistent Storage](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.)**
-* **[Using the Player Endpoints](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-the-Player-Endpoints)**
-* [**Working with Paginated Results**](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Working-with-Paginated-Results)
-* [**Using a Backend Server to Retrieve the Authorization Information**](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Using-a-Backend-Server-to-Retrieve-the-Authorization-Information)
-* **[Debugging](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Debugging)**
-* **[Running the Unit Tests](https://github.com/Peter-Schorn/SpotifyAPI/wiki/Running-the-Unit-Tests)**
+* **[Saving Authorization Information to Persistent Storage][16]**
+* **[Using the Player Endpoints][26]**
+* **[Working with Paginated Results][27]**
+* **[Debugging][28]**
+* **[Running the Unit Tests][29]**
 
 ## Supported Platforms
 
@@ -57,9 +56,9 @@ The next step is authorizing your app. *All* requests to the Spotify web API—w
 * **[Authorization Code Flow](#authorizing-with-the-authorization-code-flow)**: Use this method if you need to access/modify user data, which requires [authorization scopes][5]. It requires the user to login to their Spotify account in a browser/web view and approve your app.  Read more at the [Spotify web API reference][3].
 * **[Client Credentials Flow](#authorizing-with-the-client-credentials-flow)**: Use this method if you do NOT need to access/modify user data. In other words, you cannot access endpoints that require [authorization scopes][5] or an access token that was issued on behalf of a user. The advantage of this method is that it does not require any user interaction.  Read more at the [Spotify web API reference][4].
 
-See also [Additional Authorization Methods](https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/additional-authorization-methods).
+See also [Additional Authorization Methods][25].
 
-When creating an application that uses this library, you will probably want to **save the authorization information to persistent storage** so that the user does not have to login again every time the application is quit and re-launched. See the [Saving Authorization Information to Persistent Storage][16] wiki page for a guide on how to do this.
+When creating an application that uses this library, you will probably want to **save the authorization information to persistent storage** so that the user does not have to login again every time the application is quit and re-launched. See [Saving Authorization Information to Persistent Storage][16] for a guide on how to do this.
 
 ## Authorizing with the Authorization Code Flow with Proof Key for Code Exchange
 
@@ -282,27 +281,32 @@ spotify.search(query: "Pink Floyd", categories: [.track])
 
 This authorization process is implemented in this [example command-line app][23]. The full documentation for all of the endpoints can be found [here][8]. You are also encouraged to read the [Spotify web API reference][12].
 
-[1]: https://spotify-api-docs.herokuapp.com/documentation/SpotifyWebAPI
+[1]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi
 [2]: https://developer.spotify.com/dashboard/login
 
 [3]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 [4]: https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
 [5]: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-[6]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowbackendmanager/makeauthorizationurl(redirecturi:showdialog:state:scopes:)
-[7]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowbackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:state:)
+[6]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/authorizationcodeflowbackendmanager/makeauthorizationurl(redirecturi:showdialog:state:scopes:)
+[7]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/authorizationcodeflowbackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:state:)
 
-[8]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/spotifyapi
+[8]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/spotifyapi
 [12]: https://developer.spotify.com/documentation/web-api/reference/
-[13]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/clientcredentialsflowbackendmanager/authorize()
+[13]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/clientcredentialsflowbackendmanager/authorize()
 [14]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp
 [15]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-[16]: https://github.com/Peter-Schorn/SpotifyAPI/wiki/Saving-authorization-information-to-persistent-storage.
+[16]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/saving-the-authorization-information-to-persistent-storage
 [17]: https://github.com/Peter-Schorn/SpotifyAPI/wiki
 [18]: https://tonyxu-io.github.io/pkce-generator/
 [19]: https://tools.ietf.org/html/rfc4648#section-5
-[20]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/makeauthorizationurl(redirecturi:codechallenge:state:scopes:)
-[21]: https://spotify-api-docs.herokuapp.com/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:codeverifier:state:)
+[20]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/makeauthorizationurl(redirecturi:codechallenge:state:scopes:)
+[21]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/authorizationcodeflowpkcebackendmanager/requestaccessandrefreshtokens(redirecturiwithquery:codeverifier:state:)
 
 [22]: https://github.com/Peter-Schorn/SpotifyAPIExampleApp#how-the-authorization-process-works
 [23]: https://github.com/Peter-Schorn/SpotifyAPIExamples
 [24]: https://developer.spotify.com/documentation/web-api/reference/
+[25]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/additional-authorization-methods
+[26]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/using-the-player-endpoints
+[27]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/working-with-paginated-results
+[28]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/debugging
+[29]: https://peter-schorn.github.io/SpotifyAPI/documentation/spotifywebapi/running-the-unit-tests
