@@ -10,7 +10,7 @@ import Foundation
  It it initialized to the path specified by the "SPOTIFY_DATA_DUMP_FOLDER" environment
  variable, if it exists. You can change this if necessary.
 
- This error is almost always due to an error in this library. Report a bug
+ This error is almost always due to a bug in this library. File a bug report
  if you get this error.
  
  Do not `dump` this error; instead, use its string representation for

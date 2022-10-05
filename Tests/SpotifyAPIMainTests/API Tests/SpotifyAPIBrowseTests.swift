@@ -20,7 +20,7 @@ extension SpotifyAPIBrowseTests {
         let expectation = XCTestExpectation(description: "testCategory")
         
         Self.spotify.category(
-            "party",
+            "0JQ5DAqbMKFA6SOHvT3gck",
             country: "US",
             locale: "es_MX"  // Spanish Mexico
         )
@@ -31,24 +31,14 @@ extension SpotifyAPIBrowseTests {
             receiveValue: { category in
                 encodeDecode(category, areEqual: ==)
                 XCTAssertEqual(category.name, "Fiesta")
-                XCTAssertEqual(category.id, "party")
+                XCTAssertEqual(category.id, "0JQ5DAqbMKFA6SOHvT3gck")
                 XCTAssertEqual(
                     category.href,
-                    URL(string: "https://api.spotify.com/v1/browse/categories/party")!
+                    URL(string: "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck")!
                 )
-                
-//                #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
-//                let (imageExpectations, cancellables) =
-//                            XCTAssertImagesExist(category.icons)
-//
-//                Self.cancellables.formUnion(cancellables)
-//
-//                self.wait(
-//                    for: imageExpectations,
-//                    timeout: TimeInterval(imageExpectations.count * 60)
-//                )
-//                #endif
-                
+                XCTAssertImagesExist(
+                    category.icons, assertSizeNotNil: false
+                )
             }
         )
         .store(in: &Self.cancellables)
@@ -62,9 +52,9 @@ extension SpotifyAPIBrowseTests {
         
         func receiveCategories(_ categories: PagingObject<SpotifyCategory>) {
             encodeDecode(categories, areEqual: ==)
-            XCTAssertEqual(categories.limit, 50)
+            XCTAssertEqual(categories.limit, 10)
             XCTAssertEqual(categories.offset, 5)
-            XCTAssertLessThanOrEqual(categories.items.count, 50)
+            XCTAssertLessThanOrEqual(categories.items.count, 10)
             XCTAssertNotNil(categories.previous)
             if categories.total > categories.items.count + categories.offset {
                 XCTAssertNotNil(categories.next)
@@ -80,7 +70,7 @@ extension SpotifyAPIBrowseTests {
         Self.spotify.categories(
             country: "US",
             locale: "es_MX",
-            limit: 50,
+            limit: 10,
             offset: 5
         )
         .XCTAssertNoFailure()
@@ -130,15 +120,17 @@ extension SpotifyAPIBrowseTests {
     func categoryPlaylists() {
         
         func receiveCategoryPlaylists(
-            _ playlists: PagingObject<Playlist<PlaylistItemsReference>>
+            _ playlists: PagingObject<Playlist<PlaylistItemsReference>?>
         ) {
             encodeDecode(playlists, areEqual: ==)
-            XCTAssertEqual(playlists.limit, 15)
-            XCTAssertEqual(playlists.offset, 2)
-            XCTAssertLessThanOrEqual(playlists.items.count, 15)
+            XCTAssertEqual(playlists.limit, 20)
+            XCTAssertLessThanOrEqual(playlists.items.count, 20)
             XCTAssertNotNil(playlists.previous)
             if playlists.total > playlists.items.count + playlists.offset {
                 XCTAssertNotNil(playlists.next)
+            }
+            else {
+                XCTAssertNil(playlists.next)
             }
             print("category playlists:")
             dump(playlists)
@@ -151,7 +143,7 @@ extension SpotifyAPIBrowseTests {
         )
         
         Self.spotify.categoryPlaylists(
-            "rock", country: "US", limit: 4, offset: 2
+            "0JQ5DAqbMKFDXXwE9BDJAr", country: "US", limit: 20, offset: 2
         )
         .XCTAssertNoFailure()
         .extendPages(Self.spotify)

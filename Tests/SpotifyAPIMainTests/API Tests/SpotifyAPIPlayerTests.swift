@@ -1003,81 +1003,151 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
 
     }
 
+    func clearQueue() {
+        
+        let clearQueueExpectation = XCTestExpectation(
+            description: "testAddToQueue clear queue"
+        )
+
+        // clear any existing items from the queue by skipping to the next
+        // item three times.
+        Self.spotify.skipToNext()
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap {
+                Self.spotify.skipToNext()
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap {
+                Self.spotify.skipToNext()
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .sink(
+                receiveCompletion: { _ in
+                    clearQueueExpectation.fulfill()
+                },
+                receiveValue: { }
+            )
+            .store(in: &Self.cancellables)
+
+        self.wait(for: [clearQueueExpectation], timeout: 60)
+        
+    }
+
     func addToQueue() {
+
+        self.clearQueue()
+
+        let expectation = XCTestExpectation(
+            description: "testAddToQueue"
+        )
 
         let queueItems: [SpotifyURIConvertible] = [
             URIs.Tracks.because,
-            URIs.Episodes.samHarris213
+            URIs.Episodes.samHarris213,
+            URIs.Tracks.comeTogether
         ]
 
-        for (i, queueItem) in queueItems.enumerated() {
-
-            let expectation = XCTestExpectation(
-                description: "testAddToQueue \(i)"
-            )
-
-            Self.spotify.addToQueue(queueItem)
-                .XCTAssertNoFailure()
-                // .breakpoint(receiveOutput: { _ in true })
-                .receiveOnMain(delay: 1)
-                .flatMap { Self.spotify.skipToNext() }
-                .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
-                // .breakpoint(receiveOutput: { _ in true })
-                .flatMap { Self.spotify.skipToNext() }
-                .XCTAssertNoFailure()
-                // .breakpoint(receiveOutput: { _ in true })
-                .sink(
-                    receiveCompletion: { _ in expectation.fulfill() },
-                    receiveValue: { }
-                )
-                .store(in: &Self.cancellables)
-
-            self.wait(for: [expectation], timeout: 60)
-
-        }
-
-        for (i, queueItem) in queueItems.enumerated() {
-
-            let expectation = XCTestExpectation(
-                description: "testAddToQueue \(i)"
-            )
-
+        let publisher1: AnyPublisher<CurrentlyPlayingContext?, Error> =
             Self.spotify.availableDevices()
-                .XCTAssertNoFailure()
-                .flatMap { devices -> AnyPublisher<Void, Error> in
-                    encodeDecode(devices, areEqual: ==)
-                    if let activeDevice = devices.first(
-                        where: { $0.isActive }
-                    ) {
-                        return Self.spotify.addToQueue(
-                            queueItem, deviceId: activeDevice.id
+            .XCTAssertNoFailure()
+            .flatMap { devices -> AnyPublisher<Void, Error> in
+                encodeDecode(devices, areEqual: ==)
+                if let activeDevice = devices.first(
+                    where: { $0.isActive }
+                ) {
+                    return Self.spotify.addToQueue(
+                        queueItems[0], deviceId: activeDevice.id
+                    )
+                }
+                return SpotifyGeneralError.other("no active device found")
+                    .anyFailingPublisher()
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap {
+                Self.spotify.skipToNext()
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap { () -> AnyPublisher<CurrentlyPlayingContext?, Error> in
+                Self.spotify.currentPlayback()
+            }
+            .XCTAssertNoFailure()
+            .eraseToAnyPublisher()
+        
+        publisher1
+            .receiveOnMain()
+            .flatMap { currentPlayback -> AnyPublisher<Void, Error> in
+                
+                // After adding an item to the queue and skipping to the next
+                // item, the item that was added to the queue should now be
+                // playing. If there were already additional items in the queue
+                // before this test was executed, it may fail.
+                
+                guard let currentPlayback = currentPlayback else {
+                    return SpotifyGeneralError.other(
+                        "currentPlayback was nil"
+                    )
+                    .anyFailingPublisher()
+                }
+
+                XCTAssertEqual(
+                    currentPlayback.item?.uri,
+                    queueItems[0].uri
+                )
+
+                return Self.spotify.addToQueue(queueItems[1])
+                
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap {
+                Self.spotify.addToQueue(queueItems[2])
+            }
+            .XCTAssertNoFailure()
+            .receiveOnMain(delay: 3)
+            .flatMap {
+                Self.spotify.queue()
+            }
+            .XCTAssertNoFailure()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: { queue in
+                    
+                    encodeDecode(queue)
+
+                    XCTAssertEqual(
+                        queue.currentlyPlaying?.uri,
+                        queueItems[0].uri
+                    )
+                    if queue.queue.count >= 2 {
+                        XCTAssertEqual(
+                            queue.queue[0].uri,
+                            queueItems[1].uri
+                        )
+                        XCTAssertEqual(
+                            queue.queue[1].uri,
+                            queueItems[2].uri
                         )
                     }
-                    return SpotifyGeneralError.other("no active device found")
-                        .anyFailingPublisher()
+                    else {
+                        XCTFail(
+                            """
+                            Expected at least two items in queue \
+                            (got \(queue.queue.count))
+                            """
+                        )
+                    }
                 }
-                .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
-                // .breakpoint(receiveOutput: { _ in true })
-                .flatMap { Self.spotify.skipToNext() }
-                .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
-                // .breakpoint(receiveOutput: { _ in true })
-                .flatMap { Self.spotify.skipToNext() }
-                .XCTAssertNoFailure()
-                .receiveOnMain(delay: 1)
-                // .breakpoint(receiveOutput: { _ in true })
-                .sink(
-                    receiveCompletion: { _ in expectation.fulfill() },
-                    receiveValue: { }
-                )
-                .store(in: &Self.cancellables)
+            )
+            .store(in: &Self.cancellables)
 
-            self.wait(for: [expectation], timeout: 60)
-
-        }
-
+        self.wait(for: [expectation], timeout: 60)
+        
+        self.clearQueue()
 
     }
 

@@ -140,13 +140,13 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of albums to return. Default: 20;
-             Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first album to return. Default: 0.
-             Use with `limit` to get the next set of albums.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". Provide this parameter if you want to apply
-             [Track Relinking][3].
+       - limit: The maximum number of albums to return. Default: 20; Minimum: 1;
+             Maximum: 50.
+       - offset: The index of the first album to return. Default: 0. Use with
+             `limit` to get the next set of albums.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". Provide this parameter if you want to apply [Track
+             Relinking][3].
      - Returns: An array of the full versions of ``Album`` objects wrapped in a
            ``SavedItem`` object, wrapped in a ``PagingObject``.
      
@@ -188,13 +188,13 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of tracks to return. Default: 20;
+       - limit: The maximum number of tracks to return. Default: 20;
              Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first track to return. Default: 0.
-             Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". Provide this parameter if you want to apply
-             [Track Relinking][3].
+       - offset: The index of the first track to return. Default: 0. Use with
+             `limit` to get the next set of tracks.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". Provide this parameter if you want to apply [Track
+             Relinking][3].
      - Returns: An array of the full versions of ``Track`` objects wrapped in a
            ``SavedItem`` object, wrapped in a ``PagingObject``.
      
@@ -238,12 +238,12 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of episodes to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first episode to return.
-             Default: 0. Use with `limit` to get the next set of episodes.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-             the string "from_token".
+       - limit: The maximum number of episodes to return. Default: 20; Minimum:
+             1; Maximum: 50.
+       - offset: The index of the first episode to return. Default: 0. Use with
+             `limit` to get the next set of episodes.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token".
      - Returns: An array of the full versions of ``Show`` objects wrapped in
            a ``SavedItem`` object, wrapped in a ``PagingObject``.
      
@@ -284,12 +284,12 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - limit: *Optional*. The maximum number of shows to return.
-             Default: 20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first show to return.
-             Default: 0. Use with `limit` to get the next set of shows.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-             the string "from_token".
+       - limit: The maximum number of shows to return. Default: 20; Minimum: 1;
+             Maximum: 50.
+       - offset: The index of the first show to return. Default: 0. Use with
+             `limit` to get the next set of shows.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token".
      - Returns: An array of the full versions of ``Show`` objects wrapped in
            a ``SavedItem`` object, wrapped in a ``PagingObject``.
      
@@ -631,14 +631,15 @@ public extension SpotifyAPI where
              Duplicates will be ignored. A single invalid URI causes
              the entire request to fail. Passing in an empty array will
              prevent a network request from being made.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2].
-             If a country code is specified, only shows that are available
-             in that market will be removed. If a valid user access token is
-             specified in the request header, the country associated with the
-             user account will take priority over this parameter.
-             Note: If neither market or user country are provided, the content
-             is considered unavailable for the client. Users can view the country
-             that is associated with their account in the [account settings][3].
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". If a country code is specified, only shows that are
+             available in that market will be removed. If a valid user access
+             token is specified in the request header, the country associated
+             with the user account will take priority over this parameter.
+             **Note: If neither market or user country are provided, the**
+             **content is considered unavailable for the client.** Users can
+             view the country that is associated with their account in the
+             [account settings][3].
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-shows-user
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

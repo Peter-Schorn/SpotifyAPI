@@ -1,12 +1,6 @@
 import Foundation
 
-/**
- A device that Spotify Content can be played on.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
- */
+/// A device that Spotify Content can be played on.
 public struct Device: Hashable {
     
     /// The device id. May be `nil`.

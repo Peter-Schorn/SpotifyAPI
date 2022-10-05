@@ -33,10 +33,6 @@ import Foundation
   - Warning: If this image belongs to a playlist, then the URL is temporary and
          will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)`` to
          retrieve the image for a playlist.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
  */
 public struct SpotifyImage: Codable, Hashable {
     
@@ -53,7 +49,8 @@ public struct SpotifyImage: Codable, Hashable {
     /**
      The source URL of the image.
      
-     Consider using ``load()`` to load the image from this URL.
+     Consider using ``load()`` to load the image from this URL into
+     `SwiftUI.Image`.
      
      - Warning: If this image belongs to a playlist, then it is temporary and
            will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)``
@@ -64,14 +61,10 @@ public struct SpotifyImage: Codable, Hashable {
     /**
      Creates a Spotify image object.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - height: The image height in pixels.
        - width: The image width in pixels.
        - url: The source URL of the image.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-imageobject
      */
     public init(
         height: Int? = nil,
@@ -95,6 +88,10 @@ public extension SpotifyImage {
      your own network client, then do so directly by making a GET request to
      ``url``.
      
+     - Warning: If this image belongs to a playlist, then it is temporary and
+           will expire in less than a day. Use ``SpotifyAPI/playlistImage(_:)``
+           to retrieve the image for a playlist.
+
      - Throws: If the data cannot be converted to `Image`, or if some other
            network error occurs.
      */

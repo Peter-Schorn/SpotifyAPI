@@ -29,22 +29,21 @@ public struct PlaylistDetails: Hashable {
     /// playlist.
     public var name: String?
     
-    /// *Optional*. If `true` the playlist will be public; if `false` it will be
-    /// private. Default: `true`.
+    /// If `true` the playlist will be public; if `false` it will be private.
+    /// Default: `true`.
     public var isPublic: Bool?
 
     /**
-     *Optional*. If `true`, the playlist will become collaborative and other
-     users will be able to modify the playlist in their Spotify client. Default:
-     `false`.
+     If `true`, the playlist will become collaborative and other users will be
+     able to modify the playlist in their Spotify client. Default: `false`.
     
      - Warning: You can only set collaborative to `true` on non-public
            playlists.
      */
     public var isCollaborative: Bool?
 
-    /// *Optional*. A new playlist description as displayed in Spotify Clients
-    /// and in the Web API.
+    /// A new playlist description as displayed in Spotify Clients and in the
+    /// Web API.
     public var description: String?
     
     /**

@@ -34,16 +34,16 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - timeRange: *Optional*. Over what time frame the affinities are
-             computed. Valid values: ``TimeRange/longTerm`` (calculated from
-             several years of data and including all new data as it becomes
-             available), ``TimeRange/mediumTerm`` (approximately last 6 months),
-             and ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
+       - timeRange: Over what time frame the affinities are computed. Valid
+             values: ``TimeRange/longTerm`` (calculated from several years of
+             data and including all new data as it becomes available),
+             ``TimeRange/mediumTerm`` (approximately last 6 months), and
+             ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
              ``TimeRange/mediumTerm``.
-       - offset: *Optional*. The index of the first artist to return. Default:
-             0. Use with limit to get the next set of artists.
-       - limit: *Optional*. The number of artists to return. Default: 20;
-             Minimum: 1; Maximum: 50.
+       - offset: The index of the first artist to return. Default: 0. Use with
+             `limit` to get the next set of artists.
+       - limit: The number of artists to return. Default: 20; Minimum: 1;
+             Maximum: 50.
      - Returns: An array of the full versions of artist objects wrapped in a
            paging object.
      
@@ -89,16 +89,16 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - timeRange: *Optional*. Over what time frame the affinities are
-             computed. Valid values: ``TimeRange/longTerm`` (calculated from
-             several years of data and including all new data as it becomes
-             available), ``TimeRange/mediumTerm`` (approximately last 6 months),
-             and ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
+       - timeRange: Over what time frame the affinities are computed. Valid
+             values: ``TimeRange/longTerm`` (calculated from several years of
+             data and including all new data as it becomes available),
+             ``TimeRange/mediumTerm`` (approximately last 6 months), and
+             ``TimeRange/shortTerm`` (approximately last 4 weeks). Default:
              ``TimeRange/mediumTerm``.
-       - offset: *Optional*. The index of the first track to return. Default: 0.
-             Use with limit to get the next set of tracks.
-       - limit: *Optional*. The number of tracks to return. Default: 20;
-             Minimum: 1; Maximum: 50.
+       - offset: The index of the first track to return. Default: 0. Use with
+             `limit` to get the next set of tracks.
+       - limit: The number of tracks to return. Default: 20; Minimum: 1;
+             Maximum: 50.
      - Returns: An array of the full versions of track objects wrapped in a
            paging object.
      

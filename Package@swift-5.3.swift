@@ -75,7 +75,7 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "RegularExpressions",
             url: "https://github.com/Peter-Schorn/RegularExpressions.git",
-            "2.0.7"..<"3.0.0"
+            from: "2.2.0"
         ),
         .package(
             name: "swift-log",
@@ -90,7 +90,7 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "swift-crypto",
             url: "https://github.com/apple/swift-crypto.git",
-            from: "1.1.3"
+            "1.1.3"..<"2.1.0"
         )
     ]
     
@@ -99,17 +99,17 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "vapor",
             url: "https://github.com/vapor/vapor.git",
-            from: "4.45.3"
+            "4.45.3"..<"4.58.0"
         ),
         .package(
             name: "swift-nio",
             url: "https://github.com/apple/swift-nio.git",
-            from: "2.27.0"
+            "2.27.0"..<"2.40.0"
         ),
         .package(
             name: "async-http-client",
             url: "https://github.com/swift-server/async-http-client.git",
-            from: "1.2.5"
+            "1.2.5"..<"1.10.0"
         )
     ]
     #endif

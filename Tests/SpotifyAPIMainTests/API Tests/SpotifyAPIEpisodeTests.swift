@@ -69,25 +69,8 @@ extension SpotifyAPIEpisodeTests {
             XCTFail("release date should not be nil")
         }
         XCTAssertEqual(episode.releaseDatePrecision, "day")
-        
-        // MARK: Check Images
-        if let images = episode.images {
-            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
-            let (imageExpectations, cancellables) = XCTAssertImagesExist(
-                images
-            )
-            Self.cancellables.formUnion(cancellables)
-            print("waiting for \(imageExpectations.count) expectations")
-            self.wait(
-                for: imageExpectations,
-                timeout: TimeInterval(60 * imageExpectations.count)
-            )
-            print("FINISHED waiting for image expectations")
-            #endif
-        }
-        else {
-            XCTFail("images should not be nil")
-        }
+
+        XCTAssertImagesExist(episode.images, assertSizeNotNil: true)
 
         if Self.spotify.authorizationManager.isAuthorized(
             for: [.userReadPlaybackPosition]
@@ -149,16 +132,9 @@ extension SpotifyAPIEpisodeTests {
             XCTFail("images should not be nil")
             return
         }
-        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
-        let (expectations, cancellables) = XCTAssertImagesExist(images)
-        
-        Self.cancellables.formUnion(cancellables)
-        
-        self.wait(
-            for: expectations,
-            timeout: TimeInterval(60 * expectations.count)
+        XCTAssertImagesExist(
+            images, assertSizeNotNil: true
         )
-        #endif
         
     }
     

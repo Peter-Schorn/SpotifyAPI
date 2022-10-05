@@ -3,25 +3,18 @@ import Foundation
 
 /// A Spotify track link object.
 ///
-/// See also the [Track relinking Guide][2].
-///
-/// Read more at the [Spotify web API reference][1].
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
+/// See the [Track relinking Guide][2].
 /// [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
 public struct TrackLink: SpotifyURIConvertible, Hashable {
     
     /**
      Known external urls for this track.
 
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -48,24 +41,20 @@ public struct TrackLink: SpotifyURIConvertible, Hashable {
     /**
      Creates a Spotify track link object.
      
-     See also the [Track relinking Guide][2].
+     See the [Track relinking Guide][1].
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
-       - externalURLs: Known [external urls][3] for this artist.
+       - externalURLs: Known external urls for this artist.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][4] for the object.
+                   URL][2] for the object.
              - value: An external, public URL to the object.
        - href: A link to the Spotify web API endpoint providing the full track
              object.
-       - uri: The [Spotify URI][4] for the track.
-       - id: The [Spotify ID][4] for the track.
+       - uri: The [Spotify URI][2] for the track.
+       - id: The [Spotify ID][2] for the track.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
-     [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
         externalURLs: [String: URL]? = nil,

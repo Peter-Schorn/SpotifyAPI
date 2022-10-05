@@ -1,12 +1,6 @@
 import Foundation
 
-/**
- The audio features of a track.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject
- */
+/// The audio features of a track.
 public struct AudioFeatures: Codable, Hashable {
 
     /**
@@ -174,11 +168,9 @@ public struct AudioFeatures: Codable, Hashable {
     /**
      Creates a new Audio Features object.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - key: The estimated overall key of the track.
-             Integers map to pitches using standard [Pitch Class notation][2].
+             Integers map to pitches using standard [Pitch Class notation][1].
              E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. **If no key was detected,
              the value is -1.**
        - mode: Mode indicates the modality (major or minor) of a track, the
@@ -240,8 +232,7 @@ public struct AudioFeatures: Codable, Hashable {
        - durationMS: The duration of the track in milliseconds.
        - type: The object type. Always "audio_features".
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject
-     [2]: https://en.wikipedia.org/wiki/Pitch_class
+     [1]: https://en.wikipedia.org/wiki/Pitch_class
      */
     public init(
         key: Int,

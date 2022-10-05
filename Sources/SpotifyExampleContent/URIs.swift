@@ -56,13 +56,13 @@ public enum URIs {
         case index = "spotify:playlist:17gneMykp6L6O5R70wm0gE"
         case thisIsMacDeMarco = "spotify:playlist:37i9dQZF1DXe8E8oqpmTDI"
         case macDeMarco = "spotify:playlist:6oyVZ3dZZVCkXJm451Hj5v"
-        case thisIsSpoon = "spotify:playlist:37i9dQZF1DX3zc219hYxy3"
+        case thisIsSpoon = "spotify:playlist:37i9dQZF1DZ06evO0ndiI8"
         case bluesClassics = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk"
         case thisIsPinkFloyd = "spotify:playlist:37i9dQZF1DXaQ34lqGBfrU"
         case localSongs = "spotify:playlist:13S3Kgy80FmqaRjYoECK3U"
         case thisIsStevieRayVaughan = "spotify:playlist:37i9dQZF1DZ06evO35m9Q4"
         case thisIsJimiHendrix = "spotify:playlist:37i9dQZF1DWTNV753no4ic"
-        case thisIsTheBeatles = "spotify:playlist:37i9dQZF1DXdLtD0qszB1w"
+        case thisIsTheBeatles = "spotify:playlist:37i9dQZF1DZ06evO2iBPiw"
         case menITrust = "spotify:playlist:2EgZjzog2eSfApWQHZVn6t"
     }
 
@@ -169,6 +169,35 @@ public enum URIs {
         case joeRogan = "spotify:show:4rOoJ6Egrf8K2IrywzwOMk"
         case seanCarroll = "spotify:show:622lvLwp8CVu6dvCsYAJhN"
         case scienceSalon = "spotify:show:4eDCVvVXJVwKCa0QfNbuXA"
+    }
+    
+    /// A namespace of audiobook URIs.
+    public enum Audiobooks: String, SpotifyURIConvertibleEnum {
+        case harryPotterAndTheSorcerersStone = "spotify:audiobook:2IEBhnu61ieYGFRPEJIO40"
+        case enlightenmentNow = "spotify:audiobook:2fUedmI8FowN4xYJuMIDfi"
+        case freeWill = "spotify:audiobook:4x3Y9YYK84XJSTTJp2atHe"
+        case steveJobs = "spotify:audiobook:2rBiFKvU85lq19QYB3Zr38"
+    }
+    
+    /// A namespace of audiobook chapter URIs.
+    public enum Chapters: String, SpotifyURIConvertibleEnum {
+        case freeWillOpeningCredits = "spotify:chapter:4uGM8lfEQeljIkJlFQLPtT"
+        case freeWillChapter1 = "spotify:chapter:6QYoIxxar5q4AfdTOGsZqE"
+        case freeWillChapter2 = "spotify:chapter:70yieYbr9tuu1aSgu0cmzb"
+        case freeWillChapter3 = "spotify:chapter:39k2xZuSzfDKOaYd4SIf90"
+        case freeWillChapter4 = "spotify:chapter:4K8cBhSa7J8hs8aQolX9Pr"
+        case freeWillChapter5 = "spotify:chapter:0BQpGw8WjyW66NTeB43vSX"
+        case freeWillChapter6 = "spotify:chapter:79JmvSTN5qe5pqwby9a2EI"
+        case freeWillChapter7 = "spotify:chapter:2mktZRz3WikSKvs1tTNCC7"
+        case freeWillChapter8 = "spotify:chapter:3LdcW0rY9kfaKGykoWDUUV"
+        case freeWillConclusion = "spotify:chapter:66yM123UFvb4QDSIUSdrZx"
+        case freeWillEndingCredits = "spotify:chapter:6kbaTOLPUK6KQrcoOeXc1m"
+        case steveJobsChapter1 = "spotify:chapter:0PIs96Eps5PTbnoaKrPR67"
+        case steveJobsChapter2 = "spotify:chapter:7z9aAoKD03hEVfg47PJdzQ"
+        case steveJobsChapter3 = "spotify:chapter:2tyNeWG1hpHR1I0jY1PXVd"
+        case enlightenmentNowChapter1 = "spotify:chapter:07T2JL4HDFOQ4DXvz5qtMU"
+        case enlightenmentNowChapter2 = "spotify:chapter:40P6suc4526KR5BkQZwZOM"
+        case enlightenmentNowChapter3 = "spotify:chapter:1cwNPlPUCmwHBR72q6ecge"
     }
 
 }

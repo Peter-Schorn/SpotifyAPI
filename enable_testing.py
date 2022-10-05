@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys, os, re
 
 use_test = sys.argv[1].lower()
@@ -30,7 +32,7 @@ sources_directory = os.path.join(project_directory, "Sources")
 tests_directory = os.path.join(project_directory, "Tests")
 
 # the full paths to all of the swift source code files in the Sources and Tests
-# directory, and the package.swift file
+# directory, and the package.swift files
 swift_files: [str] = []
 
 swift_files.append(package_file)

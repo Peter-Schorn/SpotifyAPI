@@ -99,7 +99,6 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
         let finalMessage = """
 
             --------- FAILING TESTS ---------
-
             \(testsListString)
             
             \(reTestCommand)

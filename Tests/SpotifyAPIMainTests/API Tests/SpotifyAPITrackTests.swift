@@ -95,34 +95,7 @@ extension SpotifyAPITrackTests {
             
             XCTAssertEqual(album.releaseDatePrecision, "day")
 
-            // MARK: Check Images
-            if let images = album.images, !images.isEmpty {
-                var imageExpectations: [XCTestExpectation] = []
-                print("images.count:", images.count)
-                for (i, image) in images.enumerated() {
-                    XCTAssertNotNil(image.height)
-                    XCTAssertNotNil(image.width)
-                    let imageExpectation = XCTestExpectation(
-                        description: "check image url \(i)"
-                    )
-                    imageExpectations.append(imageExpectation)
-                    print("check image url \(i): '\(image.url)'")
-                    assertURLExists(image.url)
-                        .sink(receiveCompletion: { completion in
-                            if case .finished = completion {
-                                print("exists: '\(image.url)'")
-                            }
-                            imageExpectation.fulfill()
-                        })
-                        .store(in: &Self.cancellables)
-                }
-                print("waiting for \(imageExpectations.count) image urls")
-                self.wait(for: imageExpectations, timeout: 120)
-                print("FINISHED waiting for image urls")
-            }
-            else {
-                XCTFail("images were nil or empty")
-            }
+            XCTAssertImagesExist(album.images, assertSizeNotNil: true)
             
         }
         else {

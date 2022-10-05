@@ -66,30 +66,7 @@ extension SpotifyAPIArtistTests {
             XCTFail("followers should not be nil")
         }
         
-        // MARK: Check Images
-        guard let images = artist.images else {
-            XCTFail("images should not be nil")
-            return
-        }
-        
-        var imageExpectations: [XCTestExpectation] = []
-        for (i, image) in images.enumerated() {
-            XCTAssertNotNil(image.height)
-            XCTAssertNotNil(image.width)
-            let imageExpectation = XCTestExpectation(
-                description: "loadImage \(i)"
-            )
-            imageExpectations.append(imageExpectation)
-            
-            assertURLExists(image.url)
-                .sink(receiveCompletion: { _ in
-                    imageExpectation.fulfill()
-                })
-                .store(in: &Self.cancellables)
-        }
-        
-        self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
-        
+        XCTAssertImagesExist(artist.images, assertSizeNotNil: true)
         
     }
     
@@ -250,18 +227,15 @@ extension SpotifyAPIArtistTests {
             }
             do {
                 let album = reversedAlbums[0]
-                XCTAssertEqual(
-                    album.name,
-                    "Amsterdamse Bos, Free Concert, Live, 26 June 1971"
-                )
-                XCTAssertEqual(album.uri, "spotify:album:1sPI5BOZZ13HhW7anvGgXS")
-                XCTAssertEqual(album.id, "1sPI5BOZZ13HhW7anvGgXS")
+                XCTAssertEqual(album.name, "The Piper at the Gates of Dawn")
+                XCTAssertEqual(album.uri, "spotify:album:2Se4ZylF9NkFGD92yv1aZC")
+                XCTAssertEqual(album.id, "2Se4ZylF9NkFGD92yv1aZC")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        46760400,
-                        accuracy: 43_200   // 12 hours
+                        -76032000,
+                        accuracy: 43_200  // 12 hours
                     )
                 }
                 else {
@@ -271,18 +245,15 @@ extension SpotifyAPIArtistTests {
             }
             do {
                 let album = reversedAlbums[1]
-                XCTAssertEqual(
-                    album.name,
-                    "Amsterdamse Bos Free Concert 26 June 1971 (Live)"
-                )
-                XCTAssertEqual(album.uri, "spotify:album:2Va7XE8c1UJlx3zkSEY9cN")
-                XCTAssertEqual(album.id, "2Va7XE8c1UJlx3zkSEY9cN")
+                XCTAssertEqual(album.name, "A Saucerful of Secrets")
+                XCTAssertEqual(album.uri, "spotify:album:2vnJKtGjZXRUg0mYPZ3HGH")
+                XCTAssertEqual(album.id, "2vnJKtGjZXRUg0mYPZ3HGH")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        46760400,
-                        accuracy: 43_200   // 12 hours
+                        -47588400,
+                        accuracy: 43_200
                     )
                 }
                 else {
@@ -292,17 +263,14 @@ extension SpotifyAPIArtistTests {
             }
             do {
                 let album = reversedAlbums[2]
-                XCTAssertEqual(
-                    album.name,
-                    "Live In Montreux 18 & 19 Sept 1971"
-                )
-                XCTAssertEqual(album.uri, "spotify:album:3lpzmu5Vbx2AatfLZNZMgA")
-                XCTAssertEqual(album.id, "3lpzmu5Vbx2AatfLZNZMgA")
+                XCTAssertEqual(album.name, "More")
+                XCTAssertEqual(album.uri, "spotify:album:6AccmjV8Q5cEUZ2tvS8s6c")
+                XCTAssertEqual(album.id, "6AccmjV8Q5cEUZ2tvS8s6c")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        54018000,
+                        -13633200,
                         accuracy: 43_200
                     )
                 }
@@ -311,18 +279,18 @@ extension SpotifyAPIArtistTests {
                 }
             }
             do {
-                // should be "A Saucerful of Secrets""
                 let album = reversedAlbums[3]
                 XCTAssertEqual(
                     album.name,
-                    "Live In Montreux 18 & 19 Sept 1971"
+                    "Ummagumma"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:5BZ1cbpJFcrcTGpbhUzTg4")
+                XCTAssertEqual(album.uri, "spotify:album:3IPhWIXHOAhS2npnq6FiCG")
+                XCTAssertEqual(album.id, "3IPhWIXHOAhS2npnq6FiCG")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        54104400,
+                        -5857200,
                         accuracy: 43_200
                     )
                 }

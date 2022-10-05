@@ -6,10 +6,6 @@ import Foundation
  ``SpotifyAPI/recommendations(_:limit:market:)``.
  
  See also ``RecommendationsResponse``.
- 
- Read more at the [Spotify web API reference][1].
- 
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
  */
 public struct RecommendationSeed: Codable, Hashable {
     
@@ -47,8 +43,6 @@ public struct RecommendationSeed: Codable, Hashable {
      
      See also ``RecommendationsResponse``.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - afterFilteringSize: The number of tracks available after the minimum
              and maximum filters have been applied.
@@ -64,8 +58,6 @@ public struct RecommendationSeed: Codable, Hashable {
              seed.
        - type: The entity type of this seed. Either ``IDCategory/artist``,
              ``IDCategory/track`` or ``IDCategory/genre``.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */
     public init(
         afterFilteringSize: Int,

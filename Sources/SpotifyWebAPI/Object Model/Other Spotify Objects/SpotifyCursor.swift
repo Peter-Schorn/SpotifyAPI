@@ -5,13 +5,10 @@ import Foundation
  
  Used to find the next or previous set of items in a ``CursorPagingObject``.
  
- See [get current user's recently played tracks][2] and
+ See [get current user's recently played tracks][1] and
  ``SpotifyAPI/recentlyPlayed(_:limit:)``.
 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
  */
 public struct SpotifyCursor: Codable, Hashable {
     
@@ -44,13 +41,9 @@ public struct SpotifyCursor: Codable, Hashable {
      
      Used to find the next or previous set of items in a ``CursorPagingObject``.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - before: The key to the item before the current item.
        - after: The key to the item after the current item.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
      */
     public init(
         before: String? = nil,

@@ -4,7 +4,7 @@ Contains various sample data that can be used for testing purposes, especially w
 
 ## Overview
 
-Includes URIs for playlists, artists, albums, tracks, episodes, shows, users, and devices.
+Includes URIs for playlists, artists, albums, tracks, episodes, shows, users, audiobooks, audiobook chapters, and devices.
 
 Most importantly, there are sample versions of many of the objects in the object model, as described in <doc:Object-Model-Samples>.
 
@@ -22,6 +22,8 @@ Most importantly, there are sample versions of many of the objects in the object
 - ``URIs/Tracks``
 - ``URIs/Episodes``
 - ``URIs/Shows``
+- ``URIs/Audiobooks``
+- ``URIs/Chapters``
 - ``URIs/Users``
 - ``URIs/Devices``
 

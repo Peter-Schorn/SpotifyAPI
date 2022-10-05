@@ -3,15 +3,12 @@ import Foundation
 /**
  A cursor-based paging object.
  
- See [get current user's recently played tracks][2] and
+ See [get current user's recently played tracks][1] and
  ``SpotifyAPI/recentlyPlayed(_:limit:)``.
  
  See also <doc:Working-with-Paginated-Results>.
  
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
  */
 public struct CursorPagingObject<Item: Codable & Hashable>:
     Paginated, Hashable
@@ -49,11 +46,9 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
     /**
      Creates a cursor-based paging object.
      
-     See [get current user's recently played tracks][2]
+     See [get current user's recently played tracks][1]
      and ``SpotifyAPI/recentlyPlayed(_:limit:)``.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - href: A link to the Web API endpoint returning the full result of the
              request.
@@ -63,8 +58,7 @@ public struct CursorPagingObject<Item: Codable & Hashable>:
        - cursors: Used to find the next and previous items.
        - total: The maximum number of items available to return.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-cursorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
      */
     public init(
         href: URL,
@@ -100,37 +94,43 @@ extension CursorPagingObject: ApproximatelyEquatable where Item: ApproximatelyEq
 extension CursorPagingObject: Codable {
 
     enum CodingKeys: String, CodingKey {
+        
         case href
         case items
         case limit
         case next
         case cursors
         case total
+        
+        case artists
+        
+        static var topLevelKeys: [Self] {
+            [
+                .artists
+            ]
+        }
+        
     }
 
     private static func makeContainer(
         from decoder: Decoder
     ) throws -> KeyedDecodingContainer<CodingKeys> {
         
-        let container: KeyedDecodingContainer<CursorPagingObject<Item>.CodingKeys>
-
-        switch Item.self {
-            case is Artist.Type:
-                let topContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-                if let artistContainer = try? topContainer.nestedContainer(
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
+        )
+        
+        for key in CodingKeys.topLevelKeys {
+            if container.contains(key) {
+                return try container.nestedContainer(
                     keyedBy: CodingKeys.self,
-                    forKey: .init("artists")
-                ) {
-                    container = artistContainer
-                }
-                else {
-                    container = try decoder.container(keyedBy: CodingKeys.self)
-                }
-            default:
-                container = try decoder.container(keyedBy: CodingKeys.self)
+                    forKey: key
+                )
+            }
         }
         
         return container
+        
     }
 
     public init(from decoder: Decoder) throws {

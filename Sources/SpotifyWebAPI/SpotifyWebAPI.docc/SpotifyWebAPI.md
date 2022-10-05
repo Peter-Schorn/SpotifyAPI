@@ -70,6 +70,7 @@ When creating an application that uses this library, you will probably want to *
 - <doc:Media-Objects>
 - <doc:Playlist-Objects>
 - <doc:Player-Objects>
+- <doc:Audiobook-Objects>
 - <doc:Audio-Analysis-Objects>
 - <doc:Other-Objects>
 

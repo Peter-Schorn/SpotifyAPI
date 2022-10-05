@@ -65,53 +65,54 @@ public extension SpotifyAPI {
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - query: A query, which can also include filters, as specified above. Do
-             NOT percent encode it yourself. It will be percent-encoded
-             automatically.
-       - categories: *Required*. An array of id categories. Only results that
+       - query: A query, which can also include filters, as specified above.
+             **Maximum characters: 100**. Do NOT percent encode it yourself. It
+             will be percent-encoded automatically.
+       - categories: An array of id categories. Only results that
              match the specified categories will be returned. Valid types:
              ``IDCategory/album``, ``IDCategory/artist``,
              ``IDCategory/playlist``, ``IDCategory/track``, ``IDCategory/show``,
-             ``IDCategory/episode``.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". If a country code is specified, only content
-             that is playable in that market is returned. **Note:** Playlist
-             results are not affected by the market parameter. If market is set
-             to "from_token", and the access token was granted on behalf of a
-             user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof
-             key for code exchange), only content playable in the country
-             associated with the user account, is returned. Users can view the
-             country that is associated with their account in the [account
-             settings][3]. **Note: If neither market or user country are**
-             **provided, the shows and episodes are considered unavailable for**
-             **the client and Spotify will return** `nil` **for all of the**
-             **shows and episodes. Therefore, if you authorized your**
-             **application using the client credentials flow, you must provide**
-             **a value for this parameter in order to retrieve shows and**
-             **episodes.**
-       - limit: *Optional*. Maximum number of results to return. Default: 20;
-             Minimum: 1; Maximum: 50. **Note:** The limit is applied within each
-             type, not on the total response. For example, if the limit value is
-             3 and the types are ``IDCategory/artist`` and ``IDCategory/album``,
-             the response contains up to 3 artists and 3 albums.
-       - offset: *Optional*. The index of the first result to return. Default: 0
-             (the first result). Maximum offset (including limit): 2,000. Use
-             with `limit` to get the next page of search results.
-       - includeExternal: *Optional*. Possible values: "audio". if this is
-             specified, the response will include any relevant audio content
-             that is hosted externally. By default external content is filtered
-             out from responses.
+             ``IDCategory/episode``, and ``IDCategory/audiobook``. **Warning:**
+             **There is a bug in the web API in which you cannot specify both**
+             ``IDCategory/show`` **and** ``IDCategory/audiobook``**.**
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". If a country code is specified, only content that is
+             playable in that market is returned. **Note: Playlist results are**
+             **not affected by the market parameter**. If market is set to
+             "from_token", and the access token was granted on behalf of a user
+             (i.e., if you authorized your application using the authorization
+             code flow or the authorization code flow with proof key for code
+             exchange), only content playable in the country associated with the
+             user account, is returned. Users can view the country that is
+             associated with their account in the [account settings][3].
+             **Note: If neither market or user country are provided, the shows**
+             **and episodes are considered unavailable for the client and**
+             **Spotify will return** `nil` **for all of the shows and**
+             **episodes. Therefore, if you authorized your application using**
+             **the client credentials flow, you must provide a value for this**
+             **parameter in order to retrieve shows and episodes.**
+       - limit: Maximum number of results to return. Default: 20; Minimum: 1;
+             Maximum: 50. **Note:** The limit is applied within each type, not
+             on the total response. For example, if the limit value is 3 and the
+             types are ``IDCategory/artist`` and ``IDCategory/album``, the
+             response contains up to 3 artists and 3 albums.
+       - offset: The index of the first result to return. Default: 0 Maximum
+             offset (including limit): 2,000. Use with `limit` to get the next
+             page of search results.
+       - includeExternal: Possible values: "audio". If this is specified, the
+             response will include any relevant audio content that is hosted
+             externally. By default, external content is filtered out from
+             responses.
      - Returns: A ``SearchResult``. The ``SearchResult/albums``,
            ``SearchResult/artists``, ``SearchResult/playlists``,
-           ``SearchResult/tracks``, ``SearchResult/shows``, and
-           ``SearchResult/episodes`` properties of this struct will be non-`nil`
-           for each of the categories that were requested from the search
-           endpoint. If no results were found for a category, then the
-           ``PagingObject/items`` property of the property's paging object will
-           be empty; the property itself will only be `nil` if the category was
-           not requested in the search. The simplified versions of all these
-           objects will be returned.
+           ``SearchResult/tracks``, ``SearchResult/shows``,
+           ``SearchResult/episodes``, and ``SearchResult/audiobooks`` properties
+           of this struct will be non-`nil` for each of the categories that were
+           requested from the search endpoint. If no results were found for a
+           category, then the ``PagingObject/items`` property of the property's
+           paging object will be empty; the property itself will only be `nil`
+           if the category was not requested in the search. The simplified
+           versions of all these objects will be returned.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -129,7 +130,7 @@ public extension SpotifyAPI {
         do {
             
             let validCategories: [IDCategory] = [
-                .album, .artist, .playlist, .track, .show, .episode
+                .album, .artist, .playlist, .track, .show, .episode, .audiobook
             ]
             guard !categories.isEmpty &&
                     categories.allSatisfy(validCategories.contains) else {
@@ -160,22 +161,6 @@ public extension SpotifyAPI {
                 requiredScopes: requiredScopes
             )
             .decodeSpotifyObject(SearchResult.self)
-            .map { searchResult -> SearchResult in
-                
-                var copy = searchResult
-                
-                let offset = offset ?? 0
-                let limit = limit ?? 20
-                let nextOffset = offset + limit
-
-                let next = Endpoints.apiEndpoint(
-                    "/search",
-                    queryItems: makeQueryItems(offset: nextOffset)
-                )
-                copy.next = next
-                return copy
-            }
-            .eraseToAnyPublisher()
         
         } catch {
             return error.anyFailingPublisher()

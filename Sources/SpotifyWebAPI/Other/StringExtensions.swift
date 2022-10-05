@@ -101,9 +101,10 @@ public extension String {
         using randomNumberGenerator: inout Generator
     ) -> String {
         
-        let characters = (0..<length).map { _ in
-            String.urlSafeCharacters.randomElement(
-                using: &randomNumberGenerator
+        let characters = (0..<length).map { _ -> Character in
+            var copy = randomNumberGenerator  // fixes EXC_BAD_ACCESS bug
+            return String.urlSafeCharacters.randomElement(
+                using: &copy
             )!
         }
         return String(characters)

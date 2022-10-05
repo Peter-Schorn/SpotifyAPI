@@ -139,38 +139,45 @@ public func assertURLExists(
 }
 
 /**
- Assert the the Spotify Images exist.
+ Assert the Spotify Images exist.
  
- - Parameter images: An array of Spotify images.
- - Returns: An array of expectations that will be fulfilled when each image is
- loaded from its URL.
+ Calls `image.load()` for each image on platforms that support SwiftUI. Else,
+ calls `assertURLExists(_:file:line:)` for each image.
+ 
+ - Parameters:
+   - images: An array of Spotify images.
+   - assertSizeNotNil: whether or not to assert that the height and width of the
+         images is not `nil`.
  */
-#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
 public func XCTAssertImagesExist(
-    _ images: [SpotifyImage],
+    _ images: [SpotifyImage]?,
+    assertSizeNotNil: Bool,
     file: StaticString = #file,
     line: UInt = #line
-) -> (expectations: [XCTestExpectation], cancellables: Set<AnyCancellable>) {
+) {
+
+    guard let images = images else {
+        XCTFail("images was nil")
+        return
+    }
+
     var cancellables: Set<AnyCancellable> = []
-    var imageExpectations: [XCTestExpectation] = []
+    var expectations: [XCTestExpectation] = []
+    
+    let waiter = XCTWaiter()
+
     for (i, image) in images.enumerated() {
-        XCTAssertNotNil(image.height)
-        XCTAssertNotNil(image.width)
-        let existsExpectation = XCTestExpectation(
-            description: "image exists \(i)"
-        )
-        imageExpectations.append(existsExpectation)
-        
-        assertURLExists(image.url, file: file, line: line)
-            .sink(receiveCompletion: { _ in
-                existsExpectation.fulfill()
-            })
-            .store(in: &cancellables)
-        
+
+        if assertSizeNotNil {
+            XCTAssertNotNil(image.height, "image[\(i)].height")
+            XCTAssertNotNil(image.width, "image[\(i)].width")
+        }
+
+#if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
         let loadExpectation = XCTestExpectation(
             description: "load image \(i)"
         )
-        imageExpectations.append(loadExpectation)
+        expectations.append(loadExpectation)
         
         image.load()
             .XCTAssertNoFailure()
@@ -181,8 +188,21 @@ public func XCTAssertImagesExist(
                 receiveValue: { _ in }
             )
             .store(in: &cancellables)
+#else
+        let existsExpectation = XCTestExpectation(
+            description: "image exists \(i)"
+        )
+        expectations.append(existsExpectation)
+        
+        assertURLExists(image.url, file: file, line: line)
+            .sink(receiveCompletion: { _ in
+                existsExpectation.fulfill()
+            })
+            .store(in: &cancellables)
+#endif
+        
     }
     
-    return (expectations: imageExpectations, cancellables: cancellables)
+    waiter.wait(for: expectations, timeout: TimeInterval(60 * images.count))
+    
 }
-#endif

@@ -3,12 +3,8 @@ import Foundation
 /**
  A Spotify play history object.
  
- Read more at the [Spotify web API reference][1].
-
  Contains information about a recently played track, including the time it was
  played, and the context it was played in.
- 
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
  */
 public struct PlayHistory: Hashable {
     
@@ -25,15 +21,11 @@ public struct PlayHistory: Hashable {
     /**
      A Spotify play history object.
      
-     Read more at the [Spotify web API reference][1].
-     
      - Parameters:
        - track: The track that the user listened to (simplified version).
        - playedAt: The date and time the track was played.
        - context: The context the track was played from, such as an album,
              artist, or playlist.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playhistoryobject
      */
     public init(
         track: Track,

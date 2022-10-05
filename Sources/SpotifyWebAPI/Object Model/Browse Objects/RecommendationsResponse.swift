@@ -5,10 +5,6 @@ import Foundation
  ``SpotifyAPI/recommendations(_:limit:market:)``.
  
  See also ``RecommendationSeed``.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
  */
 public struct RecommendationsResponse: Codable, Hashable {
 
@@ -24,10 +20,6 @@ public struct RecommendationsResponse: Codable, Hashable {
      that was provided.
      
      Usually, there will be one seed object for each artist, track, and genre.
-     
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */
     public let seeds: [RecommendationSeed]
     
@@ -56,14 +48,9 @@ public struct RecommendationsResponse: Codable, Hashable {
      
      See also ``RecommendationSeed``.
      
-     Read more at the [Spotify web API reference][1].
-     
      - Parameters:
-       - seeds: An array of [recommendation seed objects][2].
+       - seeds: An array of recommendation seed objects.
        - tracks: An array of track objects.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject
      */
     public init(
         seeds: [RecommendationSeed],

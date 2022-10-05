@@ -8,6 +8,7 @@ Objects that relate to the player endpoints.
 
 - ``Device``
 - ``DeviceType``
+- ``SpotifyQueue``
 - ``CurrentlyPlayingContext``
 - ``SpotifyContext``
 - ``PlaybackActions``

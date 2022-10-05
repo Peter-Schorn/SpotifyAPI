@@ -1,10 +1,6 @@
 import Foundation
 
 /// A Spotify album.
-///
-/// Read more at the [Spotify web API reference][1].
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
 public struct Album: Hashable {
     
     /// The name of the album.
@@ -60,7 +56,7 @@ public struct Album: Hashable {
     
     /// The label for the album.
     ///
-    /// Do not confuse this with the name of the album.
+    /// Do not confuse this with the ``name`` of the album.
     public let label: String?
     
     /**
@@ -73,6 +69,9 @@ public struct Album: Hashable {
      */
     public let genres: [String]?
     
+    /// The total number of tracks in the album.
+    public let totalTracks: Int?
+
     /**
      A link to the Spotify web API endpoint providing the full album object.
      
@@ -84,14 +83,11 @@ public struct Album: Hashable {
     /**
      Known external urls for this artist.
 
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -128,19 +124,17 @@ public struct Album: Hashable {
      */
     public let albumGroup: AlbumType?
     /**
-     The markets in which the album is available: ISO 3166-1 alpha-2 country
-     codes.
+     A list of the countries in which the album is available, identified by
+     their [ISO 3166-1 alpha-2][1] codes.
 
      Note that an album is considered available in a market when at least 1 of
      its tracks is available in that market.
-
-     Read about [ISO 3166-1 alpha-2 country codes][1].
 
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     public let availableMarkets: [String]?
 
-    /// An array of copyright objects.
+    /// The copyrights for the album.
     public let copyrights: [SpotifyCopyright]?
 
     /// The precision with which ``releaseDate`` is known: "year", "month", or
@@ -161,12 +155,9 @@ public struct Album: Hashable {
      
      Additional reasons and additional keys may be added in the future.
      
-     See [AlbumRestrictionObject][2], which this property is decoded from.
-     
      Read about [Track Relinking][1].
 
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-albumrestrictionobject
      */
     public let restrictions: [String: String]?
     
@@ -176,32 +167,31 @@ public struct Album: Hashable {
     /**
      Creates a Spotify album.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - name: The name of the album.
        - tracks: The tracks of the album.
        - artists:  The artists of the album.
        - releaseDate: The date the album was first released.
-       - uri: The [Spotify URI][2] for the album.
-       - id: The [Spotify ID][2] for the album.
+       - uri: The [Spotify URI][1] for the album.
+       - id: The [Spotify ID][1] for the album.
        - images: The cover art for the album.
        - popularity: The popularity of the album. Should be between 0 and 100,
              inclusive.
-       - label: The label for the album. Do not confuse this with the name of
-             the album.
+       - label: The label for the album. Do not confuse this with the ``name``
+             of the album.
        - genres: A list of the genres the artist is associated with.
+       - totalTracks: The total number of tracks in the album.
        - href: A link to the Spotify web API endpoint providing the full album
              object.
-       - externalURLs: Known [external urls][3] for this artist.
+       - externalURLs: Known external urls for this artist.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][4] for the object.
+                   URL][1] for the object.
              - value: An external, public URL to the object.
        - externalIds: Known external IDs for the album.
              - key: The identifier type, for example:
-               - "isrc": [International Standard Recording Code][5]
-               - "ean": [International Article Number][6]
-               - "upc": [Universal Product Code][7]
+               - "isrc": [International Standard Recording Code][2]
+               - "ean": [International Article Number][3]
+               - "upc": [Universal Product Code][4]
              - value: An external identifier for the object.
        - albumType: The type of the album: one of ``AlbumType/album``,
              ``AlbumType/single``, or ``AlbumType/compilation``.
@@ -210,15 +200,15 @@ public struct Album: Hashable {
              ``AlbumType/compilation``, and ``AlbumType/appearsOn``. Compared to
              ``albumType`` this field represents the relationship between the
              artist and the album.
-       - availableMarkets: The markets in which the album is available: [ISO
-             3166-1 alpha-2 country codes][8]. Note that an album is considered
-             available in a market when at least 1 of its tracks is available in
-             that market.
-       - copyrights: An array of copyright objects.
+       - availableMarkets: A list of the countries in which the album is
+             available, identified by their [ISO 3166-1 alpha-2][5] codes. Note
+             that an album is considered available in a market when at least 1
+             of its tracks is available in that market.
+       - copyrights: The copyrights for the album.
        - releaseDatePrecision: The precision with which ``releaseDate`` is known:
              "year", "month", or "day".
        - restrictions: Part of the response when a content restriction, such as
-             [Track Relinking][9], is applied. Else, `nil`. The key will be
+             [Track Relinking][6], is applied. Else, `nil`. The key will be
              "reason", and the value will be one of the following:
              * "market" - The content item is not available in the given market.
              * "product" - The content item is not available for the user’s
@@ -226,19 +216,13 @@ public struct Album: Hashable {
              * "explicit" - The content item is explicit and the user’s account
                is set to not play explicit content.
              Additional reasons and additional keys may be added in the future.
-             See [AlbumRestrictionObject][10], which this property is decoded
-             from.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-albumobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [5]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
-     [6]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
-     [7]: http://en.wikipedia.org/wiki/Universal_Product_Code
-     [8]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [9]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [10]: https://developer.spotify.com/documentation/web-api/reference/#object-albumrestrictionobject
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
+     [3]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
+     [4]: http://en.wikipedia.org/wiki/Universal_Product_Code
+     [5]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [6]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public init(
         name: String,
@@ -251,6 +235,7 @@ public struct Album: Hashable {
         popularity: Int? = nil,
         label: String? = nil,
         genres: [String]? = nil,
+        totalTracks: Int? = nil,
         href: URL? = nil,
         externalURLs: [String: URL]? = nil,
         externalIds: [String: String]? = nil,
@@ -271,6 +256,7 @@ public struct Album: Hashable {
         self.popularity = popularity
         self.label = label
         self.genres = genres
+        self.totalTracks = totalTracks
         self.href = href
         self.externalURLs = externalURLs
         self.externalIds = externalIds
@@ -328,6 +314,9 @@ extension Album: Codable {
         )
         self.genres = try container.decodeIfPresent(
             [String].self, forKey: .genres
+        )
+        self.totalTracks = try container.decodeIfPresent(
+            Int.self, forKey: .totalTracks
         )
         self.href = try container.decodeIfPresent(
             URL.self, forKey: .href
@@ -405,6 +394,9 @@ extension Album: Codable {
             self.genres, forKey: .genres
         )
         try container.encodeIfPresent(
+            self.totalTracks, forKey: .totalTracks
+        )
+        try container.encodeIfPresent(
             self.href, forKey: .href
         )
         try container.encodeIfPresent(
@@ -445,6 +437,7 @@ extension Album: Codable {
         case popularity
         case label
         case genres
+        case totalTracks = "total_tracks"
         case href
         case externalURLs = "external_urls"
         case externalIds = "external_ids"
@@ -484,6 +477,7 @@ extension Album: ApproximatelyEquatable {
                 self.popularity == other.popularity &&
                 self.label == other.label &&
                 self.genres == other.genres &&
+                self.totalTracks == other.totalTracks &&
                 self.href == other.href &&
                 self.externalURLs == other.externalURLs &&
                 self.externalIds == other.externalIds &&

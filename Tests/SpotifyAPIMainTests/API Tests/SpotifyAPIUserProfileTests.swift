@@ -43,31 +43,7 @@ extension SpotifyAPIUserProfileTests {
 
             XCTAssertNotNil(user.followers)
             
-            guard let images = user.images else {
-                XCTFail("April should have images for her acount")
-                return
-            }
-
-            var imageExpectations: [XCTestExpectation] = []
-            for (i, image) in images.enumerated() {
-                let expectation = XCTestExpectation(
-                    description: "assert image url exists \(i)"
-                )
-                imageExpectations.append(expectation)
-                
-                assertURLExists(image.url)
-                    .XCTAssertNoFailure()
-                    .sink(
-                        receiveCompletion: { _ in
-                            expectation.fulfill()
-                        }
-                    )
-                    .store(in: &Self.cancellables)
-            }
-            self.wait(
-                for: imageExpectations,
-                timeout: TimeInterval(60 * imageExpectations.count)
-            )
+            XCTAssertImagesExist(user.images, assertSizeNotNil: false)
             
         }
         

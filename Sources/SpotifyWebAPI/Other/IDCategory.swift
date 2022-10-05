@@ -46,6 +46,12 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
     /// A genre.
     case genre
     
+    /// An audiobook.
+    case audiobook
+    
+    /// An audiobook chapter.
+    case chapter
+
     /// An ad.
     case ad
     
@@ -76,6 +82,8 @@ public enum IDCategory: String, CaseIterable, Codable, Hashable {
      * ``user``
      * ``genre``
      * ``ad``
+     * ``audiobook``
+     * ``chapter``
      * ``unknown``
      * ``collection``
      

@@ -152,11 +152,11 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         }
         
         let clickCancelButtonScript = """
-            document.getElementById("auth-cancel").click()
+            document.querySelector("[data-testid='auth-cancel']").click()
             """
         
         let clickAcceptButtonScript = """
-            document.getElementById("auth-accept").click()
+            document.querySelector("[data-testid='auth-accept']").click()
             """
         
         let script = self.button == .accept ? clickAcceptButtonScript :

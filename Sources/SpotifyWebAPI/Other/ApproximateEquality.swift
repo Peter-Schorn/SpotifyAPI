@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// MARK: link: https://github.com/apple/swift-numerics/blob/master/Sources/RealModule/ApproximateEquality.swift
+// MARK: link: https://github.com/apple/swift-numerics/blob/main/Sources/RealModule/ApproximateEquality.swift
 
 extension Numeric where Magnitude: FloatingPoint {
 
@@ -32,7 +32,6 @@ extension Numeric where Magnitude: FloatingPoint {
      for all use cases.
 
      Mathematical Properties:
-     ------------------------
 
      - ``isApproximatelyEqual(to:relativeTolerance:norm:)`` is _reflexive_ for
        non-exceptional values (such as NaN).
@@ -52,7 +51,7 @@ extension Numeric where Magnitude: FloatingPoint {
        value is produced by the scaling.
 
      See Also:
-     -------
+     
      - ``isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:norm:])``
 
      - Parameters:
@@ -100,7 +99,6 @@ extension Numeric where Magnitude: FloatingPoint {
      where `scale` is `max(self.magnitude, other.magnitude)`.
 
      Mathematical Properties:
-     ------------------------
 
      - ``isApproximatelyEqual(to:absoluteTolerance:relativeTolerance:)``
        is _reflexive_ for non-exceptional values (such as NaN).
@@ -118,7 +116,7 @@ extension Numeric where Magnitude: FloatingPoint {
        norm, which cannot be checked by this function.)
 
      See Also:
-     -------
+
      - ``isApproximatelyEqual(to:[relativeTolerance:])``
 
      - Parameters:

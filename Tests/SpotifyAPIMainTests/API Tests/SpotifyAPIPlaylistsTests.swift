@@ -273,7 +273,7 @@ extension SpotifyAPIPlaylistsTests {
             description: "testOtherUserCUrrentPlaylists"
         )
 
-        let user = URIs.Users.april
+        let user = URIs.Users.nicholas
 
         Self.spotify.userPlaylists(
             for: user,
@@ -293,13 +293,12 @@ extension SpotifyAPIPlaylistsTests {
                     print("[\(playlist.name)]")
                 }
                 let playlist = playlists.first(where: { playlist in
-                    playlist.name.strip() == "Oldies" &&
-                            playlist.uri == "spotify:playlist:1fXqbjcbxhpHRnk42cydau" &&
-                            playlist.id == "1fXqbjcbxhpHRnk42cydau"
+                    playlist.name.strip() == "Vibes" &&
+                            playlist.uri == "spotify:playlist:6W4kTYgdvtUDNbyLMvPdC5" &&
+                            playlist.id == "6W4kTYgdvtUDNbyLMvPdC5"
                 })
-
                 XCTAssertNotNil(
-                    playlist, "Should've found April's Oldies playlist"
+                    playlist, "Should've found Nicholas' Vibes playlist"
                 )
 
             }
@@ -350,7 +349,7 @@ extension SpotifyAPIPlaylistsTests {
                 )
 
                 XCTAssertEqual(partIII.album?.name, "Jinx")
-                XCTAssertEqual(partIII.album?.uri, "spotify:album:6DxidEI7EhF8md8ev83iNY")
+                XCTAssertEqual(partIII.album?.uri, "spotify:album:3vukTUpiENDHDoYTVrwqtz")
                 if let releaseDate = partIII.album?.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
@@ -1596,59 +1595,6 @@ extension SpotifyAPIPlaylistsTests where
 
         var expectations: [XCTestExpectation] = []
 
-        func receiveImages(_ images: [SpotifyImage]) {
-
-
-            print("line \(#line): recevied \(images.count) images")
-            XCTAssertFalse(images.isEmpty)
-            
-            #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI) && !targetEnvironment(macCatalyst)
-
-            var imageExpectations: [XCTestExpectation] = []
-            for (i, image) in images.enumerated() {
-
-                let loadImageExpectation = XCTestExpectation(
-                    description: "load image \(i)"
-                )
-                imageExpectations.append(loadImageExpectation)
-
-                image.load()
-                    .XCTAssertNoFailure()
-                    .sink(
-                        receiveCompletion: { _ in
-                            print("loadImageExpectation.fulfill() \(i)")
-                            loadImageExpectation.fulfill()
-                        },
-                        receiveValue: { image in
-                            print("received image \(i): \(image)")
-                        }
-                    )
-                    .store(in: &Self.cancellables)
-
-                let assertImageExistsExpectation = XCTestExpectation(
-                    description: "assert image exists \(i)"
-                )
-                imageExpectations.append(assertImageExistsExpectation)
-
-                assertURLExists(image.url)
-                    .sink(
-                        receiveCompletion: { _ in
-                            print("urlExists.fulfill() '\(image.url)'")
-                            assertImageExistsExpectation.fulfill()
-                        },
-                        receiveValue: { _ in
-                            print("urlExists receiveValue '\(image.url)'")
-                        }
-                    )
-                    .store(in: &Self.cancellables)
-
-            }
-
-            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
-            
-            #endif
-        }
-
         let playlists: [URIs.Playlists] = [
             .thisIsTheBeatles, .all, .bluesClassics
         ]
@@ -1666,7 +1612,9 @@ extension SpotifyAPIPlaylistsTests where
                     receiveCompletion: { _ in
                         playlistImageExpectation.fulfill()
                     },
-                    receiveValue: receiveImages(_:)
+                    receiveValue: { images in
+                        XCTAssertImagesExist(images, assertSizeNotNil: false)
+                    }
                 )
                 .store(in: &cancellables)
 

@@ -103,7 +103,7 @@ public struct RedirectListener {
 //            print("\n\nrequest.url.query: '\(request.url.query ?? "nil")'\n\n")
             let url = urlComponents.url!
             receiveURL(url)
-            return "received redirect"
+            return "Received redirect. You can close this page."
             
         }
 

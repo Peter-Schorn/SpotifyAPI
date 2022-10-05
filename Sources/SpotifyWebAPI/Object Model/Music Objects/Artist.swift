@@ -1,10 +1,6 @@
 import Foundation
 
 /// A Spotify artist.
-///
-/// Read more at the [Spotify web API reference][1].
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
 public struct Artist: Hashable {
     
     /// The name of the artist.
@@ -39,14 +35,11 @@ public struct Artist: Hashable {
     /**
      Known external urls for this artist.
     
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
     
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -79,27 +72,23 @@ public struct Artist: Hashable {
     /**
      A Spotify artist.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - name: The name of the artist.
-       - uri: The [Spotify URI][2] for the artist.
-       - id: The [Spotify ID][2] for the artist.
+       - uri: The [Spotify URI][1] for the artist.
+       - id: The [Spotify ID][1] for the artist.
        - images: Images of the artist.
        - popularity: The popularity of the artist. Should be between 0 and 100,
              inclusive.
-       - externalURLs: Known [external urls][3] for this artist.
+       - externalURLs: Known external urls for this artist.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][2] for the object.
+                   URL][1] for the object.
              - value: An external, public URL to the object.
        - followers: Information about the followers of the artist.
        - genres: A list of the genres the artist is associated with.
        - href: A link to the Spotify web API endpoint providing the full
              artist object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
         name: String,

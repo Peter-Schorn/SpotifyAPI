@@ -147,31 +147,7 @@ extension SpotifyAPIAlbumsTests {
         }
         
         // MARK: Check Images
-        if let images = album.images {
-            var imageExpectations: [XCTestExpectation] = []
-            for (i, image) in images.enumerated() {
-                XCTAssertNotNil(image.height)
-                XCTAssertNotNil(image.width)
-                let imageExpectation = XCTestExpectation(
-                    description: "loadImage \(i)"
-                )
-                imageExpectations.append(imageExpectation)
-                
-                assertURLExists(image.url)
-                    .sink(receiveCompletion: { _ in
-                        imageExpectation.fulfill()
-                    })
-                    .store(in: &Self.cancellables)
-            }
-            
-            print("waiting for \(imageExpectations.count) expectations")
-            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
-            print("FINISHED waiting for image expectations")
-        }
-        else {
-            XCTFail("images should not be nil")
-        }
-
+        XCTAssertImagesExist(album.images, assertSizeNotNil: true)
     }
     
     func albumJinx() {

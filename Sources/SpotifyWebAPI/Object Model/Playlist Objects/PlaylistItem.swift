@@ -114,14 +114,11 @@ public enum PlaylistItem: Hashable {
     /**
      Known external urls for this ``PlaylistItem``.
 
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     @inlinable
     public var externalURLs: [String: URL]? {

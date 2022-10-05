@@ -71,6 +71,18 @@ struct TrackView_Previews: PreviewProvider {
 * `samHarris`
 * `joeRogan`
 
+##  Audiobook
+
+* `harryPotterAndTheSorcerersStone`
+* `enlightenmentNow`
+* `freeWill`
+
+## AudiobookChapter
+
+* `freeWillChapter1`
+* `steveJobsChapter1`
+* `enlightenmentNowChapter3`
+
 ### SpotifyUser
 
 * `sampleCurrentUserProfile`
@@ -155,7 +167,9 @@ struct TrackView_Previews: PreviewProvider {
 
 * `sampleCurrentPlayback`
 
+### SpotifyQueue
 
+* `sampleQueue`
 
 
 

@@ -26,10 +26,9 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][1].
      
-     - Returns: An array of [device objects][2].
+     - Returns: An array of device objects.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-deviceobject
      */
     func availableDevices() -> AnyPublisher<[Device], Error> {
         
@@ -75,9 +74,9 @@ public extension SpotifyAPI where
      
      Read more at the [Spotify web API reference][1].
      
-     - Parameter market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or
-           the string "from_token". Provide this parameter if you want to apply
-           [Track Relinking][3].
+     - Parameter market: An [ISO 3166-1 alpha-2 country code][2] or the string
+           "from_token". Provide this parameter if you want to apply [Track
+           Relinking][3].
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -125,17 +124,17 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - timeReference: *Optional*. A reference to a period of time before or
-             after a specified date. For example, `.before(Date())` refers to
-             the period of time before the current date. This is used to filter
-             the response. See the ``SpotifyCursor/before`` and
+       - timeReference: A reference to a period of time before or after a
+             specified date. For example, `.before(Date())` refers to the period
+             of time before the current date. This is used to filter the
+             response. See the ``SpotifyCursor/before`` and
              ``SpotifyCursor/after`` properties of ``SpotifyCursor`` (which is
              part of the returned ``CursorPagingObject``). Dates will be
              converted to millisecond-precision timestamps. Only results that
              are within the specified time period will be returned. If `nil`,
              the most recently played tracks will be returned.
-       - limit: *Optional*. The maximum number of items to return. Default: 20;
-             Minimum: 1; Maximum: 50.
+       - limit: The maximum number of items to return. Default: 20; Minimum: 1;
+             Maximum: 50.
      - Returns: An array of simplified tracks wrapped in a
            ``CursorPagingObject``.
      
@@ -161,6 +160,28 @@ public extension SpotifyAPI where
     }
     
     /**
+     Get the user's queue and the currently playing track/episode.
+     
+     This endpoint requires the ``Scope/userReadPlaybackState`` scope.
+     
+     See also ``addToQueue(_:deviceId:)``.
+     
+     Read more at the [Spotify web API reference][1].
+     
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-queue
+     */
+    func queue() -> AnyPublisher<SpotifyQueue, Error> {
+        
+        return self.getRequest(
+            path: "/me/player/queue",
+            queryItems: [:],
+            requiredScopes: [.userReadPlaybackState]
+        )
+        .decodeSpotifyObject(SpotifyQueue.self)
+
+    }
+    
+    /**
      Add a track or episode to the user's playback queue.
      
      This endpoint requires the ``Scope/userModifyPlaybackState`` scope.
@@ -170,14 +191,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
-     See also <doc:Using-the-Player-Endpoints>.
+     See also ``queue()`` and <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - uri: The URI for either a track or an episode.
@@ -188,8 +208,7 @@ public extension SpotifyAPI where
              violated" error. If you want to add to the queue for a non-active
              device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/add-to-queue
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/add-to-queue
      */
     func addToQueue(
         _ uri: SpotifyURIConvertible,
@@ -223,14 +242,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -240,8 +258,7 @@ public extension SpotifyAPI where
              violated" error. If you want to skip to the next item on a
              non-active device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track
      */
     func skipToNext(
         deviceId: String? = nil
@@ -271,14 +288,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -288,8 +304,7 @@ public extension SpotifyAPI where
              violated" error. If you want to skip to the previous item on a
              non-active device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-previous-track
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-previous-track
      */
     func skipToPrevious(
         deviceId: String? = nil
@@ -330,7 +345,7 @@ public extension SpotifyAPI where
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -340,8 +355,7 @@ public extension SpotifyAPI where
                Restriction violated" error. If you want to pause playback on a
                non-active device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
      */
     func pausePlayback(
         deviceId: String? = nil
@@ -379,14 +393,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameter deviceId: The id of the device to target. See
            ``availableDevices()``. It is highly recommended that you leave this
@@ -395,8 +408,7 @@ public extension SpotifyAPI where
            failed: Restriction violated" error. If you want to resume playback
            on a non-active device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     func resumePlayback(
         deviceId: String? = nil
@@ -459,14 +471,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - deviceId: The id of the device to target. See ``availableDevices()``.
@@ -478,8 +489,7 @@ public extension SpotifyAPI where
              active device found" error.
        - playbackRequest: A request to play content for the user. See above.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      */
     func play(
         _ playbackRequest: PlaybackRequest,
@@ -510,14 +520,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - positionMS: The position in milliseconds to seek to. Must be a positive
@@ -530,8 +539,7 @@ public extension SpotifyAPI where
              violated" error. If you want to seek to a position on a non-active
              device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/seek-to-position-in-currently-playing-track
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/seek-to-position-in-currently-playing-track
      */
     func seekToPosition(
         _ positionMS: Int,
@@ -566,14 +574,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - repeatMode: Either ``RepeatMode/track``, ``RepeatMode/context`` or
@@ -587,8 +594,7 @@ public extension SpotifyAPI where
              violated" error. If you want to set the repeat mode on a non-active
              device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-repeat-mode-on-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-repeat-mode-on-users-playback
      */
     func setRepeatMode(
         to repeatMode: RepeatMode,
@@ -625,14 +631,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - percent: The volume to set. Must be in the range 0...100.
@@ -643,8 +648,7 @@ public extension SpotifyAPI where
              violated" error. If you want to set the volume on a non-active
              device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-volume-for-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/set-volume-for-users-playback
      */
     func setVolume(
         to percent: Int,
@@ -678,14 +682,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - mode: `true` to turn shuffle on; `false` to turn if off.
@@ -696,8 +699,7 @@ public extension SpotifyAPI where
              violated" error. If you want to set the shuffle mode on a
              non-active device, call ``transferPlayback(to:play:)`` first.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/toggle-shuffle-for-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/toggle-shuffle-for-users-playback
      */
     func setShuffle(
         to mode: Bool,
@@ -736,14 +738,13 @@ public extension SpotifyAPI where
      
      * ``SpotifyPlayerError/message``: A short description of the cause of the
        error.
-     * ``SpotifyPlayerError/reason``: A [player error reason][1], modeled by
-     ``SpotifyPlayerError/ErrorReason``.
+     * ``SpotifyPlayerError/reason``: A player error reason.
      * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also
        returned in the response header.
      
      See also <doc:Using-the-Player-Endpoints>.
      
-     Read more at the [Spotify web API reference][2].
+     Read more at the [Spotify web API reference][1].
      
      - Parameters:
        - deviceId: The id of a device to transfer the playback to. Must be one
@@ -754,8 +755,7 @@ public extension SpotifyAPI where
              new device you should call ``pausePlayback(deviceId:)`` (and wait
              for completion) *before* transferring playback to the new device.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/transfer-a-users-playback
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/transfer-a-users-playback
      */
     func transferPlayback(
         to deviceId: String,

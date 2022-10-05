@@ -67,32 +67,7 @@ extension SpotifyAPIShowTests {
             """.strip()
         )
         
-        // MARK: Check Images
-        if let images = show.images {
-            var imageExpectations: [XCTestExpectation] = []
-            for (i, image) in images.enumerated() {
-                XCTAssertNotNil(image.height)
-                XCTAssertNotNil(image.width)
-                let imageExpectation = XCTestExpectation(
-                    description: "loadImage \(i)"
-                )
-                imageExpectations.append(imageExpectation)
-                
-                assertURLExists(image.url)
-                    .sink(receiveCompletion: { _ in
-                        imageExpectation.fulfill()
-                    })
-                    .store(in: &Self.cancellables)
-            }
-            
-            print("waiting for \(imageExpectations.count) image expectations")
-            self.wait(for: imageExpectations, timeout: TimeInterval(60 * images.count))
-            print("FINISHED waiting for image expectations")
-          
-        }
-        else {
-            XCTFail("show should have images")
-        }
+        XCTAssertImagesExist(show.images, assertSizeNotNil: true)
         
         // MARK: Check Episodes
         guard isFullVersion else {

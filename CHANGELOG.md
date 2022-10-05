@@ -4,6 +4,54 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 10-5-2022
+
+* Added new endpoints for retrieving audiobooks and audiobook chapters:
+
+    - `SpotifyAPI.audiobook(_:market:)`
+
+    - `SpotifyAPI.audiobooks(_:market:)`
+
+    - `SpotifyAPI.chapter(_:market:)`
+
+    - `SpotifyAPI.chapters(_:market:)`
+
+- Added a new endpoint for retrieving the user's queue: `SpotifyAPI.queue()`.
+
+- Added new types to the object model: `Audiobook`, `AudiobookChapter`, `AudiobookAuthor`, and `SpotifyQueue`.
+
+- The `SpotifyAPI.search(query:categories:market:limit:offset:includeExternal:)` method now supports audiobooks. Added `audiobooks` property to `SearchResult`, which is returned by this method. Also, removed `next` property from `SearchResult`. 
+
+- `SpotifyAPI.categoryPlaylists(_:country:limit:offset:)` now returns `AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>?>, Error>` instead of `AnyPublisher<PagingObject<Playlist<PlaylistItemsReference>>, Error>` (the `Playlist<PlaylistItemsReference>` is now optional). This fixes decoding errors.
+
+- Added `totalTracks` to `Album`.
+
+- Added `htmlDescription` and `restrictions` to `Episode`.
+
+- Added `htmlDescription` to `Show`.
+
+- Removed support for Swift 5.1 and 5.2 by deleting the `swift-5-1` branch, which had not been maintained for a long time.
+
+- Added `Audiobooks` and `Chapters` to `URIs` in `SpotifyExampleContent`.
+
+- Added the following sample data to `SpotifyExampleContent`:
+
+    - `Audiobook.harryPotterAndTheSorcerersStone`
+
+    - `Audiobook.enlightenmentNow`
+
+    - `Audiobook.freeWill`
+
+    - `AudiobookChapter.freeWillChapter1`
+
+    - `AudiobookChapter.steveJobsChapter1`
+
+    - `AudiobookChapter.enlightenmentNowChapter3`
+
+    - `SpotifyQueue.sampleQueue`
+
+- Added `audiobook` and `chapter` to `IDCategory`.
+
 ## [2.1.1] - 7-25-2022
 
 * Fixed bugs with retrieving additional pages of results when using `SpotifyAPI.currentUserFollowedArtists`, `SpotifyAPI.categories`, and`SpotifyAPI.categoryPlaylists`.

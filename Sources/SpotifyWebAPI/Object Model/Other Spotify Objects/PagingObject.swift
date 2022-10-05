@@ -21,10 +21,6 @@ import Logging
  See also ``SpotifyAPI/extendPages(_:maxExtraPages:)``,
  ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``, and the combine
  operators of the same names.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
  */
 public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
     
@@ -95,8 +91,6 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
      objects) along with other keys like previous, next and limit that can be
      useful in future calls.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - href: A link to the Spotify web API endpoint returning the full result
              of the request.
@@ -109,8 +103,6 @@ public struct PagingObject<Item: Codable & Hashable>: PagingObjectProtocol {
        - offset: The offset of the items returned (as set in the query or by
              default).
        - total: The maximum number of items available to return.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
      */
     public init(
         href: URL,
@@ -202,6 +194,7 @@ extension PagingObject {
 extension PagingObject: Codable {
     
     enum CodingKeys: String, CodingKey {
+        
         case href
         case items
         case limit
@@ -209,43 +202,51 @@ extension PagingObject: Codable {
         case previous
         case offset
         case total
+        
+        case categories
+        case playlists
+        // SearchResult
+        case artists
+        case albums
+        case tracks
+        case episodes
+        case shows
+        case audiobooks
+        
+        static var topLevelKeys: [Self] {
+            [
+                .categories,
+                .playlists,
+                .artists,
+                .albums,
+                .tracks,
+                .episodes,
+                .shows,
+                .audiobooks
+            ]
+        }
+
     }
 
     private static func makeContainer(
         from decoder: Decoder
     ) throws -> KeyedDecodingContainer<CodingKeys> {
-        
-        let container: KeyedDecodingContainer<PagingObject<Item>.CodingKeys>
-//
-        let topContainer = try decoder.container(keyedBy: AnyCodingKey.self)
 
-        switch Item.self {
-            case is SpotifyCategory.Type:
-                if let categoryContainer = try? topContainer.nestedContainer(
+        let container = try decoder.container(
+            keyedBy: CodingKeys.self
+        )
+        
+        for key in CodingKeys.topLevelKeys {
+            if container.contains(key) {
+                return try container.nestedContainer(
                     keyedBy: CodingKeys.self,
-                    forKey: .init("categories")
-                ) {
-                    container = categoryContainer
-                }
-                else {
-                    container = try decoder.container(keyedBy: CodingKeys.self)
-                }
-            case is Playlist<PlaylistItemsReference>.Type:
-                if let playlistsContainer = try? topContainer.nestedContainer(
-                    keyedBy: CodingKeys.self,
-                    forKey: .init("playlists")
-                ) {
-                    container = playlistsContainer
-                }
-                else {
-                    container = try decoder.container(keyedBy: CodingKeys.self)
-                }
-            default:
-                container = try decoder.container(keyedBy: CodingKeys.self)
+                    forKey: key
+                )
+            }
         }
-
-        return container
         
+        return container
+
     }
 
     public init(from decoder: Decoder) throws {

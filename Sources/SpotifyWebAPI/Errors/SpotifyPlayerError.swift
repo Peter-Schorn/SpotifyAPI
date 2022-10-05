@@ -65,9 +65,6 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
        Spotify web API in which this error reason is returned for many requests
        instead of one of the more specific errors above.
      
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
      */
     public let reason: ErrorReason
     
@@ -101,13 +98,7 @@ public struct SpotifyPlayerError: LocalizedError, Hashable {
         "\(message) (status code: \(statusCode))"
     }
     
-    /**
-     A player error reason.
-     
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject
-     */
+    /// A player error reason.
     public enum ErrorReason: String, Codable, Hashable, CaseIterable {
         
         /// The command requires a previous track, but there is none in the

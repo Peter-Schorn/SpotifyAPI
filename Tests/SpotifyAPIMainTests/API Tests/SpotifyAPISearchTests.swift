@@ -27,7 +27,10 @@ extension SpotifyAPISearchTests {
             if case .invalidIdCategory(let expected, let received) = localError {
                 XCTAssertEqual(
                     expected,
-                    [.album, .artist, .playlist, .track, .show, .episode]
+                    [
+                        .album, .artist, .playlist,
+                        .track, .show, .episode, .audiobook
+                    ]
                 )
                 XCTAssertEqual(received, [.user, .genre])
             }
@@ -78,6 +81,9 @@ extension SpotifyAPISearchTests {
             XCTAssertNil(results.albums)
             XCTAssertNil(results.tracks)
             XCTAssertNil(results.playlists)
+
+            let scopes = Self.spotify.authorizationManager.scopes.map(\.rawValue)
+            print("authorized scopes: \(scopes)")
             
             // MARK: Shows
             
@@ -86,18 +92,9 @@ extension SpotifyAPISearchTests {
                 return
             }
 
-            XCTAssertEqual(shows.items.count, 2)
             XCTAssertEqual(shows.offset, 5)
             XCTAssertEqual(shows.limit, 2)
             XCTAssertNotNil(shows.previous)
-            
-            let scopes = Self.spotify.authorizationManager.scopes.map(\.rawValue)
-            print("authorized scopes: \(scopes)")
-//            if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
-//                for show in shows.items {
-//                    XCTAssertNotNil(show)
-//                }
-//            }
             
             // MARK: Episodes
             
@@ -106,16 +103,9 @@ extension SpotifyAPISearchTests {
                 return
             }
             
-            XCTAssertEqual(episodes.items.count, 2)
             XCTAssertEqual(episodes.offset, 5)
             XCTAssertEqual(episodes.limit, 2)
             XCTAssertNotNil(episodes.previous)
-            
-//            if !(Self.spotify.authorizationManager is ClientCredentialsFlowManager) {
-//                for episode in episodes.items {
-//                    XCTAssertNotNil(episode)
-//                }
-//            }
             
         }
         
@@ -142,18 +132,6 @@ extension SpotifyAPISearchTests {
     
     func searchAllCategories() {
         
-        func receiveResults(_ results: SearchResult) {
-            encodeDecode(results)
-            
-            XCTAssertNotNil(results.artists)
-            XCTAssertNotNil(results.albums)
-            XCTAssertNotNil(results.tracks)
-            XCTAssertNotNil(results.playlists)
-            XCTAssertNotNil(results.episodes)
-            XCTAssertNotNil(results.shows)
-
-        }
-
         let expectation = XCTestExpectation(
             description: "testSearchAllCategories"
         )
@@ -161,15 +139,57 @@ extension SpotifyAPISearchTests {
         Self.spotify.search(
             query: "Hello",
             categories: [
-                .artist, .album, .track, .playlist, .episode, .show
+                .artist, .album, .track,
+                .playlist, .episode, .audiobook
             ],
             market: "US",
+            limit: 5,
             includeExternal: "audio"
         )
         .XCTAssertNoFailure()
+        .flatMap { results -> AnyPublisher<PagingObject<Track>, Error> in
+            
+            encodeDecode(results)
+            
+            XCTAssertNotNil(results.artists)
+            XCTAssertNotNil(results.albums)
+            XCTAssertNotNil(results.playlists)
+            XCTAssertNotNil(results.episodes)
+            XCTAssertNil(results.shows)
+            XCTAssertNotNil(results.audiobooks)
+            
+            guard let tracks = results.tracks else {
+                return SpotifyGeneralError.other("SearchResult.tracks was nil")
+                    .anyFailingPublisher()
+            }
+            
+            return Self.spotify.extendPages(tracks, maxExtraPages: 2)
+            
+        }
+        .XCTAssertNoFailure()
+        .collect()
         .sink(
             receiveCompletion: { _ in expectation.fulfill() },
-            receiveValue: receiveResults(_:)
+            receiveValue: { tracksPages in
+                
+                for (i, tracksPage) in tracksPages.enumerated() {
+                    XCTAssertEqual(tracksPage.limit, 5, "\(i)")
+                    XCTAssertEqual(tracksPage.items.count, 5)
+                    XCTAssertEqual(tracksPage.offset, i * 5)
+                }
+
+                XCTAssertEqual(tracksPages.count, 3)
+                guard tracksPages.count >= 3 else {
+                    return
+                }
+                XCTAssertNotNil(tracksPages[0].next)
+                XCTAssertNotNil(tracksPages[1].next)
+                
+                XCTAssertNotNil(tracksPages[1].previous)
+                XCTAssertNotNil(tracksPages[2].previous)
+                
+                
+            }
         )
         .store(in: &Self.cancellables)
         
@@ -296,7 +316,67 @@ extension SpotifyAPISearchTests {
         self.wait(for: [expectation], timeout: 120)
         
     }
-    
+
+    func filteredSearchForAudiobook() {
+        
+        func receiveSearchResults(_ results: SearchResult) {
+            
+            encodeDecode(results)
+            
+            XCTAssertNil(results.artists)
+            XCTAssertNil(results.albums)
+            XCTAssertNil(results.tracks)
+            XCTAssertNil(results.playlists)
+            XCTAssertNil(results.episodes)
+            XCTAssertNil(results.shows)
+
+            guard let audiobooks = results.audiobooks else {
+                XCTFail("audiobooks was nil for search result")
+                return
+            }
+            
+            XCTAssertEqual(audiobooks.limit, 1)
+            XCTAssertEqual(audiobooks.offset, 0)
+            XCTAssertNil(audiobooks.previous)
+            
+            guard let audiobook = audiobooks.items.first as? Audiobook else {
+                XCTFail("audiobook was missing or nil: \(audiobooks)")
+                return
+            }
+            
+            
+            XCTAssertEqual(
+                audiobook.name,
+                "Harry Potter and the Chamber of Secrets"
+            )
+            XCTAssertEqual(audiobook.authors.count, 1)
+            XCTAssertEqual(audiobook.authors.first?.name, "J.K. Rowling")
+
+        }
+        
+        let expectation = XCTestExpectation(
+            description: "testFilteredSearchForAudiobook"
+        )
+        
+        
+        Self.spotify.search(
+            query: "Harry Potter and the Chamber",
+            categories: [.audiobook],
+            market: "US",
+            limit: 1
+        )
+        .XCTAssertNoFailure()
+        .receiveOnMain()
+        .sink(
+            receiveCompletion: { _ in expectation.fulfill() },
+            receiveValue: receiveSearchResults(_:)
+        )
+        .store(in: &Self.cancellables)
+        
+        self.wait(for: [expectation], timeout: 120)
+
+    }
+
     func filteredSearchNoMatches() {
         
         func receiveResults(_ results: SearchResult) {
@@ -355,6 +435,7 @@ final class SpotifyAPIClientCredentialsFlowSearchTests:
         ("testSearchAllCategories", testSearchAllCategories),
         ("testSpecificTrackSearch", testSpecificTrackSearch),
         ("testFilteredSearchForAbbeyRoad", testFilteredSearchForAbbeyRoad),
+        ("testFilteredSearchForAudiobook", testFilteredSearchForAudiobook),
         ("testFilteredSearchNoMatches", testFilteredSearchNoMatches)
     ]
     
@@ -363,6 +444,7 @@ final class SpotifyAPIClientCredentialsFlowSearchTests:
     func testSearchAllCategories() { searchAllCategories() }
     func testSpecificTrackSearch() { specificTrackSearch() }
     func testFilteredSearchForAbbeyRoad() { filteredSearchForAbbeyRoad() }
+    func testFilteredSearchForAudiobook() { filteredSearchForAudiobook() }
     func testFilteredSearchNoMatches() { filteredSearchNoMatches() }
 }
 
@@ -376,6 +458,7 @@ final class SpotifyAPIAuthorizationCodeFlowSearchTests:
         ("testSearchAllCategories", testSearchAllCategories),
         ("testSpecificTrackSearch", testSpecificTrackSearch),
         ("testFilteredSearchForAbbeyRoad", testFilteredSearchForAbbeyRoad),
+        ("testFilteredSearchForAudiobook", testFilteredSearchForAudiobook),
         ("testFilteredSearchNoMatches", testFilteredSearchNoMatches)
     ]
     
@@ -384,6 +467,7 @@ final class SpotifyAPIAuthorizationCodeFlowSearchTests:
     func testSearchAllCategories() { searchAllCategories() }
     func testSpecificTrackSearch() { specificTrackSearch() }
     func testFilteredSearchForAbbeyRoad() { filteredSearchForAbbeyRoad() }
+    func testFilteredSearchForAudiobook() { filteredSearchForAudiobook() }
     func testFilteredSearchNoMatches() { filteredSearchNoMatches() }
     
 }
@@ -398,6 +482,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCESearchTests:
         ("testSearchAllCategories", testSearchAllCategories),
         ("testSpecificTrackSearch", testSpecificTrackSearch),
         ("testFilteredSearchForAbbeyRoad", testFilteredSearchForAbbeyRoad),
+        ("testFilteredSearchForAudiobook", testFilteredSearchForAudiobook),
         ("testFilteredSearchNoMatches", testFilteredSearchNoMatches)
     ]
     
@@ -406,6 +491,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCESearchTests:
     func testSearchAllCategories() { searchAllCategories() }
     func testSpecificTrackSearch() { specificTrackSearch() }
     func testFilteredSearchForAbbeyRoad() { filteredSearchForAbbeyRoad() }
+    func testFilteredSearchForAudiobook() { filteredSearchForAudiobook() }
     func testFilteredSearchNoMatches() { filteredSearchNoMatches() }
     
 }

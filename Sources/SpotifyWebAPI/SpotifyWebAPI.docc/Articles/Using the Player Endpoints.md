@@ -7,7 +7,7 @@ Use the SpotifyAPI player endpoints.
 When performing a player command that is restricted, ``SpotifyPlayerError`` will be returned.  It contains the following properties:
 
 * ``SpotifyPlayerError/message``: A short description of the cause of the error.
-* ``SpotifyPlayerError/reason``: A [player error reason](https://developer.spotify.com/documentation/web-api/reference/#object-playererrorobject), modeled by ``SpotifyPlayerError/ErrorReason``.
+* ``SpotifyPlayerError/reason``: A player error reason.
 * ``SpotifyPlayerError/statusCode``: The HTTP status code that is also returned in the response header.
 
 Unfortunately, there is a bug at the moment with the Spotify web API in which  ``SpotifyPlayerError/ErrorReason/unknown`` is return in cases where a more specific error would be expected. For example, trying to skip to the previous track when there is no previous track in the context returns this error instead of ``SpotifyPlayerError/ErrorReason/noPreviousTrack``.

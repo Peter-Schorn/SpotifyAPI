@@ -22,9 +22,9 @@ public extension SpotifyAPI {
      
      - Parameters:
        - uri: The URI for a track.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". Provide this parameter if you want to apply
-             [Track Relinking][3].
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". Provide this parameter if you want to apply [Track
+             Relinking][3].
      - Returns: The full version of a track.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
@@ -68,9 +68,9 @@ public extension SpotifyAPI {
        - uris: An array of track URIs. Maximum: 50. Passing in an empty array
              will immediately cause an empty array of results to be returned
              without a network request being made.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][3] or the
-             string "from_token". Provide this parameter if you want to apply
-             [Track Relinking][2].
+       - market: An [ISO 3166-1 alpha-2 country code][3] or the string
+             "from_token". Provide this parameter if you want to apply [Track
+             Relinking][2].
      - Returns: The full versions of up to 50 ``Track`` objects. Tracks are
            returned in the order requested. If a track is not found, `nil` is
            returned in the appropriate position. Duplicate tracks URIs in the

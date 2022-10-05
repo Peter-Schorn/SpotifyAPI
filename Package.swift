@@ -66,7 +66,7 @@ var packageDependencies: [Package.Dependency] {
         .package(
             name: "RegularExpressions",
             url: "https://github.com/Peter-Schorn/RegularExpressions.git",
-            "2.0.7"..<"3.0.0"
+            from: "2.2.0"
         ),
         .package(
             name: "swift-log",

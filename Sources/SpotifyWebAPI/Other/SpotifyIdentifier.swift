@@ -112,6 +112,15 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      ```
      */
     public var url: URL? {
+        let idCategory: IDCategory
+        switch self.idCategory {
+            case .audiobook:
+                idCategory = .show
+            case .chapter:
+                idCategory = .episode
+            case let category:
+                idCategory = category
+        }
         return URL(
             scheme: "https",
             host: "open.spotify.com",

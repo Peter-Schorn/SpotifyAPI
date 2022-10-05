@@ -1,20 +1,12 @@
 import Foundation
 
-/**
- A Spotify category object.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
- */
+/// A Spotify category object.
 public struct SpotifyCategory: Codable, Hashable {
     
     /// The name of the category.
     public let name: String
     
-    /// The [Spotify category ID][1] of the category.
-    ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// The id of the category.
     public let id: String
     
     /**
@@ -31,17 +23,12 @@ public struct SpotifyCategory: Codable, Hashable {
     /**
      Creates a Spotify category object.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - name: The name of the category.
-       - id: The [ID][2] of the category.
+       - id: The id of the category.
        - href: A link to the Spotify web API endpoint providing the full
              category object.
        - icons: The category icon, in various sizes.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
         name: String,

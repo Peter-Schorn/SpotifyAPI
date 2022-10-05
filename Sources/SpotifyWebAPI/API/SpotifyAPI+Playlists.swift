@@ -159,10 +159,10 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - filters: *Required*. Filters for the query: a comma-separated list (no
-             spaces) of the fields to return. If omitted, all fields are
-             returned. For example, to get just the playlist’s description and
-             URI: "description,uri". A dot separator can be used to specify
+       - filters: Filters for the query: a comma-separated list (no spaces) of
+             the fields to return. If omitted, all fields are returned. For
+             example, to get just the playlist’s description and URI:
+             "description,uri". A dot separator can be used to specify
              non-reoccurring fields, while parentheses can be used to specify
              reoccurring fields within objects. For example, to get just the
              added date and user ID of the adder:
@@ -171,7 +171,7 @@ public extension SpotifyAPI {
              "tracks.items(track(name,href,album(name,href)))". Fields can be
              excluded by prefixing them with an exclamation mark, for example:
              "tracks.items(track(name,href,album(!name,href)))".
-       - additionalTypes: *Required*. An array of id categories. Valid types are
+       - additionalTypes: An array of id categories. Valid types are
              ``IDCategory/track`` and ``IDCategory/episode``. If you provide
              `[]` or `[.track]`, then both tracks and episodes will be returned
              in the ``Track`` format. In this case, trying to decode episodes
@@ -180,8 +180,8 @@ public extension SpotifyAPI {
              expect the the playlist to have both tracks and episodes, then use
              `[.episode]` or `[.track, .episode]` and decode the tracks and
              episodes into ``PlaylistItem``.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the
-             string "from_token". For tracks, Provide this parameter if you want
+     - market: An [ISO 3166-1 alpha-2 country code][4] or the string
+             "from_token". For tracks, Provide this parameter if you want
              to apply [Track Relinking][5]. For episodes, if the access token
              was granted on behalf of a user (i.e., if you authorized your
              application using the authorization code flow or the authorization
@@ -274,20 +274,21 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the string
-             "from_token". For tracks, Provide this parameter if you want to apply
-             [Track Relinking][3]. For episodes, if the access token was granted on
-             behalf of a user (i.e., if you authorized your application using the
-             authorization code flow or the authorization code flow with proof key
-             for code exchange), the country associated with the user account will
-             take priority over this parameter. Users can view the country that
-             is associated with their account in the [account settings][4].
-             **Note: If neither market or user country are provided, the**
-             **episodes are considered unavailable for the client and** `nil`
-             **will will be returned at the corresponding positions for each**
-             **episode. Therefore, if you authorized your application using the**
-             **client credentials flow and you want to retrieve the episodes in**
-             **a playlist, you must provide a value for this parameter.**
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". For tracks, Provide this parameter if you want to
+             apply [Track Relinking][3]. For episodes, if the access token was
+             granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][4]. **Note: If neither market or user country**
+             **are provided, the episodes are considered unavailable for the**
+             **client and** `nil` **will will be returned at the corresponding**
+             **positions for each episode. Therefore, if you authorized your**
+             **application using the client credentials flow and you want to**
+             **retrieve the episodes in a playlist, you must provide a value**
+             **for this parameter.**
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -357,10 +358,10 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - filters: *Required*. Filters for the query: a comma-separated list (no
-             spaces) of the fields to return. If omitted, all fields are
-             returned. For example, to get just the playlist’s description and
-             URI: "description,uri". A dot separator can be used to specify
+       - filters: Filters for the query: a comma-separated list (no spaces) of
+             the fields to return. If omitted, all fields are returned. For
+             example, to get just the playlist’s description and URI:
+             "description,uri". A dot separator can be used to specify
              non-reoccurring fields, while parentheses can be used to specify
              reoccurring fields within objects. For example, to get just the
              added date and user ID of the adder:
@@ -369,7 +370,7 @@ public extension SpotifyAPI {
              "tracks.items(track(name,href,album(name,href)))". Fields can be
              excluded by prefixing them with an exclamation mark, for example:
              "tracks.items(track(name,href,album(!name,href)))".
-       - additionalTypes: *Required*. An array of id categories. Valid types are
+       - additionalTypes: An array of id categories. Valid types are
              ``IDCategory/track`` and ``IDCategory/episode``. If you provide
              `[]` or `[.track]`, then both tracks and episodes will be returned
              in the ``Track`` format. In this case, trying to decode episodes
@@ -378,14 +379,14 @@ public extension SpotifyAPI {
              expect the the playlist to have both tracks and episodes, then use
              `[.episode]` or `[.track, .episode]` and decode the tracks and
              episodes into ``PlaylistItem``.
-       - limit: *Optional*. The maximum number of items to return.
+       - limit: The maximum number of items to return.
              Default: 100; minimum: 1; maximum: 100.
-       - offset: *Optional*. The index of the first item to return.
-             Default: 0. Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][4] or the
-             string "from_token". For tracks, Provide this parameter if you want
-             to apply [Track Relinking][5]. For episodes, if the access token
-             was granted on behalf of a user (i.e., if you authorized your
+       - offset: The index of the first item to return. Default: 0. Use with
+             `limit` to get the next set of tracks.
+       - market: An [ISO 3166-1 alpha-2 country code][4] or the string
+             "from_token". For tracks, Provide this parameter if you want to
+             apply [Track Relinking][5]. For episodes, if the access token was
+             granted on behalf of a user (i.e., if you authorized your
              application using the authorization code flow or the authorization
              code flow with proof key for code exchange), the country associated
              with the user account will take priority over this parameter. Users
@@ -433,12 +434,13 @@ public extension SpotifyAPI {
     /**
      Get all of the episodes and tracks in a playlist in ``Track`` format.
      
-     > Warning: **This endpoint does NOT return only the tracks in a playlist.**
-     Instead, it returns both the tracks and episodes in ``Track`` format. You
-     are discouraged from using this endpoint unless you are certain that the
-     playlist only contains tracks. If unsure, use
-     ``playlistItems(_:limit:offset:market:)`` instead. Use the ``Track/type``
-     property of ``Track`` to check if it is actually a track.
+     - Warning: **This endpoint does NOT return only the tracks in a playlist.**
+           Instead, it returns both the tracks and episodes in ``Track`` format.
+           You are discouraged from using this endpoint unless you are certain
+           that the playlist only contains tracks. If unsure, use
+           ``playlistItems(_:limit:offset:market:)`` instead. Use the
+           ``Track/type`` property of ``Track`` to check if it is actually a
+           track.
      
      See also:
      
@@ -465,12 +467,12 @@ public extension SpotifyAPI {
  
      - Parameters:
        - playlist: The URI of a playlist.
-       - limit: *Optional*. The maximum number of items to return. Default: 100;
-             minimum: 1; maximum: 100.
-       - offset: *Optional*. The index of the first item to return. Default: 0.
-             Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". For tracks, Provide this parameter if you want
+       - limit: The maximum number of items to return. Default: 100; minimum: 1;
+             maximum: 100.
+       - offset: The index of the first item to return. Default: 0. Use with
+             `limit` to get the next set of tracks.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the
+             "from_token". For tracks, Provide this parameter if you want
              to apply [Track Relinking][3]. For episodes, if the access token
              was granted on behalf of a user (i.e., if you authorized your
              application using the authorization code flow or the authorization
@@ -537,14 +539,14 @@ public extension SpotifyAPI {
      
      - Parameters:
        - playlist: The URI of a playlist.
-       - limit: *Optional*. The maximum number of items to return.
-             Default: 100; minimum: 1; maximum: 100.
-       - offset: *Optional*. The index of the first item to return.
-             Default: 0. Use with `limit` to get the next set of tracks.
-       - market: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". For tracks, Provide this parameter if you want
-             to apply [Track Relinking][5]. For episodes, if the access token
-             was granted on behalf of a user (i.e., if you authorized your
+       - limit: The maximum number of items to return. Default: 100; minimum: 1;
+             maximum: 100.
+       - offset: The index of the first item to return. Default: 0. Use with
+             `limit` to get the next set of tracks.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". For tracks, Provide this parameter if you want to
+             apply [Track Relinking][5]. For episodes, if the access token was
+             granted on behalf of a user (i.e., if you authorized your
              application using the authorization code flow or the authorization
              code flow with proof key for code exchange), the country associated
              with the user account will take priority over this parameter. Users
@@ -616,10 +618,10 @@ public extension SpotifyAPI {
      
      - Parameters:
        - userURI: the URI of a Spotify user.
-       - limit: *Optional*. The maximum number of playlists to return. Default:
-             20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first playlist to return. Default:
-             0; Maximum: 100,000. Use with `limit` to get the next set of
+       - limit: The maximum number of playlists to return. Default: 20; Minimum:
+             1; Maximum: 50.
+       - offset: The index of the first playlist to return. Default: 0; Maximum:
+             100,000. Use with `limit` to get the next set of
              playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
@@ -693,11 +695,10 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][2].
 
      - Parameters:
-       - limit: *Optional*. The maximum number of playlists to return. Default:
-             20; Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first playlist to return. Default:
-             0; Maximum: 100,000. Use with `limit` to get the next set of
-             playlists.
+       - limit: The maximum number of playlists to return. Default: 20; Minimum:
+             1; Maximum: 50.
+       - offset: The index of the first playlist to return. Default: 0; Maximum:
+             100,000. Use with `limit` to get the next set of playlists.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
@@ -773,8 +774,8 @@ public extension SpotifyAPI where
        - playlist: The URI of a playlist.
        - uris: An array of URIs for tracks/episodes. A maximum of 100 items can
              be added in one request.
-       - position: *Optional*. The position to insert the items. A zero-based
-             index. If `nil`, the items will be appended to the playlist.
+       - position: The position to insert the items. A zero-based index. If
+             `nil`, the items will be appended to the playlist.
      - Returns: The [snapshot id][2] of the playlist, which is an identifier for
            the current version of the playlist. Every time the playlist changes,
            a new snapshot id is generated. You can use this value to efficiently
@@ -879,8 +880,8 @@ public extension SpotifyAPI where
        item at index ``ReorderPlaylistItems/insertBefore``.
      * ``ReorderPlaylistItems/insertBefore``: The position where the items
        should be inserted.
-     * ``ReorderPlaylistItems/snapshotId``: *Optional*. The version identifier
-       for the current playlist.
+     * ``ReorderPlaylistItems/snapshotId``: The version identifier for the
+       current playlist.
      
      **Examples:**
      

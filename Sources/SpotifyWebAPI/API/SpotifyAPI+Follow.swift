@@ -176,11 +176,10 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
      
      - Parameters:
-       - artist: *Optional*. the URI of the last artist from the previous
-             request. Use this parameter to retrieve the next set of artists
-             after this artist.
-       - limit: *Optional*. The maximum number of items to return. Default: 20;
-             Minimum: 1; Maximum: 50.
+       - artist: the URI of the last artist from the previous request. Use this
+             parameter to retrieve the next set of artists after this artist.
+       - limit: The maximum number of items to return. Default: 20; Minimum: 1;
+             Maximum: 50.
      - Returns: An array of artist objects wrapped in a ``CursorPagingObject``.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-followed
@@ -392,10 +391,10 @@ public extension SpotifyAPI where
      
      - Parameters:
        - uri: The URI for a playlist.
-       - publicly: *Optional*. Defaults to `true`. If `true`, the playlist
-             will be included in the user’s public playlists, if `false`, it
-             will remain private. To be able to follow playlists privately, the
-             user must have granted the ``Scope/playlistModifyPrivate`` scope.
+       - publicly: Defaults to `true`. If `true`, the playlist will be included
+             in the user’s public playlists, if `false`, it will remain private.
+             To be able to follow playlists privately, the user must have
+             granted the ``Scope/playlistModifyPrivate`` scope.
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/follow-playlist

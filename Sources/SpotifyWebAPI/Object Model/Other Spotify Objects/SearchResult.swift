@@ -13,10 +13,11 @@ import Foundation
  * ``IDCategory/track``
  * ``IDCategory/show``
  * ``IDCategory/episode``
+ * ``IDCategory/audiobook``
  
  The corresponding ``albums``, ``artists``, ``playlists``, ``tracks``,
- ``shows``, and ``episodes`` properties of this struct will be non-`nil` for
- each of the categories that were requested from the
+ ``shows``, ``episodes``, and ``audiobooks`` properties of this struct will be
+ non-`nil` for each of the categories that were requested from the
  ``SpotifyAPI/search(query:categories:market:limit:offset:includeExternal:)``
  endpoint.
 
@@ -28,7 +29,7 @@ import Foundation
 
  [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
  */
-public struct SearchResult: Hashable, Paginated {
+public struct SearchResult: Hashable {
     
     /// A ``PagingObject`` containing full ``Artist`` objects.
     public let artists: PagingObject<Artist>?
@@ -48,16 +49,8 @@ public struct SearchResult: Hashable, Paginated {
     /// A ``PagingObject`` containing simplified ``Show`` objects.
     public let shows: PagingObject<Show?>?
     
-    /**
-     The URL (href) to the next page of items or `nil` if none in this
-     ``SearchResult``.
-    
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in
-     ``SearchResult`` to retrieve the results.
-     
-     See <doc:Working-with-Paginated-Results>.
-     */
-    public var next: URL? = nil
+    /// A ``PagingObject`` containing simplified ``Audiobook`` objects.
+    public let audiobooks: PagingObject<Audiobook?>?
 
     /**
      Creates the response from the search endpoint.
@@ -69,10 +62,11 @@ public struct SearchResult: Hashable, Paginated {
        - albums: A ``PagingObject`` containing simplified ``Album`` objects.
        - tracks: A ``PagingObject`` containing full ``Track`` objects.
        - playlists: A ``PagingObject`` containing simplified ``Playlist``
-         objects.
+             objects.
        - episodes: A ``PagingObject`` containing simplified ``Episode`` objects.
        - shows: A ``PagingObject`` containing simplified ``Show`` objects.
-       - next: The URL (href) to the next page of items or `nil` if none.
+       - audiobooks: A ``PagingObject`` containing simplified ``Audiobook``
+             objects.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
      */
@@ -83,7 +77,7 @@ public struct SearchResult: Hashable, Paginated {
         playlists: PagingObject<Playlist<PlaylistItemsReference>>? = nil,
         episodes: PagingObject<Episode?>? = nil,
         shows: PagingObject<Show?>? = nil,
-        next: URL? = nil
+        audiobooks: PagingObject<Audiobook?>? = nil
     ) {
         self.artists = artists
         self.albums = albums
@@ -91,7 +85,7 @@ public struct SearchResult: Hashable, Paginated {
         self.playlists = playlists
         self.episodes = episodes
         self.shows = shows
-        self.next = next
+        self.audiobooks = audiobooks
     }
 
 }
@@ -105,7 +99,7 @@ extension SearchResult: Codable {
         case playlists
         case episodes
         case shows
-        case next
+        case audiobooks
     }
 }
 
@@ -126,11 +120,11 @@ extension SearchResult: ApproximatelyEquatable {
      
         return self.artists == other.artists &&
                 self.playlists == other.playlists &&
-                self.next == other.next &&
                 self.albums.isApproximatelyEqual(to: other.albums) &&
                 self.tracks.isApproximatelyEqual(to: other.tracks) &&
                 self.episodes.isApproximatelyEqual(to: other.episodes) &&
-                self.shows.isApproximatelyEqual(to: other.shows)
+                self.shows.isApproximatelyEqual(to: other.shows)  &&
+                self.audiobooks.isApproximatelyEqual(to: other.audiobooks)
 
     }
 

@@ -31,6 +31,7 @@ public enum Scope: String, Codable, Hashable {
      
      * ``SpotifyAPI/availableDevices()``
      * ``SpotifyAPI/currentPlayback(market:)``
+     * ``SpotifyAPI/queue()``
      */
     case userReadPlaybackState = "user-read-playback-state"
     
@@ -212,14 +213,18 @@ public enum Scope: String, Codable, Hashable {
     /**
      Read access to a user’s playback position in an episodes.
      
-     Required in order to retrieve the ``ResumePoint`` from the episode objects
-     returned by the following endpoints:
+     Required in order to retrieve the ``ResumePoint`` from the episode and
+     chapter objects returned by the following endpoints:
      
      * ``SpotifyAPI/episode(_:market:)``
      * ``SpotifyAPI/episodes(_:market:)``
      * ``SpotifyAPI/show(_:market:)``
      * ``SpotifyAPI/shows(_:market:)``
      * ``SpotifyAPI/showEpisodes(_:market:offset:limit:)``
+     * ``SpotifyAPI/audiobook(_:market:)``
+     * ``SpotifyAPI/audiobooks(_:market:)``
+     * ``SpotifyAPI/chapter(_:market:)``
+     * ``SpotifyAPI/chapters(_:market:)``
      */
     case userReadPlaybackPosition = "user-read-playback-position"
     

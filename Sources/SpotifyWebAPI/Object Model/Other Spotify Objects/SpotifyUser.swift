@@ -6,10 +6,6 @@ import Foundation
  Can represent both the public and private version. When the public version is
  returned, properties that are only available in the private version will be
  `nil`.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
  */
 public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     
@@ -99,14 +95,11 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     /**
     Known external urls for this user.
 
-    - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+    - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
           for the object.
     - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-    [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-    [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
     */
     public let externalURLs: [String: URL]?
     
@@ -116,12 +109,10 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
     /**
      Creates a Spotify user.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - displayName: The name displayed on the user’s profile.
-       - uri: The [Spotify URI][2] for this user.
-       - id: The [Spotify user ID][2] for this user.
+       - uri: The [Spotify URI][1] for this user.
+       - id: The [Spotify user ID][1] for this user.
        - images: The user's profile image in various sizes.
        - href: A link to the Spotify web API endpoint for this user.
        - allowsExplicitContent:  When `true`, indicates that explicit content
@@ -137,7 +128,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
              ``Scope/userReadPrivate`` scope. Otherwise, it will be `nil`.
        - followers: Information about the followers of this user.
        - country: The country of the user, as set in the user’s account profile.
-             An [ISO 3166-1 alpha-2 country code][3]. This property is only
+             An [ISO 3166-1 alpha-2 country code][2]. This property is only
              available for the *current* user and requires the
              ``Scope/userReadPrivate`` scope. Otherwise, it will be `nil`.
        - email: The user’s email address, as entered by the user when creating
@@ -149,15 +140,13 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
              "free".) This property is only available for the *current* user and
              requires the ``Scope/userReadPrivate`` scope. Otherwise, it will be
              `nil`.
-       - externalURLs: Known [external urls][4] for this artist.
+       - externalURLs: Known external urls for this artist.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][2] for the object.
+                   URL][1] for the object.
              - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     public init(
         displayName: String? = nil,

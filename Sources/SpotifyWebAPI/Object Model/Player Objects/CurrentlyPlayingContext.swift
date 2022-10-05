@@ -1,13 +1,7 @@
 import Foundation
 import Logging
 
-/**
- The context of the currently playing track/episode.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject
- */
+/// The context of the currently playing track/episode.
 public struct CurrentlyPlayingContext: Hashable {
     
     /// Logs messages for this struct, especially those involving the decoding
@@ -189,9 +183,10 @@ extension CurrentlyPlayingContext: Codable {
         self.item = try container.decodeIfPresent(
             PlaylistItem.self, forKey: .item
         )
-        self.itemType = try container.decode(
-            IDCategory.self, forKey: .itemType
+        let itemTypeString = try container.decode(
+            String.self, forKey: .itemType
         )
+        self.itemType = IDCategory(rawValue: itemTypeString) ?? .unknown
         
         // allowedActions = "actions"
         let disallowsObject = try container.decode(
@@ -214,9 +209,7 @@ extension CurrentlyPlayingContext: Codable {
         /*
          If an action is included in the disallows object and set to true,
          that action is DISALLOWED.
-         see https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
          */
-        
         let disallowedActions: [PlaybackActions] = disallowsDictionary
             .compactMap { item -> PlaybackActions? in
                 if item.value == true {

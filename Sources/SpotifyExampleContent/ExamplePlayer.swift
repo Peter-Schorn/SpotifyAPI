@@ -19,3 +19,13 @@ public extension CurrentlyPlayingContext {
     )!
 
 }
+
+public extension SpotifyQueue {
+    
+    /// Sample data for testing purposes.
+    static let sampleQueue = Bundle.module.decodeJSON(
+        forResource: "Queue - SpotifyQueue",
+        type: Self.self
+    )!
+
+}

@@ -1,10 +1,6 @@
 import Foundation
 
 /// A Spotify track.
-///
-/// Read more at the [Spotify web API reference][1].
-/// 
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
 public struct Track: Hashable {
 
     /// The name of the track.
@@ -103,14 +99,11 @@ public struct Track: Hashable {
     /**
      Known external urls for this track.
 
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
             for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -121,15 +114,13 @@ public struct Track: Hashable {
     
     /**
      A list of the countries in which the track can be played, identified by
-     their ISO 3166-1 alpha-2 code.
+     their [ISO 3166-1 alpha-2][1] codes.
     
      If a market parameter was supplied in the request that returned this track,
      then this property will be `nil` and ``isPlayable`` will be non-`nil`.
     
      See also ``restrictions`` and the [Track Relinking Guide][2].
      
-     Read about [ISO 3166-1 alpha-2 codes][1].
-
      [1]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [2]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
@@ -160,12 +151,9 @@ public struct Track: Hashable {
      
      Additional reasons and additional keys may be added in the future.
      
-     See [TrackRestrictionObject][2], which this property is decoded from.
-     
      Read about [Track Relinking][1].
 
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject
      */
     public let restrictions: [String: String]?
     
@@ -199,27 +187,25 @@ public struct Track: Hashable {
        - trackNumber: The number of the track. If an album has several discs,
              the track number is the number on the specified disc.
        - isExplicit: Whether or not the track has explicit lyrics.
-       - isPlayable: Part of the response when [Track Relinking][4] is applied.
+       - isPlayable: Part of the response when [Track Relinking][1] is applied.
              Else, `nil`. If `true`, the track is playable in the given market.
              Otherwise, `false`.
        - href: A link to the Spotify web API endpoint providing the full track
              object.
        - previewURL: A link to a 30 second preview (MP3 format) of the track.
-       - externalURLs: Known external IDs for the album.
-             - key: The identifier type, for example:
-               - "isrc": [International Standard Recording Code][5]
-               - "ean": [International Article Number][6]
-               - "upc": [Universal Product Code][7]
-             - value: An external identifier for the object.
+       - externalURLs: Known external URLs for the track.
+             - key: The type of the URL, for example: "spotify" - The [Spotify
+                   URL][2] for the object.
+             - value: An external, public URL to the object.
        - externalIds: Known external IDs for the track.
        - availableMarkets: A list of the countries in which the track can be
-             played, identified by their [ISO 3166-1 alpha-2 code][8].
-       - linkedFrom: Part of the response when [Track Relinking][4] is applied,
+             played, identified by their [ISO 3166-1 alpha-2][4] codes.
+       - linkedFrom: Part of the response when [Track Relinking][1] is applied,
              and the requested track has been replaced with different track.
              The track link contains information about the originally requested
              track.
        - restrictions: Part of the response when a content restriction, such as
-             [Track Relinking][4], is applied. Else, `nil`. The key will be
+             [Track Relinking][1], is applied. Else, `nil`. The key will be
              "reason", and the value will be one of the following:
              * "market" - The content item is not available in the given
                market.
@@ -228,23 +214,16 @@ public struct Track: Hashable {
              * "explicit" - The content item is explicit and the user’s account
                is set to not play explicit content.
              Additional reasons and additional keys may be added in the future.
-             See [TrackRestrictionObject][9], which this property is decoded
-             from.
        - discNumber: The disc number (usually 1 unless the album consists of
              more than one disc).
        - type: The object type. Usually ``IDCategory/track``, but may be
              ``IDCategory/episode`` if this was retrieved from a playlist. The
              default is ``IDCategory/track``.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-trackobject
+     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
-     [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [5]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
-     [6]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
-     [7]: http://en.wikipedia.org/wiki/Universal_Product_Code
-     [8]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [9]: https://developer.spotify.com/documentation/web-api/reference/#object-trackrestrictionobject
+     [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     public init(
         name: String,

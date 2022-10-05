@@ -16,15 +16,14 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
     
-     See also ``artists(_:)`` (gets multiple artists).
+     See also ``artists(_:)`` - gets multiple artists
 
      Read more at the [Spotify web API reference][1].
     
      - Parameter uri: The URI for the artist.
-     - Returns: The full version of an [artist][2].
+     - Returns: The full version of an artist.
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
      */
     func artist(
         _ uri: SpotifyURIConvertible
@@ -53,20 +52,19 @@ public extension SpotifyAPI {
      
      No scopes are required for this endpoint.
 
-     See also ``artist(_:)`` (gets a single artist).
+     See also: ``artist(_:)`` - gets a single artist
 
      Read more at the [Spotify web API reference][1].
      
      - Parameter uris: An array of up to 20 URIs for artists. Passing in an
            empty array will immediately cause an empty array of results to be
            returned without a network request being made.
-     - Returns: An array of the full versions of [artists][2]. Artists are
+     - Returns: An array of the full versions of artists. Artists are
            returned in the order requested. If an artist is not found, `nil` is
            returned in the corresponding position. Duplicate artists in the
            request will result in duplicate artists in the response.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-artists
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#object-artistobject
      */
     func artists(
         _ uris: [SpotifyURIConvertible]
@@ -109,8 +107,10 @@ public extension SpotifyAPI {
     /**
      Get an artist's albums.
      
-     See also ``album(_:market:)`` (gets a single album) and
-     ``albums(_:market:)`` (gets multiple albums).
+     See also:
+     
+     * ``album(_:market:)`` - gets a single album
+     * ``albums(_:market:)`` - gets multiple albums
      
      No scopes are required for this endpoint.
      
@@ -118,20 +118,20 @@ public extension SpotifyAPI {
 
      - Parameters:
        - artist: The URI of an artist.
-       - groups: *Optional*. The types of albums to return. Possible values are
+       - groups: The types of albums to return. Possible values are
              ``AlbumType/album``, ``AlbumType/single``, ``AlbumType/appearsOn``,
              and ``AlbumType/compilation``. If `nil`, then all types will be
              returned.
-       - country: *Optional*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token". Supply this parameter to limit the response to
-             one particular geographical market. For example, for albums
-             available in Sweden: "SE". If not given, results will be returned
-             for all countries and you are likely to get duplicate results per
-             album, one for each country in which the album is available!
-       - limit: *Optional*. The number of album objects to return. Default: 20;
-             Minimum: 1; Maximum: 50.
-       - offset: *Optional*. The index of the first album to return. Default: 0.
-             Use with `limit` to get the next set of albums.
+       - country: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". Supply this parameter to limit the response to one
+             particular geographical market. For example, for albums available
+             in Sweden: "SE". If not given, results will be returned for all
+             countries and you are likely to get duplicate results per album,
+             one for each country in which the album is available!
+       - limit: The number of album objects to return. Default: 20; Minimum: 1;
+             Maximum: 50.
+       - offset: The index of the first album to return. Default: 0. Use with
+             `limit` to get the next set of albums.
      - Returns: An array of simplified album objects wrapped in a paging object.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-albums
@@ -178,8 +178,8 @@ public extension SpotifyAPI {
      
      - Parameters:
        - artist: The URI of an artist.
-       - country: *Required*. An [ISO 3166-1 alpha-2 country code][2] or the
-             string "from_token".
+       - country: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token".
      - Returns: The full versions of up to ten tracks.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-top-tracks

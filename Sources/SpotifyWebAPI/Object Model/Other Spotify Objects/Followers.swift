@@ -1,10 +1,6 @@
 import Foundation
 
 /// A Spotify followers object.
-///
-/// Read more at the [Spotify web API reference][1].
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
 public struct Followers: Hashable {
     
     /**
@@ -23,16 +19,12 @@ public struct Followers: Hashable {
     /**
      Creates a Spotify followers object.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - href: A link to the Spotify web API endpoint providing full details of
              the followers; `nil` if not available. **Please note that this**
              **will always be set to** `nil`, as the web API does not support it
              at the moment.
        - total: The total number of followers.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-followersobject
      */
     public init(
         href: URL? = nil,

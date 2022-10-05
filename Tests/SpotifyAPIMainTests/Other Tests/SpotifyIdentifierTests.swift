@@ -22,6 +22,8 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         ("testPlaylistURIs", testPlaylistURIs),
         ("testEpisodeURIs", testEpisodeURIs),
         ("testShowURIs", testShowURIs),
+        ("testAudiobookURIs", testAudiobookURIs),
+        ("testAudiobookChapterURIs", testAudiobookChapterURIs),
         ("testInvalidURIs", testInvalidURIs)
     ]
     
@@ -29,6 +31,26 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         uri: SpotifyURIConvertible, idCategory: IDCategory, id: String
     ) throws {
         
+        let adjustedIDCategory: IDCategory
+        switch idCategory {
+            case .audiobook:
+                adjustedIDCategory = .show
+            case .chapter:
+                adjustedIDCategory = .episode
+            case let category:
+                adjustedIDCategory = category
+        }
+
+        func validateURL(_ url: URL?) {
+            
+            XCTAssertNotNil(url, "validateURL: URL was nil")
+            
+            XCTAssertEqual(
+                url,
+                URL(string: "https://open.spotify.com/\(adjustedIDCategory.rawValue)/\(id)")
+            )
+        }
+
         // MARK: Initialize from a URI
         let spotifyIdentifierURI = try SpotifyIdentifier(
             uri: uri, ensureCategoryMatches: [idCategory]
@@ -47,10 +69,7 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         XCTAssertEqual(spotifyIdentifierURI.uri, uri.uri)
         XCTAssertEqual(spotifyIdentifierURI.idCategory, idCategory)
         XCTAssertEqual(spotifyIdentifierURI.id, id)
-        XCTAssertEqual(
-            spotifyIdentifierURI.url,
-            URL(string: "https://open.spotify.com/\(idCategory.rawValue)/\(id)")!
-        )
+        validateURL(spotifyIdentifierURI.url)
         
         // MARK: Initialize from an id and id category
         let spotifyIdentifierID = SpotifyIdentifier(
@@ -59,10 +78,7 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         XCTAssertEqual(spotifyIdentifierID.uri, uri.uri)
         XCTAssertEqual(spotifyIdentifierID.idCategory, idCategory)
         XCTAssertEqual(spotifyIdentifierID.id, id)
-        XCTAssertEqual(
-            spotifyIdentifierID.url,
-            URL(string: "https://open.spotify.com/\(idCategory.rawValue)/\(id)")!
-        )
+        validateURL(spotifyIdentifierID.url)
         
         guard let spotifyIdentifierIDURL = spotifyIdentifierID.url else {
             XCTFail("spotifyIdentifierID.url should not be nil")
@@ -73,15 +89,15 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         let spotifyIdentifierURL = try SpotifyIdentifier(
             url: spotifyIdentifierIDURL
         )
-        XCTAssertEqual(spotifyIdentifierURL.uri, uri.uri)
-        XCTAssertEqual(spotifyIdentifierURL.idCategory, idCategory)
+        validateURL(spotifyIdentifierURL.url)
         XCTAssertEqual(spotifyIdentifierURL.id, id)
-        XCTAssertEqual(
-            spotifyIdentifierURL.url,
-            URL(string: "https://open.spotify.com/\(idCategory.rawValue)/\(id)")!
+
+        let adjustedURI = SpotifyIdentifier(
+            id: id, idCategory: adjustedIDCategory
         )
-        
-        XCTAssertNotNil(spotifyIdentifierURI.url)
+
+        XCTAssertEqual(spotifyIdentifierURL.uri, adjustedURI.uri)
+        XCTAssertEqual(spotifyIdentifierURL.idCategory, adjustedIDCategory)
         
     }
     
@@ -123,11 +139,11 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
                 description: "assert URL exists: '\(url)'"
             )
             expectations.append(expectation)
-            assertURLExists(url).sink(receiveCompletion: { _ in
-                print("exists: \(url)")
-                expectation.fulfill()
-            })
-            .store(in: &Self.cancellables)
+            assertURLExists(url)
+                .sink(receiveCompletion: { _ in
+                    expectation.fulfill()
+                })
+                .store(in: &Self.cancellables)
             
         }
         
@@ -135,6 +151,71 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
 
     }
     
+    func testInvalidURIs() throws {
+        
+        let invalidURI1 = "spotifyyyy:track:6S4HP9hhTI8INa94vl6U8u"
+        XCTAssertThrowsError(
+            try SpotifyIdentifier(uri: invalidURI1),
+            "should receive error indicating that URI must start with 'spotify:'"
+        ) { error in
+        
+            if let error = error as? SpotifyGeneralError,
+                   case .identifierParsingError(let message) = error {
+                XCTAssertTrue(
+                    message.hasSuffix("URI must start with 'spotify:'")
+                )
+            }
+            else {
+                XCTFail("Should've received identifier parsing error")
+            }
+            
+        }
+        
+        let invalidURI2 = "spotify:song:7vuVUQV0dDnjXUyLPzJLPi"
+        XCTAssertThrowsError(
+            try SpotifyIdentifier(uri: invalidURI2),
+            "should receive error indicating that 'song' is not an id category"
+        ) { error in
+        
+            if let error = error as? SpotifyGeneralError,
+                   case .identifierParsingError(let message) = error {
+                XCTAssertTrue(
+                    message.hasSuffix(
+                        """
+                        : id category must be one of the following: \
+                        \(IDCategory.allCases.map(\.rawValue)), \
+                        but received 'song'
+                        """
+                    )
+                )
+            }
+            else {
+                XCTFail("Should've received identifier parsing error")
+            }
+            
+        }
+        
+        let invalidURI3 = "spotify:playlist:"
+        XCTAssertThrowsError(
+            try SpotifyIdentifier(uri: invalidURI3),
+            "should receive identifier parsing error"
+        ) { error in
+
+            if let error = error as? SpotifyGeneralError,
+                   case .identifierParsingError(let message) = error {
+                XCTAssertEqual(
+                    message,
+                    "could not parse Spotify id and/or " +
+                        "id category from string: '\(invalidURI3)'"
+                )
+            }
+            else {
+                XCTFail("Should've received identifier parsing error")
+            }
+            
+        }
+
+    }
     
     func testTrackURIs() throws {
         
@@ -250,72 +331,44 @@ final class SpotifyIdentifierTests: SpotifyAPITestCase {
         
     }
     
-    func testInvalidURIs() throws {
+    func testAudiobookURIs() throws {
         
-        let invalidURI1 = "spotifyyyy:track:6S4HP9hhTI8INa94vl6U8u"
-        XCTAssertThrowsError(
-            try SpotifyIdentifier(uri: invalidURI1),
-            "should receive error indicating that URI must start with 'spotify:'"
-        ) { error in
-        
-            if let error = error as? SpotifyGeneralError,
-                   case .identifierParsingError(let message) = error {
-                XCTAssertTrue(
-                    message.hasSuffix("URI must start with 'spotify:'")
-                )
-            }
-            else {
-                XCTFail("Should've received identifier parsing error")
-            }
-            
+        for audiobook in URIs.Audiobooks.allCases {
+            try validateURI(
+                uri: audiobook,
+                idCategory: .audiobook,
+                id: audiobook.uri.spotifyId!
+            )
         }
         
-        let invalidURI2 = "spotify:song:7vuVUQV0dDnjXUyLPzJLPi"
-        XCTAssertThrowsError(
-            try SpotifyIdentifier(uri: invalidURI2),
-            "should receive error indicating that 'song' is not an id category"
-        ) { error in
-        
-            if let error = error as? SpotifyGeneralError,
-                   case .identifierParsingError(let message) = error {
-                XCTAssertTrue(
-                    message.hasSuffix(
-                        """
-                        : id category must be one of the following: \
-                        \(IDCategory.allCases.map(\.rawValue)), \
-                        but received 'song'
-                        """
-                    )
-                )
-            }
-            else {
-                XCTFail("Should've received identifier parsing error")
-            }
+        try validateCommaSeparatedIdsString(
+            URIs.Audiobooks.allCases.shuffled(),
+            categories: [.audiobook]
+        )
             
-        }
-        
-        let invalidURI3 = "spotify:playlist:"
-        XCTAssertThrowsError(
-            try SpotifyIdentifier(uri: invalidURI3),
-            "should receive identifier parsing error"
-        ) { error in
-
-            if let error = error as? SpotifyGeneralError,
-                   case .identifierParsingError(let message) = error {
-                XCTAssertEqual(
-                    message,
-                    "could not parse Spotify id and/or " +
-                        "id category from string: '\(invalidURI3)'"
-                )
-            }
-            else {
-                XCTFail("Should've received identifier parsing error")
-            }
-            
-        }
+        let audiobooks = URIs.Audiobooks.allCases.shuffled().prefix(3)
+        try assertURLsExist(audiobooks)
 
     }
     
-    
+    func testAudiobookChapterURIs() throws {
+        
+        for chapter in URIs.Chapters.allCases {
+            try validateURI(
+                uri: chapter,
+                idCategory: .chapter,
+                id: chapter.uri.spotifyId!
+            )
+        }
+        
+        try validateCommaSeparatedIdsString(
+            URIs.Chapters.allCases.shuffled(),
+            categories: [.chapter]
+        )
+            
+        let chapters = URIs.Audiobooks.allCases.shuffled().prefix(3)
+        try assertURLsExist(chapters)
+
+    }
     
 }

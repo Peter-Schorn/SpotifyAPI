@@ -31,6 +31,13 @@
 - ``artistTopTracks(_:country:)``
 - ``relatedArtists(_:)``
 
+### Audiobooks
+
+- ``audiobook(_:market:)``
+- ``audiobooks(_:market:)``
+- ``chapter(_:market:)``
+- ``chapters(_:market:)``
+
 ### Browse
 
 - ``category(_:country:locale:)``
@@ -93,6 +100,7 @@
 - ``availableDevices()``
 - ``currentPlayback(market:)``
 - ``recentlyPlayed(_:limit:)``
+- ``queue()``
 - ``addToQueue(_:deviceId:)``
 - ``skipToNext(deviceId:)``
 - ``skipToPrevious(deviceId:)``

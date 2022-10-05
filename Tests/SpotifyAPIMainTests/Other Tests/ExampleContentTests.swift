@@ -11,8 +11,9 @@ final class ExampleContentTests: SpotifyAPITestCase {
     static let allTests = [
         ("testAlbums", testAlbums),
         ("testArtists", testArtists),
-        ("testAadioAnalysis", testAadioAnalysis),
+        ("testAudioAnalysis", testAudioAnalysis),
         ("testAudioFeatures", testAudioFeatures),
+        ("testAudiobooks", testAudiobooks),
         ("testBrowse", testBrowse),
         ("testEpisodes", testEpisodes),
         ("testLibrary", testLibrary),
@@ -57,7 +58,7 @@ final class ExampleContentTests: SpotifyAPITestCase {
         XCTAssertEqual(Artist.theBeatles.name, "The Beatles")
     }
     
-    func testAadioAnalysis() {
+    func testAudioAnalysis() {
         encodeDecode(AudioAnalysis.anyColourYouLike)
     }
     
@@ -65,6 +66,53 @@ final class ExampleContentTests: SpotifyAPITestCase {
         encodeDecode(AudioFeatures.fearless)
     }
     
+    func testAudiobooks() {
+        
+        encodeDecode(Audiobook.harryPotterAndTheSorcerersStone)
+        XCTAssertEqual(
+            Audiobook.harryPotterAndTheSorcerersStone.name,
+            "Harry Potter and the Sorcerer's Stone"
+        )
+        encodeDecode(Audiobook.enlightenmentNow)
+        XCTAssertEqual(
+            Audiobook.enlightenmentNow.name,
+            "Enlightenment Now: The Case for Reason, Science, Humanism, and Progress"
+        )
+        encodeDecode(Audiobook.freeWill)
+        XCTAssertEqual(Audiobook.freeWill.name, "Free Will")
+        
+        encodeDecode(AudiobookChapter.freeWillChapter1)
+        XCTAssertEqual(
+            AudiobookChapter.freeWillChapter1.name,
+            "Chapter 1"
+        )
+        XCTAssertEqual(
+            AudiobookChapter.freeWillChapter1.audiobook?.name,
+            "Free Will"
+        )
+        
+        encodeDecode(AudiobookChapter.steveJobsChapter1)
+        XCTAssertEqual(
+            AudiobookChapter.steveJobsChapter1.name,
+            "Chapter 1"
+        )
+        XCTAssertEqual(
+            AudiobookChapter.steveJobsChapter1.audiobook?.name,
+            "Steve Jobs"
+        )
+
+        encodeDecode(AudiobookChapter.enlightenmentNowChapter3)
+        XCTAssertEqual(
+            AudiobookChapter.enlightenmentNowChapter3.name,
+            "Chapter 3"
+        )
+        XCTAssertEqual(
+            AudiobookChapter.enlightenmentNowChapter3.audiobook?.name,
+            "Enlightenment Now: The Case for Reason, Science, Humanism, and Progress"
+        )
+        
+    }
+
     func testBrowse() {
         encodeDecode(PagingObject.sampleCategoryPlaylists, areEqual: ==)
         encodeDecode(FeaturedPlaylists.sampleFeaturedPlaylists, areEqual: ==)
@@ -106,6 +154,7 @@ final class ExampleContentTests: SpotifyAPITestCase {
     func testPlayer() {
         encodeDecode(CursorPagingObject.sampleRecentlyPlayed)
         encodeDecode(CurrentlyPlayingContext.sampleCurrentPlayback)
+        encodeDecode(SpotifyQueue.sampleQueue)
     }
     
     func testPlaylists() {
@@ -247,7 +296,5 @@ final class ExampleContentTests: SpotifyAPITestCase {
         encodeDecode(SpotifyUser.sampleCurrentUserProfile, areEqual: ==)
     }
 
-    // XCTAssertEqual(Playlist.<#name#>.name, "<#name#>")
-    
 }
 

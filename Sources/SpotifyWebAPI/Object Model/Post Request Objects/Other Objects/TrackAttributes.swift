@@ -17,11 +17,9 @@ import Foundation
 
  Note that all of the properties are mutable.
  
- Read about [tunable track attributes][1] and the endpoint for [getting
- recommendations based on seeds][2].
+ Read about [getting recommendations based on seeds][1].
 
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
- [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
+ [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
  */
 public struct TrackAttributes: Hashable {
 
@@ -138,7 +136,7 @@ public struct TrackAttributes: Hashable {
      Original, non-relinked tracks are available via the ``Track/linkedFrom``
      attribute of the [relinked track response][1].
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
+     [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public var popularity: AttributeRange<Int>?
     
@@ -203,8 +201,7 @@ public struct TrackAttributes: Hashable {
      )
      ```
      
-     Read about [tunable track attributes][1] and the endpoint for [getting
-     recommendations based on seeds][2].
+     Read about [getting recommendations based on seeds][1].
      
      - Parameters:
        - seedArtists: An array of artists URIs.
@@ -233,7 +230,7 @@ public struct TrackAttributes: Hashable {
              above 0.5 are intended to represent instrumental tracks, but
              confidence is higher as the value approaches 1.0.
        - key: The key the track is in. Integers map to pitches using standard
-             [Pitch Class notation][3]. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on.
+             [Pitch Class notation][2]. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on.
        - liveness: Detects the presence of an audience in the recording. A range
              from 0 to 1, inclusive. Higher liveness values represent an
              increased probability that the track was performed live. A value
@@ -257,7 +254,7 @@ public struct TrackAttributes: Hashable {
              are accurate replacements for unplayable tracks with the expected
              popularity scores. Original, non-relinked tracks are available via
              the ``Track/linkedFrom`` attribute of the [relinked track
-             response][4].
+             response][3].
        - speechiness: Speechiness detects the presence of spoken words in a
              track. A range from 0 to 1, inclusive. The more exclusively
              speech-like the recording (e.g. talk show, audio book, poetry), the
@@ -278,10 +275,9 @@ public struct TrackAttributes: Hashable {
              (e.g. happy, cheerful, euphoric), while tracks with low valence
              sound more negative (e.g. sad, depressed, angry).
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-tuneabletrackobject
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
-     [3]: https://en.wikipedia.org/wiki/Pitch_class
-     [4]: https://developer.spotify.com/documentation/web-api/reference/#object-linkedtrackobject
+     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
+     [2]: https://en.wikipedia.org/wiki/Pitch_class
+     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
      */
     public init(
         seedArtists: [SpotifyURIConvertible]? = nil,

@@ -1,13 +1,7 @@
 import Foundation
 
 
-/**
- A Spotify podcast episode.
- 
- Read more at the [Spotify web API reference][1].
-
- [1]:https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
- */
+/// A Spotify podcast episode.
 public struct Episode: Hashable, SpotifyURIConvertible {
 
     /// The name of the episode.
@@ -21,9 +15,13 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// A URL to a 30 second preview (MP3 format) of the episode, if available.
     public let audioPreviewURL: URL?
     
-    /// A description of the episode.
+    /// A description of the episode. See also ``htmlDescription``.
     public let description: String
     
+    /// A description of the episode which may contain HTML tags. See also
+    /// ``description``.
+    public let htmlDescription: String?
+
     /**
      The user’s most recent position in the episode.
     
@@ -70,14 +68,11 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /**
      Known external urls for this episode.
 
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -95,54 +90,78 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// "day".
     public let releaseDatePrecision: String?
  
+    /**
+     Part of the response when a content restriction is applied.
+     
+     The key will be "reason", and the value will be one of the
+     following:
+     * "market" - The content item is not available in the given market.
+     * "product" - The content item is not available for the user’s
+       subscription type.
+     * "explicit" - The content item is explicit and the user’s account is
+       set to not play explicit content.
+     
+     Additional reasons and additional keys may be added in the future.
+     */
+    public let restrictions: [String: String]?
+
     /// The object type. Always ``IDCategory/episode``.
     public let type: IDCategory
  
     /**
      Creates a Spotify podcast episode.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - name: The name of the episode.
        - show: The show on which the episode belongs.
        - audioPreviewURL: A URL to a 30 second preview (MP3 format) of the
              episode.
-       - description: A description of the episode.
+       - description: A description of the episode. See also
+             ``htmlDescription``.
+       - htmlDescription: A description of the episode which may contain HTML
+             tags. See also ``description``.
        - resumePoint: The user’s most recent position in the episode. Set if the
              supplied access token is a user token and has the
              ``Scope/userReadPlaybackPosition`` scope.
        - durationMS: The episode length in milliseconds.
        - isExplicit: Whether or not the episode has explicit content.
        - releaseDate: The date the episode was first released.
-       - uri: The [Spotify URI][2] for the episode.
-       - id: The [Spotify ID][2] for the episode.
+       - uri: The [Spotify URI][1] for the episode.
+       - id: The [Spotify ID][1] for the episode.
        - images: The cover art for the episode in various sizes.
        - href: A link to the Spotify web API endpoint providing the full episode
              object.
        - isPlayable: `true` if the episode is playable in the given market.
             Else, `false`.
-       - externalURLs: Known [external urls][3] for this artist.
+       - externalURLs: Known external urls for this episode.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][2] for the object.
+                   URL][1] for the object.
              - value: An external, public URL to the object.
        - isExternallyHosted: `true` if the episode is hosted outside of
              Spotify's CDN (content delivery network). Else, `false`.
        - languages: A list of the languages used in the episode, identified by
-             their [ISO 639][4] code.
+             their [ISO 639][2] codes.
        - releaseDatePrecision: The precision with which ``releaseDate`` is
              known: "year", "month", or "day".
+       - restrictions: Part of the response when a content restriction is
+             applied. Else, `nil`. The key will be
+             "reason", and the value will be one of the following:
+             * "market" - The content item is not available in the given market.
+             * "product" - The content item is not available for the user’s
+               subscription type.
+             * "explicit" - The content item is explicit and the user’s account
+               is set to not play explicit content.
+             Additional reasons and additional keys may be added in the future.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-episodeobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-     [3]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [4]: https://en.wikipedia.org/wiki/ISO_639
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: https://en.wikipedia.org/wiki/ISO_639
      */
     public init(
         name: String,
         show: Show? = nil,
         audioPreviewURL: URL? = nil,
         description: String,
+        htmlDescription: String? = nil,
         resumePoint: ResumePoint? = nil,
         durationMS: Int,
         isExplicit: Bool,
@@ -155,12 +174,14 @@ public struct Episode: Hashable, SpotifyURIConvertible {
         externalURLs: [String: URL]? = nil,
         isExternallyHosted: Bool,
         languages: [String],
-        releaseDatePrecision: String? = nil
+        releaseDatePrecision: String? = nil,
+        restrictions: [String: String]? = nil
     ) {
         self.name = name
         self.show = show
         self.audioPreviewURL = audioPreviewURL
         self.description = description
+        self.htmlDescription = htmlDescription
         self.resumePoint = resumePoint
         self.durationMS = durationMS
         self.isExplicit = isExplicit
@@ -175,6 +196,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
         self.languages = languages
         self.releaseDatePrecision = releaseDatePrecision
         self.type = .episode
+        self.restrictions = restrictions
     }
 
 }
@@ -196,6 +218,9 @@ extension Episode: Codable {
         )
         self.description = try container.decode(
             String.self, forKey: .description
+        )
+        self.htmlDescription = try container.decodeIfPresent(
+            String.self, forKey: .htmlDescription
         )
         self.resumePoint = try container.decodeIfPresent(
             ResumePoint.self, forKey: .resumePoint
@@ -235,11 +260,14 @@ extension Episode: Codable {
         self.externalURLs = try container.decodeIfPresent(
             [String: URL].self, forKey: .externalURLs
         )
-        self.isExternallyHosted = try container.decode(
+        self.isExternallyHosted = try container.decodeIfPresent(
             Bool.self, forKey: .isExternallyHosted
-        )
+        ) ?? false
         self.languages = try container.decode(
             [String].self, forKey: .languages
+        )
+        self.restrictions = try container.decodeIfPresent(
+            [String: String].self, forKey: .restrictions
         )
         self.type = try container.decode(
             IDCategory.self, forKey: .type
@@ -262,6 +290,9 @@ extension Episode: Codable {
         )
         try container.encode(
             self.description, forKey: .description
+        )
+        try container.encodeIfPresent(
+            self.htmlDescription, forKey: .htmlDescription
         )
         try container.encodeIfPresent(
             self.resumePoint, forKey: .resumePoint
@@ -313,7 +344,9 @@ extension Episode: Codable {
         try container.encode(
             self.languages, forKey: .languages
         )
-        
+        try container.encodeIfPresent(
+            self.restrictions, forKey: .restrictions
+        )
         try container.encode(
             self.type, forKey: .type
         )
@@ -326,6 +359,7 @@ extension Episode: Codable {
         case show
         case audioPreviewURL = "audio_preview_url"
         case description
+        case htmlDescription = "html_description"
         case resumePoint = "resume_point"
         case durationMS = "duration_ms"
         case isExplicit = "explicit"
@@ -339,8 +373,8 @@ extension Episode: Codable {
         case isPlayable = "is_playable"
         case languages
         case releaseDatePrecision = "release_date_precision"
+        case restrictions
         case type
-        
     }
     
 }
@@ -364,6 +398,7 @@ extension Episode: ApproximatelyEquatable {
                 self.show == other.show &&
                 self.audioPreviewURL == other.audioPreviewURL &&
                 self.description == other.description &&
+                self.htmlDescription == other.htmlDescription &&
                 self.resumePoint == other.resumePoint &&
                 self.durationMS == other.durationMS &&
                 self.isExplicit == other.isExplicit &&

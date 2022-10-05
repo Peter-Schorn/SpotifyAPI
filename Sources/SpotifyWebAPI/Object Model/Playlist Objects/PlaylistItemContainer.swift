@@ -2,20 +2,17 @@ import Foundation
 
 /**
  Holds a track or podcast episode that is contained in a playlist, as well as
- additional information about its relationship to the playlist. Spotify
- confusingly refers to this as a [playlist track object][1].
+ additional information about its relationship to the playlist.
  
  Contains the following properties:
  
  * ``addedAt``: The date and time the track or episode was added.
  * ``addedBy``: The Spotify user who added the track or episode.
- * ``isLocal``: Whether or not the track or episode is from a [local file][3].
+ * ``isLocal``: Whether or not the track or episode is from a [local file][1].
  * ``item``: Either a ``Track``, ``Episode``, or ``PlaylistItem`` (simplified
    version).
  
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlisttrackobject
- [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
- [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
+ [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
  */
 public struct PlaylistItemContainer<Item>: Hashable where
     Item: Codable & Hashable
@@ -49,8 +46,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
     
     /**
      Holds a track or podcast episode that is contained in a playlist, as well
-     as additional information about its relationship to the playlist. Spotify
-     confusingly refers to this as a [playlist track object][1].
+     as additional information about its relationship to the playlist.
      
      - Parameters:
        - addedAt: The date and time the track or episode was added.
@@ -59,8 +55,7 @@ public struct PlaylistItemContainer<Item>: Hashable where
        - item: Either a ``Track``, ``Episode``, or ``PlaylistItem`` (simplified
              version).
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlisttrackobject
-     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
      */
     public init(
         addedAt: Date? = nil,

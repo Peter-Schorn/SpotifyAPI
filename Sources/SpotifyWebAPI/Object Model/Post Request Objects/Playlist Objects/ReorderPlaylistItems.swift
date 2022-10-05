@@ -16,7 +16,7 @@ import Foundation
    ``rangeLength`` is 1, then the item at index ``rangeStart`` will be inserted
    before the item at index ``insertBefore``.
  * insertBefore: The position where the items should be inserted.
- * snapshotId: *Optional*. The version identifier for the current playlist.
+ * snapshotId: The version identifier for the current playlist.
  
  **Examples:**
  
@@ -111,8 +111,7 @@ public struct ReorderPlaylistItems: Hashable {
              ``rangeStart`` will be inserted before the item at index
              ``insertBefore``.
        - insertBefore: The position where the items should be inserted.
-       - snapshotId: *Optional*. The version identifier for the current
-             playlist.
+       - snapshotId: The version identifier for the current playlist.
      
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks
      */

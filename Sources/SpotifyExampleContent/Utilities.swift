@@ -51,10 +51,12 @@ extension Bundle {
  
  Templates:
  
+ /// Sample data for testing purposes.
  static let <#name#> = Bundle.module.decodeJSON(
      forResource: "<#name#>", type: Self.self
  )!
  
+ /// Sample data for testing purposes.
  static let <#name#> = Bundle.module.decodeJSON(
      forResource: "<#name#>",
      type: Self.self

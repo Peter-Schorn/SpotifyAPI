@@ -6,10 +6,6 @@ import Foundation
 
  For example, you cannot skip to the previous or next track/episode or seek to a
  position in a track/episode while an ad is playing.
- 
- This enum maps to Spotify's [disallows object][1].
- 
- [1]: https://developer.spotify.com/documentation/web-api/reference/#object-disallowsobject
  */
 public enum PlaybackActions: String, Codable, Hashable {
     

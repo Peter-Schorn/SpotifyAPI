@@ -1,10 +1,6 @@
 import Foundation
 
 /// A Spotify playlist.
-///
-/// Read more at the [Spotify web API reference][1].
-///
-/// [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
 public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashable {
     
     /// The name of the playlist.
@@ -57,14 +53,11 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /**
      Known external urls for this playlist.
      
-     - key: The type of the URL, for example: "spotify" - The [Spotify URL][2]
+     - key: The type of the URL, for example: "spotify" - The [Spotify URL][1]
            for the object.
      - value: An external, public URL to the object.
 
-     Read more at the [Spotify web API reference][1].
-
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -114,8 +107,6 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     /**
      Creates a Spotify playlist.
      
-     Read more at the [Spotify web API reference][1].
-
      - Parameters:
        - name: The name of the playlist.
        - items: The items in the playlist.
@@ -123,35 +114,33 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
        - isPublic: The playlist’s public/private status. If `true` the playlist
              is public; if `false`, the playlist is private. If `nil`, the
              playlist status is not relevant. For more about public/private
-             status, see [Working with Playlists][2].
+             status, see [Working with Playlists][1].
        - collaborative: `true` if context is not search (you retrieved this
              playlist using the search endpoint) and the owner allows other
              users to modify the playlist. Else, `false`.
        - description: The playlist description. Only returned for modified,
-             verified playlists, else `nil`.
+             verified playlists; else `nil`.
        - snapshotId: The version identifier for the current playlist. Every time
-             the playlist changes, a new [snapshot id][3] is generated. You can
+             the playlist changes, a new [snapshot id][2] is generated. You can
              use this value to efficiently determine whether a playlist has
              changed since the last time you retrieved it. Can be supplied in
              other requests to target a specific playlist version: see [Remove
-             Tracks from a Playlist][4].
-       - externalURLs: Known [external urls][5] for this artist.
+             Tracks from a Playlist][3].
+       - externalURLs: Known external urls for this artist.
              - key: The type of the URL, for example: "spotify" - The [Spotify
-                   URL][6] for the object.
+                   URL][4] for the object.
              - value: An external, public URL to the object.
        - followers: Information about the followers of the playlist.
        - href: A link to the Spotify web API endpoint providing full details of
              the playlist.
-       - id: The [Spotify ID][6] for the playlist.
-       - uri: The [URI][6] for the playlist.
+       - id: The [Spotify ID][4] for the playlist.
+       - uri: The [URI][4] for the playlist.
        - images: The Images for the playlist.
      
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject
-     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
-     [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     [4]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
-     [5]: https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject
-     [6]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
+     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
+     [3]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
+     [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
      */
     public init(
         name: String,
