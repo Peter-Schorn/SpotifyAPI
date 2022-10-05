@@ -167,7 +167,7 @@ extension SpotifyAPIErrorTests {
             }
             .store(in: &cancellables)
         #else
-        XCTFail("cannot test \(#function) in RELEASE MODE")
+        XCTFail("cannot test \(#function) in RELEASE mode")
         return
         #endif
 
@@ -206,14 +206,28 @@ extension SpotifyAPIErrorTests {
                 .store(in: &Self.cancellables)
             
         }
+        
         self.wait(for: expectations, timeout: 500)
         
         queue.sync {
-            XCTAssertTrue(didReceiveRateLimitedError)
-            XCTAssertTrue(didReceiveRateLimitedError)
-            XCTAssertEqual(receivedValues, 200)
-            XCTAssertEqual(successfulCompletions, 200)
-            XCTAssertEqual(receivedErrors, 0)
+            XCTAssertTrue(
+                didReceiveRateLimitedError,
+                "did not receive rate limited error"
+            )
+            XCTAssertEqual(
+                receivedValues, 200,
+                "unexpected receivedValues"
+            )
+            XCTAssertEqual(
+                successfulCompletions, 200,
+                "unexpected successfulCompletions"
+            )
+            XCTAssertEqual(
+                receivedErrors, 0,
+                "unexpected receivedErrors"
+            )
+            
+            
         }
         
         Self.spotify.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
@@ -254,7 +268,7 @@ extension SpotifyAPIErrorTests {
             }
             .store(in: &cancellables)
         #else
-        XCTFail("cannot test \(#function) in RELEASE MODE")
+        XCTFail("cannot test \(#function) in RELEASE mode")
         return
         #endif
 
@@ -297,11 +311,20 @@ extension SpotifyAPIErrorTests {
         
         XCTAssertTrue(
             didReceiveRateLimitedError,
-            "didn't receive rate limited error"
+            "did not receive rate limited error"
         )
-        XCTAssertEqual(receivedValues, 500)
-        XCTAssertEqual(successfulCompletions, 500)
-        XCTAssertEqual(receivedErrors, 0)
+        XCTAssertEqual(
+            receivedValues, 500,
+            "unexpected receivedValues"
+        )
+        XCTAssertEqual(
+            successfulCompletions, 500,
+            "unexpected successfulCompletions"
+        )
+        XCTAssertEqual(
+            receivedErrors, 0,
+            "unexpected receivedErrors"
+        )
         
         Self.spotify.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
         

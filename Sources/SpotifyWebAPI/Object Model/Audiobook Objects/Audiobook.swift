@@ -65,7 +65,7 @@ public struct Audiobook: Hashable, SpotifyURIConvertible {
     /**
      A link to the Spotify web API endpoint providing the full audiobook object.
      
-     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Audioboook``
+     Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Audiobook``
      as the response type to retrieve the results.
      */
     public let href: URL
@@ -125,7 +125,7 @@ public struct Audiobook: Hashable, SpotifyURIConvertible {
              played, identified by their [ISO 3166-1 alpha-2][2] codes.
        - href: A link to the Spotify web API endpoint providing the full
              audiobook object. Use ``SpotifyAPI/getFromHref(_:responseType:)``,
-             passing in ``Audioboook`` as the response type to retrieve the
+             passing in ``Audiobook`` as the response type to retrieve the
              results.
        - externalURLs: Known external urls for the audiobook.
              - key: The type of the URL, for example: "spotify" - The [Spotify
