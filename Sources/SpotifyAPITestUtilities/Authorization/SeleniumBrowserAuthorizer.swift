@@ -58,6 +58,11 @@ public struct SeleniumBrowserAuthorizer {
             "--timeout", "\(timeout)"
         ]
         
+        if ProcessInfo.processInfo
+                .environment["SPOTIFY_API_AUTHORIZER_NON_HEADLESS"] == "true" {
+            process.arguments!.append("--non-headless")
+        }
+
         let stdout = Pipe()
         let stderror = Pipe()
         process.standardOutput = stdout
