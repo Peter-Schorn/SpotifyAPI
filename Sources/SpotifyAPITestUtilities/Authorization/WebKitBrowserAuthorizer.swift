@@ -5,34 +5,31 @@ import WebKit
 
 /// Can open an authorization URL and click the accept or cancel dialog and
 /// then return the redirect URI with the query.
-public class HeadlessBrowserAuthorizer: NSObject {
-    
-    /// The button to click on the authorization page.
-    public enum Button: String {
-        case accept
-        case cancel
-    }
+public class WebKitBrowserAuthorizer: NSObject {
     
     public let webView: WKWebView
     
-    public var didReceiveRedirect = false
-    
-    public let button: Button
+    public let button: AuthorizationPageButton
     public let redirectURI: URL
-    public let receiveRedirectURIWithQuery: (URL) -> Void
+    // MARK: TODO: make mutable so multiple authorization requests can be made
+    // MARK: with the same instance?
+    public let authorizationURL: URL
     
-    var authorizationURL: URL? = nil
-    var retries = 4
+    var redirectURIWithQuery: URL? = nil
+    var didReceiveRedirect = false
+
+    static let maxRetries = 4
+    var retries = WebKitBrowserAuthorizer.maxRetries
 
     /// Ensures the cookie is set before loading the authorization page.
-    public let setCookieDispatchGroup = DispatchGroup()
+    let setCookieDispatchGroup = DispatchGroup()
     
     /// Returns `nil` if the "SPOTIFY_DC" environment variable does not exist or
     /// if the cookie cannot be created from it.
-    public init?(
-        button: Button,
+    required public init(
+        button: AuthorizationPageButton,
         redirectURI: URL,
-        receiveRedirectURIWithQuery: @escaping (URL) -> Void
+        authorizationURL: URL
     ) {
         
         let configuration = WKWebViewConfiguration()
@@ -41,13 +38,9 @@ public class HeadlessBrowserAuthorizer: NSObject {
 
         self.button = button
         self.redirectURI = redirectURI
-        self.receiveRedirectURIWithQuery = receiveRedirectURIWithQuery
+        self.authorizationURL = authorizationURL
         super.init()
         self.webView.navigationDelegate = self
-
-        if !self.configureCookies() {
-            return nil
-        }
 
     }
     
@@ -97,18 +90,37 @@ public class HeadlessBrowserAuthorizer: NSObject {
 
     }
     
-    public func loadAuthorizationURL(_ url: URL) {
+    /// Timeout is expressed in seconds. Should be called on the main thread
+    public func authorize(timeout: Double) -> URL? {
         
-        self.authorizationURL = url
+        if !self.configureCookies() {
+            return nil
+        }
+
+        self.redirectURIWithQuery = nil
+
+        self.loadAuthorizationURL()
+        CFRunLoopRunInMode(.defaultMode, timeout, false)
+        
+        return self.redirectURIWithQuery
+    }
+    
+    func loadAuthorizationURL() {
+        
+        self.didReceiveRedirect = false
 
         // ensure the cookie is set before loading the authorization URL
         self.setCookieDispatchGroup.notify(queue: .main) {
-            let request = URLRequest(url: url)
+            let request = URLRequest(url: self.authorizationURL)
             self.webView.load(request)
             print(
-                "HeadlessBrowserAuthorizer.loadAuthorizationURL: did load \(url)"
+                """
+                HeadlessBrowserAuthorizer.loadAuthorizationURL: loading \
+                \(self.authorizationURL)
+                """
             )
         }
+        
     }
     
     func reloadDelay() -> Double {
@@ -119,7 +131,8 @@ public class HeadlessBrowserAuthorizer: NSObject {
     
 }
 
-extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
+// WKNavigationDelegate must be used from the main thread
+extension WebKitBrowserAuthorizer: WKNavigationDelegate {
     
     // MARK: - Did Finish Navigation -
 
@@ -210,9 +223,12 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         print("baseURL: \(baseURL)")
         
         if baseURL == self.redirectURI {
+            // MARK: Successfully retrieved redirectURIWithQuery
+            self.retries = Self.maxRetries
             self.didReceiveRedirect = true
-            self.receiveRedirectURIWithQuery(url)
+            self.redirectURIWithQuery = url
             decisionHandler(.cancel, .init())
+            CFRunLoopStop(CFRunLoopGetMain())
         }
         else {
             decisionHandler(.allow, .init())
@@ -250,13 +266,13 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
         withError error: Error
     ) {
         print("didFail navigation: error: \(error)")
-        if let authorizationURL = self.authorizationURL, self.retries > 0 {
+        if self.retries > 0 {
             self.retries -= 1
             DispatchQueue.main.asyncAfter(
                 deadline: .now() + self.reloadDelay()
             ) {
                 print("will loadAuthorizationURL again")
-                self.loadAuthorizationURL(authorizationURL)
+                self.loadAuthorizationURL()
             }
         }
     }
@@ -269,13 +285,13 @@ extension HeadlessBrowserAuthorizer: WKNavigationDelegate {
     ) {
         if !self.didReceiveRedirect {
             print("didFailProvisionalNavigation: error: \(error)")
-            if let authorizationURL = self.authorizationURL, self.retries > 0 {
+            if self.retries > 0 {
                 self.retries -= 1
                 DispatchQueue.main.asyncAfter(
                     deadline: .now() + self.reloadDelay()
                 ) {
                     print("will loadAuthorizationURL again")
-                    self.loadAuthorizationURL(authorizationURL)
+                    self.loadAuthorizationURL()
                 }
             }
             

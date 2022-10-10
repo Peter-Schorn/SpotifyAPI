@@ -51,6 +51,9 @@ let package = Package(
             exclude: [
                 "README.md",
                 "SpotifyAPITestUtilities.docc"
+            ],
+            resources: [
+                .process("Resources")
             ]
         ),
         

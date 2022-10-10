@@ -200,3 +200,20 @@ public struct SpotifyCredentials: Codable {
     }
     
 }
+
+/// Represents the accept and cancel buttons on the authorization page.
+public enum AuthorizationPageButton: String {
+    case accept
+    case cancel
+}
+
+#if canImport(WebKit)
+/// `WebKitBrowserAuthorizer` if canImport(WebKit); else,
+/// SeleniumBrowserAuthorizer
+public typealias BrowserAuthorizer = WebKitBrowserAuthorizer
+#else
+/// `WebKitBrowserAuthorizer` if canImport(WebKit); else,
+/// SeleniumBrowserAuthorizer
+public typealias BrowserAuthorizer = SeleniumBrowserAuthorizer
+#endif
+

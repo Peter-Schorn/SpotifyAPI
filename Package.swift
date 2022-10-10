@@ -42,7 +42,10 @@ let package = Package(
         .target(
             name: "SpotifyAPITestUtilities",
             dependencies: spotifyAPITestUtilitiesDependencies,
-            exclude: ["README.md"]
+            exclude: ["README.md"],
+            resources: [
+                .process("Resources")
+            ]
         ),
         
         // MARK: Test Targets

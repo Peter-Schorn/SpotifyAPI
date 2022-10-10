@@ -12,8 +12,6 @@ import UIKit
 import FoundationNetworking
 #endif
 
-#if canImport(WebKit)
-
 /**
  Opens the authorization URL in a headless browser and then clicks either the
  accept or cancel button in order to redirect the user to the redirect URI with
@@ -40,59 +38,23 @@ import FoundationNetworking
  */
 public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL,
-    button: HeadlessBrowserAuthorizer.Button = .accept
+    button: AuthorizationPageButton = .accept
 ) -> URL? {
     
-    let runLoop = CFRunLoopGetCurrent()
-    
-    var redirectURIWithQuery: URL? = nil
-    
-    guard let headlessBrowser = HeadlessBrowserAuthorizer(
+    let authorizer = BrowserAuthorizer(
         button: button,
         redirectURI: localHostURL,
-        receiveRedirectURIWithQuery: { url in
-            redirectURIWithQuery = url
-            CFRunLoopStop(runLoop)
-        }
-    ) else {
-        return openAuthorizationURLAndWaitForRedirectNonHeadless(authorizationURL)
-    }
-    
-    print(
-        "loading the authorization URL in the headless browser authorizer: " +
-        "\(authorizationURL)"
+        authorizationURL: authorizationURL
     )
-    headlessBrowser.loadAuthorizationURL(authorizationURL)
-    CFRunLoopRunInMode(.defaultMode, 30, false)  // 30 second timeout
-    if let redirectURIWithQuery = redirectURIWithQuery {
+    
+    if let redirectURIWithQuery = authorizer.authorize(timeout: 30) {
         return redirectURIWithQuery
     }
-    print("couldn't get redirect URI from headless browser authorizer")
+    
     return openAuthorizationURLAndWaitForRedirectNonHeadless(authorizationURL)
     
 }
 
-
-#else  // MARK: Cannot import WebKit
-
-/**
- Opens the authorization URL and waits for the user to login and copy and paste
- the redirect URL into standard input or starts a server to listen for the
- redirect URL if the TEST flag is enabled.
- 
- - Parameter authorizationURL: The authorization URL.
- - Returns: The redirect URI with the query, which is used for requesting access
- and refresh tokens.
- */
-public func openAuthorizationURLAndWaitForRedirect(
-    _ authorizationURL: URL
-) -> URL? {
- 
-    return openAuthorizationURLAndWaitForRedirectNonHeadless(authorizationURL)
-    
-}
-
-#endif
 
 /**
  Opens the authorization URL and waits for the user to login and copy and paste
@@ -228,7 +190,7 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
 public func openURLWithPython3(_ url: URL) throws {
 
     let task = Process()
-    task.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/ypython3")
     task.arguments = ["-m", "webbrowser", "-t", url.absoluteString]
     try task.run()
 
