@@ -190,7 +190,7 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
 public func openURLWithPython3(_ url: URL) throws {
 
     let task = Process()
-    task.executableURL = URL(fileURLWithPath: "/usr/bin/ypython3")
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
     task.arguments = ["-m", "webbrowser", "-t", url.absoluteString]
     try task.run()
 

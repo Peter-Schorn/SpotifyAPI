@@ -7,7 +7,7 @@ public struct SeleniumBrowserAuthorizer {
         return Bundle.module.url(
             forResource: "spotify_api_authorizer",
             withExtension: "py"
-        )?.absoluteString
+        )?.path
     }()
 
     public let button: AuthorizationPageButton
@@ -54,8 +54,8 @@ public struct SeleniumBrowserAuthorizer {
             "--button", self.button.rawValue,
             "--sp-dc", spotifyDC,
             "--redirect-uri", self.redirectURI.absoluteString,
-            "--url", self.authorizationURL.absoluteString
-            
+            "--url", self.authorizationURL.absoluteString,
+            "--timeout", "\(timeout)"
         ]
         
         let stdout = Pipe()

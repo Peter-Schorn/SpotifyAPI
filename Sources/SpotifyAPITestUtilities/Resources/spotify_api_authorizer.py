@@ -25,14 +25,13 @@ except ModuleNotFoundError as error:
     raise error
 
 
-sleep(300)
-
 parser = argparse.ArgumentParser(description="Spotify API Authorizer")
 
 parser.add_argument("--button", type=str, default="accept")
 parser.add_argument("--sp-dc", type=str)
 parser.add_argument("--redirect-uri", type=str, default="accept")
 parser.add_argument("--url", type=str)
+parser.add_argument("--timeout", type=float, default=30)
 parser.add_argument("--non-headless", action="store_true")
 
 args = parser.parse_args()
@@ -45,6 +44,10 @@ browser = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()),
     options=options
 )
+
+print(f"timeout: {args.timeout}")
+
+browser.set_page_load_timeout(args.timeout)
 
 accounts_url = "https://accounts.spotify.com/en/login"
 browser.get(accounts_url)
@@ -59,7 +62,7 @@ browser.add_cookie({
 browser.get(args.url)
 print(f"opened authorization URL: {args.url}")
 
-accept_script = """document.querySelector("[data-testid='auth-acceptt']").click()"""
+accept_script = """document.querySelector("[data-testid='auth-accept']").click()"""
 cancel_script = """document.querySelector("[data-testid='auth-cancel']").click()"""
 script = accept_script if args.button == "accept" else cancel_script
 print(f"will execute script: {script}")
@@ -67,7 +70,7 @@ print(f"will execute script: {script}")
 result = browser.execute_script(script)
 print(f"script result: {result}")
 
-WebDriverWait(browser, timeout=30).until(
+WebDriverWait(browser, timeout=args.timeout).until(
     expected_conditions.url_contains(args.redirect_uri)
 )
 
