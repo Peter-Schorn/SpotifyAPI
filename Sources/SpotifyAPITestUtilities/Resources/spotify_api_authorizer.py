@@ -5,9 +5,14 @@ import sys
 from time import sleep
 import argparse
 
-extraPath = "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages"
-if not extraPath in sys.path:
-    sys.path.append(extraPath)
+extraPaths = [
+    "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages",
+    "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages"
+]
+
+for extraPath in extraPaths:
+    if not extraPath in sys.path:
+        sys.path.append(extraPath)
 
 try:
     from selenium import webdriver
@@ -18,7 +23,7 @@ try:
 
     from webdriver_manager.chrome import ChromeDriverManager
 except ModuleNotFoundError as error:
-    print("sys.path:")
+    print("--- sys.path ---")
     for path in sys.path:
         print(path)
     print()
