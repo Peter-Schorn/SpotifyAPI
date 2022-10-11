@@ -1,4 +1,4 @@
-cd 'Sources/SpotifyAPITestUtilities/SpotifyAPI Utilities'
+cd 'Sources/SpotifyAPITestUtilities/SpotifyAPI Utilities/Authorization'
 
 sed -E -i.bak 's/(let __clientId__ = )".*"/\1""/' 'AuthorizationConstants.swift' \
 && rm AuthorizationConstants.swift.bak

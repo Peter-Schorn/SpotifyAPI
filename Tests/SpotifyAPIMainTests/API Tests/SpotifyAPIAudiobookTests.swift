@@ -373,7 +373,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(audiobook.name, "Free Will")
                 XCTAssertEqual(audiobook.narrators.count, 1)
                 XCTAssertEqual(audiobook.narrators.first?.name, "Sam Harris")
-                XCTAssertEqual(audiobook.totalChapters, 11)
+                XCTAssertEqual(audiobook.totalChapters, 12)
                 XCTAssertEqual(audiobook.type, .audiobook)
                 XCTAssertEqual(
                     audiobook.chapters?.href,
