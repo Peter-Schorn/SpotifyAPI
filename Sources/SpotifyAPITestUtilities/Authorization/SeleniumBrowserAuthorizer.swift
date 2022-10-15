@@ -29,12 +29,11 @@ public struct SeleniumBrowserAuthorizer {
     /// Returns redirectURIWithQuery
     public func authorize(timeout: Double) -> URL? {
         
+#if os(macOS) || os(Linux)
         DistributedLock.redirectListener.lock()
         defer {
             DistributedLock.redirectListener.unlock()
         }
-
-        // MARK: TODO: USE TIMEOUT!
 
         guard let spotifyDC = spotifyDCCookieValue else {
             print("spotifyDCCookieValue was nil")
@@ -108,7 +107,10 @@ public struct SeleniumBrowserAuthorizer {
             print("caught error: \(error)")
             return nil
         }
-
+#else
+        return nil
+#endif
+        
     }
 
 }

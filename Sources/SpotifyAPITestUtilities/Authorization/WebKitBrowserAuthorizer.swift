@@ -99,7 +99,9 @@ public class WebKitBrowserAuthorizer: NSObject {
 
         self.redirectURIWithQuery = nil
 
-        self.loadAuthorizationURL()
+        self.setCookieDispatchGroup.notify(queue: .main) {
+            self.loadAuthorizationURL()
+        }
         CFRunLoopRunInMode(.defaultMode, timeout, false)
         
         return self.redirectURIWithQuery
@@ -110,16 +112,14 @@ public class WebKitBrowserAuthorizer: NSObject {
         self.didReceiveRedirect = false
 
         // ensure the cookie is set before loading the authorization URL
-        self.setCookieDispatchGroup.notify(queue: .main) {
-            let request = URLRequest(url: self.authorizationURL)
-            self.webView.load(request)
-            print(
-                """
-                HeadlessBrowserAuthorizer.loadAuthorizationURL: loading \
-                \(self.authorizationURL)
-                """
-            )
-        }
+        let request = URLRequest(url: self.authorizationURL)
+        self.webView.load(request)
+        print(
+            """
+            HeadlessBrowserAuthorizer.loadAuthorizationURL: loading \
+            \(self.authorizationURL)
+            """
+        )
         
     }
     
