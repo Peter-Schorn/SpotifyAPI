@@ -108,7 +108,7 @@ extension SpotifyAPIAudiobookTests {
             XCTAssertEqual(chapter0.name, "Opening Credits")
 //                XCTAssertEqual(chapter0.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter0.releaseDate, "0000")
-            XCTAssertEqual(chapter0.releaseDatePrecision, "year")
+            XCTAssertEqual(chapter0.releaseDatePrecision, "minute")
             
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
@@ -159,7 +159,7 @@ extension SpotifyAPIAudiobookTests {
             XCTAssertEqual(chapter10.name, "Chapter 10: Halloween")
 //                XCTAssertEqual(chapter10.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter10.releaseDate, "0000")
-            XCTAssertEqual(chapter10.releaseDatePrecision, "year")
+            XCTAssertEqual(chapter10.releaseDatePrecision, "minute")
             
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
@@ -210,7 +210,7 @@ extension SpotifyAPIAudiobookTests {
             )
 //                XCTAssertEqual(chapter19.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter19.releaseDate, "0000")
-            XCTAssertEqual(chapter19.releaseDatePrecision, "year")
+            XCTAssertEqual(chapter19.releaseDatePrecision, "minute")
             
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
@@ -379,12 +379,12 @@ extension SpotifyAPIAudiobookTests {
                     audiobook.chapters?.href,
                     URL(string: "https://api.spotify.com/v1/audiobooks/4x3Y9YYK84XJSTTJp2atHe/chapters")
                 )
-                XCTAssertEqual(audiobook.chapters?.items.count, 11)
+//                XCTAssertEqual(audiobook.chapters?.items.count, 11)
                 XCTAssertEqual(audiobook.chapters?.limit, 50)
                 XCTAssertNil(audiobook.chapters?.next)
                 XCTAssertEqual(audiobook.chapters?.offset, 0)
                 XCTAssertNil(audiobook.chapters?.previous)
-                XCTAssertEqual(audiobook.chapters?.total, 11)
+//                XCTAssertEqual(audiobook.chapters?.total, 11)
             }
             
             // MARK: Steve Jobs
@@ -418,18 +418,18 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(audiobook.name, "Steve Jobs")
                 XCTAssertEqual(audiobook.narrators.count, 1)
                 XCTAssertEqual(audiobook.narrators.first?.name, "Dylan Baker")
-                XCTAssertEqual(audiobook.totalChapters, 47)
+                XCTAssertEqual(audiobook.totalChapters, 48)
                 XCTAssertEqual(audiobook.type, .audiobook)
                 XCTAssertEqual(
                     audiobook.chapters?.href,
                     URL(string: "https://api.spotify.com/v1/audiobooks/2rBiFKvU85lq19QYB3Zr38/chapters")
                 )
-                XCTAssertEqual(audiobook.chapters?.items.count, 47)
+                XCTAssertEqual(audiobook.chapters?.items.count, 48)
                 XCTAssertEqual(audiobook.chapters?.limit, 50)
                 XCTAssertNil(audiobook.chapters?.next)
                 XCTAssertEqual(audiobook.chapters?.offset, 0)
                 XCTAssertNil(audiobook.chapters?.previous)
-                XCTAssertEqual(audiobook.chapters?.total, 47)
+                XCTAssertEqual(audiobook.chapters?.total, 48)
             }
 
         }

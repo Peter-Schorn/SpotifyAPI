@@ -34,7 +34,7 @@ parser = argparse.ArgumentParser(description="Spotify API Authorizer")
 
 parser.add_argument("--button", type=str, default="accept")
 parser.add_argument("--sp-dc", type=str)
-parser.add_argument("--redirect-uri", type=str, default="accept")
+parser.add_argument("--redirect-uri", type=str, default="http://localhost:8080")
 parser.add_argument("--url", type=str)
 parser.add_argument("--timeout", type=float, default=30)
 parser.add_argument("--non-headless", action="store_true")

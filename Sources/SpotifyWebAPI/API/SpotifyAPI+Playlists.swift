@@ -148,9 +148,10 @@ public extension SpotifyAPI {
      environment variable "SPOTIFY_DATA_DUMP_FOLDER", which is what
      ``SpotifyDecodingError/dataDumpFolder`` is initialized to—so that the data
      will be written to a folder when the decoding fails. You can then upload
-     this file to the JSON viewer. Set the `logLevel` of ``spotifyDecodeLogger``
-     to `trace` to print the raw data of all requests to the standard output.
-
+     this file to this [JSON viewer][2]. Set the `logLevel` of
+     ``spotifyDecodeLogger`` to `trace` to print the raw data of all requests to
+     the standard output.
+     
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
      otherwise the above doesn't apply.
@@ -342,13 +343,17 @@ public extension SpotifyAPI {
      No scopes are required for this endpoint. Both Public and Private playlists
      belonging to any user can be retrieved.
      
+     Use the [Spotify console][1] to test your queries, then copy and paste the
+     response into this [online JSON viewer][2].
+     
      You are also encouraged to assign a folder to
      ``SpotifyDecodingError/dataDumpFolder``—or assign a value to the
      environment variable "SPOTIFY_DATA_DUMP_FOLDER", which is what
      ``SpotifyDecodingError/dataDumpFolder`` is initialized to—so that the data
      will be written to a folder when the decoding fails. You can then upload
-     this file to the JSON viewer. Set the `logLevel` of ``spotifyDecodeLogger``
-     to `trace` to print the raw data of all requests to the standard output.
+     the file to this [JSON viewer][2]. Set the `logLevel` of
+     ``spotifyDecodeLogger`` to `trace` to print the raw data of all requests to
+     the standard output.
      
      When decoding the data, use the combine operators `decodeSpotifyObject(_:)`
      or `decodeOptionalSpotifyObject(_:)` instead of `decode(type:decoder:)`,
