@@ -146,6 +146,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/audiobook``
+     * ``IDCategory/chapter``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
      * ``IDCategory/collection``
@@ -183,6 +185,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/audiobook``
+     * ``IDCategory/chapter``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
      * ``IDCategory/collection``
@@ -278,6 +282,8 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      * ``IDCategory/local``
      * ``IDCategory/user``
      * ``IDCategory/genre``
+     * ``IDCategory/audiobook``
+     * ``IDCategory/chapter``
      * ``IDCategory/ad``
      * ``IDCategory/unknown``
      * ``IDCategory/collection``
