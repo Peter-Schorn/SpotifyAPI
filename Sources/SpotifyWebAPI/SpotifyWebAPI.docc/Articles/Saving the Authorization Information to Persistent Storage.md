@@ -60,8 +60,8 @@ final class Spotify: ObservableObject {
     
     /// A cryptographically-secure random string used to ensure than an incoming
     /// redirect from Spotify was the result of a request made by this app, and
-    /// not an attacker. **This value should be regenerated** **after each
-    /// authorization process completes.**
+    /// not an attacker. **This value should be regenerated after each**
+    /// **authorization process completes.**
     var authorizationState = String.randomURLSafe(length: 128)
     
     /**
