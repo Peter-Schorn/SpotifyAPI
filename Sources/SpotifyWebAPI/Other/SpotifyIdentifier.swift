@@ -208,7 +208,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
         ensureCategoryMatches categories: [IDCategory]? = nil
     ) throws {
         
-        let pattern = "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
+        let pattern = "spotify:([a-zA-Z]+):(.+)"
         
         let errorMessage: String
         parseURI: do {
