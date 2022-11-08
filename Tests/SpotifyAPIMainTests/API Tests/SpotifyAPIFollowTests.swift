@@ -24,7 +24,7 @@ extension SpotifyAPIFollowTests {
         )
 
         Self.spotify.usersFollowPlaylist(
-            URIs.Playlists.index,
+            URIs.Playlists.all,
             userURIs: userURIs
         )
         .XCTAssertNoFailure()
