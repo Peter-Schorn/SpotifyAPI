@@ -113,7 +113,6 @@ public enum Scope: String, Codable, Hashable {
      playlist:
      
      * ``SpotifyAPI/currentUserPlaylists(limit:offset:)``
-     * ``SpotifyAPI/userPlaylists(for:limit:offset:)``
      */
     case playlistReadCollaborative = "playlist-read-collaborative"
     
