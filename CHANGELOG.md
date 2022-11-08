@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [2.2.1] - 11-7-2022
 
-* Fixed bug with URI parsing in which underscores were not allowed in ids. See #42 for more details.
+* Fixed bug with URI parsing in which underscores were not allowed in ids. See [#42](https://github.com/Peter-Schorn/SpotifyAPI/issues/42) for more details.
 
 ## [2.2.0] - 10-5-2022
 
