@@ -467,11 +467,6 @@ extension SpotifyAPIAudiobookTests {
         XCTAssertEqual(chapter.durationMS, 425_000)
         XCTAssertEqual(chapter.isExplicit, false)
         XCTAssertEqual(chapter.name, "Chapter 1")
-<<<<<<< HEAD
-        XCTAssertEqual(chapter.releaseDatePrecision, "minute")
-=======
-        XCTAssertEqual(chapter.releaseDatePrecision, "day")
->>>>>>> 202e8cee (Fixed more issues with tests.)
         XCTAssertEqual(chapter.type, .chapter)
         XCTAssertEqual(chapter.uri, "spotify:episode:6QYoIxxar5q4AfdTOGsZqE")
         XCTAssertEqual(
