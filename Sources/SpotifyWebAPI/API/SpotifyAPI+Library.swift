@@ -6,29 +6,32 @@ import OpenCombine
 import OpenCombineDispatch
 import OpenCombineFoundation
 #endif
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 private extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
-    
+
     func saveItemsForCurrentUser(
         uris: [SpotifyURIConvertible],
         types: [IDCategory],
         path: String,
         idsInBody: Bool = true
     ) -> AnyPublisher<Void, Error> {
-        
+
         do {
-            
+
             if uris.isEmpty {
                 return ResultPublisher(())
                     .eraseToAnyPublisher()
             }
-            
+
             let apiRequest: AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
 //
             if idsInBody {
-                
+
                 let ids = try SpotifyIdentifier.idsArray(
                     uris,
                     ensureCategoryMatches: types
@@ -41,11 +44,11 @@ private extension SpotifyAPI where
                     body: ids,
                     requiredScopes: [.userLibraryModify]
                 )
-                
+
             }
             // ids in query string
             else {
-                
+
                 let ids = try SpotifyIdentifier.commaSeparatedIdsString(
                     uris,
                     ensureCategoryMatches: types
@@ -65,13 +68,13 @@ private extension SpotifyAPI where
                 .decodeSpotifyErrors()
                 .map { _, _ in }
                 .eraseToAnyPublisher()
-            
+
         } catch {
             return error.anyFailingPublisher()
         }
-        
+
     }
-    
+
     func removeItemsForCurrentUser(
         uris: [SpotifyURIConvertible],
         types: [IDCategory],
@@ -79,18 +82,18 @@ private extension SpotifyAPI where
         market: String?,
         idsInBody: Bool = true
     ) -> AnyPublisher<Void, Error> {
-        
+
         do {
-            
+
             if uris.isEmpty {
                 return ResultPublisher(())
                     .eraseToAnyPublisher()
             }
-            
+
             let apiRequest: AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
 
             if idsInBody {
-                
+
                 let ids = try SpotifyIdentifier.idsArray(
                     uris,
                     ensureCategoryMatches: types
@@ -108,7 +111,7 @@ private extension SpotifyAPI where
 
             }
             else {
-                
+
                 let ids = try SpotifyIdentifier.commaSeparatedIdsString(
                     uris,
                     ensureCategoryMatches: types
@@ -131,7 +134,7 @@ private extension SpotifyAPI where
                 .decodeSpotifyErrors()
                 .map { _, _ in }
                 .eraseToAnyPublisher()
-            
+
         } catch {
             return error.anyFailingPublisher()
         }
@@ -143,32 +146,32 @@ private extension SpotifyAPI where
         types: [IDCategory],
         path: String
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         do {
-            
+
             if uris.isEmpty {
                 return ResultPublisher([])
                     .eraseToAnyPublisher()
             }
-            
+
             let idsString = try SpotifyIdentifier
                 .commaSeparatedIdsString(
                     uris, ensureCategoryMatches: types
                 )
-            
+
             return self.getRequest(
                 path: path,
                 queryItems: ["ids": idsString],
                 requiredScopes: [.userLibraryRead]
             )
             .decodeSpotifyObject([Bool].self)
-            
+
         } catch {
             return error.anyFailingPublisher()
         }
 
     }
-    
+
 }
 
 public extension SpotifyAPI where
@@ -176,21 +179,21 @@ public extension SpotifyAPI where
 {
 
     // MARK: Library (Requires Authorization Scopes)
-    
+
     /**
      Get the saved albums for the current user.
-     
+
      See also ``currentUserSavedAlbumsContains(_:)``.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      To get just the albums, use:
      ```
      results.items.map(\.item)
      ```
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - limit: The maximum number of albums to return. Default: 20; Minimum: 1;
              Maximum: 50.
@@ -201,7 +204,7 @@ public extension SpotifyAPI where
              Relinking][3].
      - Returns: An array of the full versions of ``Album`` objects wrapped in a
            ``SavedItem`` object, wrapped in a ``PagingObject``.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-albums
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
@@ -211,7 +214,7 @@ public extension SpotifyAPI where
         offset: Int? = nil,
         market: String? = nil
     ) -> AnyPublisher<PagingObject<SavedAlbum>, Error> {
-        
+
         return self.getRequest(
             path: "/me/albums",
             queryItems: [
@@ -222,23 +225,23 @@ public extension SpotifyAPI where
             requiredScopes: [.userLibraryRead]
         )
         .decodeSpotifyObject(PagingObject<SavedAlbum>.self)
-        
+
     }
 
     /**
      Get the saved tracks for the current user.
-     
+
      See also ``currentUserSavedTracksContains(_:)``.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      To get just the tracks, use:
      ```
      results.items.map(\.item)
      ```
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - limit: The maximum number of tracks to return. Default: 20;
              Minimum: 1; Maximum: 50.
@@ -249,7 +252,7 @@ public extension SpotifyAPI where
              Relinking][3].
      - Returns: An array of the full versions of ``Track`` objects wrapped in a
            ``SavedItem`` object, wrapped in a ``PagingObject``.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-tracks
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
@@ -259,7 +262,7 @@ public extension SpotifyAPI where
         offset: Int? = nil,
         market: String? = nil
     ) -> AnyPublisher<PagingObject<SavedTrack>, Error> {
-        
+
         return self.getRequest(
             path: "/me/tracks",
             queryItems: [
@@ -270,25 +273,25 @@ public extension SpotifyAPI where
             requiredScopes: [.userLibraryRead]
         )
         .decodeSpotifyObject(PagingObject<SavedTrack>.self)
-        
+
     }
-    
+
     /**
      Get the saved episodes for the current user.
-     
+
      **This API endpoint is in beta and could change without warning.**
 
      See also ``currentUserSavedEpisodesContains(_:)``.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      To get just the episodes, use:
      ```
      results.items.map(\.item)
      ```
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - limit: The maximum number of episodes to return. Default: 20; Minimum:
              1; Maximum: 50.
@@ -298,7 +301,7 @@ public extension SpotifyAPI where
              "from_token".
      - Returns: An array of the full versions of ``Show`` objects wrapped in
            a ``SavedItem`` object, wrapped in a ``PagingObject``.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
@@ -307,7 +310,7 @@ public extension SpotifyAPI where
         offset: Int? = nil,
         market: String? = nil
     ) -> AnyPublisher<PagingObject<SavedEpisode>, Error> {
-        
+
         return self.getRequest(
             path: "/me/episodes",
             queryItems: [
@@ -318,23 +321,23 @@ public extension SpotifyAPI where
             requiredScopes: [.userLibraryRead]
         )
         .decodeSpotifyObject(PagingObject<SavedEpisode>.self)
-        
+
     }
 
     /**
      Get the saved shows for the current user.
-     
+
      See also ``currentUserSavedShowsContains(_:)``.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      To get just the shows, use:
      ```
      results.items.map(\.item)
      ```
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - limit: The maximum number of shows to return. Default: 20; Minimum: 1;
              Maximum: 50.
@@ -344,7 +347,7 @@ public extension SpotifyAPI where
              "from_token".
      - Returns: An array of the full versions of ``Show`` objects wrapped in
            a ``SavedItem`` object, wrapped in a ``PagingObject``.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-shows
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
@@ -353,7 +356,7 @@ public extension SpotifyAPI where
         offset: Int? = nil,
         market: String? = nil
     ) -> AnyPublisher<PagingObject<SavedShow>, Error> {
-        
+
         return self.getRequest(
             path: "/me/shows",
             queryItems: [
@@ -364,23 +367,23 @@ public extension SpotifyAPI where
             requiredScopes: [.userLibraryRead]
         )
         .decodeSpotifyObject(PagingObject<SavedShow>.self)
-        
+
     }
-    
+
     /**
      Get the saved audiobooks for the current user.
-     
+
      See also ``currentUserSavedAudiobooksContains(_:)``.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      To get just the audiobooks, use:
      ```
      results.items.map(\.item)
      ```
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - limit: The maximum number of audibooks to return. Default: 20; Minimum:
              1; Maximum: 50.
@@ -388,14 +391,14 @@ public extension SpotifyAPI where
              with `limit` to get the next set of audiobooks.
      - Returns: An array of the full versions of ``Audiobook`` objects wrapped
            in a ``SavedItem`` object, wrapped in a ``PagingObject``.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-audiobooks
      */
     func currentUserSavedAudiooks(
         limit: Int? = nil,
         offset: Int? = nil
     ) -> AnyPublisher<PagingObject<SavedAudiobook>, Error> {
-     
+
         return self.getRequest(
             path: "/me/audiobooks",
             queryItems: [
@@ -411,11 +414,11 @@ public extension SpotifyAPI where
     /**
      Check if one or more albums is saved in the current user's "Your Music"
      library.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of album URIs. Maximum: 50. Duplicate albums in
            the request will result in duplicate values in the response. A single
            invalid URI causes the entire request to fail. Passing in an empty
@@ -423,27 +426,27 @@ public extension SpotifyAPI where
            without a network request being made.
      - Returns: An array of `true` or `false` values, in the order requested,
            indicating whether the user's library contains each album.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-albums
      */
     func currentUserSavedAlbumsContains(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         return self.currentUserLibraryContains(
             uris: uris, types: [.album], path: "/me/albums/contains"
         )
 
     }
-    
+
     /**
      Check if one or more tracks is saved in the current user's "Your Music"
      library.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of track URIs. Maximum: 50. Duplicate tracks in
            the request will result in duplicate values in the response. A single
            invalid URI causes the entire request to fail. Passing in an empty
@@ -451,29 +454,29 @@ public extension SpotifyAPI where
            without a network request being made.
      - Returns: An array of `true` or `false` values, in the order requested,
            indicating whether the user's library contains each track.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-tracks
      */
     func currentUserSavedTracksContains(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         return self.currentUserLibraryContains(
             uris: uris, types: [.track], path: "/me/tracks/contains"
         )
 
     }
-    
+
     /**
      Check if one or more episodes is saved in the current user's "Your Music"
      library.
-     
+
      **This API endpoint is in beta and could change without warning.**
 
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of episode URIs. Maximum: 50. Duplicate episodes
            in the request will result in duplicate values in the response. A
            single invalid URI causes the entire request to fail. Passing in an
@@ -482,13 +485,13 @@ public extension SpotifyAPI where
      - Returns: An array of `true` or `false` values,
            in the order requested, indicating whether the user's
            library contains each episode.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes
      */
     func currentUserSavedEpisodesContains(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         return self.currentUserLibraryContains(
             uris: uris, types: [.episode], path: "/me/episodes/contains"
         )
@@ -498,11 +501,11 @@ public extension SpotifyAPI where
     /**
      Check if one or more shows is saved in the current user's "Your Music"
      library.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of show URIs. Maximum: 50. Duplicate shows in
            the request will result in duplicate values in the response. A single
            invalid URI causes the entire request to fail. Passing in an empty
@@ -510,13 +513,13 @@ public extension SpotifyAPI where
            without a network request being made.
      - Returns: An array of `true` or `false` values, in the order requested,
            indicating whether the user's library contains each show.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-shows
      */
     func currentUserSavedShowsContains(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         return self.currentUserLibraryContains(
             uris: uris, types: [.show], path: "/me/shows/contains"
         )
@@ -526,11 +529,11 @@ public extension SpotifyAPI where
     /**
      Check if one or more audiobooks is saved in the current user's "Your Music"
      library.
-     
+
      This endpoint requires the ``Scope/userLibraryRead`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of audiobook URIs. Maximum: 50. Duplicate
            audiobooks in the request will result in duplicate values in the
            response. A single invalid URI causes the entire request to fail.
@@ -538,13 +541,13 @@ public extension SpotifyAPI where
            results to be returned without a network request being made.
      - Returns: An array of `true` or `false` values, in the order requested,
            indicating whether the user's library contains each audiobook.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-audiobooks
      */
     func currentUserSavedAudiobooksContains(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<[Bool], Error> {
-        
+
         return self.currentUserLibraryContains(
             uris: uris,
             types: [.audiobook, .show],
@@ -555,16 +558,16 @@ public extension SpotifyAPI where
 
     /**
      Save albums for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of album URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-albums-user
      */
     func saveAlbumsForCurrentUser(
@@ -574,21 +577,21 @@ public extension SpotifyAPI where
         return self.saveItemsForCurrentUser(
             uris: uris, types: [.album], path: "/me/albums"
         )
-        
+
     }
-    
+
     /**
      Save tracks for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of track URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-tracks-user
      */
     func saveTracksForCurrentUser(
@@ -598,23 +601,23 @@ public extension SpotifyAPI where
         return self.saveItemsForCurrentUser(
             uris: uris, types: [.track], path: "/me/tracks"
         )
-        
+
     }
-    
+
     /**
      Save episodes for the current user.
-     
+
      **This API endpoint is in beta and could change without warning.**
 
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of episode URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
      */
     func saveEpisodesForCurrentUser(
@@ -624,21 +627,21 @@ public extension SpotifyAPI where
         return self.saveItemsForCurrentUser(
             uris: uris, types: [.episode], path: "/me/episodes"
         )
-        
+
     }
-    
+
     /**
      Save shows for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of show URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
      */
     func saveShowsForCurrentUser(
@@ -648,21 +651,21 @@ public extension SpotifyAPI where
         return self.saveItemsForCurrentUser(
             uris: uris, types: [.show], path: "/me/shows"
         )
-        
+
     }
-    
+
     /**
      Save audiobooks for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of audiobook URIs. Maximum: 50. Duplicates will
            be ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-audiobooks-user
      */
     func saveAudiobooksForCurrentUser(
@@ -675,75 +678,75 @@ public extension SpotifyAPI where
             path: "/me/audiobooks",
             idsInBody: false
         )
-        
+
     }
 
     /**
      Remove saved albums for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of album URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-albums-user
      */
     func removeSavedAlbumsForCurrentUser(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<Void, Error> {
-        
+
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.album],
             path: "/me/albums",
             market: nil
         )
-        
+
     }
-    
+
     /**
      Remove saved tracks for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of track URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-user
      */
     func removeSavedTracksForCurrentUser(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<Void, Error> {
-        
+
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.track],
             path: "/me/tracks",
             market: nil
         )
-        
+
     }
-    
+
     /**
      Remove saved episodes for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of episode URIs. Maximum: 50. Duplicates will be
            ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
@@ -751,23 +754,23 @@ public extension SpotifyAPI where
     func removeSavedEpisodesForCurrentUser(
         _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<Void, Error> {
-        
+
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.episode],
             path: "/me/episodes",
             market: nil
         )
-        
+
     }
 
     /**
      Remove saved shows for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameters:
        - uris: An array of show URIs. Maximum: 50. Duplicates will be ignored.
              A single invalid URI causes the entire request to fail. Passing in
@@ -781,7 +784,7 @@ public extension SpotifyAPI where
              **content is considered unavailable for the client.** Users can
              view the country that is associated with their account in the
              [account settings][3].
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-shows-user
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://www.spotify.com/account/overview/
@@ -790,35 +793,35 @@ public extension SpotifyAPI where
         _ uris: [SpotifyURIConvertible],
         market: String? = nil
     ) -> AnyPublisher<Void, Error> {
-        
+
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.show],
             path: "/me/shows",
             market: market
         )
-        
+
     }
-    
+
     /**
      Remove saved audiobooks for the current user.
-     
+
      This endpoint requires the ``Scope/userLibraryModify`` scope.
-     
+
      Read more at the [Spotify web API reference][1].
-     
+
      - Parameter uris: An array of audiobook URIs. Maximum: 50. Duplicates will
            be ignored. A single invalid URI causes the entire request to fail.
            Passing in an empty array will prevent a network request from being
            made.
-     
+
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-audiobooks-user
      */
     func removeSavedAudiobooksForCurrentUser(
         _ uris: [SpotifyURIConvertible],
         market: String? = nil
     ) -> AnyPublisher<Void, Error> {
-        
+
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.audiobook, .show],
@@ -826,7 +829,7 @@ public extension SpotifyAPI where
             market: market,
             idsInBody: false
         )
-        
+
     }
 
 }

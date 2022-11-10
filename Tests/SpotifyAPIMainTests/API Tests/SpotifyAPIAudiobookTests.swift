@@ -108,8 +108,6 @@ extension SpotifyAPIAudiobookTests {
             XCTAssertEqual(chapter0.name, "Opening Credits")
 //                XCTAssertEqual(chapter0.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter0.releaseDate, "0000")
-            XCTAssertEqual(chapter0.releaseDatePrecision, "minute")
-
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
             ) {
@@ -159,7 +157,7 @@ extension SpotifyAPIAudiobookTests {
             XCTAssertEqual(chapter10.name, "Chapter 10: Halloween")
 //                XCTAssertEqual(chapter10.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter10.releaseDate, "0000")
-            XCTAssertEqual(chapter10.releaseDatePrecision, "minute")
+            // XCTAssertEqual(chapter10.releaseDatePrecision, "minute")
 
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
@@ -210,7 +208,7 @@ extension SpotifyAPIAudiobookTests {
             )
 //                XCTAssertEqual(chapter19.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter19.releaseDate, "0000")
-            XCTAssertEqual(chapter19.releaseDatePrecision, "minute")
+            // XCTAssertEqual(chapter19.releaseDatePrecision, "minute")
 
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
