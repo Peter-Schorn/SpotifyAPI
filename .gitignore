@@ -8,3 +8,5 @@ spotify_credentials.txt
 /Private
 /Package.resolved
 .vscode
+.devcontainer
+.idea
