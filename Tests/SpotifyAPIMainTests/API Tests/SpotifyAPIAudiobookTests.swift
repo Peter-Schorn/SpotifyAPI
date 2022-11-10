@@ -14,9 +14,9 @@ import SpotifyExampleContent
 protocol SpotifyAPIAudiobookTests: SpotifyAPITests { }
 
 extension SpotifyAPIAudiobookTests {
-    
+
     func receiveHarryPotterAndTheSorcerersStone(_ audiobook: Audiobook) {
-        
+
         encodeDecode(audiobook)
 
         XCTAssertEqual(audiobook.authors.count, 1)
@@ -30,7 +30,7 @@ extension SpotifyAPIAudiobookTests {
         XCTAssertEqual(audiobook.chapters?.offset, 0)
         XCTAssertNil(audiobook.chapters?.previous)
         XCTAssertEqual(audiobook.chapters?.total, 20)
-        
+
         guard let chapters = audiobook.chapters?.items else {
             XCTFail(
                 """
@@ -44,7 +44,7 @@ extension SpotifyAPIAudiobookTests {
         for (i, chapter) in chapters.enumerated() {
             XCTAssertEqual(chapter.chapterNumber, i)
         }
-        
+
         if chapters.count < 20 {
             XCTFail(
                 """
@@ -55,7 +55,7 @@ extension SpotifyAPIAudiobookTests {
         }
 
         XCTAssertEqual(audiobook.chapters?.items.count, 20)
-        
+
         XCTAssertEqual(
             audiobook.copyrights?.count, 1,
             "Expected 1 copyright object for audiobook '\(audiobook.name)'"
@@ -109,7 +109,7 @@ extension SpotifyAPIAudiobookTests {
 //                XCTAssertEqual(chapter0.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter0.releaseDate, "0000")
             XCTAssertEqual(chapter0.releaseDatePrecision, "minute")
-            
+
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
             ) {
@@ -137,11 +137,11 @@ extension SpotifyAPIAudiobookTests {
                 chapter0.href,
                 URL(string: "https://api.spotify.com/v1/chapters/5HQIsy4eLtirwOw1rQ9ENK")
             )
-            
+
             XCTAssertImagesExist(chapter0.images, assertSizeNotNil: true)
 
         }
-        
+
         // MARK: Chapter 10
         do {
             let chapter10 = chapters[10]
@@ -160,7 +160,7 @@ extension SpotifyAPIAudiobookTests {
 //                XCTAssertEqual(chapter10.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter10.releaseDate, "0000")
             XCTAssertEqual(chapter10.releaseDatePrecision, "minute")
-            
+
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
             ) {
@@ -188,11 +188,11 @@ extension SpotifyAPIAudiobookTests {
                 chapter10.href,
                 URL(string: "https://api.spotify.com/v1/chapters/7dMoLM0MolXl16OOpqvtq2")
             )
-            
+
             XCTAssertImagesExist(chapter10.images, assertSizeNotNil: true)
 
         }
-        
+
         // MARK: Chapter 19
         do {
             let chapter19 = chapters[19]
@@ -211,7 +211,7 @@ extension SpotifyAPIAudiobookTests {
 //                XCTAssertEqual(chapter19.audioPreviewURL, nil)
 //                XCTAssertEqual(chapter19.releaseDate, "0000")
             XCTAssertEqual(chapter19.releaseDatePrecision, "minute")
-            
+
             if Self.spotify.authorizationManager.isAuthorized(
                 for: [.userReadPlaybackPosition]
             ) {
@@ -238,7 +238,7 @@ extension SpotifyAPIAudiobookTests {
                 chapter19.href,
                 URL(string: "https://api.spotify.com/v1/chapters/4twr9j4P9xgnyNFYpuhWDa")
             )
-            
+
             XCTAssertImagesExist(chapter19.images, assertSizeNotNil: true)
 
         }
@@ -246,11 +246,11 @@ extension SpotifyAPIAudiobookTests {
     }
 
     func audiobook() {
-        
+
         let expectation = XCTestExpectation(
             description: "testAudiobook"
         )
-        
+
         Self.spotify.audiobook(
             URIs.Audiobooks.harryPotterAndTheSorcerersStone,
             market: "US"
@@ -262,15 +262,15 @@ extension SpotifyAPIAudiobookTests {
             receiveValue: receiveHarryPotterAndTheSorcerersStone(_:)
         )
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
 
     }
-    
+
     func audiobooks() {
-        
+
         func receiveAudiobooks(_ audiobooks: [Audiobook?]) {
-            
+
             encodeDecode(audiobooks)
 
             let audiobooks = audiobooks.enumerated().compactMap {
@@ -283,13 +283,13 @@ extension SpotifyAPIAudiobookTests {
 
                 return audiobook.element
             }
-            
+
             guard audiobooks.count == 4 else {
                 // we already display errors above if one or more elements
                 // was nil
                 return
             }
-            
+
             self.receiveHarryPotterAndTheSorcerersStone(
                 audiobooks[0]
             )
@@ -341,7 +341,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertNil(audiobook.chapters?.previous)
                 XCTAssertEqual(audiobook.chapters?.total, 28)
             }
-            
+
             // MARK: Free Will
             do {
                 let audiobook = audiobooks[2]
@@ -386,7 +386,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertNil(audiobook.chapters?.previous)
 //                XCTAssertEqual(audiobook.chapters?.total, 11)
             }
-            
+
             // MARK: Steve Jobs
             do {
                 let audiobook = audiobooks[3]
@@ -437,14 +437,14 @@ extension SpotifyAPIAudiobookTests {
         let expectation = XCTestExpectation(
             description: "testAudiobooks"
         )
-        
+
         let audiobooks = URIs.Audiobooks.array(
             .harryPotterAndTheSorcerersStone,
             .enlightenmentNow,
             .freeWill,
             .steveJobs
         )
-        
+
         Self.spotify.audiobooks(audiobooks, market: "US")
             .XCTAssertNoFailure()
             .receiveOnMain()
@@ -453,21 +453,25 @@ extension SpotifyAPIAudiobookTests {
                 receiveValue: receiveAudiobooks(_:)
             )
             .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
 
     }
-    
+
     func receiveFreeWillChapter1(_ chapter: AudiobookChapter) {
-        
+
         encodeDecode(chapter)
-        
+
         XCTAssertEqual(chapter.id, "6QYoIxxar5q4AfdTOGsZqE")
         XCTAssertEqual(chapter.chapterNumber, 1)
         XCTAssertEqual(chapter.durationMS, 425_000)
         XCTAssertEqual(chapter.isExplicit, false)
         XCTAssertEqual(chapter.name, "Chapter 1")
+<<<<<<< HEAD
         XCTAssertEqual(chapter.releaseDatePrecision, "minute")
+=======
+        XCTAssertEqual(chapter.releaseDatePrecision, "day")
+>>>>>>> 202e8cee (Fixed more issues with tests.)
         XCTAssertEqual(chapter.type, .chapter)
         XCTAssertEqual(chapter.uri, "spotify:episode:6QYoIxxar5q4AfdTOGsZqE")
         XCTAssertEqual(
@@ -479,7 +483,7 @@ extension SpotifyAPIAudiobookTests {
             URL(string: "https://api.spotify.com/v1/chapters/6QYoIxxar5q4AfdTOGsZqE")
         )
         XCTAssertImagesExist(chapter.images, assertSizeNotNil: true)
-        
+
         if Self.spotify.authorizationManager.isAuthorized(
             for: [.userReadPlaybackPosition]
         ) {
@@ -490,7 +494,7 @@ extension SpotifyAPIAudiobookTests {
             XCTFail("audiobook was nil for chapter '\(chapter.name)'")
             return
         }
-        
+
         XCTAssertEqual(auiodbook.authors.count, 1)
         XCTAssertEqual(auiodbook.authors.first?.name, "Sam Harris")
         XCTAssertEqual(auiodbook.copyrights?.count, 1)
@@ -537,11 +541,11 @@ extension SpotifyAPIAudiobookTests {
     }
 
     func chapter() {
-        
+
         let expectation = XCTestExpectation(
             description: "testChapter"
         )
-        
+
         Self.spotify.chapter(
             URIs.Chapters.freeWillChapter1,
             market: "US"
@@ -553,15 +557,15 @@ extension SpotifyAPIAudiobookTests {
             receiveValue: receiveFreeWillChapter1(_:)
         )
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
-        
+
     }
-    
+
     func chapters() {
-        
+
         func receiveChapters(_ chapters: [AudiobookChapter?]) {
-            
+
             encodeDecode(chapters)
 
             let chapters = chapters.enumerated().compactMap {
@@ -574,15 +578,15 @@ extension SpotifyAPIAudiobookTests {
 
                 return chapter.element
             }
-            
+
             guard chapters.count == 3 else {
                 // we already display errors above if one or more elements
                 // was nil
                 return
             }
-            
+
             self.receiveFreeWillChapter1(chapters[0])
-            
+
             // MARK: Steve Jovs Chapter 2
             do {
                 let chapter = chapters[1]
@@ -595,7 +599,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(chapter.durationMS, 1_480_000)
                 XCTAssertEqual(chapter.isExplicit, false)
                 XCTAssertEqual(chapter.name, "Chapter 2")
-                XCTAssertEqual(chapter.releaseDatePrecision, "year")
+                XCTAssertEqual(chapter.releaseDatePrecision, "day")
                 XCTAssertEqual(chapter.isPlayable, false)
                 XCTAssertEqual(chapter.type, .chapter)
                 XCTAssertEqual(chapter.uri, "spotify:episode:7z9aAoKD03hEVfg47PJdzQ")
@@ -613,7 +617,7 @@ extension SpotifyAPIAudiobookTests {
                     "spotify:show:2rBiFKvU85lq19QYB3Zr38"
                 )
             }
-            
+
             // MARK: Enlightenment Now Chapter 3
             do {
                 let chapter = chapters[2]
@@ -626,7 +630,6 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(chapter.durationMS, 1_194_000)
                 XCTAssertEqual(chapter.isExplicit, false)
                 XCTAssertEqual(chapter.name, "Chapter 3")
-                XCTAssertEqual(chapter.releaseDatePrecision, "year")
                 XCTAssertEqual(chapter.isPlayable, false)
                 XCTAssertEqual(chapter.type, .chapter)
                 XCTAssertEqual(chapter.uri, "spotify:episode:1cwNPlPUCmwHBR72q6ecge")
@@ -653,13 +656,13 @@ extension SpotifyAPIAudiobookTests {
         let expectation = XCTestExpectation(
             description: "testChapters"
         )
-        
+
         let chapters = URIs.Chapters.array(
             .freeWillChapter1,
             .steveJobsChapter2,
             .enlightenmentNowChapter3
         )
-        
+
         Self.spotify.chapters(
             chapters, market: "US"
         )
@@ -670,9 +673,9 @@ extension SpotifyAPIAudiobookTests {
             receiveValue: receiveChapters(_:)
         )
         .store(in: &Self.cancellables)
-        
+
         self.wait(for: [expectation], timeout: 120)
-        
+
 
     }
 
@@ -681,7 +684,7 @@ extension SpotifyAPIAudiobookTests {
 final class SpotifyAPIClientCredentialsFlowAudiobookTests:
     SpotifyAPIClientCredentialsFlowTests, SpotifyAPIAudiobookTests
 {
-    
+
     static let allTests = [
         ("testAudiobook", testAudiobook),
         ("testAudiobooks", testAudiobooks),
@@ -699,7 +702,7 @@ final class SpotifyAPIClientCredentialsFlowAudiobookTests:
 final class SpotifyAPIAuthorizationCodeFlowAudiobookTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIAudiobookTests
 {
-    
+
     static let allTests = [
         ("testAudiobook", testAudiobook),
         ("testAudiobooks", testAudiobooks),
@@ -717,7 +720,7 @@ final class SpotifyAPIAuthorizationCodeFlowAudiobookTests:
 final class SpotifyAPIAuthorizationCodeFlowPKCEAudiobookTests:
     SpotifyAPIAuthorizationCodeFlowPKCETests, SpotifyAPIAudiobookTests
 {
-    
+
     static let allTests = [
         ("testAudiobook", testAudiobook),
         ("testAudiobooks", testAudiobooks),
