@@ -22,7 +22,7 @@ import FoundationNetworking
  process, then opens the authorization URL and waits for the user to login and
  copy and paste the redirect URL into standard input or starts a server to
  listen for the redirect URL if the TEST flag is enabled.
- 
+
  - Parameters:
    - authorizationURL: The authorization URL.
    - button: Which button to click on the authorization page. If the
@@ -32,7 +32,7 @@ import FoundationNetworking
          parameter, meaning that passing in `cancel` will have no effect.
          Therefore, if you want to guarantee that the cancel button is clicked,
          you must set the `show_dialog` query parameter to `true`.
- 
+
  - Returns: The redirect URI with the query, which is used for requesting access
  and refresh tokens.
  */
@@ -40,19 +40,19 @@ public func openAuthorizationURLAndWaitForRedirect(
     _ authorizationURL: URL,
     button: AuthorizationPageButton = .accept
 ) -> URL? {
-    
+
     let authorizer = BrowserAuthorizer(
         button: button,
         redirectURI: localHostURL,
         authorizationURL: authorizationURL
     )
-    
+
     if let redirectURIWithQuery = authorizer.authorize(timeout: 30) {
         return redirectURIWithQuery
     }
-    
+
     return openAuthorizationURLAndWaitForRedirectNonHeadless(authorizationURL)
-    
+
 }
 
 
@@ -60,7 +60,7 @@ public func openAuthorizationURLAndWaitForRedirect(
  Opens the authorization URL and waits for the user to login and copy and paste
  the redirect URL into standard input or starts a server to listen for the
  redirect URL if the TEST flag is enabled.
- 
+
  - Parameter authorizationURL: The authorization URL.
  - Returns: The redirect URI with the query, which is used for requesting access
        and refresh tokens.
@@ -68,7 +68,7 @@ public func openAuthorizationURLAndWaitForRedirect(
 public func openAuthorizationURLAndWaitForRedirectNonHeadless(
     _ authorizationURL: URL
 ) -> URL? {
-    
+
     DistributedLock.redirectListener.lock()
     defer {
         DistributedLock.redirectListener.unlock()
@@ -76,13 +76,13 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
 
     #if TEST
     // MARK: start the server
-    
+
     var redirectURIWithQuery: URL? = nil
-    
+
     var redirectListener = RedirectListener(url: localHostURL)
-    
+
     let dispatchGroup = DispatchGroup()
-    
+
     dispatchGroup.enter()
     do {
         try redirectListener.start(receiveURL: { url in
@@ -92,17 +92,17 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
 //            }
             dispatchGroup.leave()
         })
-        
+
     } catch {
         dispatchGroup.leave()
         print("couldn't run listener: \(error)")
         return nil
     }
-    
+
     #endif
 
     // MARK: open the authorization URL
-    
+
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     NSWorkspace.shared.open(authorizationURL)
     #elseif canImport(UIKit)
@@ -110,7 +110,7 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
     #elseif os(macOS) || os(Linux)
     do {
         try openURLWithPython3(authorizationURL)
-    
+
     } catch {
         print("couldn't open \(authorizationURL) with python3: \(error)")
     }
@@ -125,7 +125,7 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
         \(authorizationURL)
         """
     )
-    
+
     #if TEST
     print(
         """
@@ -135,20 +135,20 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
         Running local server to wait for redirect
         """
     )
-    
+
     // MARK: retrieve the redirect URI from the server
 
     if dispatchGroup.wait(timeout: .now() + 60) == .timedOut {
         print("listening for redirect URI timed out after 60 seconds")
     }
     redirectListener.shutdown()
-    
+
     if let redirectURIWithQuery = redirectURIWithQuery {
         return redirectURIWithQuery
     }
     print("couldn't get redirect URI from listener")
     return nil
-    
+
     #else
     print(
         """
@@ -159,27 +159,27 @@ public func openAuthorizationURLAndWaitForRedirectNonHeadless(
         paste the url that you were redirected to here:
         """
     )
-    
+
     // MARK: get the redirect URI from standard input
-    
+
     guard var redirectURIWithQueryString = readLine() else {
         print("couldn't read redirect URI from standard input")
         return nil
     }
-    
+
     // see the documentation for `readLine`
     // see also https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Unicode_chart
     let replacementCharacters: [Character] = [
         "\u{FFF9}", "\u{FFFA}", "\u{FFFB}", "\u{FFFC}", "\u{FFFD}",
         "\u{F702}"
     ]
-    
+
     redirectURIWithQueryString.removeAll(where: { character in
         replacementCharacters.contains(character)
     })
-    
+
     return URL(string: redirectURIWithQueryString.strip())
-    
+
     #endif
 
 }
