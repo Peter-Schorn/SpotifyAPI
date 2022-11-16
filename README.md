@@ -2,8 +2,6 @@
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPeter-Schorn%2FSpotifyAPI%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Peter-Schorn/SpotifyAPI)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPeter-Schorn%2FSpotifyAPI%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Peter-Schorn/SpotifyAPI)
-<br>
-[![Swift](https://github.com/Peter-Schorn/SpotifyAPI/actions/workflows/swift.yml/badge.svg)](https://github.com/Peter-Schorn/SpotifyAPI/actions/workflows/swift.yml)
 
 **A Swift library for the Spotify web API**
 
