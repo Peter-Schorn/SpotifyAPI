@@ -256,9 +256,18 @@ extension PagingObject: Codable {
         self.href = try container.decode(
             URL.self, forKey: .href
         )
-        self.items = try container.decode(
-            [Item].self, forKey: .items
+        
+        var itemsContainer = try container.nestedUnkeyedContainer(
+            forKey: .items
         )
+        var items: [Item] = []
+        while !itemsContainer.isAtEnd {
+            if let item = try itemsContainer.decodeIfPresent(Item.self) {
+                items.append(item)
+            }
+        }
+        self.items = items
+
         self.limit = try container.decode(
             Int.self, forKey: .limit
         )
