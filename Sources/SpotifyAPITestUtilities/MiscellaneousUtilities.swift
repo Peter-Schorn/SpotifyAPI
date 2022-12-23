@@ -239,3 +239,16 @@ extension VaporServerError {
     }
     
 }
+
+extension HTTPURLResponse {
+    
+    /// A response with a status code of 200 (OK) and a URL of
+    /// "https://www.example.com".
+    public static let example200 = HTTPURLResponse(
+        url: URL(string: "https://www.example.com")!,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+    )!
+
+}
