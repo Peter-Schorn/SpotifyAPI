@@ -208,7 +208,8 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
         
         let statusCodeString = statusCode.map(String.init) ?? "nil"
 
-        var codingPath = self.prettyCodingPath ?? "nil"
+        var codingPath = self.prettyCodingPath.map({ "\(self.expectedResponseType).\($0)" })
+                ?? "nil"
         
         if let decodingError = self.underlyingError as? DecodingError {
             switch decodingError {
