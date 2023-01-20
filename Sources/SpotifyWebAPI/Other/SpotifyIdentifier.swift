@@ -167,12 +167,6 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      Creates an instance from a URI.
      
      See [Spotify URIs and ids][1].
-    
-     Uses the following [regular expression][2] to parse the id and id
-     categories, *in that order*:
-     ```
-     "spotify:([a-zA-Z]+):([0-9a-zA-Z]+)"
-     ```
      
      The id category must be one of the following, or an error will be thrown:
      
