@@ -189,9 +189,9 @@ extension SpotifyUser: Codable {
         self.displayName = try container.decodeIfPresent(
             String.self, forKey: .displayName
         )
-        self.uri = try container.decode(
-            String.self, forKey: .uri
-        )
+        
+        self.uri = try container.decodeUserURI(forKey: .uri)
+        
         self.id = try container.decode(
             String.self, forKey: .id
         )
@@ -260,9 +260,9 @@ extension SpotifyUser: Codable {
         try container.encodeIfPresent(
             self.displayName, forKey: .displayName
         )
-        try container.encode(
-            self.uri, forKey: .uri
-        )
+        
+        try container.encodeUserURI(self.uri, forKey: .uri)
+        
         try container.encode(
             self.id, forKey: .id
         )

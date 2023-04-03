@@ -218,6 +218,15 @@ struct AnyCodingKey: Hashable, CodingKey {
 
 }
 
+public extension CharacterSet {
+    
+    /// A combination of `urlQueryAllowed` and `urlPathAllowed`.
+    static let urlQueryAndPathAllowed = CharacterSet.urlQueryAllowed.union(
+        .urlPathAllowed
+    )
+
+}
+
 // extension DispatchQueue {
 //
 //     #if canImport(Combine)
