@@ -18,8 +18,6 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     public func testBundleDidFinish(_ testBundle: Bundle) {
 //        print("\n\ntestBundleDidFinish: \(testBundle)\n\n")
         
-        DistributedLock.releaseAllLocks()
-
         if let failingTestsString = self.makeFailingTestsString() {
             if let logFile = SpotifyAPITestCase.logFile {
                 try? failingTestsString.append(to: logFile)

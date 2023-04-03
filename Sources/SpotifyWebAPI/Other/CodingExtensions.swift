@@ -69,7 +69,6 @@ private extension KeyedDecodingContainer {
 
 public extension KeyedDecodingContainer {
     
-    
     // MARK: - Spotify Dates -
     
     /**
@@ -220,6 +219,12 @@ public extension KeyedDecodingContainer {
         
     }
     
+    // MARK: URIs
+    
+    func decodeUserURI(forKey key: Key) throws -> String {
+        let percentEncodedURI = try self.decode(String.self, forKey: key)
+        return percentEncodedURI.removingPercentEncoding ?? percentEncodedURI
+    }
     
 }
 
@@ -360,5 +365,13 @@ public extension KeyedEncodingContainer {
         
     }
 
+    // MARK: URIs
+    
+    mutating func encodeUserURI(_ uri: String, forKey key: Key) throws {
+        let percentEncodedURI = uri.addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAndPathAllowed
+        )
+        try self.encode(percentEncodedURI, forKey: key)
+    }
     
 }

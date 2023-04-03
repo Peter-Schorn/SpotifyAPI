@@ -448,9 +448,9 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[1]
                 XCTAssertEqual(
-                    album.name, "Creep"
+                    album.name, "Creep EP"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:3RQlNKc08ikcuFmbg0luEw")
+                XCTAssertEqual(album.uri, "spotify:album:1w1LIhUSQLKew0dYwiVX2q")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
@@ -466,14 +466,14 @@ extension SpotifyAPIArtistTests {
             do {
                 let album = reversedAlbums[2]
                 XCTAssertEqual(
-                    album.name, "Anyone Can Play Guitar"
+                    album.name, "Creep"
                 )
-                XCTAssertEqual(album.uri, "spotify:album:37v03kt4FbojREz2VOg4BN")
+                XCTAssertEqual(album.uri, "spotify:album:3RQlNKc08ikcuFmbg0luEw")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
                         releaseDate.timeIntervalSince1970,
-                        727941600,
+                        717051600,
                         accuracy: 43_200  // 12 hours
                     )
                 }

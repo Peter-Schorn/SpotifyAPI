@@ -39,6 +39,7 @@ public enum URIs {
         case peter = "spotify:user:petervschorn"
         case april = "spotify:user:p8gjjfbirm8ucyt82ycfi9zuu"
         case nicholas = "spotify:user:osa09uoqscl4p2m6rqnfwjotn"
+        case gaëtan_stz = "spotify:user:gaëtan_stz"
     }
     
     /// A namespace of Spotify Device Ids.
