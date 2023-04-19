@@ -191,7 +191,7 @@ jobs:
     - name: Build ${{ matrix.platform }}
       run: |
         python3 enable_testing.py true
-        env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" \
         -scheme "SpotifyAPI-Package" \
@@ -199,7 +199,7 @@ jobs:
         build
     - name: test ${{ matrix.platform }}
       run: |
-        env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" \
         -scheme "SpotifyAPI-Package" \
