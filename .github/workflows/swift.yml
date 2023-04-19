@@ -63,7 +63,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-          image: ["swift:5.4", "swift:5.5", "swift:5.6", "swift:5.7"]
+          image: ["swift:5.4", "swift:5.5", "swift:5.6", "swift:5.7", "swift:5.8"]
 
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
@@ -181,7 +181,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        platform: ["platform=iOS Simulator,name=iPhone 12,OS=14.4", "platform=tvOS Simulator,name=Apple TV,OS=14.3"]
+        platform: ["platform=iOS Simulator,name=iPhone 13,OS=15.0", "platform=tvOS Simulator,name=Apple TV,OS=16.1"]
       
     runs-on: macos-latest
     steps:
@@ -250,7 +250,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: build ${{ matrix.platform }}
       run: |
-        env DEVELOPER_DIR="/Applications/Xcode_12.4.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" build \
         -scheme "SpotifyAPI" \
