@@ -181,7 +181,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        platform: ["platform=iOS Simulator,name=iPhone 13,OS=15.0", "platform=tvOS Simulator,name=Apple TV,OS=16.1"]
+        platform: ["platform=iOS Simulator,name=iPhone 13,OS=16.2", "platform=tvOS Simulator,name=Apple TV,OS=16.1"]
       
     runs-on: macos-latest
     steps:
@@ -244,7 +244,7 @@ jobs:
   build_watch_os_mac_catalyst:
     strategy:
       matrix:
-        platform: ["platform=watchOS Simulator,name=Apple Watch Series 6 - 44mm,OS=7.2", "platform=macOS,variant=Mac Catalyst"]
+        platform: ["platform=watchOS Simulator,name=Apple Watch Series 8 (45mm),OS=9.1", "platform=macOS,variant=Mac Catalyst"]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
