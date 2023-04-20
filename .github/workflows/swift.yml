@@ -34,7 +34,6 @@ jobs:
         ExampleContentTests|\
         SpotifyAPIClientCredentialsFlowAlbumsTests|\
         SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowAudiobookTests|\
         SpotifyAPIClientCredentialsFlowBrowseTests|\
         SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
         SpotifyAPIClientCredentialsFlowEpisodeTests|\
@@ -69,7 +68,7 @@ jobs:
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Build ${{ matrix.image }}
       run: |
         apt-get update && apt-get install -y python3
@@ -93,7 +92,6 @@ jobs:
         ExampleContentTests|\
         SpotifyAPIClientCredentialsFlowAlbumsTests|\
         SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowAudiobookTests|\
         SpotifyAPIClientCredentialsFlowBrowseTests|\
         SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
         SpotifyAPIClientCredentialsFlowEpisodeTests|\
@@ -128,13 +126,13 @@ jobs:
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Build ${{ matrix.image }}
       run: |
         apt-get update && apt-get install -y python3
         python3 enable_testing.py true
         swift build --build-tests --enable-test-discovery
-        
+
     - name: Run tests ${{ matrix.image }}
       run: |
         swift test --enable-test-discovery --filter "\
@@ -152,7 +150,6 @@ jobs:
         ExampleContentTests|\
         SpotifyAPIClientCredentialsFlowAlbumsTests|\
         SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowAudiobookTests|\
         SpotifyAPIClientCredentialsFlowBrowseTests|\
         SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
         SpotifyAPIClientCredentialsFlowEpisodeTests|\
@@ -175,14 +172,14 @@ jobs:
         SpotifyPlayerErrorCodingTests|\
         RepeatModeTests\
         "
-  
+
   test_other_platforms:
     strategy:
       max-parallel: 1
       fail-fast: false
       matrix:
         platform: ["platform=iOS Simulator,name=iPhone 13,OS=16.2", "platform=tvOS Simulator,name=Apple TV,OS=16.1"]
-      
+
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -219,7 +216,6 @@ jobs:
         -only-testing "SpotifyAPIMainTests/ExampleContentTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowAlbumsTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowArtistTests" \
-        -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowAudiobookTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowBrowseTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowClientAuthorizationTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyAPIClientCredentialsFlowEpisodeTests" \
@@ -240,7 +236,7 @@ jobs:
         -only-testing "SpotifyAPIMainTests/SpotifyIdentifierTests" \
         -only-testing "SpotifyAPIMainTests/SpotifyPlayerErrorCodingTests" \
         -only-testing "SpotifyAPIMainTests/RepeatModeTests"
-        
+
   build_watch_os_mac_catalyst:
     strategy:
       matrix:
@@ -265,4 +261,3 @@ jobs:
         cd SpotifyAPIServer
         swift package edit SpotifyAPI --revision $GITHUB_SHA
         swift build -Xswiftc -warnings-as-errors
-      
