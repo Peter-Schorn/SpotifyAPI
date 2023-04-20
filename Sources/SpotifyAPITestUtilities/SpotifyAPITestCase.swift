@@ -109,8 +109,8 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
     
     /// Only executes once per process.
     func globalSetup() {
-        XCTestObservationCenter.shared.addTestObserver(self)
         Self.isRegisteredAsObserver = true
+        XCTestObservationCenter.shared.addTestObserver(self)
         SpotifyAPILogHandler.bootstrap()
     }
 
