@@ -385,7 +385,7 @@ public extension SpotifyAPI where
      Read more at the [Spotify web API reference][1].
 
      - Parameters:
-       - limit: The maximum number of audibooks to return. Default: 20; Minimum:
+       - limit: The maximum number of audiobooks to return. Default: 20; Minimum:
              1; Maximum: 50.
        - offset: The index of the first audiobook to return. Default: 0. Use
              with `limit` to get the next set of audiobooks.
@@ -394,7 +394,7 @@ public extension SpotifyAPI where
 
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-audiobooks
      */
-    func currentUserSavedAudiooks(
+    func currentUserSavedAudiobooks(
         limit: Int? = nil,
         offset: Int? = nil
     ) -> AnyPublisher<PagingObject<SavedAudiobook>, Error> {
