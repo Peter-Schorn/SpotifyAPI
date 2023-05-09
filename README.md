@@ -14,6 +14,10 @@
 
 Read the full [documentation][1] and check out [this example iOS app][14] and this [example command-line app][23].
 
+### Sponsors
+
+* [bbauman1](https://github.com/bbauman1)
+
 ## Table of Contents
 
 * **[Supported Platforms](#supported-platforms)**
