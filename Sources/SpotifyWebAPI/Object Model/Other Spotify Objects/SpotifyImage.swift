@@ -123,6 +123,30 @@ public extension SpotifyImage {
             .eraseToAnyPublisher()
         
     }
+
+
+    func loadUIImage() -> AnyPublisher<UIImage, Error> {
+    
+        let publisher = URLSession.shared.dataTaskPublisher(
+            for: self.url
+        )
+    
+        return publisher
+            .tryMap { data, response -> UIImage in
+    
+                if let image = PlatformImage(data: data).map({
+                    image -> UIImage in
+                }) {
+                    return image
+                }
+                throw SpotifyGeneralError.other(
+                    "couldn't convert data to image"
+                )
+    
+            }
+            .eraseToAnyPublisher()      
+    }
+ 
     #endif
     
 }
