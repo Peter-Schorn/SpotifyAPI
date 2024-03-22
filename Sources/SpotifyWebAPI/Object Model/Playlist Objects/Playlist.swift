@@ -99,7 +99,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/
      */
-    public let images: [SpotifyImage]
+    public let images: [SpotifyImage]?
     
     /// The object type. Always ``IDCategory/playlist``.
     public let type: IDCategory
