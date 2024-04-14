@@ -15,6 +15,12 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
     /// A compilation.
     case compilation
     
+    /// An EP
+    case ep
+    
+    /// something else
+    case other
+    
     /**
      Creates a new instance with the specified raw value.
      
@@ -31,7 +37,7 @@ public enum AlbumType: String, CaseIterable, Codable, Hashable {
                 return
             }
         }
-        return nil
+        self = .other
        
     }
     
