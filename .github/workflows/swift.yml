@@ -115,57 +115,6 @@ jobs:
         RepeatModeTests\
         "
 
-    runs-on: ubuntu-latest
-    container: ${{ matrix.image }}
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Build ${{ matrix.image }}
-      run: |
-        apt-get update && apt-get install -y python3
-        python3 enable_testing.py true
-        swift build --build-tests --enable-test-discovery
-
-    - name: Run tests ${{ matrix.image }}
-      run: |
-        swift test --enable-test-discovery --filter "\
-        AuthorizationScopesTests|\
-        CodingAuthInfoTests|\
-        CodingAuthorizationCodeFlowManagerTests|\
-        CodingAuthorizationCodeFlowPKCEManagerTests|\
-        CodingClientCredentialsFlowManagerTests|\
-        CodingCurrentlyPlayingContextTests|\
-        CodingPlaybackRequestTests|\
-        CodingSpotifyUserTests|\
-        CodingTimeReferenceTests|\
-        CodingTrackAttributesTests|\
-        CursorPagingObjectPlayHistoryCodingTests|\
-        ExampleContentTests|\
-        SpotifyAPIClientCredentialsFlowAlbumsTests|\
-        SpotifyAPIClientCredentialsFlowArtistTests|\
-        SpotifyAPIClientCredentialsFlowBrowseTests|\
-        SpotifyAPIClientCredentialsFlowClientAuthorizationTests|\
-        SpotifyAPIClientCredentialsFlowEpisodeTests|\
-        SpotifyAPIClientCredentialsFlowErrorTests|\
-        SpotifyAPIClientCredentialsFlowFollowTests|\
-        SpotifyAPIClientCredentialsFlowProxyFollowTests|\
-        SpotifyAPIClientCredentialsFlowInsufficientScopeTests|\
-        SpotifyAPIClientCredentialsFlowMarketTests|\
-        SpotifyAPIClientCredentialsFlowPlaylistsTests|\
-        SpotifyAPIClientCredentialsFlowProxyArtistTests|\
-        SpotifyAPIClientCredentialsFlowProxyAuthorizationTests|\
-        SpotifyAPIClientCredentialsFlowProxyInsufficientScopeTests|\
-        SpotifyAPIClientCredentialsFlowProxyRefreshTokensConcurrentTests|\
-        SpotifyAPIClientCredentialsFlowRefreshTokensConcurrentTests|\
-        SpotifyAPIClientCredentialsFlowSearchTests|\
-        SpotifyAPIClientCredentialsFlowShowTests|\
-        SpotifyAPIClientCredentialsFlowTrackTests|\
-        SpotifyAPIClientCredentialsFlowUserProfileTests|\
-        SpotifyIdentifierTests|\
-        SpotifyPlayerErrorCodingTests|\
-        RepeatModeTests\
-        "
-
   test_other_platforms:
     strategy:
       max-parallel: 1
