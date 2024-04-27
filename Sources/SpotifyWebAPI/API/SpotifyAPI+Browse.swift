@@ -54,7 +54,10 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(SpotifyCategory.self)
+        .decodeSpotifyObject(
+            SpotifyCategory.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
     
@@ -112,7 +115,10 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(PagingObject<SpotifyCategory>.self)
+        .decodeSpotifyObject(
+            PagingObject<SpotifyCategory>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
  
@@ -226,7 +232,10 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(FeaturedPlaylists.self)
+        .decodeSpotifyObject(
+            FeaturedPlaylists.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
  
@@ -270,7 +279,10 @@ public extension SpotifyAPI {
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(NewAlbumReleases.self)
+        .decodeSpotifyObject(
+            NewAlbumReleases.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 
@@ -331,7 +343,10 @@ public extension SpotifyAPI {
                 queryItems: queryDict,
                 requiredScopes: []
             )
-            .decodeSpotifyObject(RecommendationsResponse.self)
+            .decodeSpotifyObject(
+                RecommendationsResponse.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
 
         } catch {
             return error.anyFailingPublisher()
@@ -362,7 +377,10 @@ public extension SpotifyAPI {
             queryItems: [:],
             requiredScopes: []
         )
-        .decodeSpotifyObject([String: [String]].self)
+        .decodeSpotifyObject(
+            [String: [String]].self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         .tryMap { dict in
             if let genres = dict["genres"] {
                 return genres

@@ -39,7 +39,10 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Artist.self)
+            .decodeSpotifyObject(
+                Artist.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -87,7 +90,10 @@ public extension SpotifyAPI {
                 queryItems: ["ids": idsString],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Artist?]].self)
+            .decodeSpotifyObject(
+                [String: [Artist?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Artist?] in
                 if let artists = dict["artists"] {
                     return artists
@@ -161,7 +167,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Album>.self)
+            .decodeSpotifyObject(
+                PagingObject<Album>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -201,7 +210,10 @@ public extension SpotifyAPI {
                 queryItems: ["country": country],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Track]].self)
+            .decodeSpotifyObject(
+                [String: [Track]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Track] in
                 if let tracks = dict["tracks"] {
                     return tracks
@@ -245,7 +257,10 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Artist]].self)
+            .decodeSpotifyObject(
+                [String: [Artist]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Artist] in
                 if let artists = dict["artists"] {
                     return artists

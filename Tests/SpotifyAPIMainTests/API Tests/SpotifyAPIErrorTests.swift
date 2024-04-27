@@ -523,6 +523,54 @@ extension SpotifyAPIErrorTests {
 
     }
 
+    /// Exceed the max retry delay
+    func exceedMaxRetryDelay() {
+
+        let originalMaxRetryDelay = Self.spotify.maxRetryDelay
+        defer {
+            Self.spotify.maxRetryDelay = originalMaxRetryDelay
+        }
+
+        let expectation = XCTestExpectation(
+            description: "exceedMaxRetryDelay"
+        )
+
+        Self.spotify.maxRetryDelay = 150
+
+        let retryAfter = 10
+        let error = RateLimitedError(retryAfter: retryAfter)
+
+        // Throwing two 10 sec `RateLimitedError`s = 20 secs total;
+        // 20 secs > 15 (maxRetryDelay);
+        // therefore, should not get successful response.
+        Self.spotify.mockThrowError(error, times: 2)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                        case .finished:
+                            XCTFail("should not finish normally")
+                        case .failure(let receivedError):
+                            if let rateLimitedError = receivedError
+                                as? RateLimitedError {
+                                XCTAssertEqual(rateLimitedError, error)
+                                encodeDecode(rateLimitedError, areEqual: ==)
+                            }
+                            else {
+                                XCTFail("should've received SpotifyError: \(receivedError)")
+                            }
+                    }
+                    expectation.fulfill()
+                },
+                receiveValue: { value in
+                    XCTFail("should not receive value: \(value)")
+                }
+            )
+            .store(in: &Self.cancellables)
+
+        self.wait(for: [expectation], timeout: 60)
+
+    }
+
     /// Ensure that non-retryable errors are not retried.
     func nonRetryableErrors() {
         
@@ -672,7 +720,7 @@ extension SpotifyAPIErrorTests {
         )
         
     }
-    
+
 }
 
 extension SpotifyAPIErrorTests where
@@ -905,9 +953,10 @@ final class SpotifyAPIClientCredentialsFlowErrorTests:
         ),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testExceedMaxRetryDelay", testExceedMaxRetryDelay),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject)
-        
+
     ]
 
     func testMakeRequestWithoutAuthorization() {
@@ -920,16 +969,14 @@ final class SpotifyAPIClientCredentialsFlowErrorTests:
         autoRetryOnRateLimitedErrorConcurrent()
     }
     func testAutoRetryOnRateLimitedErrorSerial() {
-//        for i in 1...100 {
-//            print("top level: \(i)")
             autoRetryOnRateLimitedErrorSerial()
-//        }
     }
     func testDecodeSpotifyErrorFromInvalidAlbumURI() {
         decodeSpotifyErrorFromInvalidAlbumURI()
     }
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
+    func testExceedMaxRetryDelay() { exceedMaxRetryDelay() }
     func testNonRetryableErrors() { nonRetryableErrors() }
     func testDecodeOptionalSpotifyObject() {
         decodeOptionalSpotifyObject()
@@ -956,6 +1003,7 @@ final class SpotifyAPIAuthorizationCodeFlowErrorTests:
         ),
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
+        ("testExceedMaxRetryDelay", testExceedMaxRetryDelay),
         ("testNonRetryableErrors", testNonRetryableErrors),
         ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
@@ -978,6 +1026,7 @@ final class SpotifyAPIAuthorizationCodeFlowErrorTests:
     }
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
+    func testExceedMaxRetryDelay() { exceedMaxRetryDelay() }
     func testNonRetryableErrors() { nonRetryableErrors() }
     func testDecodeOptionalSpotifyObject() {
         decodeOptionalSpotifyObject()
@@ -1011,6 +1060,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests:
         ("testRetryOnSpotifyErrors", testRetryOnSpotifyErrors),
         ("testExceedRetryLimit", testExceedRetryLimit),
         ("testNonRetryableErrors", testNonRetryableErrors),
+        ("testExceedMaxRetryDelay", testExceedMaxRetryDelay),
         ("testDecodeOptionalSpotifyObject", testDecodeOptionalSpotifyObject),
         ("testDecodeSpotifyPlayerError", testDecodeSpotifyPlayerError),
         ("testUploadTooLargePlaylistImage", testUploadTooLargePlaylistImage)
@@ -1031,6 +1081,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyErrorTests:
     }
     func testRetryOnSpotifyErrors() { retryOnSpotifyErrors() }
     func testExceedRetryLimit() { exceedRetryLimit() }
+    func testExceedMaxRetryDelay() { exceedMaxRetryDelay() }
     func testNonRetryableErrors() { nonRetryableErrors() }
     func testDecodeOptionalSpotifyObject() {
         decodeOptionalSpotifyObject()

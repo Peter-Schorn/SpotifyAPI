@@ -60,7 +60,10 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Audiobook.self)
+            .decodeSpotifyObject(
+                Audiobook.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
 
 
         } catch {
@@ -133,7 +136,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Audiobook?]].self)
+            .decodeSpotifyObject(
+                [String: [Audiobook?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Audiobook?] in
                 if let audiobooks = dict["audiobooks"] {
                     return audiobooks
@@ -204,7 +210,10 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(AudiobookChapter.self)
+            .decodeSpotifyObject(
+                AudiobookChapter.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
 
 
         } catch {
@@ -281,7 +290,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [AudiobookChapter?]].self)
+            .decodeSpotifyObject(
+                [String: [AudiobookChapter?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [AudiobookChapter?] in
                 if let chapters = dict["chapters"] {
                     return chapters

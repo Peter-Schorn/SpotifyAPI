@@ -60,7 +60,10 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Episode.self)
+            .decodeSpotifyObject(
+                Episode.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
     
         } catch {
             return error.anyFailingPublisher()
@@ -132,7 +135,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Episode?]].self)
+            .decodeSpotifyObject(
+                [String: [Episode?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Episode?] in
                 if let shows = dict["episodes"] {
                     return shows

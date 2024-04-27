@@ -48,7 +48,10 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(SpotifyUser.self)
+            .decodeSpotifyObject(
+                SpotifyUser.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -92,7 +95,10 @@ public extension SpotifyAPI where
             queryItems: [:],
             requiredScopes: []
         )
-        .decodeSpotifyObject(SpotifyUser.self)
+        .decodeSpotifyObject(
+            SpotifyUser.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
     

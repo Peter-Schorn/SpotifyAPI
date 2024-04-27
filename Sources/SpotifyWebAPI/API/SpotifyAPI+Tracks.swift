@@ -47,7 +47,10 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Track.self)
+            .decodeSpotifyObject(
+                Track.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -105,7 +108,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Track?]].self)
+            .decodeSpotifyObject(
+                [String: [Track?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Track?] in
                 if let tracks = dict["tracks"] {
                     return tracks
@@ -164,7 +170,10 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(AudioAnalysis.self)
+            .decodeSpotifyObject(
+                AudioAnalysis.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -203,7 +212,10 @@ public extension SpotifyAPI {
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(AudioFeatures.self)
+            .decodeSpotifyObject(
+                AudioFeatures.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -255,7 +267,10 @@ public extension SpotifyAPI {
                 queryItems: ["ids": trackIds],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [AudioFeatures?]].self)
+            .decodeSpotifyObject(
+                [String: [AudioFeatures?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [AudioFeatures?] in
                 if let audioFeatures = dict["audio_features"] {
                     return audioFeatures

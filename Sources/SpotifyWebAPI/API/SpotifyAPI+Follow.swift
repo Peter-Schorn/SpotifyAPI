@@ -37,7 +37,10 @@ private extension SpotifyAPI where
                 ],
                 requiredScopes: [.userFollowRead]
             )
-            .decodeSpotifyObject([Bool].self)
+            .decodeSpotifyObject(
+                [Bool].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
 
         } catch {
             return error.anyFailingPublisher()
@@ -149,7 +152,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([Bool].self)
+            .decodeSpotifyObject(
+                [Bool].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -206,7 +212,10 @@ public extension SpotifyAPI where
                 ],
                 requiredScopes: [.userFollowRead]
             )
-            .decodeSpotifyObject(CursorPagingObject<Artist>.self)
+            .decodeSpotifyObject(
+                CursorPagingObject<Artist>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()

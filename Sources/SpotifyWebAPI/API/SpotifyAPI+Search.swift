@@ -160,7 +160,10 @@ public extension SpotifyAPI {
                 queryItems: makeQueryItems(offset: offset),
                 requiredScopes: requiredScopes
             )
-            .decodeSpotifyObject(SearchResult.self)
+            .decodeSpotifyObject(
+                SearchResult.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
         
         } catch {
             return error.anyFailingPublisher()

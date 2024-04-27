@@ -44,7 +44,10 @@ public extension SpotifyAPI {
             bodyData: nil,
             requiredScopes: []
         )
-        .decodeSpotifyObject(ResponseType.self)
+        .decodeSpotifyObject(
+            ResponseType.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
 

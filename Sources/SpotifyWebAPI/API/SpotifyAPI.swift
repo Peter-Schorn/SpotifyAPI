@@ -85,6 +85,8 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     public var networkAdaptor:
         (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
+    public var maxRetryDelay: Int
+
     /**
      A publisher that emits whenever the authorization information changes.
      
@@ -199,13 +201,15 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
      */
     public init(
         authorizationManager: AuthorizationManager,
+        maxRetryDelay: Int = 180 /* 3 minutes */,
         networkAdaptor: (
             (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
         )? = nil
     )  {
         
         self.authorizationManager = authorizationManager
-        
+        self.maxRetryDelay = maxRetryDelay
+
         self.networkAdaptor = networkAdaptor ??
                 URLSession.defaultNetworkAdaptor(request:)
         
@@ -237,6 +241,9 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
             AuthorizationManager.self,
             forKey: .authorizationManager
         )
+        self.maxRetryDelay = try container.decodeIfPresent(
+            Int.self, forKey: .maxRetryDelay
+        ) ?? 180  // 3 minutes
         self.networkAdaptor = URLSession.defaultNetworkAdaptor(request:)
         self.configureDidChangeSubscriptions()
         
@@ -261,10 +268,14 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         try container.encode(
             self.authorizationManager, forKey: .authorizationManager
         )
+        try container.encodeIfPresent(
+            self.maxRetryDelay, forKey: .maxRetryDelay
+        )
     }
   
     private enum CodingKeys: String, CodingKey {
         case authorizationManager
+        case maxRetryDelay
     }
 
 }
@@ -278,7 +289,8 @@ extension SpotifyAPI: CustomStringConvertible {
         
         return """
             \(Self.self)(
-                authorizationManager: \(authManagerDescription)
+                authorizationManager: \(authManagerDescription),
+                maxRetryDelay: \(self.maxRetryDelay)
             )
             """
         
@@ -290,8 +302,10 @@ private extension SpotifyAPI {
     
     private func configureDidChangeSubscriptions() {
         
-        self.authDidChangeLogger.trace("")
-        
+        self.authDidChangeLogger.trace(
+            "configureDidChangeSubscriptions"
+        )
+
         self.authManagerDidChangeCancellable =
             self.authorizationManager.didChange
                 .handleEvents(receiveOutput: { _ in

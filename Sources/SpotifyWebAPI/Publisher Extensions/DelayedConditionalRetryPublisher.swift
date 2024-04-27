@@ -57,9 +57,9 @@ extension Publishers {
             self.condition = condition
         }
 
-        func receive<S: Subscriber>(
-            subscriber: S
-        ) where S.Failure == Failure, S.Input == Output {
+        func receive<Sub: Subscriber>(
+            subscriber: Sub
+        ) where Sub.Failure == Failure, Sub.Input == Output {
 
             guard self.times > 0 else {
                 return self.publisher.subscribe(subscriber)
@@ -69,18 +69,17 @@ extension Publishers {
                 .catch { error -> AnyPublisher<Output, Failure> in
                     
                     if let delay = self.condition(self.times, error) {
-//                        if let magnitude = delay.magnitude as? Int {
-//                            let secondsDelay = Double(magnitude) / 1_000_000_000
-//                            Swift.print(
-//                                "times: \(self.times); delaying for \(secondsDelay) seconds\n"
-//                            )
-//                        }
-                        
+                        // if let magnitude = delay.magnitude as? Int {
+                        //     let secondsDelay = Double(magnitude) / 1_000_000_000
+                        //     Swift.print(
+                        //         "times: \(self.times); delaying for \(secondsDelay) seconds\n"
+                        //     )
+                        // }
+
                         // using a Result.Publisher along with the delay
                         // operator leads to data race issues that sometimes
                         // cause the completion event to be sent before the
                         // value.
-                        
                         return Future<Void, Failure> { promise in
                             
                             self.scheduler.schedule(
@@ -149,8 +148,13 @@ extension Publisher {
      ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is
      received, then retries if the status code is 500, 502, 503, or 504.
      */
-    func retryOnSpotifyErrors() -> AnyPublisher<Output, Failure> {
-        
+    func retryOnSpotifyErrors(
+        maxRetryDelay: Int = 180  // 3 minutes
+    ) -> AnyPublisher<Output, Failure> {
+
+        // captured by the closure
+        var accumulatedDelayMS = 0
+
         return self.retry(
             times: 3,
             scheduler: Publishers.retryQueue
@@ -160,32 +164,50 @@ extension Publisher {
 //                    "\(additionalRetries). Error: \(error)"
 //            )
             
+            // don't retry at all if max retry delay is 0
+            if maxRetryDelay == 0 {
+                return nil
+            }
+
             if let rateLimitedError = error as? RateLimitedError {
+
                 #if DEBUG
                 DebugHooks.receiveRateLimitedError.send(rateLimitedError)
                 #endif
     //            Swift.print("retryOnRateLimitedError: \(rateLimitedError)")
+
                 let secondsDelay = (rateLimitedError.retryAfter ?? 3) + 1
-                
+
+                var millisecondsDelay = secondsDelay * 1_000
+
                 switch additionalRetries {
                     case 3:
-                        return .seconds(secondsDelay)
-                    // Adding random delays improves the success rate
-                    // of concurrent requests. If all requests were
-                    // serialized, then we would never get a rate
-                    // limited error more than once per request in the
-                    // first place.
+                        break  // do not add any delay
+
+                    // Adding random delays improves the success rate of
+                    // concurrent requests. If all requests were serialized
+                    // (with respect to all of those made with the same
+                    // *client ID*, not just the same access token), then we
+                    // would never get a rate limited error more than once per
+                    // request in the first place.
                     case 2:
-                        var millisecondsDelay = secondsDelay * 1_000
                         // + 0...5 seconds
                         millisecondsDelay += Int.random(in: 0...5_000)
-                        return .milliseconds(millisecondsDelay)
                     default /* 1 */:
-                        var millisecondsDelay = secondsDelay * 1000
                         // + 5...10 seconds
                         millisecondsDelay += Int.random(in: 5_000...10_000)
-                        return .milliseconds(millisecondsDelay)
                 }
+
+                accumulatedDelayMS += millisecondsDelay
+
+                let maxRetryDelayMS = maxRetryDelay * 1_000
+
+                if accumulatedDelayMS >= maxRetryDelayMS {
+                    // don't retry the request if the total accumulated
+                    // retry delay is >= maxRetryDelay
+                    return nil
+                }
+
             }
 
             // the status codes for which it makes sense to retry the request.
@@ -208,7 +230,7 @@ extension Publisher {
             }
             
             if retryableStatusCodes.contains(statusCode) {
-                return .seconds(1)
+                return .seconds(1)  // retry with a one second delay
             }
             
             return nil

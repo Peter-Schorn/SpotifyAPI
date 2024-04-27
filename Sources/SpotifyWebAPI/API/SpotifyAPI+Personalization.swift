@@ -64,7 +64,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userTopRead]
         )
-        .decodeSpotifyObject(PagingObject<Artist>.self)
+        .decodeSpotifyObject(
+            PagingObject<Artist>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
     
@@ -119,7 +122,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userTopRead]
         )
-        .decodeSpotifyObject(PagingObject<Track>.self)
+        .decodeSpotifyObject(
+            PagingObject<Track>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 

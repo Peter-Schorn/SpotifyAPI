@@ -10,7 +10,11 @@ let package = Package(
     products: [
         .library(
             name: "SpotifyAPI",
-            targets: ["SpotifyWebAPI", "SpotifyExampleContent"]
+            targets: ["SpotifyWebAPI"]
+        ),
+        .library(
+            name: "SpotifyExampleContent",
+            targets: ["SpotifyExampleContent"]
         ),
         .library(
             name: "_SpotifyAPITestUtilities",

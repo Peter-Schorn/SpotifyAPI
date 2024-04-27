@@ -68,10 +68,11 @@ public extension SpotifyAPI {
             }
         }
         .delay(
+            // delay by 0.1 - 1 seconds
             for: .milliseconds(Int.random(in: 100...1000)),
             scheduler: serialMockQueue
         )
-        .decodeSpotifyObject(Album.self)
+        .decodeSpotifyObject(Album.self, maxRetryDelay: self.maxRetryDelay)
 
     }
     
@@ -97,6 +98,7 @@ public extension SpotifyAPI {
             }
         }
         .delay(
+            // delay by 0.1 - 1 seconds
             for: .milliseconds(Int.random(in: 100...1000)),
             scheduler: serialMockQueue
         )

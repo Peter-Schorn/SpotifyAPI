@@ -37,7 +37,10 @@ private extension SpotifyAPI {
                 body: body,
                 requiredScopes: requiredScopes
             )
-            .decodeSpotifyObject([String: String].self)
+            .decodeSpotifyObject(
+                [String: String].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> String in
                 if let snapshotId = dict["snapshot_id"] {
                     return snapshotId
@@ -317,7 +320,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Playlist<PlaylistItems>.self)
+            .decodeSpotifyObject(
+                Playlist<PlaylistItems>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -512,7 +518,10 @@ public extension SpotifyAPI {
             market: market,
             additionalTypes: [.track]
         )
-        .decodeSpotifyObject(PlaylistTracks.self)
+        .decodeSpotifyObject(
+            PlaylistTracks.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
     
@@ -584,7 +593,10 @@ public extension SpotifyAPI {
             market: market,
             additionalTypes: [.track, .episode]
         )
-        .decodeSpotifyObject(PlaylistItems.self)
+        .decodeSpotifyObject(
+            PlaylistItems.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
     
@@ -652,7 +664,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Playlist<PlaylistItemsReference>>.self)
+            .decodeSpotifyObject(
+                PagingObject<Playlist<PlaylistItemsReference>>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
     
         } catch {
             return error.anyFailingPublisher()
@@ -721,7 +736,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: []
         )
-        .decodeSpotifyObject(PagingObject<Playlist<PlaylistItemsReference>>.self)
+        .decodeSpotifyObject(
+            PagingObject<Playlist<PlaylistItemsReference>>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
     
@@ -757,7 +775,10 @@ public extension SpotifyAPI where
                 queryItems: [:],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([SpotifyImage].self)
+            .decodeSpotifyObject(
+                [SpotifyImage].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -850,7 +871,10 @@ public extension SpotifyAPI where
                 body: playlistDetails,
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Playlist<PlaylistItems>.self)
+            .decodeSpotifyObject(
+                Playlist<PlaylistItems>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()

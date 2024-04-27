@@ -245,9 +245,12 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is
      received, then retries if the status code is 500, 502, 503, or 504.
      */
-    func decodeSpotifyErrors() -> AnyPublisher<Self.Output, Error> {
+    func decodeSpotifyErrors(
+        maxRetryDelay: Int = 180  // 3 minutes
+    ) -> AnyPublisher<Self.Output, Error> {
+        
         return self.tryMap { data, response in
-            
+
             if let error = SpotifyWebAPI.decodeSpotifyErrors(
                 data: data, httpURLResponse: response
             ) {
@@ -257,8 +260,8 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
             return (data, response)
             
         }
-        .retryOnSpotifyErrors()
-        
+        .retryOnSpotifyErrors(maxRetryDelay: maxRetryDelay)
+
     }
 
     /**
@@ -298,7 +301,8 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeSpotifyObject<ResponseType: Decodable>(
-        _ responseType: ResponseType.Type
+        _ responseType: ResponseType.Type,
+        maxRetryDelay: Int = 180  // 3 minutes
     ) -> AnyPublisher<ResponseType, Error> {
 
         return self.tryMap { data, response -> ResponseType in
@@ -310,7 +314,7 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
             )
 
         }
-        .retryOnSpotifyErrors()
+        .retryOnSpotifyErrors(maxRetryDelay: maxRetryDelay)
 
     }
 
@@ -352,7 +356,8 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeOptionalSpotifyObject<ResponseType: Decodable>(
-        _ responseType: ResponseType.Type
+        _ responseType: ResponseType.Type,
+        maxRetryDelay: Int = 180  // 3 minutes
     ) -> AnyPublisher<ResponseType?, Error> {
         
         return self.tryMap { data, response -> ResponseType? in
@@ -372,7 +377,7 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
             )
 
         }
-        .retryOnSpotifyErrors()
+        .retryOnSpotifyErrors(maxRetryDelay: maxRetryDelay)
 
     }
 

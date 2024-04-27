@@ -181,8 +181,9 @@ extension Playlist: Codable {
         from decoder: Decoder
     ) throws {
 
-        let container: KeyedDecodingContainer<Playlist<Items>.CodingKeys> = try decoder
-            .container(keyedBy: Playlist<Items>.CodingKeys.self)
+        let container = try decoder.container(
+            keyedBy: Playlist<Items>.CodingKeys.self
+        )
 
         // MARK: Decode Images
 

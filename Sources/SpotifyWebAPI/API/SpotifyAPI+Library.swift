@@ -164,7 +164,10 @@ private extension SpotifyAPI where
                 queryItems: ["ids": idsString],
                 requiredScopes: [.userLibraryRead]
             )
-            .decodeSpotifyObject([Bool].self)
+            .decodeSpotifyObject(
+                [Bool].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
 
         } catch {
             return error.anyFailingPublisher()
@@ -224,7 +227,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedAlbum>.self)
+        .decodeSpotifyObject(
+            PagingObject<SavedAlbum>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 
@@ -272,7 +278,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedTrack>.self)
+        .decodeSpotifyObject(
+            PagingObject<SavedTrack>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 
@@ -320,7 +329,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedEpisode>.self)
+        .decodeSpotifyObject(
+            PagingObject<SavedEpisode>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 
@@ -366,7 +378,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedShow>.self)
+        .decodeSpotifyObject(
+            PagingObject<SavedShow>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 
@@ -407,7 +422,10 @@ public extension SpotifyAPI where
             ],
             requiredScopes: [.userLibraryRead]
         )
-        .decodeSpotifyObject(PagingObject<SavedAudiobook>.self)
+        .decodeSpotifyObject(
+            PagingObject<SavedAudiobook>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
 

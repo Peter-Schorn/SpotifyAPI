@@ -37,7 +37,10 @@ public extension SpotifyAPI where
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .decodeSpotifyObject([String: [Device]].self)
+        .decodeSpotifyObject(
+            [String: [Device]].self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         .tryMap { dict -> [Device] in
             if let devices = dict["devices"] {
                 return devices
@@ -155,7 +158,10 @@ public extension SpotifyAPI where
             queryItems: query,
             requiredScopes: [.userReadRecentlyPlayed]
         )
-        .decodeSpotifyObject(CursorPagingObject<PlayHistory>.self)
+        .decodeSpotifyObject(
+            CursorPagingObject<PlayHistory>.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         
     }
     
@@ -177,7 +183,10 @@ public extension SpotifyAPI where
             queryItems: [:],
             requiredScopes: [.userReadPlaybackState]
         )
-        .decodeSpotifyObject(SpotifyQueue.self)
+        .decodeSpotifyObject(
+            SpotifyQueue.self,
+            maxRetryDelay: self.maxRetryDelay
+        )
 
     }
     

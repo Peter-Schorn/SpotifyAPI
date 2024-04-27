@@ -33,7 +33,10 @@ public extension SpotifyAPI {
             queryItems: [:],
             requiredScopes: []
         )
-        .decodeSpotifyObject([String: [String]].self)
+        .decodeSpotifyObject(
+            [String: [String]].self,
+            maxRetryDelay: self.maxRetryDelay
+        )
         .tryMap { dict -> [String] in
             let key = "markets"
             if let markets = dict[key] {

@@ -48,7 +48,10 @@ public extension SpotifyAPI {
                 queryItems: ["market": market],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(Album.self)
+            .decodeSpotifyObject(
+                Album.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
         } catch {
             return error.anyFailingPublisher()
@@ -104,7 +107,10 @@ public extension SpotifyAPI {
                 queryItems: ["ids": albumsIdsString],
                 requiredScopes: []
             )
-            .decodeSpotifyObject([String: [Album?]].self)
+            .decodeSpotifyObject(
+                [String: [Album?]].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             .tryMap { dict -> [Album?] in
                 if let albums = dict["albums"] {
                     return albums
@@ -167,7 +173,10 @@ public extension SpotifyAPI {
                 ],
                 requiredScopes: []
             )
-            .decodeSpotifyObject(PagingObject<Track>.self)
+            .decodeSpotifyObject(
+                PagingObject<Track>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
             
             
         } catch {
