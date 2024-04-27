@@ -66,8 +66,11 @@ public class SpotifyTestObserver: NSObject, XCTestObservation {
         
         #endif
         
-        let sortedTests = tests.sorted { lhs, rhs in
-            lhs.testCase < rhs.testCase
+        let sortedTests = tests.sorted { lhs, rhs -> Bool in
+            if lhs.testCase == rhs.testCase {
+                return lhs.testMethod < rhs.testMethod
+            }
+            return lhs.testCase < rhs.testCase
         }
     
         let failingTestsFilter = sortedTests

@@ -41,6 +41,13 @@ parser.add_argument("--non-headless", action="store_true")
 
 args = parser.parse_args()
 
+all_buttons = ["accept", "cancel"]
+
+if not args.button in all_buttons:
+    all_buttons_str = ", ".join(all_buttons)
+    message = f"button must be one of {all_buttons_str} (got '{args.button}')"
+    raise ValueError(message)
+
 assert args.button in ["accept", "cancel"], "button must be either 'accept' or 'cancel'"
 
 options = Options()

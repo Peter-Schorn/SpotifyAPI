@@ -67,7 +67,7 @@ extension SpotifyAPIUserProfileTests {
     func userProfileNonASCII() {
         
         func receiveUser(_ user: SpotifyUser) {
-            XCTAssertEqual(user.displayName, "gaet 爱")
+            XCTAssertEqual(user.displayName, "gaet ~")
             XCTAssertEqual(
                 user.externalURLs?["spotify"],
                 URL(string: "https://open.spotify.com/user/ga%C3%ABtan_stz")!

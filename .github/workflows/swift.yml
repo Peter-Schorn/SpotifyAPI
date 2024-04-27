@@ -1,4 +1,4 @@
-name: Swift
+ name: Swift
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -62,7 +62,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-          image: ["swift:5.4", "swift:5.5", "swift:5.6", "swift:5.7", "swift:5.8"]
+          image: ["swift:5.6", "swift:5.7", "swift:5.8", "swift:5.9", "swift:5.10"]
 
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
@@ -114,13 +114,6 @@ jobs:
         SpotifyPlayerErrorCodingTests|\
         RepeatModeTests\
         "
-
-  test_linux_old:
-    strategy:
-      max-parallel: 1
-      fail-fast: false
-      matrix:
-          image: ["swift:5.3"]
 
     runs-on: ubuntu-latest
     container: ${{ matrix.image }}
@@ -178,7 +171,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        platform: ["platform=iOS Simulator,name=iPhone 13,OS=16.2", "platform=tvOS Simulator,name=Apple TV,OS=16.1"]
+        platform: ["platform=iOS Simulator,name=iPhone 15,OS=17.0", "platform=tvOS Simulator,name=Apple TV,OS=17.0"]
 
     runs-on: macos-latest
     steps:
@@ -188,7 +181,7 @@ jobs:
     - name: Build ${{ matrix.platform }}
       run: |
         python3 enable_testing.py true
-        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_15.0.1.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" \
         -scheme "SpotifyAPI-Package" \
@@ -196,7 +189,7 @@ jobs:
         build
     - name: test ${{ matrix.platform }}
       run: |
-        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_15.0.1.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" \
         -scheme "SpotifyAPI-Package" \
@@ -240,13 +233,13 @@ jobs:
   build_watch_os_mac_catalyst:
     strategy:
       matrix:
-        platform: ["platform=watchOS Simulator,name=Apple Watch Series 8 (45mm),OS=9.1", "platform=macOS,variant=Mac Catalyst"]
+        platform: ["platform=watchOS Simulator,name=Apple Watch Series 8 (45mm),OS=10.0", "platform=macOS,variant=Mac Catalyst"]
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: build ${{ matrix.platform }}
       run: |
-        env DEVELOPER_DIR="/Applications/Xcode_14.2.app" xcrun xcodebuild \
+        env DEVELOPER_DIR="/Applications/Xcode_15.0.1.app" xcrun xcodebuild \
         -IDEClonedSourcePackagesDirPathOverride="$PWD/.dependencies" \
         -derivedDataPath "$PWD/.derivedData" build \
         -scheme "SpotifyAPI" \
