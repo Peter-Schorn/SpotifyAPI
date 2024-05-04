@@ -30,7 +30,7 @@ extension SpotifyAPIBrowseTests {
             receiveCompletion: { _ in expectation.fulfill() },
             receiveValue: { category in
                 encodeDecode(category, areEqual: ==)
-                XCTAssertEqual(category.name, "Fiesta")
+                XCTAssertEqual(category.name, "¡Fiesta!")
                 XCTAssertEqual(category.id, "0JQ5DAqbMKFA6SOHvT3gck")
                 XCTAssertEqual(
                     category.href,

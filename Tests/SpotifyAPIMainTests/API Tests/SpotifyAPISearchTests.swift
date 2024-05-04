@@ -297,7 +297,7 @@ extension SpotifyAPISearchTests {
         )
 
         let query = """
-            album: abbey road artist: the beatles year:1969
+            artist:the beatles album:abbey road year:1969
             """
         
         Self.spotify.search(
@@ -360,7 +360,7 @@ extension SpotifyAPISearchTests {
         
         
         Self.spotify.search(
-            query: "Harry Potter and the Chamber",
+            query: "Harry Potter and the Chamber author:J.K. Rowling",
             categories: [.audiobook],
             market: "US",
             limit: 1

@@ -72,6 +72,23 @@ public extension URL {
         }
     }
 
+    func sortedQueryItems() -> URL {
+        var copy = self
+        copy.sortQueryItems()
+        return copy
+    }
+
+    mutating func sortQueryItems() {
+        guard var copy = self.components else {
+            return
+        }
+        let sortedQueryItems = copy.queryItems?.sortedByNameThenValue()
+        copy.queryItems = sortedQueryItems
+        if let newURL = copy.url {
+            self = newURL
+        }
+    }
+
     /// The URL components of this URL.
     var components: URLComponents? {
         return URLComponents(

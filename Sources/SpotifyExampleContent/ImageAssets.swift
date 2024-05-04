@@ -10,8 +10,8 @@ public enum SpotifyExampleImages {
     )!
 
     /**
-     A picture of Annabelle. 4032 x 3024; 2.4 MB of JPEG data.
-     
+     A picture of Annabelle. 1532 x 1149; 554 KB of JPEG data.
+
      Exceeds the size limit (256 KB) of the endpoint for uploading an image to a
      playlist.
      */

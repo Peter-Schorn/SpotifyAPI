@@ -272,8 +272,77 @@ public struct Track: Hashable {
 }
 
 extension Track: Codable {
-    
-    private enum CodingKeys: String, CodingKey {
+
+    public init(from decoder: any Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.name = try container.decodeIfPresent(
+            String.self, forKey: .name
+        ) ?? ""
+        self.album = try container.decodeIfPresent(
+            Album.self, forKey: .album
+        )
+        self.artists = try container.decodeIfPresent(
+            [Artist].self, forKey: .artists
+        )
+        self.uri = try container.decodeIfPresent(
+            String.self, forKey: .uri
+        )
+        self.id = try container.decodeIfPresent(
+            String.self, forKey: .id
+        )
+        self.isLocal = try container.decodeIfPresent(
+            Bool.self, forKey: .isLocal
+        ) ?? false
+        self.popularity = try container.decodeIfPresent(
+            Int.self, forKey: .popularity
+        )
+        self.durationMS = try container.decodeIfPresent(
+            Int.self, forKey: .durationMS
+        )
+        self.trackNumber = try container.decodeIfPresent(
+            Int.self, forKey: .trackNumber
+        )
+        self.isExplicit = try container.decodeIfPresent(
+            Bool.self, forKey: .isExplicit
+        ) ?? false
+        self.isPlayable = try container.decodeIfPresent(
+            Bool.self, forKey: .isPlayable
+        )
+        self.href = try container.decodeIfPresent(
+            URL.self, forKey: .href
+        )
+        self.previewURL = try container.decodeIfPresent(
+            URL.self, forKey: .previewURL
+        )
+        self.externalURLs = try container.decodeIfPresent(
+            [String: URL].self, forKey: .externalURLs
+        )
+        self.externalIds = try container.decodeIfPresent(
+            [String: String].self, forKey: .externalIds
+        )
+
+        self.availableMarkets = try container.decodeAndUnwrapArray(
+            forKey: .availableMarkets
+        )
+
+        self.linkedFrom = try container.decodeIfPresent(
+            TrackLink.self, forKey: .linkedFrom
+        )
+        self.restrictions = try container.decodeIfPresent(
+            [String: String].self, forKey: .restrictions
+        )
+        self.discNumber = try container.decodeIfPresent(
+            Int.self, forKey: .discNumber
+        )
+        self.type = (try? container.decodeIfPresent(
+            IDCategory.self, forKey: .type
+        )) ?? .track
+
+    }
+
+    enum CodingKeys: String, CodingKey {
         case name
         case album
         case artists
@@ -296,7 +365,34 @@ extension Track: Codable {
         case type
 
     }
-    
+
+//    public ini
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.name, forKey: .name)
+        try container.encodeIfPresent(self.album, forKey: .album)
+        try container.encodeIfPresent(self.artists, forKey: .artists)
+        try container.encodeIfPresent(self.uri, forKey: .uri)
+        try container.encodeIfPresent(self.id, forKey: .id)
+        try container.encode(self.isLocal, forKey: .isLocal)
+        try container.encodeIfPresent(self.popularity, forKey: .popularity)
+        try container.encodeIfPresent(self.durationMS, forKey: .durationMS)
+        try container.encodeIfPresent(self.trackNumber, forKey: .trackNumber)
+        try container.encode(self.isExplicit, forKey: .isExplicit)
+        try container.encodeIfPresent(self.isPlayable, forKey: .isPlayable)
+        try container.encodeIfPresent(self.href, forKey: .href)
+        try container.encodeIfPresent(self.previewURL, forKey: .previewURL)
+        try container.encodeIfPresent(self.externalURLs, forKey: .externalURLs)
+        try container.encodeIfPresent(self.externalIds, forKey: .externalIds)
+        try container.encodeIfPresent(self.availableMarkets, forKey: .availableMarkets)
+        try container.encodeIfPresent(self.linkedFrom, forKey: .linkedFrom)
+        try container.encodeIfPresent(self.restrictions, forKey: .restrictions)
+        try container.encodeIfPresent(self.discNumber, forKey: .discNumber)
+        try container.encode(self.type, forKey: .type)
+    }
+
+
 }
 
 extension Track: ApproximatelyEquatable {

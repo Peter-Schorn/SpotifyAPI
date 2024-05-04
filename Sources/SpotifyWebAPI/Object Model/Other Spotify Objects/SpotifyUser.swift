@@ -195,9 +195,9 @@ extension SpotifyUser: Codable {
         self.id = try container.decode(
             String.self, forKey: .id
         )
-        self.images = try container.decodeIfPresent(
-            [SpotifyImage].self, forKey: .images
-        )
+
+        self.images = try container.decodeSpotifyImages(forKey: .images)
+        
         self.href = try container.decode(
             URL.self, forKey: .href
         )
@@ -247,9 +247,10 @@ extension SpotifyUser: Codable {
         self.externalURLs = try container.decodeIfPresent(
             [String: URL].self, forKey: .externalURLs
         )
-        self.type = try container.decode(
+
+        self.type = (try? container.decodeIfPresent(
             IDCategory.self, forKey: .type
-        )
+        )) ?? .user
 
     }
 

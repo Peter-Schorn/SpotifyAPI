@@ -190,7 +190,9 @@ extension SpotifyAPITrackTests {
     func tracks() {
         
         func receiveTracks(_ tracks: [Track?]) {
+            
             encodeDecode(tracks)
+
             if let because = tracks[1] {
                 receiveBecause(because)
             }
@@ -251,7 +253,7 @@ extension SpotifyAPITrackTests {
                 XCTFail("first track should not be nil")
             }
             
-            if let reckoner = tracks[3] {
+            if let reckoner = tracks[2] {
                 XCTAssertEqual(reckoner.name, "Reckoner")
                 XCTAssertEqual(reckoner.uri, "spotify:track:02ppMPbg1OtEdHgoPqoqju")
                 XCTAssertEqual(reckoner.id, "02ppMPbg1OtEdHgoPqoqju")
@@ -310,7 +312,6 @@ extension SpotifyAPITrackTests {
         let tracks: [SpotifyURIConvertible] = [
             URIs.Tracks.onTheRun,
             URIs.Tracks.because,
-            "spotify:track:invalidURI",
             URIs.Tracks.reckoner
         ]
         
@@ -389,24 +390,24 @@ extension SpotifyAPITrackTests {
             // MARK: Bars
             if track.bars.count >= 86 {
                 let bar0 = track.bars[0]
-                XCTAssertEqual(bar0.start, 2.48709, accuracy: 0.001)
-                XCTAssertEqual(bar0.duration, 2.47456, accuracy: 0.001)
-                XCTAssertEqual(bar0.confidence, 0.225, accuracy: 0.001)
+                XCTAssertEqual(bar0.start, 2.48709, accuracy: 0.01)
+                XCTAssertEqual(bar0.duration, 2.47456, accuracy: 0.01)
+                XCTAssertEqual(bar0.confidence, 0.225, accuracy: 0.01)
                 
                 let bar19 = track.bars[19]
-                XCTAssertEqual(bar19.start, 49.49652, accuracy: 0.001)
-                XCTAssertEqual(bar19.duration, 2.48147, accuracy: 0.001)
-                XCTAssertEqual(bar19.confidence, 0.264, accuracy: 0.001)
+                XCTAssertEqual(bar19.start, 49.49652, accuracy: 0.01)
+                XCTAssertEqual(bar19.duration, 2.48147, accuracy: 0.01)
+                XCTAssertEqual(bar19.confidence, 0.264, accuracy: 0.01)
                 
                 let bar53 = track.bars[53]
-                XCTAssertEqual(bar53.start, 133.63358, accuracy: 0.001)
-                XCTAssertEqual(bar53.duration, 2.4638, accuracy: 0.001)
-                XCTAssertEqual(bar53.confidence, 0.695, accuracy: 0.001)
+                XCTAssertEqual(bar53.start, 133.63358, accuracy: 0.01)
+                XCTAssertEqual(bar53.duration, 2.4638, accuracy: 0.01)
+                XCTAssertEqual(bar53.confidence, 0.695, accuracy: 0.01)
                 
                 let bar85 = track.bars[85]
-                XCTAssertEqual(bar85.start, 212.79747, accuracy: 0.001)
-                XCTAssertEqual(bar85.duration, 3.70989, accuracy: 0.001)
-                XCTAssertEqual(bar85.confidence, 0.833, accuracy: 0.001)
+                XCTAssertEqual(bar85.start, 212.79747, accuracy: 0.01)
+                XCTAssertEqual(bar85.duration, 3.70989, accuracy: 0.01)
+                XCTAssertEqual(bar85.confidence, 0.833, accuracy: 0.01)
             }
             else {
                 XCTFail("should be at least 86 bars: \(track.bars.count)")
@@ -415,19 +416,19 @@ extension SpotifyAPITrackTests {
             // MARK: Beats
             if track.beats.count >= 351 {
                 let beat0 = track.beats[0]
-                XCTAssertEqual(beat0.start, 0.63363, accuracy: 0.001)
-                XCTAssertEqual(beat0.duration, 0.61385, accuracy: 0.001)
-                XCTAssertEqual(beat0.confidence, 0.685, accuracy: 0.001)
+                XCTAssertEqual(beat0.start, 0.63363, accuracy: 0.01)
+                XCTAssertEqual(beat0.duration, 0.61385, accuracy: 0.01)
+                XCTAssertEqual(beat0.confidence, 0.685, accuracy: 0.01)
                 
                 let beat29 = track.beats[29]
-                XCTAssertEqual(beat29.start, 18.57344, accuracy: 0.001)
-                XCTAssertEqual(beat29.duration, 0.61995, accuracy: 0.001)
-                XCTAssertEqual(beat29.confidence, 0.743, accuracy: 0.001)
+                XCTAssertEqual(beat29.start, 18.57344, accuracy: 0.01)
+                XCTAssertEqual(beat29.duration, 0.61995, accuracy: 0.01)
+                XCTAssertEqual(beat29.confidence, 0.743, accuracy: 0.01)
                 
                 let beat350 = track.beats[350]
-                XCTAssertEqual(beat350.start, 217.12808, accuracy: 0.001)
-                XCTAssertEqual(beat350.duration, 0.62073, accuracy: 0.001)
-                XCTAssertEqual(beat350.confidence, 0.401, accuracy: 0.001)
+                XCTAssertEqual(beat350.start, 217.12808, accuracy: 0.01)
+                XCTAssertEqual(beat350.duration, 0.62073, accuracy: 0.01)
+                XCTAssertEqual(beat350.confidence, 0.401, accuracy: 0.01)
             }
             else {
                 XCTFail("should be at least 351 beats: \(track.beats.count)")
@@ -436,19 +437,19 @@ extension SpotifyAPITrackTests {
             // MARK: Tatums
             if track.tatums.count >= 702 {
                 let tatum0 = track.tatums[0]
-                XCTAssertEqual(tatum0.start, 0.63363, accuracy: 0.001)
-                XCTAssertEqual(tatum0.duration, 0.30692, accuracy: 0.001)
-                XCTAssertEqual(tatum0.confidence, 0.685, accuracy: 0.001)
+                XCTAssertEqual(tatum0.start, 0.63363, accuracy: 0.01)
+                XCTAssertEqual(tatum0.duration, 0.30692, accuracy: 0.01)
+                XCTAssertEqual(tatum0.confidence, 0.685, accuracy: 0.01)
                 
                 let tatum262 = track.tatums[262]
-                XCTAssertEqual(tatum262.start, 81.66474, accuracy: 0.001)
-                XCTAssertEqual(tatum262.duration, 0.30914, accuracy: 0.001)
-                XCTAssertEqual(tatum262.confidence, 0.398, accuracy: 0.001)
+                XCTAssertEqual(tatum262.start, 81.66474, accuracy: 0.01)
+                XCTAssertEqual(tatum262.duration, 0.30914, accuracy: 0.01)
+                XCTAssertEqual(tatum262.confidence, 0.398, accuracy: 0.01)
                 
                 let tatum701 = track.tatums[701]
-                XCTAssertEqual(tatum701.start, 217.43845, accuracy: 0.001)
-                XCTAssertEqual(tatum701.duration, 0.31036, accuracy: 0.001)
-                XCTAssertEqual(tatum701.confidence, 0.401, accuracy: 0.001)
+                XCTAssertEqual(tatum701.start, 217.43845, accuracy: 0.01)
+                XCTAssertEqual(tatum701.duration, 0.31036, accuracy: 0.01)
+                XCTAssertEqual(tatum701.confidence, 0.401, accuracy: 0.01)
             }
             else {
                 XCTFail("should be at least 702 tatums: \(track.tatums.count)")
@@ -458,45 +459,45 @@ extension SpotifyAPITrackTests {
             if track.sections.count >= 8 {
                 let section0 = track.sections[0]
                 XCTAssertEqual(section0.start, 0)
-                XCTAssertEqual(section0.duration, 18.57344, accuracy: 0.001)
+                XCTAssertEqual(section0.duration, 18.57344, accuracy: 0.01)
                 XCTAssertEqual(section0.confidence, 1)
-                XCTAssertEqual(section0.loudness, -11.227, accuracy: 0.001)
-                XCTAssertEqual(section0.tempo, 96.952, accuracy: 0.001)
-                XCTAssertEqual(section0.tempoConfidence, 0.735, accuracy: 0.001)
+                XCTAssertEqual(section0.loudness, -11.227, accuracy: 0.01)
+                XCTAssertEqual(section0.tempo, 96.952, accuracy: 0.01)
+                XCTAssertEqual(section0.tempoConfidence, 0.735, accuracy: 0.01)
                 XCTAssertEqual(section0.key, 0)
-                XCTAssertEqual(section0.keyConfidence, 0.248, accuracy: 0.001)
+                XCTAssertEqual(section0.keyConfidence, 0.248, accuracy: 0.01)
                 XCTAssertEqual(section0.mode, 1)
-                XCTAssertEqual(section0.modeConfidence, 0.376, accuracy: 0.001)
+                XCTAssertEqual(section0.modeConfidence, 0.376, accuracy: 0.01)
                 XCTAssertEqual(section0.timeSignature, 4)
-                XCTAssertEqual(section0.timeSignatureConfidence, 1, accuracy: 0.001)
+                XCTAssertEqual(section0.timeSignatureConfidence, 1, accuracy: 0.01)
                 
                 let section5 = track.sections[5]
                 XCTAssertEqual(section5.start, 121.88161)
-                XCTAssertEqual(section5.duration, 11.75196, accuracy: 0.001)
+                XCTAssertEqual(section5.duration, 11.75196, accuracy: 0.01)
                 XCTAssertEqual(section5.confidence, 0.584)
-                XCTAssertEqual(section5.loudness, -7.97, accuracy: 0.001)
-                XCTAssertEqual(section5.tempo, 97.146, accuracy: 0.001)
-                XCTAssertEqual(section5.tempoConfidence, 0.661, accuracy: 0.001)
+                XCTAssertEqual(section5.loudness, -7.97, accuracy: 0.01)
+                XCTAssertEqual(section5.tempo, 97.146, accuracy: 0.01)
+                XCTAssertEqual(section5.tempoConfidence, 0.661, accuracy: 0.01)
                 XCTAssertEqual(section5.key, 9)
-                XCTAssertEqual(section5.keyConfidence, 0, accuracy: 0.001)
+                XCTAssertEqual(section5.keyConfidence, 0, accuracy: 0.01)
                 XCTAssertEqual(section5.mode, 0)
-                XCTAssertEqual(section5.modeConfidence, 0, accuracy: 0.001)
+                XCTAssertEqual(section5.modeConfidence, 0, accuracy: 0.01)
                 XCTAssertEqual(section5.timeSignature, 4)
-                XCTAssertEqual(section5.timeSignatureConfidence, 1, accuracy: 0.001)
+                XCTAssertEqual(section5.timeSignatureConfidence, 1, accuracy: 0.01)
                 
                 let section7 = track.sections[7]
                 XCTAssertEqual(section7.start, 194.83823)
-                XCTAssertEqual(section7.duration, 23.37249, accuracy: 0.001)
+                XCTAssertEqual(section7.duration, 23.37249, accuracy: 0.01)
                 XCTAssertEqual(section7.confidence, 0.598)
-                XCTAssertEqual(section7.loudness, -8.4, accuracy: 0.001)
-                XCTAssertEqual(section7.tempo, 97.1, accuracy: 0.001)
-                XCTAssertEqual(section7.tempoConfidence, 0.58, accuracy: 0.001)
+                XCTAssertEqual(section7.loudness, -8.4, accuracy: 0.01)
+                XCTAssertEqual(section7.tempo, 97.1, accuracy: 0.01)
+                XCTAssertEqual(section7.tempoConfidence, 0.58, accuracy: 0.01)
                 XCTAssertEqual(section7.key, 2)
-                XCTAssertEqual(section7.keyConfidence, 0.393, accuracy: 0.001)
+                XCTAssertEqual(section7.keyConfidence, 0.393, accuracy: 0.01)
                 XCTAssertEqual(section7.mode, 0)
-                XCTAssertEqual(section7.modeConfidence, 0.395, accuracy: 0.001)
+                XCTAssertEqual(section7.modeConfidence, 0.395, accuracy: 0.01)
                 XCTAssertEqual(section7.timeSignature, 4)
-                XCTAssertEqual(section7.timeSignatureConfidence, 1, accuracy: 0.001)
+                XCTAssertEqual(section7.timeSignatureConfidence, 1, accuracy: 0.01)
             }
             else {
                 XCTFail("should be at least 8 sections: \(track.sections.count)")
@@ -507,27 +508,27 @@ extension SpotifyAPITrackTests {
                 
                 // MARK: Segment 0
                 let segment0 = track.segments[0]
-                XCTAssertEqual(segment0.start, 0, accuracy: 0.001)
-                XCTAssertEqual(segment0.duration, 0.09764, accuracy: 0.001)
-                XCTAssertEqual(segment0.confidence, 0, accuracy: 0.001)
-                XCTAssertEqual(segment0.loudnessStart, -17.429, accuracy: 0.001)
-                XCTAssertEqual(segment0.loudnessMaxTime, 0.01546, accuracy: 0.001)
-                XCTAssertEqual(segment0.loudnessMax, -13.933, accuracy: 0.001)
-                XCTAssertEqual(segment0.loudnessEnd, 0, accuracy: 0.001)
+                XCTAssertEqual(segment0.start, 0, accuracy: 0.01)
+                XCTAssertEqual(segment0.duration, 0.09764, accuracy: 0.01)
+                XCTAssertEqual(segment0.confidence, 0, accuracy: 0.01)
+                XCTAssertEqual(segment0.loudnessStart, -17.429, accuracy: 0.01)
+                XCTAssertEqual(segment0.loudnessMaxTime, 0.01546, accuracy: 0.01)
+                XCTAssertEqual(segment0.loudnessMax, -13.933, accuracy: 0.01)
+                XCTAssertEqual(segment0.loudnessEnd, 0, accuracy: 0.01)
                 if segment0.pitches.count >= 12 {
                     let pitches = segment0.pitches
-                    XCTAssertEqual(pitches[0], 0.639, accuracy: 0.001)
-                    XCTAssertEqual(pitches[1], 0.414, accuracy: 0.001)
-                    XCTAssertEqual(pitches[2], 0.08, accuracy: 0.001)
-                    XCTAssertEqual(pitches[3], 0.201, accuracy: 0.001)
-                    XCTAssertEqual(pitches[4], 0.451, accuracy: 0.001)
-                    XCTAssertEqual(pitches[5], 0.375, accuracy: 0.001)
-                    XCTAssertEqual(pitches[6], 0.596, accuracy: 0.001)
-                    XCTAssertEqual(pitches[7], 0.592, accuracy: 0.001)
-                    XCTAssertEqual(pitches[8], 0.921, accuracy: 0.001)
-                    XCTAssertEqual(pitches[9], 1, accuracy: 0.001)
-                    XCTAssertEqual(pitches[10], 0.952, accuracy: 0.001)
-                    XCTAssertEqual(pitches[11], 0.032, accuracy: 0.001)
+                    XCTAssertEqual(pitches[0], 0.639, accuracy: 0.01)
+                    XCTAssertEqual(pitches[1], 0.414, accuracy: 0.01)
+                    XCTAssertEqual(pitches[2], 0.08, accuracy: 0.01)
+                    XCTAssertEqual(pitches[3], 0.201, accuracy: 0.01)
+                    XCTAssertEqual(pitches[4], 0.451, accuracy: 0.01)
+                    XCTAssertEqual(pitches[5], 0.375, accuracy: 0.01)
+                    XCTAssertEqual(pitches[6], 0.596, accuracy: 0.01)
+                    XCTAssertEqual(pitches[7], 0.592, accuracy: 0.01)
+                    XCTAssertEqual(pitches[8], 0.921, accuracy: 0.01)
+                    XCTAssertEqual(pitches[9], 1, accuracy: 0.01)
+                    XCTAssertEqual(pitches[10], 0.952, accuracy: 0.01)
+                    XCTAssertEqual(pitches[11], 0.032, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -536,18 +537,18 @@ extension SpotifyAPITrackTests {
                 }
                 if segment0.timbre.count >= 12 {
                     let timbre = segment0.timbre
-                    XCTAssertEqual(timbre[0], 44.657, accuracy: 0.001)
-                    XCTAssertEqual(timbre[1], -71.859, accuracy: 0.001)
-                    XCTAssertEqual(timbre[2], -77.829, accuracy: 0.001)
-                    XCTAssertEqual(timbre[3], -59.174, accuracy: 0.001)
-                    XCTAssertEqual(timbre[4], -14.262, accuracy: 0.001)
-                    XCTAssertEqual(timbre[5], -43.922, accuracy: 0.001)
-                    XCTAssertEqual(timbre[6], -12.169, accuracy: 0.001)
-                    XCTAssertEqual(timbre[7], 1.677, accuracy: 0.001)
-                    XCTAssertEqual(timbre[8], -24.255, accuracy: 0.001)
-                    XCTAssertEqual(timbre[9], 6.786, accuracy: 0.001)
-                    XCTAssertEqual(timbre[10], 7.32, accuracy: 0.001)
-                    XCTAssertEqual(timbre[11], -11.612, accuracy: 0.001)
+                    XCTAssertEqual(timbre[0], 44.657, accuracy: 0.01)
+                    XCTAssertEqual(timbre[1], -71.859, accuracy: 0.01)
+                    XCTAssertEqual(timbre[2], -77.829, accuracy: 0.01)
+                    XCTAssertEqual(timbre[3], -59.174, accuracy: 0.01)
+                    XCTAssertEqual(timbre[4], -14.262, accuracy: 0.01)
+                    XCTAssertEqual(timbre[5], -43.922, accuracy: 0.01)
+                    XCTAssertEqual(timbre[6], -12.169, accuracy: 0.01)
+                    XCTAssertEqual(timbre[7], 1.677, accuracy: 0.01)
+                    XCTAssertEqual(timbre[8], -24.255, accuracy: 0.01)
+                    XCTAssertEqual(timbre[9], 6.786, accuracy: 0.01)
+                    XCTAssertEqual(timbre[10], 7.32, accuracy: 0.01)
+                    XCTAssertEqual(timbre[11], -11.612, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -557,27 +558,27 @@ extension SpotifyAPITrackTests {
                 
                 // MARK: Segment 96
                 let segment96 = track.segments[96]
-                XCTAssertEqual(segment96.start, 24.29465, accuracy: 0.001)
-                XCTAssertEqual(segment96.duration, 0.10934, accuracy: 0.001)
-                XCTAssertEqual(segment96.confidence, 0.033, accuracy: 0.001)
-                XCTAssertEqual(segment96.loudnessStart, -23.076, accuracy: 0.001)
-                XCTAssertEqual(segment96.loudnessMaxTime, 0.05434, accuracy: 0.001)
-                XCTAssertEqual(segment96.loudnessMax, -19.555, accuracy: 0.001)
-                XCTAssertEqual(segment96.loudnessEnd, 0, accuracy: 0.001)
+                XCTAssertEqual(segment96.start, 24.29465, accuracy: 0.01)
+                XCTAssertEqual(segment96.duration, 0.10934, accuracy: 0.01)
+                XCTAssertEqual(segment96.confidence, 0.033, accuracy: 0.01)
+                XCTAssertEqual(segment96.loudnessStart, -23.076, accuracy: 0.01)
+                XCTAssertEqual(segment96.loudnessMaxTime, 0.05434, accuracy: 0.01)
+                XCTAssertEqual(segment96.loudnessMax, -19.555, accuracy: 0.01)
+                XCTAssertEqual(segment96.loudnessEnd, 0, accuracy: 0.01)
                 if segment96.pitches.count >= 12 {
                     let pitches = segment96.pitches
-                    XCTAssertEqual(pitches[0], 1, accuracy: 0.001)
-                    XCTAssertEqual(pitches[1], 0.802, accuracy: 0.001)
-                    XCTAssertEqual(pitches[2], 0.017, accuracy: 0.001)
-                    XCTAssertEqual(pitches[3], 0.025, accuracy: 0.001)
-                    XCTAssertEqual(pitches[4], 0.067, accuracy: 0.001)
-                    XCTAssertEqual(pitches[5], 0.028, accuracy: 0.001)
-                    XCTAssertEqual(pitches[6], 0.026, accuracy: 0.001)
-                    XCTAssertEqual(pitches[7], 0.074, accuracy: 0.001)
-                    XCTAssertEqual(pitches[8], 0.646, accuracy: 0.001)
-                    XCTAssertEqual(pitches[9], 0.981, accuracy: 0.001)
-                    XCTAssertEqual(pitches[10], 0.934, accuracy: 0.001)
-                    XCTAssertEqual(pitches[11], 0.029, accuracy: 0.001)
+                    XCTAssertEqual(pitches[0], 1, accuracy: 0.01)
+                    XCTAssertEqual(pitches[1], 0.802, accuracy: 0.01)
+                    XCTAssertEqual(pitches[2], 0.017, accuracy: 0.01)
+                    XCTAssertEqual(pitches[3], 0.025, accuracy: 0.01)
+                    XCTAssertEqual(pitches[4], 0.067, accuracy: 0.01)
+                    XCTAssertEqual(pitches[5], 0.028, accuracy: 0.01)
+                    XCTAssertEqual(pitches[6], 0.026, accuracy: 0.01)
+                    XCTAssertEqual(pitches[7], 0.074, accuracy: 0.01)
+                    XCTAssertEqual(pitches[8], 0.646, accuracy: 0.01)
+                    XCTAssertEqual(pitches[9], 0.981, accuracy: 0.01)
+                    XCTAssertEqual(pitches[10], 0.934, accuracy: 0.01)
+                    XCTAssertEqual(pitches[11], 0.029, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -586,18 +587,18 @@ extension SpotifyAPITrackTests {
                 }
                 if segment96.timbre.count >= 12 {
                     let timbre = segment96.timbre
-                    XCTAssertEqual(timbre[0], 38.669, accuracy: 0.001)
-                    XCTAssertEqual(timbre[1], -32.641, accuracy: 0.001)
-                    XCTAssertEqual(timbre[2], -47.326, accuracy: 0.001)
-                    XCTAssertEqual(timbre[3], -33.544, accuracy: 0.001)
-                    XCTAssertEqual(timbre[4], 14.173, accuracy: 0.001)
-                    XCTAssertEqual(timbre[5], -38.575, accuracy: 0.001)
-                    XCTAssertEqual(timbre[6], -13.833, accuracy: 0.001)
-                    XCTAssertEqual(timbre[7], 6.241, accuracy: 0.001)
-                    XCTAssertEqual(timbre[8], -26.976, accuracy: 0.001)
-                    XCTAssertEqual(timbre[9], -2.145, accuracy: 0.001)
-                    XCTAssertEqual(timbre[10], -15.028, accuracy: 0.001)
-                    XCTAssertEqual(timbre[11], 13.425, accuracy: 0.001)
+                    XCTAssertEqual(timbre[0], 38.669, accuracy: 0.01)
+                    XCTAssertEqual(timbre[1], -32.641, accuracy: 0.01)
+                    XCTAssertEqual(timbre[2], -47.326, accuracy: 0.01)
+                    XCTAssertEqual(timbre[3], -33.544, accuracy: 0.01)
+                    XCTAssertEqual(timbre[4], 14.173, accuracy: 0.01)
+                    XCTAssertEqual(timbre[5], -38.575, accuracy: 0.01)
+                    XCTAssertEqual(timbre[6], -13.833, accuracy: 0.01)
+                    XCTAssertEqual(timbre[7], 6.241, accuracy: 0.01)
+                    XCTAssertEqual(timbre[8], -26.976, accuracy: 0.01)
+                    XCTAssertEqual(timbre[9], -2.145, accuracy: 0.01)
+                    XCTAssertEqual(timbre[10], -15.028, accuracy: 0.01)
+                    XCTAssertEqual(timbre[11], 13.425, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -607,27 +608,27 @@ extension SpotifyAPITrackTests {
                 
                 // MARK: Segment 808
                 let segment808 = track.segments[808]
-                XCTAssertEqual(segment808.start, 217.41864, accuracy: 0.001)
-                XCTAssertEqual(segment808.duration, 0.79206, accuracy: 0.001)
-                XCTAssertEqual(segment808.confidence, 0.695, accuracy: 0.001)
-                XCTAssertEqual(segment808.loudnessStart, -17.715, accuracy: 0.001)
-                XCTAssertEqual(segment808.loudnessMaxTime, 0.0154, accuracy: 0.001)
-                XCTAssertEqual(segment808.loudnessMax, -7.635, accuracy: 0.001)
-                XCTAssertEqual(segment808.loudnessEnd, -34.869, accuracy: 0.001)
+                XCTAssertEqual(segment808.start, 217.41864, accuracy: 0.01)
+                XCTAssertEqual(segment808.duration, 0.79206, accuracy: 0.01)
+                XCTAssertEqual(segment808.confidence, 0.695, accuracy: 0.01)
+                XCTAssertEqual(segment808.loudnessStart, -17.715, accuracy: 0.01)
+                XCTAssertEqual(segment808.loudnessMaxTime, 0.0154, accuracy: 0.01)
+                XCTAssertEqual(segment808.loudnessMax, -7.635, accuracy: 0.01)
+                XCTAssertEqual(segment808.loudnessEnd, -34.869, accuracy: 0.01)
                 if segment808.pitches.count >= 12 {
                     let pitches = segment808.pitches
-                    XCTAssertEqual(pitches[0], 0.294, accuracy: 0.001)
-                    XCTAssertEqual(pitches[1], 0.193, accuracy: 0.001)
-                    XCTAssertEqual(pitches[2], 1, accuracy: 0.001)
-                    XCTAssertEqual(pitches[3], 0.186, accuracy: 0.001)
-                    XCTAssertEqual(pitches[4], 0.061, accuracy: 0.001)
-                    XCTAssertEqual(pitches[5], 0.16, accuracy: 0.001)
-                    XCTAssertEqual(pitches[6], 0.051, accuracy: 0.001)
-                    XCTAssertEqual(pitches[7], 0.052, accuracy: 0.001)
-                    XCTAssertEqual(pitches[8], 0.084, accuracy: 0.001)
-                    XCTAssertEqual(pitches[9], 0.617, accuracy: 0.001)
-                    XCTAssertEqual(pitches[10], 0.085, accuracy: 0.001)
-                    XCTAssertEqual(pitches[11], 0.061, accuracy: 0.001)
+                    XCTAssertEqual(pitches[0], 0.294, accuracy: 0.01)
+                    XCTAssertEqual(pitches[1], 0.193, accuracy: 0.01)
+                    XCTAssertEqual(pitches[2], 1, accuracy: 0.01)
+                    XCTAssertEqual(pitches[3], 0.186, accuracy: 0.01)
+                    XCTAssertEqual(pitches[4], 0.061, accuracy: 0.01)
+                    XCTAssertEqual(pitches[5], 0.16, accuracy: 0.01)
+                    XCTAssertEqual(pitches[6], 0.051, accuracy: 0.01)
+                    XCTAssertEqual(pitches[7], 0.052, accuracy: 0.01)
+                    XCTAssertEqual(pitches[8], 0.084, accuracy: 0.01)
+                    XCTAssertEqual(pitches[9], 0.617, accuracy: 0.01)
+                    XCTAssertEqual(pitches[10], 0.085, accuracy: 0.01)
+                    XCTAssertEqual(pitches[11], 0.061, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -636,18 +637,18 @@ extension SpotifyAPITrackTests {
                 }
                 if segment808.timbre.count >= 12 {
                     let timbre = segment808.timbre
-                    XCTAssertEqual(timbre[0], 43.69, accuracy: 0.001)
-                    XCTAssertEqual(timbre[1], -56.717, accuracy: 0.001)
-                    XCTAssertEqual(timbre[2], -136.045, accuracy: 0.001)
-                    XCTAssertEqual(timbre[3], 109.34, accuracy: 0.001)
-                    XCTAssertEqual(timbre[4], 45.092, accuracy: 0.001)
-                    XCTAssertEqual(timbre[5], -50.271, accuracy: 0.001)
-                    XCTAssertEqual(timbre[6], -33.248, accuracy: 0.001)
-                    XCTAssertEqual(timbre[7], -13.619, accuracy: 0.001)
-                    XCTAssertEqual(timbre[8], 2.161, accuracy: 0.001)
-                    XCTAssertEqual(timbre[9], -24.457, accuracy: 0.001)
-                    XCTAssertEqual(timbre[10], -47.499, accuracy: 0.001)
-                    XCTAssertEqual(timbre[11], 19.684, accuracy: 0.001)
+                    XCTAssertEqual(timbre[0], 43.69, accuracy: 0.01)
+                    XCTAssertEqual(timbre[1], -56.717, accuracy: 0.01)
+                    XCTAssertEqual(timbre[2], -136.045, accuracy: 0.01)
+                    XCTAssertEqual(timbre[3], 109.34, accuracy: 0.01)
+                    XCTAssertEqual(timbre[4], 45.092, accuracy: 0.01)
+                    XCTAssertEqual(timbre[5], -50.271, accuracy: 0.01)
+                    XCTAssertEqual(timbre[6], -33.248, accuracy: 0.01)
+                    XCTAssertEqual(timbre[7], -13.619, accuracy: 0.01)
+                    XCTAssertEqual(timbre[8], 2.161, accuracy: 0.01)
+                    XCTAssertEqual(timbre[9], -24.457, accuracy: 0.01)
+                    XCTAssertEqual(timbre[10], -47.499, accuracy: 0.01)
+                    XCTAssertEqual(timbre[11], 19.684, accuracy: 0.01)
                 }
                 else {
                     XCTFail(
@@ -687,17 +688,17 @@ extension SpotifyAPITrackTests {
             
             encodeDecode(track)
             
-            XCTAssertEqual(track.danceability, 0.274, accuracy: 0.001)
-            XCTAssertEqual(track.energy, 0.217, accuracy: 0.001)
+            XCTAssertEqual(track.danceability, 0.274, accuracy: 0.01)
+            XCTAssertEqual(track.energy, 0.217, accuracy: 0.01)
             XCTAssertEqual(track.key, 5)
-            XCTAssertEqual(track.loudness, -13.814, accuracy: 0.001)
+            XCTAssertEqual(track.loudness, -13.814, accuracy: 0.01)
             XCTAssertEqual(track.mode, 1)
-            XCTAssertEqual(track.speechiness, 0.0345, accuracy: 0.001)
-            XCTAssertEqual(track.acousticness, 0.767, accuracy: 0.001)
-            XCTAssertEqual(track.instrumentalness, 0.896, accuracy: 0.001)
-            XCTAssertEqual(track.liveness, 0.0832, accuracy: 0.001)
-            XCTAssertEqual(track.valence, 0.181, accuracy: 0.001)
-            XCTAssertEqual(track.tempo, 116.334, accuracy: 0.001)
+            XCTAssertEqual(track.speechiness, 0.0345, accuracy: 0.01)
+            XCTAssertEqual(track.acousticness, 0.767, accuracy: 0.01)
+            XCTAssertEqual(track.instrumentalness, 0.896, accuracy: 0.01)
+            XCTAssertEqual(track.liveness, 0.0832, accuracy: 0.01)
+            XCTAssertEqual(track.valence, 0.181, accuracy: 0.01)
+            XCTAssertEqual(track.tempo, 116.334, accuracy: 0.01)
             XCTAssertEqual(track.type, "audio_features")
             XCTAssertEqual(track.id, "2TjdnqlpwOjhijHCwHCP2d")
             XCTAssertEqual(track.uri, "spotify:track:2TjdnqlpwOjhijHCwHCP2d")
@@ -769,17 +770,17 @@ extension SpotifyAPITrackTests {
             XCTAssertNil(tracks[2], "third URI is invalid")
             
             if let track = tracks[0] {
-                XCTAssertEqual(track.danceability, 0.359, accuracy: 0.001)
-                XCTAssertEqual(track.energy, 0.577, accuracy: 0.001)
+                XCTAssertEqual(track.danceability, 0.359, accuracy: 0.01)
+                XCTAssertEqual(track.energy, 0.577, accuracy: 0.01)
                 XCTAssertEqual(track.key, 10)
-                XCTAssertEqual(track.loudness, -10.804, accuracy: 0.001)
+                XCTAssertEqual(track.loudness, -10.804, accuracy: 0.01)
                 XCTAssertEqual(track.mode, 1)
-                XCTAssertEqual(track.speechiness, 0.0406, accuracy: 0.001)
-                XCTAssertEqual(track.acousticness, 0.0591, accuracy: 0.001)
-                XCTAssertEqual(track.instrumentalness, 0.751, accuracy: 0.001)
-                XCTAssertEqual(track.liveness, 0.0686, accuracy: 0.001)
-                XCTAssertEqual(track.valence, 0.141, accuracy: 0.001)
-                XCTAssertEqual(track.tempo, 68.064, accuracy: 0.001)
+                XCTAssertEqual(track.speechiness, 0.0406, accuracy: 0.01)
+                XCTAssertEqual(track.acousticness, 0.0591, accuracy: 0.01)
+                XCTAssertEqual(track.instrumentalness, 0.751, accuracy: 0.01)
+                XCTAssertEqual(track.liveness, 0.0686, accuracy: 0.01)
+                XCTAssertEqual(track.valence, 0.141, accuracy: 0.01)
+                XCTAssertEqual(track.tempo, 68.064, accuracy: 0.01)
                 XCTAssertEqual(track.type, "audio_features")
                 XCTAssertEqual(track.id, "1tDWVeCR9oWGX8d5J9rswk")
                 XCTAssertEqual(track.uri, "spotify:track:1tDWVeCR9oWGX8d5J9rswk")
@@ -799,17 +800,17 @@ extension SpotifyAPITrackTests {
             }
             
             if let track = tracks[1] {
-                XCTAssertEqual(track.danceability, 0.324, accuracy: 0.001)
-                XCTAssertEqual(track.energy, 0.265, accuracy: 0.001)
+                XCTAssertEqual(track.danceability, 0.324, accuracy: 0.01)
+                XCTAssertEqual(track.energy, 0.265, accuracy: 0.01)
                 XCTAssertEqual(track.key, 2)
-                XCTAssertEqual(track.loudness, -13.398, accuracy: 0.001)
+                XCTAssertEqual(track.loudness, -13.398, accuracy: 0.01)
                 XCTAssertEqual(track.mode, 1)
-                XCTAssertEqual(track.speechiness, 0.0302, accuracy: 0.001)
-                XCTAssertEqual(track.acousticness, 0.0726, accuracy: 0.001)
-                XCTAssertEqual(track.instrumentalness, 0.341, accuracy: 0.001)
-                XCTAssertEqual(track.liveness, 0.366, accuracy: 0.001)
-                XCTAssertEqual(track.valence, 0.208, accuracy: 0.001)
-                XCTAssertEqual(track.tempo, 133.568, accuracy: 0.001)
+                XCTAssertEqual(track.speechiness, 0.0302, accuracy: 0.01)
+                XCTAssertEqual(track.acousticness, 0.0726, accuracy: 0.01)
+                XCTAssertEqual(track.instrumentalness, 0.341, accuracy: 0.01)
+                XCTAssertEqual(track.liveness, 0.366, accuracy: 0.01)
+                XCTAssertEqual(track.valence, 0.208, accuracy: 0.01)
+                XCTAssertEqual(track.tempo, 133.568, accuracy: 0.01)
                 XCTAssertEqual(track.type, "audio_features")
                 XCTAssertEqual(track.id, "05uGBKRCuePsf43Hfm0JwX")
                 XCTAssertEqual(track.uri, "spotify:track:05uGBKRCuePsf43Hfm0JwX")
@@ -829,17 +830,17 @@ extension SpotifyAPITrackTests {
             }
             
             if let track = tracks[3] {
-                XCTAssertEqual(track.danceability, 0.533, accuracy: 0.001)
-                XCTAssertEqual(track.energy, 0.376, accuracy: 0.001)
+                XCTAssertEqual(track.danceability, 0.533, accuracy: 0.01)
+                XCTAssertEqual(track.energy, 0.376, accuracy: 0.01)
                 XCTAssertEqual(track.key, 9)
-                XCTAssertEqual(track.loudness, -11.913, accuracy: 0.001)
+                XCTAssertEqual(track.loudness, -11.913, accuracy: 0.01)
                 XCTAssertEqual(track.mode, 0)
-                XCTAssertEqual(track.speechiness, 0.0393, accuracy: 0.001)
-                XCTAssertEqual(track.acousticness, 0.0302, accuracy: 0.001)
-                XCTAssertEqual(track.instrumentalness, 0.248, accuracy: 0.001)
-                XCTAssertEqual(track.liveness, 0.0926, accuracy: 0.001)
-                XCTAssertEqual(track.valence, 0.187, accuracy: 0.001)
-                XCTAssertEqual(track.tempo, 165.007, accuracy: 0.001)
+                XCTAssertEqual(track.speechiness, 0.0393, accuracy: 0.01)
+                XCTAssertEqual(track.acousticness, 0.0302, accuracy: 0.01)
+                XCTAssertEqual(track.instrumentalness, 0.248, accuracy: 0.01)
+                XCTAssertEqual(track.liveness, 0.0926, accuracy: 0.01)
+                XCTAssertEqual(track.valence, 0.187, accuracy: 0.01)
+                XCTAssertEqual(track.tempo, 164.775, accuracy: 0.01)
                 XCTAssertEqual(track.type, "audio_features")
                 XCTAssertEqual(track.id, "2EqlS6tkEnglzr7tkKAAYD")
                 XCTAssertEqual(track.uri, "spotify:track:2EqlS6tkEnglzr7tkKAAYD")

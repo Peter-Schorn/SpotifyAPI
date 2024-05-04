@@ -24,7 +24,7 @@ public enum PlaylistItem: Hashable {
     case episode(Episode)
     
     /// The name of this ``PlaylistItem``.
-    @inlinable
+    @inlinable @inline(__always)
     public var name: String {
         switch self {
             case .track(let track):
@@ -37,7 +37,7 @@ public enum PlaylistItem: Hashable {
     /// The [Spotify URI][1] for this ``PlaylistItem``.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    @inlinable
+    @inlinable @inline(__always)
     public var uri: String? {
         switch self {
             case .track(let track):
@@ -50,7 +50,7 @@ public enum PlaylistItem: Hashable {
     /// The [Spotify ID][1] for this ``PlaylistItem``.
     ///
     /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    @inlinable
+    @inlinable @inline(__always)
     public var id: String? {
         switch self {
             case .track(let track):

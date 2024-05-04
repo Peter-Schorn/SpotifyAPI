@@ -164,17 +164,18 @@ extension Publisher {
 //                    "\(additionalRetries). Error: \(error)"
 //            )
             
-            // don't retry at all if max retry delay is 0
-            if maxRetryDelay == 0 {
-                return nil
-            }
-
             if let rateLimitedError = error as? RateLimitedError {
 
                 #if DEBUG
                 DebugHooks.receiveRateLimitedError.send(rateLimitedError)
                 #endif
     //            Swift.print("retryOnRateLimitedError: \(rateLimitedError)")
+
+
+                // MARK: don't retry at all if max retry delay is 0
+                if maxRetryDelay == 0 {
+                    return nil
+                }
 
                 let secondsDelay = (rateLimitedError.retryAfter ?? 3) + 1
 
@@ -191,8 +192,8 @@ extension Publisher {
                     // would never get a rate limited error more than once per
                     // request in the first place.
                     case 2:
-                        // + 0...5 seconds
-                        millisecondsDelay += Int.random(in: 0...5_000)
+                        // + 1...5 seconds
+                        millisecondsDelay += Int.random(in: 1_000...5_000)
                     default /* 1 */:
                         // + 5...10 seconds
                         millisecondsDelay += Int.random(in: 5_000...10_000)
@@ -206,6 +207,9 @@ extension Publisher {
                     // don't retry the request if the total accumulated
                     // retry delay is >= maxRetryDelay
                     return nil
+                }
+                else {
+                    return .milliseconds(millisecondsDelay)
                 }
 
             }
@@ -230,7 +234,10 @@ extension Publisher {
             }
             
             if retryableStatusCodes.contains(statusCode) {
-                return .seconds(1)  // retry with a one second delay
+                // retry with a 1-2 second delay
+                return .milliseconds(
+                    Int.random(in: 1_000...2_000)
+                )
             }
             
             return nil

@@ -535,7 +535,7 @@ extension SpotifyAPIErrorTests {
             description: "exceedMaxRetryDelay"
         )
 
-        Self.spotify.maxRetryDelay = 150
+        Self.spotify.maxRetryDelay = 15
 
         let retryAfter = 10
         let error = RateLimitedError(retryAfter: retryAfter)

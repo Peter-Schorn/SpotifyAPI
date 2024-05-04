@@ -277,9 +277,10 @@ extension Album: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.name = try container.decode(
+        self.name = try container.decodeIfPresent(
             String.self, forKey: .name
-        )
+        ) ?? ""
+
         self.tracks = try container.decodeIfPresent(
             PagingObject<Track>.self, forKey: .tracks
         )
@@ -303,9 +304,9 @@ extension Album: Codable {
         self.id = try container.decodeIfPresent(
             String.self, forKey: .id
         )
-        self.images = try container.decodeIfPresent(
-            [SpotifyImage].self, forKey: .images
-        )
+
+        self.images = try container.decodeSpotifyImages(forKey: .images)
+        
         self.popularity = try container.decodeIfPresent(
             Int.self, forKey: .popularity
         )
@@ -333,19 +334,22 @@ extension Album: Codable {
         self.albumGroup = try container.decodeIfPresent(
             AlbumType.self, forKey: .albumGroup
         )
-        self.availableMarkets = try container.decodeIfPresent(
-            [String].self, forKey: .availableMarkets
+
+        self.availableMarkets = try container.decodeAndUnwrapArray(
+            forKey: .availableMarkets
         )
+        
         self.copyrights = try container.decodeIfPresent(
             [SpotifyCopyright].self, forKey: .copyrights
         )
         self.restrictions = try container.decodeIfPresent(
             [String: String].self, forKey: .restrictions
         )
-        self.type = try container.decode(
+
+        self.type = (try? container.decodeIfPresent(
             IDCategory.self, forKey: .type
-        )
-        
+        )) ?? .album
+
     }
     
     public func encode(to encoder: Encoder) throws {

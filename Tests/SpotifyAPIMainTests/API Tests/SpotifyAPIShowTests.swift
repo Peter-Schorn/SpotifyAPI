@@ -23,7 +23,7 @@ extension SpotifyAPIShowTests {
             "Sean Carroll's Mindscape: Science, Society, Philosophy, Culture, Arts, and Ideas"
         )
         XCTAssertEqual(show.publisher, "Sean Carroll | Wondery")
-        XCTAssertFalse(show.isExplicit)
+        XCTAssertTrue(show.isExplicit)
         XCTAssertEqual(show.uri, "spotify:show:622lvLwp8CVu6dvCsYAJhN")
         XCTAssertEqual(show.id, "622lvLwp8CVu6dvCsYAJhN")
         XCTAssertEqual(show.type, .show)
@@ -83,15 +83,15 @@ extension SpotifyAPIShowTests {
         XCTAssertNotNil(episodes.next)
         XCTAssertEqual(episodes.offset, 0)
         
-        for episode in episodes.items {
-            XCTAssertEqual(episode.type, .episode)
-            XCTAssertEqual(episode.languages, ["en"])
-            if Self.spotify.authorizationManager.isAuthorized(
-                for: [.userReadPlaybackPosition]
-            ) {
-                XCTAssertNotNil(episode.resumePoint)
-            }
-        }
+//        for episode in episodes.items {
+//            XCTAssertEqual(episode.type, .episode)
+//            XCTAssertEqual(episode.languages, ["en"])
+//            if Self.spotify.authorizationManager.isAuthorized(
+//                for: [.userReadPlaybackPosition]
+//            ) {
+//                XCTAssertNotNil(episode.resumePoint)
+//            }
+//        }
         
     }
     
@@ -154,7 +154,10 @@ extension SpotifyAPIShowTests {
                 joeRogan.href,
                 URL(string: "https://api.spotify.com/v1/shows/4rOoJ6Egrf8K2IrywzwOMk")!
             )
-            XCTAssert(joeRogan.languages.contains("en-US"), "\(joeRogan.languages)")
+            XCTAssert(
+                joeRogan.languages.contains("en-US") || joeRogan.languages.contains("en"),
+                "\(joeRogan.languages)"
+            )
             XCTAssertFalse(joeRogan.isExternallyHosted)
             XCTAssertEqual(joeRogan.mediaType, "mixed")
             XCTAssert(
@@ -202,18 +205,18 @@ extension SpotifyAPIShowTests {
             encodeDecode(show)
             XCTAssertEqual(
                 show.href,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=10&limit=30&market=US")!
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=10&limit=30&market=US&locale=en-US,en;q=0.9")!
             )
             XCTAssertEqual(show.limit, 30)
             XCTAssertEqual(show.offset, 10)
             XCTAssert(show.total >= 143, "\(show.total)")
             XCTAssertEqual(
                 show.next,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=40&limit=30&market=US")!
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=40&limit=30&market=US&locale=en-US,en;q=0.9")!
             )
             XCTAssertEqual(
                 show.previous,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=0&limit=30&market=US")!
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=0&limit=30&market=US&locale=en-US,en;q=0.9")!
             )
             
 

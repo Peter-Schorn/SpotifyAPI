@@ -109,17 +109,25 @@ public struct DistributedLock {
     /// Polls the lock at an interval of 0.5 seconds until it is acquired.
     public func lock() {
         self.queue.sync {
+
             guard let lock = self._lock else {
                 return
             }
+
             print(
                 "waiting for \(self.name) distributed lock; " +
                 "lockDate: \(lock.lockDate.description(with: .current))"
             )
+
             while !lock.try() {
                 usleep(500_000)  // 0.5 seconds
             }
-            print("acquired \(self.name) distributed lock")
+
+            print(
+                "acquired \(self.name) distributed lock at " +
+                "\(Date().description(with: .current))"
+            )
+
         }
     }
     

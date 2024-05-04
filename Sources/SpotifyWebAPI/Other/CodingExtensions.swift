@@ -225,7 +225,16 @@ public extension KeyedDecodingContainer {
         let percentEncodedURI = try self.decode(String.self, forKey: key)
         return percentEncodedURI.removingPercentEncoding ?? percentEncodedURI
     }
-    
+ 
+    func decodeAndUnwrapArray<T: Decodable>(forKey key: Key) throws -> [T] {
+        return try self.decodeIfPresent([T?].self, forKey: key)?
+            .compactMap({ $0 }) ?? []
+    }
+
+    func decodeSpotifyImages(forKey key: Key) throws -> [SpotifyImage] {
+        return try self.decodeAndUnwrapArray(forKey: key)
+    }
+
 }
 
 public extension KeyedEncodingContainer {

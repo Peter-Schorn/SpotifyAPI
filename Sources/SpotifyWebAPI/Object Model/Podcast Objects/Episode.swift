@@ -207,9 +207,10 @@ extension Episode: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.name = try container.decode(
+        self.name = try container.decodeIfPresent(
             String.self, forKey: .name
-        )
+        ) ?? ""
+        
         self.show = try container.decodeIfPresent(
             Show.self, forKey: .show
         )
@@ -247,16 +248,17 @@ extension Episode: Codable {
         self.id = try container.decode(
             String.self, forKey: .id
         )
-        self.images = try container.decodeIfPresent(
-            [SpotifyImage].self, forKey: .images
-        )
+        
+        self.images = try container.decodeSpotifyImages(forKey: .images)
         
         self.href = try container.decode(
             URL.self, forKey: .href
         )
-        self.isPlayable = try container.decode(
+        
+        self.isPlayable = try container.decodeIfPresent(
             Bool.self, forKey: .isPlayable
-        )
+        ) ?? true
+
         self.externalURLs = try container.decodeIfPresent(
             [String: URL].self, forKey: .externalURLs
         )
@@ -269,10 +271,11 @@ extension Episode: Codable {
         self.restrictions = try container.decodeIfPresent(
             [String: String].self, forKey: .restrictions
         )
-        self.type = try container.decode(
+
+        self.type = (try? container.decodeIfPresent(
             IDCategory.self, forKey: .type
-        )
-        
+        )) ?? .episode
+
     }
     
     public func encode(to encoder: Encoder) throws {

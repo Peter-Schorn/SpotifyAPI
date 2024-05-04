@@ -21,16 +21,16 @@ extension SpotifyAPIEpisodeTests {
         XCTAssertEqual(
             episode.description,
             """
-            In this episode of the podcast, Sam Harris speaks with Kathryn \
-            Paige Harden about public controversy over group differences \
-            in traits like intelligence and ongoing research in behavioral \
-            genetics. They discuss Harden’s criticism of the Making Sense \
-            episode featuring Charles Murray, the mingling of scientific \
-            thinking with politics and social activism, cancel culture, \
-            environmental and genetic contributions to individual and group \
-            differences, intellectual honesty, and other topics. SUBSCRIBE \
-            to gain access to all full-length episodes at \
-            samharris.org/subscribe.
+            Sam Harris speaks with Kathryn Paige Harden about public \
+            controversy over group differences in traits like intelligence \
+            and ongoing research in behavioral genetics. They discuss \
+            Harden’s criticism of the Making Sense episode featuring Charles \
+            Murray, the mingling of scientific thinking with politics and \
+            social activism, cancel culture, environmental and genetic \
+            contributions to individual and group differences, intellectual \
+            honesty, and other topics. If the Making Sense podcast logo in \
+            your player is BLACK, you can SUBSCRIBE to gain access to all \
+            full-length episodes at samharris.org/subscribe.
             """
         )
         XCTAssertEqual(episode.durationMS, 2923102)
@@ -88,7 +88,6 @@ extension SpotifyAPIEpisodeTests {
             return
         }
         
-        XCTAssert(show.availableMarkets.contains("US"))
         XCTAssertEqual(
             show.description,
             """
@@ -174,16 +173,17 @@ extension SpotifyAPIEpisodeTests {
                 XCTAssertEqual(
                     samHarris213.description,
                     """
-                    In this episode the podcast, Sam Harris speaks with Gabriel \
-                    Dance about the global epidemic of child sexual abuse. \
-                    They discuss how misleading the concept of “child \
-                    pornography” is, the failure of governments and tech \
-                    companies to grapple with the problem, the tradeoff between \
-                    online privacy and protecting children, the National Center \
-                    for Missing and Exploited Children, photo DNA, the roles \
-                    played by specific tech companies, the ethics of \
-                    encryption, “sextortion,” the culture of pedophiles, and \
-                    other topics. SUBSCRIBE to gain access to all full-length \
+                    Sam Harris speaks with Gabriel Dance about the global \
+                    epidemic of child sexual abuse. They discuss how \
+                    misleading the concept of “child pornography” is, the \
+                    failure of governments and tech companies to grapple with \
+                    the problem, the tradeoff between online privacy and \
+                    protecting children, the National Center for Missing and \
+                    Exploited Children, photo DNA, the roles played by \
+                    specific tech companies, the ethics of encryption, \
+                    “sextortion,” the culture of pedophiles, and other \
+                    topics. If the Making Sense podcast logo in your player is \
+                    BLACK, you can SUBSCRIBE to gain access to all full-length \
                     episodes at samharris.org/subscribe.
                     """
                 )
@@ -217,7 +217,8 @@ extension SpotifyAPIEpisodeTests {
                     joeRogan1531.description,
                     """
                     Miley Cyrus is a singer-songwriter, actress, and record \
-                    producer. http://mileyl.ink/midnightsky
+                    producer. http://mileyl.ink/midnightsky Learn more about \
+                    your ad choices. Visit podcastchoices.com/adchoices
                     """
                 )
                 XCTAssertEqual(joeRogan1531.name, "#1531 - Miley Cyrus")

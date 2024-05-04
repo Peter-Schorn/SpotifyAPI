@@ -96,9 +96,13 @@ public struct RedirectListener {
         self.app.get(self.pathComponents) { request -> String in
             
             var urlComponents = serverAddressURLComponents
-            if !(request.route?.path.isEmpty ?? true) {
+
+
+            // if request.route.path is not empty
+            if request.route?.path.isEmpty == false {
                 urlComponents.path = request.url.path
             }
+
             urlComponents.query = request.url.query
 //            print("\n\nrequest.url.query: '\(request.url.query ?? "nil")'\n\n")
             let url = urlComponents.url!

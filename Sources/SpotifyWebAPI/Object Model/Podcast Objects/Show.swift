@@ -194,9 +194,10 @@ extension Show: Codable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.name = try container.decode(
+        self.name = try container.decodeIfPresent(
             String.self, forKey: .name
-        )
+        ) ?? ""
+
         self.description = try container.decode(
             String.self, forKey: .description
         )
@@ -218,12 +219,14 @@ extension Show: Codable {
         self.id = try container.decode(
             String.self, forKey: .id
         )
-        self.images = try container.decodeIfPresent(
-            [SpotifyImage].self, forKey: .images
+        
+        self.images = try container.decodeSpotifyImages(forKey: .images)
+
+        // MARK: Decode Available Markets
+        self.availableMarkets = try container.decodeAndUnwrapArray(
+            forKey: .availableMarkets
         )
-        self.availableMarkets = try container.decode(
-            [String].self, forKey: .availableMarkets
-        )
+
         self.href = try container.decode(
             URL.self, forKey: .href
         )
@@ -245,10 +248,11 @@ extension Show: Codable {
         self.publisher = try container.decode(
             String.self, forKey: .publisher
         )
-        self.type = try container.decode(
-            IDCategory.self, forKey: .type
-        )
         
+        self.type = (try? container.decodeIfPresent(
+            IDCategory.self, forKey: .type
+        )) ?? .show
+
     }
     
     public func encode(to encoder: Encoder) throws {

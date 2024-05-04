@@ -23,7 +23,7 @@ public final class NetworkAdaptorManager {
     public static let shared = NetworkAdaptorManager()
     
     #if TEST
-    private let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
+    private let httpClient = HTTPClient(eventLoopGroupProvider: .singleton)
     #endif
     
     private init() { }
@@ -70,11 +70,10 @@ public final class NetworkAdaptorManager {
         }
         
         return Future<(data: Data, response: HTTPURLResponse), Error> { promise in
-            
             self.httpClient.execute(
                 request: httpRequest
             ).whenComplete { result in
-                
+
                 do {
                     let response = try result.get()
                     
@@ -104,6 +103,7 @@ public final class NetworkAdaptorManager {
                 } catch {
                     promise(.failure(error))
                 }
+
             }
         }
         .eraseToAnyPublisher()

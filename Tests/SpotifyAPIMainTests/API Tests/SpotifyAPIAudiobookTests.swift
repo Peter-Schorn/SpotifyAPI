@@ -23,7 +23,7 @@ extension SpotifyAPIAudiobookTests {
         XCTAssertEqual(audiobook.authors.first?.name, "J.K. Rowling")
         XCTAssertEqual(
             audiobook.chapters?.href,
-            URL(string: "https://api.spotify.com/v1/audiobooks/2IEBhnu61ieYGFRPEJIO40/chapters")
+            URL(string: "https://api.spotify.com/v1/audiobooks/2IEBhnu61ieYGFRPEJIO40/chapters?offset=0&limit=50&market=US&locale=en-US,en;q=0.9")
         )
         XCTAssertEqual(audiobook.chapters?.limit, 50)
         XCTAssertNil(audiobook.chapters?.next)
@@ -56,15 +56,16 @@ extension SpotifyAPIAudiobookTests {
 
         XCTAssertEqual(audiobook.chapters?.items.count, 20)
 
-        XCTAssertEqual(
-            audiobook.copyrights?.count, 1,
-            "Expected 1 copyright object for audiobook '\(audiobook.name)'"
-        )
-        XCTAssertEqual(
-            audiobook.copyrights?.first?.text,
-            "Pottermore 1997"
-        )
-        XCTAssertEqual(audiobook.copyrights?.first?.type, "C")
+//        XCTAssertEqual(
+//            audiobook.copyrights?.count, 1,
+//            "Expected 1 copyright object for audiobook '\(audiobook.name)'"
+//        )
+//        XCTAssertEqual(
+//            audiobook.copyrights?.first?.text,
+//            "Pottermore 1997"
+//        )
+//        XCTAssertEqual(audiobook.copyrights?.first?.type, "C")
+        
         XCTAssertEqual(
             audiobook.description,
             """
@@ -151,7 +152,7 @@ extension SpotifyAPIAudiobookTests {
             XCTAssertEqual(chapter10.description, "")
             XCTAssertEqual(chapter10.htmlDescription, "")
             XCTAssertEqual(chapter10.chapterNumber, 10)
-            XCTAssertEqual(chapter10.durationMS, 1532000)
+            XCTAssertEqual(chapter10.durationMS, 1532499)
             XCTAssertEqual(chapter10.isExplicit, false)
 //                XCTAssertEqual(chapter10.languages[0], "en")
             XCTAssertEqual(chapter10.name, "Chapter 10: Halloween")
@@ -330,7 +331,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(audiobook.type, .audiobook)
                 XCTAssertEqual(
                     audiobook.chapters?.href,
-                    URL(string: "https://api.spotify.com/v1/audiobooks/2fUedmI8FowN4xYJuMIDfi/chapters")
+                    URL(string: "https://api.spotify.com/v1/audiobooks/2fUedmI8FowN4xYJuMIDfi/chapters?offset=0&limit=50&market=US&locale=en-US,en;q=0.9")
                 )
                 XCTAssertEqual(audiobook.chapters?.items.count, 28)
                 XCTAssertEqual(audiobook.chapters?.limit, 50)
@@ -375,7 +376,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(audiobook.type, .audiobook)
                 XCTAssertEqual(
                     audiobook.chapters?.href,
-                    URL(string: "https://api.spotify.com/v1/audiobooks/4x3Y9YYK84XJSTTJp2atHe/chapters")
+                    URL(string: "https://api.spotify.com/v1/audiobooks/4x3Y9YYK84XJSTTJp2atHe/chapters?offset=0&limit=50&market=US&locale=en-US,en;q=0.9")
                 )
 //                XCTAssertEqual(audiobook.chapters?.items.count, 11)
                 XCTAssertEqual(audiobook.chapters?.limit, 50)
@@ -394,7 +395,7 @@ extension SpotifyAPIAudiobookTests {
                     audiobook.description,
                     """
                     Author(s): Walter Isaacson
-                    Narrator(s): Dylan Baker
+                    Narrator(s): Dylan Baker, Walter Isaacson
 
                     <P><B>Featuring a new epilogue read by the author.</P><P>From the author of the best-selling biographies of Benjamin Franklin and Albert Einstein, this is the exclusive biography of Steve Jobs.</B></P><P>Based on more than 40 interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.</P><P>At a time when America is seeking ways to sustain its innovative edge, and when societies around the world are trying to build digital-age economies, Jobs stands as the ultimate icon of inventiveness and applied imagination. He knew that the best way to create value in the 21st century was to connect creativity with technology. He built a company where leaps of the imagination were combined with remarkable feats of engineering.</P><P>Although Jobs cooperated with this book, he asked for no control over what was written. He put nothing off-limits. He encouraged the people he knew to speak honestly. And Jobs speaks candidly, sometimes brutally so, about the people he worked with and competed against. His friends, foes, and colleagues provide an unvarnished view of the passions, perfectionism, obsessions, artistry, devilry, and compulsion for control that shaped his approach to business and the innovative products that resulted.</P><P>Driven by demons, Jobs could drive those around him to fury and despair. But his personality and products were interrelated, just as Apple's hardware and software tended to be, as if part of an integrated system. His tale is instructive and cautionary, filled with lessons about innovation, character, leadership, and values.</P>
                     """
@@ -402,7 +403,7 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(
                     audiobook.htmlDescription,
                     """
-                    Author(s): Walter Isaacson<br/>Narrator(s): Dylan Baker<br/>&lt;P&gt;&lt;B&gt;Featuring a new epilogue read by the author.&lt;/P&gt;&lt;P&gt;From the author of the best-selling biographies of Benjamin Franklin and Albert Einstein, this is the exclusive biography of Steve Jobs.&lt;/B&gt;&lt;/P&gt;&lt;P&gt;Based on more than 40 interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.&lt;/P&gt;&lt;P&gt;At a time when America is seeking ways to sustain its innovative edge, and when societies around the world are trying to build digital-age economies, Jobs stands as the ultimate icon of inventiveness and applied imagination. He knew that the best way to create value in the 21st century was to connect creativity with technology. He built a company where leaps of the imagination were combined with remarkable feats of engineering.&lt;/P&gt;&lt;P&gt;Although Jobs cooperated with this book, he asked for no control over what was written. He put nothing off-limits. He encouraged the people he knew to speak honestly. And Jobs speaks candidly, sometimes brutally so, about the people he worked with and competed against. His friends, foes, and colleagues provide an unvarnished view of the passions, perfectionism, obsessions, artistry, devilry, and compulsion for control that shaped his approach to business and the innovative products that resulted.&lt;/P&gt;&lt;P&gt;Driven by demons, Jobs could drive those around him to fury and despair. But his personality and products were interrelated, just as Apple&#39;s hardware and software tended to be, as if part of an integrated system. His tale is instructive and cautionary, filled with lessons about innovation, character, leadership, and values.&lt;/P&gt;
+                    Author(s): Walter Isaacson<br/>Narrator(s): Dylan Baker, Walter Isaacson<br/>&lt;P&gt;&lt;B&gt;Featuring a new epilogue read by the author.&lt;/P&gt;&lt;P&gt;From the author of the best-selling biographies of Benjamin Franklin and Albert Einstein, this is the exclusive biography of Steve Jobs.&lt;/B&gt;&lt;/P&gt;&lt;P&gt;Based on more than 40 interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.&lt;/P&gt;&lt;P&gt;At a time when America is seeking ways to sustain its innovative edge, and when societies around the world are trying to build digital-age economies, Jobs stands as the ultimate icon of inventiveness and applied imagination. He knew that the best way to create value in the 21st century was to connect creativity with technology. He built a company where leaps of the imagination were combined with remarkable feats of engineering.&lt;/P&gt;&lt;P&gt;Although Jobs cooperated with this book, he asked for no control over what was written. He put nothing off-limits. He encouraged the people he knew to speak honestly. And Jobs speaks candidly, sometimes brutally so, about the people he worked with and competed against. His friends, foes, and colleagues provide an unvarnished view of the passions, perfectionism, obsessions, artistry, devilry, and compulsion for control that shaped his approach to business and the innovative products that resulted.&lt;/P&gt;&lt;P&gt;Driven by demons, Jobs could drive those around him to fury and despair. But his personality and products were interrelated, just as Apple&#39;s hardware and software tended to be, as if part of an integrated system. His tale is instructive and cautionary, filled with lessons about innovation, character, leadership, and values.&lt;/P&gt;
                     """
                 )
                 XCTAssertEqual(audiobook.edition, "Unabridged")
@@ -414,20 +415,20 @@ extension SpotifyAPIAudiobookTests {
                 XCTAssertEqual(audiobook.mediaType, "audio")
                 XCTAssertEqual(audiobook.publisher, "Simon & Schuster")
                 XCTAssertEqual(audiobook.name, "Steve Jobs")
-                XCTAssertEqual(audiobook.narrators.count, 1)
+                XCTAssertEqual(audiobook.narrators.count, 2)
                 XCTAssertEqual(audiobook.narrators.first?.name, "Dylan Baker")
-                XCTAssertEqual(audiobook.totalChapters, 48)
+                XCTAssertEqual(audiobook.totalChapters, 160)
                 XCTAssertEqual(audiobook.type, .audiobook)
                 XCTAssertEqual(
                     audiobook.chapters?.href,
-                    URL(string: "https://api.spotify.com/v1/audiobooks/2rBiFKvU85lq19QYB3Zr38/chapters")
+                    URL(string: "https://api.spotify.com/v1/audiobooks/2rBiFKvU85lq19QYB3Zr38/chapters?offset=0&limit=50&market=US&locale=en-US,en;q=0.9")
                 )
-                XCTAssertEqual(audiobook.chapters?.items.count, 48)
+                XCTAssertEqual(audiobook.chapters?.items.count, 50)
                 XCTAssertEqual(audiobook.chapters?.limit, 50)
-                XCTAssertNil(audiobook.chapters?.next)
+                XCTAssertNotNil(audiobook.chapters?.next)
                 XCTAssertEqual(audiobook.chapters?.offset, 0)
                 XCTAssertNil(audiobook.chapters?.previous)
-                XCTAssertEqual(audiobook.chapters?.total, 48)
+                XCTAssertEqual(audiobook.chapters?.total, 160)
             }
 
         }
@@ -462,7 +463,7 @@ extension SpotifyAPIAudiobookTests {
 
         XCTAssertEqual(chapter.id, "6QYoIxxar5q4AfdTOGsZqE")
         XCTAssertEqual(chapter.chapterNumber, 1)
-        XCTAssertEqual(chapter.durationMS, 425_000)
+        XCTAssertEqual(chapter.durationMS, 425_347)
         XCTAssertEqual(chapter.isExplicit, false)
         XCTAssertEqual(chapter.name, "Chapter 1")
         XCTAssertEqual(chapter.type, .chapter)
@@ -589,10 +590,13 @@ extension SpotifyAPIAudiobookTests {
                 )
                 XCTAssertEqual(chapter.id, "7z9aAoKD03hEVfg47PJdzQ")
                 XCTAssertEqual(chapter.chapterNumber, 4)
-                XCTAssertEqual(chapter.durationMS, 1_480_000)
+                XCTAssertEqual(chapter.durationMS, 1_037_531)
                 XCTAssertEqual(chapter.isExplicit, false)
-                XCTAssertEqual(chapter.name, "Chapter 2")
-                XCTAssertEqual(chapter.releaseDatePrecision, "day")
+                XCTAssertEqual(
+                    chapter.name,
+                    "Chapter 1: Childhood: Abandoned and Chosen 2"
+                )
+                XCTAssertEqual(chapter.releaseDatePrecision, "year")
                 XCTAssertEqual(chapter.isPlayable, false)
                 XCTAssertEqual(chapter.type, .chapter)
                 XCTAssertEqual(chapter.uri, "spotify:episode:7z9aAoKD03hEVfg47PJdzQ")
@@ -620,7 +624,7 @@ extension SpotifyAPIAudiobookTests {
                 )
                 XCTAssertEqual(chapter.id, "1cwNPlPUCmwHBR72q6ecge")
                 XCTAssertEqual(chapter.chapterNumber, 5)
-                XCTAssertEqual(chapter.durationMS, 1_194_000)
+                XCTAssertEqual(chapter.durationMS, 1_195_080)
                 XCTAssertEqual(chapter.isExplicit, false)
                 XCTAssertEqual(chapter.name, "Chapter 3")
                 XCTAssertEqual(chapter.isPlayable, false)

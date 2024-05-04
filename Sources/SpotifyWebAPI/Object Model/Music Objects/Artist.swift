@@ -116,7 +116,49 @@ public struct Artist: Hashable {
 }
 
 extension Artist: Codable {
-    
+
+    public init(from decoder: any Decoder) throws {
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.name = try container.decodeIfPresent(
+            String.self, forKey: .name
+        ) ?? ""
+        
+        self.uri =  try container.decodeIfPresent(
+            String.self, forKey: .uri
+        )
+        
+        self.id =  try container.decodeIfPresent(
+            String.self, forKey: .id
+        )
+
+        self.images = try container.decodeSpotifyImages(forKey: .images)
+
+        self.popularity =  try container.decodeIfPresent(
+            Int.self, forKey: .popularity
+        )
+
+        self.externalURLs =  try container.decodeIfPresent(
+            [String: URL].self, forKey: .externalURLs
+        )
+        
+        self.followers =  try container.decodeIfPresent(
+            Followers.self, forKey: .followers
+        )
+
+        self.genres = try container.decodeAndUnwrapArray(forKey: .genres)
+
+        self.href =  try container.decodeIfPresent(
+            URL.self, forKey: .href
+        )
+
+        self.type = (try? container.decodeIfPresent(
+            IDCategory.self, forKey: .type
+        )) ?? .artist
+
+    }
+
     private enum CodingKeys: String, CodingKey {
         case name
         case uri
