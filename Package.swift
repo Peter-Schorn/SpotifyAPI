@@ -87,7 +87,7 @@ var packageDependencies: [Package.Dependency] {
         ),
         .package(
             url: "https://github.com/apple/swift-crypto.git",
-            from: "3.0.0"
+            from: "1.1.3"
         ),
         .package(
             url: "https://github.com/apple/swift-docc-plugin",
