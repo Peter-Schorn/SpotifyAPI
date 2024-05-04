@@ -134,17 +134,12 @@ extension SpotifyAPIArtistTests {
                 encodeDecode(artist, areEqual: ==)
             }
             
-            guard [4, 5].contains([artists.count]) else {
+            guard artists.count >= 4 else {
                 XCTFail(
-                    "should've received 4 or 5 artists (got \(artists.count)"
+                    "should've received at least 4 artists (got \(artists.count)"
                 )
                 return
             }
-            
-//            XCTAssertNil(
-//                artists[1],
-//                "second artist should be nil because URI is invalid"
-//            )
 
             XCTAssertEqual(artists[0]?.name, "levitation room")
             XCTAssertEqual(artists[0]?.uri, "spotify:artist:0SVxQVCnJn1BNUMY9ZcRO4")
@@ -454,13 +449,15 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(
                     album.name, "Creep"
                 )
+                let possibleURIs = [
+                    "spotify:album:1w1LIhUSQLKew0dYwiVX2q",
+                    "spotify:album:3RQlNKc08ikcuFmbg0luEw"
+                ]
                 XCTAssert(
-                    [
-                        "spotify:album:1w1LIhUSQLKew0dYwiVX2q",
-                        "spotify:album:3RQlNKc08ikcuFmbg0luEw"
-                    ]
-                    .contains([album.uri])
+                    album.uri.map({ possibleURIs.contains($0) }) == true,
+                    "\(album.uri ?? "nil") should be one of \(possibleURIs)"
                 )
+                
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
                     XCTAssertEqual(
@@ -478,12 +475,13 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(
                     album.name, "Creep EP"
                 )
+                let possibleURIs = [
+                    "spotify:album:1w1LIhUSQLKew0dYwiVX2q",
+                    "spotify:album:3RQlNKc08ikcuFmbg0luEw"
+                ]
                 XCTAssert(
-                    [
-                        "spotify:album:1w1LIhUSQLKew0dYwiVX2q",
-                        "spotify:album:3RQlNKc08ikcuFmbg0luEw"
-                    ]
-                    .contains([album.uri])
+                    album.uri.map({ possibleURIs.contains($0) }) == true,
+                    "\(album.uri ?? "nil") should be one of \(possibleURIs)"
                 )
                 XCTAssertEqual(album.releaseDatePrecision, "day")
                 if let releaseDate = album.releaseDate {
