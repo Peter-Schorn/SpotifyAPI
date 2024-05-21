@@ -85,6 +85,12 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
     public var networkAdaptor:
         (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
+    /**
+     The maximum delay in seconds (accumulated over all retries before the 
+     publisher finishes with a error, e.g., ``RateLimitedError``.
+     Default: 180 secs (3 minutes).
+
+     */
     public var maxRetryDelay: Int
 
     /**

@@ -147,6 +147,12 @@ extension Publisher {
      ``SpotifyPlayerError``, or
      ``SpotifyGeneralError``.``SpotifyGeneralError/httpError(_:_:)`` is
      received, then retries if the status code is 500, 502, 503, or 504.
+     
+     - Parameter maxRetryDelay: The maximum delay in seconds (accumulated over
+           all retries before the publisher finishes with a error, e.g., ``RateLimitedError``. Default: 180 secs (3 minutes).
+     - Returns: A publisher that retries depending on the error received and
+           can fail with an error after a max retry delay has elasped
+           (deault: 3 minutes).
      */
     func retryOnSpotifyErrors(
         maxRetryDelay: Int = 180  // 3 minutes
