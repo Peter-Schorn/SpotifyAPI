@@ -215,6 +215,12 @@ public struct SpotifyDecodingError: LocalizedError, CustomStringConvertible {
             switch decodingError {
                 case .keyNotFound(let key, _):
                     codingPath += " (keyNotFound: '\(key.stringValue)')"
+                case .valueNotFound(let valueType, _):
+                    codingPath += " (valueNotFound: '\(valueType)')"
+                case .typeMismatch(let type, _):
+                    codingPath += " (typeMismatch: '\(type)')"
+                case .dataCorrupted:
+                    codingPath += " (dataCorrupted)"
                 default:
                     break
             }

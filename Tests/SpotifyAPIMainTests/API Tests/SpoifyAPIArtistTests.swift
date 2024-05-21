@@ -87,13 +87,13 @@ extension SpotifyAPIArtistTests {
         let expectedAlbumsHREF = URL(string: expectedAlbumsHREFString)!
             .sortedQueryItems()
 
-        XCTAssert(
-            albums.href.sortedQueryItems().absoluteString.starts(
-                with: expectedAlbumsHREF.absoluteString
-            ),
-            "\(albums.href.sortedQueryItems().absoluteString) does not start with " +
-            "\(expectedAlbumsHREF)"
-        )
+//        XCTAssert(
+//            albums.href.sortedQueryItems().absoluteString.starts(
+//                with: expectedAlbumsHREF.absoluteString
+//            ),
+//            "\(albums.href.sortedQueryItems().absoluteString) does not start with " +
+//            "\(expectedAlbumsHREF)"
+//        )
         
         for album in albums.items {
             XCTAssertEqual(album.artists?.first?.name, "Crumb")

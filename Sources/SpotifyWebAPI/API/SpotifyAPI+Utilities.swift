@@ -202,37 +202,32 @@ public extension SpotifyAPI {
         
         pagePublishers.append(currentPagePublisher)
 
-        let maxOffset: Int
 
-        if let maxExtraPages = maxExtraPages {
-            let theoreticalOffset = page.offset + (page.limit * maxExtraPages)
-//            print("theoreticalOffset:", theoreticalOffset)
-            maxOffset = min(theoreticalOffset, page.total - 1)
-        }
-        else {
-            maxOffset = (page.total - 1)
-        }
-        
-//        print("maxOffset:", maxOffset, terminator: "\n\n")
+        // Avoid Error:
+        // Swift runtime failure: Stride size must not be zero
+
+        // the offset of the page after the current one
+        let lowerBoundOffset = page.offset + page.limit
+
+        let pageOffsets = generatePageOffsets(
+            page,
+            maxExtraPages: maxExtraPages
+        )
 
         // generate the offsets for each page that needs to be requested
-        for offset in stride(
-            // the offset of the page after the current one
-            from: page.offset + page.limit,
-            through: maxOffset,
-            // the number of items in each page
-            by: page.limit
-        ) {
-            
+        for pageOffset in pageOffsets {
+
             var pageHrefComponents = hrefComponents
             // to create an href for a different page, all we need
             // to do is change the offset query item
             pageHrefComponents.queryItems!.append(
-                URLQueryItem(name: "offset", value: "\(offset)")
+                URLQueryItem(name: "offset", value: "\(pageOffset)")
             )
             guard let pageHref = pageHrefComponents.url else {
                 self.logger.error(
-                    #"couldn't create URL for page from "\#(pageHrefComponents)""#
+                    #"""
+                    couldn't create URL for page from "\#(pageHrefComponents)"
+                    """#
                 )
                 continue
             }

@@ -365,6 +365,7 @@ extension PagingObject: ApproximatelyEquatable where Item: ApproximatelyEquatabl
 
  See ``PagingObject``, which conforms to this protocol.
 
+ # Warning
  Do not conform additional types to this protocol.
  */
 public protocol PagingObjectProtocol: Paginated {

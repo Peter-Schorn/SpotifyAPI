@@ -227,6 +227,55 @@ public extension CharacterSet {
 
 }
 
+/// Generates an array of offests to get each page of results.
+///
+/// See also ``SpotifyAPI/extendPagesConcurrently(_:maxExtraPages:)``.
+public func generatePageOffsets<Page>(
+    _ page: Page,
+    maxExtraPages: Int? = nil
+) -> [Int] where 
+    Page: PagingObjectProtocol,
+    Page.Item: Codable & Hashable
+{
+
+    let minOffset = page.offset + page.limit
+
+    let maxOffset: Int
+
+    let absoluteMaxOffset = max(0, page.total - 1)
+
+    if let maxExtraPages = maxExtraPages {
+        let theoreticalOffset = page.offset + (page.limit * maxExtraPages)
+        // print("theoreticalOffset:", theoreticalOffset)
+        maxOffset = max(0, min(theoreticalOffset, absoluteMaxOffset))
+    }
+    else {
+        maxOffset = absoluteMaxOffset
+    }
+
+    // must be at least 1 to avoid running indefinitely and never returning
+    let step = max(1, page.limit)
+    var pageOffsets: [Int] = []
+    var i = minOffset
+
+    print(
+        """
+        min offset: \(minOffset); \
+        max offset: \(minOffset); \
+        step = \(step)
+        """
+    )
+
+    let max =  maxOffset   + 1
+    while i < max {
+        pageOffsets.append(i)
+        i += step
+    }
+
+    return pageOffsets
+
+}
+
 // extension DispatchQueue {
 //
 //     #if canImport(Combine)
