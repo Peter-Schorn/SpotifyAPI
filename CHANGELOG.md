@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [3.0.0] - 5-20-2024
 
+* Moved `SpotifyExampleContent` target to a new library with the same name. This will reduce the size of the resource bundle for clients who do not need this library.
 * Fixed a bug that caused a decoding error when decoding Playlists with a value of null for the image key in the JSON payload.
 * Added a `maxRetryDelay` property to `SpotifyAPI` that defines the total accumulated retry delay before the library will fail with an error (default: 3 minutes).
 
