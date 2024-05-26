@@ -202,7 +202,6 @@ public extension SpotifyAPI {
         
         pagePublishers.append(currentPagePublisher)
 
-
         // Avoid Error:
         // Swift runtime failure: Stride size must not be zero
 

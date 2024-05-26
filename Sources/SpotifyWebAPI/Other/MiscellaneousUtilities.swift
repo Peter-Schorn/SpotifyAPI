@@ -253,6 +253,10 @@ public func generatePageOffsets<Page>(
         maxOffset = absoluteMaxOffset
     }
 
+    if maxOffset >= minOffset {
+        return []
+    }
+
     // must be at least 1 to avoid running indefinitely and never returning
     let step = max(1, page.limit)
     var pageOffsets: [Int] = []
