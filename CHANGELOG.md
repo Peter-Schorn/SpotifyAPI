@@ -4,9 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 5-25-2024
+
+* Fixed a bug that causes a runtime crash in `extendPagesConcurrently` when the "limit" property of the Paginig Object is 0.
+
 ## [3.0.0] - 5-20-2024
 
-## [2.2.4]
+* Fixed a bug that caused a decoding error when decoding Playlists with a value of null for the image key in the JSON payload.
+* Added a `maxRetryDelay` property to `SpotifyAPI` that defines the total accumulated retry delay before the library will fail with an error (default: 3 minutes).
+
+## [2.2.4] - 4-19-2023
+
+* PagingObject now supports an "items" payload will null values.
 
 ## [2.2.3] - 2-4-2023
 
