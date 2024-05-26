@@ -79,13 +79,13 @@ extension SpotifyAPIArtistTests {
         XCTAssertNil(albums.next)
         XCTAssertNil(albums.previous)
         
-        let expectedAlbumsHREFString = """
-            https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B\
-            /albums?offset=0&limit=35&include_groups=album,single,\
-            compilation,appears_on&market=US
-            """
-        let expectedAlbumsHREF = URL(string: expectedAlbumsHREFString)!
-            .sortedQueryItems()
+//        let expectedAlbumsHREFString = """
+//            https://api.spotify.com/v1/artists/4kSGbjWGxTchKpIxXPJv0B\
+//            /albums?offset=0&limit=35&include_groups=album,single,\
+//            compilation,appears_on&market=US
+//            """
+//        let expectedAlbumsHREF = URL(string: expectedAlbumsHREFString)!
+//            .sortedQueryItems()
 
 //        XCTAssert(
 //            albums.href.sortedQueryItems().absoluteString.starts(
