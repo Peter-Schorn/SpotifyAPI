@@ -253,7 +253,7 @@ public func generatePageOffsets<Page>(
         maxOffset = absoluteMaxOffset
     }
 
-    if maxOffset >= minOffset {
+    if minOffset >= maxOffset {
         return []
     }
 
