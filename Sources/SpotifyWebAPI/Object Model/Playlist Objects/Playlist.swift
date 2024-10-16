@@ -155,7 +155,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
         href: URL,
         id: String,
         uri: String,
-        images: [SpotifyImage]
+        images: [SpotifyImage]?
     ) {
         self.name = name
         self.items = items
