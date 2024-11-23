@@ -41,7 +41,7 @@ private extension SpotifyAPI where
                     queryItems: [:],
                     httpMethod: "PUT",
                     makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                    body: ids,
+                    body: ["ids": ids],
                     requiredScopes: [.userLibraryModify]
                 )
 
@@ -105,7 +105,7 @@ private extension SpotifyAPI where
                     ],
                     httpMethod: "DELETE",
                     makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                    body: ids,
+                    body: ["ids": ids],
                     requiredScopes: [.userLibraryModify]
                 )
 
@@ -667,7 +667,10 @@ public extension SpotifyAPI where
     ) -> AnyPublisher<Void, Error> {
 
         return self.saveItemsForCurrentUser(
-            uris: uris, types: [.show], path: "/me/shows"
+            uris: uris, 
+            types: [.show],
+            path: "/me/shows",
+            idsInBody: false
         )
 
     }
@@ -816,7 +819,8 @@ public extension SpotifyAPI where
             uris: uris,
             types: [.show],
             path: "/me/shows",
-            market: market
+            market: market,
+            idsInBody: false
         )
 
     }

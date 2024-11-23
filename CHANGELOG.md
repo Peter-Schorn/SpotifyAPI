@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.4]
+
+* Fixed a bug where the Spotify ids were not being sent in the correct format in the following methods (see [#66](https://github.com/Peter-Schorn/SpotifyAPI/issues/66)):
+    * `SpotifyAPI.saveAlbumsForCurrentUser` 
+    * `SpotifyAPI.removeSavedAlbumsForCurrentUser` 
+    * `SpotifyAPI.saveEpisodesForCurrentUser`
+    * `SpotifyAPI.removeSavedEpisodesForCurrentUser`
+    * `SpotifyAPI.saveShowsForCurrentUser`
+    * `SpotifyAPI.removeSavedShowsForCurrentUser`
+    * `SpotifyAPI.saveTracksForCurrentUser`
+    * `SpotifyAPI.removeSavedTracksForCurrentUser`
+
+
 ## [3.0.2] - 6-07-2024
 
 * Fixed a bug that caused `extendPagesConcurrently` to only return the initial page of results

@@ -724,6 +724,40 @@ extension SpotifyAPIAlbumsTests {
 
     }
     
+    func trackLink() {
+
+        func receiveTrackLink(_ album: Album) {
+            encodeDecode(album)
+
+            XCTAssertEqual(album.name, "")
+        }
+
+        let hrefString = """
+            https://api.spotify.com/v1/albums/2zffBP6FVUDZ3dsKodfQi6
+            """
+        
+        let href = URL(string: hrefString)!
+
+        let expectation = XCTestExpectation(
+            description: "testTrackLink"
+        )
+
+        Self.spotify.getFromHref(href, responseType: Album.self)
+            .assertNoFailure()
+            .receiveOnMain()
+            .sink(
+                receiveCompletion: { _ in expectation.fulfill() },
+                receiveValue: receiveTrackLink(_:)
+            )
+            .store(in: &Self.cancellables)
+
+        self.wait(
+            for: [expectation],
+            timeout: 60
+        )
+
+    }
+
     func receiveAlbumTracksPage1(_ page: PagingObject<Track>) {
         print("begin receiveAlbumTracksPage1")
         

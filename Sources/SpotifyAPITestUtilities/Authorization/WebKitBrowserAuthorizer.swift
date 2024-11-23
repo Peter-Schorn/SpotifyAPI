@@ -1,7 +1,7 @@
 #if canImport(WebKit)
 import Foundation
 import SpotifyWebAPI
-import WebKit
+@preconcurrency import WebKit
 
 /// Can open an authorization URL and click the accept or cancel dialog and
 /// then return the redirect URI with the query.
