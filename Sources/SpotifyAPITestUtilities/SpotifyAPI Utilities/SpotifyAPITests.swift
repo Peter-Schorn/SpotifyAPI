@@ -127,6 +127,7 @@ extension AuthorizationCodeFlowPKCEBackendManager: _AuthorizationCodeFlowPKCEMan
 
 }
 
+extension ClientCredentialsFlowBackendManager: @retroactive Equatable {}
 extension ClientCredentialsFlowBackendManager: _ClientCredentialsFlowManagerProtocol { }
 
 
