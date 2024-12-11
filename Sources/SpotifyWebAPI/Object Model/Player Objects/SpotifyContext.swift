@@ -25,7 +25,7 @@ public struct SpotifyContext: Hashable {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     

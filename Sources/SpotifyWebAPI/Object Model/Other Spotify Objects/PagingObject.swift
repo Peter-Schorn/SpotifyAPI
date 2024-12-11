@@ -202,9 +202,13 @@ extension PagingObject: Codable {
         case previous
         case offset
         case total
-        
+
+        // SpotifyAPI.categories(country:locale:limit:offset:)
         case categories
+
+        // SpotifyAPI.categoryPlaylists(_:country:limit:offset:)
         case playlists
+
         // SearchResult
         case artists
         case albums

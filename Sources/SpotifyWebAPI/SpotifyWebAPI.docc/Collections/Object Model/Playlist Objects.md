@@ -17,7 +17,5 @@ Objects that relate to Spotify playlists.
 
 - ``PlaylistDetails``
 - ``ReorderPlaylistItems``
-- ``URIWithPositions``
-- ``URIsWithPositionsContainer``
 - ``URIsContainer``
 - ``URIsDictWithInsertionIndex``

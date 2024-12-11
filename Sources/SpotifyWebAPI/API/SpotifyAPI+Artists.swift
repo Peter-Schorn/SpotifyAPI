@@ -231,16 +231,20 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get the related artists for an artist.
-     
+     [**DEPRECATED**] Get the related artists for an artist.
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameter artist: The URI of an artist.
      - Returns: The full versions of up to 20 artists.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-related-artists
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-related-artists
      */
     func relatedArtists(
         _ artist: SpotifyURIConvertible

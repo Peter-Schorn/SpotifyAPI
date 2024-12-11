@@ -144,18 +144,9 @@ final class CodingCurrentlyPlayingContextTests: SpotifyAPITestCase {
         
         XCTAssertEqual(album.releaseDatePrecision, "day")
         XCTAssertEqual(album.uri, "spotify:album:4W4gNYa4tt3t8V6FmONWEK")
-        
-        if let releaseDate = album.releaseDate {
-            XCTAssertEqual(
-                releaseDate.timeIntervalSince1970,
-                1568332800,
-                accuracy: 43_200  // 12 hours
-            )
-        }
-        else {
-            XCTFail("release date should not be nil")
-        }
-        
+
+        XCTAssertEqual(album.releaseDate, "2019-09-13")
+
         let albumImages = try XCTUnwrap(album.images)
         XCTAssertEqual(albumImages[0].height, 640)
         XCTAssertEqual(albumImages[0].width, 641)

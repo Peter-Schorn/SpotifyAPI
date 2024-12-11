@@ -19,12 +19,14 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         
         let expectation = XCTestExpectation(description: "testPlayPause")
         
-        let playlist = URIs.Playlists.thisIsPinkFloyd
-        
+        let playlist = URIs.Playlists.all
+        let track = URIs.Tracks.comeTogether
+
         let playbackRequest = PlaybackRequest(
+            // all
             context: .contextURI(playlist),
-            // Any Colour You Like
-            offset: .uri("spotify:track:1wGoqD0vrf7njGvxm8CEf5"),
+            // come together
+            offset: .uri(track),
             positionMS: 100_000  // 1 minute 40 seconds
         )
         
@@ -49,10 +51,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
             XCTAssertEqual(context.itemType, .track)
             if let currentItem = context.item {
                 XCTAssert(
-                    currentItem.name.starts(with: "Any Colour You Like"),
-                    "\(currentItem.name) should start with " +
-                    "'Any Colour You Like'"
+                    currentItem.name?.starts(with: "Come Together") == true,
+                    "\(String(describing: currentItem.name)) should start with " +
+                    "'Come Together'"
                 )
+                XCTAssertEqual(currentItem.uri, track.uri)
             }
             else {
                 XCTFail("context.currentlyPlayingItem should not be nil")
@@ -71,11 +74,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                 XCTFail("context.progressMS should not be nil")
             }
             if case .track(let track) = context.item {
-                XCTAssertEqual(track.artists?.first?.name, "Pink Floyd")
+                XCTAssertEqual(track.artists?.first?.name, "The Beatles")
                 XCTAssert(
-                    track.album?.name.starts(with: "The Dark Side Of The Moon") ?? false,
+                    track.album?.name.starts(with: "Abbey Road (Remastered)") ?? false,
                     "\(track.album?.name ?? "nil") should start with " +
-                        "'The Dark Side Of The Moon'"
+                        "'Abbey Road (Remastered)'"
                 )
             }
             else {
@@ -208,32 +211,11 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
                     XCTAssertEqual(
                         episode.description,
                         """
-                        In this episode of the podcast, Sam Harris speaks with \
-                        John McWhorter about race, racism, and “anti-racism” in \
-                        America. They discuss how conceptions of racism have \
-                        changed, the ubiquitous threat of being branded a \
-                        “racist,” the contradictions within identity politics, \
-                        recent echoes of the OJ verdict, willingness among \
-                        progressives to lose the 2020 election, racism as the \
-                        all-purpose explanation of racial disparities in the \
-                        U.S., double standards for the black community, the war \
-                        on drugs, the lure of identity politics, police violence, \
-                        the enduring riddle of affirmative action, the politics of \
-                        “black face,” and other topics. SUBSCRIBE to gain access \
-                        to all full-length episodes at samharris.org/subscribe.
+                        Sam Harris speaks with John McWhorter about race, racism, and “anti-racism” in America. They discuss how conceptions of racism have changed, the ubiquitous threat of being branded a “racist,” the contradictions within identity politics, recent echoes of the OJ verdict, willingness among progressives to lose the 2020 election, racism as the all-purpose explanation of racial disparities in the U.S., double standards for the black community, the war on drugs, the lure of identity politics, police violence, the enduring riddle of affirmative action, the politics of “black face,” and other topics. If the Making Sense podcast logo in your player is BLACK, you can SUBSCRIBE to gain access to all full-length episodes at samharris.org/subscribe.
                         """
                     )
 
-                    if let releaseDate = episode.releaseDate {
-                        XCTAssertEqual(
-                            releaseDate.timeIntervalSince1970,
-                            1600300800,
-                            accuracy: 43_200  // 12 hours
-                        )
-                    }
-                    else {
-                        XCTFail("release date should not be nil")
-                    }
+                    XCTAssertEqual(episode.releaseDate, "2020-09-17")
                     XCTAssertEqual(episode.releaseDatePrecision, "day")
 
                     if let show = episode.show {
@@ -1036,6 +1018,7 @@ extension SpotifyAPIPlayerTests where AuthorizationManager: _InternalSpotifyScop
         
     }
 
+    // not a direct test method
     func addToQueue() {
 
         self.clearQueue()

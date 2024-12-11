@@ -123,15 +123,19 @@ public extension SpotifyAPI {
     }
  
     /**
-     Get a list of Spotify playlists tagged with a particular category.
-     
+     [**DEPRECATED**] Get a list of Spotify playlists tagged with a particular
+     category.
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
+     Read more at the [Spotify web API reference][2].
      
      - Parameters:
        - id: A category id.
-       - country: A country: an [ISO 3166-1 alpha-2 country code][2] or the
+       - country: A country: an [ISO 3166-1 alpha-2 country code][3] or the
              string "from_token".
        - limit: The maximum number of items to return. Default: 20; Minimum: 1;
              Maximum: 50.
@@ -139,9 +143,10 @@ public extension SpotifyAPI {
              0. Use with `limit` to get the next set of playlists.
      - Returns: An array of simplified playlist objects wrapped in a paging
            object.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-categories-playlists
-     [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-categories-playlists
+     [3]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     func categoryPlaylists(
         _ id: String,
@@ -166,16 +171,19 @@ public extension SpotifyAPI {
     }
 
     /**
-     Get a list of featured playlists (shown, for example, on a Spotify player’s
-     "Browse" tab).
-     
+     [**DEPRECATED**] Get a list of featured playlists (shown, for example, on
+     a Spotify player’s "Browse" tab).
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameters:
        - locale: The desired language, consisting of an [ISO 639-1 language
-             code][3] and an [ISO 3166-1 alpha-2 country code][2], joined by an
+             code][4] and an [ISO 3166-1 alpha-2 country code][3], joined by an
              underscore. For example: es_MX, meaning "Spanish (Mexico)". Provide
              this parameter if you want the results returned in a particular
              language. Note that, if locale is not supplied, or if the specified
@@ -185,7 +193,7 @@ public extension SpotifyAPI {
              carefully matched. For example, "SE" for `country` and "de_DE" for
              `locale` will return a list of playlists relevant to Sweden but as
              German language strings.
-       - country: A country: an [ISO 3166-1 alpha-2 country code][2] or the
+       - country: A country: an [ISO 3166-1 alpha-2 country code][3] or the
              string "from_token". Provide this parameter if you want to narrow
              the list of returned categories to those relevant to a particular
              country. If omitted, the returned items will be globally relevant.
@@ -204,10 +212,11 @@ public extension SpotifyAPI {
            object and a message that can be displayed to the user, such as "Good
            Morning", or "Editors's picks", localized based on the locale,
            country, and timestamp parameters.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
-     [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: http://en.wikipedia.org/wiki/ISO_639-1
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
+     [3]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [4]: http://en.wikipedia.org/wiki/ISO_639-1
      */
     func featuredPlaylists(
         locale: String? = nil,
@@ -287,8 +296,11 @@ public extension SpotifyAPI {
     }
 
     /**
-     Get Recommendations Based on Seeds.
-     
+     [**DEPRECATED**] Get Recommendations Based on Seeds.
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      Create a playlist-style listening experience based on seed artists, tracks
      and genres.
      
@@ -302,8 +314,8 @@ public extension SpotifyAPI {
 
      Use ``SpotifyAPI/recommendationGenres()`` to get the available seed genres.
 
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameters:
        - trackAttributes: Tunable track attributes.
        - limit: The target size of the list of recommended tracks. For seeds
@@ -311,18 +323,19 @@ public extension SpotifyAPI {
              applied, it may be impossible to generate the requested number of
              recommended tracks. Debugging information for such cases is
              available in the response. Default: 20; Minimum: 1; Maximum: 100.
-       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+       - market: An [ISO 3166-1 alpha-2 country code][3] or the string
              "from_token". Provide this parameter if you want to apply [Track
-             Relinking][3]. Because minimum, maximum, and target values are
+             Relinking][4]. Because minimum, maximum, and target values are
              applied to pools before relinking, the generated results may not
              precisely match the filters applied. Original, non-relinked tracks
              are available via the ``Track/linkedFrom`` attribute of the
              relinked track response.
      - Returns: Recommendation seeds and an array of tracks.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
-     [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-     [3]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
+     [3]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [4]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide
      */
     func recommendations(
         _ trackAttributes: TrackAttributes,

@@ -1,13 +1,13 @@
 import Foundation
 
 /// A Spotify podcast show.
-public struct Show: Hashable, SpotifyURIConvertible {
+public struct Show: Hashable {
 
     /// The name of the show.
-    public let name: String
-    
+    public let name: String?
+
     /// A description of the show. See also ``htmlDescription``.
-    public let description: String
+    public let description: String?
     
     /// A description of the show which may contain HTML tags. See also
     /// ``description``.
@@ -33,14 +33,14 @@ public struct Show: Hashable, SpotifyURIConvertible {
 
     /// The [Spotify URI][1] for the episode.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let uri: String
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
+    public let uri: String?
 
     /// The [Spotify ID][1] for the episode.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let id: String
-    
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
+    public let id: String?
+
     /// The cover art for the episode in various sizes, widest first.
     public let images: [SpotifyImage]?
     
@@ -48,16 +48,16 @@ public struct Show: Hashable, SpotifyURIConvertible {
     /// their [ISO 3166-1 alpha-2][1] codes.
     ///
     /// [1]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-    public let availableMarkets: [String]
-    
+    public let availableMarkets: [String]?
+
     /**
      A link to the Spotify web API endpoint providing the full show object.
      
      Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Show`` as the
      response type to retrieve the results.
      */
-    public let href: URL
-       
+    public let href: URL?
+
     /**
      Known external urls for this show.
      
@@ -65,29 +65,29 @@ public struct Show: Hashable, SpotifyURIConvertible {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
     /// `true` if the episode is hosted outside of Spotify's CDN (content
     /// delivery network). Else, `false`.
-    public let isExternallyHosted: Bool
-    
+    public let isExternallyHosted: Bool?
+
     /// A list of the languages used in the episode, identified by their [ISO
     /// 639][1] code.
     ///
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
-    public let languages: [String]
-    
+    public let languages: [String]?
+
     /// The copyrights for the show. Only available for the full version.
     public let copyrights: [SpotifyCopyright]?
     
     /// The media type of the show.
-    public let mediaType: String
-    
+    public let mediaType: String?
+
     /// The publisher of the show.
-    public let publisher: String
-    
+    public let publisher: String?
+
     /// The object type. Always ``IDCategory/show``.
     public let type: IDCategory
     
@@ -101,6 +101,7 @@ public struct Show: Hashable, SpotifyURIConvertible {
              See also ``description``.
        - episodes: The episodes for this show: An array of simplified episode
              objects wrapped in a paging object.
+       - totalEpisodes: The total number of episodes in the show.
        - isExplicit: Whether or not the episode has explicit content.
        - uri: The [Spotify URI][1] for the episode.
        - id: The [Spotify ID][1] for the episode.
@@ -122,28 +123,28 @@ public struct Show: Hashable, SpotifyURIConvertible {
        - mediaType: The media type of the show.
        - publisher: The publisher of the show.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://en.wikipedia.org/wiki/ISO_639
      */
     public init(
-        name: String,
-        description: String,
+        name: String? = nil,
+        description: String? = nil,
         htmlDescription: String? = nil,
         episodes: PagingObject<Episode>? = nil,
-        totalEpisodes: Int,
-        isExplicit: Bool,
-        uri: String,
-        id: String,
+        totalEpisodes: Int? = nil,
+        isExplicit: Bool = false,
+        uri: String? = nil,
+        id: String? = nil,
         images: [SpotifyImage]? = nil,
-        availableMarkets: [String],
-        href: URL,
+        availableMarkets: [String]? = nil,
+        href: URL? = nil,
         externalURLs: [String: URL]? = nil,
-        isExternallyHosted: Bool,
-        languages: [String],
+        isExternallyHosted: Bool? = nil,
+        languages: [String]? = nil,
         copyrights: [SpotifyCopyright]? = nil,
-        mediaType: String,
-        publisher: String
+        mediaType: String? = nil,
+        publisher: String? = nil
     ) {
         self.name = name
         self.description = description
@@ -198,7 +199,7 @@ extension Show: Codable {
             String.self, forKey: .name
         ) ?? ""
 
-        self.description = try container.decode(
+        self.description = try container.decodeIfPresent(
             String.self, forKey: .description
         )
         self.htmlDescription = try container.decodeIfPresent(
@@ -210,13 +211,14 @@ extension Show: Codable {
         self.totalEpisodes = try container.decodeIfPresent(
             Int.self, forKey: .totalEpisodes
         )
-        self.isExplicit = try container.decode(
+        self.isExplicit = try container.decodeIfPresent(
             Bool.self, forKey: .isExplicit
-        )
-        self.uri = try container.decode(
+        ) ?? false
+
+        self.uri = try container.decodeIfPresent(
             String.self, forKey: .uri
         )
-        self.id = try container.decode(
+        self.id = try container.decodeIfPresent(
             String.self, forKey: .id
         )
         
@@ -227,7 +229,7 @@ extension Show: Codable {
             forKey: .availableMarkets
         )
 
-        self.href = try container.decode(
+        self.href = try container.decodeIfPresent(
             URL.self, forKey: .href
         )
         self.externalURLs = try container.decodeIfPresent(
@@ -236,16 +238,14 @@ extension Show: Codable {
         self.isExternallyHosted = try container.decodeIfPresent(
             Bool.self, forKey: .isExternallyHosted
         ) ?? false
-        self.languages = try container.decode(
-            [String].self, forKey: .languages
-        )
+        self.languages = try container.decodeAndUnwrapArray(forKey: .languages)
         self.copyrights = try container.decodeIfPresent(
             [SpotifyCopyright].self, forKey: .copyrights
         )
-        self.mediaType = try container.decode(
+        self.mediaType = try container.decodeIfPresent(
             String.self, forKey: .mediaType
         )
-        self.publisher = try container.decode(
+        self.publisher = try container.decodeIfPresent(
             String.self, forKey: .publisher
         )
         
@@ -259,10 +259,10 @@ extension Show: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(
+        try container.encodeIfPresent(
             self.name, forKey: .name
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.description, forKey: .description
         )
         try container.encodeIfPresent(
@@ -277,40 +277,40 @@ extension Show: Codable {
         try container.encode(
             self.isExplicit, forKey: .isExplicit
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.uri, forKey: .uri
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.id, forKey: .id
         )
         try container.encodeIfPresent(
             self.images, forKey: .images
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.availableMarkets, forKey: .availableMarkets
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.href, forKey: .href
         )
         try container.encodeIfPresent(
             self.externalURLs, forKey: .externalURLs
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.isExternallyHosted, forKey: .isExternallyHosted
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.languages, forKey: .languages
         )
         try container.encodeIfPresent(
             self.copyrights, forKey: .copyrights
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.mediaType, forKey: .mediaType
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.publisher, forKey: .publisher
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.type, forKey: .type
         )
         

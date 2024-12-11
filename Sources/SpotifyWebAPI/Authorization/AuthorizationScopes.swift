@@ -127,7 +127,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/changePlaylistDetails(_:to:)``
      * ``SpotifyAPI/createPlaylist(for:_:)``
      * ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
-     * ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
      * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
      * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``
@@ -156,7 +155,6 @@ public enum Scope: String, Codable, Hashable {
      * ``SpotifyAPI/changePlaylistDetails(_:to:)``
      * ``SpotifyAPI/createPlaylist(for:_:)``
      * ``SpotifyAPI/removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
-     * ``SpotifyAPI/removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``SpotifyAPI/reorderPlaylistItems(_:body:)``
      * ``SpotifyAPI/replaceAllPlaylistItems(_:with:)``
      * ``SpotifyAPI/uploadPlaylistImage(_:imageData:)``

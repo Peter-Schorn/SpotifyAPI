@@ -8,12 +8,12 @@ public struct Artist: Hashable {
     
     /// The [Spotify URI][1] for the artist.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String?
 
     /// The [Spotify ID][1] for the artist.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String?
     
     /// Images of the artist in various sizes, widest first.
@@ -39,7 +39,7 @@ public struct Artist: Hashable {
            for the object.
      - value: An external, public URL to the object.
     
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -88,7 +88,7 @@ public struct Artist: Hashable {
        - href: A link to the Spotify web API endpoint providing the full
              artist object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public init(
         name: String,

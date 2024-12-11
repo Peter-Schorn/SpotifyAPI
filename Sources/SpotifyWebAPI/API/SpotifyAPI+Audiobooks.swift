@@ -14,11 +14,11 @@ public extension SpotifyAPI {
     /**
      Get an audiobook.
 
-     - Note: Audiobooks are only available for the US market.
-
      See also:
 
      * ``audiobooks(_:market:)`` - gets multiple audiobooks
+     * ``audiobookChapters(_:market:limit:offset:)`` - gets all of the chapters
+           in an audiobook
 
      Reading the user’s resume points on audiobook chapter objects requires the
      ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
@@ -74,8 +74,6 @@ public extension SpotifyAPI {
 
     /**
      Get multiple audiobooks.
-
-     - Note: Audiobooks are only available for the US market.
 
      See also:
 
@@ -157,14 +155,74 @@ public extension SpotifyAPI {
 
     }
 
+
+    /**
+     Get the chapters for an audiobook.
+
+     Reading the user’s resume points on audiobook chapter objects requires the
+     ``Scope/userReadPlaybackPosition`` scope. Otherwise, no scopes are
+     required.
+
+     Read more at the [Spotify web API reference][1].
+
+     - Parameters:
+       - uri: The URI of an audiobook.
+       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
+             "from_token". If a country code is specified, only content that is
+             available in that market will be returned. If the access token was
+             granted on behalf of a user (i.e., if you authorized your
+             application using the authorization code flow or the authorization
+             code flow with proof key for code exchange), the country associated
+             with the user account will take priority over this parameter. Users
+             can view the country that is associated with their account in the
+             [account settings][3].
+       - limit: The maximum number of items to return. Default: 20; Minimum: 1;
+             Maximum: 50.
+       - offset: The index of the first item to return. Default: 0 (the first
+             item). Use with limit to get the next set of items.
+     - Returns: An array of simplified chapter objects, wrapped in a paging
+             object.
+
+     [1]: https://developer.spotify.com/documentation/web-api/reference/get-audiobook-chapters
+     [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     [3]: https://www.spotify.com/account/overview/
+     */
+    func audiobookChapters(
+        _ uri: SpotifyURIConvertible,
+        market: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil
+    ) -> AnyPublisher<PagingObject<AudiobookChapter>, Error> {
+
+        do {
+
+            let id = try SpotifyIdentifier(
+                uri: uri,
+                ensureCategoryMatches: [.audiobook, .show]
+            ).id
+
+            return self.getRequest(
+                path: "/audiobooks/\(id)/chapters",
+                queryItems: [
+                    "market": market,
+                    "limit": limit,
+                    "offset": offset
+                ],
+                requiredScopes: []
+            )
+            .decodeSpotifyObject(
+                PagingObject<AudiobookChapter>.self,
+                maxRetryDelay: self.maxRetryDelay
+            )
+
+        } catch {
+            return error.anyFailingPublisher()
+        }
+
+    }
+
     /**
      Get an audiobook chapter.
-
-     - Warning: Currently, there is a bug in the web API in which the market
-            parameter must be provided, or a 500 server error will be returned.
-            It must be set to "US".
-
-     - Note: Audiobooks are only available for the US market.
 
      See also:
 
@@ -224,12 +282,6 @@ public extension SpotifyAPI {
 
     /**
      Get multiple audiobook chapters.
-
-     - Warning: Currently, there is a bug in the web API in which the market
-           parameter must be provided, or a 500 server error will be returned.
-           It must be set to "US".
-
-     - Note: Audiobooks are only available for the US market.
 
      See also:
 

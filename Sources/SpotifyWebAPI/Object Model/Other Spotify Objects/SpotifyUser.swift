@@ -14,12 +14,12 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
 
     /// The [Spotify URI][1] for this user.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String
     
     /// The [Spotify user ID][1] for this user.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String
     
     /// The user's profile image in various sizes.
@@ -99,7 +99,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
           for the object.
     - value: An external, public URL to the object.
 
-    [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     */
     public let externalURLs: [String: URL]?
     
@@ -145,7 +145,7 @@ public struct SpotifyUser: SpotifyURIConvertible, Hashable {
                    URL][1] for the object.
              - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */
     public init(

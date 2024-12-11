@@ -89,89 +89,75 @@ private extension SpotifyAPI where
     
 }
 
-public extension SpotifyAPI {
-    
-    // MARK: Follow
-    
-    /**
-     Check to see if one or more Spotify users are following a specified
-     playlist.
-
-     See also ``currentUserFollowsArtists(_:)`` and
-     ``currentUserFollowsUsers(_:)``.
-     
-     Following a playlist can be done publicly or privately. Checking if a user
-     publicly follows a playlist doesn’t require any scopes; if the user is
-     publicly following the playlist, this endpoint returns `true`. Checking if
-     the user is privately following a playlist is only possible for the current
-     user when that user has granted access to the ``Scope/playlistReadPrivate``
-     scope.
-
-     If the user has created the playlist themself (or you created it for them)
-     and it shows up in their Spotify client, then that also means that they are
-     following it. See also [Following and Unfollowing a Playlist][1].
-
-     Read more at the [Spotify web API reference][2].
-     
-     - Parameters:
-       - uri: The URI for a playlist
-       - userURIs: An array of **up to 5 user URIs**. Passing in an empty array
-             will immediately cause an empty array of results to be returned
-             without a network request being made.
-     - Returns: An array of `true` or `false` values, in the order requested,
-           indicating whether each user is following the playlist.
-     
-     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist
-     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-if-user-follows-playlist
-     */
-    func usersFollowPlaylist(
-        _ uri: SpotifyURIConvertible,
-        userURIs: [SpotifyURIConvertible]
-    ) -> AnyPublisher<[Bool], Error> {
-        
-        do {
-            
-            if userURIs.isEmpty {
-                return ResultPublisher([])
-                    .eraseToAnyPublisher()
-            }
-            
-            let playlistId = try SpotifyIdentifier(
-                uri: uri, ensureCategoryMatches: [.playlist]
-            ).id
-            
-            let userIdsString = try SpotifyIdentifier
-                .commaSeparatedIdsString(
-                    userURIs, ensureCategoryMatches: [.user]
-                )
-            
-            return self.getRequest(
-                path: "/playlists/\(playlistId)/followers/contains",
-                queryItems: [
-                    "ids": userIdsString
-                ],
-                requiredScopes: []
-            )
-            .decodeSpotifyObject(
-                [Bool].self,
-                maxRetryDelay: self.maxRetryDelay
-            )
-            
-        } catch {
-            return error.anyFailingPublisher()
-        }
-
-    }
-
-}
-
 public extension SpotifyAPI where
     AuthorizationManager: SpotifyScopeAuthorizationManager
 {
 
     // MARK: Follow (Requires Authorization Scopes)
     
-    
+    /**
+     Check if the current user follows a specified playlist.
+
+     See also ``currentUserFollowsArtists(_:)`` and
+     ``currentUserFollowsUsers(_:)``.
+
+     Checking if the user follows a public playlist doesn’t require any scopes.
+     Checking if the user follows a private playlist requires the
+     ``Scope/playlistReadPrivate`` scope. If your app is not authorized for this
+     scope, then this endpoint will *always* return `false` for private
+     playlists.
+
+     If the user has created the playlist themself (or you created it for them)
+     and it shows up in their Spotify client, then that also means that they are
+     following it. See also [Following and Unfollowing a Playlist][1].
+
+     Read more at the [Spotify web API reference][2].
+
+     - Parameter uri: The URI for a playlist.
+     - Returns: A boolean value indicating whether or not the user is following
+           the playlist.
+
+     [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#following-and-unfollowing-a-playlist
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/check-if-user-follows-playlist
+     */
+    func currentUserFollowsPlaylist(
+        _ uri: SpotifyURIConvertible
+    ) -> AnyPublisher<Bool, Error> {
+
+        do {
+
+            let playlistId = try SpotifyIdentifier(
+                uri: uri, ensureCategoryMatches: [.playlist]
+            ).id
+
+            return self.getRequest(
+                path: "/playlists/\(playlistId)/followers/contains",
+                queryItems: [:],
+                requiredScopes: []
+            )
+            .decodeSpotifyObject(
+                [Bool].self,
+                maxRetryDelay: self.maxRetryDelay
+            )
+            .tryMap { bools -> Bool in
+                if bools.isEmpty {
+                    throw SpotifyGeneralError.other(
+                        "invalid JSON response: empty array"
+                    )
+                }
+                return bools[0]
+            }
+            .eraseToAnyPublisher()
+
+
+
+        } catch {
+            return error.anyFailingPublisher()
+        }
+
+    }
+
+
     /**
      Get the current user’s followed artists.
      
@@ -305,8 +291,8 @@ public extension SpotifyAPI where
      Check if the current user follows the specified users.
      
      See also ``currentUserFollowsArtists(_:)`` and
-     ``usersFollowPlaylist(_:userURIs:)``.
-     
+     ``currentUserFollowsPlaylist(_:)``.
+
      This endpoint requires the ``Scope/userFollowRead`` scope.
      
      Read more at the [Spotify web API reference][1].

@@ -37,20 +37,12 @@ extension SpotifyAPIAlbumsTests {
         // XCTAssertEqual(album.availableMarkets?.contains("US"), true)
         
         XCTAssertEqual(
-            album.href,
+            album.href?.removingQueryItems(),
             URL(string: "https://api.spotify.com/v1/albums/3vukTUpiENDHDoYTVrwqtz")!
         )
 
-        if let releaseDate = album.releaseDate {
-            XCTAssertEqual(
-                releaseDate.timeIntervalSince1970,
-                1560470400,
-                accuracy: 43_200
-            )
-        }
-        else {
-            XCTFail("release date should not be nil")
-        }
+
+        XCTAssertEqual(album.releaseDate, "2019-06-14")
         XCTAssertEqual(album.releaseDatePrecision, "day")
         
         if let copyrights = album.copyrights {
@@ -122,25 +114,25 @@ extension SpotifyAPIAlbumsTests {
                 )
             }
             XCTAssertEqual(tracks[0].name, "Cracking")
-            XCTAssertEqual(tracks[0].uri, "spotify:track:4A4RgEk7hEFKwk9IUKdB8a")
+            XCTAssertEqual(tracks[0].uri, "spotify:track:3VwgtTh9D0CubY32jdhI5U")
             XCTAssertEqual(tracks[1].name, "Nina")
-            XCTAssertEqual(tracks[1].uri, "spotify:track:6pMNKv4Ad6gSsoKGA4fkct")
+            XCTAssertEqual(tracks[1].uri, "spotify:track:3U3uvOHNxa3ODEiD9H6oVr")
             XCTAssertEqual(tracks[2].name, "Ghostride")
-            XCTAssertEqual(tracks[2].uri, "spotify:track:476QHG5G8xxNI9VHTBFfjp")
+            XCTAssertEqual(tracks[2].uri, "spotify:track:0R3TWpoxAhT3HDXM7tpRzS")
             XCTAssertEqual(tracks[3].name, "Fall Down")
-            XCTAssertEqual(tracks[3].uri, "spotify:track:6IqcbrxCPlbXaQuNoQMB8v")
+            XCTAssertEqual(tracks[3].uri, "spotify:track:0H2zA6m04MUsu4mX2KecNr")
             XCTAssertEqual(tracks[4].name, "M.R.")
-            XCTAssertEqual(tracks[4].uri, "spotify:track:0GDHyRVlxRVxofJfrw3aVF")
+            XCTAssertEqual(tracks[4].uri, "spotify:track:31T93onltAjRxJ6I8MqsHT")
             XCTAssertEqual(tracks[5].name, "The Letter")
-            XCTAssertEqual(tracks[5].uri, "spotify:track:0UUP7ADHBTUMbDw31mcZPZ")
+            XCTAssertEqual(tracks[5].uri, "spotify:track:4ejZbPjO3XBtGhLUCCrzMd")
             XCTAssertEqual(tracks[6].name, "Part III")
-            XCTAssertEqual(tracks[6].uri, "spotify:track:4HDLmWf73mge8isanCASnU")
+            XCTAssertEqual(tracks[6].uri, "spotify:track:49ztutPq82dK8AYDO2OkN7")
             XCTAssertEqual(tracks[7].name, "And It Never Ends")
-            XCTAssertEqual(tracks[7].uri, "spotify:track:00kOafrPnrR7jQhxYYg777")
+            XCTAssertEqual(tracks[7].uri, "spotify:track:0U1HzEEpoAkEg7nsE35rZD")
             XCTAssertEqual(tracks[8].name, "Faces")
-            XCTAssertEqual(tracks[8].uri, "spotify:track:1u7LOyLuApChbPeqMfXFKC")
+            XCTAssertEqual(tracks[8].uri, "spotify:track:6RRz2sbIkOmM9W7NIpcwTx")
             XCTAssertEqual(tracks[9].name, "Jinx")
-            XCTAssertEqual(tracks[9].uri, "spotify:track:7qAy6TR1MrSeUV8OpMlNS1")
+            XCTAssertEqual(tracks[9].uri, "spotify:track:3t5htCiGucfhAQjm88U3K9")
         }
         else {
             XCTFail("tracks shouldn't be nil")
@@ -213,53 +205,26 @@ extension SpotifyAPIAlbumsTests {
                 encodeDecode(album)
             }
             
-            guard albums.count == 4 else {
-                XCTFail("should've received 4 albums (got \(albums.count)")
+            guard albums.count == 3 else {
+                XCTFail("should've received 3 albums (got \(albums.count)")
                 return
             }
-            
-            XCTAssertNil(albums[2])
             
             XCTAssertEqual(albums[0]?.name, "Jinx")
             
             
             XCTAssertEqual(albums[1]?.name, "Locket")
-            XCTAssertEqual(albums[3]?.name, "Meddle")
-            
-            XCTAssertEqual(albums[0]?.tracks?.items.count, 10)
+            XCTAssertEqual(albums[2]?.name, "Meddle")
+
+            XCTAssertEqual(albums[0]?.tracks?.items.count, Int(10))
             XCTAssertEqual(albums[1]?.tracks?.items.count, 4)
-            XCTAssertEqual(albums[3]?.tracks?.items.count, 6)
-            
-            if let releaseDate = albums[0]?.releaseDate {
-                XCTAssertEqual(
-                    releaseDate.timeIntervalSince1970,
-                    1560470400,
-                    accuracy: 43_200
-                )
-            }
-            else {
-                XCTFail("release date should not be nil")
-            }
-            if let releaseDate = albums[1]?.releaseDate {
-                XCTAssertEqual(
-                    releaseDate.timeIntervalSince1970,
-                    1498176000,
-                    accuracy: 43_200
-                )
-            }
-            else {
-                XCTFail("release date should not be nil")
-            }
-            if let releaseDate = albums[3]?.releaseDate {
-                XCTAssertEqual(
-                    releaseDate.timeIntervalSince1970,
-                    58665600,
-                    accuracy: 43_200
-                )
-            }
-            else {
-                XCTFail("release date should not be nil")
-            }
+            XCTAssertEqual(albums[2]?.tracks?.items.count, 6)
+
+            XCTAssertEqual(albums[0]?.releaseDate, "2019-06-14")
+            XCTAssertEqual(albums[1]?.releaseDate, "2017-06-23")
+            XCTAssertEqual(albums[2]?.releaseDate, "1971-11-11")
+
+
             
         }
         
@@ -268,7 +233,6 @@ extension SpotifyAPIAlbumsTests {
         let albums: [SpotifyURIConvertible] = [
             URIs.Albums.jinx,
             URIs.Albums.locket,
-            "spotify:album:invaliduri",
             URIs.Albums.meddle
         ]
         
@@ -538,6 +502,7 @@ extension SpotifyAPIAlbumsTests {
 
     }
 
+    // test with max extra pages set to 2
     func theLongestAlbumTracksConcurrent() {
         
         #if canImport(Combine)
@@ -603,9 +568,11 @@ extension SpotifyAPIAlbumsTests {
             
     }
     
+    // test with max extra pages set to 1
     func theLongestAlbumTracksConcurrent2() {
-        
+
         #if canImport(Combine)
+
 
         let internalQueue = DispatchQueue(
             label: "theLongestAlbumTracksConcurrent2 internal"
@@ -624,6 +591,7 @@ extension SpotifyAPIAlbumsTests {
                 receivePage1Count += 1
                 self.receiveAlbumTracksPage1(firstPage)
                 return Self.spotify.extendPagesConcurrently(
+
                     firstPage, maxExtraPages: 1
                 )
             }

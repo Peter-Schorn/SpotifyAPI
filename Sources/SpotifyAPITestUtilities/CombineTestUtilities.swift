@@ -148,6 +148,8 @@ public func assertURLExists(
    - images: An array of Spotify images.
    - assertSizeNotNil: whether or not to assert that the height and width of the
          images is not `nil`.
+   - file: the file where the failure occurs.
+   - line: the line number where the failure occurs.
  */
 public func XCTAssertImagesExist(
     _ images: [SpotifyImage]?,

@@ -14,7 +14,7 @@ import Logging
  This struct provides a convenient way to convert between the different formats,
  which include the id, the URI, and the URL.
 
- [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+ [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
  */
 public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
 
@@ -96,7 +96,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      
      See [Spotify URIs and ids][1].
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     @inlinable
     public var uri: String {
@@ -156,7 +156,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
        - id: A Spotify id.
        - idCategory: An id category.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public init(id: String, idCategory: IDCategory) {
         self.id = id.strip()
@@ -194,7 +194,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
            does not match one the required categories or if an id or id category
            could not be parsed from the URI.
     
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: https://regex101.com/r/P8j2R3/1
      */
     public init(
@@ -287,7 +287,7 @@ public struct SpotifyIdentifier: Codable, Hashable, SpotifyURIConvertible {
      - Throws: If the id and/or id category of the content could not be parsed
            from the URL.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public init(url: URL) throws {
 

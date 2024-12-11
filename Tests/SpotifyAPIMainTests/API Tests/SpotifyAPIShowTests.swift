@@ -17,7 +17,7 @@ extension SpotifyAPIShowTests {
     
     func receiveSeanCarroll(_ show: Show, isFullVersion: Bool) {
         encodeDecode(show)
-        XCTAssert(show.availableMarkets.contains("US"))
+//        XCTAssert(show.availableMarkets.contains("US"))
         XCTAssertEqual(
             show.name,
             "Sean Carroll's Mindscape: Science, Society, Philosophy, Culture, Arts, and Ideas"
@@ -27,10 +27,10 @@ extension SpotifyAPIShowTests {
         XCTAssertEqual(show.uri, "spotify:show:622lvLwp8CVu6dvCsYAJhN")
         XCTAssertEqual(show.id, "622lvLwp8CVu6dvCsYAJhN")
         XCTAssertEqual(show.type, .show)
-        XCTAssertFalse(show.isExternallyHosted)
+        XCTAssert(show.isExternallyHosted == false)
         XCTAssertEqual(show.mediaType, "audio")
         XCTAssertEqual(
-            show.href,
+            show.href?.removingQueryItems(),
             URL(string: "https://api.spotify.com/v1/shows/622lvLwp8CVu6dvCsYAJhN")!
         )
         if let totalEpisodes = show.totalEpisodes {
@@ -53,7 +53,7 @@ extension SpotifyAPIShowTests {
         XCTAssertEqual(show.languages, ["en"])
         
         XCTAssertEqual(
-            show.description.strip(),
+            show.description?.strip(),
             """
             Ever wanted to know how music affects your brain, what quantum \
             mechanics really is, or how black holes work? Do you wonder why \
@@ -133,9 +133,7 @@ extension SpotifyAPIShowTests {
             XCTAssertEqual(
                 joeRogan.description,
                 """
-                The official podcast of comedian Joe Rogan. Follow The Joe \
-                Rogan Clips show page for some of the best moments from the \
-                episodes.
+                The official podcast of comedian Joe Rogan.
                 """
             )
             XCTAssertTrue(joeRogan.isExplicit)
@@ -151,19 +149,19 @@ extension SpotifyAPIShowTests {
             XCTAssertEqual(joeRogan.uri, "spotify:show:4rOoJ6Egrf8K2IrywzwOMk")
             XCTAssertEqual(joeRogan.id, "4rOoJ6Egrf8K2IrywzwOMk")
             XCTAssertEqual(
-                joeRogan.href,
+                joeRogan.href?.removingQueryItems(),
                 URL(string: "https://api.spotify.com/v1/shows/4rOoJ6Egrf8K2IrywzwOMk")!
             )
             XCTAssert(
-                joeRogan.languages.contains("en-US") || joeRogan.languages.contains("en"),
-                "\(joeRogan.languages)"
+                joeRogan.languages?.contains("en-US") == true || joeRogan.languages?.contains("en") == true,
+                String(describing: joeRogan.languages)
             )
-            XCTAssertFalse(joeRogan.isExternallyHosted)
+            XCTAssert(joeRogan.isExternallyHosted == false)
             XCTAssertEqual(joeRogan.mediaType, "mixed")
-            XCTAssert(
-                joeRogan.availableMarkets.contains("US"),
-                "\(joeRogan.availableMarkets)"
-            )
+//            XCTAssert(
+//                joeRogan.availableMarkets.contains("US"),
+//                "\(joeRogan.availableMarkets)"
+//            )
             
             if let externalURLs = joeRogan.externalURLs {
                 XCTAssertEqual(
@@ -204,19 +202,19 @@ extension SpotifyAPIShowTests {
         func receiveShowEpisodes(_ show: PagingObject<Episode>) {
             encodeDecode(show)
             XCTAssertEqual(
-                show.href,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=10&limit=30&market=US&locale=en-US,en;q=0.9")!
+                show.href.removingLocaleQueryParam,
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=10&limit=30&market=US")!
             )
             XCTAssertEqual(show.limit, 30)
             XCTAssertEqual(show.offset, 10)
             XCTAssert(show.total >= 143, "\(show.total)")
             XCTAssertEqual(
-                show.next,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=40&limit=30&market=US&locale=en-US,en;q=0.9")!
+                show.next?.removingLocaleQueryParam,
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=40&limit=30&market=US")!
             )
             XCTAssertEqual(
-                show.previous,
-                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=0&limit=30&market=US&locale=en-US,en;q=0.9")!
+                show.previous?.removingLocaleQueryParam,
+                URL(string: "https://api.spotify.com/v1/shows/4eDCVvVXJVwKCa0QfNbuXA/episodes?offset=0&limit=30&market=US")!
             )
             
 

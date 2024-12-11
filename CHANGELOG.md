@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 12-10-2024
+
+* Added `SpotifyAPI.audiobookChapters(_:market:limit:offset:)`.
+* `SpotifyAPI.currentUserSavedAudiobooks(limit:offset:)` now returns the correct type: `PagingObject<Audiobook>` instead of `PagingObject<SavedAudiobook>`.
+* Removed `SpotifyAPI.removeSpecificOccurrencesFromPlaylist(_:of:)` because it is no longer possible to remove items at specific indices from a playlist.
+* `ClientCredentialsFlowBackendManager` now actually conforms to `Hashable` (it already implemented the required methods, but never explicitly declared the conformance)
+* Removed market parameter from `SpotifyAPI.removeSavedAudiobooksForCurrentUser`
+* Removed market parameter from `SpotifyAPI.currentUserSavedShows`
+* Changed type of `PlaylistItem.name` from `String` to `String?`
+* Removed "Currently, there is a bug in the web API in which the market parameter must be provided, or a 500 server error will be returned. It must be set to "US"." doc comment for `SpotifyAPI.chapter` and `SpotifyAPI.chapters`.
+* The following endpoints are now **deprecated** for new web API applications (see this [article](https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api)):
+    * `SpotifyAPI.relatedArtists`
+    * `SpotifyAPI.recommendations`
+    * `SpotifyAPI.trackAudioFeatures`
+    * `SpotifyAPI.tracksAudioFeatures`
+    * `SpotifyAPI.trackAudioAnalysis`
+    * `SpotifyAPI.featuredPlaylists`
+    * `SpotifyAPI.categoryPlaylists`
+* Made all properties in `Show` and `Episode` optional (except for those with default values).
+* `Show` and `Episode` no longer conform to `SpotifyURIConvertible`.
+* Replaced `SpotifyAPI.usersFollowPlaylist(_:userURIs:)` with `SpotifyAPI.currentUserFollowsPlaylist(_:)` because this endpoint now only works with the current user.
+* Fixed bug in `SpotifyAPI.extendPagesConcurrently(_:maxExtraPages:)` in which no extra pages would be retrieved if `maxExtraPages` was set to `1`.
+* Changed type of `releaseDate` for all objects in object model from `Date?` to `String?`
+* Removed "Audiobooks are only available for the US market" from the following methods:
+    - `SpotifyAPI.audiobook`
+    - `SpotifyAPI.audiobooks`
+    - `SpotifyAPI.chapter`
+    - `SpotifyAPI.chapters`
+
 ## [3.0.4] - 11-22-2024
 
 * Fixed a bug where the Spotify ids were not being sent in the correct format in the following methods (see [#66](https://github.com/Peter-Schorn/SpotifyAPI/issues/66)):

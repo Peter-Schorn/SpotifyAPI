@@ -39,13 +39,13 @@ public struct Audiobook: Hashable, SpotifyURIConvertible {
 
     /// The [Spotify URI][1] for the audiobook.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String
     
     
     /// The [Spotify ID][1] for the audiobook.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String
 
     /// Images for the audiobook in various sizes, widest first.
@@ -77,7 +77,7 @@ public struct Audiobook: Hashable, SpotifyURIConvertible {
      for the object.
      - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
 
@@ -137,7 +137,7 @@ public struct Audiobook: Hashable, SpotifyURIConvertible {
        - mediaType: The media type of the audiobook. For example: "audio".
        - edition: The edition of the audiobook. For example: "Unabridged".
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://en.wikipedia.org/wiki/ISO_639
      */

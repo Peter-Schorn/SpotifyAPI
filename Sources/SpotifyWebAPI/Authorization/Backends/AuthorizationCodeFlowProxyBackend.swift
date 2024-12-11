@@ -321,12 +321,8 @@ public struct AuthorizationCodeFlowProxyBackend: AuthorizationCodeFlowBackend {
      Read about the underlying request that must be made to Spotify by your
      server in order to retrieve this data [here][1].
      
-     - Parameters:
-       - code: The authorization code, which will also be present in
-             `redirectURIWithQuery`.
-       - redirectURIWithQuery: The URL that spotify redirected to after the user
-             logged in to their Spotify account, with query parameters appended
-             to it.
+     - Parameter refreshToken: The refresh token, which can be exchanged for a
+           new access token.
      
      [1]: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/#request-a-refreshed-access-token
      */

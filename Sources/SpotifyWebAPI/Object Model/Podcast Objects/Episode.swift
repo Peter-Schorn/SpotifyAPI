@@ -2,11 +2,11 @@ import Foundation
 
 
 /// A Spotify podcast episode.
-public struct Episode: Hashable, SpotifyURIConvertible {
+public struct Episode: Hashable {
 
     /// The name of the episode.
-    public let name: String
-    
+    public let name: String?
+
     /// The show on which the episode belongs (simplified version).
     ///
     /// Only available for the full version.
@@ -16,8 +16,8 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     public let audioPreviewURL: URL?
     
     /// A description of the episode. See also ``htmlDescription``.
-    public let description: String
-    
+    public let description: String?
+
     /// A description of the episode which may contain HTML tags. See also
     /// ``description``.
     public let htmlDescription: String?
@@ -31,7 +31,7 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     public let resumePoint: ResumePoint?
     
     /// The episode length in milliseconds.
-    public let durationMS: Int
+    public let durationMS: Int?
 
     /// Whether or not the episode has explicit content. `false` if unknown.
     public let isExplicit: Bool
@@ -39,31 +39,31 @@ public struct Episode: Hashable, SpotifyURIConvertible {
     /// The date the episode was first released.
     ///
     /// See also ``releaseDatePrecision``.
-    public let releaseDate: Date?
-    
+    public let releaseDate: String?
+
     /// The [Spotify URI][1] for the episode.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let uri: String
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
+    public let uri: String?
 
     /// The [Spotify ID][1] for the episode.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
-    public let id: String
-    
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
+    public let id: String?
+
     /// The cover art for the episode in various sizes, widest first.
     public let images: [SpotifyImage]?
-    
+
     /**
      A link to the Spotify web API endpoint providing the full episode object.
      
      Use ``SpotifyAPI/getFromHref(_:responseType:)``, passing in ``Episode`` as
      the response type to retrieve the results.
      */
-    public let href: URL
-       
+    public let href: URL?
+
     /// `true` if the episode is playable in the given market. Else, `false`.
-    public let isPlayable: Bool
+    public let isPlayable: Bool?
 
     /**
      Known external urls for this episode.
@@ -72,20 +72,20 @@ public struct Episode: Hashable, SpotifyURIConvertible {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
     /// `true` if the episode is hosted outside of Spotify's CDN (content
     /// delivery network). Else, `false`.
-    public let isExternallyHosted: Bool
-    
+    public let isExternallyHosted: Bool?
+
     /// A list of the languages used in the episode, identified by their [ISO
     /// 639][1] code.
     ///
     /// [1]: https://en.wikipedia.org/wiki/ISO_639
-    public let languages: [String]
-    
+    public let languages: [String]?
+
     /// The precision with which ``releaseDate`` is known: "year", "month", or
     /// "day".
     public let releaseDatePrecision: String?
@@ -153,27 +153,27 @@ public struct Episode: Hashable, SpotifyURIConvertible {
                is set to not play explicit content.
              Additional reasons and additional keys may be added in the future.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: https://en.wikipedia.org/wiki/ISO_639
      */
     public init(
-        name: String,
+        name: String? = nil,
         show: Show? = nil,
         audioPreviewURL: URL? = nil,
-        description: String,
+        description: String? = nil,
         htmlDescription: String? = nil,
         resumePoint: ResumePoint? = nil,
-        durationMS: Int,
-        isExplicit: Bool,
-        releaseDate: Date? = nil,
-        uri: String,
-        id: String,
+        durationMS: Int? = nil,
+        isExplicit: Bool = false,
+        releaseDate: String? = nil,
+        uri: String? = nil,
+        id: String? = nil,
         images: [SpotifyImage]? = nil,
-        href: URL,
-        isPlayable: Bool,
+        href: URL? = nil,
+        isPlayable: Bool? = nil,
         externalURLs: [String: URL]? = nil,
-        isExternallyHosted: Bool,
-        languages: [String],
+        isExternallyHosted: Bool? = nil,
+        languages: [String]? = nil,
         releaseDatePrecision: String? = nil,
         restrictions: [String: String]? = nil
     ) {
@@ -209,7 +209,7 @@ extension Episode: Codable {
         
         self.name = try container.decodeIfPresent(
             String.self, forKey: .name
-        ) ?? ""
+        )
         
         self.show = try container.decodeIfPresent(
             Show.self, forKey: .show
@@ -217,41 +217,39 @@ extension Episode: Codable {
         self.audioPreviewURL = try container.decodeIfPresent(
             URL.self, forKey: .audioPreviewURL
         )
-        self.description = try container.decode(
+        self.description = try container.decodeIfPresent(
             String.self, forKey: .description
         )
         self.htmlDescription = try container.decodeIfPresent(
             String.self, forKey: .htmlDescription
         )
-        self.resumePoint = try container.decodeIfPresent(
+        self.resumePoint = try? container.decodeIfPresent(
             ResumePoint.self, forKey: .resumePoint
         )
-        self.durationMS = try container.decode(
+        self.durationMS = try container.decodeIfPresent(
             Int.self, forKey: .durationMS
         )
-        self.isExplicit = try container.decode(
+        self.isExplicit = try container.decodeIfPresent(
             Bool.self, forKey: .isExplicit
+        ) ?? false
+
+        self.releaseDate = try container.decodeIfPresent(
+            String.self, forKey: .releaseDate
         )
-        
-        // MARK: Decode Release Date
-        // this is the only property that needs to be decoded in a custom manner
-        self.releaseDate = try container.decodeSpotifyDateIfPresent(
-            forKey: .releaseDate
-        )
-        
+
         self.releaseDatePrecision = try container.decodeIfPresent(
             String.self, forKey: .releaseDatePrecision
         )
-        self.uri = try container.decode(
+        self.uri = try container.decodeIfPresent(
             String.self, forKey: .uri
         )
-        self.id = try container.decode(
+        self.id = try container.decodeIfPresent(
             String.self, forKey: .id
         )
         
         self.images = try container.decodeSpotifyImages(forKey: .images)
         
-        self.href = try container.decode(
+        self.href = try container.decodeIfPresent(
             URL.self, forKey: .href
         )
         
@@ -265,9 +263,7 @@ extension Episode: Codable {
         self.isExternallyHosted = try container.decodeIfPresent(
             Bool.self, forKey: .isExternallyHosted
         ) ?? false
-        self.languages = try container.decode(
-            [String].self, forKey: .languages
-        )
+        self.languages = try container.decodeAndUnwrapArray(forKey: .languages)
         self.restrictions = try container.decodeIfPresent(
             [String: String].self, forKey: .restrictions
         )
@@ -282,7 +278,7 @@ extension Episode: Codable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(
+        try container.encodeIfPresent(
             self.name, forKey: .name
         )
         try container.encodeIfPresent(
@@ -291,7 +287,7 @@ extension Episode: Codable {
         try container.encodeIfPresent(
             self.audioPreviewURL, forKey: .audioPreviewURL
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.description, forKey: .description
         )
         try container.encodeIfPresent(
@@ -300,51 +296,47 @@ extension Episode: Codable {
         try container.encodeIfPresent(
             self.resumePoint, forKey: .resumePoint
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.durationMS, forKey: .durationMS
         )
         try container.encode(
             self.isExplicit, forKey: .isExplicit
         )
         
-        // MARK: Encode Release Date
-        // this is the only property that needs to be encoded
-        // in a custom manner
-        try container.encodeSpotifyDateIfPresent(
+        try container.encodeIfPresent(
             self.releaseDate,
-            datePrecision: self.releaseDatePrecision,
             forKey: .releaseDate
         )
-        
+
         try container.encodeIfPresent(
             self.releaseDatePrecision,
             forKey: .releaseDatePrecision
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.uri, forKey: .uri
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.id, forKey: .id
         )
         try container.encodeIfPresent(
             self.images, forKey: .images
         )
         
-        try container.encode(
+        try container.encodeIfPresent(
             self.href, forKey: .href
         )
         
-        try container.encode(
+        try container.encodeIfPresent(
             self.isPlayable, forKey: .isPlayable
         )
         
         try container.encodeIfPresent(
             self.externalURLs, forKey: .externalURLs
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.isExternallyHosted, forKey: .isExternallyHosted
         )
-        try container.encode(
+        try container.encodeIfPresent(
             self.languages, forKey: .languages
         )
         try container.encodeIfPresent(
@@ -415,7 +407,7 @@ extension Episode: ApproximatelyEquatable {
                 self.languages == other.languages &&
                 self.releaseDatePrecision == other.releaseDatePrecision &&
                 self.type == other.type &&
-                self.releaseDate.isApproximatelyEqual(to: other.releaseDate) &&
+                self.releaseDate == other.releaseDate &&
                 self.show.isApproximatelyEqual(to: other.show)
         
     }

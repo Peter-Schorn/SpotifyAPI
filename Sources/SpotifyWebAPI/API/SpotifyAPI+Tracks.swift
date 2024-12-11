@@ -129,8 +129,11 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get audio analysis for a track.
-     
+     [**DEPRECATED**] Get audio analysis for a track.
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      The Audio Analysis endpoint provides low-level audio analysis for all of
      the tracks in the Spotify catalog. The Audio Analysis describes the track’s
      structure and musical content, including rhythm, pitch, and timbre. All
@@ -142,18 +145,14 @@ public extension SpotifyAPI {
      be considered speculative. There may not be sufficient data in the audio to
      compute the attribute with high certainty.
      
-     See also:
-     
-     * ``trackAudioFeatures(_:)`` - gets the audio features for a single track
-     * ``tracksAudioFeatures(_:)`` - gets the audio features for multiple tracks
-     
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameter uri: The URI for a track.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
      */
     func trackAudioAnalysis(
         _ uri: SpotifyURIConvertible
@@ -182,20 +181,19 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get audio features for a track.
+     [**DEPRECATED**] Get audio features for a track.
 
-     See also:
-     
-     * ``tracksAudioFeatures(_:)`` - gets the audio features for multiple tracks
-     * ``trackAudioAnalysis(_:)`` - gets audio analysis for a track
-     
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
+
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameter uri: The URI for a track.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
+
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
      */
     func trackAudioFeatures(
         _ uri: SpotifyURIConvertible
@@ -224,17 +222,15 @@ public extension SpotifyAPI {
     }
     
     /**
-     Get audio features for multiple tracks.
-     
-     See also:
-     
-     * ``trackAudioFeatures(_:)`` - gets the audio features for a single track
-     * ``trackAudioAnalysis(_:)`` - gets audio analysis for a track.
+     [**DEPRECATED**] Get audio features for multiple tracks.
+
+     - Warning: This endpoint is deprecated for new web API applications. See
+           this [article][1].
      
      No scopes are required for this endpoint.
      
-     Read more at the [Spotify web API reference][1].
-     
+     Read more at the [Spotify web API reference][2].
+
      - Parameter uris: An array of up to 100 URIs for tracks. Passing in an
              empty array will immediately cause an empty array of results to be
              returned without a network request being made.
@@ -243,8 +239,8 @@ public extension SpotifyAPI {
            appropriate position. Duplicate ids in the request will result in
            duplicate results in the response.
      
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features
+     [1]: https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api
+     [2]: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features
      */
     func tracksAudioFeatures(
         _ uris: [SpotifyURIConvertible]

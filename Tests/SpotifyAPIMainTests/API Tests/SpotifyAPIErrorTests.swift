@@ -354,7 +354,7 @@ extension SpotifyAPIErrorTests {
                         XCTFail("should receive `SpotifyError`: \(error)")
                         return
                     }
-                    XCTAssertEqual(spotifyError.message, "invalid id")
+                    XCTAssertEqual(spotifyError.message, "Invalid base62 id")
                     XCTAssertEqual(spotifyError.statusCode, 400)
                     encodeDecode(spotifyError, areEqual: ==)
                     

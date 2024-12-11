@@ -28,16 +28,16 @@ public struct Album: Hashable {
     
     /// The date the album was first released. See also
     /// ``releaseDatePrecision``.
-    public let releaseDate: Date?
-    
+    public let releaseDate: String?
+
     /// The [Spotify URI][1] for the album.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String?
     
     /// The [Spotify ID][1] for the album.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String?
     
     /// The cover art for the album in various sizes, widest first.
@@ -87,7 +87,7 @@ public struct Album: Hashable {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -217,7 +217,7 @@ public struct Album: Hashable {
                is set to not play explicit content.
              Additional reasons and additional keys may be added in the future.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: http://en.wikipedia.org/wiki/International_Standard_Recording_Code
      [3]: http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
      [4]: http://en.wikipedia.org/wiki/Universal_Product_Code
@@ -228,7 +228,7 @@ public struct Album: Hashable {
         name: String,
         tracks: PagingObject<Track>? = nil,
         artists: [Artist]? = nil,
-        releaseDate: Date? = nil,
+        releaseDate: String? = nil,
         uri: String? = nil,
         id: String? = nil,
         images: [SpotifyImage]? = nil,
@@ -288,13 +288,11 @@ extension Album: Codable {
             [Artist].self, forKey: .artists
         )
         
-        // MARK: Decode Release Date
-        // this is the only property that needs to be decoded
-        // in a custom manner
-        self.releaseDate = try container.decodeSpotifyDateIfPresent(
-            forKey: .releaseDate
+
+        self.releaseDate = try container.decodeIfPresent(
+            String.self, forKey: .releaseDate
         )
-        
+
         self.releaseDatePrecision = try container.decodeIfPresent(
             String.self, forKey: .releaseDatePrecision
         )
@@ -366,15 +364,11 @@ extension Album: Codable {
             self.artists, forKey: .artists
         )
         
-        // MARK: Encode Release Date
-        // this is the only property that needs to be encoded
-        // in a custom manner
-        try container.encodeSpotifyDateIfPresent(
+        try container.encodeIfPresent(
             self.releaseDate,
-            datePrecision: self.releaseDatePrecision,
             forKey: .releaseDate
         )
-        
+
         try container.encodeIfPresent(
             self.releaseDatePrecision,
             forKey: .releaseDatePrecision
@@ -492,8 +486,8 @@ extension Album: ApproximatelyEquatable {
                 self.releaseDatePrecision == other.releaseDatePrecision &&
                 self.restrictions == other.restrictions &&
                 self.type == other.type &&
-                self.releaseDate.isApproximatelyEqual(to: other.releaseDate)
-            
+                self.releaseDate == other.releaseDate
+
     }
 
 }

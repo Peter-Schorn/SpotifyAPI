@@ -42,7 +42,7 @@ public enum SpotifyGeneralError {
     /// A [Spotify identifier][1] (URI, id, URL) of a specific type
     /// could not be parsed. The message will contain more information.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     case identifierParsingError(message: String)
 
     /**

@@ -184,7 +184,7 @@ public extension SpotifyAPI {
              expect the the playlist to have both tracks and episodes, then use
              `[.episode]` or `[.track, .episode]` and decode the tracks and
              episodes into ``PlaylistItem``.
-     - market: An [ISO 3166-1 alpha-2 country code][4] or the string
+       - market: An [ISO 3166-1 alpha-2 country code][4] or the string
              "from_token". For tracks, Provide this parameter if you want
              to apply [Track Relinking][5]. For episodes, if the access token
              was granted on behalf of a user (i.e., if you authorized your
@@ -887,7 +887,6 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
      * ``replaceAllPlaylistItems(_:with:)``
 
@@ -970,7 +969,6 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
      * ``reorderPlaylistItems(_:body:)``
      
@@ -1169,7 +1167,6 @@ public extension SpotifyAPI where
      
      See also:
      
-     * ``removeSpecificOccurrencesFromPlaylist(_:of:)``
      * ``replaceAllPlaylistItems(_:with:)``
      * ``reorderPlaylistItems(_:body:)``
      
@@ -1215,57 +1212,6 @@ public extension SpotifyAPI where
             requiredScopes: []
         )
             
-    }
-    
-    /**
-     Removes the specified tracks/episodes at the specified positions from a
-     playlist. This is useful if the playlist contains duplicate items.
-     
-     See also:
-     
-     * ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
-     * ``replaceAllPlaylistItems(_:with:)``
-     * ``reorderPlaylistItems(_:body:)``
-     
-     Removing items from a user’s public playlist requires authorization of the
-     ``Scope/playlistModifyPublic`` scope; removing items from a private
-     playlist requires the ``Scope/playlistModifyPrivate`` scope.
-     
-     **If a single URI is invalid or if a given item is not found at a given**
-     **position, the entire request will fail and no edits will take place.**
-     
-     Read more at the [Spotify web API reference][1].
-     
-     - Parameters:
-       - playlist: The URI for a playlist.
-       - urisWithPositions: A collection of URIs along with their positions in a
-             playlist and, optionally, the snapshot id of the playlist you want
-             to target. **A maximum of 100 items can be sent at once.**
-     - Returns: The [snapshot id][2] of the playlist, which is an identifier for
-           the current version of the playlist. Every time the playlist changes,
-           a new snapshot id is generated. You can use this value to efficiently
-           determine whether a playlist has changed since the last time you
-           retrieved it. Can be supplied in other requests to target a specific
-           playlist version.
-     
-     [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
-     [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
-     */
-    func removeSpecificOccurrencesFromPlaylist(
-        _ playlist: SpotifyURIConvertible,
-        of urisWithPositions: URIsWithPositionsContainer
-    ) -> AnyPublisher<String, Error>{
-        
-        return self.modifyPlaylist(
-            playlist,
-            httpMethod: "DELETE",
-            queryItems: [:],
-            body: urisWithPositions,
-            // We can't know in advance which playlist
-            // is being modified.
-            requiredScopes: []
-        )
-        
     }
     
 }

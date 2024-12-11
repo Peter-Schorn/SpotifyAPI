@@ -14,7 +14,7 @@ public struct TrackLink: Hashable {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -27,12 +27,12 @@ public struct TrackLink: Hashable {
 
     /// The [Spotify URI][1] for the track.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String?
 
     /// The [Spotify ID][1] for the track.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String?
 
     /// The object type. Always ``IDCategory/track``.
@@ -54,7 +54,7 @@ public struct TrackLink: Hashable {
        - id: The [Spotify ID][2] for the track.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public init(
         externalURLs: [String: URL]? = nil,

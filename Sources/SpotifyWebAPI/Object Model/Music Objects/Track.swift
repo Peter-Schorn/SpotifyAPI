@@ -26,12 +26,12 @@ public struct Track: Hashable {
     
     /// The [Spotify URI][1] for the track.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String?
     
     /// The [Spotify ID][1] for the track.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String?
     
     /// Whether or not the track is from a [local file][1].
@@ -103,7 +103,7 @@ public struct Track: Hashable {
             for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -221,7 +221,7 @@ public struct Track: Hashable {
              default is ``IDCategory/track``.
      
      [1]: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
-     [2]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [2]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [3]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#local-files
      [4]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      */

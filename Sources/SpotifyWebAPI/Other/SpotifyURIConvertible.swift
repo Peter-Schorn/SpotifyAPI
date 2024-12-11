@@ -36,7 +36,7 @@ import Foundation
  * ``IDCategory/unknown``
  * ``IDCategory/collection``
 
- [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+ [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
  */
 public protocol SpotifyURIConvertible {
     
@@ -45,7 +45,7 @@ public protocol SpotifyURIConvertible {
      
      See [Spotify URIs and ids][1].
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     var uri: String { get }
 
@@ -54,7 +54,7 @@ public protocol SpotifyURIConvertible {
 extension String: SpotifyURIConvertible {
 
     /// Returns `self`, with the assumption that it represents a [Spotify
-    /// URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+    /// URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids).
     @inlinable @inline(__always)
     public var uri: Self { self }
 
@@ -64,7 +64,7 @@ extension Substring: SpotifyURIConvertible {
 
     /// Returns `self` converted to `String`, with the assumption that it
     /// represents a [Spotify
-    /// URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+    /// URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids).
     @inlinable @inline(__always)
     public var uri: String { String(self) }
 

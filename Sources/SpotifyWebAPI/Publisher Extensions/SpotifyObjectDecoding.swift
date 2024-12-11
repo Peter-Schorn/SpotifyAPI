@@ -246,8 +246,8 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      received, then retries if the status code is 500, 502, 503, or 504.
 
      - Parameter maxRetryDelay: The maximum delay in seconds (accumulated over
-     all retries before the publisher finishes with a error, e.g., 
-     ``RateLimitedError``. Default: 180 secs (3 minutes).
+           all retries before the publisher finishes with a error, e.g.,
+           ``RateLimitedError``. Default: 180 secs (3 minutes).
      */
     func decodeSpotifyErrors(
         maxRetryDelay: Int = 180  // 3 minutes
@@ -299,9 +299,13 @@ public extension Publisher where Output == (data: Data, response: HTTPURLRespons
      - Note: ``SpotifyDecodingError`` represents the error encountered when
            decoding the `responseType`, not the error objects.
 
-     - Parameter responseType: The json response that you are expecting from the
-           Spotify web API.
-     
+     - Parameters:
+       - responseType: The json response that you are expecting from the
+             Spotify web API.
+       - maxRetryDelay: The maximum delay in seconds (accumulated over all
+             retries before the publisher finishes with a error, e.g.,
+             ``RateLimitedError``. Default: 180 secds (3 minutes).
+
      [1]: https://developer.spotify.com/documentation/web-api/#response-schema
      */
     func decodeSpotifyObject<ResponseType: Decodable>(

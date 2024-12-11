@@ -12,7 +12,7 @@ import Foundation
  
  Read more at the [Spotify web API reference][1].
  
- [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+ [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
  - tag: IDCategory
  */
 public enum IDCategory: String, CaseIterable, Codable, Hashable {

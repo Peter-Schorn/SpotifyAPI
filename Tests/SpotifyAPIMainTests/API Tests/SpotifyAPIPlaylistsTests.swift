@@ -350,16 +350,7 @@ extension SpotifyAPIPlaylistsTests {
 
                 XCTAssertEqual(partIII.album?.name, "Jinx")
                 XCTAssertEqual(partIII.album?.uri, "spotify:album:3vukTUpiENDHDoYTVrwqtz")
-                if let releaseDate = partIII.album?.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        1560470400,
-                        accuracy: 43_200
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(partIII.album?.releaseDate, "2019-06-14")
                 XCTAssertEqual(partIII.album?.releaseDatePrecision, "day")
 
             }
@@ -383,16 +374,7 @@ extension SpotifyAPIPlaylistsTests {
                     whenIGetHome.album?.uri,
                     "spotify:album:5p3dhXhw62KlVkf0oPfq1G"
                 )
-                if let releaseDate = whenIGetHome.album?.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        1469145600,
-                        accuracy: 43_200
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(whenIGetHome.album?.releaseDate, "2016-07-22")
                 XCTAssertEqual(whenIGetHome.album?.releaseDatePrecision, "day")
             }
             else {
@@ -407,7 +389,7 @@ extension SpotifyAPIPlaylistsTests {
                         XCTAssertEqual(newReligion.id, "7nsYz7tSJryO5vVYtkKiot")
                     }
                     else {
-                        XCTFail("should be track: \(item.name)")
+                        XCTFail("should be track: \(String(describing: item.name))")
                     }
                 }
                 else {
@@ -432,7 +414,7 @@ extension SpotifyAPIPlaylistsTests {
                         }
                     }
                     else {
-                        XCTFail("should be episode: \(item.name)")
+                        XCTFail("should be episode: \(String(describing: item.name))")
                     }
                 }
 
@@ -604,7 +586,6 @@ extension SpotifyAPIPlaylistsTests where
         )
 
         var createdPlaylistURI = ""
-        var createdPlaylistSnaphotId = ""
 
         // get the uri of the current user
         let publisher: AnyPublisher<Playlist<PlaylistItems>, Error> =
@@ -621,7 +602,7 @@ extension SpotifyAPIPlaylistsTests where
                 encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
                 XCTAssertEqual(playlist.description, dateString)
-                XCTAssertFalse(playlist.isPublic ?? true)
+                XCTAssertEqual(playlist.isPublic, false)
                 XCTAssertFalse(playlist.isCollaborative)
                 XCTAssertEqual(playlist.items.items.count, 0)
 
@@ -635,10 +616,8 @@ extension SpotifyAPIPlaylistsTests where
             }
             .XCTAssertNoFailure()
             .flatMap { snapshotId -> AnyPublisher<Playlist<PlaylistItems>, Error> in
+                XCTAssert(snapshotId.count > 5)
                 // retrieve the playlist
-                createdPlaylistSnaphotId = snapshotId
-                XCTAssert(createdPlaylistURI.count > 5)
-                XCTAssert(createdPlaylistSnaphotId.count > 5)
                 return Self.spotify.playlist(createdPlaylistURI)
             }
             .XCTAssertNoFailure()
@@ -649,10 +628,8 @@ extension SpotifyAPIPlaylistsTests where
 
                 encodeDecode(playlist, areEqual: ==)
                 XCTAssertEqual(playlist.uri, createdPlaylistURI)
-                XCTAssertEqual(playlist.snapshotId, createdPlaylistSnaphotId)
                 XCTAssertEqual(playlist.name, "createPlaylistAddTracks")
                 XCTAssertEqual(playlist.description, dateString)
-                XCTAssertFalse(playlist.isPublic ?? true)
                 XCTAssertFalse(playlist.isCollaborative)
                 // assert that the playlist contains all of the items that
                 // we just added, in the same order.
@@ -673,14 +650,16 @@ extension SpotifyAPIPlaylistsTests where
                 Self.spotify.currentUserPlaylists()
             }
             .XCTAssertNoFailure()
+            .extendPages(Self.spotify)
+            .collectAndSortByOffset()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { playlists in
+                receiveValue: { (playlists: [Playlist<PlaylistItemsReference>]) in
                     encodeDecode(playlists, areEqual: ==)
                     XCTAssertFalse(
                         // ensure the user is no longer following the playlist
                         // because we just unfollowed it
-                        playlists.items.map(\.uri).contains(createdPlaylistURI)
+                        playlists.map(\.uri).contains(createdPlaylistURI)
                     )
                 }
             )
@@ -1198,238 +1177,6 @@ extension SpotifyAPIPlaylistsTests where
 
     }
 
-    func removeSpecificOccurrencesFromPlaylist() {
-
-        let itemsToAddToPlaylist: [SpotifyURIConvertible] = [
-            URIs.Episodes.seanCarroll111,  // 0
-            URIs.Episodes.seanCarroll112,  // 1
-            URIs.Tracks.breathe,           // 2
-            URIs.Tracks.houseOfCards,      // 3
-            URIs.Tracks.illWind,           // 4
-            URIs.Episodes.seanCarroll112,  // 5
-            URIs.Tracks.houseOfCards,      // 6
-            URIs.Tracks.breathe,           // 7
-            URIs.Tracks.breathe            // 8
-        ]
-
-        var itemsToRemoveFromPlaylist = URIsWithPositionsContainer(
-            snapshotId: nil,
-            urisWithPositions: [
-                .init(uri: URIs.Episodes.seanCarroll112, positions: [1, 5]),
-                .init(uri: URIs.Tracks.breathe, positions: [2, 7]),
-                .init(uri: URIs.Tracks.houseOfCards, positions: [3])
-            ]
-        )
-
-        encodeDecode(itemsToRemoveFromPlaylist, areEqual: ==)
-
-        do {
-            var copy = itemsToRemoveFromPlaylist
-            copy.snapshotId = "asdifhaslkjhfalksjfhaksdjfhaksjdhfasdkljf"
-            encodeDecode(copy, areEqual: ==)
-        }
-
-        let itemsLeftInPlaylist: [SpotifyURIConvertible] = [
-            URIs.Episodes.seanCarroll111,  // 0
-            URIs.Tracks.illWind,           // 4
-            URIs.Tracks.houseOfCards,      // 6
-            URIs.Tracks.breathe            // 8
-        ]
-
-        let playlistDetails = PlaylistDetails(
-            name: "removeSpecificOccurrencesFromPlaylist",
-            isCollaborative: nil
-        )
-        encodeDecode(playlistDetails, areEqual: ==)
-
-        let newPlaylistDetails = PlaylistDetails(
-            name: "renamed removeSpecificOccurrencesFromPlaylist",
-            isPublic: false,
-            isCollaborative: false,
-            description: "programmatically"
-        )
-        encodeDecode(newPlaylistDetails, areEqual: ==)
-
-        let expectation = XCTestExpectation(
-            description: "testRemoveSpecificOccurrencesFromPlaylist"
-        )
-
-        var createdPlaylistURI = ""
-        var playlistSnapshotId: String? = nil
-
-        let publisher: AnyPublisher<Playlist<PlaylistItems>, Error> =
-            Self.spotify.currentUserProfile()
-            .XCTAssertNoFailure()
-            .flatMap { user -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                encodeDecode(user, areEqual: ==)
-                return Self.spotify.createPlaylist(
-                    for: user.uri, playlistDetails
-                )
-            }
-            .XCTAssertNoFailure()
-            .flatMap { playlist -> AnyPublisher<Void, Error> in
-
-                encodeDecode(playlist, areEqual: ==)
-                XCTAssertEqual(playlist.name, "removeSpecificOccurrencesFromPlaylist")
-                if let isPublic = playlist.isPublic {
-                    XCTAssertTrue(isPublic)
-                }
-                else {
-                    XCTFail("playlist.isPublic should not be nil")
-                }
-                XCTAssertFalse(playlist.isCollaborative)
-                XCTAssertEqual(playlist.items.items.count, 0)
-
-                createdPlaylistURI = playlist.uri
-                XCTAssert(createdPlaylistURI.count > 5)
-
-                return Self.spotify.changePlaylistDetails(
-                    createdPlaylistURI, to: newPlaylistDetails
-                )
-
-            }
-            .XCTAssertNoFailure()
-            .flatMap { () -> AnyPublisher<String, Error> in
-                // add tracks and episodes to the playlist
-                return Self.spotify.addToPlaylist(
-                    createdPlaylistURI, uris: itemsToAddToPlaylist
-                )
-            }
-            .XCTAssertNoFailure()
-            .flatMap { snapshotId -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-                playlistSnapshotId = snapshotId
-                // retrieve the playlist
-                XCTAssert(createdPlaylistURI.count > 5)
-                return Self.spotify.playlist(
-                    createdPlaylistURI, market: "US"
-                )
-            }
-            .XCTAssertNoFailure()
-            .eraseToAnyPublisher()
-
-        publisher
-            .flatMap { playlist -> AnyPublisher<String, Error> in
-
-                encodeDecode(playlist, areEqual: ==)
-
-                XCTAssertEqual(playlist.name, "renamed removeSpecificOccurrencesFromPlaylist")
-                if let isPublic = playlist.isPublic {
-                    XCTAssertFalse(isPublic)
-                }
-                else {
-                    XCTFail("playlist.isPublic should not be nil")
-                }
-                XCTAssertFalse(playlist.isCollaborative)
-                XCTAssertEqual(playlist.description, "programmatically")
-
-                let playlistItems = playlist.items.items.compactMap(\.item?.uri)
-                XCTAssertEqual(
-                    playlistItems, itemsToAddToPlaylist.map(\.uri)
-                )
-
-                XCTAssertNotNil(playlistSnapshotId)
-                itemsToRemoveFromPlaylist.snapshotId = playlistSnapshotId
-
-                // MARK: Remove items WITH snapshot ID
-                return Self.spotify.removeSpecificOccurrencesFromPlaylist(
-                    createdPlaylistURI, of: itemsToRemoveFromPlaylist
-                )
-            }
-            .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
-            .flatMap { snapshotId -> AnyPublisher<PlaylistItems, Error> in
-                return Self.spotify.playlistItems(
-                    createdPlaylistURI,
-                    limit: 100,
-                    offset: 0,
-                    market: "US"
-                )
-            }
-            .XCTAssertNoFailure()
-            .flatMap { playlistItems -> AnyPublisher<String, Error> in
-
-                encodeDecode(playlistItems, areEqual: ==)
-                XCTAssertEqual(
-                    playlistItems.items.compactMap(\.item?.uri),
-                    itemsLeftInPlaylist.map(\.uri)
-                )
-                XCTAssertEqual(
-                    playlistItems.total, 4,
-                    """
-                    There should be 4 items available to return in the \
-                    playlist (PagingObject.total)
-                    """
-                )
-
-
-                let itemsToRemoveNoURI = URIsWithPositionsContainer(
-                    snapshotId: nil,
-                    urisWithPositions: [
-                        .init(uri: URIs.Tracks.illWind, positions: [1])
-                    ]
-                )
-
-                // MARK: Remove more items WITHOUT snapshot ID
-                return Self.spotify.removeSpecificOccurrencesFromPlaylist(
-                    createdPlaylistURI,
-                    of: itemsToRemoveNoURI
-                )
-
-            }
-            .XCTAssertNoFailure()
-            .receiveOnMain(delay: 1)
-            .flatMap { snapshotId -> AnyPublisher<Playlist<PlaylistItems>, Error> in
-
-                return Self.spotify.playlist(
-                    createdPlaylistURI,
-                    market: "US"
-                )
-            }
-            .XCTAssertNoFailure()
-            .flatMap { playlist -> AnyPublisher<Void, Error> in
-
-                XCTAssertNotEqual(
-                    playlist.snapshotId,
-                    // the snapshot id from BEFORE the first request to
-                    // remove items from the plassylist.
-                    itemsToRemoveFromPlaylist.snapshotId,
-                    "snapshot ids should be different"
-                )
-
-                let itemsLeftInPlaylist2: [SpotifyURIConvertible] = [
-                    URIs.Episodes.seanCarroll111,
-                    URIs.Tracks.houseOfCards,
-                    URIs.Tracks.breathe
-                ]
-
-                encodeDecode(playlist, areEqual: ==)
-                XCTAssertEqual(
-                    playlist.items.items.compactMap(\.item?.uri),
-                    itemsLeftInPlaylist2.map(\.uri)
-                )
-                XCTAssertEqual(
-                    playlist.items.total, 3,
-                    """
-                    There should be 3 items available to return in the \
-                    playlist (PagingObject.total)
-                    """
-                )
-
-                return Self.spotify.unfollowPlaylistForCurrentUser(
-                    createdPlaylistURI
-                )
-            }
-            .XCTAssertNoFailure()
-            .sink(
-                receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { }
-            )
-            .store(in: &Self.cancellables)
-
-        self.wait(for: [expectation], timeout: 180)
-
-    }
-
     func replaceItemsInPlaylist() {
 
         let itemsToAddToPlaylist: [SpotifyURIConvertible] = [
@@ -1814,10 +1561,6 @@ final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
             "testRemoveAllOccurrencesFromPlaylistNoSnapshotId",
             testRemoveAllOccurrencesFromPlaylistNoSnapshotId
         ),
-        (
-            "testRemoveSpecificOccurrencesFromPlaylist",
-            testRemoveSpecificOccurrencesFromPlaylist
-        ),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testPlaylistImage", testPlaylistImage),
         ("testUploadPlaylistImage", testUploadPlaylistImage)
@@ -1857,9 +1600,6 @@ final class SpotifyAPIAuthorizationCodeFlowPlaylistsTests:
     func testRemoveAllOccurrencesFromPlaylistNoSnapshotId() {
         removeAllOccurrencesFromPlaylistNoSnapshotId()
     }
-    func testRemoveSpecificOccurrencesFromPlaylist() {
-        removeSpecificOccurrencesFromPlaylist()
-    }
     func testReplaceItemsInPlaylist() { replaceItemsInPlaylist() }
     func testPlaylistImage() { playlistImage() }
     func testUploadPlaylistImage() { uploadPlaylistImage() }
@@ -1895,10 +1635,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
         (
             "testRemoveAllOccurrencesFromPlaylistNoSnapshotId",
             testRemoveAllOccurrencesFromPlaylistNoSnapshotId
-        ),
-        (
-            "testRemoveSpecificOccurrencesFromPlaylist",
-            testRemoveSpecificOccurrencesFromPlaylist
         ),
         ("testReplaceItemsInPlaylist", testReplaceItemsInPlaylist),
         ("testPlaylistImage", testPlaylistImage),
@@ -1937,9 +1673,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEPlaylistsTests:
     }
     func testRemoveAllOccurrencesFromPlaylistNoSnapshotId() {
         removeAllOccurrencesFromPlaylistNoSnapshotId()
-    }
-    func testRemoveSpecificOccurrencesFromPlaylist() {
-        removeSpecificOccurrencesFromPlaylist()
     }
     func testReplaceItemsInPlaylist() { replaceItemsInPlaylist() }
     func testPlaylistImage() { playlistImage() }

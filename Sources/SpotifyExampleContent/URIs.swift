@@ -134,7 +134,6 @@ public enum URIs {
         
         case reckoner = "spotify:track:02ppMPbg1OtEdHgoPqoqju"
         case houseOfCards = "spotify:track:48X4D1FYOShPz2VF3YdfCF"
-        
         /// Right now.
         case comeTogether = "spotify:track:2EqlS6tkEnglzr7tkKAAYD"
         /// The sky is blue.

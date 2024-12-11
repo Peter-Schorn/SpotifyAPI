@@ -52,7 +52,7 @@ extension Numeric where Magnitude: FloatingPoint {
 
      See Also:
      
-     - ``isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:norm:])``
+     - `isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:norm:])`
 
      - Parameters:
 
@@ -117,7 +117,7 @@ extension Numeric where Magnitude: FloatingPoint {
 
      See Also:
 
-     - ``isApproximatelyEqual(to:[relativeTolerance:])``
+     - `isApproximatelyEqual(to:[relativeTolerance:])`
 
      - Parameters:
 
@@ -187,8 +187,8 @@ extension AdditiveArithmetic {
 
      See Also:
      -------
-     - ``isApproximatelyEqual(to:[relativeTolerance:norm:])``
-     - ``isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:])``
+     - `isApproximatelyEqual(to:[relativeTolerance:norm:])`
+     - `isApproximatelyEqual(to:absoluteTolerance:[relativeTolerance:])`
 
      - Parameters:
 

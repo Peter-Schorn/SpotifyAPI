@@ -25,7 +25,7 @@ extension SpotifyAPIArtistTests {
         XCTAssertEqual(artist.uri, "spotify:artist:0k17h0D3J5VfsdmQ1iZtE9")
         XCTAssertEqual(artist.id, "0k17h0D3J5VfsdmQ1iZtE9")
         XCTAssertEqual(
-            artist.href?.sortedQueryItems(),
+            artist.href?.removingQueryItems(),
             URL(string: "https://api.spotify.com/v1/artists/0k17h0D3J5VfsdmQ1iZtE9")
         )
         if let popularity = artist.popularity {
@@ -230,17 +230,8 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(album.uri, "spotify:album:2Se4ZylF9NkFGD92yv1aZC")
                 XCTAssertEqual(album.id, "2Se4ZylF9NkFGD92yv1aZC")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        -76032000,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
-                
+                XCTAssertEqual(album.releaseDate, "1967-08-05")
+
             }
             do {
                 let album = reversedAlbums[1]
@@ -248,17 +239,8 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(album.uri, "spotify:album:2vnJKtGjZXRUg0mYPZ3HGH")
                 XCTAssertEqual(album.id, "2vnJKtGjZXRUg0mYPZ3HGH")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        -47588400,
-                        accuracy: 43_200
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
-                
+                XCTAssertEqual(album.releaseDate, "1968-06-29")
+
             }
             do {
                 let album = reversedAlbums[2]
@@ -266,16 +248,7 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(album.uri, "spotify:album:6AccmjV8Q5cEUZ2tvS8s6c")
                 XCTAssertEqual(album.id, "6AccmjV8Q5cEUZ2tvS8s6c")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        -13633200,
-                        accuracy: 43_200
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(album.releaseDate, "1969-07-27")
             }
             do {
                 let album = reversedAlbums[3]
@@ -286,16 +259,7 @@ extension SpotifyAPIArtistTests {
                 XCTAssertEqual(album.uri, "spotify:album:3IPhWIXHOAhS2npnq6FiCG")
                 XCTAssertEqual(album.id, "3IPhWIXHOAhS2npnq6FiCG")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        -5857200,
-                        accuracy: 43_200
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(album.releaseDate, "1969-10-25")
             }
             
         }
@@ -433,16 +397,7 @@ extension SpotifyAPIArtistTests {
                 )
                 XCTAssertEqual(album.uri, "spotify:album:2EUUCdjvEujOc0E3X6yAEr")
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        705042000,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(album.releaseDate, "1992-05-05")
             }
             do {
                 let album = reversedAlbums[1]
@@ -459,16 +414,7 @@ extension SpotifyAPIArtistTests {
                 )
                 
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        717051600,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(album.releaseDate, "1992-09-21")
             }
             do {
                 let album = reversedAlbums[2]
@@ -484,16 +430,7 @@ extension SpotifyAPIArtistTests {
                     "\(album.uri ?? "nil") should be one of \(possibleURIs)"
                 )
                 XCTAssertEqual(album.releaseDatePrecision, "day")
-                if let releaseDate = album.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        717051600,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(album.releaseDate, "1992-09-21")
             }
             
         }
@@ -594,36 +531,6 @@ extension SpotifyAPIArtistTests {
         
     }
     
-    func relatedArtists() {
-        
-        let expectation = XCTestExpectation(
-            description: "testRelatedArtists"
-        )
-        
-        Self.spotify.relatedArtists(URIs.Artists.crumb)
-            .XCTAssertNoFailure()
-            .sink(
-                receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { artists in
-                    encodeDecode(artists, areEqual: ==)
-                    for artist in artists {
-                        encodeDecode(artist, areEqual: ==)
-                        XCTAssertEqual(artist.type, .artist)
-                        XCTAssertNotNil(artist.name)
-                        XCTAssertNotNil(artist.id)
-                        XCTAssertNotNil(artist.uri)
-                        XCTAssertNotNil(artist.genres)
-                        XCTAssertNotNil(artist.href)
-                        XCTAssertNotNil(artist.popularity)
-                    }
-                }
-            )
-            .store(in: &Self.cancellables)
-            
-        self.wait(for: [expectation], timeout: 60)
-        
-    }
-    
 }
 
 // MARK: Authorization and setup methods
@@ -699,9 +606,8 @@ final class SpotifyAPIClientCredentialsFlowArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     func testArtist() { artist() }
@@ -715,8 +621,6 @@ final class SpotifyAPIClientCredentialsFlowArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
 }
 
 final class SpotifyAPIAuthorizationCodeFlowArtistTests:
@@ -736,9 +640,8 @@ final class SpotifyAPIAuthorizationCodeFlowArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     /// Authorize for zero scopes because none are required for the artist
@@ -769,8 +672,7 @@ final class SpotifyAPIAuthorizationCodeFlowArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
+
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
@@ -790,9 +692,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     /// Authorize for zero scopes because none are required for the artist
@@ -822,8 +723,7 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
+
 }
 
 // MARK: - Proxy -
@@ -845,9 +745,8 @@ final class SpotifyAPIClientCredentialsFlowProxyArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     func testArtist() { artist() }
@@ -861,8 +760,7 @@ final class SpotifyAPIClientCredentialsFlowProxyArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
+
 }
 
 final class SpotifyAPIAuthorizationCodeFlowProxyArtistTests:
@@ -882,9 +780,8 @@ final class SpotifyAPIAuthorizationCodeFlowProxyArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     /// Authorize for zero scopes because none are required for the artist
@@ -915,8 +812,7 @@ final class SpotifyAPIAuthorizationCodeFlowProxyArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
+
 }
 
 final class SpotifyAPIAuthorizationCodeFlowPKCEProxyArtistTests:
@@ -936,9 +832,8 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyArtistTests:
             testArtistAlbumsExtendSinglePageConcurrent
         ),
         ("testArtistAlbumsSingles", testArtistAlbumsSingles),
-        ("testArtistTopTracks", testArtistTopTracks),
-        ("testRelatedArtists", testRelatedArtists)
-        
+        ("testArtistTopTracks", testArtistTopTracks)
+
     ]
     
     /// Authorize for zero scopes because none are required for the artist
@@ -968,6 +863,5 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyArtistTests:
     }
     func testArtistAlbumsSingles() { artistAlbumsSingles() }
     func testArtistTopTracks() { artistTopTracks() }
-    func testRelatedArtists() { relatedArtists() }
-    
+
 }

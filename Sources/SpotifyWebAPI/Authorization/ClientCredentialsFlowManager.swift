@@ -63,6 +63,7 @@ import Logging
  */
 public class ClientCredentialsFlowBackendManager<Backend: ClientCredentialsFlowBackend>:
     SpotifyAuthorizationManager,
+    Hashable,
     CustomStringConvertible
 {
 

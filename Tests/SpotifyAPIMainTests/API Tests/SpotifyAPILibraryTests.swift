@@ -346,7 +346,7 @@ extension SpotifyAPILibraryTests where
                 }
 
                 let episodeURIs = allEpisodes
-                    .map(\.item.uri)
+                    .compactMap(\.item.uri)
                 for episode in episodeURIs {
                     XCTAssertFalse(fullEpisodes.contains(episode))
                 }
@@ -374,7 +374,7 @@ extension SpotifyAPILibraryTests where
                 for episode in savedEpisodes {
                     XCTAssertEqual(episode.type, .episode)
                 }
-                let episodeURIs = savedEpisodes.map(\.item.uri)
+                let episodeURIs = savedEpisodes.compactMap(\.item.uri)
                 for episode in partialEpisodes {
                     XCTAssert(episodeURIs.contains(episode))
                 }
@@ -455,7 +455,7 @@ extension SpotifyAPILibraryTests where
                     }
 
                     let episodeURIs = allEpisodes
-                        .map(\.item.uri)
+                        .compactMap(\.item.uri)
                     for episode in episodeURIs {
                         XCTAssertFalse(fullEpisodes.contains(episode))
                     }
@@ -485,7 +485,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
@@ -502,7 +502,7 @@ extension SpotifyAPILibraryTests where
                 }
 
                 let showURIs = allShows
-                    .map(\.item.uri)
+                    .compactMap(\.item.uri)
                 for show in showURIs {
                     XCTAssertFalse(fullShows.contains(show))
                 }
@@ -516,7 +516,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
@@ -592,7 +592,7 @@ extension SpotifyAPILibraryTests where
             .receiveOnMain(delay: 1)
             .flatMap {
                 Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
@@ -611,7 +611,7 @@ extension SpotifyAPILibraryTests where
                     }
 
                     let showURIs = allShows
-                        .map(\.item.uri)
+                        .compactMap(\.item.uri)
                     for show in showURIs {
                         XCTAssertFalse(fullShows.contains(show))
                     }
@@ -641,34 +641,32 @@ extension SpotifyAPILibraryTests where
             description: "testSaveAudiobooks"
         )
 
-        let publisher: AnyPublisher<PagingObject<SavedShow>, Error> = Self.spotify
+        let publisher: AnyPublisher<PagingObject<Audiobook>, Error> = Self.spotify
             .removeSavedAudiobooksForCurrentUser(fullAudiobooks)
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
             .flatMap {
-                // MARK: Should be currentUserSavedAudiobooks
-                Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                Self.spotify.currentUserSavedAudiobooks(
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
             .extendPages(Self.spotify)
             .XCTAssertNoFailure()
-            .collect()
-            .flatMap { savedAudiobooksArray -> AnyPublisher<Void, Error> in
-                encodeDecode(savedAudiobooksArray)
+            .collectAndSortByOffset()
+            .flatMap { (savedAudiobooks: [Audiobook]) -> AnyPublisher<Void, Error> in
 
-                let allAudiobooks = savedAudiobooksArray
-                    .flatMap(\.items)
-                for audiobook in allAudiobooks {
-                    XCTAssertEqual(audiobook.type, .show)
+                encodeDecode(savedAudiobooks)
+
+                for audiobook in savedAudiobooks {
+                    XCTAssertEqual(audiobook.type, .audiobook)
                 }
 
-                let audiobookIds = allAudiobooks
-                    .map(\.item.uri)
+                let audiobookURIs = savedAudiobooks
+                    .map(\.uri)
 
-                for audiobook in audiobookIds {
-                    XCTAssertFalse(fullAudiobooks.contains(audiobook))
+                for audiobookURI in audiobookURIs {
+                    XCTAssertFalse(fullAudiobooks.contains(audiobookURI))
                 }
 
                 return Self.spotify.saveAudiobooksForCurrentUser(
@@ -678,9 +676,8 @@ extension SpotifyAPILibraryTests where
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
             .flatMap {
-                // MARK: Should be currentUserSavedAudiobooks
-                Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                Self.spotify.currentUserSavedAudiobooks(
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
@@ -690,14 +687,15 @@ extension SpotifyAPILibraryTests where
             .extendPages(Self.spotify)
             .XCTAssertNoFailure()
             .collectAndSortByOffset()
-            .flatMap { savedAudiobooks -> AnyPublisher<[Bool], Error> in
+            .flatMap { (savedAudiobooks: [Audiobook]) -> AnyPublisher<[Bool], Error> in
                 encodeDecode(savedAudiobooks)
                 // fullAudiobooks were removed from the library.
-                // Library contains partialAudiobooks.
+                // partialAudiobooks were added to the library
                 for audiobook in savedAudiobooks {
-                    XCTAssertEqual(audiobook.type, .show)
+                    XCTAssertEqual(audiobook.type, .audiobook)
                 }
-                let audiobookIds = savedAudiobooks.map(\.item.id)
+
+                let audiobookIds = savedAudiobooks.map(\.id)
                 for audiobook in partialAudiobooks.compactMap(\.spotifyId) {
                     XCTAssert(audiobookIds.contains(audiobook))
                 }
@@ -710,16 +708,12 @@ extension SpotifyAPILibraryTests where
                 )
 
                 if let freeWill = savedAudiobooks.first(where: { audiobook in
-                    audiobook.item.id == URIs.Audiobooks.freeWill.uri.spotifyId
+                    audiobook.id == URIs.Audiobooks.freeWill.uri.spotifyId
 
                 }) {
+
                     XCTAssertEqual(
-                        freeWill.addedAt.timeIntervalSince1970,
-                        Date().timeIntervalSince1970,
-                        accuracy: 20
-                    )
-                    XCTAssertEqual(
-                        freeWill.item.name,
+                        freeWill.name,
                         "Free Will"
                     )
                 }
@@ -730,15 +724,11 @@ extension SpotifyAPILibraryTests where
                 }
 
                 if let harryPotterAndTheSorcerersStone = savedAudiobooks.first(where: { audiobook in
-                    audiobook.item.id == URIs.Audiobooks.harryPotterAndTheSorcerersStone.uri.spotifyId
+                    audiobook.id == URIs.Audiobooks.harryPotterAndTheSorcerersStone.uri.spotifyId
                 }) {
+
                     XCTAssertEqual(
-                        harryPotterAndTheSorcerersStone.addedAt.timeIntervalSince1970,
-                        Date().timeIntervalSince1970,
-                        accuracy: 20
-                    )
-                    XCTAssertEqual(
-                        harryPotterAndTheSorcerersStone.item.name,
+                        harryPotterAndTheSorcerersStone.name,
                         "Harry Potter and the Sorcerer's Stone"
                     )
                 }
@@ -765,30 +755,28 @@ extension SpotifyAPILibraryTests where
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
             .flatMap {
-                // MARK: Should be currentUserSavedAudiobooks
-                Self.spotify.currentUserSavedShows(
-                    limit: 50, offset: 0, market: "US"
+                Self.spotify.currentUserSavedAudiobooks(
+                    limit: 50, offset: 0
                 )
             }
             .XCTAssertNoFailure()
             .extendPages(Self.spotify)
             .XCTAssertNoFailure()
-            .collect()
+            .collectAndSortByOffset()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { savedAudiobooksArray in
-                    encodeDecode(savedAudiobooksArray)
+                receiveValue: { (savedAudiobooks: [Audiobook]) in
 
-                    let allAudiobooks = savedAudiobooksArray
-                        .flatMap(\.items)
-                    for audiobook in allAudiobooks {
-                        XCTAssertEqual(audiobook.type, .show)
+                    encodeDecode(savedAudiobooks)
+
+                    for audiobook in savedAudiobooks {
+                        XCTAssertEqual(audiobook.type, .audiobook)
                     }
 
-                    let audiobookIds = allAudiobooks
-                        .map(\.item.uri)
-                    for audiobook in audiobookIds {
-                        XCTAssertFalse(fullAudiobooks.contains(audiobook))
+                    let audiobookURIs = savedAudiobooks
+                        .map(\.uri)
+                    for audiobookURI in audiobookURIs {
+                        XCTAssertFalse(fullAudiobooks.contains(audiobookURI))
                     }
                 }
             )

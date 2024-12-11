@@ -110,7 +110,7 @@ spotifyAPI.playlistItems(playlist, limit: 5, market: "US")
                 """
             )
             for track in playlistItemsPage.items.compactMap(\.item) {
-                print(track.name)
+                print(track.name ?? "nil")
             }
         }
     )

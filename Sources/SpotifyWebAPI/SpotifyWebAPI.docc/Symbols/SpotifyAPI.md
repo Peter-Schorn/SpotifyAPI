@@ -4,7 +4,7 @@
 
 ### Initializers
 
-- ``init(authorizationManager:networkAdaptor:)``
+- ``init(authorizationManager:maxRetryDelay:networkAdaptor:)``
 - ``init(from:)``
 
 ### Authorization
@@ -35,6 +35,7 @@
 
 - ``audiobook(_:market:)``
 - ``audiobooks(_:market:)``
+- ``audiobookChapters(_:market:limit:offset:)``
 - ``chapter(_:market:)``
 - ``chapters(_:market:)``
 
@@ -55,7 +56,7 @@
 
 ### Follow
 
-- ``usersFollowPlaylist(_:userURIs:)``
+- ``currentUserFollowsPlaylist(_:)``
 - ``currentUserFollowedArtists(after:limit:)``
 - ``currentUserFollowsArtists(_:)``
 - ``followArtistsForCurrentUser(_:)``
@@ -71,7 +72,7 @@
 - ``currentUserSavedAlbums(limit:offset:market:)``
 - ``currentUserSavedTracks(limit:offset:market:)``
 - ``currentUserSavedEpisodes(limit:offset:market:)``
-- ``currentUserSavedShows(limit:offset:market:)``
+- ``currentUserSavedShows(limit:offset:)``
 - ``currentUserSavedAlbumsContains(_:)``
 - ``currentUserSavedTracksContains(_:)``
 - ``currentUserSavedEpisodesContains(_:)``
@@ -130,7 +131,6 @@
 - ``changePlaylistDetails(_:to:)``
 - ``uploadPlaylistImage(_:imageData:)``
 - ``removeAllOccurrencesFromPlaylist(_:of:snapshotId:)``
-- ``removeSpecificOccurrencesFromPlaylist(_:of:)``
 
 ### Search
 

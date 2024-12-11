@@ -111,7 +111,6 @@ public func encodeDecode<T: Codable>(
  - Parameters:
    - data: The data to decode and encode.
    - type: The type to decode the data from.
-   - areEqual: Used to compare the object for equality.
    - file: A file name. Defaults to the file name of the test case in which this
          function was called.
    - line: A line number. Defaults to the line number on which this function was

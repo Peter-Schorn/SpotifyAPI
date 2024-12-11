@@ -25,7 +25,7 @@ public enum PlaylistItem: Hashable {
     
     /// The name of this ``PlaylistItem``.
     @inlinable @inline(__always)
-    public var name: String {
+    public var name: String? {
         switch self {
             case .track(let track):
                 return track.name
@@ -36,7 +36,7 @@ public enum PlaylistItem: Hashable {
     
     /// The [Spotify URI][1] for this ``PlaylistItem``.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     @inlinable @inline(__always)
     public var uri: String? {
         switch self {
@@ -49,7 +49,7 @@ public enum PlaylistItem: Hashable {
     
     /// The [Spotify ID][1] for this ``PlaylistItem``.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     @inlinable @inline(__always)
     public var id: String? {
         switch self {
@@ -118,7 +118,7 @@ public enum PlaylistItem: Hashable {
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     @inlinable
     public var externalURLs: [String: URL]? {

@@ -39,16 +39,16 @@ public struct AudiobookChapter: Hashable, SpotifyURIConvertible {
     /// The date the chapter was released.
     ///
     /// See also ``releaseDatePrecision``.
-    public let releaseDate: Date?
-    
+    public let releaseDate: String?
+
     /// The [Spotify URI][1] for the chapter.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String
 
     /// The [Spotify ID][1] for the chapter.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String
     
     /// Images for the chapter in various sizes, widest first.
@@ -83,7 +83,7 @@ public struct AudiobookChapter: Hashable, SpotifyURIConvertible {
            for the object.
      - value: An external, public URL to the object.
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -167,7 +167,7 @@ public struct AudiobookChapter: Hashable, SpotifyURIConvertible {
        - releaseDatePrecision: The precision with which ``releaseDate`` is
              known: "year", "month", or "day".
      
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      [2]: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      [3]: https://en.wikipedia.org/wiki/ISO_639
      */
@@ -181,7 +181,7 @@ public struct AudiobookChapter: Hashable, SpotifyURIConvertible {
         resumePoint: ResumePoint? = nil,
         durationMS: Int,
         isExplicit: Bool,
-        releaseDate: Date? = nil,
+        releaseDate: String? = nil,
         uri: String,
         id: String,
         images: [SpotifyImage]? = nil,
@@ -292,8 +292,8 @@ extension AudiobookChapter: Codable {
         self.isExplicit = try container.decode(
             Bool.self, forKey: .isExplicit
         )
-        self.releaseDate = try container.decodeSpotifyDateIfPresent(
-            forKey: .releaseDate
+        self.releaseDate = try container.decodeIfPresent(
+            String.self, forKey: .releaseDate
         )
         self.uri = try container.decode(
             String.self, forKey: .uri
@@ -361,9 +361,8 @@ extension AudiobookChapter: Codable {
         try container.encode(
             self.isExplicit, forKey: .isExplicit
         )
-        try container.encodeSpotifyDateIfPresent(
+        try container.encodeIfPresent(
             self.releaseDate,
-            datePrecision: self.releaseDatePrecision,
             forKey: .releaseDate
         )
         try container.encode(
@@ -429,7 +428,7 @@ extension AudiobookChapter: ApproximatelyEquatable {
                 self.resumePoint == other.resumePoint &&
                 self.durationMS == other.durationMS &&
                 self.isExplicit == other.isExplicit &&
-                self.releaseDate.isApproximatelyEqual(to: other.releaseDate) &&
+                self.releaseDate == other.releaseDate &&
                 self.uri == other.uri &&
                 self.id == other.id &&
                 self.images == other.images &&

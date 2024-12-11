@@ -86,7 +86,7 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
         (URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     
     /**
-     The maximum delay in seconds (accumulated over all retries before the 
+     The maximum delay in seconds (accumulated over all retries) before the
      publisher finishes with a error, e.g., ``RateLimitedError``.
      Default: 180 secs (3 minutes).
 
@@ -202,7 +202,10 @@ public class SpotifyAPI<AuthorizationManager: SpotifyAuthorizationManager>: Coda
                guarantees are made about which thread this function will be
                called on. The default is `nil`, in which case `URLSession` will
                be used for the network requests.
-     
+         - maxRetryDelay: The maximum delay in seconds (accumulated over all
+               retries) before the publisher finishes with a error, e.g.,
+               ``RateLimitedError``. Default: 180 secs (3 minutes).
+
      [1]: https://developer.spotify.com/dashboard/login
      */
     public init(

@@ -233,52 +233,43 @@ public extension CharacterSet {
 public func generatePageOffsets<Page>(
     _ page: Page,
     maxExtraPages: Int? = nil
-) -> [Int] where 
-    Page: PagingObjectProtocol,
-    Page.Item: Codable & Hashable
+) -> [Int] where
+    Page: PagingObjectProtocol
 {
-
+    // Calculate the minimum offset from where we start generating.
     let minOffset = page.offset + page.limit
 
-    let maxOffset: Int
-
+    // Calculate the absolute maximum offset.
     let absoluteMaxOffset = max(0, page.total - 1)
 
+    // Determine the effective maximum offset based on `maxExtraPages`.
+    let maxOffset: Int
     if let maxExtraPages = maxExtraPages {
         let theoreticalOffset = page.offset + (page.limit * maxExtraPages)
-        // print("theoreticalOffset:", theoreticalOffset)
         maxOffset = max(0, min(theoreticalOffset, absoluteMaxOffset))
-    }
-    else {
+    } else {
         maxOffset = absoluteMaxOffset
     }
 
-    if minOffset >= maxOffset {
+    // If no pages can be generated, return an empty array.
+    if minOffset > maxOffset {
         return []
     }
 
-    // must be at least 1 to avoid running indefinitely and never returning
+    // Set the step size, ensuring it's at least 1 to prevent infinite loops.
     let step = max(1, page.limit)
     var pageOffsets: [Int] = []
-    var i = minOffset
 
-    print(
-        """
-        min offset: \(minOffset); \
-        max offset: \(minOffset); \
-        step = \(step)
-        """
-    )
-
-    let max =  maxOffset   + 1
-    while i < max {
-        pageOffsets.append(i)
-        i += step
+    // Generate offsets up to the maximum, inclusive.
+    var currentOffset = minOffset
+    while currentOffset <= maxOffset {
+        pageOffsets.append(currentOffset)
+        currentOffset += step
     }
 
     return pageOffsets
-
 }
+
 
 // extension DispatchQueue {
 //

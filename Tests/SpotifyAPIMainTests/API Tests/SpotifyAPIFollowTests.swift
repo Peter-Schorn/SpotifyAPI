@@ -13,56 +13,6 @@ import SpotifyExampleContent
 
 protocol SpotifyAPIFollowTests: SpotifyAPITests { }
 
-extension SpotifyAPIFollowTests {
-
-    func usersFollowPlaylist() {
-
-        let userURIs = URIs.Users.array(.april, .peter)
-
-        let expectation = XCTestExpectation(
-            description: "testUsersFollowPlaylist"
-        )
-
-        Self.spotify.usersFollowPlaylist(
-            URIs.Playlists.all,
-            userURIs: userURIs
-        )
-        .XCTAssertNoFailure()
-        .sink(
-            receiveCompletion: { _ in expectation.fulfill() },
-            receiveValue: { results in
-                XCTAssertEqual(results, [false, true])
-            }
-        )
-        .store(in: &Self.cancellables)
-
-        let emptyExpectation = XCTestExpectation(
-            description: "testUsersFollowPlaylist empty"
-        )
-
-        var receivedValueFromEmpty = false
-
-        Self.spotify.usersFollowPlaylist(
-            URIs.Playlists.crumb,
-            userURIs: []
-        )
-        .XCTAssertNoFailure()
-        .sink(
-            receiveCompletion: { _ in emptyExpectation.fulfill() },
-            receiveValue: { results in
-                XCTAssertEqual(results, [])
-                receivedValueFromEmpty = true
-            }
-        )
-        .store(in: &Self.cancellables)
-
-        self.wait(for: [expectation, emptyExpectation], timeout: 120)
-        XCTAssertTrue(receivedValueFromEmpty)
-
-    }
-
-}
-
 extension SpotifyAPIFollowTests where
     AuthorizationManager: _InternalSpotifyScopeAuthorizationManager
 {
@@ -381,64 +331,35 @@ extension SpotifyAPIFollowTests where
         )
 
         let playlist = URIs.Playlists.thisIsSpoon
-        var currentUserURI: String? = nil
 
-        Self.spotify.currentUserProfile()
+        Self.spotify.unfollowPlaylistForCurrentUser(playlist)
             .XCTAssertNoFailure()
-            .flatMap { user -> AnyPublisher<Void, Error> in
-                currentUserURI = user.uri
-                return Self.spotify.unfollowPlaylistForCurrentUser(
+            .receiveOnMain(delay: 1)
+            .flatMap { () -> AnyPublisher<Bool, Error> in
+                return Self.spotify.currentUserFollowsPlaylist(
                     playlist
                 )
             }
-//            .XCTAssertNoFailure()
-            .catch({ error -> AnyPublisher<Void, Error> in
-                print(
-                    """
-                    \(#function):\(#line) caught error unfollowing this is spoon:
-                    \(error)
-                    """
-                )
-                return Result<Void, Error>.success(())
-                    .publisher
-                    .eraseToAnyPublisher()
-            })
-            .receiveOnMain(delay: 1)
-            .flatMap { () -> AnyPublisher<[Bool], Error> in
-                guard let user = currentUserURI else {
-                    return SpotifyGeneralError.other("user URI was nil")
-                        .anyFailingPublisher()
-                }
-                return Self.spotify.usersFollowPlaylist(
-                    playlist,
-                    userURIs: [user]
-                )
-            }
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
-            .flatMap { results -> AnyPublisher<Void, Error> in
-                XCTAssertEqual(results, [false])
+            .flatMap { result -> AnyPublisher<Void, Error> in
+                XCTAssertEqual(result, false)
                 return Self.spotify.followPlaylistForCurrentUser(
                     playlist
                 )
             }
             .XCTAssertNoFailure()
             .receiveOnMain(delay: 1)
-            .flatMap { () -> AnyPublisher<[Bool], Error> in
-                guard let user = currentUserURI else {
-                    return SpotifyGeneralError.other("user URI was nil")
-                        .anyFailingPublisher()
-                }
-                return Self.spotify.usersFollowPlaylist(
-                    playlist,
-                    userURIs: [user]
+            .flatMap { () -> AnyPublisher<Bool, Error> in
+                return Self.spotify.currentUserFollowsPlaylist(
+                    playlist
                 )
             }
             .XCTAssertNoFailure()
             .sink(
                 receiveCompletion: { _ in expectation.fulfill() },
-                receiveValue: { results in
-                    XCTAssertEqual(results, [true])
+                receiveValue: { result in
+                    XCTAssertEqual(result, true)
                 }
             )
             .store(in: &Self.cancellables)
@@ -451,24 +372,11 @@ extension SpotifyAPIFollowTests where
 
 // MARK: - Client -
 
-final class SpotifyAPIClientCredentialsFlowFollowTests:
-    SpotifyAPIClientCredentialsFlowTests, SpotifyAPIFollowTests
-{
-
-    static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist)
-    ]
-
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
-
-}
-
 final class SpotifyAPIAuthorizationCodeFlowFollowTests:
     SpotifyAPIAuthorizationCodeFlowTests, SpotifyAPIFollowTests
 {
 
     static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
         ("testFollowedArtists", testFollowedArtists),
         ("testFollowedArtistsPages", testFollowedArtistsPages),
         ("testFollowArtists", testFollowArtists),
@@ -476,7 +384,6 @@ final class SpotifyAPIAuthorizationCodeFlowFollowTests:
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
     func testFollowedArtists() { followedArtists() }
     func testFollowedArtistsPages() { followedArtistsPages() }
     func testFollowArtists() { followArtists() }
@@ -490,7 +397,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
 {
 
     static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
         ("testFollowedArtists", testFollowedArtists),
         ("testFollowedArtistsPages", testFollowedArtistsPages),
         ("testFollowArtists", testFollowArtists),
@@ -498,7 +404,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
     func testFollowedArtists() { followedArtists() }
     func testFollowedArtistsPages() { followedArtistsPages() }
     func testFollowArtists() { followArtists() }
@@ -509,25 +414,11 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEFollowTests:
 
 // MARK: - Proxy -
 
-final class SpotifyAPIClientCredentialsFlowProxyFollowTests:
-    SpotifyAPIClientCredentialsFlowProxyTests, SpotifyAPIFollowTests
-{
-
-    static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist)
-    ]
-
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
-
-}
-
-
 final class SpotifyAPIAuthorizationCodeFlowProxyFollowTests:
     SpotifyAPIAuthorizationCodeFlowProxyTests, SpotifyAPIFollowTests
 {
 
     static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
         ("testFollowedArtists", testFollowedArtists),
         ("testFollowedArtistsPages", testFollowedArtistsPages),
         ("testFollowArtists", testFollowArtists),
@@ -535,7 +426,6 @@ final class SpotifyAPIAuthorizationCodeFlowProxyFollowTests:
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
     func testFollowedArtists() { followedArtists() }
     func testFollowedArtistsPages() { followedArtistsPages() }
     func testFollowArtists() { followArtists() }
@@ -549,7 +439,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyFollowTests:
 {
 
     static let allTests = [
-        ("testUsersFollowPlaylist", testUsersFollowPlaylist),
         ("testFollowedArtists", testFollowedArtists),
         ("testFollowedArtistsPages", testFollowedArtistsPages),
         ("testFollowArtists", testFollowArtists),
@@ -557,7 +446,6 @@ final class SpotifyAPIAuthorizationCodeFlowPKCEProxyFollowTests:
         ("testFollowPlaylist", testFollowPlaylist)
     ]
 
-    func testUsersFollowPlaylist() { usersFollowPlaylist() }
     func testFollowedArtists() { followedArtists() }
     func testFollowedArtistsPages() { followedArtistsPages() }
     func testFollowArtists() { followArtists() }

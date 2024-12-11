@@ -355,8 +355,6 @@ public extension SpotifyAPI where
              Maximum: 50.
        - offset: The index of the first show to return. Default: 0. Use with
              `limit` to get the next set of shows.
-       - market: An [ISO 3166-1 alpha-2 country code][2] or the string
-             "from_token".
      - Returns: An array of the full versions of ``Show`` objects wrapped in
            a ``SavedItem`` object, wrapped in a ``PagingObject``.
 
@@ -365,16 +363,14 @@ public extension SpotifyAPI where
      */
     func currentUserSavedShows(
         limit: Int? = nil,
-        offset: Int? = nil,
-        market: String? = nil
+        offset: Int? = nil
     ) -> AnyPublisher<PagingObject<SavedShow>, Error> {
 
         return self.getRequest(
             path: "/me/shows",
             queryItems: [
                 "limit": limit,
-                "offset": offset,
-                "market": market
+                "offset": offset
             ],
             requiredScopes: [.userLibraryRead]
         )
@@ -412,7 +408,7 @@ public extension SpotifyAPI where
     func currentUserSavedAudiobooks(
         limit: Int? = nil,
         offset: Int? = nil
-    ) -> AnyPublisher<PagingObject<SavedAudiobook>, Error> {
+    ) -> AnyPublisher<PagingObject<Audiobook>, Error> {
 
         return self.getRequest(
             path: "/me/audiobooks",
@@ -423,7 +419,7 @@ public extension SpotifyAPI where
             requiredScopes: [.userLibraryRead]
         )
         .decodeSpotifyObject(
-            PagingObject<SavedAudiobook>.self,
+            PagingObject<Audiobook>.self,
             maxRetryDelay: self.maxRetryDelay
         )
 
@@ -840,15 +836,14 @@ public extension SpotifyAPI where
      [1]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-audiobooks-user
      */
     func removeSavedAudiobooksForCurrentUser(
-        _ uris: [SpotifyURIConvertible],
-        market: String? = nil
+        _ uris: [SpotifyURIConvertible]
     ) -> AnyPublisher<Void, Error> {
 
         return self.removeItemsForCurrentUser(
             uris: uris,
             types: [.audiobook, .show],
             path: "/me/audiobooks",
-            market: market,
+            market: nil,
             idsInBody: false
         )
 

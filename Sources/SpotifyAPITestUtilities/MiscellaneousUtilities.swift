@@ -63,11 +63,11 @@ public extension Scope {
     /**
      All the scopes that are related to playlists.
      
-     * ``Scope/playlistReadCollaborative``
-     * ``Scope/playlistModifyPublic``
-     * ``Scope/playlistReadPrivate``
-     * ``Scope/playlistModifyPrivate``
-     * ``Scope/ugcImageUpload`` (required for uploading an image to a playlist)
+     * `Scope.playlistReadCollaborative`
+     * `Scope.playlistModifyPublic`
+     * `Scope.playlistReadPrivate`
+     * `Scope.playlistModifyPrivate`
+     * `Scope.ugcImageUpload` (required for uploading an image to a playlist)
      */
     static let playlistScopes: Set<Scope> = [
         .playlistReadCollaborative,
@@ -244,6 +244,21 @@ extension URL {
 
     /// A URL to "https://www.example.com"
     public static let exampleURL = URL(string: "https://www.example.com")!
+
+    /// Returns a new URL without the "locale" query parameter.
+    public var removingLocaleQueryParam: URL {
+        guard var components = self.components else {
+            return self
+        }
+        components.queryItems?.removeAll(where: { item in
+            item.name == "locale"
+        })
+        guard let newURL = components.url else {
+            return self
+        }
+        return newURL
+
+    }
 
 }
 

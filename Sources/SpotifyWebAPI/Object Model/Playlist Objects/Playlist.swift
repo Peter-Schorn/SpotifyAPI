@@ -57,7 +57,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
            for the object.
      - value: An external, public URL to the object.
 
-     [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public let externalURLs: [String: URL]?
     
@@ -76,12 +76,12 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
     
     /// The [Spotify ID][1] for the playlist.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let id: String
     
     /// The [URI][1] for the playlist.
     ///
-    /// [1]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+    /// [1]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
     public let uri: String
     
     /**
@@ -115,7 +115,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
              is public; if `false`, the playlist is private. If `nil`, the
              playlist status is not relevant. For more about public/private
              status, see [Working with Playlists][1].
-       - collaborative: `true` if context is not search (you retrieved this
+       - isCollaborative: `true` if context is not search (you retrieved this
              playlist using the search endpoint) and the owner allows other
              users to modify the playlist. Else, `false`.
        - description: The playlist description. Only returned for modified,
@@ -140,7 +140,7 @@ public struct Playlist<Items: Codable & Hashable>: SpotifyURIConvertible, Hashab
      [1]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#public-private-and-collaborative-status
      [2]: https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots
      [3]: https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist
-     [4]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
+     [4]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
      */
     public init(
         name: String,

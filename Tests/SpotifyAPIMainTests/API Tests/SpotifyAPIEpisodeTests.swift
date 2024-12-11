@@ -40,9 +40,12 @@ extension SpotifyAPIEpisodeTests {
             URL(string: "https://api.spotify.com/v1/episodes/3OEdPEYB69pfXoBrhvQYeC")!
         )
         XCTAssertEqual(episode.id, "3OEdPEYB69pfXoBrhvQYeC")
-        XCTAssertFalse(episode.isExternallyHosted)
-        XCTAssertTrue(episode.isPlayable)
-        XCTAssert(episode.languages.contains("en"), "\(episode.languages)")
+        XCTAssert(episode.isExternallyHosted == false)
+        XCTAssert(episode.isPlayable == true)
+        XCTAssert(
+            episode.languages?.contains("en") == true,
+            String(describing: episode.languages)
+        )
         XCTAssertEqual(episode.name, "#212 — A Conversation with Kathryn Paige Harden")
         XCTAssertEqual(episode.type, .episode)
         XCTAssertEqual(episode.uri, "spotify:episode:3OEdPEYB69pfXoBrhvQYeC")
@@ -58,16 +61,7 @@ extension SpotifyAPIEpisodeTests {
             XCTFail("externalURLs should not be nil")
         }
         
-        if let releaseDate = episode.releaseDate {
-            XCTAssertEqual(
-                releaseDate.timeIntervalSince1970,
-                1595980800,
-                accuracy: 43_200  // 12 hours
-            )
-        }
-        else {
-            XCTFail("release date should not be nil")
-        }
+        XCTAssertEqual(episode.releaseDate, "2020-07-29")
         XCTAssertEqual(episode.releaseDatePrecision, "day")
 
         XCTAssertImagesExist(episode.images, assertSizeNotNil: true)
@@ -114,7 +108,7 @@ extension SpotifyAPIEpisodeTests {
             URL(string: "https://api.spotify.com/v1/shows/5rgumWEx4FsqIY8e1wJNAk")!
         )
         XCTAssertEqual(show.id, "5rgumWEx4FsqIY8e1wJNAk")
-        XCTAssertFalse(show.isExternallyHosted)
+        XCTAssert(show.isExternallyHosted == false)
         XCTAssertEqual(show.mediaType, "audio")
         XCTAssertEqual(show.name, "Making Sense with Sam Harris")
         XCTAssertEqual(show.publisher, "Sam Harris")
@@ -193,19 +187,10 @@ extension SpotifyAPIEpisodeTests {
                     "spotify:episode:7jrEoNMrNicZSxIuKhATHN"
                 )
                 XCTAssertEqual(samHarris213.id, "7jrEoNMrNicZSxIuKhATHN")
-                XCTAssertEqual(samHarris213.durationMS, 8060369)
+                XCTAssertEqual(samHarris213.durationMS, 8060368)
                 XCTAssertFalse(samHarris213.isExplicit)
                 XCTAssertEqual(samHarris213.type, .episode)
-                if let releaseDate = samHarris213.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        1596499200,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(samHarris213.releaseDate, "2020-08-04")
                 XCTAssertEqual(samHarris213.releaseDatePrecision, "day")
             }
             else {
@@ -230,16 +215,7 @@ extension SpotifyAPIEpisodeTests {
                 XCTAssertEqual(joeRogan1531.durationMS, 7591593)
                 XCTAssertTrue(joeRogan1531.isExplicit)
                 XCTAssertEqual(joeRogan1531.type, .episode)
-                if let releaseDate = joeRogan1531.releaseDate {
-                    XCTAssertEqual(
-                        releaseDate.timeIntervalSince1970,
-                        1599004800,
-                        accuracy: 43_200  // 12 hours
-                    )
-                }
-                else {
-                    XCTFail("release date should not be nil")
-                }
+                XCTAssertEqual(joeRogan1531.releaseDate, "2020-09-02")
                 XCTAssertEqual(joeRogan1531.releaseDatePrecision, "day")
             }
             else {

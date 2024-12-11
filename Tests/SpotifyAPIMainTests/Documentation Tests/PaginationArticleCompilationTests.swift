@@ -66,7 +66,7 @@ private func testPlaylistItems<AuthorizationManager: SpotifyAuthorizationManager
                     """
                 )
                 for track in playlistItemsPage.items.compactMap(\.item) {
-                    print(track.name)
+                    print(track.name ?? "nil")
                 }
             }
         )

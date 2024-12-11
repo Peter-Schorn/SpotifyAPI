@@ -105,6 +105,7 @@ public extension AuthorizationCodeFlowBackendManager {
         let cancellable = self.testAuthorize(
             scopes: scopes, showDialog: showDialog
         )
+        
         .sink(receiveCompletion: { completion in
             switch completion {
                 case .finished:
