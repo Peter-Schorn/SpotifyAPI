@@ -25,9 +25,14 @@ public extension Dictionary where Key == String, Value == String {
     func formURLEncoded() -> Data? {
         
         var urlComponents = URLComponents()
-        urlComponents.queryItems = self.map { item in
-            URLQueryItem(name: item.key, value: item.value)
-        }
+        var cs = CharacterSet.urlQueryAllowed
+        cs.remove("+")
+        
+        urlComponents.percentEncodedQuery = self.map {
+            $0.addingPercentEncoding(withAllowedCharacters: cs)!
+            + "=" + $1.addingPercentEncoding(withAllowedCharacters: cs)!
+        }.joined(separator: "&")
+        
         return (urlComponents.percentEncodedQuery ?? "").data(using: .utf8)
     }
     
