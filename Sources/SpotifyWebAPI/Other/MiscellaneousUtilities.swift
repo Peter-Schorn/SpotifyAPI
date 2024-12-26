@@ -23,12 +23,17 @@ public extension Dictionary where Key == String, Value == String {
      utf-8 character encoding.
      */
     func formURLEncoded() -> Data? {
+
+        let formDataString = self.map { key, value in
+            key.addingPercentEncoding(
+                withAllowedCharacters: .formURLAllowed
+            )! + "=" + value.addingPercentEncoding(
+                withAllowedCharacters: .formURLAllowed
+            )!
+        }.joined(separator: "&")
         
-        var urlComponents = URLComponents()
-        urlComponents.queryItems = self.map { item in
-            URLQueryItem(name: item.key, value: item.value)
-        }
-        return (urlComponents.percentEncodedQuery ?? "").data(using: .utf8)
+        return formDataString.data(using: .utf8)
+
     }
     
 }
@@ -223,6 +228,11 @@ public extension CharacterSet {
     /// A combination of `urlQueryAllowed` and `urlPathAllowed`.
     static let urlQueryAndPathAllowed = CharacterSet.urlQueryAllowed.union(
         .urlPathAllowed
+    )
+
+    /// The characters that are allowed in a form-urlencoded string.
+    static let formURLAllowed = CharacterSet(
+        charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~"
     )
 
 }
