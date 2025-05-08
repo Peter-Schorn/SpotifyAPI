@@ -862,13 +862,27 @@ public extension SpotifyAPI where
             let userId = try SpotifyIdentifier(
                 uri: userURI, ensureCategoryMatches: [.user]
             ).id
-            
+
+            // There is a bug with the spotify web API where if the description
+            // field is omitted entirely from the JSON (as opposed to explicitly
+            // setting it to null), then the description of the playlist will be
+            // the string `null`.
+            // See issue #75.
+            let modifiedPlaylistDetails = PlaylistDetails(
+                name: playlistDetails.name,
+                isPublic: playlistDetails.isPublic,
+                isCollaborative: playlistDetails.isCollaborative,
+                description: playlistDetails.description == nil
+                    ? ""
+                    : playlistDetails.description
+            )
+
             return self.apiRequest(
                 path: "/users/\(userId)/playlists",
                 queryItems: [:],
                 httpMethod: "POST",
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
-                body: playlistDetails,
+                body: modifiedPlaylistDetails,
                 requiredScopes: []
             )
             .decodeSpotifyObject(
