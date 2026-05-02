@@ -260,7 +260,7 @@ extension Playlist: Codable {
     private enum CodingKeys: String, CodingKey {
         case name
 
-        case items = "tracks"
+        case items
         case owner
         case isPublic = "public"
         case isCollaborative = "collaborative"

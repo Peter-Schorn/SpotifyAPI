@@ -77,7 +77,7 @@ extension PlaylistItemContainer: Codable {
         case addedAt = "added_at"
         case addedBy = "added_by"
         case isLocal = "is_local"
-        case item = "track"
+        case item
     }
     
     public init(from decoder: Decoder) throws {

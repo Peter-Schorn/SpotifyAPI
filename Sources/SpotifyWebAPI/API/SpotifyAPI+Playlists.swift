@@ -30,7 +30,7 @@ private extension SpotifyAPI {
             ).id
             
             return self.apiRequest(
-                path: "/playlists/\(playlistId)/tracks",
+                path: "/playlists/\(playlistId)/items",
                 queryItems: queryItems,
                 httpMethod: httpMethod,
                 makeHeaders: Headers.bearerAuthorizationAndContentTypeJSON(_:),
@@ -77,7 +77,7 @@ private extension SpotifyAPI {
             )?.commaSeparatedString()
         
             return self.getRequest(
-                path: "/playlists/\(playlistId)/tracks",
+                path: "/playlists/\(playlistId)/items",
                 queryItems: [
                     "fields": filters,
                     "limit": limit,
